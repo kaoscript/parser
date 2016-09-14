@@ -1,0 +1,151 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 42,
+      "declarations": [
+        {
+          "kind": 43,
+          "module": "module1",
+          "specifiers": [
+            {
+              "kind": 46,
+              "local": {
+                "kind": 38,
+                "name": "m1",
+                "start": {
+                  "line": 2,
+                  "column": 7
+                },
+                "end": {
+                  "line": 2,
+                  "column": 9
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 9
+              }
+            }
+          ],
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 2,
+            "column": 22
+          }
+        },
+        {
+          "kind": 43,
+          "module": "module2",
+          "specifiers": [
+            {
+              "kind": 45,
+              "alias": {
+                "kind": 38,
+                "name": "foo",
+                "start": {
+                  "line": 4,
+                  "column": 2
+                },
+                "end": {
+                  "line": 4,
+                  "column": 5
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 5
+              }
+            }
+          ],
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 18
+          }
+        },
+        {
+          "kind": 43,
+          "module": "module3",
+          "specifiers": [
+            {
+              "kind": 45,
+              "alias": {
+                "kind": 38,
+                "name": "foo",
+                "start": {
+                  "line": 6,
+                  "column": 2
+                },
+                "end": {
+                  "line": 6,
+                  "column": 5
+                }
+              },
+              "local": {
+                "kind": 38,
+                "name": "bar",
+                "start": {
+                  "line": 6,
+                  "column": 9
+                },
+                "end": {
+                  "line": 6,
+                  "column": 12
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 12
+              }
+            }
+          ],
+          "start": {
+            "line": 6,
+            "column": 2
+          },
+          "end": {
+            "line": 6,
+            "column": 25
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 2
+  }
+}

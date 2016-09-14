@@ -1,0 +1,114 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 21,
+      "condition": {
+        "kind": 9,
+        "operator": {
+          "kind": 12,
+          "start": {
+            "line": 4,
+            "column": 14
+          },
+          "end": {
+            "line": 4,
+            "column": 15
+          }
+        },
+        "start": {
+          "line": 4,
+          "column": 14
+        },
+        "end": {
+          "line": 4,
+          "column": 15
+        },
+        "left": {
+          "kind": 38,
+          "name": "supply",
+          "start": {
+            "line": 4,
+            "column": 7
+          },
+          "end": {
+            "line": 4,
+            "column": 13
+          }
+        },
+        "right": {
+          "kind": 38,
+          "name": "demand",
+          "start": {
+            "line": 4,
+            "column": 16
+          },
+          "end": {
+            "line": 4,
+            "column": 22
+          }
+        }
+      },
+      "body": {
+        "kind": 11,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 13,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 38,
+              "name": "sell",
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 6
+              }
+            },
+            "arguments": [],
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 8
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 22
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 4,
+    "column": 22
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 6
+            }
+          },
+          "init": {
+            "kind": 55,
+            "value": 5,
+            "start": {
+              "line": 1,
+              "column": 9
+            },
+            "end": {
+              "line": 1,
+              "column": 10
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 10
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 10
+      },
+      "attributes": []
+    },
+    {
+      "kind": 40,
+      "condition": {
+        "kind": 9,
+        "operator": {
+          "kind": 10,
+          "start": {
+            "line": 3,
+            "column": 6
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        },
+        "start": {
+          "line": 3,
+          "column": 6
+        },
+        "end": {
+          "line": 3,
+          "column": 8
+        },
+        "left": {
+          "kind": 38,
+          "name": "x",
+          "start": {
+            "line": 3,
+            "column": 4
+          },
+          "end": {
+            "line": 3,
+            "column": 5
+          }
+        },
+        "right": {
+          "kind": 55,
+          "value": 5,
+          "start": {
+            "line": 3,
+            "column": 9
+          },
+          "end": {
+            "line": 3,
+            "column": 10
+          }
+        }
+      },
+      "then": {
+        "kind": 11,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 3,
+          "column": 11
+        },
+        "end": {
+          "line": 4,
+          "column": 2
+        }
+      },
+      "elseifs": [],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 4,
+    "column": 2
+  }
+}

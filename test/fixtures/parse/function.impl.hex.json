@@ -1,0 +1,437 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 36,
+      "modifiers": [],
+      "name": {
+        "kind": 38,
+        "name": "hex",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      },
+      "parameters": [
+        {
+          "kind": 60,
+          "modifiers": [],
+          "name": {
+            "kind": 38,
+            "name": "n",
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 11
+            }
+          },
+          "type": {
+            "kind": 86,
+            "types": [
+              {
+                "kind": 81,
+                "typeName": {
+                  "kind": 38,
+                  "name": "string",
+                  "start": {
+                    "line": 1,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 19
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 13
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19
+                }
+              },
+              {
+                "kind": 81,
+                "typeName": {
+                  "kind": 38,
+                  "name": "number",
+                  "start": {
+                    "line": 1,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 28
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 22
+                },
+                "end": {
+                  "line": 1,
+                  "column": 28
+                }
+              }
+            ],
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 28
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 28
+          }
+        }
+      ],
+      "type": {
+        "kind": 81,
+        "typeName": {
+          "kind": 38,
+          "name": "int",
+          "start": {
+            "line": 1,
+            "column": 33
+          },
+          "end": {
+            "line": 1,
+            "column": 36
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 33
+        },
+        "end": {
+          "line": 1,
+          "column": 36
+        }
+      },
+      "body": {
+        "kind": 11,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 64,
+            "value": {
+              "kind": 13,
+              "scope": {
+                "kind": 3
+              },
+              "callee": {
+                "kind": 48,
+                "object": {
+                  "kind": 13,
+                  "scope": {
+                    "kind": 3
+                  },
+                  "callee": {
+                    "kind": 48,
+                    "object": {
+                      "kind": 13,
+                      "scope": {
+                        "kind": 3
+                      },
+                      "callee": {
+                        "kind": 48,
+                        "object": {
+                          "kind": 38,
+                          "name": "Float",
+                          "start": {
+                            "line": 2,
+                            "column": 9
+                          },
+                          "end": {
+                            "line": 2,
+                            "column": 14
+                          }
+                        },
+                        "property": {
+                          "kind": 38,
+                          "name": "parse",
+                          "start": {
+                            "line": 2,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 2,
+                            "column": 20
+                          }
+                        },
+                        "computed": false,
+                        "nullable": false,
+                        "start": {
+                          "line": 2,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 20
+                        }
+                      },
+                      "arguments": [
+                        {
+                          "kind": 38,
+                          "name": "n",
+                          "start": {
+                            "line": 2,
+                            "column": 21
+                          },
+                          "end": {
+                            "line": 2,
+                            "column": 22
+                          }
+                        }
+                      ],
+                      "start": {
+                        "line": 2,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 23
+                      }
+                    },
+                    "property": {
+                      "kind": 38,
+                      "name": "limit",
+                      "start": {
+                        "line": 2,
+                        "column": 24
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 29
+                      }
+                    },
+                    "computed": false,
+                    "nullable": false,
+                    "start": {
+                      "line": 2,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 29
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "kind": 55,
+                      "value": 0,
+                      "start": {
+                        "line": 2,
+                        "column": 30
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 31
+                      }
+                    },
+                    {
+                      "kind": 55,
+                      "value": 255,
+                      "start": {
+                        "line": 2,
+                        "column": 33
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 36
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 2,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 37
+                  }
+                },
+                "property": {
+                  "kind": 38,
+                  "name": "round",
+                  "start": {
+                    "line": 2,
+                    "column": 38
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 43
+                  }
+                },
+                "computed": false,
+                "nullable": false,
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 43
+                }
+              },
+              "arguments": [],
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 45
+              }
+            },
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 45
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 37
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 13,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 48,
+        "object": {
+          "kind": 38,
+          "name": "console",
+          "start": {
+            "line": 5,
+            "column": 1
+          },
+          "end": {
+            "line": 5,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 38,
+          "name": "log",
+          "start": {
+            "line": 5,
+            "column": 9
+          },
+          "end": {
+            "line": 5,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 5,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 13,
+          "scope": {
+            "kind": 3
+          },
+          "callee": {
+            "kind": 38,
+            "name": "hex",
+            "start": {
+              "line": 5,
+              "column": 13
+            },
+            "end": {
+              "line": 5,
+              "column": 16
+            }
+          },
+          "arguments": [
+            {
+              "kind": 55,
+              "value": 128,
+              "start": {
+                "line": 5,
+                "column": 17
+              },
+              "end": {
+                "line": 5,
+                "column": 20
+              }
+            }
+          ],
+          "start": {
+            "line": 5,
+            "column": 13
+          },
+          "end": {
+            "line": 5,
+            "column": 21
+          }
+        }
+      ],
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 22
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 22
+  }
+}

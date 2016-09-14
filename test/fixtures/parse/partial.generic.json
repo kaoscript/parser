@@ -1,0 +1,687 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 42,
+      "declarations": [
+        {
+          "kind": 43,
+          "module": "@oz/lang",
+          "specifiers": [
+            {
+              "kind": 46,
+              "start": {
+                "line": 1,
+                "column": 8
+              },
+              "end": {
+                "line": 1,
+                "column": 9
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 25
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 25
+      },
+      "attributes": []
+    },
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "a",
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 6
+            }
+          },
+          "type": {
+            "kind": 81,
+            "typeName": {
+              "kind": 38,
+              "name": "Array",
+              "start": {
+                "line": 3,
+                "column": 9
+              },
+              "end": {
+                "line": 3,
+                "column": 14
+              }
+            },
+            "typeParameters": [
+              {
+                "kind": 81,
+                "typeName": {
+                  "kind": 38,
+                  "name": "number",
+                  "start": {
+                    "line": 3,
+                    "column": 15
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 21
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 15
+                },
+                "end": {
+                  "line": 3,
+                  "column": 21
+                }
+              }
+            ],
+            "start": {
+              "line": 3,
+              "column": 9
+            },
+            "end": {
+              "line": 3,
+              "column": 22
+            }
+          },
+          "init": {
+            "kind": 3,
+            "values": [
+              {
+                "kind": 55,
+                "value": 1,
+                "start": {
+                  "line": 3,
+                  "column": 26
+                },
+                "end": {
+                  "line": 3,
+                  "column": 27
+                }
+              },
+              {
+                "kind": 55,
+                "value": 3,
+                "start": {
+                  "line": 3,
+                  "column": 29
+                },
+                "end": {
+                  "line": 3,
+                  "column": 30
+                }
+              },
+              {
+                "kind": 55,
+                "value": 2,
+                "start": {
+                  "line": 3,
+                  "column": 32
+                },
+                "end": {
+                  "line": 3,
+                  "column": 33
+                }
+              },
+              {
+                "kind": 55,
+                "value": 4,
+                "start": {
+                  "line": 3,
+                  "column": 35
+                },
+                "end": {
+                  "line": 3,
+                  "column": 36
+                }
+              }
+            ],
+            "start": {
+              "line": 3,
+              "column": 25
+            },
+            "end": {
+              "line": 3,
+              "column": 37
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 37
+          }
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 37
+      },
+      "attributes": []
+    },
+    {
+      "kind": 13,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 48,
+        "object": {
+          "kind": 38,
+          "name": "console",
+          "start": {
+            "line": 5,
+            "column": 1
+          },
+          "end": {
+            "line": 5,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 38,
+          "name": "log",
+          "start": {
+            "line": 5,
+            "column": 9
+          },
+          "end": {
+            "line": 5,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 5,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 38,
+          "name": "a",
+          "start": {
+            "line": 5,
+            "column": 13
+          },
+          "end": {
+            "line": 5,
+            "column": 14
+          }
+        }
+      ],
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 15
+      },
+      "attributes": []
+    },
+    {
+      "kind": 41,
+      "class": {
+        "kind": 38,
+        "name": "Array",
+        "start": {
+          "line": 7,
+          "column": 6
+        },
+        "end": {
+          "line": 7,
+          "column": 11
+        }
+      },
+      "members": [
+        {
+          "name": {
+            "kind": 38,
+            "name": "sort",
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 6
+            }
+          },
+          "parameters": [],
+          "start": {
+            "line": 8,
+            "column": 2
+          },
+          "end": {
+            "line": 8,
+            "column": 66
+          },
+          "kind": 51,
+          "modifiers": [],
+          "type": {
+            "kind": 81,
+            "typeName": {
+              "kind": 38,
+              "name": "Array",
+              "start": {
+                "line": 8,
+                "column": 12
+              },
+              "end": {
+                "line": 8,
+                "column": 17
+              }
+            },
+            "typeParameters": [
+              {
+                "kind": 81,
+                "typeName": {
+                  "kind": 38,
+                  "name": "number",
+                  "start": {
+                    "line": 8,
+                    "column": 18
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 24
+                  }
+                },
+                "start": {
+                  "line": 8,
+                  "column": 18
+                },
+                "end": {
+                  "line": 8,
+                  "column": 24
+                }
+              }
+            ],
+            "start": {
+              "line": 8,
+              "column": 12
+            },
+            "end": {
+              "line": 8,
+              "column": 25
+            }
+          },
+          "body": {
+            "kind": 13,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 48,
+              "object": {
+                "kind": 9,
+                "left": {
+                  "kind": 38,
+                  "name": "this",
+                  "start": {
+                    "line": 8,
+                    "column": 30
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 34
+                  }
+                },
+                "right": {
+                  "kind": 81,
+                  "typeName": {
+                    "kind": 38,
+                    "name": "Array",
+                    "start": {
+                      "line": 8,
+                      "column": 38
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 43
+                    }
+                  },
+                  "start": {
+                    "line": 8,
+                    "column": 38
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 43
+                  }
+                },
+                "operator": {
+                  "kind": 21,
+                  "start": {
+                    "line": 8,
+                    "column": 35
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 37
+                  }
+                },
+                "start": {
+                  "line": 8,
+                  "column": 30
+                },
+                "end": {
+                  "line": 8,
+                  "column": 43
+                }
+              },
+              "property": {
+                "kind": 38,
+                "name": "sort",
+                "start": {
+                  "line": 8,
+                  "column": 45
+                },
+                "end": {
+                  "line": 8,
+                  "column": 49
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 8,
+                "column": 29
+              },
+              "end": {
+                "line": 8,
+                "column": 49
+              }
+            },
+            "arguments": [
+              {
+                "kind": 37,
+                "modifiers": [],
+                "parameters": [
+                  {
+                    "kind": 60,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 38,
+                      "name": "a",
+                      "start": {
+                        "line": 8,
+                        "column": 51
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 52
+                      }
+                    },
+                    "start": {
+                      "line": 8,
+                      "column": 51
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 52
+                    }
+                  },
+                  {
+                    "kind": 60,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 38,
+                      "name": "b",
+                      "start": {
+                        "line": 8,
+                        "column": 54
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 55
+                      }
+                    },
+                    "start": {
+                      "line": 8,
+                      "column": 54
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 55
+                    }
+                  }
+                ],
+                "body": {
+                  "kind": 9,
+                  "operator": {
+                    "kind": 20,
+                    "start": {
+                      "line": 8,
+                      "column": 62
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 63
+                    }
+                  },
+                  "start": {
+                    "line": 8,
+                    "column": 62
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 63
+                  },
+                  "left": {
+                    "kind": 38,
+                    "name": "a",
+                    "start": {
+                      "line": 8,
+                      "column": 60
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 61
+                    }
+                  },
+                  "right": {
+                    "kind": 38,
+                    "name": "b",
+                    "start": {
+                      "line": 8,
+                      "column": 64
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 65
+                    }
+                  }
+                },
+                "start": {
+                  "line": 8,
+                  "column": 50
+                },
+                "end": {
+                  "line": 8,
+                  "column": 65
+                }
+              }
+            ],
+            "start": {
+              "line": 8,
+              "column": 29
+            },
+            "end": {
+              "line": 8,
+              "column": 66
+            }
+          }
+        }
+      ],
+      "start": {
+        "line": 7,
+        "column": 1
+      },
+      "end": {
+        "line": 9,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 13,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 48,
+        "object": {
+          "kind": 38,
+          "name": "console",
+          "start": {
+            "line": 11,
+            "column": 1
+          },
+          "end": {
+            "line": 11,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 38,
+          "name": "log",
+          "start": {
+            "line": 11,
+            "column": 9
+          },
+          "end": {
+            "line": 11,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 11,
+          "column": 1
+        },
+        "end": {
+          "line": 11,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 13,
+          "scope": {
+            "kind": 3
+          },
+          "callee": {
+            "kind": 48,
+            "object": {
+              "kind": 38,
+              "name": "a",
+              "start": {
+                "line": 11,
+                "column": 13
+              },
+              "end": {
+                "line": 11,
+                "column": 14
+              }
+            },
+            "property": {
+              "kind": 38,
+              "name": "sort",
+              "start": {
+                "line": 11,
+                "column": 15
+              },
+              "end": {
+                "line": 11,
+                "column": 19
+              }
+            },
+            "computed": false,
+            "nullable": false,
+            "start": {
+              "line": 11,
+              "column": 13
+            },
+            "end": {
+              "line": 11,
+              "column": 19
+            }
+          },
+          "arguments": [],
+          "start": {
+            "line": 11,
+            "column": 13
+          },
+          "end": {
+            "line": 11,
+            "column": 21
+          }
+        }
+      ],
+      "start": {
+        "line": 11,
+        "column": 1
+      },
+      "end": {
+        "line": 11,
+        "column": 22
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 11,
+    "column": 22
+  }
+}

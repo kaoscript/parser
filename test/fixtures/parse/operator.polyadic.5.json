@@ -1,0 +1,326 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "foo",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 8
+            }
+          },
+          "init": {
+            "kind": 55,
+            "value": 180,
+            "start": {
+              "line": 1,
+              "column": 11
+            },
+            "end": {
+              "line": 1,
+              "column": 14
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 14
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 14
+      },
+      "attributes": []
+    },
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 2,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "bar",
+            "start": {
+              "line": 2,
+              "column": 5
+            },
+            "end": {
+              "line": 2,
+              "column": 8
+            }
+          },
+          "init": {
+            "kind": 55,
+            "value": 120,
+            "start": {
+              "line": 2,
+              "column": 11
+            },
+            "end": {
+              "line": 2,
+              "column": 14
+            }
+          },
+          "start": {
+            "line": 2,
+            "column": 5
+          },
+          "end": {
+            "line": 2,
+            "column": 14
+          }
+        }
+      ],
+      "start": {
+        "line": 2,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 14
+      },
+      "attributes": []
+    },
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "qux",
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 8
+            }
+          },
+          "init": {
+            "kind": 55,
+            "value": 80,
+            "start": {
+              "line": 3,
+              "column": 11
+            },
+            "end": {
+              "line": 3,
+              "column": 13
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 13
+          }
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 13
+      },
+      "attributes": []
+    },
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 5,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "isIt",
+            "start": {
+              "line": 5,
+              "column": 5
+            },
+            "end": {
+              "line": 5,
+              "column": 9
+            }
+          },
+          "init": {
+            "kind": 61,
+            "operator": {
+              "kind": 12,
+              "start": {
+                "line": 5,
+                "column": 22
+              },
+              "end": {
+                "line": 5,
+                "column": 23
+              }
+            },
+            "start": {
+              "line": 5,
+              "column": 16
+            },
+            "end": {
+              "line": 5,
+              "column": 35
+            },
+            "operands": [
+              {
+                "kind": 55,
+                "value": 200,
+                "start": {
+                  "line": 5,
+                  "column": 12
+                },
+                "end": {
+                  "line": 5,
+                  "column": 15
+                }
+              },
+              {
+                "kind": 38,
+                "name": "foo",
+                "start": {
+                  "line": 5,
+                  "column": 18
+                },
+                "end": {
+                  "line": 5,
+                  "column": 21
+                }
+              },
+              {
+                "kind": 38,
+                "name": "bar",
+                "start": {
+                  "line": 5,
+                  "column": 24
+                },
+                "end": {
+                  "line": 5,
+                  "column": 27
+                }
+              },
+              {
+                "kind": 38,
+                "name": "qux",
+                "start": {
+                  "line": 5,
+                  "column": 30
+                },
+                "end": {
+                  "line": 5,
+                  "column": 33
+                }
+              },
+              {
+                "kind": 55,
+                "value": 60,
+                "start": {
+                  "line": 5,
+                  "column": 36
+                },
+                "end": {
+                  "line": 5,
+                  "column": 38
+                }
+              }
+            ]
+          },
+          "start": {
+            "line": 5,
+            "column": 5
+          },
+          "end": {
+            "line": 5,
+            "column": 38
+          }
+        }
+      ],
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 38
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 38
+  }
+}

@@ -1,0 +1,3 @@
+until supply > demand {
+	sell()
+}

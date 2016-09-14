@@ -1,0 +1,200 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 29,
+      "declarations": [
+        {
+          "kind": 36,
+          "modifiers": [],
+          "name": {
+            "kind": 38,
+            "name": "hello",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 18
+            }
+          },
+          "parameters": [],
+          "body": {
+            "kind": 47,
+            "value": "Hello :)",
+            "start": {
+              "line": 1,
+              "column": 24
+            },
+            "end": {
+              "line": 1,
+              "column": 34
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 34
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 34
+      },
+      "attributes": []
+    },
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "bar",
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 8
+            }
+          },
+          "init": {
+            "kind": 47,
+            "value": "I'm bar!",
+            "start": {
+              "line": 3,
+              "column": 11
+            },
+            "end": {
+              "line": 3,
+              "column": 22
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 22
+          }
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 22
+      },
+      "attributes": []
+    },
+    {
+      "kind": 29,
+      "declarations": [
+        {
+          "kind": 38,
+          "name": "bar",
+          "start": {
+            "line": 5,
+            "column": 8
+          },
+          "end": {
+            "line": 5,
+            "column": 11
+          }
+        }
+      ],
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 11
+      },
+      "attributes": []
+    },
+    {
+      "kind": 29,
+      "declarations": [
+        {
+          "kind": 28,
+          "name": {
+            "kind": 38,
+            "name": "bar",
+            "start": {
+              "line": 7,
+              "column": 8
+            },
+            "end": {
+              "line": 7,
+              "column": 11
+            }
+          },
+          "alias": {
+            "kind": 38,
+            "name": "qux",
+            "start": {
+              "line": 7,
+              "column": 15
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          },
+          "start": {
+            "line": 7,
+            "column": 8
+          },
+          "end": {
+            "line": 7,
+            "column": 18
+          }
+        }
+      ],
+      "start": {
+        "line": 7,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 18
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 18
+  }
+}

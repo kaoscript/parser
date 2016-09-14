@@ -1,0 +1,138 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 36,
+      "modifiers": [],
+      "name": {
+        "kind": 38,
+        "name": "foo",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      },
+      "parameters": [],
+      "body": {
+        "kind": 11,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 87,
+            "modifiers": {
+              "kind": 2,
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 5
+              }
+            },
+            "declarations": [
+              {
+                "kind": 88,
+                "name": {
+                  "kind": 38,
+                  "name": "bar",
+                  "start": {
+                    "line": 2,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 9
+                  }
+                },
+                "init": {
+                  "kind": 47,
+                  "value": "hello",
+                  "start": {
+                    "line": 2,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 19
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 6
+                },
+                "end": {
+                  "line": 2,
+                  "column": 19
+                }
+              }
+            ],
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 19
+            },
+            "attributes": []
+          },
+          {
+            "kind": 64,
+            "value": {
+              "kind": 38,
+              "name": "bar",
+              "start": {
+                "line": 4,
+                "column": 9
+              },
+              "end": {
+                "line": 4,
+                "column": 12
+              }
+            },
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 12
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 12
+        },
+        "end": {
+          "line": 5,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 2
+  }
+}

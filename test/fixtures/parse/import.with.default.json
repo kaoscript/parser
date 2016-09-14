@@ -1,0 +1,221 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "foo1",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 9
+            }
+          },
+          "init": {
+            "kind": 55,
+            "value": 1,
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 13
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 13
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 13
+      },
+      "attributes": []
+    },
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 2,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "foo2",
+            "start": {
+              "line": 2,
+              "column": 5
+            },
+            "end": {
+              "line": 2,
+              "column": 9
+            }
+          },
+          "init": {
+            "kind": 55,
+            "value": 2,
+            "start": {
+              "line": 2,
+              "column": 12
+            },
+            "end": {
+              "line": 2,
+              "column": 13
+            }
+          },
+          "start": {
+            "line": 2,
+            "column": 5
+          },
+          "end": {
+            "line": 2,
+            "column": 13
+          }
+        }
+      ],
+      "start": {
+        "line": 2,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 13
+      },
+      "attributes": []
+    },
+    {
+      "kind": 42,
+      "declarations": [
+        {
+          "kind": 43,
+          "module": "module1",
+          "specifiers": [
+            {
+              "kind": 46,
+              "start": {
+                "line": 4,
+                "column": 8
+              },
+              "end": {
+                "line": 4,
+                "column": 9
+              }
+            }
+          ],
+          "references": [
+            {
+              "kind": 44,
+              "alias": {
+                "kind": 38,
+                "name": "foo1",
+                "start": {
+                  "line": 4,
+                  "column": 28
+                },
+                "end": {
+                  "line": 4,
+                  "column": 32
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 28
+              },
+              "end": {
+                "line": 4,
+                "column": 32
+              }
+            },
+            {
+              "kind": 44,
+              "alias": {
+                "kind": 38,
+                "name": "foo2",
+                "start": {
+                  "line": 4,
+                  "column": 34
+                },
+                "end": {
+                  "line": 4,
+                  "column": 38
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 34
+              },
+              "end": {
+                "line": 4,
+                "column": 38
+              }
+            }
+          ],
+          "start": {
+            "line": 4,
+            "column": 8
+          },
+          "end": {
+            "line": 4,
+            "column": 38
+          }
+        }
+      ],
+      "start": {
+        "line": 4,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 38
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 4,
+    "column": 38
+  }
+}

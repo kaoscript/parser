@@ -1,0 +1,189 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 42,
+      "declarations": [
+        {
+          "kind": 43,
+          "module": "child_process",
+          "specifiers": [
+            {
+              "kind": 45,
+              "alias": {
+                "kind": 38,
+                "name": "exec",
+                "start": {
+                  "line": 1,
+                  "column": 8
+                },
+                "end": {
+                  "line": 1,
+                  "column": 12
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 8
+              },
+              "end": {
+                "line": 1,
+                "column": 12
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 31
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 31
+      },
+      "attributes": []
+    },
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 8,
+          "variables": [
+            {
+              "kind": 88,
+              "name": {
+                "kind": 38,
+                "name": "stdout",
+                "start": {
+                  "line": 3,
+                  "column": 5
+                },
+                "end": {
+                  "line": 3,
+                  "column": 11
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 5
+              },
+              "end": {
+                "line": 3,
+                "column": 11
+              }
+            },
+            {
+              "kind": 88,
+              "name": {
+                "kind": 38,
+                "name": "stderr",
+                "start": {
+                  "line": 3,
+                  "column": 13
+                },
+                "end": {
+                  "line": 3,
+                  "column": 19
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 13
+              },
+              "end": {
+                "line": 3,
+                "column": 19
+              }
+            }
+          ],
+          "operation": {
+            "kind": 13,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 38,
+              "name": "exec",
+              "start": {
+                "line": 3,
+                "column": 28
+              },
+              "end": {
+                "line": 3,
+                "column": 32
+              }
+            },
+            "arguments": [
+              {
+                "kind": 38,
+                "name": "cmd",
+                "start": {
+                  "line": 3,
+                  "column": 33
+                },
+                "end": {
+                  "line": 3,
+                  "column": 36
+                }
+              }
+            ],
+            "start": {
+              "line": 3,
+              "column": 28
+            },
+            "end": {
+              "line": 3,
+              "column": 37
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 37
+          }
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 37
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 37
+  }
+}

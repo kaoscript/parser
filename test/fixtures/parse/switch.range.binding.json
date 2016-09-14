@@ -1,0 +1,680 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 36,
+      "modifiers": [],
+      "name": {
+        "kind": 38,
+        "name": "age",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      },
+      "parameters": [],
+      "type": {
+        "kind": 81,
+        "typeName": {
+          "kind": 38,
+          "name": "int",
+          "start": {
+            "line": 1,
+            "column": 15
+          },
+          "end": {
+            "line": 1,
+            "column": 18
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 15
+        },
+        "end": {
+          "line": 1,
+          "column": 18
+        }
+      },
+      "body": {
+        "kind": 55,
+        "value": 15,
+        "start": {
+          "line": 1,
+          "column": 22
+        },
+        "end": {
+          "line": 1,
+          "column": 24
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 24
+      },
+      "attributes": []
+    },
+    {
+      "kind": 36,
+      "modifiers": [],
+      "name": {
+        "kind": 38,
+        "name": "main",
+        "start": {
+          "line": 3,
+          "column": 6
+        },
+        "end": {
+          "line": 3,
+          "column": 10
+        }
+      },
+      "parameters": [],
+      "body": {
+        "kind": 11,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 73,
+            "expression": {
+              "kind": 13,
+              "scope": {
+                "kind": 3
+              },
+              "callee": {
+                "kind": 38,
+                "name": "age",
+                "start": {
+                  "line": 4,
+                  "column": 9
+                },
+                "end": {
+                  "line": 4,
+                  "column": 12
+                }
+              },
+              "arguments": [],
+              "start": {
+                "line": 4,
+                "column": 9
+              },
+              "end": {
+                "line": 4,
+                "column": 14
+              }
+            },
+            "clauses": [
+              {
+                "kind": 66,
+                "conditions": [
+                  {
+                    "kind": 55,
+                    "value": 0,
+                    "start": {
+                      "line": 5,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 4
+                    }
+                  }
+                ],
+                "bindings": [],
+                "body": {
+                  "kind": 13,
+                  "scope": {
+                    "kind": 3
+                  },
+                  "callee": {
+                    "kind": 48,
+                    "object": {
+                      "kind": 38,
+                      "name": "console",
+                      "start": {
+                        "line": 5,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 19
+                      }
+                    },
+                    "property": {
+                      "kind": 38,
+                      "name": "log",
+                      "start": {
+                        "line": 5,
+                        "column": 20
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 23
+                      }
+                    },
+                    "computed": false,
+                    "nullable": false,
+                    "start": {
+                      "line": 5,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 23
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "kind": 75,
+                      "elements": [
+                        {
+                          "kind": 47,
+                          "value": "I'm not born yet I guess",
+                          "start": {
+                            "line": 5,
+                            "column": 25
+                          },
+                          "end": {
+                            "line": 5,
+                            "column": 49
+                          }
+                        }
+                      ],
+                      "start": {
+                        "line": 5,
+                        "column": 24
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 50
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 5,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 51
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 3
+                },
+                "end": {
+                  "line": 5,
+                  "column": 51
+                }
+              },
+              {
+                "kind": 66,
+                "conditions": [
+                  {
+                    "kind": 70,
+                    "from": {
+                      "kind": 55,
+                      "value": 1,
+                      "start": {
+                        "line": 6,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 4
+                      }
+                    },
+                    "to": {
+                      "kind": 55,
+                      "value": 12,
+                      "start": {
+                        "line": 6,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 11
+                      }
+                    },
+                    "start": {
+                      "line": 6,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 11
+                    }
+                  }
+                ],
+                "bindings": [
+                  {
+                    "kind": 38,
+                    "name": "n",
+                    "start": {
+                      "line": 6,
+                      "column": 18
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 19
+                    }
+                  }
+                ],
+                "body": {
+                  "kind": 13,
+                  "scope": {
+                    "kind": 3
+                  },
+                  "callee": {
+                    "kind": 48,
+                    "object": {
+                      "kind": 38,
+                      "name": "console",
+                      "start": {
+                        "line": 6,
+                        "column": 23
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 30
+                      }
+                    },
+                    "property": {
+                      "kind": 38,
+                      "name": "log",
+                      "start": {
+                        "line": 6,
+                        "column": 31
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 34
+                      }
+                    },
+                    "computed": false,
+                    "nullable": false,
+                    "start": {
+                      "line": 6,
+                      "column": 23
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 34
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "kind": 75,
+                      "elements": [
+                        {
+                          "kind": 47,
+                          "value": "I'm a child of age ",
+                          "start": {
+                            "line": 6,
+                            "column": 36
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 55
+                          }
+                        },
+                        {
+                          "kind": 38,
+                          "name": "n",
+                          "start": {
+                            "line": 6,
+                            "column": 57
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 58
+                          }
+                        }
+                      ],
+                      "start": {
+                        "line": 6,
+                        "column": 35
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 60
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 6,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 61
+                  }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 3
+                },
+                "end": {
+                  "line": 6,
+                  "column": 61
+                }
+              },
+              {
+                "kind": 66,
+                "conditions": [
+                  {
+                    "kind": 70,
+                    "from": {
+                      "kind": 55,
+                      "value": 13,
+                      "start": {
+                        "line": 7,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 5
+                      }
+                    },
+                    "to": {
+                      "kind": 55,
+                      "value": 19,
+                      "start": {
+                        "line": 7,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 11
+                      }
+                    },
+                    "start": {
+                      "line": 7,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 11
+                    }
+                  }
+                ],
+                "bindings": [
+                  {
+                    "kind": 38,
+                    "name": "n",
+                    "start": {
+                      "line": 7,
+                      "column": 18
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 19
+                    }
+                  }
+                ],
+                "body": {
+                  "kind": 13,
+                  "scope": {
+                    "kind": 3
+                  },
+                  "callee": {
+                    "kind": 48,
+                    "object": {
+                      "kind": 38,
+                      "name": "console",
+                      "start": {
+                        "line": 7,
+                        "column": 23
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 30
+                      }
+                    },
+                    "property": {
+                      "kind": 38,
+                      "name": "log",
+                      "start": {
+                        "line": 7,
+                        "column": 31
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 34
+                      }
+                    },
+                    "computed": false,
+                    "nullable": false,
+                    "start": {
+                      "line": 7,
+                      "column": 23
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 34
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "kind": 75,
+                      "elements": [
+                        {
+                          "kind": 47,
+                          "value": "I'm a teen of age ",
+                          "start": {
+                            "line": 7,
+                            "column": 36
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 54
+                          }
+                        },
+                        {
+                          "kind": 38,
+                          "name": "n",
+                          "start": {
+                            "line": 7,
+                            "column": 56
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 57
+                          }
+                        }
+                      ],
+                      "start": {
+                        "line": 7,
+                        "column": 35
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 59
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 7,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 60
+                  }
+                },
+                "start": {
+                  "line": 7,
+                  "column": 3
+                },
+                "end": {
+                  "line": 7,
+                  "column": 60
+                }
+              },
+              {
+                "kind": 66,
+                "conditions": [],
+                "bindings": [
+                  {
+                    "kind": 38,
+                    "name": "n",
+                    "start": {
+                      "line": 8,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 12
+                    }
+                  }
+                ],
+                "body": {
+                  "kind": 13,
+                  "scope": {
+                    "kind": 3
+                  },
+                  "callee": {
+                    "kind": 48,
+                    "object": {
+                      "kind": 38,
+                      "name": "console",
+                      "start": {
+                        "line": 8,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 23
+                      }
+                    },
+                    "property": {
+                      "kind": 38,
+                      "name": "log",
+                      "start": {
+                        "line": 8,
+                        "column": 24
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 27
+                      }
+                    },
+                    "computed": false,
+                    "nullable": false,
+                    "start": {
+                      "line": 8,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 27
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "kind": 75,
+                      "elements": [
+                        {
+                          "kind": 47,
+                          "value": "I'm an old person of age ",
+                          "start": {
+                            "line": 8,
+                            "column": 29
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 54
+                          }
+                        },
+                        {
+                          "kind": 38,
+                          "name": "n",
+                          "start": {
+                            "line": 8,
+                            "column": 56
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 57
+                          }
+                        }
+                      ],
+                      "start": {
+                        "line": 8,
+                        "column": 28
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 59
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 8,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 60
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 3
+                },
+                "end": {
+                  "line": 8,
+                  "column": 60
+                }
+              }
+            ],
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 3
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 3,
+          "column": 13
+        },
+        "end": {
+          "line": 10,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 10,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 10,
+    "column": 2
+  }
+}

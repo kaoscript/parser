@@ -1,0 +1,978 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 15,
+      "modifiers": [],
+      "name": {
+        "kind": 38,
+        "name": "Shape",
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 12
+        }
+      },
+      "members": [
+        {
+          "kind": 31,
+          "modifiers": [
+            {
+              "kind": 3,
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 11
+              }
+            }
+          ],
+          "name": {
+            "kind": 38,
+            "name": "_color",
+            "start": {
+              "line": 3,
+              "column": 3
+            },
+            "end": {
+              "line": 3,
+              "column": 9
+            }
+          },
+          "type": {
+            "kind": 81,
+            "typeName": {
+              "kind": 38,
+              "name": "string",
+              "start": {
+                "line": 3,
+                "column": 11
+              },
+              "end": {
+                "line": 3,
+                "column": 17
+              }
+            },
+            "start": {
+              "line": 3,
+              "column": 11
+            },
+            "end": {
+              "line": 3,
+              "column": 17
+            }
+          },
+          "defaultValue": {
+            "kind": 47,
+            "value": "",
+            "start": {
+              "line": 3,
+              "column": 20
+            },
+            "end": {
+              "line": 3,
+              "column": 22
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 3,
+            "column": 22
+          }
+        },
+        {
+          "name": {
+            "kind": 38,
+            "name": "Shape",
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 7
+            }
+          },
+          "parameters": [
+            {
+              "kind": 60,
+              "modifiers": [
+                {
+                  "kind": 1,
+                  "start": {
+                    "line": 6,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 9
+                  }
+                }
+              ],
+              "name": {
+                "kind": 38,
+                "name": "color",
+                "start": {
+                  "line": 6,
+                  "column": 9
+                },
+                "end": {
+                  "line": 6,
+                  "column": 14
+                }
+              },
+              "type": {
+                "kind": 81,
+                "typeName": {
+                  "kind": 38,
+                  "name": "string",
+                  "start": {
+                    "line": 6,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 22
+                  }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 16
+                },
+                "end": {
+                  "line": 6,
+                  "column": 22
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 8
+              },
+              "end": {
+                "line": 6,
+                "column": 22
+              }
+            }
+          ],
+          "start": {
+            "line": 6,
+            "column": 2
+          },
+          "end": {
+            "line": 6,
+            "column": 23
+          },
+          "kind": 51,
+          "modifiers": []
+        },
+        {
+          "name": {
+            "kind": 38,
+            "name": "draw",
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 6
+            }
+          },
+          "parameters": [
+            {
+              "kind": 60,
+              "modifiers": [],
+              "name": {
+                "kind": 38,
+                "name": "canvas",
+                "start": {
+                  "line": 8,
+                  "column": 7
+                },
+                "end": {
+                  "line": 8,
+                  "column": 13
+                }
+              },
+              "start": {
+                "line": 8,
+                "column": 7
+              },
+              "end": {
+                "line": 8,
+                "column": 13
+              }
+            }
+          ],
+          "start": {
+            "line": 8,
+            "column": 2
+          },
+          "end": {
+            "line": 10,
+            "column": 3
+          },
+          "kind": 51,
+          "modifiers": [],
+          "type": {
+            "kind": 81,
+            "typeName": {
+              "kind": 38,
+              "name": "string",
+              "start": {
+                "line": 8,
+                "column": 18
+              },
+              "end": {
+                "line": 8,
+                "column": 24
+              }
+            },
+            "start": {
+              "line": 8,
+              "column": 18
+            },
+            "end": {
+              "line": 8,
+              "column": 24
+            }
+          },
+          "body": {
+            "kind": 11,
+            "attributes": [],
+            "statements": [
+              {
+                "kind": 77,
+                "value": {
+                  "kind": 82,
+                  "operator": {
+                    "kind": 9,
+                    "start": {
+                      "line": 9,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 12
+                    }
+                  },
+                  "argument": {
+                    "kind": 13,
+                    "scope": {
+                      "kind": 3
+                    },
+                    "callee": {
+                      "kind": 38,
+                      "name": "Error",
+                      "start": {
+                        "line": 9,
+                        "column": 13
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 18
+                      }
+                    },
+                    "arguments": [
+                      {
+                        "kind": 47,
+                        "value": "Not Implemented",
+                        "start": {
+                          "line": 9,
+                          "column": 19
+                        },
+                        "end": {
+                          "line": 9,
+                          "column": 36
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 9,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 37
+                    }
+                  },
+                  "start": {
+                    "line": 9,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 37
+                  }
+                },
+                "start": {
+                  "line": 9,
+                  "column": 3
+                },
+                "end": {
+                  "line": 9,
+                  "column": 37
+                },
+                "attributes": []
+              }
+            ],
+            "start": {
+              "line": 8,
+              "column": 25
+            },
+            "end": {
+              "line": 10,
+              "column": 3
+            }
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 11,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 15,
+      "modifiers": [],
+      "name": {
+        "kind": 38,
+        "name": "Rectangle",
+        "start": {
+          "line": 13,
+          "column": 7
+        },
+        "end": {
+          "line": 13,
+          "column": 16
+        }
+      },
+      "extends": {
+        "kind": 38,
+        "name": "Shape",
+        "start": {
+          "line": 13,
+          "column": 25
+        },
+        "end": {
+          "line": 13,
+          "column": 30
+        }
+      },
+      "members": [
+        {
+          "name": {
+            "kind": 38,
+            "name": "Rectangle",
+            "start": {
+              "line": 14,
+              "column": 2
+            },
+            "end": {
+              "line": 14,
+              "column": 11
+            }
+          },
+          "parameters": [
+            {
+              "kind": 60,
+              "modifiers": [],
+              "name": {
+                "kind": 38,
+                "name": "color",
+                "start": {
+                  "line": 14,
+                  "column": 12
+                },
+                "end": {
+                  "line": 14,
+                  "column": 17
+                }
+              },
+              "type": {
+                "kind": 81,
+                "typeName": {
+                  "kind": 38,
+                  "name": "string",
+                  "start": {
+                    "line": 14,
+                    "column": 19
+                  },
+                  "end": {
+                    "line": 14,
+                    "column": 25
+                  }
+                },
+                "start": {
+                  "line": 14,
+                  "column": 19
+                },
+                "end": {
+                  "line": 14,
+                  "column": 25
+                }
+              },
+              "start": {
+                "line": 14,
+                "column": 12
+              },
+              "end": {
+                "line": 14,
+                "column": 25
+              }
+            }
+          ],
+          "start": {
+            "line": 14,
+            "column": 2
+          },
+          "end": {
+            "line": 16,
+            "column": 3
+          },
+          "kind": 51,
+          "modifiers": [],
+          "body": {
+            "kind": 11,
+            "attributes": [],
+            "statements": [
+              {
+                "kind": 13,
+                "scope": {
+                  "kind": 3
+                },
+                "callee": {
+                  "kind": 38,
+                  "name": "super",
+                  "start": {
+                    "line": 15,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 8
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 38,
+                    "name": "color",
+                    "start": {
+                      "line": 15,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 14
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 15,
+                  "column": 3
+                },
+                "end": {
+                  "line": 15,
+                  "column": 15
+                },
+                "attributes": []
+              }
+            ],
+            "start": {
+              "line": 14,
+              "column": 27
+            },
+            "end": {
+              "line": 16,
+              "column": 3
+            }
+          }
+        },
+        {
+          "name": {
+            "kind": 38,
+            "name": "draw",
+            "start": {
+              "line": 18,
+              "column": 2
+            },
+            "end": {
+              "line": 18,
+              "column": 6
+            }
+          },
+          "parameters": [
+            {
+              "kind": 60,
+              "modifiers": [],
+              "name": {
+                "kind": 38,
+                "name": "canvas",
+                "start": {
+                  "line": 18,
+                  "column": 7
+                },
+                "end": {
+                  "line": 18,
+                  "column": 13
+                }
+              },
+              "start": {
+                "line": 18,
+                "column": 7
+              },
+              "end": {
+                "line": 18,
+                "column": 13
+              }
+            }
+          ],
+          "start": {
+            "line": 18,
+            "column": 2
+          },
+          "end": {
+            "line": 20,
+            "column": 3
+          },
+          "kind": 51,
+          "modifiers": [],
+          "type": {
+            "kind": 81,
+            "typeName": {
+              "kind": 38,
+              "name": "string",
+              "start": {
+                "line": 18,
+                "column": 18
+              },
+              "end": {
+                "line": 18,
+                "column": 24
+              }
+            },
+            "start": {
+              "line": 18,
+              "column": 18
+            },
+            "end": {
+              "line": 18,
+              "column": 24
+            }
+          },
+          "body": {
+            "kind": 11,
+            "attributes": [],
+            "statements": [
+              {
+                "kind": 64,
+                "value": {
+                  "kind": 61,
+                  "operator": {
+                    "kind": 2,
+                    "start": {
+                      "line": 19,
+                      "column": 42
+                    },
+                    "end": {
+                      "line": 19,
+                      "column": 43
+                    }
+                  },
+                  "start": {
+                    "line": 19,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 19,
+                    "column": 43
+                  },
+                  "operands": [
+                    {
+                      "kind": 47,
+                      "value": "I'm drawing a ",
+                      "start": {
+                        "line": 19,
+                        "column": 10
+                      },
+                      "end": {
+                        "line": 19,
+                        "column": 27
+                      }
+                    },
+                    {
+                      "kind": 48,
+                      "object": {
+                        "kind": 38,
+                        "name": "this",
+                        "start": {
+                          "line": 19,
+                          "column": 30
+                        },
+                        "end": {
+                          "line": 19,
+                          "column": 34
+                        }
+                      },
+                      "property": {
+                        "kind": 38,
+                        "name": "_color",
+                        "start": {
+                          "line": 19,
+                          "column": 35
+                        },
+                        "end": {
+                          "line": 19,
+                          "column": 41
+                        }
+                      },
+                      "computed": false,
+                      "nullable": false,
+                      "start": {
+                        "line": 19,
+                        "column": 30
+                      },
+                      "end": {
+                        "line": 19,
+                        "column": 41
+                      }
+                    },
+                    {
+                      "kind": 47,
+                      "value": " rectangle.",
+                      "start": {
+                        "line": 19,
+                        "column": 44
+                      },
+                      "end": {
+                        "line": 19,
+                        "column": 57
+                      }
+                    }
+                  ]
+                },
+                "start": {
+                  "line": 19,
+                  "column": 3
+                },
+                "end": {
+                  "line": 19,
+                  "column": 57
+                },
+                "attributes": []
+              }
+            ],
+            "start": {
+              "line": 18,
+              "column": 25
+            },
+            "end": {
+              "line": 20,
+              "column": 3
+            }
+          }
+        }
+      ],
+      "start": {
+        "line": 13,
+        "column": 1
+      },
+      "end": {
+        "line": 21,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 23,
+          "column": 1
+        },
+        "end": {
+          "line": 23,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "r",
+            "start": {
+              "line": 23,
+              "column": 5
+            },
+            "end": {
+              "line": 23,
+              "column": 6
+            }
+          },
+          "init": {
+            "kind": 82,
+            "operator": {
+              "kind": 9,
+              "start": {
+                "line": 23,
+                "column": 9
+              },
+              "end": {
+                "line": 23,
+                "column": 12
+              }
+            },
+            "argument": {
+              "kind": 13,
+              "scope": {
+                "kind": 3
+              },
+              "callee": {
+                "kind": 38,
+                "name": "Rectangle",
+                "start": {
+                  "line": 23,
+                  "column": 13
+                },
+                "end": {
+                  "line": 23,
+                  "column": 22
+                }
+              },
+              "arguments": [
+                {
+                  "kind": 47,
+                  "value": "black",
+                  "start": {
+                    "line": 23,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 23,
+                    "column": 30
+                  }
+                }
+              ],
+              "start": {
+                "line": 23,
+                "column": 13
+              },
+              "end": {
+                "line": 23,
+                "column": 31
+              }
+            },
+            "start": {
+              "line": 23,
+              "column": 9
+            },
+            "end": {
+              "line": 23,
+              "column": 31
+            }
+          },
+          "start": {
+            "line": 23,
+            "column": 5
+          },
+          "end": {
+            "line": 23,
+            "column": 31
+          }
+        }
+      ],
+      "start": {
+        "line": 23,
+        "column": 1
+      },
+      "end": {
+        "line": 23,
+        "column": 31
+      },
+      "attributes": []
+    },
+    {
+      "kind": 13,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 48,
+        "object": {
+          "kind": 48,
+          "object": {
+            "kind": 13,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 38,
+              "name": "expect",
+              "start": {
+                "line": 25,
+                "column": 1
+              },
+              "end": {
+                "line": 25,
+                "column": 7
+              }
+            },
+            "arguments": [
+              {
+                "kind": 13,
+                "scope": {
+                  "kind": 3
+                },
+                "callee": {
+                  "kind": 48,
+                  "object": {
+                    "kind": 38,
+                    "name": "r",
+                    "start": {
+                      "line": 25,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 25,
+                      "column": 9
+                    }
+                  },
+                  "property": {
+                    "kind": 38,
+                    "name": "draw",
+                    "start": {
+                      "line": 25,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 25,
+                      "column": 14
+                    }
+                  },
+                  "computed": false,
+                  "nullable": false,
+                  "start": {
+                    "line": 25,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 25,
+                    "column": 14
+                  }
+                },
+                "arguments": [],
+                "start": {
+                  "line": 25,
+                  "column": 8
+                },
+                "end": {
+                  "line": 25,
+                  "column": 16
+                }
+              }
+            ],
+            "start": {
+              "line": 25,
+              "column": 1
+            },
+            "end": {
+              "line": 25,
+              "column": 17
+            }
+          },
+          "property": {
+            "kind": 38,
+            "name": "to",
+            "start": {
+              "line": 25,
+              "column": 18
+            },
+            "end": {
+              "line": 25,
+              "column": 20
+            }
+          },
+          "computed": false,
+          "nullable": false,
+          "start": {
+            "line": 25,
+            "column": 1
+          },
+          "end": {
+            "line": 25,
+            "column": 20
+          }
+        },
+        "property": {
+          "kind": 38,
+          "name": "equal",
+          "start": {
+            "line": 25,
+            "column": 21
+          },
+          "end": {
+            "line": 25,
+            "column": 26
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 25,
+          "column": 1
+        },
+        "end": {
+          "line": 25,
+          "column": 26
+        }
+      },
+      "arguments": [
+        {
+          "kind": 47,
+          "value": "I'm drawing a black rectangle.",
+          "start": {
+            "line": 25,
+            "column": 27
+          },
+          "end": {
+            "line": 25,
+            "column": 60
+          }
+        }
+      ],
+      "start": {
+        "line": 25,
+        "column": 1
+      },
+      "end": {
+        "line": 25,
+        "column": 61
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 25,
+    "column": 61
+  }
+}

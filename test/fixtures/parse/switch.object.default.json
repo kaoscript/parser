@@ -1,0 +1,984 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 87,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 88,
+          "name": {
+            "kind": 38,
+            "name": "value",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 10
+            }
+          },
+          "init": {
+            "kind": 57,
+            "properties": [
+              {
+                "kind": 58,
+                "name": {
+                  "kind": 38,
+                  "name": "foo",
+                  "start": {
+                    "line": 2,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 5
+                  }
+                },
+                "value": {
+                  "kind": 55,
+                  "value": 1,
+                  "start": {
+                    "line": 2,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 8
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 8
+                }
+              },
+              {
+                "kind": 58,
+                "name": {
+                  "kind": 38,
+                  "name": "bar",
+                  "start": {
+                    "line": 3,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 5
+                  }
+                },
+                "value": {
+                  "kind": 37,
+                  "parameters": [],
+                  "modifiers": [],
+                  "body": {
+                    "kind": 55,
+                    "value": 2,
+                    "start": {
+                      "line": 3,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 12
+                    }
+                  },
+                  "start": {
+                    "line": 3,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 12
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 2
+                },
+                "end": {
+                  "line": 3,
+                  "column": 12
+                }
+              }
+            ],
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 4,
+              "column": 2
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 4,
+            "column": 2
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 73,
+      "expression": {
+        "kind": 38,
+        "name": "value",
+        "start": {
+          "line": 6,
+          "column": 8
+        },
+        "end": {
+          "line": 6,
+          "column": 13
+        }
+      },
+      "clauses": [
+        {
+          "kind": 66,
+          "conditions": [
+            {
+              "kind": 69,
+              "members": [
+                {
+                  "kind": 58,
+                  "name": {
+                    "kind": 38,
+                    "name": "foo",
+                    "start": {
+                      "line": 7,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 6
+                    }
+                  },
+                  "value": {
+                    "kind": 55,
+                    "value": 1,
+                    "start": {
+                      "line": 7,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 9
+                    }
+                  },
+                  "start": {
+                    "line": 7,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 9
+                  }
+                }
+              ],
+              "start": {
+                "line": 7,
+                "column": 2
+              },
+              "end": {
+                "line": 7,
+                "column": 10
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "kind": 56,
+              "elements": [
+                {
+                  "kind": 10,
+                  "alias": {
+                    "kind": 38,
+                    "name": "qux",
+                    "start": {
+                      "line": 7,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 20
+                    }
+                  },
+                  "name": {
+                    "kind": 38,
+                    "name": "n",
+                    "start": {
+                      "line": 7,
+                      "column": 22
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 23
+                    }
+                  },
+                  "start": {
+                    "line": 7,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 23
+                  }
+                }
+              ],
+              "start": {
+                "line": 7,
+                "column": 16
+              },
+              "end": {
+                "line": 7,
+                "column": 24
+              }
+            }
+          ],
+          "body": {
+            "kind": 13,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 48,
+              "object": {
+                "kind": 38,
+                "name": "console",
+                "start": {
+                  "line": 7,
+                  "column": 31
+                },
+                "end": {
+                  "line": 7,
+                  "column": 38
+                }
+              },
+              "property": {
+                "kind": 38,
+                "name": "log",
+                "start": {
+                  "line": 7,
+                  "column": 39
+                },
+                "end": {
+                  "line": 7,
+                  "column": 42
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 7,
+                "column": 31
+              },
+              "end": {
+                "line": 7,
+                "column": 42
+              }
+            },
+            "arguments": [
+              {
+                "kind": 75,
+                "elements": [
+                  {
+                    "kind": 47,
+                    "value": "qux: ",
+                    "start": {
+                      "line": 7,
+                      "column": 44
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 49
+                    }
+                  },
+                  {
+                    "kind": 38,
+                    "name": "n",
+                    "start": {
+                      "line": 7,
+                      "column": 51
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 52
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 7,
+                  "column": 43
+                },
+                "end": {
+                  "line": 7,
+                  "column": 54
+                }
+              }
+            ],
+            "start": {
+              "line": 7,
+              "column": 31
+            },
+            "end": {
+              "line": 7,
+              "column": 55
+            }
+          },
+          "start": {
+            "line": 7,
+            "column": 2
+          },
+          "end": {
+            "line": 7,
+            "column": 55
+          }
+        },
+        {
+          "kind": 66,
+          "conditions": [
+            {
+              "kind": 69,
+              "members": [
+                {
+                  "kind": 58,
+                  "name": {
+                    "kind": 38,
+                    "name": "foo",
+                    "start": {
+                      "line": 8,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 6
+                    }
+                  },
+                  "value": {
+                    "kind": 55,
+                    "value": 1,
+                    "start": {
+                      "line": 8,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 9
+                    }
+                  },
+                  "start": {
+                    "line": 8,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 9
+                  }
+                }
+              ],
+              "start": {
+                "line": 8,
+                "column": 2
+              },
+              "end": {
+                "line": 8,
+                "column": 10
+              }
+            }
+          ],
+          "bindings": [],
+          "body": {
+            "kind": 13,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 48,
+              "object": {
+                "kind": 38,
+                "name": "console",
+                "start": {
+                  "line": 8,
+                  "column": 21
+                },
+                "end": {
+                  "line": 8,
+                  "column": 28
+                }
+              },
+              "property": {
+                "kind": 38,
+                "name": "log",
+                "start": {
+                  "line": 8,
+                  "column": 29
+                },
+                "end": {
+                  "line": 8,
+                  "column": 32
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 8,
+                "column": 21
+              },
+              "end": {
+                "line": 8,
+                "column": 32
+              }
+            },
+            "arguments": [
+              {
+                "kind": 47,
+                "value": "foo: 1",
+                "start": {
+                  "line": 8,
+                  "column": 33
+                },
+                "end": {
+                  "line": 8,
+                  "column": 41
+                }
+              }
+            ],
+            "start": {
+              "line": 8,
+              "column": 21
+            },
+            "end": {
+              "line": 8,
+              "column": 42
+            }
+          },
+          "start": {
+            "line": 8,
+            "column": 2
+          },
+          "end": {
+            "line": 8,
+            "column": 42
+          }
+        },
+        {
+          "kind": 66,
+          "conditions": [
+            {
+              "kind": 69,
+              "members": [
+                {
+                  "kind": 58,
+                  "name": {
+                    "kind": 38,
+                    "name": "foo",
+                    "start": {
+                      "line": 9,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 6
+                    }
+                  },
+                  "start": {
+                    "line": 9,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 6
+                  }
+                }
+              ],
+              "start": {
+                "line": 9,
+                "column": 2
+              },
+              "end": {
+                "line": 9,
+                "column": 7
+              }
+            }
+          ],
+          "bindings": [],
+          "body": {
+            "kind": 13,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 48,
+              "object": {
+                "kind": 38,
+                "name": "console",
+                "start": {
+                  "line": 9,
+                  "column": 18
+                },
+                "end": {
+                  "line": 9,
+                  "column": 25
+                }
+              },
+              "property": {
+                "kind": 38,
+                "name": "log",
+                "start": {
+                  "line": 9,
+                  "column": 26
+                },
+                "end": {
+                  "line": 9,
+                  "column": 29
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 9,
+                "column": 18
+              },
+              "end": {
+                "line": 9,
+                "column": 29
+              }
+            },
+            "arguments": [
+              {
+                "kind": 47,
+                "value": "has foo",
+                "start": {
+                  "line": 9,
+                  "column": 30
+                },
+                "end": {
+                  "line": 9,
+                  "column": 39
+                }
+              }
+            ],
+            "start": {
+              "line": 9,
+              "column": 18
+            },
+            "end": {
+              "line": 9,
+              "column": 40
+            }
+          },
+          "start": {
+            "line": 9,
+            "column": 2
+          },
+          "end": {
+            "line": 9,
+            "column": 40
+          }
+        },
+        {
+          "kind": 66,
+          "conditions": [
+            {
+              "kind": 69,
+              "members": [
+                {
+                  "kind": 58,
+                  "name": {
+                    "kind": 38,
+                    "name": "qux",
+                    "start": {
+                      "line": 10,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 6
+                    }
+                  },
+                  "start": {
+                    "line": 10,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 6
+                  }
+                }
+              ],
+              "start": {
+                "line": 10,
+                "column": 2
+              },
+              "end": {
+                "line": 10,
+                "column": 7
+              }
+            }
+          ],
+          "bindings": [],
+          "body": {
+            "kind": 13,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 48,
+              "object": {
+                "kind": 38,
+                "name": "console",
+                "start": {
+                  "line": 10,
+                  "column": 18
+                },
+                "end": {
+                  "line": 10,
+                  "column": 25
+                }
+              },
+              "property": {
+                "kind": 38,
+                "name": "log",
+                "start": {
+                  "line": 10,
+                  "column": 26
+                },
+                "end": {
+                  "line": 10,
+                  "column": 29
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 10,
+                "column": 18
+              },
+              "end": {
+                "line": 10,
+                "column": 29
+              }
+            },
+            "arguments": [
+              {
+                "kind": 47,
+                "value": "has qux",
+                "start": {
+                  "line": 10,
+                  "column": 30
+                },
+                "end": {
+                  "line": 10,
+                  "column": 39
+                }
+              }
+            ],
+            "start": {
+              "line": 10,
+              "column": 18
+            },
+            "end": {
+              "line": 10,
+              "column": 40
+            }
+          },
+          "start": {
+            "line": 10,
+            "column": 2
+          },
+          "end": {
+            "line": 10,
+            "column": 40
+          }
+        },
+        {
+          "kind": 66,
+          "conditions": [],
+          "bindings": [],
+          "filter": {
+            "kind": 9,
+            "operator": {
+              "kind": 10,
+              "start": {
+                "line": 11,
+                "column": 23
+              },
+              "end": {
+                "line": 11,
+                "column": 25
+              }
+            },
+            "start": {
+              "line": 11,
+              "column": 23
+            },
+            "end": {
+              "line": 11,
+              "column": 25
+            },
+            "left": {
+              "kind": 13,
+              "scope": {
+                "kind": 3
+              },
+              "callee": {
+                "kind": 48,
+                "object": {
+                  "kind": 38,
+                  "name": "value",
+                  "start": {
+                    "line": 11,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 11,
+                    "column": 16
+                  }
+                },
+                "property": {
+                  "kind": 38,
+                  "name": "bar",
+                  "start": {
+                    "line": 11,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 11,
+                    "column": 20
+                  }
+                },
+                "computed": false,
+                "nullable": false,
+                "start": {
+                  "line": 11,
+                  "column": 11
+                },
+                "end": {
+                  "line": 11,
+                  "column": 20
+                }
+              },
+              "arguments": [],
+              "start": {
+                "line": 11,
+                "column": 11
+              },
+              "end": {
+                "line": 11,
+                "column": 22
+              }
+            },
+            "right": {
+              "kind": 55,
+              "value": 0,
+              "start": {
+                "line": 11,
+                "column": 26
+              },
+              "end": {
+                "line": 11,
+                "column": 27
+              }
+            }
+          },
+          "body": {
+            "kind": 13,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 48,
+              "object": {
+                "kind": 38,
+                "name": "console",
+                "start": {
+                  "line": 11,
+                  "column": 31
+                },
+                "end": {
+                  "line": 11,
+                  "column": 38
+                }
+              },
+              "property": {
+                "kind": 38,
+                "name": "log",
+                "start": {
+                  "line": 11,
+                  "column": 39
+                },
+                "end": {
+                  "line": 11,
+                  "column": 42
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 11,
+                "column": 31
+              },
+              "end": {
+                "line": 11,
+                "column": 42
+              }
+            },
+            "arguments": [
+              {
+                "kind": 47,
+                "value": "bar() == 0",
+                "start": {
+                  "line": 11,
+                  "column": 43
+                },
+                "end": {
+                  "line": 11,
+                  "column": 55
+                }
+              }
+            ],
+            "start": {
+              "line": 11,
+              "column": 31
+            },
+            "end": {
+              "line": 11,
+              "column": 56
+            }
+          },
+          "start": {
+            "line": 7,
+            "column": 2
+          },
+          "end": {
+            "line": 11,
+            "column": 56
+          }
+        },
+        {
+          "kind": 66,
+          "conditions": [],
+          "bindings": [],
+          "body": {
+            "kind": 13,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 48,
+              "object": {
+                "kind": 38,
+                "name": "console",
+                "start": {
+                  "line": 12,
+                  "column": 14
+                },
+                "end": {
+                  "line": 12,
+                  "column": 21
+                }
+              },
+              "property": {
+                "kind": 38,
+                "name": "log",
+                "start": {
+                  "line": 12,
+                  "column": 22
+                },
+                "end": {
+                  "line": 12,
+                  "column": 25
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 12,
+                "column": 14
+              },
+              "end": {
+                "line": 12,
+                "column": 25
+              }
+            },
+            "arguments": [
+              {
+                "kind": 47,
+                "value": "oops!",
+                "start": {
+                  "line": 12,
+                  "column": 26
+                },
+                "end": {
+                  "line": 12,
+                  "column": 33
+                }
+              }
+            ],
+            "start": {
+              "line": 12,
+              "column": 14
+            },
+            "end": {
+              "line": 12,
+              "column": 34
+            }
+          },
+          "start": {
+            "line": 7,
+            "column": 2
+          },
+          "end": {
+            "line": 12,
+            "column": 34
+          }
+        }
+      ],
+      "start": {
+        "line": 6,
+        "column": 1
+      },
+      "end": {
+        "line": 13,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 13,
+    "column": 2
+  }
+}

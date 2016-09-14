@@ -1,0 +1,42 @@
+{
+	"name": "@kaoscript/parser",
+	"description": "Parse Kaoscript files and generate an abstract syntax tree",
+	"version": "0.1.0",
+	"author": {
+		"name": "Baptiste Augrain",
+		"email": "daiyam@zokugun.org"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kaoscript/parser"
+	},
+	"bugs": {
+		"url": "https://github.com/kaoscript/parser/issues"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/mit-license.php"
+		}
+	],
+	"main": "build/parser.js",
+	"files": [
+		"build",
+		"src"
+	],
+	"dependencies": {
+		"@kaoscript/ast": "0.1.x"
+	},
+	"devDependencies": {
+		"chai": "2.x",
+		"jison": "0.4.17",
+		"mocha": "2.x"
+	},
+	"engines": {
+		"node": ">= 6.0.0"
+	},
+	"scripts": {
+		"generate": "jison ./src/parser.jison -o ./build/parser.js -p slr > /dev/null",
+		"test": "mocha --colors --reporter spec"
+	}
+}

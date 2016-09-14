@@ -1,0 +1,3 @@
+while supply > demand {
+	buy()
+}

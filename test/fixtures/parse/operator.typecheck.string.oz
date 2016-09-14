@@ -1,0 +1,2 @@
+if value is string {
+}

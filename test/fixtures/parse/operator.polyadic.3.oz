@@ -1,0 +1,1 @@
+let isHealthy = 200 > cholesterol > 60

@@ -1,0 +1,179 @@
+{
+  "kind": 54,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 42,
+      "declarations": [
+        {
+          "kind": 43,
+          "module": "module1",
+          "specifiers": [
+            {
+              "kind": 46,
+              "local": {
+                "kind": 38,
+                "name": "m1",
+                "start": {
+                  "line": 1,
+                  "column": 13
+                },
+                "end": {
+                  "line": 1,
+                  "column": 15
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 8
+              },
+              "end": {
+                "line": 1,
+                "column": 15
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 28
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 28
+      },
+      "attributes": []
+    },
+    {
+      "kind": 42,
+      "declarations": [
+        {
+          "kind": 43,
+          "module": "module2",
+          "specifiers": [
+            {
+              "kind": 45,
+              "alias": {
+                "kind": 38,
+                "name": "foo",
+                "start": {
+                  "line": 3,
+                  "column": 8
+                },
+                "end": {
+                  "line": 3,
+                  "column": 11
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 8
+              },
+              "end": {
+                "line": 3,
+                "column": 11
+              }
+            }
+          ],
+          "start": {
+            "line": 3,
+            "column": 8
+          },
+          "end": {
+            "line": 3,
+            "column": 24
+          }
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 24
+      },
+      "attributes": []
+    },
+    {
+      "kind": 42,
+      "declarations": [
+        {
+          "kind": 43,
+          "module": "module3",
+          "specifiers": [
+            {
+              "kind": 45,
+              "alias": {
+                "kind": 38,
+                "name": "foo",
+                "start": {
+                  "line": 5,
+                  "column": 8
+                },
+                "end": {
+                  "line": 5,
+                  "column": 11
+                }
+              },
+              "local": {
+                "kind": 38,
+                "name": "bar",
+                "start": {
+                  "line": 5,
+                  "column": 15
+                },
+                "end": {
+                  "line": 5,
+                  "column": 18
+                }
+              },
+              "start": {
+                "line": 5,
+                "column": 8
+              },
+              "end": {
+                "line": 5,
+                "column": 18
+              }
+            }
+          ],
+          "start": {
+            "line": 5,
+            "column": 8
+          },
+          "end": {
+            "line": 5,
+            "column": 31
+          }
+        }
+      ],
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 31
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 31
+  }
+}

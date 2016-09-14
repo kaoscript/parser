@@ -1,0 +1,1 @@
+let qux = foo?.bar()
