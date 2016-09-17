@@ -5,13 +5,13 @@ var parse = require('../build/parser.js').parse;
 var path = require('path');
 
 describe('parse', function() {
-	var files = fs.readdirSync(path.join(__dirname, 'fixtures', 'parse'));
+	var files = fs.readdirSync(path.join(__dirname, 'fixtures'));
 	
 	var file;
 	for(var i = 0; i < files.length; i++) {
 		file = files[i];
 		
-		if(file.slice(-3) === '.oz') {
+		if(file.slice(-3) === '.ks') {
 			prepare(file);
 		}
 	}
@@ -19,12 +19,12 @@ describe('parse', function() {
 	function prepare(file) {
 		var name = file.slice(0, -3);
 		it(name, function() {
-			var data = fs.readFileSync(path.join(__dirname, 'fixtures', 'parse', file), {
+			var data = fs.readFileSync(path.join(__dirname, 'fixtures', file), {
 				encoding: 'utf8'
 			});
 			
 			try {
-				var error = fs.readFileSync(path.join(__dirname, 'fixtures', 'parse', name + '.error'), {
+				var error = fs.readFileSync(path.join(__dirname, 'fixtures', name + '.error'), {
 					encoding: 'utf8'
 				});
 			}
@@ -40,7 +40,7 @@ describe('parse', function() {
 				data = parse(data);
 				//console.log(JSON.stringify(data, null, 2));
 				
-				var json = fs.readFileSync(path.join(__dirname, 'fixtures', 'parse', name + '.json'), {
+				var json = fs.readFileSync(path.join(__dirname, 'fixtures', name + '.json'), {
 					encoding: 'utf8'
 				});
 				
