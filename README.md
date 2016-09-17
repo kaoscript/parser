@@ -12,6 +12,10 @@ Documentation available at [kaoscript](https://github.com/kaoscript/kaoscript).
 Changelog
 ---------
 
+### 0.1.1
+
+- postfix operators
+
 ### 0.1.0
 
 - initial release

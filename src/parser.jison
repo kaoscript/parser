@@ -3355,7 +3355,28 @@ ObjectItem // {{{
 // }}}
 
 Operand // {{{
-	: UnaryExpression
+	: PrefixUnaryOperator Operand
+		{
+			if($1.kind === UnaryOperator.Negative && $2.kind === Kind.NumericExpression) {
+				$2.value = -$2.value;
+				$$ = location($2, @1, @2);
+			}
+			else {
+				$$ = location({
+					kind: Kind.UnaryExpression,
+					operator: $1,
+					argument: $2
+				}, @1, @2);
+			}
+		}
+	| Operand PostfixUnaryOperator
+		{
+			$$ = location({
+				kind: Kind.UnaryExpression,
+				operator: $2,
+				argument: $1
+			}, @1, @2);
+		}
 	| OperandSX
 	;
 // }}}
@@ -3508,7 +3529,28 @@ OperandOrType // {{{
 // }}}
 
 OperandNAF // {{{
-	: UnaryExpression
+	: PrefixUnaryOperator OperandNAF
+		{
+			if($1.kind === UnaryOperator.Negative && $2.kind === Kind.NumericExpression) {
+				$2.value = -$2.value;
+				$$ = location($2, @1, @2);
+			}
+			else {
+				$$ = location({
+					kind: Kind.UnaryExpression,
+					operator: $1,
+					argument: $2
+				}, @1, @2);
+			}
+		}
+	| OperandNAF PostfixUnaryOperator
+		{
+			$$ = location({
+				kind: Kind.UnaryExpression,
+				operator: $2,
+				argument: $1
+			}, @1, @2);
+		}
 	| OperandSXNAF
 	;
 // }}}
@@ -3661,7 +3703,28 @@ OperandOrTypeNAF // {{{
 // }}}
 
 OperandNO // {{{
-	: UnaryExpression
+	: PrefixUnaryOperator OperandNO
+		{
+			if($1.kind === UnaryOperator.Negative && $2.kind === Kind.NumericExpression) {
+				$2.value = -$2.value;
+				$$ = location($2, @1, @2);
+			}
+			else {
+				$$ = location({
+					kind: Kind.UnaryExpression,
+					operator: $1,
+					argument: $2
+				}, @1, @2);
+			}
+		}
+	| OperandNO PostfixUnaryOperator
+		{
+			$$ = location({
+				kind: Kind.UnaryExpression,
+				operator: $2,
+				argument: $1
+			}, @1, @2);
+		}
 	| OperandSXNO
 	;
 // }}}
@@ -3892,6 +3955,22 @@ ParenthesisNAF // {{{
 	| '(' Identifier ')'
 		{
 			$$ = $2;
+		}
+	;
+// }}}
+
+PostfixUnaryOperator // {{{
+	: '--'
+		{
+			$$ = location({
+				kind: UnaryOperator.DecrementPostfix
+			}, @1);
+		}
+	| '++'
+		{
+			$$ = location({
+				kind: UnaryOperator.IncrementPostfix
+			}, @1);
 		}
 	;
 // }}}
@@ -5018,24 +5097,6 @@ TypeVarList // {{{
 	| TypeVar
 		{
 			$$ = [$1];
-		}
-	;
-// }}}
-
-UnaryExpression // {{{
-	: PrefixUnaryOperator Operand
-		{
-			if($1.kind === UnaryOperator.Negative && $2.kind === Kind.NumericExpression) {
-				$2.value = -$2.value;
-				$$ = location($2, @1, @2);
-			}
-			else {
-				$$ = location({
-					kind: Kind.UnaryExpression,
-					operator: $1,
-					argument: $2
-				}, @1, @2);
-			}
 		}
 	;
 // }}}
