@@ -17,3 +17,7 @@ func qux(item: int = 1) {
 func quux(item: int? = 1) {
 	console.log(item)
 }
+
+func corge(item? = 1) {
+	console.log(item)
+}

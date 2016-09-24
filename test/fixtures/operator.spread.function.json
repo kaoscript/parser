@@ -1,12 +1,12 @@
 {
-  "kind": 54,
+  "kind": 55,
   "attributes": [],
   "body": [
     {
-      "kind": 36,
+      "kind": 37,
       "modifiers": [],
       "name": {
-        "kind": 38,
+        "kind": 39,
         "name": "foo",
         "start": {
           "line": 1,
@@ -19,10 +19,10 @@
       },
       "parameters": [
         {
-          "kind": 60,
+          "kind": 61,
           "modifiers": [],
           "name": {
-            "kind": 38,
+            "kind": 39,
             "name": "x",
             "start": {
               "line": 1,
@@ -43,10 +43,10 @@
           }
         },
         {
-          "kind": 60,
+          "kind": 61,
           "modifiers": [],
           "name": {
-            "kind": 38,
+            "kind": 39,
             "name": "y",
             "start": {
               "line": 1,
@@ -67,10 +67,10 @@
           }
         },
         {
-          "kind": 60,
+          "kind": 61,
           "modifiers": [],
           "name": {
-            "kind": 38,
+            "kind": 39,
             "name": "z",
             "start": {
               "line": 1,
@@ -115,7 +115,7 @@
       "attributes": []
     },
     {
-      "kind": 87,
+      "kind": 89,
       "modifiers": {
         "kind": 2,
         "start": {
@@ -129,9 +129,9 @@
       },
       "declarations": [
         {
-          "kind": 88,
+          "kind": 90,
           "name": {
-            "kind": 38,
+            "kind": 39,
             "name": "args",
             "start": {
               "line": 4,
@@ -146,7 +146,7 @@
             "kind": 3,
             "values": [
               {
-                "kind": 55,
+                "kind": 56,
                 "value": 0,
                 "start": {
                   "line": 4,
@@ -158,7 +158,7 @@
                 }
               },
               {
-                "kind": 55,
+                "kind": 56,
                 "value": 1,
                 "start": {
                   "line": 4,
@@ -170,7 +170,7 @@
                 }
               },
               {
-                "kind": 55,
+                "kind": 56,
                 "value": 2,
                 "start": {
                   "line": 4,
@@ -217,7 +217,7 @@
         "kind": 3
       },
       "callee": {
-        "kind": 38,
+        "kind": 39,
         "name": "foo",
         "start": {
           "line": 6,
@@ -230,7 +230,7 @@
       },
       "arguments": [
         {
-          "kind": 82,
+          "kind": 84,
           "operator": {
             "kind": 10,
             "start": {
@@ -243,7 +243,7 @@
             }
           },
           "argument": {
-            "kind": 38,
+            "kind": 39,
             "name": "args",
             "start": {
               "line": 6,
@@ -264,6 +264,7 @@
           }
         }
       ],
+      "nullable": false,
       "start": {
         "line": 6,
         "column": 1

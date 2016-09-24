@@ -1,5 +1,5 @@
 {
-  "kind": 54,
+  "kind": 55,
   "attributes": [],
   "body": [
     {
@@ -7,7 +7,7 @@
       "condition": {
         "kind": 9,
         "operator": {
-          "kind": 12,
+          "kind": 11,
           "start": {
             "line": 4,
             "column": 14
@@ -26,7 +26,7 @@
           "column": 15
         },
         "left": {
-          "kind": 38,
+          "kind": 39,
           "name": "supply",
           "start": {
             "line": 4,
@@ -38,7 +38,7 @@
           }
         },
         "right": {
-          "kind": 38,
+          "kind": 39,
           "name": "demand",
           "start": {
             "line": 4,
@@ -60,7 +60,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 38,
+              "kind": 39,
               "name": "buy",
               "start": {
                 "line": 2,
@@ -72,6 +72,7 @@
               }
             },
             "arguments": [],
+            "nullable": false,
             "start": {
               "line": 2,
               "column": 2

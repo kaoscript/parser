@@ -1,0 +1,1 @@
+let text = foo && bar ? 'hello' : 'bonjour'

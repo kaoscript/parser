@@ -1,9 +1,9 @@
 {
-  "kind": 54,
+  "kind": 55,
   "attributes": [],
   "body": [
     {
-      "kind": 87,
+      "kind": 89,
       "modifiers": {
         "kind": 2,
         "start": {
@@ -17,9 +17,9 @@
       },
       "declarations": [
         {
-          "kind": 88,
+          "kind": 90,
           "name": {
-            "kind": 38,
+            "kind": 39,
             "name": "a",
             "start": {
               "line": 1,
@@ -31,16 +31,16 @@
             }
           },
           "type": {
-            "kind": 81,
+            "kind": 83,
             "typeName": {
-              "kind": 38,
+              "kind": 39,
               "name": "object"
             },
             "properties": [
               {
-                "kind": 58,
+                "kind": 59,
                 "name": {
-                  "kind": 38,
+                  "kind": 39,
                   "name": "foo",
                   "start": {
                     "line": 1,
@@ -52,9 +52,9 @@
                   }
                 },
                 "type": {
-                  "kind": 81,
+                  "kind": 83,
                   "typeName": {
-                    "kind": 38,
+                    "kind": 39,
                     "name": "int",
                     "start": {
                       "line": 1,
@@ -84,9 +84,9 @@
                 }
               },
               {
-                "kind": 58,
+                "kind": 59,
                 "name": {
-                  "kind": 38,
+                  "kind": 39,
                   "name": "bar",
                   "start": {
                     "line": 1,
@@ -98,9 +98,9 @@
                   }
                 },
                 "type": {
-                  "kind": 81,
+                  "kind": 83,
                   "typeName": {
-                    "kind": 38,
+                    "kind": 39,
                     "name": "string",
                     "start": {
                       "line": 1,
@@ -140,12 +140,12 @@
             }
           },
           "init": {
-            "kind": 57,
+            "kind": 58,
             "properties": [
               {
-                "kind": 58,
+                "kind": 59,
                 "name": {
-                  "kind": 38,
+                  "kind": 39,
                   "name": "foo",
                   "start": {
                     "line": 2,
@@ -157,7 +157,7 @@
                   }
                 },
                 "value": {
-                  "kind": 55,
+                  "kind": 56,
                   "value": 3.14,
                   "start": {
                     "line": 2,
@@ -178,9 +178,9 @@
                 }
               },
               {
-                "kind": 58,
+                "kind": 59,
                 "name": {
-                  "kind": 38,
+                  "kind": 39,
                   "name": "bar",
                   "start": {
                     "line": 3,
@@ -192,7 +192,7 @@
                   }
                 },
                 "value": {
-                  "kind": 47,
+                  "kind": 48,
                   "value": "hello",
                   "start": {
                     "line": 3,
@@ -248,9 +248,9 @@
         "kind": 3
       },
       "callee": {
-        "kind": 48,
+        "kind": 49,
         "object": {
-          "kind": 38,
+          "kind": 39,
           "name": "console",
           "start": {
             "line": 6,
@@ -262,7 +262,7 @@
           }
         },
         "property": {
-          "kind": 38,
+          "kind": 39,
           "name": "log",
           "start": {
             "line": 6,
@@ -286,7 +286,7 @@
       },
       "arguments": [
         {
-          "kind": 38,
+          "kind": 39,
           "name": "a",
           "start": {
             "line": 6,
@@ -298,6 +298,7 @@
           }
         }
       ],
+      "nullable": false,
       "start": {
         "line": 6,
         "column": 1

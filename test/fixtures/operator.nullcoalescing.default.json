@@ -1,0 +1,168 @@
+{
+  "kind": 55,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 30,
+      "declarations": [
+        {
+          "kind": 90,
+          "name": {
+            "kind": 39,
+            "name": "foo",
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 1,
+              "column": 11
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 11
+          }
+        },
+        {
+          "kind": 90,
+          "name": {
+            "kind": 39,
+            "name": "bar",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 16
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 13
+          },
+          "end": {
+            "line": 1,
+            "column": 16
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 16
+      },
+      "attributes": []
+    },
+    {
+      "kind": 89,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 90,
+          "name": {
+            "kind": 39,
+            "name": "tt",
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 7
+            }
+          },
+          "init": {
+            "kind": 9,
+            "operator": {
+              "kind": 18,
+              "start": {
+                "line": 3,
+                "column": 14
+              },
+              "end": {
+                "line": 3,
+                "column": 16
+              }
+            },
+            "start": {
+              "line": 3,
+              "column": 14
+            },
+            "end": {
+              "line": 3,
+              "column": 16
+            },
+            "left": {
+              "kind": 39,
+              "name": "foo",
+              "start": {
+                "line": 3,
+                "column": 10
+              },
+              "end": {
+                "line": 3,
+                "column": 13
+              }
+            },
+            "right": {
+              "kind": 39,
+              "name": "bar",
+              "start": {
+                "line": 3,
+                "column": 17
+              },
+              "end": {
+                "line": 3,
+                "column": 20
+              }
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 20
+          }
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 20
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 20
+  }
+}

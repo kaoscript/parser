@@ -1,9 +1,9 @@
 {
-  "kind": 54,
+  "kind": 55,
   "attributes": [],
   "body": [
     {
-      "kind": 87,
+      "kind": 89,
       "modifiers": {
         "kind": 2,
         "start": {
@@ -17,9 +17,9 @@
       },
       "declarations": [
         {
-          "kind": 88,
+          "kind": 90,
           "name": {
-            "kind": 38,
+            "kind": 39,
             "name": "a",
             "start": {
               "line": 1,
@@ -31,7 +31,7 @@
             }
           },
           "init": {
-            "kind": 55,
+            "kind": 56,
             "value": 4,
             "start": {
               "line": 1,
@@ -63,7 +63,7 @@
       "attributes": []
     },
     {
-      "kind": 87,
+      "kind": 89,
       "modifiers": {
         "kind": 2,
         "start": {
@@ -77,9 +77,9 @@
       },
       "declarations": [
         {
-          "kind": 88,
+          "kind": 90,
           "name": {
-            "kind": 38,
+            "kind": 39,
             "name": "b",
             "start": {
               "line": 2,
@@ -91,7 +91,7 @@
             }
           },
           "init": {
-            "kind": 55,
+            "kind": 56,
             "value": 5,
             "start": {
               "line": 2,
@@ -128,9 +128,9 @@
         "kind": 3
       },
       "callee": {
-        "kind": 48,
+        "kind": 49,
         "object": {
-          "kind": 38,
+          "kind": 39,
           "name": "console",
           "start": {
             "line": 4,
@@ -142,7 +142,7 @@
           }
         },
         "property": {
-          "kind": 38,
+          "kind": 39,
           "name": "log",
           "start": {
             "line": 4,
@@ -187,7 +187,7 @@
             "column": 16
           },
           "left": {
-            "kind": 55,
+            "kind": 56,
             "value": 4,
             "start": {
               "line": 4,
@@ -199,7 +199,7 @@
             }
           },
           "right": {
-            "kind": 55,
+            "kind": 56,
             "value": 5,
             "start": {
               "line": 4,
@@ -212,6 +212,7 @@
           }
         }
       ],
+      "nullable": false,
       "start": {
         "line": 4,
         "column": 1

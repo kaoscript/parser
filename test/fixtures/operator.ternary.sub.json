@@ -1,0 +1,316 @@
+{
+  "kind": 55,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 89,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 90,
+          "name": {
+            "kind": 39,
+            "name": "text",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 9
+            }
+          },
+          "init": {
+            "kind": 78,
+            "condition": {
+              "kind": 9,
+              "operator": {
+                "kind": 1,
+                "start": {
+                  "line": 1,
+                  "column": 16
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 16
+              },
+              "end": {
+                "line": 1,
+                "column": 19
+              },
+              "left": {
+                "kind": 39,
+                "name": "foo",
+                "start": {
+                  "line": 1,
+                  "column": 12
+                },
+                "end": {
+                  "line": 1,
+                  "column": 15
+                }
+              },
+              "right": {
+                "kind": 39,
+                "name": "bar",
+                "start": {
+                  "line": 1,
+                  "column": 19
+                },
+                "end": {
+                  "line": 1,
+                  "column": 22
+                }
+              }
+            },
+            "then": {
+              "kind": 78,
+              "condition": {
+                "kind": 9,
+                "operator": {
+                  "kind": 19,
+                  "start": {
+                    "line": 1,
+                    "column": 29
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 32
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 29
+                },
+                "end": {
+                  "line": 1,
+                  "column": 32
+                },
+                "left": {
+                  "kind": 39,
+                  "name": "qux",
+                  "start": {
+                    "line": 1,
+                    "column": 25
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 28
+                  }
+                },
+                "right": {
+                  "kind": 39,
+                  "name": "corge",
+                  "start": {
+                    "line": 1,
+                    "column": 32
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 37
+                  }
+                }
+              },
+              "then": {
+                "kind": 48,
+                "value": "a",
+                "start": {
+                  "line": 1,
+                  "column": 40
+                },
+                "end": {
+                  "line": 1,
+                  "column": 43
+                }
+              },
+              "else": {
+                "kind": 48,
+                "value": "b",
+                "start": {
+                  "line": 1,
+                  "column": 46
+                },
+                "end": {
+                  "line": 1,
+                  "column": 49
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 25
+              },
+              "end": {
+                "line": 1,
+                "column": 49
+              }
+            },
+            "else": {
+              "kind": 78,
+              "condition": {
+                "kind": 9,
+                "operator": {
+                  "kind": 2,
+                  "start": {
+                    "line": 1,
+                    "column": 59
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 60
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 59
+                },
+                "end": {
+                  "line": 1,
+                  "column": 60
+                },
+                "left": {
+                  "kind": 39,
+                  "name": "grault",
+                  "start": {
+                    "line": 1,
+                    "column": 52
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 58
+                  }
+                },
+                "right": {
+                  "kind": 39,
+                  "name": "garply",
+                  "start": {
+                    "line": 1,
+                    "column": 61
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 67
+                  }
+                }
+              },
+              "then": {
+                "kind": 48,
+                "value": "c",
+                "start": {
+                  "line": 1,
+                  "column": 70
+                },
+                "end": {
+                  "line": 1,
+                  "column": 73
+                }
+              },
+              "else": {
+                "kind": 78,
+                "condition": {
+                  "kind": 39,
+                  "name": "waldo",
+                  "start": {
+                    "line": 1,
+                    "column": 76
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 81
+                  }
+                },
+                "then": {
+                  "kind": 48,
+                  "value": "d",
+                  "start": {
+                    "line": 1,
+                    "column": 84
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 87
+                  }
+                },
+                "else": {
+                  "kind": 48,
+                  "value": "e",
+                  "start": {
+                    "line": 1,
+                    "column": 90
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 93
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 76
+                },
+                "end": {
+                  "line": 1,
+                  "column": 93
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 52
+              },
+              "end": {
+                "line": 1,
+                "column": 93
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 93
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 93
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 93
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 1,
+    "column": 93
+  }
+}

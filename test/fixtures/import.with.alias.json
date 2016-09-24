@@ -1,9 +1,9 @@
 {
-  "kind": 54,
+  "kind": 55,
   "attributes": [],
   "body": [
     {
-      "kind": 87,
+      "kind": 89,
       "modifiers": {
         "kind": 2,
         "start": {
@@ -17,9 +17,9 @@
       },
       "declarations": [
         {
-          "kind": 88,
+          "kind": 90,
           "name": {
-            "kind": 38,
+            "kind": 39,
             "name": "foo",
             "start": {
               "line": 1,
@@ -31,7 +31,7 @@
             }
           },
           "init": {
-            "kind": 55,
+            "kind": 56,
             "value": 1,
             "start": {
               "line": 1,
@@ -63,7 +63,7 @@
       "attributes": []
     },
     {
-      "kind": 87,
+      "kind": 89,
       "modifiers": {
         "kind": 2,
         "start": {
@@ -77,9 +77,9 @@
       },
       "declarations": [
         {
-          "kind": 88,
+          "kind": 90,
           "name": {
-            "kind": 38,
+            "kind": 39,
             "name": "bar",
             "start": {
               "line": 2,
@@ -91,7 +91,7 @@
             }
           },
           "init": {
-            "kind": 55,
+            "kind": 56,
             "value": 2,
             "start": {
               "line": 2,
@@ -123,14 +123,14 @@
       "attributes": []
     },
     {
-      "kind": 42,
+      "kind": 43,
       "declarations": [
         {
-          "kind": 43,
+          "kind": 44,
           "module": "module1",
           "specifiers": [
             {
-              "kind": 46,
+              "kind": 47,
               "start": {
                 "line": 4,
                 "column": 8
@@ -143,9 +143,9 @@
           ],
           "references": [
             {
-              "kind": 44,
+              "kind": 45,
               "alias": {
-                "kind": 38,
+                "kind": 39,
                 "name": "foo",
                 "start": {
                   "line": 4,
@@ -157,7 +157,7 @@
                 }
               },
               "foreign": {
-                "kind": 38,
+                "kind": 39,
                 "name": "foo1",
                 "start": {
                   "line": 4,
@@ -178,9 +178,9 @@
               }
             },
             {
-              "kind": 44,
+              "kind": 45,
               "alias": {
-                "kind": 38,
+                "kind": 39,
                 "name": "bar",
                 "start": {
                   "line": 4,
@@ -192,7 +192,7 @@
                 }
               },
               "foreign": {
-                "kind": 38,
+                "kind": 39,
                 "name": "foo2",
                 "start": {
                   "line": 4,

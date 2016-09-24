@@ -12,12 +12,15 @@ Documentation available at [kaoscript](https://github.com/kaoscript/kaoscript).
 Changelog
 ---------
 
-### 0.1.1
+### 0.2.0
+
+- fix conflict between ternary operator and postfix existential operator
+- add null coalescing operators
+- add `for let`, `extern|require`, `require|extern` statements
+
+### 0.1.x
 
 - postfix operators
-
-### 0.1.0
-
 - initial release
 
 License

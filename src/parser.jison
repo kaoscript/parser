@@ -1,6 +1,6 @@
 /**
  * parser.jison
- * Version 0.1.1
+ * Version 0.2.0
  * September 14th, 2016
  *
  * Copyright (c) 2016 Baptiste Augrain
@@ -23,6 +23,10 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 %%
 
 <regexp>{RegularExpressionLiteral}				this.popState();return 'REGEXP_LITERAL'
+
+\s+\?\s+										return 'SPACED_?'
+if\s+											return 'IF'
+
 [^\r\n\S]+										/* skip whitespace */
 \/\/[^\r\n]*									/* skip whitespace */
 '/*'											this.begin('mlcomment')
@@ -50,6 +54,7 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 'else'											return 'ELSE'
 'enum'											return 'ENUM'
 'export'										return 'EXPORT'
+'extern|require'								return 'EXTERN|REQUIRE'
 'extern'										return 'EXTERN'
 'extends'										return 'EXTENDS'
 'finally'										return 'FINALLY'
@@ -57,7 +62,6 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 'for'											return 'FOR'
 'func'											return 'FUNC'
 'from'											return 'FROM'
-'if'											return 'IF'
 'impl'											return 'IMPL'
 'import'										return 'IMPORT'
 'in'											return 'IN'
@@ -69,6 +73,7 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 'private'										return 'PRIVATE'
 'protected'										return 'PROTECTED'
 'public'										return 'PUBLIC'
+'require|extern'								return 'REQUIRE|EXTERN'
 'require'										return 'REQUIRE'
 'return'										return 'RETURN'
 'static'										return 'STATIC'
@@ -98,6 +103,8 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 '>='											return '>='
 '<='											return '<='
 '!='											return '!='
+'??='											return '??='
+'?='											return '?='
 '=='											return '=='
 '+='											return '+='
 '&='											return '&='
@@ -106,7 +113,6 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 '>>='											return '>>='
 '^='											return '^='
 '/='											return '/='
-'?='											return '?='
 '%='											return '%='
 '*='											return '*='
 '-='											return '-='
@@ -507,6 +513,16 @@ AssignmentOperator // {{{
 				}, @1)
 			}, @1);
 		}
+	| '??='
+		{
+			$$ = location({
+				kind: Kind.BinaryOperator,
+				operator: location({
+					kind: BinaryOperator.Assignment,
+					assignment: AssignmentOperator.NullCoalescing
+				}, @1)
+			}, @1);
+		}
 	;
 // }}}
 
@@ -702,7 +718,7 @@ BinaryOperator // {{{
 			$$ = location({
 				kind: Kind.BinaryOperator,
 				operator: location({
-					kind: BinaryOperator.Existential
+					kind: BinaryOperator.NullCoalescing
 				}, @1)
 			}, @1);
 		}
@@ -1192,6 +1208,12 @@ DestructuringObjectItem // {{{
 			}, @1, @3);
 		}
 	| DestructuringObjectItemAlias
+		{
+			$$ = location({
+				kind: Kind.BindingElement,
+				name: $1
+			}, @1);
+		}
 	| VariableIdentifier
 		{
 			$$ = location({
@@ -1205,19 +1227,10 @@ DestructuringObjectItem // {{{
 DestructuringObjectItemAlias // {{{
 	: '[' Identifier ']'
 		{
-			$$ = location({
-				kind: Kind.BindingElement,
-				name: $2,
-				computed: true
-			}, @1, @3);
+			$2.computed = true;
+			$$ = location($2, @1, @3);
 		}
 	| Identifier
-		{
-			$$ = location({
-				kind: Kind.BindingElement,
-				name: $1
-			}, @1);
-		}
 	;
 // }}}
 
@@ -1233,7 +1246,7 @@ ElseStatement // {{{
 // }}}
 
 ElseIfStatements // {{{
-	: ElseIfStatements NL_EOF_1M 'ELSE' 'IF' ExpressionNAF Block
+	: ElseIfStatements NL_EOF_1M 'ELSE' 'IF' Expression_NoAnonymousFunction Block
 		{
 			$1.push(location({
 				kind: Kind.ElseIfStatement,
@@ -1243,7 +1256,7 @@ ElseIfStatements // {{{
 			
 			$$ = $1;
 		}
-	| 'ELSE' 'IF' ExpressionNAF Block
+	| 'ELSE' 'IF' Expression_NoAnonymousFunction Block
 		{
 			$$ = [location({
 				kind: Kind.ElseIfStatement,
@@ -1668,6 +1681,29 @@ ExternClassField // {{{
 	;
 // }}}
 
+ExternFunction // {{{
+	: Identifier '(' FunctionParameterList ')' FunctionModifiers FunctionReturns
+		{
+			$$ = location({
+				kind: Kind.FunctionDeclaration,
+				modifiers: $5,
+				name: $1,
+				parameters: $3,
+				type: $6
+			}, @1, @6);
+		}
+	| Identifier '(' FunctionParameterList ')' FunctionModifiers
+		{
+			$$ = location({
+				kind: Kind.FunctionDeclaration,
+				modifiers: $4,
+				name: $1,
+				parameters: $3
+			}, @1, @5);
+		}
+	;
+// }}}
+
 ExternMethod // {{{
 	: ExternMethodHeader FunctionModifiers FunctionReturns
 		{
@@ -1696,25 +1732,20 @@ ExternMethodHeader // {{{
 	;
 // }}}
 
-ExternFunction // {{{
-	: Identifier '(' FunctionParameterList ')' FunctionModifiers FunctionReturns
+ExternOrRequireDeclaration // {{{
+	: 'EXTERN|REQUIRE' ExternDeclaratorLL
 		{
 			$$ = location({
-				kind: Kind.FunctionDeclaration,
-				modifiers: $5,
-				name: $1,
-				parameters: $3,
-				type: $6
-			}, @1, @6);
+				kind: Kind.ExternOrRequireDeclaration,
+				declarations: $2
+			}, @1, @2);
 		}
-	| Identifier '(' FunctionParameterList ')' FunctionModifiers
+	| 'EXTERN|REQUIRE' ExternDeclaratorLB
 		{
 			$$ = location({
-				kind: Kind.FunctionDeclaration,
-				modifiers: $4,
-				name: $1,
-				parameters: $3
-			}, @1, @5);
+				kind: Kind.ExternOrRequireDeclaration,
+				declarations: $2
+			}, @1, @2);
 		}
 	;
 // }}}
@@ -1741,16 +1772,19 @@ ExternVariable // {{{
 Expression // {{{
 	: FunctionExpression
 	| SwitchExpression
-	| ExpressionFlow '?' Expression ':' Expression
+	| ExpressionFlowSX 'SPACED_?' Expression ':' Expression
 		{
 			$$ = location({
 				kind: Kind.TernaryConditionalExpression,
-				condition: $1,
+				condition: reorderExpression($1),
 				then: $3,
 				else: $5
 			}, @1, @5);
 		}
-	| ExpressionFlow
+	| ExpressionFlowSX
+		{
+			$$ = reorderExpression($1);
+		}
 	;
 // }}}
 
@@ -1782,10 +1816,10 @@ ExpressionFlowSX // {{{
 	;
 // }}}
 
-ExpressionNAF // {{{
+Expression_NoAnonymousFunction // {{{
 	: FunctionExpression
 	| SwitchExpression
-	| ExpressionFlowSXNAF '?' Expression ':' Expression
+	| ExpressionFlowSX_NoAnonymousFunction 'SPACED_?' Expression ':' Expression
 		{
 			$$ = location({
 				kind: Kind.TernaryConditionalExpression,
@@ -1794,37 +1828,37 @@ ExpressionNAF // {{{
 				else: $5
 			}, @1, @5);
 		}
-	| ExpressionFlowSXNAF
+	| ExpressionFlowSX_NoAnonymousFunction
 		{
 			$$ = reorderExpression($1);
 		}
 	;
 // }}}
 
-ExpressionFlowSXNAF // {{{
-	: ExpressionFlowSXNAF BinaryOperator OperandOrTypeNAF
+ExpressionFlowSX_NoAnonymousFunction // {{{
+	: ExpressionFlowSX_NoAnonymousFunction BinaryOperator OperandOrType_NoAnonymousFunction
 		{
 			$1.push($2);
 			$1.push($3);
 			$$ = $1;
 		}
-	| ExpressionFlowSXNAF AssignmentOperator OperandOrTypeNAF
+	| ExpressionFlowSX_NoAnonymousFunction AssignmentOperator OperandOrType_NoAnonymousFunction
 		{
 			$1.push($2);
 			$1.push($3);
 			$$ = $1;
 		}
-	| OperandOrTypeNAF
+	| OperandOrType_NoAnonymousFunction
 		{
 			$$ = [$1]
 		}
 	;
 // }}}
 
-ExpressionNO // {{{
+Expression_NoObject // {{{
 	: FunctionExpression
 	| SwitchExpression
-	| ExpressionFlowSXNO '?' Expression ':' Expression
+	| ExpressionFlowSX_NoObject 'SPACED_?' Expression ':' Expression
 		{
 			$$ = location({
 				kind: Kind.TernaryConditionalExpression,
@@ -1833,27 +1867,27 @@ ExpressionNO // {{{
 				else: $5
 			}, @1, @5);
 		}
-	| ExpressionFlowSXNO
+	| ExpressionFlowSX_NoObject
 		{
 			$$ = reorderExpression($1);
 		}
 	;
 // }}}
 
-ExpressionFlowSXNO // {{{
-	: ExpressionFlowSXNO BinaryOperator OperandOrTypeNO
+ExpressionFlowSX_NoObject // {{{
+	: ExpressionFlowSX_NoObject BinaryOperator OperandOrType_NoObject
 		{
 			$1.push($2);
 			$1.push($3);
 			$$ = $1;
 		}
-	| ExpressionFlowSXNO AssignmentOperator OperandOrTypeNO
+	| ExpressionFlowSX_NoObject AssignmentOperator OperandOrType_NoObject
 		{
 			$1.push($2);
 			$1.push($3);
 			$$ = $1;
 		}
-	| OperandOrTypeNO
+	| OperandOrType_NoObject
 		{
 			$$ = [$1]
 		}
@@ -1926,6 +1960,7 @@ ForHeader // {{{
 		{
 			$$ = location($3, @1, @5);
 			
+			$$.declaration = $1.declaration;
 			$$.variable = $1.variable;
 			
 			if($1.index) {
@@ -1949,17 +1984,34 @@ ForHeader // {{{
 // }}}
 
 ForHeaderBegin // {{{
-	: 'FOR' Identifier ',' Identifier
+	: 'FOR' 'LET' Identifier ',' Identifier
+		{
+			$$ = {
+				variable: $3,
+				index: $5,
+				declaration: true
+			};
+		}
+	| 'FOR' 'LET' Identifier
+		{
+			$$ = {
+				variable: $3,
+				declaration: true
+			};
+		}
+	| 'FOR' Identifier ',' Identifier
 		{
 			$$ = {
 				variable: $2,
-				index: $4
+				index: $4,
+				declaration: false
 			};
 		}
 	| 'FOR' Identifier
 		{
 			$$ = {
-				variable: $2
+				variable: $2,
+				declaration: false
 			};
 		}
 	;
@@ -2225,9 +2277,9 @@ FunctionModifiers // {{{
 // }}}
 
 FunctionParameter // {{{
-	: FunctionParameterModifierList FunctionParameterFooter
+	: FunctionParameterModifier FunctionParameterFooter
 		{
-			$2.modifiers = $1;
+			$2.modifiers = [$1];
 			
 			$$ = location($2, @1, @2);
 		}
@@ -2370,20 +2422,6 @@ FunctionParameterListSX
 	;
 // }}}
 
-FunctionParameterModifierList // {{{
-	: FunctionParameterModifierList FunctionParameterModifier
-		{
-			$1.push($2);
-			
-			$$ = $1;
-		}
-	| FunctionParameterModifier
-		{
-			$$ = [$1];
-		}
-	;
-// }}}
-
 FunctionParameterModifier // {{{
 	: '...' '{' Number ',' Number '}'
 		{
@@ -2452,6 +2490,13 @@ Identifier // {{{
 			}, @1);
 		}
 	| 'BY'
+		{
+			$$ = location({
+				kind: Kind.Identifier,
+				name: $1
+			}, @1);
+		}
+	| 'CATCH'
 		{
 			$$ = location({
 				kind: Kind.Identifier,
@@ -2609,7 +2654,7 @@ Identifier // {{{
 // }}}
 
 IfStatement // {{{
-	: 'IF' ExpressionNAF Block
+	: 'IF' Expression_NoAnonymousFunction Block
 		{
 			$$ = location({
 				kind: Kind.IfStatement,
@@ -2939,9 +2984,9 @@ MethodHeader // {{{
 // }}}
 
 MethodParameter // {{{
-	: MethodParameterModifierList MethodParameterFooter
+	: MethodParameterModifier MethodParameterFooter
 		{
-			$2.modifiers = $1;
+			$2.modifiers = [$1];
 			
 			$$ = location($2, @1, @2);
 		}
@@ -3067,20 +3112,6 @@ MethodParameterListSX
 	;
 // }}}
 
-MethodParameterModifierList // {{{
-	: MethodParameterModifierList MethodParameterModifier
-		{
-			$1.push($2);
-			
-			$$ = $1;
-		}
-	| MethodParameterModifier
-		{
-			$$ = [$1];
-		}
-	;
-// }}}
-
 MethodParameterModifier // {{{
 	: '...' '{' Number ',' Number '}'
 		{
@@ -3181,6 +3212,8 @@ ModuleBodySX // {{{
 	| ExportDeclaration NL_EOF_1
 	| ExternDeclaration NL_EOF_1
 	| RequireDeclaration NL_EOF_1
+	| ExternOrRequireDeclaration NL_EOF_1
+	| RequireOrExternDeclaration NL_EOF_1
 	| Statement
 	;
 // }}}
@@ -3422,6 +3455,28 @@ OperandSX // {{{
 				nullable: false
 			}, @1, @4);
 		}
+	| OperandSX '?' '(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CallExpression,
+				scope: {
+					kind: ScopeModifier.This
+				},
+				callee: $1,
+				arguments: $4,
+				nullable: true
+			}, @1, @5);
+		}
+	| OperandSX '?'
+		{
+			$$ = location({
+				kind: Kind.UnaryExpression,
+				operator: location({
+					kind: UnaryOperator.Existential
+				}, @2),
+				argument: $1
+			}, @1, @2);
+		}
 	| OperandSX '^^(' Expression0CNList ')'
 		{
 			$$ = location({
@@ -3464,7 +3519,8 @@ OperandSX // {{{
 					kind: ScopeModifier.Null
 				},
 				callee: $1,
-				arguments: $3
+				arguments: $3,
+				nullable: false
 			}, @1, @4);
 		}
 	| OperandSX '*$(' Expression0CNList ')'
@@ -3476,7 +3532,8 @@ OperandSX // {{{
 					value: $3.shift()
 				},
 				callee: $1,
-				arguments: $3
+				arguments: $3,
+				nullable: false
 			}, @1, @4);
 		}
 	| OperandSX '(' Expression0CNList ')'
@@ -3487,7 +3544,8 @@ OperandSX // {{{
 					kind: ScopeModifier.This
 				},
 				callee: $1,
-				arguments: $3
+				arguments: $3,
+				nullable: false
 			}, @1, @4);
 		}
 	| OperandSX '::' Identifier
@@ -3528,8 +3586,8 @@ OperandOrType // {{{
 	;
 // }}}
 
-OperandNAF // {{{
-	: PrefixUnaryOperator OperandNAF
+Operand_NoAnonymousFunction // {{{
+	: PrefixUnaryOperator Operand_NoAnonymousFunction
 		{
 			if($1.kind === UnaryOperator.Negative && $2.kind === Kind.NumericExpression) {
 				$2.value = -$2.value;
@@ -3543,7 +3601,7 @@ OperandNAF // {{{
 				}, @1, @2);
 			}
 		}
-	| OperandNAF PostfixUnaryOperator
+	| Operand_NoAnonymousFunction PostfixUnaryOperator
 		{
 			$$ = location({
 				kind: Kind.UnaryExpression,
@@ -3551,12 +3609,12 @@ OperandNAF // {{{
 				argument: $1
 			}, @1, @2);
 		}
-	| OperandSXNAF
+	| OperandSX_NoAnonymousFunction
 	;
 // }}}
 
-OperandSXNAF // {{{
-	: OperandSXNAF '?.' Identifier
+OperandSX_NoAnonymousFunction // {{{
+	: OperandSX_NoAnonymousFunction '?.' Identifier
 		{
 			$$ = location({
 				kind: Kind.MemberExpression,
@@ -3566,7 +3624,7 @@ OperandSXNAF // {{{
 				nullable: true
 			}, @1, @3);
 		}
-	| OperandSXNAF '?[' Expression ']'
+	| OperandSX_NoAnonymousFunction '?[' Expression ']'
 		{
 			$$ = location({
 				kind: Kind.MemberExpression,
@@ -3576,7 +3634,7 @@ OperandSXNAF // {{{
 				nullable: true
 			}, @1, @4);
 		}
-	| OperandSXNAF '.' Identifier
+	| OperandSX_NoAnonymousFunction '.' Identifier
 		{
 			$$ = location({
 				kind: Kind.MemberExpression,
@@ -3586,7 +3644,7 @@ OperandSXNAF // {{{
 				nullable: false
 			}, @1, @3);
 		}
-	| OperandSXNAF '[' Expression ']'
+	| OperandSX_NoAnonymousFunction '[' Expression ']'
 		{
 			$$ = location({
 				kind: Kind.MemberExpression,
@@ -3596,7 +3654,29 @@ OperandSXNAF // {{{
 				nullable: false
 			}, @1, @4);
 		}
-	| OperandSXNAF '^^(' Expression0CNList ')'
+	| OperandSX_NoAnonymousFunction '?' '(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CallExpression,
+				scope: {
+					kind: ScopeModifier.This
+				},
+				callee: $1,
+				arguments: $4,
+				nullable: true
+			}, @1, @5);
+		}
+	| OperandSX_NoAnonymousFunction '?'
+		{
+			$$ = location({
+				kind: Kind.UnaryExpression,
+				operator: location({
+					kind: UnaryOperator.Existential
+				}, @2),
+				argument: $1
+			}, @1, @2);
+		}
+	| OperandSX_NoAnonymousFunction '^^(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CurryExpression,
@@ -3607,7 +3687,7 @@ OperandSXNAF // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNAF '^$(' Expression0CNList ')'
+	| OperandSX_NoAnonymousFunction '^$(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CurryExpression,
@@ -3619,7 +3699,7 @@ OperandSXNAF // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNAF '^@(' Expression0CNList ')'
+	| OperandSX_NoAnonymousFunction '^@(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CurryExpression,
@@ -3630,7 +3710,7 @@ OperandSXNAF // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNAF '**(' Expression0CNList ')'
+	| OperandSX_NoAnonymousFunction '**(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CallExpression,
@@ -3641,7 +3721,7 @@ OperandSXNAF // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNAF '*$(' Expression0CNList ')'
+	| OperandSX_NoAnonymousFunction '*$(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CallExpression,
@@ -3653,7 +3733,7 @@ OperandSXNAF // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNAF '(' Expression0CNList ')'
+	| OperandSX_NoAnonymousFunction '(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CallExpression,
@@ -3664,7 +3744,7 @@ OperandSXNAF // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNAF '::' Identifier
+	| OperandSX_NoAnonymousFunction '::' Identifier
 		{
 			$$ = location({
 				kind: Kind.EnumExpression,
@@ -3672,24 +3752,24 @@ OperandSXNAF // {{{
 				member: $3
 			}, @1, @3);
 		}
-	| OperandElementNAF
+	| OperandElement_NoAnonymousFunction
 	;
 // }}}
 
-OperandElementNAF // {{{
+OperandElement_NoAnonymousFunction // {{{
 	: Array
 	| Identifier
 	| Number
 	| Object
-	| ParenthesisNAF
+	| Parenthesis_NoAnonymousFunction
 	| RegularExpression
 	| String
 	| TemplateExpression
 	;
 // }}}
 
-OperandOrTypeNAF // {{{
-	: OperandNAF TypeOperator TypeEntity
+OperandOrType_NoAnonymousFunction // {{{
+	: Operand_NoAnonymousFunction TypeOperator TypeEntity
 		{
 			$$ = location({
 				kind: Kind.BinaryOperator,
@@ -3698,12 +3778,12 @@ OperandOrTypeNAF // {{{
 				operator: $2
 			}, @1, @3);
 		}
-	| OperandNAF
+	| Operand_NoAnonymousFunction
 	;
 // }}}
 
-OperandNO // {{{
-	: PrefixUnaryOperator OperandNO
+Operand_NoObject // {{{
+	: PrefixUnaryOperator Operand_NoObject
 		{
 			if($1.kind === UnaryOperator.Negative && $2.kind === Kind.NumericExpression) {
 				$2.value = -$2.value;
@@ -3717,7 +3797,7 @@ OperandNO // {{{
 				}, @1, @2);
 			}
 		}
-	| OperandNO PostfixUnaryOperator
+	| Operand_NoObject PostfixUnaryOperator
 		{
 			$$ = location({
 				kind: Kind.UnaryExpression,
@@ -3725,12 +3805,12 @@ OperandNO // {{{
 				argument: $1
 			}, @1, @2);
 		}
-	| OperandSXNO
+	| OperandSX_NoObject
 	;
 // }}}
 
-OperandSXNO // {{{
-	: OperandSXNO '?.' Identifier
+OperandSX_NoObject // {{{
+	: OperandSX_NoObject '?.' Identifier
 		{
 			$$ = location({
 				kind: Kind.MemberExpression,
@@ -3740,7 +3820,7 @@ OperandSXNO // {{{
 				nullable: true
 			}, @1, @3);
 		}
-	| OperandSXNO '?[' Expression ']'
+	| OperandSX_NoObject '?[' Expression ']'
 		{
 			$$ = location({
 				kind: Kind.MemberExpression,
@@ -3750,7 +3830,7 @@ OperandSXNO // {{{
 				nullable: true
 			}, @1, @4);
 		}
-	| OperandSXNO '.' Identifier
+	| OperandSX_NoObject '.' Identifier
 		{
 			$$ = location({
 				kind: Kind.MemberExpression,
@@ -3760,7 +3840,29 @@ OperandSXNO // {{{
 				nullable: false
 			}, @1, @3);
 		}
-	| OperandSXNO '[' Expression ']'
+	| OperandSX_NoObject '?' '(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CallExpression,
+				scope: {
+					kind: ScopeModifier.This
+				},
+				callee: $1,
+				arguments: $4,
+				nullable: true
+			}, @1, @5);
+		}
+	| OperandSX_NoObject '?'
+		{
+			$$ = location({
+				kind: Kind.UnaryExpression,
+				operator: location({
+					kind: UnaryOperator.Existential
+				}, @2),
+				argument: $1
+			}, @1, @2);
+		}
+	| OperandSX_NoObject '[' Expression ']'
 		{
 			$$ = location({
 				kind: Kind.MemberExpression,
@@ -3770,7 +3872,7 @@ OperandSXNO // {{{
 				nullable: false
 			}, @1, @4);
 		}
-	| OperandSXNO '^^(' Expression0CNList ')'
+	| OperandSX_NoObject '^^(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CurryExpression,
@@ -3781,7 +3883,7 @@ OperandSXNO // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNO '^$(' Expression0CNList ')'
+	| OperandSX_NoObject '^$(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CurryExpression,
@@ -3793,7 +3895,7 @@ OperandSXNO // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNO '^@(' Expression0CNList ')'
+	| OperandSX_NoObject '^@(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CurryExpression,
@@ -3804,7 +3906,7 @@ OperandSXNO // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNO '**(' Expression0CNList ')'
+	| OperandSX_NoObject '**(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CallExpression,
@@ -3815,7 +3917,7 @@ OperandSXNO // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNO '*$(' Expression0CNList ')'
+	| OperandSX_NoObject '*$(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CallExpression,
@@ -3827,7 +3929,7 @@ OperandSXNO // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNO '(' Expression0CNList ')'
+	| OperandSX_NoObject '(' Expression0CNList ')'
 		{
 			$$ = location({
 				kind: Kind.CallExpression,
@@ -3838,7 +3940,7 @@ OperandSXNO // {{{
 				arguments: $3
 			}, @1, @4);
 		}
-	| OperandSXNO '::' Identifier
+	| OperandSX_NoObject '::' Identifier
 		{
 			$$ = location({
 				kind: Kind.EnumExpression,
@@ -3846,11 +3948,11 @@ OperandSXNO // {{{
 				member: $3
 			}, @1, @3);
 		}
-	| OperandElementNO
+	| OperandElement_NoObject
 	;
 // }}}
 
-OperandElementNO // {{{
+OperandElement_NoObject // {{{
 	: Array
 	| Identifier
 	| Number
@@ -3861,8 +3963,8 @@ OperandElementNO // {{{
 	;
 // }}}
 
-OperandOrTypeNO // {{{
-	: OperandNO TypeOperator TypeEntity
+OperandOrType_NoObject // {{{
+	: Operand_NoObject TypeOperator TypeEntity
 		{
 			$$ = location({
 				kind: Kind.BinaryOperator,
@@ -3871,7 +3973,7 @@ OperandOrTypeNO // {{{
 				operator: $2
 			}, @1, @3);
 		}
-	| OperandNO
+	| Operand_NoObject
 	;
 // }}}
 
@@ -3923,7 +4025,7 @@ Parenthesis // {{{
 		{
 			$$ = $2;
 		}
-	| '(' Identifier '?' Expression ':' Expression ')'
+	| '(' Identifier 'SPACED_?' Expression ':' Expression ')'
 		{
 			$$ = location({
 				kind: Kind.TernaryConditionalExpression,
@@ -3935,7 +4037,7 @@ Parenthesis // {{{
 	;
 // }}}
 
-ParenthesisNAF // {{{
+Parenthesis_NoAnonymousFunction // {{{
 	: '(' Expression ')'
 		{
 			$$ = $2;
@@ -3955,6 +4057,15 @@ ParenthesisNAF // {{{
 	| '(' Identifier ')'
 		{
 			$$ = $2;
+		}
+	| '(' Identifier 'SPACED_?' Expression ':' Expression ')'
+		{
+			$$ = location({
+				kind: Kind.TernaryConditionalExpression,
+				condition: $2,
+				then: $4,
+				else: $6
+			}, @2, @6);
 		}
 	;
 // }}}
@@ -4033,6 +4144,24 @@ RequireDeclaration // {{{
 		{
 			$$ = location({
 				kind: Kind.RequireDeclaration,
+				declarations: $2
+			}, @1, @2);
+		}
+	;
+// }}}
+
+RequireOrExternDeclaration // {{{
+	: 'REQUIRE|EXTERN' ExternDeclaratorLL
+		{
+			$$ = location({
+				kind: Kind.RequireOrExternDeclaration,
+				declarations: $2
+			}, @1, @2);
+		}
+	| 'REQUIRE|EXTERN' ExternDeclaratorLB
+		{
+			$$ = location({
+				kind: Kind.RequireOrExternDeclaration,
 				declarations: $2
 			}, @1, @2);
 		}
@@ -4500,7 +4629,7 @@ SwitchCaseExpression // {{{
 	: Block
 	| ReturnStatement
 	| ThrowStatement
-	| ExpressionNO
+	| Expression_NoObject
 	;
 // }}}
 
@@ -5499,7 +5628,6 @@ $polyadic[BinaryOperator.BitwiseRightShift] = false;
 $polyadic[BinaryOperator.BitwiseXor] = false;
 $polyadic[BinaryOperator.Division] = true;
 $polyadic[BinaryOperator.Equality] = true;
-$polyadic[BinaryOperator.Existential] = true;
 $polyadic[BinaryOperator.GreaterThan] = true;
 $polyadic[BinaryOperator.GreaterThanOrEqual] = true;
 $polyadic[BinaryOperator.Inequality] = false;
@@ -5507,6 +5635,7 @@ $polyadic[BinaryOperator.LessThan] = true;
 $polyadic[BinaryOperator.LessThanOrEqual] = true;
 $polyadic[BinaryOperator.Modulo] = true;
 $polyadic[BinaryOperator.Multiplication] = true;
+$polyadic[BinaryOperator.NullCoalescing] = true;
 $polyadic[BinaryOperator.Or] = true;
 $polyadic[BinaryOperator.Subtraction] = true;
 $polyadic[BinaryOperator.TypeCast] = false;
@@ -5523,7 +5652,6 @@ $precedence[BinaryOperator.BitwiseRightShift] = 12;
 $precedence[BinaryOperator.BitwiseXor] = 8;
 $precedence[BinaryOperator.Division] = 14;
 $precedence[BinaryOperator.Equality] = 10;
-$precedence[BinaryOperator.Existential] = 15;
 $precedence[BinaryOperator.GreaterThan] = 11;
 $precedence[BinaryOperator.GreaterThanOrEqual] = 11;
 $precedence[BinaryOperator.Inequality] = 10;
@@ -5531,6 +5659,7 @@ $precedence[BinaryOperator.LessThan] = 11;
 $precedence[BinaryOperator.LessThanOrEqual] = 11;
 $precedence[BinaryOperator.Modulo] = 14;
 $precedence[BinaryOperator.Multiplication] = 14;
+$precedence[BinaryOperator.NullCoalescing] = 15;
 $precedence[BinaryOperator.Or] = 5;
 $precedence[BinaryOperator.Subtraction] = 15;
 $precedence[BinaryOperator.TypeCast] = 11;

@@ -1,9 +1,9 @@
 {
-  "kind": 54,
+  "kind": 55,
   "attributes": [],
   "body": [
     {
-      "kind": 87,
+      "kind": 89,
       "modifiers": {
         "kind": 2,
         "start": {
@@ -17,9 +17,9 @@
       },
       "declarations": [
         {
-          "kind": 88,
+          "kind": 90,
           "name": {
-            "kind": 38,
+            "kind": 39,
             "name": "number",
             "start": {
               "line": 1,
@@ -31,7 +31,7 @@
             }
           },
           "init": {
-            "kind": 55,
+            "kind": 56,
             "value": 13,
             "start": {
               "line": 1,
@@ -63,9 +63,9 @@
       "attributes": []
     },
     {
-      "kind": 73,
+      "kind": 75,
       "expression": {
-        "kind": 38,
+        "kind": 39,
         "name": "number",
         "start": {
           "line": 3,
@@ -78,10 +78,10 @@
       },
       "clauses": [
         {
-          "kind": 66,
+          "kind": 68,
           "conditions": [
             {
-              "kind": 55,
+              "kind": 56,
               "value": 1,
               "start": {
                 "line": 4,
@@ -104,9 +104,9 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 48,
+                  "kind": 49,
                   "object": {
-                    "kind": 38,
+                    "kind": 39,
                     "name": "console",
                     "start": {
                       "line": 5,
@@ -118,7 +118,7 @@
                     }
                   },
                   "property": {
-                    "kind": 38,
+                    "kind": 39,
                     "name": "log",
                     "start": {
                       "line": 5,
@@ -142,7 +142,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 47,
+                    "kind": 48,
                     "value": "One!",
                     "start": {
                       "line": 5,
@@ -154,6 +154,7 @@
                     }
                   }
                 ],
+                "nullable": false,
                 "start": {
                   "line": 5,
                   "column": 3
@@ -184,10 +185,10 @@
           }
         },
         {
-          "kind": 66,
+          "kind": 68,
           "conditions": [
             {
-              "kind": 55,
+              "kind": 56,
               "value": 2,
               "start": {
                 "line": 7,
@@ -199,7 +200,7 @@
               }
             },
             {
-              "kind": 55,
+              "kind": 56,
               "value": 3,
               "start": {
                 "line": 7,
@@ -211,7 +212,7 @@
               }
             },
             {
-              "kind": 55,
+              "kind": 56,
               "value": 5,
               "start": {
                 "line": 7,
@@ -223,7 +224,7 @@
               }
             },
             {
-              "kind": 55,
+              "kind": 56,
               "value": 7,
               "start": {
                 "line": 7,
@@ -235,7 +236,7 @@
               }
             },
             {
-              "kind": 55,
+              "kind": 56,
               "value": 11,
               "start": {
                 "line": 7,
@@ -258,9 +259,9 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 48,
+                  "kind": 49,
                   "object": {
-                    "kind": 38,
+                    "kind": 39,
                     "name": "console",
                     "start": {
                       "line": 8,
@@ -272,7 +273,7 @@
                     }
                   },
                   "property": {
-                    "kind": 38,
+                    "kind": 39,
                     "name": "log",
                     "start": {
                       "line": 8,
@@ -296,7 +297,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 47,
+                    "kind": 48,
                     "value": "This is a prime",
                     "start": {
                       "line": 8,
@@ -308,6 +309,7 @@
                     }
                   }
                 ],
+                "nullable": false,
                 "start": {
                   "line": 8,
                   "column": 3
@@ -338,12 +340,12 @@
           }
         },
         {
-          "kind": 66,
+          "kind": 68,
           "conditions": [
             {
-              "kind": 70,
+              "kind": 72,
               "from": {
-                "kind": 55,
+                "kind": 56,
                 "value": 13,
                 "start": {
                   "line": 10,
@@ -355,7 +357,7 @@
                 }
               },
               "to": {
-                "kind": 55,
+                "kind": 56,
                 "value": 19,
                 "start": {
                   "line": 10,
@@ -387,9 +389,9 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 48,
+                  "kind": 49,
                   "object": {
-                    "kind": 38,
+                    "kind": 39,
                     "name": "console",
                     "start": {
                       "line": 11,
@@ -401,7 +403,7 @@
                     }
                   },
                   "property": {
-                    "kind": 38,
+                    "kind": 39,
                     "name": "log",
                     "start": {
                       "line": 11,
@@ -425,7 +427,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 47,
+                    "kind": 48,
                     "value": "A teen",
                     "start": {
                       "line": 11,
@@ -437,6 +439,7 @@
                     }
                   }
                 ],
+                "nullable": false,
                 "start": {
                   "line": 11,
                   "column": 3
@@ -467,7 +470,7 @@
           }
         },
         {
-          "kind": 66,
+          "kind": 68,
           "conditions": [],
           "bindings": [],
           "body": {
@@ -480,9 +483,9 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 48,
+                  "kind": 49,
                   "object": {
-                    "kind": 38,
+                    "kind": 39,
                     "name": "console",
                     "start": {
                       "line": 14,
@@ -494,7 +497,7 @@
                     }
                   },
                   "property": {
-                    "kind": 38,
+                    "kind": 39,
                     "name": "log",
                     "start": {
                       "line": 14,
@@ -518,7 +521,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 47,
+                    "kind": 48,
                     "value": "Ain't special",
                     "start": {
                       "line": 14,
@@ -530,6 +533,7 @@
                     }
                   }
                 ],
+                "nullable": false,
                 "start": {
                   "line": 14,
                   "column": 3
