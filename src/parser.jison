@@ -1,6 +1,6 @@
 /**
  * parser.jison
- * Version 0.2.0
+ * Version 0.2.1
  * September 14th, 2016
  *
  * Copyright (c) 2016 Baptiste Augrain
@@ -19,10 +19,11 @@ RegularExpressionChar				([^\n\r\\\/\[])|{RegularExpressionBackslashSequence}|{R
 RegularExpressionBody				{RegularExpressionFirstChar}{RegularExpressionChar}*
 RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 
-%x hcomment mlcomment regexp template
+%x hcomment import mlcomment regexp template
 %%
 
 <regexp>{RegularExpressionLiteral}				this.popState();return 'REGEXP_LITERAL'
+<import>[\@\.\/\w]+								this.popState();return 'IMPORT_LITERAL'
 
 \s+\?\s+										return 'SPACED_?'
 if\s+											return 'IF'
@@ -54,14 +55,14 @@ if\s+											return 'IF'
 'else'											return 'ELSE'
 'enum'											return 'ENUM'
 'export'										return 'EXPORT'
+'extends'										return 'EXTENDS'
 'extern|require'								return 'EXTERN|REQUIRE'
 'extern'										return 'EXTERN'
-'extends'										return 'EXTENDS'
 'finally'										return 'FINALLY'
 'final'											return 'FINAL'
 'for'											return 'FOR'
-'func'											return 'FUNC'
 'from'											return 'FROM'
+'func'											return 'FUNC'
 'impl'											return 'IMPL'
 'import'										return 'IMPORT'
 'in'											return 'IN'
@@ -85,10 +86,10 @@ if\s+											return 'IF'
 'type'											return 'TYPE'
 'unless'										return 'UNLESS'
 'until'											return 'UNTIL'
-'with'											return 'WITH'
 'where'											return 'WHERE'
 \s*'when'										return 'WHEN'
 'while'											return 'WHILE'
+'with'											return 'WITH'
 '#!['											return '#!['
 '#['											return '#['
 '?.'											return '?.'
@@ -2482,168 +2483,25 @@ Identifier // {{{
 				name: $1
 			}, @1);
 		}
-	| 'ASYNC'
+	| Keyword
 		{
 			$$ = location({
 				kind: Kind.Identifier,
 				name: $1
 			}, @1);
 		}
-	| 'BY'
+	;
+// }}}
+
+Identifier_NoWhereNoWith // {{{
+	: 'IDENTIFIER'
 		{
 			$$ = location({
 				kind: Kind.Identifier,
 				name: $1
 			}, @1);
 		}
-	| 'CATCH'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'CLASS'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'DESC'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'DO'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'ELSE'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'ENUM'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'EXPORT'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'EXTENDS'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'FINAL'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'FROM'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'FUNC'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'IMPORT'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'NEW'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'REQUIRE'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		} 
-	| 'SWITCH'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'THROW'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'TIL'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'TO'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'TYPE'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'UNTIL'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'WHEN'
-		{
-			$$ = location({
-				kind: Kind.Identifier,
-				name: $1
-			}, @1);
-		}
-	| 'WHILE'
+	| Keyword_NoWhereNoWith
 		{
 			$$ = location({
 				kind: Kind.Identifier,
@@ -2760,67 +2618,46 @@ ImportDeclarator // {{{
 // }}}
 
 ImportName // {{{
-	: ImportNameList
-	| 'STRING'
+	: 'STRING'
+	| ImportNameBegin 'IMPORT_LITERAL'
+		{
+			$$ = $1 + $2;
+		}
+	| Keyword
+	| 'IDENTIFIER'
+	| 'MODULE_NAME'
 	;
 // }}}
 
-ImportNameList // {{{
-	: ImportNameList 'ENUM'
+ImportNameBegin // {{{
+	: Keyword
 		{
-			$$ = $1 + $2;
+			yy.lexer.begin('import');
 		}
-	| ImportNameList 'EXPORT'
-		{
-			$$ = $1 + $2;
-		}
-	| ImportNameList 'FINAL'
-		{
-			$$ = $1 + $2;
-		}
-	| ImportNameList 'IDENTIFIER'
-		{
-			$$ = $1 + $2;
-		}
-	| ImportNameList 'IMPORT'
-		{
-			$$ = $1 + $2;
-		}
-	| ImportNameList 'MODULE_NAME'
-		{
-			$$ = $1 + $2;
-		}
-	| ImportNameList 'TYPE'
-		{
-			$$ = $1 + $2;
-		}
-	| ImportNameList '..'
-		{
-			$$ = $1 + $2;
-		}
-	| ImportNameList '.'
-		{
-			$$ = $1 + $2;
-		}
-	| ImportNameList '/'
-		{
-			$$ = $1 + $2;
-		}
-	| ImportNameList '@'
-		{
-			$$ = $1 + $2;
-		}
-	| 'ENUM'
-	| 'EXPORT'
-	| 'FINAL'
 	| 'IDENTIFIER'
-	| 'IMPORT'
+		{
+			yy.lexer.begin('import');
+		}
 	| 'MODULE_NAME'
-	| 'TYPE'
+		{
+			yy.lexer.begin('import');
+		}
 	| '..'
+		{
+			yy.lexer.begin('import');
+		}
 	| '.'
+		{
+			yy.lexer.begin('import');
+		}
 	| '/'
+		{
+			yy.lexer.begin('import');
+		}
 	| '@'
+		{
+			yy.lexer.begin('import');
+		}
 	;
 // }}}
 
@@ -2898,6 +2735,106 @@ ImportReference // {{{
 				alias: $1
 			}, @1);
 		}
+	;
+// }}}
+
+Keyword // {{{
+	: 'AS'
+	| 'ASYNC'
+	| 'AWAIT'
+	| 'BREAK'
+	| 'BY'
+	| 'CATCH'
+	| 'CLASS'
+	| 'CONST'
+	| 'CONTINUE'
+	| 'DESC'
+	| 'DO'
+	| 'ELSE'
+	| 'ENUM'
+	| 'EXPORT'
+	| 'EXTENDS'
+	| 'EXTERN'
+	| 'FINAL'
+	| 'FINALLY'
+	| 'FOR'
+	| 'FROM'
+	| 'FUNC'
+	| 'IMPL'
+	| 'IMPORT'
+	| 'IN'
+	| 'IS'
+	| 'LET'
+	| 'NEW'
+	| 'OF'
+	| 'ON'
+	| 'PRIVATE'
+	| 'PROTECTED'
+	| 'PUBLIC'
+	| 'REQUIRE'
+	| 'RETURN'
+	| 'STATIC'
+	| 'SWITCH'
+	| 'TIL'
+	| 'TO'
+	| 'THROW'
+	| 'TRY'
+	| 'TYPE'
+	| 'UNLESS'
+	| 'UNTIL'
+	| 'WHEN'
+	| 'WHERE'
+	| 'WHILE'
+	| 'WITH'
+	;
+// }}}
+
+Keyword_NoWhereNoWith // {{{
+	: 'AS'
+	| 'ASYNC'
+	| 'AWAIT'
+	| 'BREAK'
+	| 'BY'
+	| 'CATCH'
+	| 'CLASS'
+	| 'CONST'
+	| 'CONTINUE'
+	| 'DESC'
+	| 'DO'
+	| 'ELSE'
+	| 'ENUM'
+	| 'EXPORT'
+	| 'EXTENDS'
+	| 'EXTERN'
+	| 'FINAL'
+	| 'FINALLY'
+	| 'FOR'
+	| 'FROM'
+	| 'FUNC'
+	| 'IMPL'
+	| 'IMPORT'
+	| 'IN'
+	| 'IS'
+	| 'LET'
+	| 'NEW'
+	| 'OF'
+	| 'ON'
+	| 'PRIVATE'
+	| 'PROTECTED'
+	| 'PUBLIC'
+	| 'REQUIRE'
+	| 'RETURN'
+	| 'STATIC'
+	| 'SWITCH'
+	| 'TIL'
+	| 'TO'
+	| 'THROW'
+	| 'TRY'
+	| 'TYPE'
+	| 'UNLESS'
+	| 'UNTIL'
+	| 'WHEN'
+	| 'WHILE'
 	;
 // }}}
 
@@ -3977,6 +3914,191 @@ OperandOrType_NoObject // {{{
 	;
 // }}}
 
+Operand_NoWhereNoWith // {{{
+	: PrefixUnaryOperator Operand_NoWhereNoWith
+		{
+			if($1.kind === UnaryOperator.Negative && $2.kind === Kind.NumericExpression) {
+				$2.value = -$2.value;
+				$$ = location($2, @1, @2);
+			}
+			else {
+				$$ = location({
+					kind: Kind.UnaryExpression,
+					operator: $1,
+					argument: $2
+				}, @1, @2);
+			}
+		}
+	| Operand_NoWhereNoWith PostfixUnaryOperator
+		{
+			$$ = location({
+				kind: Kind.UnaryExpression,
+				operator: $2,
+				argument: $1
+			}, @1, @2);
+		}
+	| OperandSX_NoWhereNoWith
+	;
+// }}}
+
+OperandSX_NoWhereNoWith // {{{
+	: OperandSX_NoWhereNoWith '?.' Identifier
+		{
+			$$ = location({
+				kind: Kind.MemberExpression,
+				object: $1,
+				property: $3,
+				computed: false,
+				nullable: true
+			}, @1, @3);
+		}
+	| OperandSX_NoWhereNoWith '?[' Expression ']'
+		{
+			$$ = location({
+				kind: Kind.MemberExpression,
+				object: $1,
+				property: $3,
+				computed: true,
+				nullable: true
+			}, @1, @4);
+		}
+	| OperandSX_NoWhereNoWith '.' Identifier
+		{
+			$$ = location({
+				kind: Kind.MemberExpression,
+				object: $1,
+				property: $3,
+				computed: false,
+				nullable: false
+			}, @1, @3);
+		}
+	| OperandSX_NoWhereNoWith '[' Expression ']'
+		{
+			$$ = location({
+				kind: Kind.MemberExpression,
+				object: $1,
+				property: $3,
+				computed: true,
+				nullable: false
+			}, @1, @4);
+		}
+	| OperandSX_NoWhereNoWith '?' '(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CallExpression,
+				scope: {
+					kind: ScopeModifier.This
+				},
+				callee: $1,
+				arguments: $4,
+				nullable: true
+			}, @1, @5);
+		}
+	| OperandSX_NoWhereNoWith '?'
+		{
+			$$ = location({
+				kind: Kind.UnaryExpression,
+				operator: location({
+					kind: UnaryOperator.Existential
+				}, @2),
+				argument: $1
+			}, @1, @2);
+		}
+	| OperandSX_NoWhereNoWith '^^(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CurryExpression,
+				scope: {
+					kind: ScopeModifier.Null
+				},
+				callee: $1,
+				arguments: $3
+			}, @1, @4);
+		}
+	| OperandSX_NoWhereNoWith '^$(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CurryExpression,
+				scope: {
+					kind: ScopeModifier.Argument,
+					value: $3.shift()
+				},
+				callee: $1,
+				arguments: $3
+			}, @1, @4);
+		}
+	| OperandSX_NoWhereNoWith '^@(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CurryExpression,
+				scope: {
+					kind: ScopeModifier.This
+				},
+				callee: $1,
+				arguments: $3
+			}, @1, @4);
+		}
+	| OperandSX_NoWhereNoWith '**(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CallExpression,
+				scope: {
+					kind: ScopeModifier.Null
+				},
+				callee: $1,
+				arguments: $3,
+				nullable: false
+			}, @1, @4);
+		}
+	| OperandSX_NoWhereNoWith '*$(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CallExpression,
+				scope: {
+					kind: ScopeModifier.Argument,
+					value: $3.shift()
+				},
+				callee: $1,
+				arguments: $3,
+				nullable: false
+			}, @1, @4);
+		}
+	| OperandSX_NoWhereNoWith '(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CallExpression,
+				scope: {
+					kind: ScopeModifier.This
+				},
+				callee: $1,
+				arguments: $3,
+				nullable: false
+			}, @1, @4);
+		}
+	| OperandSX_NoWhereNoWith '::' Identifier
+		{
+			$$ = location({
+				kind: Kind.EnumExpression,
+				enum: $1,
+				member: $3
+			}, @1, @3);
+		}
+	| OperandElement_NoWhereNoWith
+	;
+// }}}
+
+OperandElement_NoWhereNoWith // {{{
+	: Array
+	| Identifier_NoWhereNoWith
+	| Number
+	| Object
+	| Parenthesis
+	| RegularExpression
+	| String
+	| TemplateExpression
+	;
+// }}}
+
 Parenthesis // {{{
 	: '(' Expression ')'
 		{
@@ -4655,7 +4777,7 @@ SwitchConditionList // {{{
 		{
 			$1.push($3);
 		}
-	| SwitchConditionList ',' SwitchConditionValue
+	| SwitchConditionList ',' SwitchConditionValue_NoWhereNoWith
 		{
 			$1.push($3);
 		}
@@ -4671,7 +4793,7 @@ SwitchConditionList // {{{
 		{
 			$$ = [$1];
 		}
-	| SwitchConditionValue
+	| SwitchConditionValue_NoWhereNoWith
 		{
 			$$ = [$1];
 		}
@@ -4838,6 +4960,50 @@ SwitchConditionValue // {{{
 			}, @1, @2);
 		}
 	| Operand
+	;
+// }}}
+
+SwitchConditionValue_NoWhereNoWith // {{{
+	: Operand_NoWhereNoWith '<' '..' '<' Operand_NoWhereNoWith
+		{
+			$$ = location({
+				kind: Kind.SwitchConditionRange,
+				then: $1,
+				til: $5
+			}, @1, @5);
+		}
+	| Operand_NoWhereNoWith '<' '..' Operand_NoWhereNoWith
+		{
+			$$ = location({
+				kind: Kind.SwitchConditionRange,
+				then: $1,
+				to: $4
+			}, @1, @4);
+		}
+	| Operand_NoWhereNoWith '..' '<' Operand_NoWhereNoWith
+		{
+			$$ = location({
+				kind: Kind.SwitchConditionRange,
+				from: $1,
+				til: $4
+			}, @1, @4);
+		}
+	| Operand_NoWhereNoWith '..' Operand_NoWhereNoWith
+		{
+			$$ = location({
+				kind: Kind.SwitchConditionRange,
+				from: $1,
+				to: $3
+			}, @1, @3);
+		}
+	| ':' Identifier
+		{
+			$$ = location({
+				kind: Kind.SwitchConditionEnum,
+				name: $2
+			}, @1, @2);
+		}
+	| Operand_NoWhereNoWith
 	;
 // }}}
 
