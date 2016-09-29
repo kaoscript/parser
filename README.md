@@ -12,6 +12,10 @@ Documentation available at [kaoscript](https://github.com/kaoscript/kaoscript).
 Changelog
 ---------
 
+### 0.2.1
+
+- fix keyword usage
+
 ### 0.2.0
 
 - fix conflict between ternary operator and postfix existential operator
