@@ -1,6 +1,6 @@
 /**
  * parser.jison
- * Version 0.2.1
+ * Version 0.3.0
  * September 14th, 2016
  *
  * Copyright (c) 2016 Baptiste Augrain
@@ -29,11 +29,11 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 if\s+											return 'IF'
 
 [^\r\n\S]+										/* skip whitespace */
-\/\/[^\r\n]*									/* skip whitespace */
-'/*'											this.begin('mlcomment')
-<mlcomment>'/*'									this.begin('mlcomment')
-<mlcomment>'*/'									this.popState()
-<mlcomment>(.|\n)								/* skip whitespace */
+\s*\/\/[^\r\n]*									return 'COMMENT'
+\s*'/*'											this.begin('mlcomment');return 'COMMENT'
+<mlcomment>'/*'									this.begin('mlcomment');return 'COMMENT'
+<mlcomment>'*/'									this.popState();return 'COMMENT'
+<mlcomment>(.|\n)								return 'COMMENT'
 '---'\r?\n										this.begin('hcomment')
 <hcomment>'---'\r?\n							this.popState()
 <hcomment>(.|\r?\n)								/* skip whitespace */
@@ -65,6 +65,7 @@ if\s+											return 'IF'
 'func'											return 'FUNC'
 'impl'											return 'IMPL'
 'import'										return 'IMPORT'
+'include'										return 'INCLUDE'
 'in'											return 'IN'
 'is'											return 'IS'
 'let'											return 'LET'
@@ -791,6 +792,7 @@ BlockSX // {{{
 			$$.attributes.push($2);
 		}
 	| BlockSX NL_EOF_1
+	| BlockSX Comment_1M
 	|
 		{
 			$$ = {
@@ -978,7 +980,7 @@ ClassMember // {{{
 			
 			$$ = $1;
 		}
-	| ClassMember ClassMemberModifier ClassMemberSX NL_EOF_1
+	| ClassMember ClassMemberModifier ClassMemberSX
 		{
 			$3.modifiers.push($2);
 			
@@ -986,12 +988,13 @@ ClassMember // {{{
 			
 			$$ = $1;
 		}
-	| ClassMember ClassMemberSX NL_EOF_1
+	| ClassMember ClassMemberSX
 		{
 			$1.push($2);
 			$$ = $1;
 		}
-	| ClassMember NL_EOF_1
+	| ClassMember NL_EOF_1M
+	| ClassMember Comment_1M
 	|
 		{
 			$$ = []
@@ -1050,6 +1053,12 @@ ClassMemberSX // {{{
 CommaOrNewLine // {{{
 	: ','
 	| 'NEWLINE'
+	;
+// }}}
+
+Comment_1M // {{{
+	: Comment_1M 'COMMENT'
+	| 'COMMENT'
 	;
 // }}}
 
@@ -2738,6 +2747,17 @@ ImportReference // {{{
 	;
 // }}}
 
+IncludeDeclaration // {{{
+	: 'INCLUDE' ImportName
+		{
+			$$ = location({
+				kind: Kind.IncludeDeclaration,
+				module: $2
+			}, @1, @2)
+		}
+	;
+// }}}
+
 Keyword // {{{
 	: 'AS'
 	| 'ASYNC'
@@ -2762,6 +2782,7 @@ Keyword // {{{
 	| 'FUNC'
 	| 'IMPL'
 	| 'IMPORT'
+	| 'INCLUDE'
 	| 'IN'
 	| 'IS'
 	| 'LET'
@@ -2813,6 +2834,7 @@ Keyword_NoWhereNoWith // {{{
 	| 'FUNC'
 	| 'IMPL'
 	| 'IMPORT'
+	| 'INCLUDE'
 	| 'IN'
 	| 'IS'
 	| 'LET'
@@ -3119,6 +3141,7 @@ ModuleSX // {{{
 			$$.attributes.push($2);
 		}
 	| ModuleSX NL_EOF_1
+	| ModuleSX Comment_1M
 	|
 		{
 			$$ = {
@@ -3145,9 +3168,10 @@ ModuleBody // {{{
 // }}}
 
 ModuleBodySX // {{{
-	: ImportDeclaration NL_EOF_1
-	| ExportDeclaration NL_EOF_1
+	: ExportDeclaration NL_EOF_1
 	| ExternDeclaration NL_EOF_1
+	| ImportDeclaration NL_EOF_1
+	| IncludeDeclaration NL_EOF_1
 	| RequireDeclaration NL_EOF_1
 	| ExternOrRequireDeclaration NL_EOF_1
 	| RequireOrExternDeclaration NL_EOF_1
@@ -3169,21 +3193,29 @@ NameIST // {{{
 // }}}
 
 NL_EOF_1 // {{{
-	: 'EOF'
+	: Comment_1M 'EOF'
+	| Comment_1M 'NEWLINE'
+	| 'EOF'
 	| 'NEWLINE'
 	;
 // }}}
 
 NL_EOF_1M // {{{
-	: NL_EOF_1M 'EOF'
+	: NL_EOF_1M Comment_1M 'EOF'
+	| NL_EOF_1M Comment_1M 'NEWLINE'
+	| NL_EOF_1M 'EOF'
 	| NL_EOF_1M 'NEWLINE'
+	| Comment_1M 'EOF'
+	| Comment_1M 'NEWLINE'
 	| 'EOF'
 	| 'NEWLINE'
 	;
 // }}}
 
 NL_1M // {{{
-	: NL_1M 'NEWLINE'
+	: NL_1M Comment_1M 'NEWLINE'
+	| NL_1M 'NEWLINE'
+	| Comment_1M 'NEWLINE'
 	| 'NEWLINE'
 	;
 // }}}
@@ -3493,6 +3525,7 @@ OperandSX // {{{
 				member: $3
 			}, @1, @3);
 		}
+	| OperandSX Comment_1M
 	| OperandElement
 	;
 // }}}
