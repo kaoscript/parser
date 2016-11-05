@@ -19,7 +19,7 @@ RegularExpressionChar				([^\n\r\\\/\[])|{RegularExpressionBackslashSequence}|{R
 RegularExpressionBody				{RegularExpressionFirstChar}{RegularExpressionChar}*
 RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 
-%x hcomment import mlcomment regexp template
+%x hcomment import mlcomment regexp resource template
 %%
 
 <regexp>{RegularExpressionLiteral}				this.popState();return 'REGEXP_LITERAL'
@@ -37,9 +37,15 @@ if\s+											return 'IF'
 '---'\r?\n										this.begin('hcomment')
 <hcomment>'---'\r?\n							this.popState()
 <hcomment>(.|\r?\n)								/* skip whitespace */
+
+<resource>\s*\r?\n\s*							return 'NEWLINE'
+<resource>'}'									this.popState()
+<resource>\S+									return 'RESOURCE_NAME'
+
 <template>'`'									this.popState();return 'TEMPLATE_END'
 <template>'\('									this.begin('');return '\('
 <template>([^`\\]|\\(?!\())+					return 'TEMPLATE_VALUE'
+	
 '`'												this.begin('template');return 'TEMPLATE_BEGIN'
 'async'											return 'ASYNC'
 'as'											return 'AS'
@@ -2752,8 +2758,56 @@ IncludeDeclaration // {{{
 		{
 			$$ = location({
 				kind: Kind.IncludeDeclaration,
-				module: $2
+				files: [$2]
 			}, @1, @2)
+		}
+	| 'INCLUDE' IncludeLB
+		{
+			$$ = location({
+				kind: Kind.IncludeDeclaration,
+				files: $2
+			}, @1, @2);
+		}
+	;
+// }}}
+
+IncludeLB // {{{
+	: IncludeLBBegin IncludeLBPN 'NEWLINE'
+		{
+			$$ = $2;
+		}
+	| IncludeLBBegin 'NEWLINE'
+		{
+			$$ = [];
+		}
+	;
+
+
+IncludeLBBegin // {{{
+	: '{'
+		{
+			yy.lexer.begin('resource');
+		}
+	;
+// }}}
+
+IncludeLBPN // {{{
+	: IncludeLBPN IncludeLBPNI
+		{
+			$1.push($2);
+			$$ = $1;
+		}
+	| IncludeLBPNI
+		{
+			$$ = [$1];
+		}
+	;
+// }}}
+
+IncludeLBPNI // {{{
+	: 'NEWLINE' 'RESOURCE_NAME'
+		{
+			$$ = $2
 		}
 	;
 // }}}
