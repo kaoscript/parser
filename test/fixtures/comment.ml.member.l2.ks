@@ -1,4 +1,4 @@
-let qux = foo
+foo
 	.bar()
 	/* .baz() */
 	.qux()

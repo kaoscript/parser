@@ -3526,6 +3526,7 @@ OperandSX // {{{
 			}, @1, @3);
 		}
 	| OperandSX Comment_1M
+	| OperandElement_WithComment
 	| OperandElement
 	;
 // }}}
@@ -3539,6 +3540,18 @@ OperandElement // {{{
 	| RegularExpression
 	| String
 	| TemplateExpression
+	;
+// }}}
+
+OperandElement_WithComment // {{{
+	: Array Comment_1M
+	| Identifier Comment_1M
+	| Number Comment_1M
+	| Object Comment_1M
+	| Parenthesis Comment_1M
+	| RegularExpression Comment_1M
+	| String Comment_1M
+	| TemplateExpression Comment_1M
 	;
 // }}}
 
@@ -5817,8 +5830,8 @@ var UnaryOperator = enums.UnaryOperator;
 var VariableModifier = enums.VariableModifier;
 
 var $polyadic = {};
-$polyadic[BinaryOperator.And] = true;
 $polyadic[BinaryOperator.Addition] = true;
+$polyadic[BinaryOperator.And] = true;
 $polyadic[BinaryOperator.Assignment] = false;
 $polyadic[BinaryOperator.BitwiseAnd] = false;
 $polyadic[BinaryOperator.BitwiseLeftShift] = false;
@@ -5841,8 +5854,8 @@ $polyadic[BinaryOperator.TypeCast] = false;
 $polyadic[BinaryOperator.TypeCheck] = false;
 
 var $precedence = {};
-$precedence[BinaryOperator.And] = 6;
 $precedence[BinaryOperator.Addition] = 13;
+$precedence[BinaryOperator.And] = 6;
 $precedence[BinaryOperator.Assignment] = 3;
 $precedence[BinaryOperator.BitwiseAnd] = 9;
 $precedence[BinaryOperator.BitwiseLeftShift] = 12;
