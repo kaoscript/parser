@@ -19,7 +19,7 @@ RegularExpressionChar				([^\n\r\\\/\[])|{RegularExpressionBackslashSequence}|{R
 RegularExpressionBody				{RegularExpressionFirstChar}{RegularExpressionChar}*
 RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 
-%x hcomment import mlcomment regexp resource template
+%x hcomment import mlcomment regexp resource silent_comment template
 %%
 
 <regexp>{RegularExpressionLiteral}				this.popState();return 'REGEXP_LITERAL'
@@ -40,7 +40,13 @@ if\s+											return 'IF'
 
 <resource>\s*\r?\n\s*							return 'NEWLINE'
 <resource>'}'									this.popState()
+<resource>\s*\/\/[^\r\n]*\r?\n\s*				/* skip comment */
+<resource>\s*'/*'								this.begin('silent_comment')
 <resource>\S+									return 'RESOURCE_NAME'
+
+<silent_comment>\s*'/*'							this.begin('silent_comment')
+<silent_comment>'*/'\s*							this.popState()
+<silent_comment>(.|\n)							/* skip comment */
 
 <template>'`'									this.popState();return 'TEMPLATE_END'
 <template>'\('									this.begin('');return '\('
@@ -71,6 +77,7 @@ if\s+											return 'IF'
 'func'											return 'FUNC'
 'impl'											return 'IMPL'
 'import'										return 'IMPORT'
+'include_once'									return 'INCLUDE_ONCE'
 'include'										return 'INCLUDE'
 'in'											return 'IN'
 'is'											return 'IS'
@@ -2781,7 +2788,7 @@ IncludeLB // {{{
 			$$ = [];
 		}
 	;
-
+// }}}
 
 IncludeLBBegin // {{{
 	: '{'
@@ -2808,6 +2815,24 @@ IncludeLBPNI // {{{
 	: 'NEWLINE' 'RESOURCE_NAME'
 		{
 			$$ = $2
+		}
+	;
+// }}}
+
+IncludeOnceDeclaration // {{{
+	: 'INCLUDE_ONCE' ImportName
+		{
+			$$ = location({
+				kind: Kind.IncludeOnceDeclaration,
+				files: [$2]
+			}, @1, @2)
+		}
+	| 'INCLUDE_ONCE' IncludeLB
+		{
+			$$ = location({
+				kind: Kind.IncludeOnceDeclaration,
+				files: $2
+			}, @1, @2);
 		}
 	;
 // }}}
@@ -3226,6 +3251,7 @@ ModuleBodySX // {{{
 	| ExternDeclaration NL_EOF_1
 	| ImportDeclaration NL_EOF_1
 	| IncludeDeclaration NL_EOF_1
+	| IncludeOnceDeclaration NL_EOF_1
 	| RequireDeclaration NL_EOF_1
 	| ExternOrRequireDeclaration NL_EOF_1
 	| RequireOrExternDeclaration NL_EOF_1
