@@ -4,7 +4,7 @@ var fs = require('fs');
 var parse = require('../build/parser.js').parse;
 var path = require('path');
 
-describe('parse', function() {
+describe('', function() {
 	var files = fs.readdirSync(path.join(__dirname, 'fixtures'));
 	
 	var file;

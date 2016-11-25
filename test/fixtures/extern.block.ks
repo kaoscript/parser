@@ -1,3 +1,3 @@
 extern {
-	foo() -> string
+	foo(): string
 }

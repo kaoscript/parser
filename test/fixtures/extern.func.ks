@@ -1,1 +1,1 @@
-extern foo() -> string
+extern foo(): string

@@ -71,7 +71,6 @@ if\s+											return 'IF'
 'extern|require'								return 'EXTERN|REQUIRE'
 'extern'										return 'EXTERN'
 'finally'										return 'FINALLY'
-'final'											return 'FINAL'
 'for'											return 'FOR'
 'from'											return 'FROM'
 'func'											return 'FUNC'
@@ -91,6 +90,7 @@ if\s+											return 'IF'
 'require|extern'								return 'REQUIRE|EXTERN'
 'require'										return 'REQUIRE'
 'return'										return 'RETURN'
+'sealed'										return 'SEALED'
 'static'										return 'STATIC'
 'switch'										return 'SWITCH'
 'til'											return 'TIL'
@@ -893,10 +893,10 @@ CatchOnClause // {{{
 // }}}
 
 ClassDeclaration // {{{
-	: 'FINAL' ClassDeclaration
+	: 'SEALED' ClassDeclaration
 		{
 			$2.modifiers.push(location({
-				kind: ClassModifier.Final
+				kind: ClassModifier.Sealed
 			}, @1));
 			
 			$$ = location($2, @1, @2);
@@ -1526,23 +1526,23 @@ ExternDeclarator // {{{
 // }}}
 
 ExternClass // {{{
-	: 'FINAL' 'CLASS' Identifier TypeGeneric '{' ExternClassMember '}'
+	: 'SEALED' 'CLASS' Identifier TypeGeneric '{' ExternClassMember '}'
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
 				modifiers: [location({
-					kind: ClassModifier.Final
+					kind: ClassModifier.Sealed
 				}, @1)],
 				name: $3,
 				members: $6
 			}, @1, @7);
 		}
-	| 'FINAL' 'CLASS' Identifier '{' ExternClassMember '}'
+	| 'SEALED' 'CLASS' Identifier '{' ExternClassMember '}'
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
 				modifiers: [location({
-					kind: ClassModifier.Final
+					kind: ClassModifier.Sealed
 				}, @1)],
 				name: $3,
 				members: $5
@@ -1566,23 +1566,23 @@ ExternClass // {{{
 				members: $4
 			}, @1, @5);
 		}
-	| 'FINAL' 'CLASS' Identifier TypeGeneric
+	| 'SEALED' 'CLASS' Identifier TypeGeneric
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
 				modifiers: [location({
-					kind: ClassModifier.Final
+					kind: ClassModifier.Sealed
 				}, @1)],
 				name: $3,
 				members: []
 			}, @1, @4);
 		}
-	| 'FINAL' 'CLASS' Identifier
+	| 'SEALED' 'CLASS' Identifier
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
 				modifiers: [location({
-					kind: ClassModifier.Final
+					kind: ClassModifier.Sealed
 				}, @1)],
 				name: $3,
 				members: []
@@ -2254,7 +2254,7 @@ FunctionExpression // {{{
 				body: $5
 			}, @1, @5);
 		}
-	| Identifier FunctionReturns '=>' Expression
+	| Identifier '->' TypeVar '=>' Expression
 		{
 			$$ = location({
 				kind: Kind.FunctionExpression,
@@ -2264,9 +2264,9 @@ FunctionExpression // {{{
 					modifiers: [],
 					name: $1
 				}],
-				type: $2,
-				body: $4
-			}, @1, @4);
+				type: $3,
+				body: $5
+			}, @1, @5);
 		}
 	| Identifier '=>' Expression
 		{
@@ -2490,7 +2490,7 @@ FunctionParameterModifier // {{{
 // }}}
 
 FunctionReturns // {{{
-	: '->' TypeVar
+	: ':' TypeVar
 		{
 			$$ = $2;
 		}
@@ -2854,7 +2854,7 @@ Keyword // {{{
 	| 'EXPORT'
 	| 'EXTENDS'
 	| 'EXTERN'
-	| 'FINAL'
+	| 'SEALED'
 	| 'FINALLY'
 	| 'FOR'
 	| 'FROM'
@@ -2906,7 +2906,7 @@ Keyword_NoWhereNoWith // {{{
 	| 'EXPORT'
 	| 'EXTENDS'
 	| 'EXTERN'
-	| 'FINAL'
+	| 'SEALED'
 	| 'FINALLY'
 	| 'FOR'
 	| 'FROM'

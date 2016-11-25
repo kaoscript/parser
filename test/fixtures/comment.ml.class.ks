@@ -11,7 +11,7 @@ class Greetings {
 		this._message = message
 	} */
 	
-	greet(name: string) -> string {
+	greet(name: string): string {
 		return this._message + '\nIt\'s nice to meet you, ' + name + '.'
 	}
 }

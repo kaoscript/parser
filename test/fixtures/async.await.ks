@@ -1,4 +1,4 @@
-func foo(bar: string, qux: int) async -> string {
+func foo(bar: string, qux: int) async: string {
 	return bar + '+' + qux
 }
 

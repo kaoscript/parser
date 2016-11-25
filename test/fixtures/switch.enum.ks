@@ -10,7 +10,7 @@ enum ANSIColor {
 	default
 }
 
-func color(fg: ANSIColor, bg: ANSIColor) -> String {
+func color(fg: ANSIColor, bg: ANSIColor): String {
 	let fg_code = switch fg {
 		black => 30
 		red => 31

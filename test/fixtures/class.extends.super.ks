@@ -5,7 +5,7 @@ class Shape {
 	
 	Shape(@color: string)
 
-	draw(canvas) -> string {
+	draw(canvas): string {
 		throw new Error('Not Implemented')
 	}
 }
@@ -15,7 +15,7 @@ class Rectangle extends Shape {
 		super(color)
 	}
 
-	draw(canvas) -> string {
+	draw(canvas): string {
 		return 'I\'m drawing a ' + this._color + ' rectangle.'
 	}
 }

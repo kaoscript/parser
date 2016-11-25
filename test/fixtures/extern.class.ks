@@ -1,3 +1,3 @@
 extern class Foo {
-	bar() -> string
+	bar(): string
 }
