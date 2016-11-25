@@ -19,7 +19,7 @@ RegularExpressionChar				([^\n\r\\\/\[])|{RegularExpressionBackslashSequence}|{R
 RegularExpressionBody				{RegularExpressionFirstChar}{RegularExpressionChar}*
 RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 
-%x hcomment import mlcomment regexp resource silent_comment template
+%x hcomment import mlcomment regexp resource inline_comment template
 %%
 
 <regexp>{RegularExpressionLiteral}				this.popState();return 'REGEXP_LITERAL'
@@ -29,24 +29,24 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 if\s+											return 'IF'
 
 [^\r\n\S]+										/* skip whitespace */
-\s*\/\/[^\r\n]*									return 'COMMENT'
-\s*'/*'											this.begin('mlcomment');return 'COMMENT'
-<mlcomment>'/*'									this.begin('mlcomment');return 'COMMENT'
-<mlcomment>'*/'									this.popState();return 'COMMENT'
-<mlcomment>(.|\n)								return 'COMMENT'
+\s*\/\/[^\r\n]*									/* skip comment */
+\s*'/*'											this.begin('mlcomment')
+<mlcomment>'/*'									this.begin('mlcomment')
+<mlcomment>'*/'									this.popState()
+<mlcomment>(.|\n)								/* skip comment */
 '---'\r?\n										this.begin('hcomment')
 <hcomment>'---'\r?\n							this.popState()
-<hcomment>(.|\r?\n)								/* skip whitespace */
+<hcomment>(.|\r?\n)								/* skip comment */
+
+<inline_comment>\s*'/*'							this.begin('inline_comment')
+<inline_comment>'*/'\s*							this.popState()
+<inline_comment>(.|\n)							/* skip comment */
 
 <resource>\s*\r?\n\s*							return 'NEWLINE'
 <resource>'}'									this.popState()
 <resource>\s*\/\/[^\r\n]*\r?\n\s*				/* skip comment */
-<resource>\s*'/*'								this.begin('silent_comment')
+<resource>\s*'/*'								this.begin('inline_comment')
 <resource>\S+									return 'RESOURCE_NAME'
-
-<silent_comment>\s*'/*'							this.begin('silent_comment')
-<silent_comment>'*/'\s*							this.popState()
-<silent_comment>(.|\n)							/* skip comment */
 
 <template>'`'									this.popState();return 'TEMPLATE_END'
 <template>'\('									this.begin('');return '\('
@@ -805,7 +805,6 @@ BlockSX // {{{
 			$$.attributes.push($2);
 		}
 	| BlockSX NL_EOF_1
-	| BlockSX Comment_1M
 	|
 		{
 			$$ = {
@@ -1007,7 +1006,6 @@ ClassMember // {{{
 			$$ = $1;
 		}
 	| ClassMember NL_EOF_1M
-	| ClassMember Comment_1M
 	|
 		{
 			$$ = []
@@ -1066,12 +1064,6 @@ ClassMemberSX // {{{
 CommaOrNewLine // {{{
 	: ','
 	| 'NEWLINE'
-	;
-// }}}
-
-Comment_1M // {{{
-	: Comment_1M 'COMMENT'
-	| 'COMMENT'
 	;
 // }}}
 
@@ -3220,7 +3212,6 @@ ModuleSX // {{{
 			$$.attributes.push($2);
 		}
 	| ModuleSX NL_EOF_1
-	| ModuleSX Comment_1M
 	|
 		{
 			$$ = {
@@ -3273,29 +3264,21 @@ NameIST // {{{
 // }}}
 
 NL_EOF_1 // {{{
-	: Comment_1M 'EOF'
-	| Comment_1M 'NEWLINE'
-	| 'EOF'
+	: 'EOF'
 	| 'NEWLINE'
 	;
 // }}}
 
 NL_EOF_1M // {{{
-	: NL_EOF_1M Comment_1M 'EOF'
-	| NL_EOF_1M Comment_1M 'NEWLINE'
-	| NL_EOF_1M 'EOF'
+	: NL_EOF_1M 'EOF'
 	| NL_EOF_1M 'NEWLINE'
-	| Comment_1M 'EOF'
-	| Comment_1M 'NEWLINE'
 	| 'EOF'
 	| 'NEWLINE'
 	;
 // }}}
 
 NL_1M // {{{
-	: NL_1M Comment_1M 'NEWLINE'
-	| NL_1M 'NEWLINE'
-	| Comment_1M 'NEWLINE'
+	: NL_1M 'NEWLINE'
 	| 'NEWLINE'
 	;
 // }}}
@@ -3605,8 +3588,6 @@ OperandSX // {{{
 				member: $3
 			}, @1, @3);
 		}
-	| OperandSX Comment_1M
-	| OperandElement_WithComment
 	| OperandElement
 	;
 // }}}
@@ -3620,18 +3601,6 @@ OperandElement // {{{
 	| RegularExpression
 	| String
 	| TemplateExpression
-	;
-// }}}
-
-OperandElement_WithComment // {{{
-	: Array Comment_1M
-	| Identifier Comment_1M
-	| Number Comment_1M
-	| Object Comment_1M
-	| Parenthesis Comment_1M
-	| RegularExpression Comment_1M
-	| String Comment_1M
-	| TemplateExpression Comment_1M
 	;
 // }}}
 
