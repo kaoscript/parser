@@ -894,9 +894,7 @@ CatchOnClause // {{{
 ClassDeclaration // {{{
 	: 'SEALED' ClassDeclaration
 		{
-			$2.modifiers.push(location({
-				kind: ClassModifier.Sealed
-			}, @1));
+			$2.sealed = true;
 			
 			$$ = location($2, @1, @2);
 		}
@@ -904,7 +902,6 @@ ClassDeclaration // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [],
 				name: $2,
 				extends: $5,
 				members: $7
@@ -914,7 +911,6 @@ ClassDeclaration // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [],
 				name: $2,
 				extends: $4,
 				members: $6
@@ -924,7 +920,6 @@ ClassDeclaration // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [],
 				name: $2,
 				members: $5
 			}, @1, @6);
@@ -933,7 +928,6 @@ ClassDeclaration // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [],
 				name: $2,
 				members: $4
 			}, @1, @5);
@@ -1522,29 +1516,24 @@ ExternClass // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [location({
-					kind: ClassModifier.Sealed
-				}, @1)],
 				name: $3,
-				members: $6
+				members: $6,
+				sealed: true
 			}, @1, @7);
 		}
 	| 'SEALED' 'CLASS' Identifier '{' ExternClassMember '}'
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [location({
-					kind: ClassModifier.Sealed
-				}, @1)],
 				name: $3,
-				members: $5
+				members: $5,
+				sealed: true
 			}, @1, @6);
 		}
 	| 'CLASS' Identifier TypeGeneric '{' ExternClassMember '}'
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [],
 				name: $2,
 				members: $5
 			}, @1, @6);
@@ -1553,7 +1542,6 @@ ExternClass // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [],
 				name: $2,
 				members: $4
 			}, @1, @5);
@@ -1562,29 +1550,24 @@ ExternClass // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [location({
-					kind: ClassModifier.Sealed
-				}, @1)],
 				name: $3,
-				members: []
+				members: [],
+				sealed: true
 			}, @1, @4);
 		}
 	| 'SEALED' 'CLASS' Identifier
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [location({
-					kind: ClassModifier.Sealed
-				}, @1)],
 				name: $3,
-				members: []
+				members: [],
+				sealed: true
 			}, @1, @3);
 		}
 	| 'CLASS' Identifier TypeGeneric
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [],
 				name: $2,
 				members: []
 			}, @1, @3);
@@ -1593,7 +1576,6 @@ ExternClass // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				modifiers: [],
 				name: $2,
 				members: []
 			}, @1, @2);
@@ -1766,7 +1748,24 @@ ExternOrRequireDeclaration // {{{
 // }}}
 
 ExternVariable // {{{
-	: Identifier ':' TypeVar
+	: 'SEALED' Identifier ':' TypeVar
+		{
+			$$ = location({
+				kind: Kind.VariableDeclarator,
+				name: $2,
+				type: $4,
+				sealed: true
+			}, @1, @4)
+		}
+	| 'SEALED' Identifier
+		{
+			$$ = location({
+				kind: Kind.VariableDeclarator,
+				name: $2,
+				sealed: true
+			}, @1, @2)
+		}
+	| Identifier ':' TypeVar
 		{
 			$$ = location({
 				kind: Kind.VariableDeclarator,
@@ -2543,16 +2542,16 @@ ImplementDeclaration // {{{
 		{
 			$$ = location({
 				kind: Kind.ImplementDeclaration,
-				class: $2,
-				members: $5
+				variable: $2,
+				properties: $5
 			}, @1, @6);
 		}
 	| 'IMPL' Identifier '{' ClassMember '}'
 		{
 			$$ = location({
 				kind: Kind.ImplementDeclaration,
-				class: $2,
-				members: $4
+				variable: $2,
+				properties: $4
 			}, @1, @5);
 		}
 	;
@@ -5869,7 +5868,6 @@ WhileStatement // {{{
 var enums = require('@kaoscript/ast')();
 var AssignmentOperator = enums.AssignmentOperator;
 var BinaryOperator = enums.BinaryOperator;
-var ClassModifier = enums.ClassModifier;
 var FunctionModifier = enums.FunctionModifier;
 var Kind = enums.Kind;
 var MemberModifier = enums.MemberModifier;

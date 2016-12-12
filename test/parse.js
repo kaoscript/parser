@@ -38,7 +38,7 @@ describe('', function() {
 			}
 			else {
 				data = parse(data);
-				//console.log(JSON.stringify(data, null, 2));
+				//console.log(JSON.stringify(data, function(key, value){return value == Infinity ? 'Infinity' : value;}, 2));
 				
 				var json = fs.readFileSync(path.join(__dirname, 'fixtures', name + '.json'), {
 					encoding: 'utf8'
