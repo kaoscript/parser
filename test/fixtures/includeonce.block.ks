@@ -1,4 +1,4 @@
-include_once {
+include once {
 	./module1
 	./module2
 }

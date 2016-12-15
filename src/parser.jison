@@ -26,6 +26,7 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 <import>[\@\.\/\w]+								this.popState();return 'IMPORT_LITERAL'
 
 \s+\?\s+										return 'SPACED_?'
+\s+\:\s+										return 'SPACED_:'
 if\s+											return 'IF'
 
 [^\r\n\S]+										/* skip whitespace */
@@ -76,9 +77,10 @@ if\s+											return 'IF'
 'func'											return 'FUNC'
 'impl'											return 'IMPL'
 'import'										return 'IMPORT'
-'include_once'									return 'INCLUDE_ONCE'
+'include once'									return 'INCLUDE_ONCE'
 'include'										return 'INCLUDE'
 'in'											return 'IN'
+'is not'										return 'IS_NOT'
 'is'											return 'IS'
 'let'											return 'LET'
 'new'											return 'NEW'
@@ -399,6 +401,10 @@ AssignmentDeclarator // {{{
 		}
 	| Operand AssignmentOperator Expression
 		{
+			if($1.kind === Kind.BinaryOperator && $1.operator.kind !== BinaryOperator.Equality) {
+				throw new Error('Unexpected character at line ' + $1.operator.start.line + ' and column ' + $1.operator.start.column)
+			}
+			
 			$2.left = $1;
 			$2.right = $3;
 			
@@ -936,7 +942,7 @@ ClassDeclaration // {{{
 // }}}
 
 ClassField // {{{
-	: NameIST ':' TypeVar '=' Expression
+	: NameIST ColonSeparator TypeVar '=' Expression
 		{
 			$$ = location({
 				kind: Kind.FieldDeclaration,
@@ -946,7 +952,7 @@ ClassField // {{{
 				defaultValue: $5
 			}, @1, @5);
 		}
-	| NameIST ':' TypeVar
+	| NameIST ColonSeparator TypeVar
 		{
 			$$ = location({
 				kind: Kind.FieldDeclaration,
@@ -1052,6 +1058,12 @@ ClassMemberModifier // {{{
 ClassMemberSX // {{{
 	: ClassField
 	| Method
+	;
+// }}}
+
+ColonSeparator // {{{
+	: ':'
+	| 'SPACED_:'
 	;
 // }}}
 
@@ -1191,7 +1203,7 @@ DestructuringObjectPNI // {{{
 // }}}
 
 DestructuringObjectItem // {{{
-	: DestructuringObjectItemAlias ':' VariableIdentifier '=' Expression
+	: DestructuringObjectItemAlias ColonSeparator VariableIdentifier '=' Expression
 		{
 			$$ = location({
 				kind: Kind.BindingElement,
@@ -1200,7 +1212,7 @@ DestructuringObjectItem // {{{
 				defaultValue: $5
 			}, @1, @5);
 		}
-	| DestructuringObjectItemAlias ':' VariableIdentifier
+	| DestructuringObjectItemAlias ColonSeparator VariableIdentifier
 		{
 			$$ = location({
 				kind: Kind.BindingElement,
@@ -1658,7 +1670,7 @@ ExternClassMemberSX // {{{
 // }}}
 
 ExternClassField // {{{
-	: NameIST ':' TypeVar
+	: NameIST ColonSeparator TypeVar
 		{
 			$$ = location({
 				kind: Kind.FieldDeclaration,
@@ -1748,7 +1760,7 @@ ExternOrRequireDeclaration // {{{
 // }}}
 
 ExternVariable // {{{
-	: 'SEALED' Identifier ':' TypeVar
+	: 'SEALED' Identifier ColonSeparator TypeVar
 		{
 			$$ = location({
 				kind: Kind.VariableDeclarator,
@@ -1765,7 +1777,7 @@ ExternVariable // {{{
 				sealed: true
 			}, @1, @2)
 		}
-	| Identifier ':' TypeVar
+	| Identifier ColonSeparator TypeVar
 		{
 			$$ = location({
 				kind: Kind.VariableDeclarator,
@@ -1786,7 +1798,7 @@ ExternVariable // {{{
 Expression // {{{
 	: FunctionExpression
 	| SwitchExpression
-	| ExpressionFlowSX 'SPACED_?' Expression ':' Expression
+	| ExpressionFlowSX 'SPACED_?' Expression 'SPACED_:' Expression
 		{
 			$$ = location({
 				kind: Kind.TernaryConditionalExpression,
@@ -1833,7 +1845,7 @@ ExpressionFlowSX // {{{
 Expression_NoAnonymousFunction // {{{
 	: FunctionExpression
 	| SwitchExpression
-	| ExpressionFlowSX_NoAnonymousFunction 'SPACED_?' Expression ':' Expression
+	| ExpressionFlowSX_NoAnonymousFunction 'SPACED_?' Expression 'SPACED_:' Expression
 		{
 			$$ = location({
 				kind: Kind.TernaryConditionalExpression,
@@ -1872,7 +1884,7 @@ ExpressionFlowSX_NoAnonymousFunction // {{{
 Expression_NoObject // {{{
 	: FunctionExpression
 	| SwitchExpression
-	| ExpressionFlowSX_NoObject 'SPACED_?' Expression ':' Expression
+	| ExpressionFlowSX_NoObject 'SPACED_?' Expression 'SPACED_:' Expression
 		{
 			$$ = location({
 				kind: Kind.TernaryConditionalExpression,
@@ -2302,7 +2314,7 @@ FunctionParameter // {{{
 // }}}
 
 FunctionParameterFooter // {{{
-	: Identifier ':' TypeVar '=' Expression
+	: Identifier ColonSeparator TypeVar '=' Expression
 		{
 			$$ = location({
 				kind: Kind.Parameter,
@@ -2312,7 +2324,7 @@ FunctionParameterFooter // {{{
 				defaultValue: $5
 			}, @1, @5);
 		}
-	| Identifier ':' TypeVar
+	| Identifier ColonSeparator TypeVar
 		{
 			$$ = location({
 				kind: Kind.Parameter,
@@ -2388,7 +2400,7 @@ FunctionParameterFooter // {{{
 				name: $1
 			}, @1);
 		}
-	| ':' TypeVar
+	| ColonSeparator TypeVar
 		{
 			$$ = location({
 				kind: Kind.Parameter,
@@ -2481,7 +2493,7 @@ FunctionParameterModifier // {{{
 // }}}
 
 FunctionReturns // {{{
-	: ':' TypeVar
+	: ColonSeparator TypeVar
 		{
 			$$ = $2;
 		}
@@ -3024,7 +3036,7 @@ MethodParameter // {{{
 // }}}
 
 MethodParameterFooter // {{{
-	: Identifier ':' TypeVar '=' Expression
+	: Identifier ColonSeparator TypeVar '=' Expression
 		{
 			$$ = location({
 				kind: Kind.Parameter,
@@ -3034,7 +3046,7 @@ MethodParameterFooter // {{{
 				defaultValue: $5
 			}, @1, @5);
 		}
-	| Identifier ':' TypeVar
+	| Identifier ColonSeparator TypeVar
 		{
 			$$ = location({
 				kind: Kind.Parameter,
@@ -3093,7 +3105,7 @@ MethodParameterFooter // {{{
 				name: $1
 			}, @1);
 		}
-	| ':' TypeVar
+	| ColonSeparator TypeVar
 		{
 			$$ = location({
 				kind: Kind.Parameter,
@@ -3380,7 +3392,7 @@ ObjectListPNI // {{{
 // }}}
 
 ObjectItem // {{{
-	: NameIST ':' Expression
+	: NameIST ColonSeparator Expression
 		{
 			$$ = location({
 				kind: Kind.ObjectMember,
@@ -3587,6 +3599,20 @@ OperandSX // {{{
 				member: $3
 			}, @1, @3);
 		}
+	| OperandSX ':' Identifier
+		{
+			$$ = location({
+				kind: Kind.BinaryOperator,
+				left: $1,
+				right: location({
+					kind: Kind.TypeReference,
+					typeName: $3
+				}, @3),
+				operator: location({
+					kind: BinaryOperator.TypeCasting
+				}, @2)
+			}, @1, @3);
+		}
 	| OperandElement
 	;
 // }}}
@@ -3783,6 +3809,20 @@ OperandSX_NoAnonymousFunction // {{{
 				member: $3
 			}, @1, @3);
 		}
+	| OperandSX_NoAnonymousFunction ':' Identifier
+		{
+			$$ = location({
+				kind: Kind.BinaryOperator,
+				left: $1,
+				right: location({
+					kind: Kind.TypeReference,
+					typeName: $3
+				}, @3),
+				operator: location({
+					kind: BinaryOperator.TypeCasting
+				}, @2)
+			}, @1, @3);
+		}
 	| OperandElement_NoAnonymousFunction
 	;
 // }}}
@@ -3977,6 +4017,20 @@ OperandSX_NoObject // {{{
 				kind: Kind.EnumExpression,
 				enum: $1,
 				member: $3
+			}, @1, @3);
+		}
+	| OperandSX_NoObject ':' Identifier
+		{
+			$$ = location({
+				kind: Kind.BinaryOperator,
+				left: $1,
+				right: location({
+					kind: Kind.TypeReference,
+					typeName: $3
+				}, @3),
+				operator: location({
+					kind: BinaryOperator.TypeCasting
+				}, @2)
 			}, @1, @3);
 		}
 	| OperandElement_NoObject
@@ -4177,6 +4231,20 @@ OperandSX_NoWhereNoWith // {{{
 				member: $3
 			}, @1, @3);
 		}
+	| OperandSX_NoWhereNoWith ':' Identifier
+		{
+			$$ = location({
+				kind: Kind.BinaryOperator,
+				left: $1,
+				right: location({
+					kind: Kind.TypeReference,
+					typeName: $3
+				}, @3),
+				operator: location({
+					kind: BinaryOperator.TypeCasting
+				}, @2)
+			}, @1, @3);
+		}
 	| OperandElement_NoWhereNoWith
 	;
 // }}}
@@ -4241,7 +4309,7 @@ Parenthesis // {{{
 		{
 			$$ = $2;
 		}
-	| '(' Identifier 'SPACED_?' Expression ':' Expression ')'
+	| '(' Identifier 'SPACED_?' Expression 'SPACED_:' Expression ')'
 		{
 			$$ = location({
 				kind: Kind.TernaryConditionalExpression,
@@ -4274,7 +4342,7 @@ Parenthesis_NoAnonymousFunction // {{{
 		{
 			$$ = $2;
 		}
-	| '(' Identifier 'SPACED_?' Expression ':' Expression ')'
+	| '(' Identifier 'SPACED_?' Expression 'SPACED_:' Expression ')'
 		{
 			$$ = location({
 				kind: Kind.TernaryConditionalExpression,
@@ -4651,7 +4719,7 @@ SwitchBindingValue // {{{
 	| Identifier 'AS' TypeVar
 		{
 			$$ = location({
-				kind: Kind.SwitchTypeCast,
+				kind: Kind.SwitchTypeCasting,
 				name: $1,
 				type: $3
 			}, @1, @3);
@@ -4760,7 +4828,7 @@ SwitchBindingObject // {{{
 // }}}
 
 SwitchBindingObjectList // {{{
-	: SwitchBindingObjectList ',' Identifier ':' Identifier
+	: SwitchBindingObjectList ',' Identifier ColonSeparator Identifier
 		{
 			$1.push(location({
 				kind: Kind.BindingElement,
@@ -4768,7 +4836,7 @@ SwitchBindingObjectList // {{{
 				name: $5
 			}, @3, @5));
 		}
-	| Identifier ':' Identifier
+	| Identifier ColonSeparator Identifier
 		{
 			$$ = [location({
 				kind: Kind.BindingElement,
@@ -4995,7 +5063,7 @@ SwitchConditionObjectItemList // {{{
 // }}}
 
 SwitchConditionObjectItem // {{{
-	: Identifier ':' SwitchConditionValue
+	: Identifier ColonSeparator SwitchConditionValue
 		{
 			$$ = location({
 				kind: Kind.ObjectMember,
@@ -5046,7 +5114,7 @@ SwitchConditionValue // {{{
 				to: $3
 			}, @1, @3);
 		}
-	| ':' Identifier
+	| ColonSeparator Identifier
 		{
 			$$ = location({
 				kind: Kind.SwitchConditionEnum,
@@ -5090,7 +5158,7 @@ SwitchConditionValue_NoWhereNoWith // {{{
 				to: $3
 			}, @1, @3);
 		}
-	| ':' Identifier
+	| ColonSeparator Identifier
 		{
 			$$ = location({
 				kind: Kind.SwitchConditionEnum,
@@ -5369,20 +5437,26 @@ TypeOperator // {{{
 	: 'AS'
 		{
 			$$ = location({
-				kind: BinaryOperator.TypeCast
+				kind: BinaryOperator.TypeCasting
 			}, @1);
 		}
 	| 'IS'
 		{
 			$$ = location({
-				kind: BinaryOperator.TypeCheck
+				kind: BinaryOperator.TypeEquality
+			}, @1);
+		}
+	| 'IS_NOT'
+		{
+			$$ = location({
+				kind: BinaryOperator.TypeInequality
 			}, @1);
 		}
 	;
 // }}}
 
 TypeProperty // {{{
-	: Identifier ':' TypeVar
+	: Identifier ColonSeparator TypeVar
 		{
 			$$ = location({
 				kind: Kind.ObjectMember,
@@ -5523,7 +5597,7 @@ UntilStatement // {{{
 // }}}
 
 VariableConstDeclarator // {{{
-	: Identifier ':' TypeVar '=' 'AWAIT' Operand
+	: Identifier ColonSeparator TypeVar '=' 'AWAIT' Operand
 		{
 			$$ = location({
 				kind: Kind.AwaitExpression,
@@ -5535,7 +5609,7 @@ VariableConstDeclarator // {{{
 				operation: $6
 			}, @1, @6);
 		}
-	| Identifier ':' TypeVar '=' Expression
+	| Identifier ColonSeparator TypeVar '=' Expression
 		{
 			$$ = location({
 				kind: Kind.VariableDeclarator,
@@ -5647,7 +5721,7 @@ VariableIdentifierList // {{{
 // }}}
 
 VariableLetDeclarator // {{{
-	: Identifier ':' TypeVar '=' Expression 'IF' Expression 'ELSE' Expression
+	: Identifier ColonSeparator TypeVar '=' Expression 'IF' Expression 'ELSE' Expression
 		{
 			$$ = location({
 				kind: Kind.VariableDeclarator,
@@ -5661,7 +5735,7 @@ VariableLetDeclarator // {{{
 				}
 			}, @1, @9);
 		}
-	| Identifier ':' TypeVar '=' Expression 'IF' Expression
+	| Identifier ColonSeparator TypeVar '=' Expression 'IF' Expression
 		{
 			$$ = location({
 				kind: Kind.VariableDeclarator,
@@ -5674,7 +5748,7 @@ VariableLetDeclarator // {{{
 				}
 			}, @1, @7);
 		}
-	| Identifier ':' TypeVar '=' Expression 'UNLESS' Expression
+	| Identifier ColonSeparator TypeVar '=' Expression 'UNLESS' Expression
 		{
 			$$ = location({
 				kind: Kind.VariableDeclarator,
@@ -5687,7 +5761,7 @@ VariableLetDeclarator // {{{
 				}
 			}, @1, @7);
 		}
-	| Identifier ':' TypeVar '=' 'AWAIT' Operand
+	| Identifier ColonSeparator TypeVar '=' 'AWAIT' Operand
 		{
 			$$ = location({
 				kind: Kind.AwaitExpression,
@@ -5699,7 +5773,7 @@ VariableLetDeclarator // {{{
 				operation: $6
 			}, @1, @6);
 		}
-	| Identifier ':' TypeVar '=' Expression
+	| Identifier ColonSeparator TypeVar '=' Expression
 		{
 			$$ = location({
 				kind: Kind.VariableDeclarator,
@@ -5783,7 +5857,7 @@ VariableLetDeclarator // {{{
 // }}}
 
 VariableList // {{{
-	: VariableList ',' Identifier ':' TypeVar '=' 'AWAIT' Operand
+	: VariableList ',' Identifier ColonSeparator TypeVar '=' 'AWAIT' Operand
 		{
 			$1.push(location({
 				kind: Kind.VariableDeclarator,
@@ -5810,7 +5884,7 @@ VariableList // {{{
 				operation: $6
 			}, @1, @6)];
 		}
-	| VariableList ',' Identifier ':' TypeVar
+	| VariableList ',' Identifier ColonSeparator TypeVar
 		{
 			$1.push(location({
 				kind: Kind.VariableDeclarator,
@@ -5825,7 +5899,7 @@ VariableList // {{{
 				name: $3
 			}, @3));
 		}
-	| Identifier ':' TypeVar
+	| Identifier ColonSeparator TypeVar
 		{
 			$$ = [location({
 				kind: Kind.VariableDeclarator,
@@ -5897,8 +5971,9 @@ $polyadic[BinaryOperator.Multiplication] = true;
 $polyadic[BinaryOperator.NullCoalescing] = true;
 $polyadic[BinaryOperator.Or] = true;
 $polyadic[BinaryOperator.Subtraction] = true;
-$polyadic[BinaryOperator.TypeCast] = false;
-$polyadic[BinaryOperator.TypeCheck] = false;
+$polyadic[BinaryOperator.TypeCasting] = false;
+$polyadic[BinaryOperator.TypeEquality] = false;
+$polyadic[BinaryOperator.TypeInequality] = false;
 
 var $precedence = {};
 $precedence[BinaryOperator.Addition] = 13;
@@ -5921,8 +5996,9 @@ $precedence[BinaryOperator.Multiplication] = 14;
 $precedence[BinaryOperator.NullCoalescing] = 15;
 $precedence[BinaryOperator.Or] = 5;
 $precedence[BinaryOperator.Subtraction] = 15;
-$precedence[BinaryOperator.TypeCast] = 11;
-$precedence[BinaryOperator.TypeCheck] = 11;
+$precedence[BinaryOperator.TypeCasting] = 11;
+$precedence[BinaryOperator.TypeEquality] = 11;
+$precedence[BinaryOperator.TypeInequality] = 11;
 
 function location(descriptor, firstToken, lastToken) { // {{{
 	if(lastToken) {
