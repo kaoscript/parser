@@ -845,13 +845,13 @@ BlockStatement // {{{
 // }}}
 
 CatchClause // {{{
-	: 'CATCH' '(' Identifier ')' Block
+	: 'CATCH' Identifier Block
 		{
 			$$ = location({
 				kind: Kind.CatchClause,
-				binding: $3,
-				body: $5
-			}, @1, @5);
+				binding: $2,
+				body: $3
+			}, @1, @3);
 		}
 	| 'CATCH' Block
 		{
@@ -877,14 +877,14 @@ CatchOnClauseList // {{{
 // }}}
 
 CatchOnClause // {{{
-	: 'ON' Identifier 'CATCH' '(' Identifier ')' Block
+	: 'ON' Identifier 'CATCH' Identifier Block
 		{
 			$$ = location({
 				kind: Kind.CatchClause,
 				type: $2,
-				binding: $5,
-				body: $7
-			}, @1, @7);
+				binding: $4,
+				body: $5
+			}, @1, @5);
 		}
 	| 'ON' Identifier Block
 		{
