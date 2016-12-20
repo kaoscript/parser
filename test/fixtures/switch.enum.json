@@ -1,11 +1,11 @@
 {
-  "kind": 57,
+  "kind": 59,
   "attributes": [],
   "body": [
     {
-      "kind": 25,
+      "kind": 27,
       "name": {
-        "kind": 39,
+        "kind": 41,
         "name": "ANSIColor",
         "start": {
           "line": 1,
@@ -18,9 +18,9 @@
       },
       "members": [
         {
-          "kind": 27,
+          "kind": 29,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "black",
             "start": {
               "line": 2,
@@ -41,9 +41,9 @@
           }
         },
         {
-          "kind": 27,
+          "kind": 29,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "red",
             "start": {
               "line": 3,
@@ -64,9 +64,9 @@
           }
         },
         {
-          "kind": 27,
+          "kind": 29,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "green",
             "start": {
               "line": 4,
@@ -87,9 +87,9 @@
           }
         },
         {
-          "kind": 27,
+          "kind": 29,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "yellow",
             "start": {
               "line": 5,
@@ -110,9 +110,9 @@
           }
         },
         {
-          "kind": 27,
+          "kind": 29,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "blue",
             "start": {
               "line": 6,
@@ -133,9 +133,9 @@
           }
         },
         {
-          "kind": 27,
+          "kind": 29,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "magenta",
             "start": {
               "line": 7,
@@ -156,9 +156,9 @@
           }
         },
         {
-          "kind": 27,
+          "kind": 29,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "cyan",
             "start": {
               "line": 8,
@@ -179,9 +179,9 @@
           }
         },
         {
-          "kind": 27,
+          "kind": 29,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "white",
             "start": {
               "line": 9,
@@ -202,9 +202,9 @@
           }
         },
         {
-          "kind": 27,
+          "kind": 29,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "default",
             "start": {
               "line": 10,
@@ -236,10 +236,10 @@
       "attributes": []
     },
     {
-      "kind": 37,
+      "kind": 39,
       "modifiers": [],
       "name": {
-        "kind": 39,
+        "kind": 41,
         "name": "color",
         "start": {
           "line": 13,
@@ -252,10 +252,10 @@
       },
       "parameters": [
         {
-          "kind": 63,
+          "kind": 65,
           "modifiers": [],
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "fg",
             "start": {
               "line": 13,
@@ -267,9 +267,9 @@
             }
           },
           "type": {
-            "kind": 85,
+            "kind": 87,
             "typeName": {
-              "kind": 39,
+              "kind": 41,
               "name": "ANSIColor",
               "start": {
                 "line": 13,
@@ -299,10 +299,10 @@
           }
         },
         {
-          "kind": 63,
+          "kind": 65,
           "modifiers": [],
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "bg",
             "start": {
               "line": 13,
@@ -314,9 +314,9 @@
             }
           },
           "type": {
-            "kind": 85,
+            "kind": 87,
             "typeName": {
-              "kind": 39,
+              "kind": 41,
               "name": "ANSIColor",
               "start": {
                 "line": 13,
@@ -347,9 +347,9 @@
         }
       ],
       "type": {
-        "kind": 85,
+        "kind": 87,
         "typeName": {
-          "kind": 39,
+          "kind": 41,
           "name": "String",
           "start": {
             "line": 13,
@@ -374,7 +374,7 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 91,
+            "kind": 93,
             "modifiers": {
               "kind": 2,
               "start": {
@@ -388,9 +388,9 @@
             },
             "declarations": [
               {
-                "kind": 92,
+                "kind": 94,
                 "name": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "fg_code",
                   "start": {
                     "line": 14,
@@ -402,9 +402,9 @@
                   }
                 },
                 "init": {
-                  "kind": 76,
+                  "kind": 78,
                   "expression": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "fg",
                     "start": {
                       "line": 14,
@@ -417,10 +417,10 @@
                   },
                   "clauses": [
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "black",
                           "start": {
                             "line": 15,
@@ -434,7 +434,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 30,
                         "start": {
                           "line": 15,
@@ -455,10 +455,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "red",
                           "start": {
                             "line": 16,
@@ -472,7 +472,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 31,
                         "start": {
                           "line": 16,
@@ -493,10 +493,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "green",
                           "start": {
                             "line": 17,
@@ -510,7 +510,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 32,
                         "start": {
                           "line": 17,
@@ -531,10 +531,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "yellow",
                           "start": {
                             "line": 18,
@@ -548,7 +548,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 33,
                         "start": {
                           "line": 18,
@@ -569,10 +569,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "blue",
                           "start": {
                             "line": 19,
@@ -586,7 +586,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 34,
                         "start": {
                           "line": 19,
@@ -607,10 +607,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "magenta",
                           "start": {
                             "line": 20,
@@ -624,7 +624,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 35,
                         "start": {
                           "line": 20,
@@ -645,10 +645,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "cyan",
                           "start": {
                             "line": 21,
@@ -662,7 +662,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 36,
                         "start": {
                           "line": 21,
@@ -683,10 +683,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "white",
                           "start": {
                             "line": 22,
@@ -700,7 +700,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 37,
                         "start": {
                           "line": 22,
@@ -721,10 +721,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "default",
                           "start": {
                             "line": 23,
@@ -738,7 +738,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 39,
                         "start": {
                           "line": 23,
@@ -789,7 +789,7 @@
             "attributes": []
           },
           {
-            "kind": 91,
+            "kind": 93,
             "modifiers": {
               "kind": 2,
               "start": {
@@ -803,9 +803,9 @@
             },
             "declarations": [
               {
-                "kind": 92,
+                "kind": 94,
                 "name": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "bg_code",
                   "start": {
                     "line": 26,
@@ -817,9 +817,9 @@
                   }
                 },
                 "init": {
-                  "kind": 76,
+                  "kind": 78,
                   "expression": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "bg",
                     "start": {
                       "line": 26,
@@ -832,10 +832,10 @@
                   },
                   "clauses": [
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "black",
                           "start": {
                             "line": 27,
@@ -849,7 +849,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 40,
                         "start": {
                           "line": 27,
@@ -870,10 +870,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "red",
                           "start": {
                             "line": 28,
@@ -887,7 +887,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 41,
                         "start": {
                           "line": 28,
@@ -908,10 +908,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "green",
                           "start": {
                             "line": 29,
@@ -925,7 +925,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 42,
                         "start": {
                           "line": 29,
@@ -946,10 +946,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "yellow",
                           "start": {
                             "line": 30,
@@ -963,7 +963,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 44,
                         "start": {
                           "line": 30,
@@ -984,10 +984,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "blue",
                           "start": {
                             "line": 31,
@@ -1001,7 +1001,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 44,
                         "start": {
                           "line": 31,
@@ -1022,10 +1022,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "magenta",
                           "start": {
                             "line": 32,
@@ -1039,7 +1039,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 45,
                         "start": {
                           "line": 32,
@@ -1060,10 +1060,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "cyan",
                           "start": {
                             "line": 33,
@@ -1077,7 +1077,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 46,
                         "start": {
                           "line": 33,
@@ -1098,10 +1098,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "white",
                           "start": {
                             "line": 34,
@@ -1115,7 +1115,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 47,
                         "start": {
                           "line": 34,
@@ -1136,10 +1136,10 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 72,
                       "conditions": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "default",
                           "start": {
                             "line": 35,
@@ -1153,7 +1153,7 @@
                       ],
                       "bindings": [],
                       "body": {
-                        "kind": 58,
+                        "kind": 60,
                         "value": 49,
                         "start": {
                           "line": 35,
@@ -1204,12 +1204,12 @@
             "attributes": []
           },
           {
-            "kind": 68,
+            "kind": 70,
             "value": {
-              "kind": 79,
+              "kind": 81,
               "elements": [
                 {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "fg_code",
                   "start": {
                     "line": 38,
@@ -1221,7 +1221,7 @@
                   }
                 },
                 {
-                  "kind": 50,
+                  "kind": 52,
                   "value": ";",
                   "start": {
                     "line": 38,
@@ -1233,7 +1233,7 @@
                   }
                 },
                 {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "bg_code",
                   "start": {
                     "line": 38,
@@ -1245,7 +1245,7 @@
                   }
                 },
                 {
-                  "kind": 50,
+                  "kind": 52,
                   "value": "m",
                   "start": {
                     "line": 38,

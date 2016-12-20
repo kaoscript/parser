@@ -1,16 +1,16 @@
 {
-  "kind": 57,
+  "kind": 59,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 45,
       "declarations": [
         {
-          "kind": 44,
+          "kind": 46,
           "module": "@oz/lang",
           "specifiers": [
             {
-              "kind": 47,
+              "kind": 49,
               "start": {
                 "line": 1,
                 "column": 8
@@ -42,7 +42,7 @@
       "attributes": []
     },
     {
-      "kind": 91,
+      "kind": 93,
       "modifiers": {
         "kind": 2,
         "start": {
@@ -56,9 +56,9 @@
       },
       "declarations": [
         {
-          "kind": 92,
+          "kind": 94,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "a",
             "start": {
               "line": 3,
@@ -70,9 +70,9 @@
             }
           },
           "type": {
-            "kind": 85,
+            "kind": 87,
             "typeName": {
-              "kind": 39,
+              "kind": 41,
               "name": "Array",
               "start": {
                 "line": 3,
@@ -85,9 +85,9 @@
             },
             "typeParameters": [
               {
-                "kind": 85,
+                "kind": 87,
                 "typeName": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "number",
                   "start": {
                     "line": 3,
@@ -121,7 +121,7 @@
             "kind": 3,
             "values": [
               {
-                "kind": 58,
+                "kind": 60,
                 "value": 1,
                 "start": {
                   "line": 3,
@@ -133,7 +133,7 @@
                 }
               },
               {
-                "kind": 58,
+                "kind": 60,
                 "value": 3,
                 "start": {
                   "line": 3,
@@ -145,7 +145,7 @@
                 }
               },
               {
-                "kind": 58,
+                "kind": 60,
                 "value": 2,
                 "start": {
                   "line": 3,
@@ -157,7 +157,7 @@
                 }
               },
               {
-                "kind": 58,
+                "kind": 60,
                 "value": 4,
                 "start": {
                   "line": 3,
@@ -204,9 +204,9 @@
         "kind": 3
       },
       "callee": {
-        "kind": 51,
+        "kind": 53,
         "object": {
-          "kind": 39,
+          "kind": 41,
           "name": "console",
           "start": {
             "line": 5,
@@ -218,7 +218,7 @@
           }
         },
         "property": {
-          "kind": 39,
+          "kind": 41,
           "name": "log",
           "start": {
             "line": 5,
@@ -242,7 +242,7 @@
       },
       "arguments": [
         {
-          "kind": 39,
+          "kind": 41,
           "name": "a",
           "start": {
             "line": 5,
@@ -266,9 +266,9 @@
       "attributes": []
     },
     {
-      "kind": 42,
+      "kind": 44,
       "variable": {
-        "kind": 39,
+        "kind": 41,
         "name": "Array",
         "start": {
           "line": 7,
@@ -282,7 +282,7 @@
       "properties": [
         {
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "sort",
             "start": {
               "line": 8,
@@ -302,12 +302,12 @@
             "line": 8,
             "column": 64
           },
-          "kind": 54,
+          "kind": 56,
           "modifiers": [],
           "type": {
-            "kind": 85,
+            "kind": 87,
             "typeName": {
-              "kind": 39,
+              "kind": 41,
               "name": "Array",
               "start": {
                 "line": 8,
@@ -320,9 +320,9 @@
             },
             "typeParameters": [
               {
-                "kind": 85,
+                "kind": 87,
                 "typeName": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "number",
                   "start": {
                     "line": 8,
@@ -358,11 +358,11 @@
               "kind": 3
             },
             "callee": {
-              "kind": 51,
+              "kind": 53,
               "object": {
                 "kind": 9,
                 "left": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "this",
                   "start": {
                     "line": 8,
@@ -374,9 +374,9 @@
                   }
                 },
                 "right": {
-                  "kind": 85,
+                  "kind": 87,
                   "typeName": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "Array",
                     "start": {
                       "line": 8,
@@ -417,7 +417,7 @@
                 }
               },
               "property": {
-                "kind": 39,
+                "kind": 41,
                 "name": "sort",
                 "start": {
                   "line": 8,
@@ -441,14 +441,14 @@
             },
             "arguments": [
               {
-                "kind": 38,
+                "kind": 40,
                 "modifiers": [],
                 "parameters": [
                   {
-                    "kind": 63,
+                    "kind": 65,
                     "modifiers": [],
                     "name": {
-                      "kind": 39,
+                      "kind": 41,
                       "name": "a",
                       "start": {
                         "line": 8,
@@ -469,10 +469,10 @@
                     }
                   },
                   {
-                    "kind": 63,
+                    "kind": 65,
                     "modifiers": [],
                     "name": {
-                      "kind": 39,
+                      "kind": 41,
                       "name": "b",
                       "start": {
                         "line": 8,
@@ -515,7 +515,7 @@
                     "column": 61
                   },
                   "left": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "a",
                     "start": {
                       "line": 8,
@@ -527,7 +527,7 @@
                     }
                   },
                   "right": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "b",
                     "start": {
                       "line": 8,
@@ -577,9 +577,9 @@
         "kind": 3
       },
       "callee": {
-        "kind": 51,
+        "kind": 53,
         "object": {
-          "kind": 39,
+          "kind": 41,
           "name": "console",
           "start": {
             "line": 11,
@@ -591,7 +591,7 @@
           }
         },
         "property": {
-          "kind": 39,
+          "kind": 41,
           "name": "log",
           "start": {
             "line": 11,
@@ -620,9 +620,9 @@
             "kind": 3
           },
           "callee": {
-            "kind": 51,
+            "kind": 53,
             "object": {
-              "kind": 39,
+              "kind": 41,
               "name": "a",
               "start": {
                 "line": 11,
@@ -634,7 +634,7 @@
               }
             },
             "property": {
-              "kind": 39,
+              "kind": 41,
               "name": "sort",
               "start": {
                 "line": 11,

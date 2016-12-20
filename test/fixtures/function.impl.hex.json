@@ -1,12 +1,12 @@
 {
-  "kind": 57,
+  "kind": 59,
   "attributes": [],
   "body": [
     {
-      "kind": 37,
+      "kind": 39,
       "modifiers": [],
       "name": {
-        "kind": 39,
+        "kind": 41,
         "name": "hex",
         "start": {
           "line": 1,
@@ -19,10 +19,10 @@
       },
       "parameters": [
         {
-          "kind": 63,
+          "kind": 65,
           "modifiers": [],
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "n",
             "start": {
               "line": 1,
@@ -34,12 +34,12 @@
             }
           },
           "type": {
-            "kind": 90,
+            "kind": 92,
             "types": [
               {
-                "kind": 85,
+                "kind": 87,
                 "typeName": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "string",
                   "start": {
                     "line": 1,
@@ -60,9 +60,9 @@
                 }
               },
               {
-                "kind": 85,
+                "kind": 87,
                 "typeName": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "number",
                   "start": {
                     "line": 1,
@@ -103,9 +103,9 @@
         }
       ],
       "type": {
-        "kind": 85,
+        "kind": 87,
         "typeName": {
-          "kind": 39,
+          "kind": 41,
           "name": "int",
           "start": {
             "line": 1,
@@ -130,30 +130,30 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 68,
+            "kind": 70,
             "value": {
               "kind": 13,
               "scope": {
                 "kind": 3
               },
               "callee": {
-                "kind": 51,
+                "kind": 53,
                 "object": {
                   "kind": 13,
                   "scope": {
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 51,
+                    "kind": 53,
                     "object": {
                       "kind": 13,
                       "scope": {
                         "kind": 3
                       },
                       "callee": {
-                        "kind": 51,
+                        "kind": 53,
                         "object": {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "Float",
                           "start": {
                             "line": 2,
@@ -165,7 +165,7 @@
                           }
                         },
                         "property": {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "parse",
                           "start": {
                             "line": 2,
@@ -189,7 +189,7 @@
                       },
                       "arguments": [
                         {
-                          "kind": 39,
+                          "kind": 41,
                           "name": "n",
                           "start": {
                             "line": 2,
@@ -212,7 +212,7 @@
                       }
                     },
                     "property": {
-                      "kind": 39,
+                      "kind": 41,
                       "name": "limit",
                       "start": {
                         "line": 2,
@@ -236,7 +236,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 58,
+                      "kind": 60,
                       "value": 0,
                       "start": {
                         "line": 2,
@@ -248,7 +248,7 @@
                       }
                     },
                     {
-                      "kind": 58,
+                      "kind": 60,
                       "value": 255,
                       "start": {
                         "line": 2,
@@ -271,7 +271,7 @@
                   }
                 },
                 "property": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "round",
                   "start": {
                     "line": 2,
@@ -340,9 +340,9 @@
         "kind": 3
       },
       "callee": {
-        "kind": 51,
+        "kind": 53,
         "object": {
-          "kind": 39,
+          "kind": 41,
           "name": "console",
           "start": {
             "line": 5,
@@ -354,7 +354,7 @@
           }
         },
         "property": {
-          "kind": 39,
+          "kind": 41,
           "name": "log",
           "start": {
             "line": 5,
@@ -383,7 +383,7 @@
             "kind": 3
           },
           "callee": {
-            "kind": 39,
+            "kind": 41,
             "name": "hex",
             "start": {
               "line": 5,
@@ -396,7 +396,7 @@
           },
           "arguments": [
             {
-              "kind": 58,
+              "kind": 60,
               "value": 128,
               "start": {
                 "line": 5,

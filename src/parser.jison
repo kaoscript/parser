@@ -27,7 +27,6 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 
 \s+\?\s+										return 'SPACED_?'
 \s+\:\s+										return 'SPACED_:'
-if\s+											return 'IF'
 
 [^\r\n\S]+										/* skip whitespace */
 \s*\/\/[^\r\n]*									/* skip comment */
@@ -63,6 +62,7 @@ if\s+											return 'IF'
 'class'											return 'CLASS'
 'const'											return 'CONST'
 'continue'										return 'CONTINUE'
+'delete'										return 'DELETE'
 'desc'											return 'DESC'
 'do'											return 'DO'
 'else'											return 'ELSE'
@@ -75,6 +75,7 @@ if\s+											return 'IF'
 'for'											return 'FOR'
 'from'											return 'FROM'
 'func'											return 'FUNC'
+'if'											return 'IF'
 'impl'											return 'IMPL'
 'import'										return 'IMPORT'
 'include once'									return 'INCLUDE_ONCE'
@@ -1070,6 +1071,47 @@ ColonSeparator // {{{
 CommaOrNewLine // {{{
 	: ','
 	| 'NEWLINE'
+	;
+// }}}
+
+CreateClassName // {{{
+	: TypeEntity
+	| VariableName
+	| '(' Expression ')'
+		{
+			$$ = $2
+		}
+	;
+// }}}
+
+CreateExpression // {{{
+	: 'NEW' CreateClassName '(' Expression0CNList ')'
+		{
+			$$ = location({
+				kind: Kind.CreateExpression,
+				class: $2,
+				arguments: $4
+			}, @1, @5);
+		}
+	| 'NEW' CreateClassName
+		{
+			$$ = location({
+				kind: Kind.CreateExpression,
+				class: $2,
+				arguments: []
+			}, @1, @2);
+		}
+	;
+// }}}
+
+DestroyExpression // {{{
+	: 'DELETE' VariableName
+		{
+			$$ = location({
+				kind: Kind.DestroyExpression,
+				variable: $2
+			}, @1, @2);
+		}
 	;
 // }}}
 
@@ -2850,6 +2892,7 @@ Keyword // {{{
 	| 'CLASS'
 	| 'CONST'
 	| 'CONTINUE'
+	| 'DELETE'
 	| 'DESC'
 	| 'DO'
 	| 'ELSE'
@@ -2862,6 +2905,7 @@ Keyword // {{{
 	| 'FOR'
 	| 'FROM'
 	| 'FUNC'
+	| 'IF'
 	| 'IMPL'
 	| 'IMPORT'
 	| 'INCLUDE'
@@ -2902,6 +2946,7 @@ Keyword_NoWhereNoWith // {{{
 	| 'CLASS'
 	| 'CONST'
 	| 'CONTINUE'
+	| 'DELETE'
 	| 'DESC'
 	| 'DO'
 	| 'ELSE'
@@ -2914,6 +2959,7 @@ Keyword_NoWhereNoWith // {{{
 	| 'FOR'
 	| 'FROM'
 	| 'FUNC'
+	| 'IF'
 	| 'IMPL'
 	| 'IMPORT'
 	| 'INCLUDE'
@@ -3619,6 +3665,8 @@ OperandSX // {{{
 
 OperandElement // {{{
 	: Array
+	| CreateExpression
+	| DestroyExpression
 	| Identifier
 	| Number
 	| Object
@@ -3829,6 +3877,8 @@ OperandSX_NoAnonymousFunction // {{{
 
 OperandElement_NoAnonymousFunction // {{{
 	: Array
+	| CreateExpression
+	| DestroyExpression
 	| Identifier
 	| Number
 	| Object
@@ -4039,6 +4089,8 @@ OperandSX_NoObject // {{{
 
 OperandElement_NoObject // {{{
 	: Array
+	| CreateExpression
+	| DestroyExpression
 	| Identifier
 	| Number
 	| Parenthesis
@@ -4251,6 +4303,8 @@ OperandSX_NoWhereNoWith // {{{
 
 OperandElement_NoWhereNoWith // {{{
 	: Array
+	| CreateExpression
+	| DestroyExpression
 	| Identifier_NoWhereNoWith
 	| Number
 	| Object
@@ -4405,12 +4459,6 @@ PrefixUnaryOperator // {{{
 		{
 			$$ = location({
 				kind: UnaryOperator.Spread
-			}, @1);
-		}
-	| 'NEW'
-		{
-			$$ = location({
-				kind: UnaryOperator.New
 			}, @1);
 		}
 	;
@@ -5914,6 +5962,31 @@ VariableList // {{{
 				name: $1
 			}, @1)];
 		}
+	;
+// }}}
+
+VariableName // {{{
+	: VariableName '.' Identifier
+		{
+			$$ = location({
+				kind: Kind.MemberExpression,
+				object: $1,
+				property: $3,
+				computed: false,
+				nullable: false
+			}, @1, @3);
+		}
+	| VariableName '[' Expression ']'
+		{
+			$$ = location({
+				kind: Kind.MemberExpression,
+				object: $1,
+				property: $3,
+				computed: true,
+				nullable: false
+			}, @1, @4);
+		}
+	| Identifier
 	;
 // }}}
 

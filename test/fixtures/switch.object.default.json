@@ -1,9 +1,9 @@
 {
-  "kind": 57,
+  "kind": 59,
   "attributes": [],
   "body": [
     {
-      "kind": 91,
+      "kind": 93,
       "modifiers": {
         "kind": 2,
         "start": {
@@ -17,9 +17,9 @@
       },
       "declarations": [
         {
-          "kind": 92,
+          "kind": 94,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "value",
             "start": {
               "line": 1,
@@ -31,12 +31,12 @@
             }
           },
           "init": {
-            "kind": 60,
+            "kind": 62,
             "properties": [
               {
-                "kind": 61,
+                "kind": 63,
                 "name": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "foo",
                   "start": {
                     "line": 2,
@@ -48,7 +48,7 @@
                   }
                 },
                 "value": {
-                  "kind": 58,
+                  "kind": 60,
                   "value": 1,
                   "start": {
                     "line": 2,
@@ -69,9 +69,9 @@
                 }
               },
               {
-                "kind": 61,
+                "kind": 63,
                 "name": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "bar",
                   "start": {
                     "line": 3,
@@ -83,11 +83,11 @@
                   }
                 },
                 "value": {
-                  "kind": 38,
+                  "kind": 40,
                   "parameters": [],
                   "modifiers": [],
                   "body": {
-                    "kind": 58,
+                    "kind": 60,
                     "value": 2,
                     "start": {
                       "line": 3,
@@ -147,9 +147,9 @@
       "attributes": []
     },
     {
-      "kind": 77,
+      "kind": 79,
       "expression": {
-        "kind": 39,
+        "kind": 41,
         "name": "value",
         "start": {
           "line": 6,
@@ -162,15 +162,15 @@
       },
       "clauses": [
         {
-          "kind": 70,
+          "kind": 72,
           "conditions": [
             {
-              "kind": 73,
+              "kind": 75,
               "members": [
                 {
-                  "kind": 61,
+                  "kind": 63,
                   "name": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "foo",
                     "start": {
                       "line": 7,
@@ -182,7 +182,7 @@
                     }
                   },
                   "value": {
-                    "kind": 58,
+                    "kind": 60,
                     "value": 1,
                     "start": {
                       "line": 7,
@@ -215,12 +215,12 @@
           ],
           "bindings": [
             {
-              "kind": 59,
+              "kind": 61,
               "elements": [
                 {
                   "kind": 10,
                   "alias": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "qux",
                     "start": {
                       "line": 7,
@@ -232,7 +232,7 @@
                     }
                   },
                   "name": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "n",
                     "start": {
                       "line": 7,
@@ -269,9 +269,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 51,
+              "kind": 53,
               "object": {
-                "kind": 39,
+                "kind": 41,
                 "name": "console",
                 "start": {
                   "line": 7,
@@ -283,7 +283,7 @@
                 }
               },
               "property": {
-                "kind": 39,
+                "kind": 41,
                 "name": "log",
                 "start": {
                   "line": 7,
@@ -307,10 +307,10 @@
             },
             "arguments": [
               {
-                "kind": 79,
+                "kind": 81,
                 "elements": [
                   {
-                    "kind": 50,
+                    "kind": 52,
                     "value": "qux: ",
                     "start": {
                       "line": 7,
@@ -322,7 +322,7 @@
                     }
                   },
                   {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "n",
                     "start": {
                       "line": 7,
@@ -363,15 +363,15 @@
           }
         },
         {
-          "kind": 70,
+          "kind": 72,
           "conditions": [
             {
-              "kind": 73,
+              "kind": 75,
               "members": [
                 {
-                  "kind": 61,
+                  "kind": 63,
                   "name": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "foo",
                     "start": {
                       "line": 8,
@@ -383,7 +383,7 @@
                     }
                   },
                   "value": {
-                    "kind": 58,
+                    "kind": 60,
                     "value": 1,
                     "start": {
                       "line": 8,
@@ -421,9 +421,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 51,
+              "kind": 53,
               "object": {
-                "kind": 39,
+                "kind": 41,
                 "name": "console",
                 "start": {
                   "line": 8,
@@ -435,7 +435,7 @@
                 }
               },
               "property": {
-                "kind": 39,
+                "kind": 41,
                 "name": "log",
                 "start": {
                   "line": 8,
@@ -459,7 +459,7 @@
             },
             "arguments": [
               {
-                "kind": 50,
+                "kind": 52,
                 "value": "foo: 1",
                 "start": {
                   "line": 8,
@@ -490,15 +490,15 @@
           }
         },
         {
-          "kind": 70,
+          "kind": 72,
           "conditions": [
             {
-              "kind": 73,
+              "kind": 75,
               "members": [
                 {
-                  "kind": 61,
+                  "kind": 63,
                   "name": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "foo",
                     "start": {
                       "line": 9,
@@ -536,9 +536,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 51,
+              "kind": 53,
               "object": {
-                "kind": 39,
+                "kind": 41,
                 "name": "console",
                 "start": {
                   "line": 9,
@@ -550,7 +550,7 @@
                 }
               },
               "property": {
-                "kind": 39,
+                "kind": 41,
                 "name": "log",
                 "start": {
                   "line": 9,
@@ -574,7 +574,7 @@
             },
             "arguments": [
               {
-                "kind": 50,
+                "kind": 52,
                 "value": "has foo",
                 "start": {
                   "line": 9,
@@ -605,15 +605,15 @@
           }
         },
         {
-          "kind": 70,
+          "kind": 72,
           "conditions": [
             {
-              "kind": 73,
+              "kind": 75,
               "members": [
                 {
-                  "kind": 61,
+                  "kind": 63,
                   "name": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "qux",
                     "start": {
                       "line": 10,
@@ -651,9 +651,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 51,
+              "kind": 53,
               "object": {
-                "kind": 39,
+                "kind": 41,
                 "name": "console",
                 "start": {
                   "line": 10,
@@ -665,7 +665,7 @@
                 }
               },
               "property": {
-                "kind": 39,
+                "kind": 41,
                 "name": "log",
                 "start": {
                   "line": 10,
@@ -689,7 +689,7 @@
             },
             "arguments": [
               {
-                "kind": 50,
+                "kind": 52,
                 "value": "has qux",
                 "start": {
                   "line": 10,
@@ -720,7 +720,7 @@
           }
         },
         {
-          "kind": 70,
+          "kind": 72,
           "conditions": [],
           "bindings": [],
           "filter": {
@@ -750,9 +750,9 @@
                 "kind": 3
               },
               "callee": {
-                "kind": 51,
+                "kind": 53,
                 "object": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "value",
                   "start": {
                     "line": 11,
@@ -764,7 +764,7 @@
                   }
                 },
                 "property": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "bar",
                   "start": {
                     "line": 11,
@@ -798,7 +798,7 @@
               }
             },
             "right": {
-              "kind": 58,
+              "kind": 60,
               "value": 0,
               "start": {
                 "line": 11,
@@ -816,9 +816,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 51,
+              "kind": 53,
               "object": {
-                "kind": 39,
+                "kind": 41,
                 "name": "console",
                 "start": {
                   "line": 11,
@@ -830,7 +830,7 @@
                 }
               },
               "property": {
-                "kind": 39,
+                "kind": 41,
                 "name": "log",
                 "start": {
                   "line": 11,
@@ -854,7 +854,7 @@
             },
             "arguments": [
               {
-                "kind": 50,
+                "kind": 52,
                 "value": "bar() == 0",
                 "start": {
                   "line": 11,
@@ -885,7 +885,7 @@
           }
         },
         {
-          "kind": 70,
+          "kind": 72,
           "conditions": [],
           "bindings": [],
           "body": {
@@ -894,9 +894,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 51,
+              "kind": 53,
               "object": {
-                "kind": 39,
+                "kind": 41,
                 "name": "console",
                 "start": {
                   "line": 12,
@@ -908,7 +908,7 @@
                 }
               },
               "property": {
-                "kind": 39,
+                "kind": 41,
                 "name": "log",
                 "start": {
                   "line": 12,
@@ -932,7 +932,7 @@
             },
             "arguments": [
               {
-                "kind": 50,
+                "kind": 52,
                 "value": "oops!",
                 "start": {
                   "line": 12,

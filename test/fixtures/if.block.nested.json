@@ -1,9 +1,9 @@
 {
-  "kind": 57,
+  "kind": 59,
   "attributes": [],
   "body": [
     {
-      "kind": 91,
+      "kind": 93,
       "modifiers": {
         "kind": 2,
         "start": {
@@ -17,9 +17,9 @@
       },
       "declarations": [
         {
-          "kind": 92,
+          "kind": 94,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "x",
             "start": {
               "line": 1,
@@ -40,9 +40,9 @@
           }
         },
         {
-          "kind": 92,
+          "kind": 94,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "y",
             "start": {
               "line": 1,
@@ -63,9 +63,9 @@
           }
         },
         {
-          "kind": 92,
+          "kind": 94,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "z",
             "start": {
               "line": 1,
@@ -86,9 +86,9 @@
           }
         },
         {
-          "kind": 92,
+          "kind": 94,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "foo",
             "start": {
               "line": 1,
@@ -109,9 +109,9 @@
           }
         },
         {
-          "kind": 92,
+          "kind": 94,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "bar",
             "start": {
               "line": 1,
@@ -132,9 +132,9 @@
           }
         },
         {
-          "kind": 92,
+          "kind": 94,
           "name": {
-            "kind": 39,
+            "kind": 41,
             "name": "qux",
             "start": {
               "line": 1,
@@ -166,9 +166,9 @@
       "attributes": []
     },
     {
-      "kind": 41,
+      "kind": 43,
       "condition": {
-        "kind": 39,
+        "kind": 41,
         "name": "x",
         "start": {
           "line": 3,
@@ -184,9 +184,9 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 41,
+            "kind": 43,
             "condition": {
-              "kind": 39,
+              "kind": 41,
               "name": "foo",
               "start": {
                 "line": 4,
@@ -212,9 +212,9 @@
             },
             "elseifs": [
               {
-                "kind": 24,
+                "kind": 26,
                 "condition": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "bar",
                   "start": {
                     "line": 6,
@@ -248,9 +248,9 @@
                 }
               },
               {
-                "kind": 24,
+                "kind": 26,
                 "condition": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "qux",
                   "start": {
                     "line": 8,
@@ -293,7 +293,7 @@
               "column": 3
             },
             "else": {
-              "kind": 23,
+              "kind": 25,
               "body": {
                 "kind": 11,
                 "attributes": [],
@@ -330,9 +330,9 @@
       },
       "elseifs": [
         {
-          "kind": 24,
+          "kind": 26,
           "condition": {
-            "kind": 39,
+            "kind": 41,
             "name": "y",
             "start": {
               "line": 13,
@@ -366,9 +366,9 @@
           }
         },
         {
-          "kind": 24,
+          "kind": 26,
           "condition": {
-            "kind": 39,
+            "kind": 41,
             "name": "z",
             "start": {
               "line": 15,
@@ -384,9 +384,9 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 41,
+                "kind": 43,
                 "condition": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "foo",
                   "start": {
                     "line": 16,
@@ -412,9 +412,9 @@
                 },
                 "elseifs": [
                   {
-                    "kind": 24,
+                    "kind": 26,
                     "condition": {
-                      "kind": 39,
+                      "kind": 41,
                       "name": "bar",
                       "start": {
                         "line": 18,
@@ -448,9 +448,9 @@
                     }
                   },
                   {
-                    "kind": 24,
+                    "kind": 26,
                     "condition": {
-                      "kind": 39,
+                      "kind": 41,
                       "name": "qux",
                       "start": {
                         "line": 20,
@@ -493,7 +493,7 @@
                   "column": 3
                 },
                 "else": {
-                  "kind": 23,
+                  "kind": 25,
                   "body": {
                     "kind": 11,
                     "attributes": [],
@@ -547,15 +547,15 @@
         "column": 2
       },
       "else": {
-        "kind": 23,
+        "kind": 25,
         "body": {
           "kind": 11,
           "attributes": [],
           "statements": [
             {
-              "kind": 41,
+              "kind": 43,
               "condition": {
-                "kind": 39,
+                "kind": 41,
                 "name": "foo",
                 "start": {
                   "line": 26,
@@ -581,9 +581,9 @@
               },
               "elseifs": [
                 {
-                  "kind": 24,
+                  "kind": 26,
                   "condition": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "bar",
                     "start": {
                       "line": 28,
@@ -617,9 +617,9 @@
                   }
                 },
                 {
-                  "kind": 24,
+                  "kind": 26,
                   "condition": {
-                    "kind": 39,
+                    "kind": 41,
                     "name": "qux",
                     "start": {
                       "line": 30,
@@ -662,7 +662,7 @@
                 "column": 3
               },
               "else": {
-                "kind": 23,
+                "kind": 25,
                 "body": {
                   "kind": 11,
                   "attributes": [],

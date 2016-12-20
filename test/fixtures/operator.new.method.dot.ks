@@ -1,0 +1,1 @@
+new pack.Shape().draw()

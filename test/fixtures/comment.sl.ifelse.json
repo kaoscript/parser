@@ -1,11 +1,11 @@
 {
-  "kind": 57,
+  "kind": 59,
   "attributes": [],
   "body": [
     {
-      "kind": 41,
+      "kind": 43,
       "condition": {
-        "kind": 39,
+        "kind": 41,
         "name": "foo",
         "start": {
           "line": 2,
@@ -35,7 +35,7 @@
               }
             },
             "left": {
-              "kind": 39,
+              "kind": 41,
               "name": "qux",
               "start": {
                 "line": 3,
@@ -47,7 +47,7 @@
               }
             },
             "right": {
-              "kind": 58,
+              "kind": 60,
               "value": 1,
               "start": {
                 "line": 3,
@@ -80,9 +80,9 @@
       },
       "elseifs": [
         {
-          "kind": 24,
+          "kind": 26,
           "condition": {
-            "kind": 39,
+            "kind": 41,
             "name": "bar",
             "start": {
               "line": 6,
@@ -112,7 +112,7 @@
                   }
                 },
                 "left": {
-                  "kind": 39,
+                  "kind": 41,
                   "name": "qux",
                   "start": {
                     "line": 7,
@@ -124,7 +124,7 @@
                   }
                 },
                 "right": {
-                  "kind": 58,
+                  "kind": 60,
                   "value": 2,
                   "start": {
                     "line": 7,
@@ -174,7 +174,7 @@
         "column": 2
       },
       "else": {
-        "kind": 23,
+        "kind": 25,
         "body": {
           "kind": 11,
           "attributes": [],
@@ -194,7 +194,7 @@
                 }
               },
               "left": {
-                "kind": 39,
+                "kind": 41,
                 "name": "qux",
                 "start": {
                   "line": 11,
@@ -206,7 +206,7 @@
                 }
               },
               "right": {
-                "kind": 58,
+                "kind": 60,
                 "value": 3,
                 "start": {
                   "line": 11,
