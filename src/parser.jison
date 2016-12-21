@@ -1104,11 +1104,11 @@ CreateExpression // {{{
 	;
 // }}}
 
-DestroyExpression // {{{
+DestroyStatement // {{{
 	: 'DELETE' VariableName
 		{
 			$$ = location({
-				kind: Kind.DestroyExpression,
+				kind: Kind.DestroyStatement,
 				variable: $2
 			}, @1, @2);
 		}
@@ -3666,7 +3666,6 @@ OperandSX // {{{
 OperandElement // {{{
 	: Array
 	| CreateExpression
-	| DestroyExpression
 	| Identifier
 	| Number
 	| Object
@@ -3878,7 +3877,6 @@ OperandSX_NoAnonymousFunction // {{{
 OperandElement_NoAnonymousFunction // {{{
 	: Array
 	| CreateExpression
-	| DestroyExpression
 	| Identifier
 	| Number
 	| Object
@@ -4090,7 +4088,6 @@ OperandSX_NoObject // {{{
 OperandElement_NoObject // {{{
 	: Array
 	| CreateExpression
-	| DestroyExpression
 	| Identifier
 	| Number
 	| Parenthesis
@@ -4304,7 +4301,6 @@ OperandSX_NoWhereNoWith // {{{
 OperandElement_NoWhereNoWith // {{{
 	: Array
 	| CreateExpression
-	| DestroyExpression
 	| Identifier_NoWhereNoWith
 	| Number
 	| Object
@@ -4706,6 +4702,7 @@ Statement // {{{
 		}
 	| SwitchStatement NL_EOF_1M
 	| TypeDeclaration NL_EOF_1M
+	| DestroyStatement NL_EOF_1M
 	| StatementExpression NL_EOF_1M
 	;
 // }}}
