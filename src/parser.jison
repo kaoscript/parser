@@ -175,8 +175,8 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 0o[0-8]+										return 'OCTAL_NUMBER'
 0x[0-9a-fA-F]+									return 'HEX_NUMBER'
 [0-9]+(?:\.[0-9]+)?								return 'DECIMAL_NUMBER'
-\'([^\\']|\\.)*\'								yytext = strip(yytext.slice(1, -1), /\\'/g, '\'');return 'STRING'
-\"([^\\"]|\\.)*\"								yytext = strip(yytext.slice(1, -1), /\\"/g, '"');return 'STRING'
+\'([^\\']|\\.)*\'								yytext = yytext.slice(1, -1).replace(/(^|[^\\])\\('|")/g, '$1$2');return 'STRING'
+\"([^\\"]|\\.)*\"								yytext = yytext.slice(1, -1).replace(/(^|[^\\])\\('|")/g, '$1$2');return 'STRING'
 \`((.|\n)*?[^\\]|)\`							yytext = yytext.slice(1, -1);return 'TEMPLATE'
 \S+												return 'MODULE_NAME'
 <<EOF>> 										return 'EOF'
@@ -6172,12 +6172,6 @@ function reorderExpression(operations) { // {{{
 		return operations[0];
 	}
 } // }}}
-
-function strip(value, regex, replacement) { // {{{
-	return value.replace(regex, function() {
-		return replacement;
-	});
-}; // }}}
 
 parser.parseError = function(error, hash) { // {{{
 	throw new Error('Unexpected \'' + hash.text.replace(/\n/g, '\\n') + '\' at line ' + hash.loc.last_line + ' and column ' + (hash.loc.last_column + 1));
