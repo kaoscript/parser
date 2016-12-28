@@ -3,7 +3,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 ![Dependencies](https://img.shields.io/david/kaoscript/parser.svg)
-[![Build Status](https://img.shields.io/travis/kaoscript/parser.svg)](https://travis-ci.org/kaoscript/parser)
+[![Build Status](https://travis-ci.org/kaoscript/parser.svg?branch=master)](https://travis-ci.org/zokugun/lang)
 
 Parse kaoscript files and generates an abstract syntax tree.
 
