@@ -9,24 +9,6 @@ Parse kaoscript files and generates an abstract syntax tree.
 
 Documentation available at [kaoscript](https://github.com/kaoscript/kaoscript).
 
-Changelog
----------
-
-### 0.2.1
-
-- fix keyword usage
-
-### 0.2.0
-
-- fix conflict between ternary operator and postfix existential operator
-- add null coalescing operators
-- add `for let`, `extern|require`, `require|extern` statements
-
-### 0.1.x
-
-- postfix operators
-- initial release
-
 License
 -------
 
