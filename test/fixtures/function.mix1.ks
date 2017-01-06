@@ -9,7 +9,7 @@ let a2 = a.map(func(s) {
 	return s.length
 })
 
-let a3 = a.map((s) {
+let a3 = a.map((s) => {
 	return s.length
 })
 

@@ -1,6 +1,6 @@
 /**
  * parser.jison
- * Version 0.3.0
+ * Version 0.4.0
  * September 14th, 2016
  *
  * Copyright (c) 2016 Baptiste Augrain
@@ -2280,51 +2280,37 @@ FunctionExpression // {{{
 				body: $6
 			}, @1, @6);
 		}
-	| '(' FunctionParameterList ')' FunctionModifiers FunctionReturns FunctionBody
+	| '(' FunctionParameterList ')' FunctionModifiers FunctionReturns LambdaBody
 		{
 			$$ = location({
-				kind: Kind.FunctionExpression,
+				kind: Kind.LambdaExpression,
 				modifiers: $4,
 				parameters: $2,
 				type: $5,
 				body: $6
 			}, @1, @6);
 		}
-	| '(' FunctionParameterList ')' FunctionModifiers FunctionBody
+	| '(' FunctionParameterList ')' FunctionModifiers LambdaBody
 		{
 			$$ = location({
-				kind: Kind.FunctionExpression,
+				kind: Kind.LambdaExpression,
 				modifiers: $4,
 				parameters: $2,
 				body: $5
 			}, @1, @5);
 		}
-	| Identifier '->' TypeVar '=>' Expression
+	| Identifier LambdaBody
 		{
 			$$ = location({
-				kind: Kind.FunctionExpression,
+				kind: Kind.LambdaExpression,
 				modifiers: [],
 				parameters: [{
 					kind: Kind.Parameter,
 					modifiers: [],
 					name: $1
 				}],
-				type: $3,
-				body: $5
-			}, @1, @5);
-		}
-	| Identifier '=>' Expression
-		{
-			$$ = location({
-				kind: Kind.FunctionExpression,
-				modifiers: [],
-				parameters: [{
-					kind: Kind.Parameter,
-					modifiers: [],
-					name: $1
-				}],
-				body: $3
-			}, @1, @3);
+				body: $2
+			}, @1, @2);
 		}
 	;
 // }}}
@@ -2985,6 +2971,18 @@ Keyword_NoWhereNoWith // {{{
 	| 'UNTIL'
 	| 'WHEN'
 	| 'WHILE'
+	;
+// }}}
+
+LambdaBody // {{{
+	: '=>' Block
+		{
+			$$ = $2
+		}
+	| '=>' Expression_NoObject
+		{
+			$$ = $2
+		}
 	;
 // }}}
 
@@ -4316,10 +4314,10 @@ Parenthesis // {{{
 		{
 			$$ = $2;
 		}
-	| '(' Identifier '=' Expression ')' FunctionBody
+	| '(' Identifier '=' Expression ')' LambdaBody
 		{
 			$$ = location({
-				kind: Kind.FunctionExpression,
+				kind: Kind.LambdaExpression,
 				modifiers: [],
 				parameters: [location({
 					kind: Kind.Parameter,
@@ -4342,10 +4340,10 @@ Parenthesis // {{{
 				right: $4
 			}, @2, @4);
 		}
-	| '(' Identifier ')' FunctionBody
+	| '(' Identifier ')' LambdaBody
 		{
 			$$ = location({
-				kind: Kind.FunctionExpression,
+				kind: Kind.LambdaExpression,
 				modifiers: [],
 				parameters: [location({
 					kind: Kind.Parameter,
