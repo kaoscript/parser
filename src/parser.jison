@@ -3671,6 +3671,7 @@ OperandElement // {{{
 	| RegularExpression
 	| String
 	| TemplateExpression
+	| ThisExpression
 	;
 // }}}
 
@@ -3882,6 +3883,7 @@ OperandElement_NoAnonymousFunction // {{{
 	| RegularExpression
 	| String
 	| TemplateExpression
+	| ThisExpression
 	;
 // }}}
 
@@ -4092,6 +4094,7 @@ OperandElement_NoObject // {{{
 	| RegularExpression
 	| String
 	| TemplateExpression
+	| ThisExpression
 	;
 // }}}
 
@@ -4306,6 +4309,7 @@ OperandElement_NoWhereNoWith // {{{
 	| RegularExpression
 	| String
 	| TemplateExpression
+	| ThisExpression
 	;
 // }}}
 
@@ -5282,6 +5286,17 @@ TemplateValues // {{{
 	| '\(' Expression ')'
 		{
 			$$ = [$2];
+		}
+	;
+// }}}
+
+ThisExpression // {{{
+	: '@' Identifier
+		{
+			$$ = location({
+				kind: Kind.ThisExpression,
+				name: $2
+			}, @1, @2);
 		}
 	;
 // }}}
