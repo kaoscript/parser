@@ -3043,13 +3043,6 @@ Method // {{{
 
 MethodBody // {{{
 	: Block
-	| '=>' '@' Identifier
-		{
-			$$ = location({
-				kind: Kind.MemberReference,
-				name: $3
-			}, @2, @3);
-		}
 	| '=>' Expression
 		{
 			$$ = $2;
