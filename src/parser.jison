@@ -122,6 +122,7 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 '<='											return '<='
 '!='											return '!='
 '??='											return '??='
+'!?='											return '!?='
 '?='											return '?='
 '=='											return '=='
 '+='											return '+='
@@ -492,6 +493,16 @@ AssignmentOperator // {{{
 				operator: location({
 					kind: BinaryOperator.Assignment,
 					assignment: AssignmentOperator.Equality
+				}, @1)
+			}, @1);
+		}
+	| '!?='
+		{
+			$$ = location({
+				kind: Kind.BinaryOperator,
+				operator: location({
+					kind: BinaryOperator.Assignment,
+					assignment: AssignmentOperator.NonExistential
 				}, @1)
 			}, @1);
 		}
