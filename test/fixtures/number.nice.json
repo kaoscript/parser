@@ -20,49 +20,26 @@
           "kind": 95,
           "name": {
             "kind": 41,
-            "name": "decimal",
+            "name": "time",
             "start": {
               "line": 1,
               "column": 5
             },
             "end": {
               "line": 1,
-              "column": 12
-            }
-          },
-          "type": {
-            "kind": 88,
-            "typeName": {
-              "kind": 41,
-              "name": "number",
-              "start": {
-                "line": 1,
-                "column": 14
-              },
-              "end": {
-                "line": 1,
-                "column": 20
-              }
-            },
-            "start": {
-              "line": 1,
-              "column": 14
-            },
-            "end": {
-              "line": 1,
-              "column": 20
+              "column": 9
             }
           },
           "init": {
             "kind": 60,
-            "value": 6,
+            "value": 10000,
             "start": {
               "line": 1,
-              "column": 23
+              "column": 12
             },
             "end": {
               "line": 1,
-              "column": 24
+              "column": 21
             }
           },
           "start": {
@@ -71,7 +48,7 @@
           },
           "end": {
             "line": 1,
-            "column": 24
+            "column": 21
           }
         }
       ],
@@ -81,7 +58,7 @@
       },
       "end": {
         "line": 1,
-        "column": 24
+        "column": 21
       },
       "attributes": []
     },
@@ -113,141 +90,35 @@
               "column": 8
             }
           },
-          "type": {
-            "kind": 88,
-            "typeName": {
-              "kind": 41,
-              "name": "number",
-              "start": {
-                "line": 2,
-                "column": 10
-              },
-              "end": {
-                "line": 2,
-                "column": 16
-              }
-            },
-            "start": {
-              "line": 2,
-              "column": 10
-            },
-            "end": {
-              "line": 2,
-              "column": 16
-            }
-          },
           "init": {
             "kind": 60,
-            "value": 61453,
+            "value": 305419896,
             "start": {
               "line": 2,
-              "column": 19
-            },
-            "end": {
-              "line": 2,
-              "column": 25
-            }
-          },
-          "start": {
-            "line": 2,
-            "column": 5
-          },
-          "end": {
-            "line": 2,
-            "column": 25
-          }
-        }
-      ],
-      "start": {
-        "line": 2,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 25
-      },
-      "attributes": []
-    },
-    {
-      "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 3,
-          "column": 1
-        },
-        "end": {
-          "line": 3,
-          "column": 4
-        }
-      },
-      "declarations": [
-        {
-          "kind": 95,
-          "name": {
-            "kind": 41,
-            "name": "binary",
-            "start": {
-              "line": 3,
-              "column": 5
-            },
-            "end": {
-              "line": 3,
               "column": 11
-            }
-          },
-          "type": {
-            "kind": 88,
-            "typeName": {
-              "kind": 41,
-              "name": "number",
-              "start": {
-                "line": 3,
-                "column": 13
-              },
-              "end": {
-                "line": 3,
-                "column": 19
-              }
-            },
-            "start": {
-              "line": 3,
-              "column": 13
             },
             "end": {
-              "line": 3,
-              "column": 19
-            }
-          },
-          "init": {
-            "kind": 60,
-            "value": 10,
-            "start": {
-              "line": 3,
+              "line": 2,
               "column": 22
-            },
-            "end": {
-              "line": 3,
-              "column": 28
             }
           },
           "start": {
-            "line": 3,
+            "line": 2,
             "column": 5
           },
           "end": {
-            "line": 3,
-            "column": 28
+            "line": 2,
+            "column": 22
           }
         }
       ],
       "start": {
-        "line": 3,
+        "line": 2,
         "column": 1
       },
       "end": {
-        "line": 3,
-        "column": 28
+        "line": 2,
+        "column": 22
       },
       "attributes": []
     },
@@ -256,11 +127,11 @@
       "modifiers": {
         "kind": 2,
         "start": {
-          "line": 4,
+          "line": 3,
           "column": 1
         },
         "end": {
-          "line": 4,
+          "line": 3,
           "column": 4
         }
       },
@@ -271,43 +142,80 @@
             "kind": 41,
             "name": "octal",
             "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 10
+            }
+          },
+          "init": {
+            "kind": 60,
+            "value": 56,
+            "start": {
+              "line": 3,
+              "column": 13
+            },
+            "end": {
+              "line": 3,
+              "column": 18
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 18
+          }
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 18
+      },
+      "attributes": []
+    },
+    {
+      "kind": 94,
+      "modifiers": {
+        "kind": 2,
+        "start": {
+          "line": 4,
+          "column": 1
+        },
+        "end": {
+          "line": 4,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 95,
+          "name": {
+            "kind": 41,
+            "name": "binary",
+            "start": {
               "line": 4,
               "column": 5
             },
             "end": {
               "line": 4,
-              "column": 10
-            }
-          },
-          "type": {
-            "kind": 88,
-            "typeName": {
-              "kind": 41,
-              "name": "number",
-              "start": {
-                "line": 4,
-                "column": 12
-              },
-              "end": {
-                "line": 4,
-                "column": 18
-              }
-            },
-            "start": {
-              "line": 4,
-              "column": 12
-            },
-            "end": {
-              "line": 4,
-              "column": 18
+              "column": 11
             }
           },
           "init": {
             "kind": 60,
-            "value": 484,
+            "value": 661,
             "start": {
               "line": 4,
-              "column": 21
+              "column": 14
             },
             "end": {
               "line": 4,
@@ -339,6 +247,66 @@
       "modifiers": {
         "kind": 2,
         "start": {
+          "line": 5,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 4
+        }
+      },
+      "declarations": [
+        {
+          "kind": 95,
+          "name": {
+            "kind": 41,
+            "name": "radix",
+            "start": {
+              "line": 5,
+              "column": 5
+            },
+            "end": {
+              "line": 5,
+              "column": 10
+            }
+          },
+          "init": {
+            "kind": 60,
+            "value": 50998809317,
+            "start": {
+              "line": 5,
+              "column": 13
+            },
+            "end": {
+              "line": 5,
+              "column": 23
+            }
+          },
+          "start": {
+            "line": 5,
+            "column": 5
+          },
+          "end": {
+            "line": 5,
+            "column": 23
+          }
+        }
+      ],
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 23
+      },
+      "attributes": []
+    },
+    {
+      "kind": 94,
+      "modifiers": {
+        "kind": 2,
+        "start": {
           "line": 6,
           "column": 1
         },
@@ -352,49 +320,26 @@
           "kind": 95,
           "name": {
             "kind": 41,
-            "name": "pi",
+            "name": "float",
             "start": {
               "line": 6,
               "column": 5
             },
             "end": {
               "line": 6,
-              "column": 7
-            }
-          },
-          "type": {
-            "kind": 88,
-            "typeName": {
-              "kind": 41,
-              "name": "number",
-              "start": {
-                "line": 6,
-                "column": 9
-              },
-              "end": {
-                "line": 6,
-                "column": 15
-              }
-            },
-            "start": {
-              "line": 6,
-              "column": 9
-            },
-            "end": {
-              "line": 6,
-              "column": 15
+              "column": 10
             }
           },
           "init": {
             "kind": 60,
-            "value": 3.14,
+            "value": 123456.789012,
             "start": {
               "line": 6,
-              "column": 18
+              "column": 13
             },
             "end": {
               "line": 6,
-              "column": 22
+              "column": 28
             }
           },
           "start": {
@@ -403,7 +348,7 @@
           },
           "end": {
             "line": 6,
-            "column": 22
+            "column": 28
           }
         }
       ],
@@ -413,7 +358,7 @@
       },
       "end": {
         "line": 6,
-        "column": 22
+        "column": 28
       },
       "attributes": []
     }
@@ -423,7 +368,7 @@
     "column": 1
   },
   "end": {
-    "line": 7,
-    "column": 1
+    "line": 6,
+    "column": 28
   }
 }

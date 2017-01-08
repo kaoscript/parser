@@ -1,6 +1,6 @@
 /**
  * parser.jison
- * Version 0.4.0
+ * Version 0.5.0
  * September 14th, 2016
  *
  * Copyright (c) 2016 Baptiste Augrain
@@ -51,8 +51,9 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 <template>'`'									this.popState();return 'TEMPLATE_END'
 <template>'\('									this.begin('');return '\('
 <template>([^`\\]|\\(?!\())+					return 'TEMPLATE_VALUE'
-	
+
 '`'												this.begin('template');return 'TEMPLATE_BEGIN'
+'abstract'										return 'ABSTRACT'
 'async'											return 'ASYNC'
 'as'											return 'AS'
 'await'											return 'AWAIT'
@@ -170,12 +171,14 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 '^'												return '^'
 '!'												return '!'
 '_'												return '_'
+'~'												return '~'
 \r?\n											return 'NEWLINE'
 [_$A-Za-z]\w*									return 'IDENTIFIER'
-0b[0-1]+										return 'BINARY_NUMBER'
-0o[0-8]+										return 'OCTAL_NUMBER'
-0x[0-9a-fA-F]+									return 'HEX_NUMBER'
-[0-9]+(?:\.[0-9]+)?								return 'DECIMAL_NUMBER'
+0b[_0-1]+[a-zA-Z]*								return 'BINARY_NUMBER'
+0o[_0-8]+[a-zA-Z]*								return 'OCTAL_NUMBER'
+0x[_0-9a-fA-F]+[a-zA-Z]*						return 'HEX_NUMBER'
+(?:[0-9]|[1-2][0-9]|3[0-6])r[_0-9a-zA-Z]+		return 'RADIX_NUMBER'
+[0-9][_0-9]*(?:\.[_0-9]+)?[a-zA-Z]*				return 'DECIMAL_NUMBER'
 \'([^\\']|\\.)*\'								yytext = yytext.slice(1, -1).replace(/(^|[^\\])\\('|")/g, '$1$2');return 'STRING'
 \"([^\\"]|\\.)*\"								yytext = yytext.slice(1, -1).replace(/(^|[^\\])\\('|")/g, '$1$2');return 'STRING'
 \`((.|\n)*?[^\\]|)\`							yytext = yytext.slice(1, -1);return 'TEMPLATE'
@@ -188,6 +191,52 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 %start Module
 
 %%
+
+AbstractMethod // {{{
+	: MethodHeader FunctionModifiers FunctionReturns FunctionThrows
+		{
+			$1.kind = Kind.MethodDeclaration;
+			$1.modifiers = $2;
+			$1.type = $3;
+			$1.throws = $4;
+			$$ = location($1, @4);
+		}
+	| MethodHeader FunctionModifiers FunctionReturns
+		{
+			$1.kind = Kind.MethodDeclaration;
+			$1.modifiers = $2;
+			$1.type = $3;
+			$$ = location($1, @3);
+		}
+	| MethodHeader FunctionModifiers FunctionThrows
+		{
+			$1.kind = Kind.MethodDeclaration;
+			$1.modifiers = $2;
+			$1.throws = $3;
+			$$ = location($1, @3);
+		}
+	| MethodHeader FunctionModifiers
+		{
+			$1.kind = Kind.MethodDeclaration;
+			$1.modifiers = $2;
+			$$ = location($1, @2);
+		}
+	;
+// }}}
+
+AbstractMethodList // {{{
+	: AbstractMethodList AbstractMethod NL_EOF_1
+		{
+			$1.push($2);
+			$$ = $1;
+		}
+	| AbstractMethodList NL_EOF_1
+	|
+		{
+			$$ = [];
+		}
+	;
+// }}}
 
 Array // {{{
 	: '[' NL_0M ArrayRange ']'
@@ -910,17 +959,50 @@ CatchOnClause // {{{
 // }}}
 
 ClassDeclaration // {{{
-	: 'SEALED' ClassDeclaration
+	: ClassModifier 'CLASS' Identifier TypeGeneric 'EXTENDS' Identifier '{' ClassMember '}'
 		{
-			$2.sealed = true;
-			
-			$$ = location($2, @1, @2);
+			$$ = location({
+				kind: Kind.ClassDeclaration,
+				modifiers: $1,
+				name: $2,
+				extends: $6,
+				members: $8
+			}, @1, @9);
+		}
+	| ClassModifier 'CLASS' Identifier 'EXTENDS' Identifier '{' ClassMember '}'
+		{
+			$$ = location({
+				kind: Kind.ClassDeclaration,
+				modifiers: $1,
+				name: $3,
+				extends: $5,
+				members: $7
+			}, @1, @8);
+		}
+	| ClassModifier 'CLASS' Identifier TypeGeneric '{' ClassMember '}'
+		{
+			$$ = location({
+				kind: Kind.ClassDeclaration,
+				modifiers: $1,
+				name: $3,
+				members: $6
+			}, @1, @7);
+		}
+	| ClassModifier 'CLASS' Identifier '{' ClassMember '}'
+		{
+			$$ = location({
+				kind: Kind.ClassDeclaration,
+				modifiers: $1,
+				name: $3,
+				members: $5
+			}, @1, @6);
 		}
 	| 'CLASS' Identifier TypeGeneric 'EXTENDS' Identifier '{' ClassMember '}'
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				name: $2,
+				modifiers: [],
+				name: $1,
 				extends: $5,
 				members: $7
 			}, @1, @8);
@@ -929,6 +1011,7 @@ ClassDeclaration // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
+				modifiers: [],
 				name: $2,
 				extends: $4,
 				members: $6
@@ -938,6 +1021,7 @@ ClassDeclaration // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
+				modifiers: [],
 				name: $2,
 				members: $5
 			}, @1, @6);
@@ -946,6 +1030,7 @@ ClassDeclaration // {{{
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
+				modifiers: [],
 				name: $2,
 				members: $4
 			}, @1, @5);
@@ -1001,21 +1086,37 @@ ClassMember // {{{
 				
 				$1.push($4[i]);
 			}
-			
-			$$ = $1;
 		}
 	| ClassMember ClassMemberModifier ClassMemberSX
 		{
 			$3.modifiers.push($2);
 			
 			$1.push(location($3, @2, @3));
-			
-			$$ = $1;
 		}
 	| ClassMember ClassMemberSX
 		{
 			$1.push($2);
 			$$ = $1;
+		}
+	| ClassMember 'ABSTRACT' AbstractMethod
+		{
+			$3.modifiers.push(location({
+				kind: MethodModifier.Abstract
+			}, @2));
+			
+			$1.push(location($3, @2, @3));
+		}
+	| ClassMember 'ABSTRACT' '{' AbstractMethodList '}'
+		{
+			var modifier = location({
+				kind: MethodModifier.Abstract
+			}, @2);
+			
+			for(var i = 0; i < $4.length; i++) {
+				$4[i].modifiers.push(modifier);
+				
+				$1.push($4[i]);
+			}
 		}
 	| ClassMember NL_EOF_1M
 	|
@@ -1070,6 +1171,33 @@ ClassMemberModifier // {{{
 ClassMemberSX // {{{
 	: ClassField
 	| Method
+	;
+// }}}
+
+ClassModifier // {{{
+	: 'ABSTRACT'
+		{
+			$$ = [location({
+				kind: ClassModifier.Abstract
+			}, @1)];
+		}
+	| 'SEALED' 'ABSTRACT'
+		{
+			$$ = [
+				location({
+						kind: ClassModifier.Sealed
+				}, @1),
+				location({
+					kind: ClassModifier.Abstract
+				}, @2)
+			];
+		}
+	| 'SEALED'
+		{
+			$$ = [location({
+				kind: ClassModifier.Sealed
+			}, @1)];
+		}
 	;
 // }}}
 
@@ -2247,7 +2375,7 @@ FunctionBody // {{{
 // }}}
 
 FunctionDeclaration // {{{
-	: 'FUNC' Identifier '(' FunctionParameterList ')' FunctionModifiers FunctionReturns FunctionBody
+	: 'FUNC' Identifier '(' FunctionParameterList ')' FunctionModifiers FunctionReturns FunctionThrows FunctionBody
 		{
 			$$ = location({
 				kind: Kind.FunctionDeclaration,
@@ -2255,6 +2383,30 @@ FunctionDeclaration // {{{
 				name: $2,
 				parameters: $4,
 				type: $7,
+				throws: $8,
+				body: $9
+			}, @1, @9);
+		}
+	| 'FUNC' Identifier '(' FunctionParameterList ')' FunctionModifiers FunctionReturns FunctionBody
+		{
+			$$ = location({
+				kind: Kind.FunctionDeclaration,
+				modifiers: $6,
+				name: $2,
+				parameters: $4,
+				type: $7,
+				throws: [],
+				body: $8
+			}, @1, @8);
+		}
+	| 'FUNC' Identifier '(' FunctionParameterList ')' FunctionModifiers FunctionThrows FunctionBody
+		{
+			$$ = location({
+				kind: Kind.FunctionDeclaration,
+				modifiers: $6,
+				name: $2,
+				parameters: $4,
+				throws: $7,
 				body: $8
 			}, @1, @8);
 		}
@@ -2265,6 +2417,7 @@ FunctionDeclaration // {{{
 				modifiers: $6,
 				name: $2,
 				parameters: $4,
+				throws: [],
 				body: $7
 			}, @1, @7);
 		}
@@ -2535,6 +2688,18 @@ FunctionReturns // {{{
 	: ColonSeparator TypeVar
 		{
 			$$ = $2;
+		}
+	;
+// }}}
+
+FunctionThrows // {{{
+	: FunctionThrows ',' Identifier
+		{
+			$1.push($3);
+		}
+	| '~' Identifier
+		{
+			$$ = [$2];
 		}
 	;
 // }}}
@@ -2880,7 +3045,8 @@ IncludeOnceDeclaration // {{{
 // }}}
 
 Keyword // {{{
-	: 'AS'
+	: 'ABSTRACT'
+	| 'AS'
 	| 'ASYNC'
 	| 'AWAIT'
 	| 'BREAK'
@@ -2917,6 +3083,7 @@ Keyword // {{{
 	| 'PUBLIC'
 	| 'REQUIRE'
 	| 'RETURN'
+	| 'SEALED'
 	| 'STATIC'
 	| 'SWITCH'
 	| 'TIL'
@@ -2934,7 +3101,8 @@ Keyword // {{{
 // }}}
 
 Keyword_NoWhereNoWith // {{{
-	: 'AS'
+	: 'ABSTRACT'
+	| 'AS'
 	| 'ASYNC'
 	| 'AWAIT'
 	| 'BREAK'
@@ -2971,6 +3139,7 @@ Keyword_NoWhereNoWith // {{{
 	| 'PUBLIC'
 	| 'REQUIRE'
 	| 'RETURN'
+	| 'SEALED'
 	| 'STATIC'
 	| 'SWITCH'
 	| 'TIL'
@@ -2998,11 +3167,28 @@ LambdaBody // {{{
 // }}}
 
 Method // {{{
-	: MethodHeader FunctionModifiers FunctionReturns MethodBody
+	: MethodHeader FunctionModifiers FunctionReturns FunctionThrows MethodBody
 		{
 			$1.kind = Kind.MethodDeclaration;
 			$1.modifiers = $2;
 			$1.type = $3;
+			$1.throws = $4;
+			$1.body = $5;
+			$$ = location($1, @5);
+		}
+	| MethodHeader FunctionModifiers FunctionReturns MethodBody
+		{
+			$1.kind = Kind.MethodDeclaration;
+			$1.modifiers = $2;
+			$1.type = $3;
+			$1.body = $4;
+			$$ = location($1, @4);
+		}
+	| MethodHeader FunctionModifiers FunctionThrows MethodBody
+		{
+			$1.kind = Kind.MethodDeclaration;
+			$1.modifiers = $2;
+			$1.throws = $3;
 			$1.body = $4;
 			$$ = location($1, @4);
 		}
@@ -3066,7 +3252,8 @@ MethodHeader // {{{
 		{
 			$$ = location({
 				name: $1,
-				parameters: $3
+				parameters: $3,
+				throws: []
 			}, @1, @4)
 		}
 	;
@@ -3359,28 +3546,37 @@ Number // {{{
 		{
 			$$ = location({
 				kind: Kind.NumericExpression,
-				value: parseInt($1, 2)
+				value: parseInt($1.slice(2).replace(/\_/g, ''), 2)
 			}, @1);
 		}
 	| 'OCTAL_NUMBER'
 		{
 			$$ = location({
 				kind: Kind.NumericExpression,
-				value: parseInt($1, 8)
+				value: parseInt($1.slice(2).replace(/\_/g, ''), 8)
 			}, @1);
 		}
 	| 'HEX_NUMBER'
 		{
 			$$ = location({
 				kind: Kind.NumericExpression,
-				value: parseInt($1, 16)
+				value: parseInt($1.slice(2).replace(/\_/g, ''), 16)
+			}, @1);
+		}
+	| 'RADIX_NUMBER'
+		{
+			var data = /^(\d+)r(.*)$/.exec($1);
+			
+			$$ = location({
+				kind: Kind.NumericExpression,
+				value: parseInt(data[2].replace(/\_/g, ''), parseInt(data[1]))
 			}, @1);
 		}
 	| 'DECIMAL_NUMBER'
 		{
 			$$ = location({
 				kind: Kind.NumericExpression,
-				value: parseFloat($1, 10)
+				value: parseFloat($1.replace(/\_/g, ''), 10)
 			}, @1);
 		}
 	;
@@ -6029,9 +6225,11 @@ WhileStatement // {{{
 var enums = require('@kaoscript/ast')();
 var AssignmentOperator = enums.AssignmentOperator;
 var BinaryOperator = enums.BinaryOperator;
+var ClassModifier = enums.ClassModifier;
 var FunctionModifier = enums.FunctionModifier;
 var Kind = enums.Kind;
 var MemberModifier = enums.MemberModifier;
+var MethodModifier = enums.MethodModifier;
 var ParameterModifier = enums.ParameterModifier;
 var ScopeModifier = enums.ScopeModifier;
 var UnaryOperator = enums.UnaryOperator;
