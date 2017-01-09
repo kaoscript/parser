@@ -964,7 +964,7 @@ ClassDeclaration // {{{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
 				modifiers: $1,
-				name: $2,
+				name: $3,
 				extends: $6,
 				members: $8
 			}, @1, @9);
@@ -1002,7 +1002,7 @@ ClassDeclaration // {{{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
 				modifiers: [],
-				name: $1,
+				name: $2,
 				extends: $5,
 				members: $7
 			}, @1, @8);
@@ -1169,7 +1169,17 @@ ClassMemberModifier // {{{
 // }}}
 
 ClassMemberSX // {{{
-	: ClassField
+	: AttributeList ClassField
+		{
+			$$ = location($2, @1, @2);
+			$$.attributes = $1;
+		}
+	| AttributeList Method
+		{
+			$$ = location($2, @1, @2);
+			$$.attributes = $1;
+		}
+	| ClassField
 	| Method
 	;
 // }}}
@@ -1185,7 +1195,7 @@ ClassModifier // {{{
 		{
 			$$ = [
 				location({
-						kind: ClassModifier.Sealed
+					kind: ClassModifier.Sealed
 				}, @1),
 				location({
 					kind: ClassModifier.Abstract
@@ -1705,73 +1715,119 @@ ExternDeclarator // {{{
 // }}}
 
 ExternClass // {{{
-	: 'SEALED' 'CLASS' Identifier TypeGeneric '{' ExternClassMember '}'
+	: 'SEALED' 'ABSTRACT' 'CLASS' ExternClassBody
+		{
+			$4.modifiers = [
+				location({
+					kind: ClassModifier.Sealed
+				}, @1),
+				location({
+					kind: ClassModifier.Abstract
+				}, @2)
+			];
+			
+			$$ = location($4, @1, @4);
+		}
+	| 'ABSTRACT' 'CLASS' ExternClassBody
+		{
+			$3.modifiers = [
+				location({
+					kind: ClassModifier.Abstract
+				}, @1)
+			];
+			
+			$$ = location($3, @1, @3);
+		}
+	| 'SEALED' 'CLASS' ExternClassBody
+		{
+			$3.modifiers = [
+				location({
+					kind: ClassModifier.Sealed
+				}, @1)
+			];
+			
+			$$ = location($3, @1, @3);
+		}
+	| 'CLASS' ExternClassBody
+		{
+			$2.modifiers = [];
+			
+			$$ = location($2, @1, @2);
+		}
+	;
+// }}}
+
+ExternClassBody // {{{
+	: Identifier TypeGeneric 'EXTENDS' Identifier '{' ExternClassMember '}'
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				name: $3,
-				members: $6,
-				sealed: true
+				name: $1,
+				extends: $4,
+				members: $6
 			}, @1, @7);
 		}
-	| 'SEALED' 'CLASS' Identifier '{' ExternClassMember '}'
+	| Identifier 'EXTENDS' Identifier '{' ExternClassMember '}'
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				name: $3,
-				members: $5,
-				sealed: true
-			}, @1, @6);
-		}
-	| 'CLASS' Identifier TypeGeneric '{' ExternClassMember '}'
-		{
-			$$ = location({
-				kind: Kind.ClassDeclaration,
-				name: $2,
+				modifiers: [],
+				name: $1,
+				extends: $3,
 				members: $5
 			}, @1, @6);
 		}
-	| 'CLASS' Identifier '{' ExternClassMember '}'
+	| Identifier TypeGeneric '{' ExternClassMember '}'
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				name: $2,
+				modifiers: [],
+				name: $1,
 				members: $4
 			}, @1, @5);
 		}
-	| 'SEALED' 'CLASS' Identifier TypeGeneric
+	| Identifier '{' ExternClassMember '}'
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				name: $3,
-				members: [],
-				sealed: true
+				modifiers: [],
+				name: $1,
+				members: $3
 			}, @1, @4);
 		}
-	| 'SEALED' 'CLASS' Identifier
+	| Identifier TypeGeneric 'EXTENDS' Identifier
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				name: $3,
-				members: [],
-				sealed: true
-			}, @1, @3);
+				name: $1,
+				extends: $4,
+				members: []
+			}, @1, @7);
 		}
-	| 'CLASS' Identifier TypeGeneric
+	| Identifier 'EXTENDS' Identifier
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				name: $2,
+				name: $1,
+				extends: $3,
 				members: []
 			}, @1, @3);
 		}
-	| 'CLASS' Identifier
+	| Identifier TypeGeneric
 		{
 			$$ = location({
 				kind: Kind.ClassDeclaration,
-				name: $2,
+				name: $1,
 				members: []
 			}, @1, @2);
+		}
+	| Identifier
+		{
+			$$ = location({
+				kind: Kind.ClassDeclaration,
+				name: $1,
+				members: []
+			}, @1);
 		}
 	;
 // }}}
@@ -3630,7 +3686,17 @@ ObjectListPN // {{{
 // }}}
 	
 ObjectListPNI // {{{
-	: ObjectItem ',' NL_0M
+	: AttributeList ObjectItem ',' NL_0M
+		{
+			$$ = location($2, @1, @2);
+			$$.attributes = $1;
+		}
+	| AttributeList ObjectItem NL_1M
+		{
+			$$ = location($2, @1, @2);
+			$$.attributes = $1;
+		}
+	| ObjectItem ',' NL_0M
 	| ObjectItem NL_1M
 	;
 // }}}
