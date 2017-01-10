@@ -4,6 +4,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 ![Dependencies](https://img.shields.io/david/kaoscript/parser.svg)
 [![Build Status](https://travis-ci.org/kaoscript/parser.svg?branch=master)](https://travis-ci.org/kaoscript/parser)
+[![CircleCI](https://circleci.com/gh/kaoscript/parser/tree/master.svg?style=shield)](https://circleci.com/gh/kaoscript/parser/tree/master)
 
 Parse kaoscript files and generates an abstract syntax tree.
 
