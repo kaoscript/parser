@@ -1,7 +1,7 @@
 var chai = require('chai');
 var expect = require('chai').expect;
 var fs = require('fs');
-var parse = require('../build/parser.js').parse;
+var parse = require('..').parse;
 var path = require('path');
 
 describe('parse', function() {
@@ -38,7 +38,7 @@ describe('parse', function() {
 			}
 			else {
 				data = parse(data);
-				//console.log(JSON.stringify(data, function(key, value){return value == Infinity ? 'Infinity' : value;}, 2));
+				console.log(JSON.stringify(data, function(key, value){return value == Infinity ? 'Infinity' : value;}, 2));
 				
 				var json = fs.readFileSync(path.join(__dirname, 'fixtures', name + '.json'), {
 					encoding: 'utf8'

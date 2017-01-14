@@ -23,7 +23,7 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 %%
 
 <regexp>{RegularExpressionLiteral}				this.popState();return 'REGEXP_LITERAL'
-<import>[\@\.\/\w]+								this.popState();return 'IMPORT_LITERAL'
+<import>[\@\.\/A-Za-z0-9_\-]+					this.popState();return 'IMPORT_LITERAL'
 
 \s+\?\s+										return 'SPACED_?'
 \s+\:\s+										return 'SPACED_:'
@@ -2908,26 +2908,26 @@ ImportName // {{{
 		{
 			$$ = $1 + $2;
 		}
-	| Keyword
+	| 'IDENTIFIER' ImportNameBegin 'IMPORT_LITERAL'
+		{
+			$$ = $1 + $2 + $3;
+		}
+	| 'MODULE_NAME' ImportNameBegin 'IMPORT_LITERAL'
+		{
+			$$ = $1 + $2 + $3;
+		}
+	| Keyword ImportNameBegin 'IMPORT_LITERAL'
+		{
+			$$ = $1 + $2 + $3;
+		}
 	| 'IDENTIFIER'
 	| 'MODULE_NAME'
+	| Keyword
 	;
 // }}}
 
 ImportNameBegin // {{{
-	: Keyword
-		{
-			yy.lexer.begin('import');
-		}
-	| 'IDENTIFIER'
-		{
-			yy.lexer.begin('import');
-		}
-	| 'MODULE_NAME'
-		{
-			yy.lexer.begin('import');
-		}
-	| '..'
+	: '..'
 		{
 			yy.lexer.begin('import');
 		}
@@ -2940,6 +2940,10 @@ ImportNameBegin // {{{
 			yy.lexer.begin('import');
 		}
 	| '@'
+		{
+			yy.lexer.begin('import');
+		}
+	| '-'
 		{
 			yy.lexer.begin('import');
 		}
