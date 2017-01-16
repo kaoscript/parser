@@ -1,25 +1,15 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "foo",
             "start": {
               "line": 1,
@@ -31,12 +21,12 @@
             }
           },
           "init": {
-            "kind": 62,
+            "kind": 61,
             "properties": [
               {
-                "kind": 63,
+                "kind": 62,
                 "name": {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "bar",
                   "start": {
                     "line": 2,
@@ -48,13 +38,13 @@
                   }
                 },
                 "value": {
-                  "kind": 40,
+                  "kind": 39,
                   "parameters": [
                     {
-                      "kind": 65,
+                      "kind": 64,
                       "modifiers": [],
                       "name": {
-                        "kind": 41,
+                        "kind": 40,
                         "name": "name",
                         "start": {
                           "line": 2,
@@ -68,7 +58,7 @@
                       "type": {
                         "kind": 88,
                         "typeName": {
-                          "kind": 41,
+                          "kind": 40,
                           "name": "string",
                           "start": {
                             "line": 2,
@@ -118,7 +108,7 @@
                           }
                         },
                         "left": {
-                          "kind": 41,
+                          "kind": 40,
                           "name": "n",
                           "start": {
                             "line": 3,
@@ -130,7 +120,7 @@
                           }
                         },
                         "right": {
-                          "kind": 60,
+                          "kind": 59,
                           "value": 0,
                           "start": {
                             "line": 3,

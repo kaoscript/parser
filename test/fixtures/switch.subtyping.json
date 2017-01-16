@@ -1,25 +1,15 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "view",
             "start": {
               "line": 1,
@@ -33,7 +23,7 @@
           "type": {
             "kind": 88,
             "typeName": {
-              "kind": 41,
+              "kind": 40,
               "name": "UIView",
               "start": {
                 "line": 1,
@@ -74,9 +64,9 @@
       "attributes": []
     },
     {
-      "kind": 79,
+      "kind": 80,
       "expression": {
-        "kind": 41,
+        "kind": 40,
         "name": "view",
         "start": {
           "line": 3,
@@ -89,14 +79,14 @@
       },
       "clauses": [
         {
-          "kind": 72,
+          "kind": 73,
           "conditions": [
             {
-              "kind": 77,
+              "kind": 78,
               "type": {
                 "kind": 88,
                 "typeName": {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "UIImageView",
                   "start": {
                     "line": 4,
@@ -133,9 +123,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "object": {
-                "kind": 41,
+                "kind": 40,
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -147,7 +137,7 @@
                 }
               },
               "property": {
-                "kind": 41,
+                "kind": 40,
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -171,7 +161,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 52,
                 "value": "It's an image view",
                 "start": {
                   "line": 4,
@@ -202,14 +192,14 @@
           }
         },
         {
-          "kind": 72,
+          "kind": 73,
           "conditions": [
             {
-              "kind": 77,
+              "kind": 78,
               "type": {
                 "kind": 88,
                 "typeName": {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "UILabel",
                   "start": {
                     "line": 5,
@@ -241,9 +231,9 @@
           ],
           "bindings": [
             {
-              "kind": 80,
+              "kind": 81,
               "name": {
-                "kind": 41,
+                "kind": 40,
                 "name": "label",
                 "start": {
                   "line": 5,
@@ -257,7 +247,7 @@
               "type": {
                 "kind": 88,
                 "typeName": {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "UILabel",
                   "start": {
                     "line": 5,
@@ -293,9 +283,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "object": {
-                "kind": 41,
+                "kind": 40,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -307,7 +297,7 @@
                 }
               },
               "property": {
-                "kind": 41,
+                "kind": 40,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -331,7 +321,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 52,
                 "value": "It's a label",
                 "start": {
                   "line": 5,
@@ -362,14 +352,14 @@
           }
         },
         {
-          "kind": 72,
+          "kind": 73,
           "conditions": [
             {
-              "kind": 77,
+              "kind": 78,
               "type": {
                 "kind": 88,
                 "typeName": {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "UITableView",
                   "start": {
                     "line": 6,
@@ -401,9 +391,9 @@
           ],
           "bindings": [
             {
-              "kind": 80,
+              "kind": 81,
               "name": {
-                "kind": 41,
+                "kind": 40,
                 "name": "tblv",
                 "start": {
                   "line": 6,
@@ -417,7 +407,7 @@
               "type": {
                 "kind": 88,
                 "typeName": {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "UITableView",
                   "start": {
                     "line": 6,
@@ -453,22 +443,12 @@
             "statements": [
               {
                 "kind": 94,
-                "modifiers": {
-                  "kind": 2,
-                  "start": {
-                    "line": 7,
-                    "column": 7
-                  },
-                  "end": {
-                    "line": 7,
-                    "column": 10
-                  }
-                },
+                "rebindable": true,
                 "declarations": [
                   {
                     "kind": 95,
                     "name": {
-                      "kind": 41,
+                      "kind": 40,
                       "name": "sectionCount",
                       "start": {
                         "line": 7,
@@ -485,9 +465,9 @@
                         "kind": 3
                       },
                       "callee": {
-                        "kind": 54,
+                        "kind": 53,
                         "object": {
-                          "kind": 41,
+                          "kind": 40,
                           "name": "tblv",
                           "start": {
                             "line": 7,
@@ -499,7 +479,7 @@
                           }
                         },
                         "property": {
-                          "kind": 41,
+                          "kind": 40,
                           "name": "numberOfSections",
                           "start": {
                             "line": 7,
@@ -558,9 +538,9 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 54,
+                  "kind": 53,
                   "object": {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "console",
                     "start": {
                       "line": 8,
@@ -572,7 +552,7 @@
                     }
                   },
                   "property": {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "log",
                     "start": {
                       "line": 8,
@@ -596,7 +576,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 53,
+                    "kind": 52,
                     "value": "It's a table view with \\(sectionCount) sections",
                     "start": {
                       "line": 8,
@@ -639,7 +619,7 @@
           }
         },
         {
-          "kind": 72,
+          "kind": 73,
           "conditions": [],
           "bindings": [],
           "body": {
@@ -648,9 +628,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "object": {
-                "kind": 41,
+                "kind": 40,
                 "name": "console",
                 "start": {
                   "line": 10,
@@ -662,7 +642,7 @@
                 }
               },
               "property": {
-                "kind": 41,
+                "kind": 40,
                 "name": "log",
                 "start": {
                   "line": 10,
@@ -686,7 +666,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 52,
                 "value": "It's some other UIView or subclass",
                 "start": {
                   "line": 10,

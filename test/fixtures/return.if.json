@@ -1,11 +1,11 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 70,
       "value": {
-        "kind": 42,
+        "kind": 41,
         "condition": {
           "kind": 9,
           "operator": {
@@ -28,7 +28,7 @@
             "column": 26
           },
           "left": {
-            "kind": 41,
+            "kind": 40,
             "name": "lang",
             "start": {
               "line": 1,
@@ -40,7 +40,7 @@
             }
           },
           "right": {
-            "kind": 53,
+            "kind": 52,
             "value": "en",
             "start": {
               "line": 1,
@@ -52,8 +52,8 @@
             }
           }
         },
-        "then": {
-          "kind": 53,
+        "whenTrue": {
+          "kind": 52,
           "value": "hello",
           "start": {
             "line": 1,
@@ -64,8 +64,8 @@
             "column": 15
           }
         },
-        "else": {
-          "kind": 53,
+        "whenFalse": {
+          "kind": 52,
           "value": "bonjour",
           "start": {
             "line": 1,

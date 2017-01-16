@@ -1,25 +1,15 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "foo",
             "start": {
               "line": 1,
@@ -31,7 +21,7 @@
             }
           },
           "init": {
-            "kind": 60,
+            "kind": 59,
             "value": 180,
             "start": {
               "line": 1,
@@ -64,22 +54,12 @@
     },
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 2,
-          "column": 1
-        },
-        "end": {
-          "line": 2,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "bar",
             "start": {
               "line": 2,
@@ -91,7 +71,7 @@
             }
           },
           "init": {
-            "kind": 60,
+            "kind": 59,
             "value": 120,
             "start": {
               "line": 2,
@@ -124,22 +104,12 @@
     },
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 3,
-          "column": 1
-        },
-        "end": {
-          "line": 3,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "qux",
             "start": {
               "line": 3,
@@ -151,7 +121,7 @@
             }
           },
           "init": {
-            "kind": 60,
+            "kind": 59,
             "value": 80,
             "start": {
               "line": 3,
@@ -184,22 +154,12 @@
     },
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 5,
-          "column": 1
-        },
-        "end": {
-          "line": 5,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "isIt",
             "start": {
               "line": 5,
@@ -211,7 +171,7 @@
             }
           },
           "init": {
-            "kind": 66,
+            "kind": 65,
             "operator": {
               "kind": 11,
               "start": {
@@ -233,7 +193,7 @@
             },
             "operands": [
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 200,
                 "start": {
                   "line": 5,
@@ -245,7 +205,7 @@
                 }
               },
               {
-                "kind": 41,
+                "kind": 40,
                 "name": "foo",
                 "start": {
                   "line": 5,
@@ -257,7 +217,7 @@
                 }
               },
               {
-                "kind": 41,
+                "kind": 40,
                 "name": "bar",
                 "start": {
                   "line": 5,
@@ -269,7 +229,7 @@
                 }
               },
               {
-                "kind": 41,
+                "kind": 40,
                 "name": "qux",
                 "start": {
                   "line": 5,
@@ -281,7 +241,7 @@
                 }
               },
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 60,
                 "start": {
                   "line": 5,

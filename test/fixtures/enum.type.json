@@ -1,11 +1,11 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
-      "kind": 27,
+      "kind": 26,
       "name": {
-        "kind": 41,
+        "kind": 40,
         "name": "CardSuit",
         "start": {
           "line": 1,
@@ -19,7 +19,7 @@
       "type": {
         "kind": 88,
         "typeName": {
-          "kind": 41,
+          "kind": 40,
           "name": "string",
           "start": {
             "line": 1,
@@ -41,9 +41,9 @@
       },
       "members": [
         {
-          "kind": 29,
+          "kind": 28,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "Clubs",
             "start": {
               "line": 2,
@@ -64,9 +64,9 @@
           }
         },
         {
-          "kind": 29,
+          "kind": 28,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "Diamonds",
             "start": {
               "line": 3,
@@ -87,9 +87,9 @@
           }
         },
         {
-          "kind": 29,
+          "kind": 28,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "Hearts",
             "start": {
               "line": 4,
@@ -110,9 +110,9 @@
           }
         },
         {
-          "kind": 29,
+          "kind": 28,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "Spades",
             "start": {
               "line": 5,
@@ -145,22 +145,12 @@
     },
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 8,
-          "column": 1
-        },
-        "end": {
-          "line": 8,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "card",
             "start": {
               "line": 8,
@@ -172,9 +162,9 @@
             }
           },
           "init": {
-            "kind": 28,
+            "kind": 27,
             "enum": {
-              "kind": 41,
+              "kind": 40,
               "name": "CardSuit",
               "start": {
                 "line": 8,
@@ -186,7 +176,7 @@
               }
             },
             "member": {
-              "kind": 41,
+              "kind": 40,
               "name": "Clubs",
               "start": {
                 "line": 8,
@@ -232,9 +222,9 @@
         "kind": 3
       },
       "callee": {
-        "kind": 54,
+        "kind": 53,
         "object": {
-          "kind": 41,
+          "kind": 40,
           "name": "console",
           "start": {
             "line": 10,
@@ -246,7 +236,7 @@
           }
         },
         "property": {
-          "kind": 41,
+          "kind": 40,
           "name": "log",
           "start": {
             "line": 10,
@@ -270,7 +260,7 @@
       },
       "arguments": [
         {
-          "kind": 41,
+          "kind": 40,
           "name": "card",
           "start": {
             "line": 10,

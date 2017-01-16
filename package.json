@@ -20,13 +20,12 @@
 			"url": "http://www.opensource.org/licenses/mit-license.php"
 		}
 	],
-	"main": "lib/parser.js",
 	"files": [
-		"lib",
-		"src"
+		"lib"
 	],
+	"main": "lib/parser.js",
 	"dependencies": {
-		"@kaoscript/ast": "0.5.x"
+		"@kaoscript/ast": "0.6.x"
 	},
 	"devDependencies": {
 		"chai": "2.x",
@@ -38,6 +37,10 @@
 	},
 	"scripts": {
 		"build": "jison ./src/parser.jison -o ./lib/parser.js -p slr > /dev/null",
-		"test": "mocha --colors --reporter spec"
-	}
+		"test": "mocha --colors --check-leaks --reporter spec"
+	},
+	"keywords": [
+		"kaoscript",
+		"parser"
+	]
 }

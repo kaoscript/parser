@@ -1,11 +1,11 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 42,
       "condition": {
-        "kind": 41,
+        "kind": 40,
         "name": "foo",
         "start": {
           "line": 1,
@@ -16,7 +16,7 @@
           "column": 7
         }
       },
-      "then": {
+      "whenTrue": {
         "kind": 11,
         "attributes": [],
         "statements": [],
@@ -29,7 +29,6 @@
           "column": 2
         }
       },
-      "elseifs": [],
       "start": {
         "line": 1,
         "column": 1
@@ -41,9 +40,9 @@
       "attributes": []
     },
     {
-      "kind": 43,
+      "kind": 42,
       "condition": {
-        "kind": 41,
+        "kind": 40,
         "name": "bar",
         "start": {
           "line": 5,
@@ -54,7 +53,7 @@
           "column": 7
         }
       },
-      "then": {
+      "whenTrue": {
         "kind": 11,
         "attributes": [],
         "statements": [],
@@ -67,7 +66,6 @@
           "column": 2
         }
       },
-      "elseifs": [],
       "start": {
         "line": 5,
         "column": 1

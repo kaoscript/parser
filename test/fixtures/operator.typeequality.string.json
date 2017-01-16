@@ -1,13 +1,13 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 42,
       "condition": {
         "kind": 9,
         "left": {
-          "kind": 41,
+          "kind": 40,
           "name": "value",
           "start": {
             "line": 1,
@@ -21,7 +21,7 @@
         "right": {
           "kind": 88,
           "typeName": {
-            "kind": 41,
+            "kind": 40,
             "name": "string",
             "start": {
               "line": 1,
@@ -61,7 +61,7 @@
           "column": 19
         }
       },
-      "then": {
+      "whenTrue": {
         "kind": 11,
         "attributes": [],
         "statements": [],
@@ -74,7 +74,6 @@
           "column": 2
         }
       },
-      "elseifs": [],
       "start": {
         "line": 1,
         "column": 1

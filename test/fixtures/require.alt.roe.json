@@ -1,14 +1,14 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
-      "kind": 69,
+      "kind": 68,
       "declarations": [
         {
           "kind": 15,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "Array",
             "start": {
               "line": 1,
@@ -30,7 +30,7 @@
           },
           "modifiers": [
             {
-              "kind": 2,
+              "kind": 8,
               "start": {
                 "line": 1,
                 "column": 16
@@ -54,9 +54,9 @@
       "attributes": []
     },
     {
-      "kind": 44,
+      "kind": 43,
       "variable": {
-        "kind": 41,
+        "kind": 40,
         "name": "Array",
         "start": {
           "line": 3,
@@ -70,7 +70,7 @@
       "properties": [
         {
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "contains",
             "start": {
               "line": 4,
@@ -83,10 +83,10 @@
           },
           "parameters": [
             {
-              "kind": 65,
+              "kind": 64,
               "modifiers": [],
               "name": {
-                "kind": 41,
+                "kind": 40,
                 "name": "item",
                 "start": {
                   "line": 4,
@@ -107,10 +107,10 @@
               }
             },
             {
-              "kind": 65,
+              "kind": 64,
               "modifiers": [],
               "name": {
-                "kind": 41,
+                "kind": 40,
                 "name": "from",
                 "start": {
                   "line": 4,
@@ -122,7 +122,7 @@
                 }
               },
               "defaultValue": {
-                "kind": 60,
+                "kind": 59,
                 "value": 0,
                 "start": {
                   "line": 4,
@@ -152,7 +152,7 @@
             "line": 6,
             "column": 3
           },
-          "kind": 56,
+          "kind": 55,
           "modifiers": [],
           "body": {
             "kind": 11,
@@ -187,9 +187,9 @@
                       "kind": 3
                     },
                     "callee": {
-                      "kind": 54,
+                      "kind": 53,
                       "object": {
-                        "kind": 41,
+                        "kind": 40,
                         "name": "this",
                         "start": {
                           "line": 5,
@@ -201,7 +201,7 @@
                         }
                       },
                       "property": {
-                        "kind": 41,
+                        "kind": 40,
                         "name": "indexOf",
                         "start": {
                           "line": 5,
@@ -225,7 +225,7 @@
                     },
                     "arguments": [
                       {
-                        "kind": 41,
+                        "kind": 40,
                         "name": "item",
                         "start": {
                           "line": 5,
@@ -237,7 +237,7 @@
                         }
                       },
                       {
-                        "kind": 41,
+                        "kind": 40,
                         "name": "from",
                         "start": {
                           "line": 5,
@@ -260,7 +260,7 @@
                     }
                   },
                   "right": {
-                    "kind": 60,
+                    "kind": 59,
                     "value": -1,
                     "start": {
                       "line": 5,
@@ -295,7 +295,7 @@
         },
         {
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "pushUniq",
             "start": {
               "line": 7,
@@ -308,10 +308,10 @@
           },
           "parameters": [
             {
-              "kind": 65,
+              "kind": 64,
               "modifiers": [
                 {
-                  "kind": 2,
+                  "kind": 7,
                   "arity": {
                     "min": 0,
                     "max": "Infinity"
@@ -327,7 +327,7 @@
                 }
               ],
               "name": {
-                "kind": 41,
+                "kind": 40,
                 "name": "args",
                 "start": {
                   "line": 7,
@@ -357,14 +357,14 @@
             "line": 21,
             "column": 3
           },
-          "kind": 56,
+          "kind": 55,
           "modifiers": [],
           "body": {
             "kind": 11,
             "attributes": [],
             "statements": [
               {
-                "kind": 43,
+                "kind": 42,
                 "condition": {
                   "kind": 9,
                   "operator": {
@@ -387,9 +387,9 @@
                     "column": 20
                   },
                   "left": {
-                    "kind": 54,
+                    "kind": 53,
                     "object": {
-                      "kind": 41,
+                      "kind": 40,
                       "name": "args",
                       "start": {
                         "line": 8,
@@ -401,7 +401,7 @@
                       }
                     },
                     "property": {
-                      "kind": 41,
+                      "kind": 40,
                       "name": "length",
                       "start": {
                         "line": 8,
@@ -424,7 +424,7 @@
                     }
                   },
                   "right": {
-                    "kind": 60,
+                    "kind": 59,
                     "value": 1,
                     "start": {
                       "line": 8,
@@ -436,12 +436,12 @@
                     }
                   }
                 },
-                "then": {
+                "whenTrue": {
                   "kind": 11,
                   "attributes": [],
                   "statements": [
                     {
-                      "kind": 43,
+                      "kind": 42,
                       "condition": {
                         "kind": 89,
                         "operator": {
@@ -461,9 +461,9 @@
                             "kind": 3
                           },
                           "callee": {
-                            "kind": 54,
+                            "kind": 53,
                             "object": {
-                              "kind": 41,
+                              "kind": 40,
                               "name": "this",
                               "start": {
                                 "line": 9,
@@ -475,7 +475,7 @@
                               }
                             },
                             "property": {
-                              "kind": 41,
+                              "kind": 40,
                               "name": "contains",
                               "start": {
                                 "line": 9,
@@ -499,9 +499,9 @@
                           },
                           "arguments": [
                             {
-                              "kind": 54,
+                              "kind": 53,
                               "object": {
-                                "kind": 41,
+                                "kind": 40,
                                 "name": "args",
                                 "start": {
                                   "line": 9,
@@ -513,7 +513,7 @@
                                 }
                               },
                               "property": {
-                                "kind": 60,
+                                "kind": 59,
                                 "value": 0,
                                 "start": {
                                   "line": 9,
@@ -554,7 +554,7 @@
                           "column": 30
                         }
                       },
-                      "then": {
+                      "whenTrue": {
                         "kind": 11,
                         "attributes": [],
                         "statements": [
@@ -564,9 +564,9 @@
                               "kind": 3
                             },
                             "callee": {
-                              "kind": 54,
+                              "kind": 53,
                               "object": {
-                                "kind": 41,
+                                "kind": 40,
                                 "name": "this",
                                 "start": {
                                   "line": 10,
@@ -578,7 +578,7 @@
                                 }
                               },
                               "property": {
-                                "kind": 41,
+                                "kind": 40,
                                 "name": "push",
                                 "start": {
                                   "line": 10,
@@ -602,9 +602,9 @@
                             },
                             "arguments": [
                               {
-                                "kind": 54,
+                                "kind": 53,
                                 "object": {
-                                  "kind": 41,
+                                  "kind": 40,
                                   "name": "args",
                                   "start": {
                                     "line": 10,
@@ -616,7 +616,7 @@
                                   }
                                 },
                                 "property": {
-                                  "kind": 60,
+                                  "kind": 59,
                                   "value": 0,
                                   "start": {
                                     "line": 10,
@@ -660,7 +660,6 @@
                           "column": 5
                         }
                       },
-                      "elseifs": [],
                       "start": {
                         "line": 9,
                         "column": 4
@@ -681,7 +680,6 @@
                     "column": 4
                   }
                 },
-                "elseifs": [],
                 "start": {
                   "line": 8,
                   "column": 3
@@ -690,201 +688,175 @@
                   "line": 19,
                   "column": 4
                 },
-                "else": {
-                  "kind": 25,
-                  "body": {
-                    "kind": 11,
-                    "attributes": [],
-                    "statements": [
-                      {
-                        "kind": 36,
-                        "value": {
-                          "kind": 41,
-                          "name": "args",
-                          "start": {
-                            "line": 14,
-                            "column": 16
-                          },
-                          "end": {
-                            "line": 14,
-                            "column": 20
-                          }
-                        },
-                        "desc": false,
+                "whenFalse": {
+                  "kind": 11,
+                  "attributes": [],
+                  "statements": [
+                    {
+                      "kind": 35,
+                      "value": {
+                        "kind": 40,
+                        "name": "args",
                         "start": {
                           "line": 14,
-                          "column": 4
+                          "column": 16
                         },
                         "end": {
-                          "line": 18,
-                          "column": 5
+                          "line": 14,
+                          "column": 20
+                        }
+                      },
+                      "desc": false,
+                      "start": {
+                        "line": 14,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 18,
+                        "column": 5
+                      },
+                      "declaration": false,
+                      "variable": {
+                        "kind": 40,
+                        "name": "item",
+                        "start": {
+                          "line": 14,
+                          "column": 8
                         },
-                        "declaration": false,
-                        "variable": {
-                          "kind": 41,
-                          "name": "item",
-                          "start": {
-                            "line": 14,
-                            "column": 8
-                          },
-                          "end": {
-                            "line": 14,
-                            "column": 12
-                          }
-                        },
-                        "body": {
-                          "kind": 11,
-                          "attributes": [],
-                          "statements": [
-                            {
-                              "kind": 43,
-                              "condition": {
-                                "kind": 89,
-                                "operator": {
-                                  "kind": 7,
-                                  "start": {
-                                    "line": 15,
-                                    "column": 8
-                                  },
-                                  "end": {
-                                    "line": 15,
-                                    "column": 9
-                                  }
-                                },
-                                "argument": {
-                                  "kind": 13,
-                                  "scope": {
-                                    "kind": 3
-                                  },
-                                  "callee": {
-                                    "kind": 54,
-                                    "object": {
-                                      "kind": 41,
-                                      "name": "this",
-                                      "start": {
-                                        "line": 15,
-                                        "column": 9
-                                      },
-                                      "end": {
-                                        "line": 15,
-                                        "column": 13
-                                      }
-                                    },
-                                    "property": {
-                                      "kind": 41,
-                                      "name": "contains",
-                                      "start": {
-                                        "line": 15,
-                                        "column": 14
-                                      },
-                                      "end": {
-                                        "line": 15,
-                                        "column": 22
-                                      }
-                                    },
-                                    "computed": false,
-                                    "nullable": false,
-                                    "start": {
-                                      "line": 15,
-                                      "column": 9
-                                    },
-                                    "end": {
-                                      "line": 15,
-                                      "column": 22
-                                    }
-                                  },
-                                  "arguments": [
-                                    {
-                                      "kind": 41,
-                                      "name": "item",
-                                      "start": {
-                                        "line": 15,
-                                        "column": 23
-                                      },
-                                      "end": {
-                                        "line": 15,
-                                        "column": 27
-                                      }
-                                    }
-                                  ],
-                                  "start": {
-                                    "line": 15,
-                                    "column": 9
-                                  },
-                                  "end": {
-                                    "line": 15,
-                                    "column": 28
-                                  }
-                                },
+                        "end": {
+                          "line": 14,
+                          "column": 12
+                        }
+                      },
+                      "body": {
+                        "kind": 11,
+                        "attributes": [],
+                        "statements": [
+                          {
+                            "kind": 42,
+                            "condition": {
+                              "kind": 89,
+                              "operator": {
+                                "kind": 7,
                                 "start": {
                                   "line": 15,
                                   "column": 8
                                 },
                                 "end": {
                                   "line": 15,
+                                  "column": 9
+                                }
+                              },
+                              "argument": {
+                                "kind": 13,
+                                "scope": {
+                                  "kind": 3
+                                },
+                                "callee": {
+                                  "kind": 53,
+                                  "object": {
+                                    "kind": 40,
+                                    "name": "this",
+                                    "start": {
+                                      "line": 15,
+                                      "column": 9
+                                    },
+                                    "end": {
+                                      "line": 15,
+                                      "column": 13
+                                    }
+                                  },
+                                  "property": {
+                                    "kind": 40,
+                                    "name": "contains",
+                                    "start": {
+                                      "line": 15,
+                                      "column": 14
+                                    },
+                                    "end": {
+                                      "line": 15,
+                                      "column": 22
+                                    }
+                                  },
+                                  "computed": false,
+                                  "nullable": false,
+                                  "start": {
+                                    "line": 15,
+                                    "column": 9
+                                  },
+                                  "end": {
+                                    "line": 15,
+                                    "column": 22
+                                  }
+                                },
+                                "arguments": [
+                                  {
+                                    "kind": 40,
+                                    "name": "item",
+                                    "start": {
+                                      "line": 15,
+                                      "column": 23
+                                    },
+                                    "end": {
+                                      "line": 15,
+                                      "column": 27
+                                    }
+                                  }
+                                ],
+                                "start": {
+                                  "line": 15,
+                                  "column": 9
+                                },
+                                "end": {
+                                  "line": 15,
                                   "column": 28
                                 }
                               },
-                              "then": {
-                                "kind": 11,
-                                "attributes": [],
-                                "statements": [
-                                  {
-                                    "kind": 13,
-                                    "scope": {
-                                      "kind": 3
-                                    },
-                                    "callee": {
-                                      "kind": 54,
-                                      "object": {
-                                        "kind": 41,
-                                        "name": "this",
-                                        "start": {
-                                          "line": 16,
-                                          "column": 6
-                                        },
-                                        "end": {
-                                          "line": 16,
-                                          "column": 10
-                                        }
-                                      },
-                                      "property": {
-                                        "kind": 41,
-                                        "name": "push",
-                                        "start": {
-                                          "line": 16,
-                                          "column": 11
-                                        },
-                                        "end": {
-                                          "line": 16,
-                                          "column": 15
-                                        }
-                                      },
-                                      "computed": false,
-                                      "nullable": false,
+                              "start": {
+                                "line": 15,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 15,
+                                "column": 28
+                              }
+                            },
+                            "whenTrue": {
+                              "kind": 11,
+                              "attributes": [],
+                              "statements": [
+                                {
+                                  "kind": 13,
+                                  "scope": {
+                                    "kind": 3
+                                  },
+                                  "callee": {
+                                    "kind": 53,
+                                    "object": {
+                                      "kind": 40,
+                                      "name": "this",
                                       "start": {
                                         "line": 16,
                                         "column": 6
                                       },
                                       "end": {
                                         "line": 16,
+                                        "column": 10
+                                      }
+                                    },
+                                    "property": {
+                                      "kind": 40,
+                                      "name": "push",
+                                      "start": {
+                                        "line": 16,
+                                        "column": 11
+                                      },
+                                      "end": {
+                                        "line": 16,
                                         "column": 15
                                       }
                                     },
-                                    "arguments": [
-                                      {
-                                        "kind": 41,
-                                        "name": "item",
-                                        "start": {
-                                          "line": 16,
-                                          "column": 16
-                                        },
-                                        "end": {
-                                          "line": 16,
-                                          "column": 20
-                                        }
-                                      }
-                                    ],
+                                    "computed": false,
                                     "nullable": false,
                                     "start": {
                                       "line": 16,
@@ -892,56 +864,70 @@
                                     },
                                     "end": {
                                       "line": 16,
-                                      "column": 21
-                                    },
-                                    "attributes": []
-                                  }
-                                ],
-                                "start": {
-                                  "line": 15,
-                                  "column": 29
-                                },
-                                "end": {
-                                  "line": 17,
-                                  "column": 6
+                                      "column": 15
+                                    }
+                                  },
+                                  "arguments": [
+                                    {
+                                      "kind": 40,
+                                      "name": "item",
+                                      "start": {
+                                        "line": 16,
+                                        "column": 16
+                                      },
+                                      "end": {
+                                        "line": 16,
+                                        "column": 20
+                                      }
+                                    }
+                                  ],
+                                  "nullable": false,
+                                  "start": {
+                                    "line": 16,
+                                    "column": 6
+                                  },
+                                  "end": {
+                                    "line": 16,
+                                    "column": 21
+                                  },
+                                  "attributes": []
                                 }
-                              },
-                              "elseifs": [],
+                              ],
                               "start": {
                                 "line": 15,
-                                "column": 5
+                                "column": 29
                               },
                               "end": {
                                 "line": 17,
                                 "column": 6
-                              },
-                              "attributes": []
-                            }
-                          ],
-                          "start": {
-                            "line": 14,
-                            "column": 21
-                          },
-                          "end": {
-                            "line": 18,
-                            "column": 5
+                              }
+                            },
+                            "start": {
+                              "line": 15,
+                              "column": 5
+                            },
+                            "end": {
+                              "line": 17,
+                              "column": 6
+                            },
+                            "attributes": []
                           }
+                        ],
+                        "start": {
+                          "line": 14,
+                          "column": 21
                         },
-                        "attributes": []
-                      }
-                    ],
-                    "start": {
-                      "line": 13,
-                      "column": 8
-                    },
-                    "end": {
-                      "line": 19,
-                      "column": 4
+                        "end": {
+                          "line": 18,
+                          "column": 5
+                        }
+                      },
+                      "attributes": []
                     }
-                  },
+                  ],
                   "start": {
                     "line": 13,
-                    "column": 3
+                    "column": 8
                   },
                   "end": {
                     "line": 19,
@@ -953,7 +939,7 @@
               {
                 "kind": 70,
                 "value": {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "this",
                   "start": {
                     "line": 20,
@@ -997,10 +983,10 @@
       "attributes": []
     },
     {
-      "kind": 31,
+      "kind": 30,
       "declarations": [
         {
-          "kind": 41,
+          "kind": 40,
           "name": "Array",
           "start": {
             "line": 24,

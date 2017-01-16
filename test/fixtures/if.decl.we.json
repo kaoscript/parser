@@ -1,25 +1,15 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "x",
             "start": {
               "line": 1,
@@ -31,7 +21,7 @@
             }
           },
           "init": {
-            "kind": 60,
+            "kind": 59,
             "value": 5,
             "start": {
               "line": 1,
@@ -64,22 +54,12 @@
     },
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 3,
-          "column": 1
-        },
-        "end": {
-          "line": 3,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "y",
             "start": {
               "line": 3,
@@ -91,7 +71,7 @@
             }
           },
           "init": {
-            "kind": 42,
+            "kind": 41,
             "condition": {
               "kind": 9,
               "operator": {
@@ -114,7 +94,7 @@
                 "column": 19
               },
               "left": {
-                "kind": 41,
+                "kind": 40,
                 "name": "x",
                 "start": {
                   "line": 3,
@@ -126,7 +106,7 @@
                 }
               },
               "right": {
-                "kind": 60,
+                "kind": 59,
                 "value": 5,
                 "start": {
                   "line": 3,
@@ -138,8 +118,8 @@
                 }
               }
             },
-            "then": {
-              "kind": 60,
+            "whenTrue": {
+              "kind": 59,
               "value": 10,
               "start": {
                 "line": 3,
@@ -150,8 +130,8 @@
                 "column": 11
               }
             },
-            "else": {
-              "kind": 60,
+            "whenFalse": {
+              "kind": 59,
               "value": 15,
               "start": {
                 "line": 3,

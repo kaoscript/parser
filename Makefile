@@ -3,9 +3,9 @@ build:
 
 test:
 ifeq ($(g),)
-	node_modules/.bin/mocha --colors --reporter spec
+	node_modules/.bin/mocha --colors --check-leaks --reporter spec
 else
-	node_modules/.bin/mocha --colors --reporter spec -g "$(g)"
+	node_modules/.bin/mocha --colors --check-leaks --reporter spec -g "$(g)"
 endif
 
 .PHONY: test

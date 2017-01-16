@@ -1,12 +1,12 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
-      "kind": 39,
+      "kind": 38,
       "modifiers": [],
       "name": {
-        "kind": 41,
+        "kind": 40,
         "name": "foo",
         "start": {
           "line": 2,
@@ -24,10 +24,10 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 39,
+            "kind": 38,
             "modifiers": [],
             "name": {
-              "kind": 41,
+              "kind": 40,
               "name": "bar",
               "start": {
                 "line": 4,
@@ -46,22 +46,12 @@
               "statements": [
                 {
                   "kind": 94,
-                  "modifiers": {
-                    "kind": 2,
-                    "start": {
-                      "line": 6,
-                      "column": 3
-                    },
-                    "end": {
-                      "line": 6,
-                      "column": 6
-                    }
-                  },
+                  "rebindable": true,
                   "declarations": [
                     {
                       "kind": 95,
                       "name": {
-                        "kind": 41,
+                        "kind": 40,
                         "name": "qux",
                         "start": {
                           "line": 6,
@@ -73,7 +63,7 @@
                         }
                       },
                       "init": {
-                        "kind": 60,
+                        "kind": 59,
                         "value": 42,
                         "start": {
                           "line": 6,
@@ -106,7 +96,7 @@
                     {
                       "kind": 5,
                       "declaration": {
-                        "kind": 41,
+                        "kind": 40,
                         "name": "qux",
                         "start": {
                           "line": 5,
@@ -150,7 +140,7 @@
               {
                 "kind": 5,
                 "declaration": {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "bar",
                   "start": {
                     "line": 3,
@@ -194,7 +184,7 @@
         {
           "kind": 5,
           "declaration": {
-            "kind": 41,
+            "kind": 40,
             "name": "foo",
             "start": {
               "line": 1,

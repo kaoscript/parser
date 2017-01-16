@@ -1,25 +1,15 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "a",
             "start": {
               "line": 1,
@@ -31,7 +21,7 @@
             }
           },
           "init": {
-            "kind": 53,
+            "kind": 52,
             "value": "HELLO",
             "start": {
               "line": 1,
@@ -64,22 +54,12 @@
     },
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 2,
-          "column": 1
-        },
-        "end": {
-          "line": 2,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "c",
             "start": {
               "line": 2,
@@ -96,7 +76,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "object": {
                 "kind": 9,
                 "operator": {
@@ -112,7 +92,7 @@
                   }
                 },
                 "left": {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "b",
                   "start": {
                     "line": 2,
@@ -124,7 +104,7 @@
                   }
                 },
                 "right": {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "a",
                   "start": {
                     "line": 2,
@@ -145,7 +125,7 @@
                 }
               },
               "property": {
-                "kind": 41,
+                "kind": 40,
                 "name": "toLowerCase",
                 "start": {
                   "line": 2,

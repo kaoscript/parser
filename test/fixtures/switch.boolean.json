@@ -1,25 +1,15 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "boolean",
             "start": {
               "line": 1,
@@ -31,7 +21,7 @@
             }
           },
           "init": {
-            "kind": 41,
+            "kind": 40,
             "name": "true",
             "start": {
               "line": 1,
@@ -64,22 +54,12 @@
     },
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 3,
-          "column": 1
-        },
-        "end": {
-          "line": 3,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "binary",
             "start": {
               "line": 3,
@@ -91,9 +71,9 @@
             }
           },
           "init": {
-            "kind": 78,
+            "kind": 79,
             "expression": {
-              "kind": 41,
+              "kind": 40,
               "name": "boolean",
               "start": {
                 "line": 3,
@@ -106,10 +86,10 @@
             },
             "clauses": [
               {
-                "kind": 72,
+                "kind": 73,
                 "conditions": [
                   {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "false",
                     "start": {
                       "line": 4,
@@ -123,7 +103,7 @@
                 ],
                 "bindings": [],
                 "body": {
-                  "kind": 60,
+                  "kind": 59,
                   "value": 0,
                   "start": {
                     "line": 4,
@@ -144,10 +124,10 @@
                 }
               },
               {
-                "kind": 72,
+                "kind": 73,
                 "conditions": [
                   {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "true",
                     "start": {
                       "line": 5,
@@ -161,7 +141,7 @@
                 ],
                 "bindings": [],
                 "body": {
-                  "kind": 60,
+                  "kind": 59,
                   "value": 1,
                   "start": {
                     "line": 5,

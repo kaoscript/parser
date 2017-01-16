@@ -1,25 +1,15 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "pair",
             "start": {
               "line": 1,
@@ -34,7 +24,7 @@
             "kind": 3,
             "values": [
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 2,
                 "start": {
                   "line": 1,
@@ -46,7 +36,7 @@
                 }
               },
               {
-                "kind": 60,
+                "kind": 59,
                 "value": -2,
                 "start": {
                   "line": 1,
@@ -88,9 +78,9 @@
       "attributes": []
     },
     {
-      "kind": 79,
+      "kind": 80,
       "expression": {
-        "kind": 41,
+        "kind": 40,
         "name": "pair",
         "start": {
           "line": 3,
@@ -103,7 +93,7 @@
       },
       "clauses": [
         {
-          "kind": 72,
+          "kind": 73,
           "conditions": [],
           "bindings": [
             {
@@ -112,7 +102,7 @@
                 {
                   "kind": 10,
                   "name": {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "x",
                     "start": {
                       "line": 4,
@@ -135,7 +125,7 @@
                 {
                   "kind": 10,
                   "name": {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "y",
                     "start": {
                       "line": 4,
@@ -188,7 +178,7 @@
               "column": 24
             },
             "left": {
-              "kind": 41,
+              "kind": 40,
               "name": "x",
               "start": {
                 "line": 4,
@@ -200,7 +190,7 @@
               }
             },
             "right": {
-              "kind": 41,
+              "kind": 40,
               "name": "y",
               "start": {
                 "line": 4,
@@ -218,9 +208,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "object": {
-                "kind": 41,
+                "kind": 40,
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -232,7 +222,7 @@
                 }
               },
               "property": {
-                "kind": 41,
+                "kind": 40,
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -256,7 +246,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 52,
                 "value": "These are twins",
                 "start": {
                   "line": 4,
@@ -287,7 +277,7 @@
           }
         },
         {
-          "kind": 72,
+          "kind": 73,
           "conditions": [],
           "bindings": [
             {
@@ -296,7 +286,7 @@
                 {
                   "kind": 10,
                   "name": {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "x",
                     "start": {
                       "line": 5,
@@ -319,7 +309,7 @@
                 {
                   "kind": 10,
                   "name": {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "y",
                     "start": {
                       "line": 5,
@@ -393,7 +383,7 @@
                 "column": 23
               },
               "left": {
-                "kind": 41,
+                "kind": 40,
                 "name": "x",
                 "start": {
                   "line": 5,
@@ -405,7 +395,7 @@
                 }
               },
               "right": {
-                "kind": 41,
+                "kind": 40,
                 "name": "y",
                 "start": {
                   "line": 5,
@@ -418,7 +408,7 @@
               }
             },
             "right": {
-              "kind": 60,
+              "kind": 59,
               "value": 0,
               "start": {
                 "line": 5,
@@ -436,9 +426,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "object": {
-                "kind": 41,
+                "kind": 40,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -450,7 +440,7 @@
                 }
               },
               "property": {
-                "kind": 41,
+                "kind": 40,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -474,7 +464,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 52,
                 "value": "Antimatter, kaboom!",
                 "start": {
                   "line": 5,
@@ -505,7 +495,7 @@
           }
         },
         {
-          "kind": 72,
+          "kind": 73,
           "conditions": [],
           "bindings": [
             {
@@ -514,7 +504,7 @@
                 {
                   "kind": 10,
                   "name": {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "x",
                     "start": {
                       "line": 6,
@@ -535,7 +525,7 @@
                   }
                 },
                 {
-                  "kind": 64
+                  "kind": 63
                 }
               ],
               "start": {
@@ -591,7 +581,7 @@
                 "column": 21
               },
               "left": {
-                "kind": 41,
+                "kind": 40,
                 "name": "x",
                 "start": {
                   "line": 6,
@@ -603,7 +593,7 @@
                 }
               },
               "right": {
-                "kind": 60,
+                "kind": 59,
                 "value": 2,
                 "start": {
                   "line": 6,
@@ -616,7 +606,7 @@
               }
             },
             "right": {
-              "kind": 60,
+              "kind": 59,
               "value": 1,
               "start": {
                 "line": 6,
@@ -634,9 +624,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "object": {
-                "kind": 41,
+                "kind": 40,
                 "name": "console",
                 "start": {
                   "line": 6,
@@ -648,7 +638,7 @@
                 }
               },
               "property": {
-                "kind": 41,
+                "kind": 40,
                 "name": "log",
                 "start": {
                   "line": 6,
@@ -672,7 +662,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 52,
                 "value": "The first one is odd",
                 "start": {
                   "line": 6,
@@ -703,7 +693,7 @@
           }
         },
         {
-          "kind": 72,
+          "kind": 73,
           "conditions": [],
           "bindings": [],
           "body": {
@@ -712,9 +702,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "object": {
-                "kind": 41,
+                "kind": 40,
                 "name": "console",
                 "start": {
                   "line": 7,
@@ -726,7 +716,7 @@
                 }
               },
               "property": {
-                "kind": 41,
+                "kind": 40,
                 "name": "log",
                 "start": {
                   "line": 7,
@@ -750,7 +740,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 52,
                 "value": "No correlation...",
                 "start": {
                   "line": 7,

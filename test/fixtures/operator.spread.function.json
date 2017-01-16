@@ -1,12 +1,12 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
-      "kind": 39,
+      "kind": 38,
       "modifiers": [],
       "name": {
-        "kind": 41,
+        "kind": 40,
         "name": "foo",
         "start": {
           "line": 1,
@@ -19,10 +19,10 @@
       },
       "parameters": [
         {
-          "kind": 65,
+          "kind": 64,
           "modifiers": [],
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "x",
             "start": {
               "line": 1,
@@ -43,10 +43,10 @@
           }
         },
         {
-          "kind": 65,
+          "kind": 64,
           "modifiers": [],
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "y",
             "start": {
               "line": 1,
@@ -67,10 +67,10 @@
           }
         },
         {
-          "kind": 65,
+          "kind": 64,
           "modifiers": [],
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "z",
             "start": {
               "line": 1,
@@ -117,22 +117,12 @@
     },
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 4,
-          "column": 1
-        },
-        "end": {
-          "line": 4,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "args",
             "start": {
               "line": 4,
@@ -147,7 +137,7 @@
             "kind": 3,
             "values": [
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 0,
                 "start": {
                   "line": 4,
@@ -159,7 +149,7 @@
                 }
               },
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 1,
                 "start": {
                   "line": 4,
@@ -171,7 +161,7 @@
                 }
               },
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 2,
                 "start": {
                   "line": 4,
@@ -218,7 +208,7 @@
         "kind": 3
       },
       "callee": {
-        "kind": 41,
+        "kind": 40,
         "name": "foo",
         "start": {
           "line": 6,
@@ -244,7 +234,7 @@
             }
           },
           "argument": {
-            "kind": 41,
+            "kind": 40,
             "name": "args",
             "start": {
               "line": 6,

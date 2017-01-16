@@ -1,25 +1,15 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "m",
             "start": {
               "line": 1,
@@ -31,7 +21,7 @@
             }
           },
           "init": {
-            "kind": 53,
+            "kind": 52,
             "value": "qux",
             "start": {
               "line": 1,
@@ -64,22 +54,12 @@
     },
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 2,
-          "column": 1
-        },
-        "end": {
-          "line": 2,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "qux",
             "start": {
               "line": 2,
@@ -91,9 +71,9 @@
             }
           },
           "init": {
-            "kind": 82,
+            "kind": 19,
             "condition": {
-              "kind": 41,
+              "kind": 40,
               "name": "foo",
               "start": {
                 "line": 2,
@@ -104,11 +84,11 @@
                 "column": 14
               }
             },
-            "then": {
+            "whenTrue": {
               "kind": 3,
               "values": [
                 {
-                  "kind": 41,
+                  "kind": 40,
                   "name": "m",
                   "start": {
                     "line": 2,
@@ -129,8 +109,8 @@
                 "column": 20
               }
             },
-            "else": {
-              "kind": 41,
+            "whenFalse": {
+              "kind": 40,
               "name": "m",
               "start": {
                 "line": 2,

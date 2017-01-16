@@ -1,5 +1,5 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
@@ -17,7 +17,7 @@
         }
       },
       "left": {
-        "kind": 41,
+        "kind": 40,
         "name": "x",
         "start": {
           "line": 1,
@@ -29,7 +29,7 @@
         }
       },
       "right": {
-        "kind": 42,
+        "kind": 41,
         "condition": {
           "kind": 9,
           "operator": {
@@ -52,7 +52,7 @@
             "column": 14
           },
           "left": {
-            "kind": 41,
+            "kind": 40,
             "name": "x",
             "start": {
               "line": 1,
@@ -64,7 +64,7 @@
             }
           },
           "right": {
-            "kind": 60,
+            "kind": 59,
             "value": 0,
             "start": {
               "line": 1,
@@ -76,8 +76,8 @@
             }
           }
         },
-        "then": {
-          "kind": 60,
+        "whenTrue": {
+          "kind": 59,
           "value": 1,
           "start": {
             "line": 1,
@@ -88,8 +88,8 @@
             "column": 6
           }
         },
-        "else": {
-          "kind": 60,
+        "whenFalse": {
+          "kind": 59,
           "value": 8,
           "start": {
             "line": 1,

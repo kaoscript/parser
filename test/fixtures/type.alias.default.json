@@ -1,11 +1,11 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 87,
       "name": {
-        "kind": 41,
+        "kind": 40,
         "name": "T",
         "start": {
           "line": 1,
@@ -22,7 +22,7 @@
           {
             "kind": 88,
             "typeName": {
-              "kind": 41,
+              "kind": 40,
               "name": "number",
               "start": {
                 "line": 1,
@@ -45,7 +45,7 @@
           {
             "kind": 88,
             "typeName": {
-              "kind": 41,
+              "kind": 40,
               "name": "string",
               "start": {
                 "line": 1,
@@ -87,22 +87,12 @@
     },
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 3,
-          "column": 1
-        },
-        "end": {
-          "line": 3,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "x",
             "start": {
               "line": 3,
@@ -116,7 +106,7 @@
           "type": {
             "kind": 88,
             "typeName": {
-              "kind": 41,
+              "kind": 40,
               "name": "T",
               "start": {
                 "line": 3,
@@ -137,7 +127,7 @@
             }
           },
           "init": {
-            "kind": 60,
+            "kind": 59,
             "value": 0,
             "start": {
               "line": 3,

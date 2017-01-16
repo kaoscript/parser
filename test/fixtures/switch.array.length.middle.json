@@ -1,25 +1,15 @@
 {
-  "kind": 59,
+  "kind": 58,
   "attributes": [],
   "body": [
     {
       "kind": 94,
-      "modifiers": {
-        "kind": 2,
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 4
-        }
-      },
+      "rebindable": true,
       "declarations": [
         {
           "kind": 95,
           "name": {
-            "kind": 41,
+            "kind": 40,
             "name": "v",
             "start": {
               "line": 1,
@@ -34,7 +24,7 @@
             "kind": 3,
             "values": [
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 1,
                 "start": {
                   "line": 1,
@@ -46,7 +36,7 @@
                 }
               },
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 2,
                 "start": {
                   "line": 1,
@@ -58,7 +48,7 @@
                 }
               },
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 3,
                 "start": {
                   "line": 1,
@@ -70,7 +60,7 @@
                 }
               },
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 4,
                 "start": {
                   "line": 1,
@@ -82,7 +72,7 @@
                 }
               },
               {
-                "kind": 60,
+                "kind": 59,
                 "value": 5,
                 "start": {
                   "line": 1,
@@ -124,9 +114,9 @@
       "attributes": []
     },
     {
-      "kind": 79,
+      "kind": 80,
       "expression": {
-        "kind": 41,
+        "kind": 40,
         "name": "v",
         "start": {
           "line": 3,
@@ -139,7 +129,7 @@
       },
       "clauses": [
         {
-          "kind": 72,
+          "kind": 73,
           "conditions": [],
           "bindings": [
             {
@@ -148,7 +138,7 @@
                 {
                   "kind": 10,
                   "name": {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "first",
                     "start": {
                       "line": 4,
@@ -171,7 +161,7 @@
                 {
                   "kind": 10,
                   "name": {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "middle",
                     "start": {
                       "line": 4,
@@ -195,7 +185,7 @@
                 {
                   "kind": 10,
                   "name": {
-                    "kind": 41,
+                    "kind": 40,
                     "name": "last",
                     "start": {
                       "line": 4,
@@ -232,9 +222,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "object": {
-                "kind": 41,
+                "kind": 40,
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -246,7 +236,7 @@
                 }
               },
               "property": {
-                "kind": 41,
+                "kind": 40,
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -270,7 +260,7 @@
             },
             "arguments": [
               {
-                "kind": 41,
+                "kind": 40,
                 "name": "first",
                 "start": {
                   "line": 4,
@@ -282,7 +272,7 @@
                 }
               },
               {
-                "kind": 41,
+                "kind": 40,
                 "name": "middle",
                 "start": {
                   "line": 4,
@@ -294,7 +284,7 @@
                 }
               },
               {
-                "kind": 41,
+                "kind": 40,
                 "name": "last",
                 "start": {
                   "line": 4,
@@ -325,7 +315,7 @@
           }
         },
         {
-          "kind": 72,
+          "kind": 73,
           "conditions": [],
           "bindings": [],
           "body": {
@@ -334,9 +324,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "object": {
-                "kind": 41,
+                "kind": 40,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -348,7 +338,7 @@
                 }
               },
               "property": {
-                "kind": 41,
+                "kind": 40,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -372,7 +362,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 52,
                 "value": "empty",
                 "start": {
                   "line": 5,
