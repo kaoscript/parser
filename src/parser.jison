@@ -4820,12 +4820,12 @@ ReturnStatement // {{{
 		{
 			$$ = location({
 				kind: NodeKind.ReturnStatement,
-				value: {
+				value: location({
 					kind: NodeKind.IfExpression,
 					condition: $4,
 					whenTrue: $2,
 					whenFalse: $6
-				}
+				}, @2, @6)
 			}, @1, @6);
 		}
 	| 'RETURN' Expression 'IF' Expression
@@ -5603,25 +5603,25 @@ ThisExpression // {{{
 ThrowStatement // {{{
 	: 'THROW' Expression 'IF' Expression
 		{
-			$$ = {
+			$$ = location({
 				kind: NodeKind.IfStatement,
 				condition: $4,
 				whenTrue: location({
 					kind: NodeKind.ThrowStatement,
 					value: $2
 				}, @1, @2)
-			};
+			}, @1, @4);
 		}
 	| 'THROW' Expression 'UNLESS' Expression
 		{
-			$$ = {
+			$$ = location({
 				kind: NodeKind.UnlessStatement,
 				condition: $4,
 				whenFalse: location({
 					kind: NodeKind.ThrowStatement,
 					value: $2
 				}, @1, @2)
-			};
+			}, @1, @4);
 		}
 	| 'THROW' Expression
 		{
@@ -5632,23 +5632,23 @@ ThrowStatement // {{{
 		}
 	| 'THROW' 'IF' Expression
 		{
-			$$ = {
+			$$ = location({
 				kind: NodeKind.IfStatement,
 				condition: $3,
 				whenTrue: location({
 					kind: NodeKind.ThrowStatement
 				}, @1)
-			};
+			}, @1, @3);
 		}
 	| 'THROW' 'UNLESS' Expression
 		{
-			$$ = {
+			$$ = location({
 				kind: NodeKind.UnlessStatement,
 				condition: $3,
 				whenFalse: location({
 					kind: NodeKind.ThrowStatement
 				}, @1)
-			};
+			}, @1, @3);
 		}
 	| 'THROW'
 		{
@@ -6082,12 +6082,12 @@ VariableLetDeclarator // {{{
 				kind: NodeKind.VariableDeclarator,
 				name: $1,
 				type: $3,
-				init: {
+				init: location({
 					kind: NodeKind.IfExpression,
 					condition: $7,
 					whenTrue: $5,
 					whenFalse: $9
-				}
+				}, @5, @9)
 			}, @1, @9);
 		}
 	| Identifier ColonSeparator TypeVar '=' Expression 'IF' Expression
@@ -6096,11 +6096,11 @@ VariableLetDeclarator // {{{
 				kind: NodeKind.VariableDeclarator,
 				name: $1,
 				type: $3,
-				init: {
+				init: location({
 					kind: NodeKind.IfExpression,
 					condition: $7,
 					whenTrue: $5
-				}
+				}, @5, @9)
 			}, @1, @7);
 		}
 	| Identifier ColonSeparator TypeVar '=' Expression 'UNLESS' Expression
@@ -6109,11 +6109,11 @@ VariableLetDeclarator // {{{
 				kind: NodeKind.VariableDeclarator,
 				name: $1,
 				type: $3,
-				init: {
+				init: location({
 					kind: NodeKind.UnlessExpression,
 					condition: $7,
 					whenFalse: $5
-				}
+				}, @5, @7)
 			}, @1, @7);
 		}
 	| Identifier ColonSeparator TypeVar '=' 'AWAIT' Operand
@@ -6142,12 +6142,12 @@ VariableLetDeclarator // {{{
 			$$ = location({
 				kind: NodeKind.VariableDeclarator,
 				name: $1,
-				init: {
+				init: location({
 					kind: NodeKind.IfExpression,
 					condition: $5,
 					whenTrue: $3,
 					whenFalse: $7
-				}
+				}, @3, @7)
 			}, @1, @7);
 		}
 	| VariableIdentifier '=' Expression 'IF' Expression
@@ -6155,11 +6155,11 @@ VariableLetDeclarator // {{{
 			$$ = location({
 				kind: NodeKind.VariableDeclarator,
 				name: $1,
-				init: {
+				init: location({
 					kind: NodeKind.IfExpression,
 					condition: $5,
 					whenTrue: $3
-				}
+				}, @3, @5)
 			}, @1, @5);
 		}
 	| VariableIdentifier '=' Expression 'UNLESS' Expression
@@ -6167,11 +6167,11 @@ VariableLetDeclarator // {{{
 			$$ = location({
 				kind: NodeKind.VariableDeclarator,
 				name: $1,
-				init: {
+				init: location({
 					kind: NodeKind.UnlessExpression,
 					condition: $5,
 					whenFalse: $3
-				}
+				}, @3, @5)
 			}, @1, @5);
 		}
 	| VariableIdentifier ':=' 'AWAIT' Operand
