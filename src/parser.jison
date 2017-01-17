@@ -92,6 +92,7 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 'protected'										return 'PROTECTED'
 'public'										return 'PUBLIC'
 'require|extern'								return 'REQUIRE|EXTERN'
+'require|import'								return 'REQUIRE|IMPORT'
 'require'										return 'REQUIRE'
 'return'										return 'RETURN'
 'sealed'										return 'SEALED'
@@ -420,7 +421,7 @@ AssignmentDeclarator // {{{
 	| VariableIdentifier ':=' Expression
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Equality,
@@ -441,7 +442,7 @@ AssignmentDeclarator // {{{
 	| VariableIdentifier '=' Expression
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Equality
@@ -452,7 +453,7 @@ AssignmentDeclarator // {{{
 		}
 	| Operand AssignmentOperatorKind Expression
 		{
-			if($1.kind === NodeKind.BinaryOperator && $1.operator.kind !== BinaryOperatorKind.Equality) {
+			if($1.kind === NodeKind.BinaryExpression && $1.operator.kind !== BinaryOperatorKind.Equality) {
 				throw new Error('Unexpected character at line ' + $1.operator.start.line + ' and column ' + $1.operator.start.column)
 			}
 			
@@ -468,7 +469,7 @@ AssignmentOperatorKind // {{{
 	: '+='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Addition
@@ -478,7 +479,7 @@ AssignmentOperatorKind // {{{
 	| '&='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.BitwiseAnd
@@ -488,7 +489,7 @@ AssignmentOperatorKind // {{{
 	| '<<='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.BitwiseLeftShift
@@ -498,7 +499,7 @@ AssignmentOperatorKind // {{{
 	| '|='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.BitwiseOr
@@ -508,7 +509,7 @@ AssignmentOperatorKind // {{{
 	| '>>='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.BitwiseRightShift
@@ -518,7 +519,7 @@ AssignmentOperatorKind // {{{
 	| '^='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.BitwiseXor
@@ -528,7 +529,7 @@ AssignmentOperatorKind // {{{
 	| '/='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Division
@@ -538,7 +539,7 @@ AssignmentOperatorKind // {{{
 	| '='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Equality
@@ -548,7 +549,7 @@ AssignmentOperatorKind // {{{
 	| '!?='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.NonExistential
@@ -558,7 +559,7 @@ AssignmentOperatorKind // {{{
 	| '?='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Existential
@@ -568,7 +569,7 @@ AssignmentOperatorKind // {{{
 	| '%='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Modulo
@@ -578,7 +579,7 @@ AssignmentOperatorKind // {{{
 	| '*='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Multiplication
@@ -588,7 +589,7 @@ AssignmentOperatorKind // {{{
 	| '-='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Subtraction
@@ -598,7 +599,7 @@ AssignmentOperatorKind // {{{
 	| '??='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.NullCoalescing
@@ -681,7 +682,7 @@ BinaryOperatorKind // {{{
 	: '+'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Addition
 				}, @1)
@@ -690,7 +691,7 @@ BinaryOperatorKind // {{{
 	| '-'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Subtraction
 				}, @1)
@@ -699,7 +700,7 @@ BinaryOperatorKind // {{{
 	| '/'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Division
 				}, @1)
@@ -708,7 +709,7 @@ BinaryOperatorKind // {{{
 	| '%'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Modulo
 				}, @1)
@@ -717,7 +718,7 @@ BinaryOperatorKind // {{{
 	| '*'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Multiplication
 				}, @1)
@@ -726,7 +727,7 @@ BinaryOperatorKind // {{{
 	| '>='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.GreaterThanOrEqual
 				}, @1)
@@ -735,7 +736,7 @@ BinaryOperatorKind // {{{
 	| '>>'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.BitwiseRightShift
 				}, @1)
@@ -744,7 +745,7 @@ BinaryOperatorKind // {{{
 	| '>'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.GreaterThan
 				}, @1)
@@ -753,7 +754,7 @@ BinaryOperatorKind // {{{
 	| '<='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.LessThanOrEqual
 				}, @1)
@@ -762,7 +763,7 @@ BinaryOperatorKind // {{{
 	| '<<'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.BitwiseLeftShift
 				}, @1)
@@ -771,7 +772,7 @@ BinaryOperatorKind // {{{
 	| '<'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.LessThan
 				}, @1)
@@ -780,7 +781,7 @@ BinaryOperatorKind // {{{
 	| '=='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Equality
 				}, @1)
@@ -789,7 +790,7 @@ BinaryOperatorKind // {{{
 	| '!='
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Inequality
 				}, @1)
@@ -798,7 +799,7 @@ BinaryOperatorKind // {{{
 	| '??'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.NullCoalescing
 				}, @1)
@@ -807,7 +808,7 @@ BinaryOperatorKind // {{{
 	| '&&'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.And
 				}, @1)
@@ -816,7 +817,7 @@ BinaryOperatorKind // {{{
 	| '||'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Or
 				}, @1)
@@ -825,7 +826,7 @@ BinaryOperatorKind // {{{
 	| '&'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.BitwiseAnd
 				}, @1)
@@ -834,7 +835,7 @@ BinaryOperatorKind // {{{
 	| '|'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.BitwiseOr
 				}, @1)
@@ -843,7 +844,7 @@ BinaryOperatorKind // {{{
 	| '^'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.BitwiseXor
 				}, @1)
@@ -3530,6 +3531,7 @@ ModuleBodySX // {{{
 	| RequireDeclaration NL_EOF_1
 	| ExternOrRequireDeclaration NL_EOF_1
 	| RequireOrExternDeclaration NL_EOF_1
+	| RequireOrImportDeclaration NL_EOF_1
 	| Statement
 	;
 // }}}
@@ -3894,7 +3896,7 @@ OperandSX // {{{
 	| OperandSX ':' Identifier
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				left: $1,
 				right: location({
 					kind: NodeKind.TypeReference,
@@ -3927,7 +3929,7 @@ OperandOrType // {{{
 	: Operand TypeOperator TypeEntity
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				left: $1,
 				right: $3,
 				operator: $2
@@ -4106,7 +4108,7 @@ OperandSX_NoAnonymousFunction // {{{
 	| OperandSX_NoAnonymousFunction ':' Identifier
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				left: $1,
 				right: location({
 					kind: NodeKind.TypeReference,
@@ -4139,7 +4141,7 @@ OperandOrType_NoAnonymousFunction // {{{
 	: Operand_NoAnonymousFunction TypeOperator TypeEntity
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				left: $1,
 				right: $3,
 				operator: $2
@@ -4318,7 +4320,7 @@ OperandSX_NoObject // {{{
 	| OperandSX_NoObject ':' Identifier
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				left: $1,
 				right: location({
 					kind: NodeKind.TypeReference,
@@ -4350,7 +4352,7 @@ OperandOrType_NoObject // {{{
 	: Operand_NoObject TypeOperator TypeEntity
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				left: $1,
 				right: $3,
 				operator: $2
@@ -4532,7 +4534,7 @@ OperandSX_NoWhereNoWith // {{{
 	| OperandSX_NoWhereNoWith ':' Identifier
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				left: $1,
 				right: location({
 					kind: NodeKind.TypeReference,
@@ -4583,7 +4585,7 @@ Parenthesis // {{{
 	| '(' Identifier '=' Expression ')'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Equality
@@ -4618,6 +4620,32 @@ Parenthesis // {{{
 				whenFalse: $6
 			}, @2, @6);
 		}
+	| '(' Identifier '=' Expression ',' Expression1CList ')'
+		{
+			$6.unshift(location({
+				kind: NodeKind.BinaryExpression,
+				operator: location({
+					kind: BinaryOperatorKind.Assignment,
+					assignment: AssignmentOperatorKind.Equality
+				}, @3),
+				left: $2,
+				right: $4
+			}, @2, @4));
+			
+			$$ = location({
+				kind: NodeKind.SequenceExpression,
+				expressions: $6
+			}, @2, @6);
+		}
+	| '(' Expression ',' Expression1CList ')'
+		{
+			$4.unshift($2);
+			
+			$$ = location({
+				kind: NodeKind.SequenceExpression,
+				expressions: $4
+			}, @2, @4);
+		}
 	;
 // }}}
 
@@ -4629,7 +4657,7 @@ Parenthesis_NoAnonymousFunction // {{{
 	| '(' Identifier '=' Expression ')'
 		{
 			$$ = location({
-				kind: NodeKind.BinaryOperator,
+				kind: NodeKind.BinaryExpression,
 				operator: location({
 					kind: BinaryOperatorKind.Assignment,
 					assignment: AssignmentOperatorKind.Equality
@@ -4746,6 +4774,24 @@ RequireOrExternDeclaration // {{{
 	;
 // }}}
 
+RequireOrImportDeclaration // {{{
+	: 'REQUIRE|IMPORT' ImportDeclarator
+		{
+			$$ = location({
+				kind: NodeKind.RequireOrImportDeclaration,
+				declarations: [$2]
+			}, @1, @2);
+		}
+	| 'REQUIRE|IMPORT' ImportDeclaratorLB
+		{
+			$$ = location({
+				kind: NodeKind.RequireOrImportDeclaration,
+				declarations: $2
+			}, @1, @2);
+		}
+	;
+// }}}
+
 RegularExpression // {{{
 	: RegularExpressionBegin 'REGEXP_LITERAL'
 		{
@@ -4784,25 +4830,25 @@ ReturnStatement // {{{
 		}
 	| 'RETURN' Expression 'IF' Expression
 		{
-			$$ = {
+			$$ = location({
 				kind: NodeKind.IfStatement,
 				condition: $4,
 				whenTrue: location({
 					kind: NodeKind.ReturnStatement,
 					value: $2
 				}, @1, @2)
-			};
+			}, @1, @4);
 		}
 	| 'RETURN' Expression 'UNLESS' Expression
 		{
-			$$ = {
+			$$ = location({
 				kind: NodeKind.UnlessStatement,
 				condition: $4,
 				whenFalse: location({
 					kind: NodeKind.ReturnStatement,
 					value: $2
 				}, @1, @2)
-			};
+			}, @1, @4);
 		}
 	| 'RETURN' Expression
 		{
@@ -4813,23 +4859,23 @@ ReturnStatement // {{{
 		}
 	| 'RETURN' 'IF' Expression
 		{
-			$$ = {
+			$$ = location({
 				kind: NodeKind.IfStatement,
 				condition: $3,
 				whenTrue: location({
 					kind: NodeKind.ReturnStatement
 				}, @1)
-			};
+			}, @1, @3);
 		}
 	| 'RETURN' 'UNLESS' Expression
 		{
-			$$ = {
+			$$ = location({
 				kind: NodeKind.UnlessStatement,
 				condition: $3,
 				whenFalse: location({
 					kind: NodeKind.ReturnStatement
 				}, @1)
-			};
+			}, @1, @3);
 		}
 	| 'RETURN'
 		{
@@ -6397,16 +6443,16 @@ function reorderExpression(operations) { // {{{
 					
 					operator = operations[k];
 					
-					if(operator.kind === NodeKind.BinaryOperator) {
+					if(operator.kind === NodeKind.BinaryExpression) {
 						left = operations[k - 1];
 						
-						if(left.kind === NodeKind.BinaryOperator && operator.operator.kind === left.operator.kind && $polyadic[operator.operator.kind]) {
-							operator.kind = NodeKind.PolyadicOperator;
+						if(left.kind === NodeKind.BinaryExpression && operator.operator.kind === left.operator.kind && $polyadic[operator.operator.kind]) {
+							operator.kind = NodeKind.PolyadicExpression;
 							operator.start = left.start;
 							
 							operator.operands = [left.left, left.right, operations[k + 1]];
 						}
-						else if(left.kind === NodeKind.PolyadicOperator && operator.operator.kind === left.operator.kind) {
+						else if(left.kind === NodeKind.PolyadicExpression && operator.operator.kind === left.operator.kind) {
 							left.end = operator.end;
 							
 							left.operands.push(operations[k + 1]);
