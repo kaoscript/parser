@@ -620,6 +620,34 @@ Attribute // {{{
 	;
 // }}}
 
+AttributeBlock // {{{
+	: '#![' AttributeMember ']'
+		{
+			$$ = location({
+				kind: NodeKind.AttributeDeclaration,
+				declaration: $2
+			}, @1, @3)
+		}
+	;
+// }}}
+
+AttributeIdentifier // {{{
+	: AttributeIdentifier '-' 'IDENTIFIER'
+		{
+			$1.name += $2 + $3;
+			
+			$$ = location($1, @1, @3);
+		}
+	| AttributeIdentifier '-' Keyword
+		{
+			$1.name += $2 + $3;
+			
+			$$ = location($1, @1, @3);
+		}
+	| Identifier
+	;
+// }}}
+
 AttributeList // {{{
 	: AttributeList Attribute NL_EOF_1
 		{
@@ -645,12 +673,12 @@ AttributeMember // {{{
 	| Identifier '=' String
 		{
 			$$ = location({
-				kind: NodeKind.AttributeOperator,
+				kind: NodeKind.AttributeOperation,
 				name: $1,
 				value: $3
 			}, @1, @3);
 		}
-	| Identifier
+	| AttributeIdentifier
 	;
 // }}}
 
@@ -663,17 +691,6 @@ AttributeMemberList // {{{
 	| AttributeMember
 		{
 			$$ = [$1];
-		}
-	;
-// }}}
-
-AttributeWithin // {{{
-	: '#![' AttributeMember ']'
-		{
-			$$ = location({
-				kind: NodeKind.AttributeDeclaration,
-				declaration: $2
-			}, @1, @3)
 		}
 	;
 // }}}
@@ -885,7 +902,7 @@ BlockSX // {{{
 // }}}
 
 BlockAttribute // {{{
-	: AttributeWithin NL_EOF_1
+	: AttributeBlock NL_EOF_1
 		{
 			$$ = $1;
 		}
@@ -3491,7 +3508,7 @@ ModuleSX // {{{
 			$$ = location($1, @2);
 			$$.body.push($2);
 		}
-	| ModuleSX AttributeWithin NL_EOF_1
+	| ModuleSX AttributeBlock NL_EOF_1
 		{
 			$$ = location($1, @2);
 			$$.attributes.push($2);
@@ -6356,26 +6373,26 @@ var $precedence = {};
 $precedence[BinaryOperatorKind.Addition] = 13;
 $precedence[BinaryOperatorKind.And] = 6;
 $precedence[BinaryOperatorKind.Assignment] = 3;
-$precedence[BinaryOperatorKind.BitwiseAnd] = 9;
+$precedence[BinaryOperatorKind.BitwiseAnd] = 11;
 $precedence[BinaryOperatorKind.BitwiseLeftShift] = 12;
-$precedence[BinaryOperatorKind.BitwiseOr] = 7;
+$precedence[BinaryOperatorKind.BitwiseOr] = 9;
 $precedence[BinaryOperatorKind.BitwiseRightShift] = 12;
-$precedence[BinaryOperatorKind.BitwiseXor] = 8;
+$precedence[BinaryOperatorKind.BitwiseXor] = 10;
 $precedence[BinaryOperatorKind.Division] = 14;
-$precedence[BinaryOperatorKind.Equality] = 10;
-$precedence[BinaryOperatorKind.GreaterThan] = 11;
-$precedence[BinaryOperatorKind.GreaterThanOrEqual] = 11;
-$precedence[BinaryOperatorKind.Inequality] = 10;
-$precedence[BinaryOperatorKind.LessThan] = 11;
-$precedence[BinaryOperatorKind.LessThanOrEqual] = 11;
+$precedence[BinaryOperatorKind.Equality] = 7;
+$precedence[BinaryOperatorKind.GreaterThan] = 8;
+$precedence[BinaryOperatorKind.GreaterThanOrEqual] = 8;
+$precedence[BinaryOperatorKind.Inequality] = 7;
+$precedence[BinaryOperatorKind.LessThan] = 8;
+$precedence[BinaryOperatorKind.LessThanOrEqual] = 8;
 $precedence[BinaryOperatorKind.Modulo] = 14;
 $precedence[BinaryOperatorKind.Multiplication] = 14;
 $precedence[BinaryOperatorKind.NullCoalescing] = 15;
 $precedence[BinaryOperatorKind.Or] = 5;
 $precedence[BinaryOperatorKind.Subtraction] = 15;
-$precedence[BinaryOperatorKind.TypeCasting] = 11;
-$precedence[BinaryOperatorKind.TypeEquality] = 11;
-$precedence[BinaryOperatorKind.TypeInequality] = 11;
+$precedence[BinaryOperatorKind.TypeCasting] = 8;
+$precedence[BinaryOperatorKind.TypeEquality] = 8;
+$precedence[BinaryOperatorKind.TypeInequality] = 8;
 
 function location(descriptor, firstToken, lastToken) { // {{{
 	if(lastToken) {
