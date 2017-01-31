@@ -4738,6 +4738,12 @@ PrefixUnaryOperatorKind // {{{
 				kind: UnaryOperatorKind.Spread
 			}, @1);
 		}
+	| '~'
+		{
+			$$ = location({
+				kind: UnaryOperatorKind.BitwiseNot
+			}, @1);
+		}
 	;
 // }}}
 
@@ -6356,11 +6362,11 @@ var $polyadic = {};
 $polyadic[BinaryOperatorKind.Addition] = true;
 $polyadic[BinaryOperatorKind.And] = true;
 $polyadic[BinaryOperatorKind.Assignment] = false;
-$polyadic[BinaryOperatorKind.BitwiseAnd] = false;
-$polyadic[BinaryOperatorKind.BitwiseLeftShift] = false;
-$polyadic[BinaryOperatorKind.BitwiseOr] = false;
-$polyadic[BinaryOperatorKind.BitwiseRightShift] = false;
-$polyadic[BinaryOperatorKind.BitwiseXor] = false;
+$polyadic[BinaryOperatorKind.BitwiseAnd] = true;
+$polyadic[BinaryOperatorKind.BitwiseLeftShift] = true;
+$polyadic[BinaryOperatorKind.BitwiseOr] = true;
+$polyadic[BinaryOperatorKind.BitwiseRightShift] = true;
+$polyadic[BinaryOperatorKind.BitwiseXor] = true;
 $polyadic[BinaryOperatorKind.Division] = true;
 $polyadic[BinaryOperatorKind.Equality] = true;
 $polyadic[BinaryOperatorKind.GreaterThan] = true;
