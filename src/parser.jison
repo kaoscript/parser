@@ -19,7 +19,7 @@ RegularExpressionChar				([^\n\r\\\/\[])|{RegularExpressionBackslashSequence}|{R
 RegularExpressionBody				{RegularExpressionFirstChar}{RegularExpressionChar}*
 RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 
-%x hcomment import mlcomment regexp resource inline_comment template
+%x class_version hcomment import mlcomment regexp resource inline_comment template
 %%
 
 <regexp>{RegularExpressionLiteral}				this.popState();return 'REGEXP_LITERAL'
@@ -27,6 +27,8 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 
 \s+\?\s+										return 'SPACED_?'
 \s+\:\s+										return 'SPACED_:'
+
+<class_version>\d+(\.\d+(\.\d+)?)?				this.popState();yytext = yytext.split('.');return 'CLASS_VERSION'
 
 [^\r\n\S]+										/* skip whitespace */
 \s*\/\/[^\r\n]*									/* skip comment */
@@ -977,81 +979,35 @@ CatchOnClause // {{{
 // }}}
 
 ClassDeclaration // {{{
-	: ClassModifier 'CLASS' Identifier TypeGeneric 'EXTENDS' Identifier '{' ClassMember '}'
+	: ClassModifier 'CLASS' ClassIndentifier 'EXTENDS' Identifier '{' ClassMember '}'
 		{
-			$$ = location({
-				kind: NodeKind.ClassDeclaration,
-				modifiers: $1,
-				name: $3,
-				extends: $6,
-				members: $8
-			}, @1, @9);
+			$3.modifiers = $1;
+			$3.extends = $5;
+			$3.members = $7;
+			
+			$$ = location($3, @1, @8);
 		}
-	| ClassModifier 'CLASS' Identifier 'EXTENDS' Identifier '{' ClassMember '}'
+	| ClassModifier 'CLASS' ClassIndentifier '{' ClassMember '}'
 		{
-			$$ = location({
-				kind: NodeKind.ClassDeclaration,
-				modifiers: $1,
-				name: $3,
-				extends: $5,
-				members: $7
-			}, @1, @8);
+			$3.modifiers = $1;
+			$3.members = $5;
+			
+			$$ = location($3, @1, @6);
 		}
-	| ClassModifier 'CLASS' Identifier TypeGeneric '{' ClassMember '}'
+	| 'CLASS' ClassIndentifier 'EXTENDS' Identifier '{' ClassMember '}'
 		{
-			$$ = location({
-				kind: NodeKind.ClassDeclaration,
-				modifiers: $1,
-				name: $3,
-				members: $6
-			}, @1, @7);
+			$2.modifiers = [];
+			$2.extends = $4;
+			$2.members = $6;
+			
+			$$ = location($2, @1, @7);
 		}
-	| ClassModifier 'CLASS' Identifier '{' ClassMember '}'
+	| 'CLASS' ClassIndentifier '{' ClassMember '}'
 		{
-			$$ = location({
-				kind: NodeKind.ClassDeclaration,
-				modifiers: $1,
-				name: $3,
-				members: $5
-			}, @1, @6);
-		}
-	| 'CLASS' Identifier TypeGeneric 'EXTENDS' Identifier '{' ClassMember '}'
-		{
-			$$ = location({
-				kind: NodeKind.ClassDeclaration,
-				modifiers: [],
-				name: $2,
-				extends: $5,
-				members: $7
-			}, @1, @8);
-		}
-	| 'CLASS' Identifier 'EXTENDS' Identifier '{' ClassMember '}'
-		{
-			$$ = location({
-				kind: NodeKind.ClassDeclaration,
-				modifiers: [],
-				name: $2,
-				extends: $4,
-				members: $6
-			}, @1, @7);
-		}
-	| 'CLASS' Identifier TypeGeneric '{' ClassMember '}'
-		{
-			$$ = location({
-				kind: NodeKind.ClassDeclaration,
-				modifiers: [],
-				name: $2,
-				members: $5
-			}, @1, @6);
-		}
-	| 'CLASS' Identifier '{' ClassMember '}'
-		{
-			$$ = location({
-				kind: NodeKind.ClassDeclaration,
-				modifiers: [],
-				name: $2,
-				members: $4
-			}, @1, @5);
+			$2.modifiers = [];
+			$2.members = $4;
+			
+			$$ = location($2, @1, @5);
 		}
 	;
 // }}}
@@ -1096,18 +1052,60 @@ ClassField // {{{
 	;
 // }}}
 
+ClassIndentifier // {{{
+	: Identifier TypeGeneric ClassVersionAt 'CLASS_VERSION'
+		{
+			$$ = {
+				kind: NodeKind.ClassDeclaration,
+				name: $1,
+				version: location({
+					major: $4[0],
+					minor: $4.length > 1 ? $4[1] : 0,
+					patch: $4.length > 2 ? $4[2] : 0
+				}, @4)
+			};
+		}
+	| Identifier ClassVersionAt 'CLASS_VERSION'
+		{
+			$$ = {
+				kind: NodeKind.ClassDeclaration,
+				name: $1,
+				version: location({
+					major: $3[0],
+					minor: $3.length > 1 ? $3[1] : 0,
+					patch: $3.length > 2 ? $3[2] : 0
+				}, @3)
+			};
+		}
+	| Identifier TypeGeneric
+		{
+			$$ = {
+				kind: NodeKind.ClassDeclaration,
+				name: $1
+			};
+		}
+	| Identifier
+		{
+			$$ = {
+				kind: NodeKind.ClassDeclaration,
+				name: $1
+			};
+		}
+	;
+// }}}
+
 ClassMember // {{{
-	: ClassMember ClassMemberModifier '{' ClassMemberList '}'
+	: ClassMember ClassMemberModifiers '{' ClassMemberList '}'
 		{
 			for(var i = 0; i < $4.length; i++) {
-				$4[i].modifiers.push($2);
+				$4[i].modifiers = $2;
 				
 				$1.push($4[i]);
 			}
 		}
-	| ClassMember ClassMemberModifier ClassMemberSX
+	| ClassMember ClassMemberModifiers ClassMemberSX
 		{
-			$3.modifiers.push($2);
+			$3.modifiers = $2;
 			
 			$1.push(location($3, @2, @3));
 		}
@@ -1116,22 +1114,16 @@ ClassMember // {{{
 			$1.push($2);
 			$$ = $1;
 		}
-	| ClassMember 'ABSTRACT' AbstractMethod
+	| ClassMember ClassMemberAbstractModifiers AbstractMethod
 		{
-			$3.modifiers.push(location({
-				kind: ModifierKind.Abstract
-			}, @2));
+			$3.modifiers = $2;
 			
 			$1.push(location($3, @2, @3));
 		}
-	| ClassMember 'ABSTRACT' '{' AbstractMethodList '}'
+	| ClassMember ClassMemberAbstractModifiers '{' AbstractMethodList '}'
 		{
-			var modifier = location({
-				kind: ModifierKind.Abstract
-			}, @2);
-			
 			for(var i = 0; i < $4.length; i++) {
-				$4[i].modifiers.push(modifier);
+				$4[i].modifiers = $2;
 				
 				$1.push($4[i]);
 			}
@@ -1140,6 +1132,22 @@ ClassMember // {{{
 	|
 		{
 			$$ = []
+		}
+	;
+// }}}
+
+ClassMemberAbstractModifiers // {{{
+	: VisibilityModifier 'ABSTRACT'
+		{
+			$$ = [$1, location({
+				kind: ModifierKind.Abstract
+			}, @2)];
+		}
+	| 'ABSTRACT'
+		{
+			$$ = [location({
+				kind: ModifierKind.Abstract
+			}, @1)];
 		}
 	;
 // }}}
@@ -1158,30 +1166,22 @@ ClassMemberList // {{{
 	;
 // }}}
 
-ClassMemberModifier // {{{
-	: 'PRIVATE'
+ClassMemberModifiers // {{{
+	: VisibilityModifier 'STATIC'
 		{
-			$$ = location({
-				kind: ModifierKind.Private
-			}, @1);
+			$$ = [$1, location({
+				kind: ModifierKind.Static
+			}, @2)]
 		}
-	| 'PROTECTED'
+	| VisibilityModifier
 		{
-			$$ = location({
-				kind: ModifierKind.Protected
-			}, @1);
-		}
-	| 'PUBLIC'
-		{
-			$$ = location({
-				kind: ModifierKind.Public
-			}, @1);
+			$$ = [$1]
 		}
 	| 'STATIC'
 		{
-			$$ = location({
+			$$ = [location({
 				kind: ModifierKind.Static
-			}, @1);
+			}, @1)];
 		}
 	;
 // }}}
@@ -1225,6 +1225,14 @@ ClassModifier // {{{
 			$$ = [location({
 				kind: ModifierKind.Sealed
 			}, @1)];
+		}
+	;
+// }}}
+
+ClassVersionAt // {{{
+	: '@'
+		{
+			yy.lexer.begin('class_version');
 		}
 	;
 // }}}
@@ -1818,19 +1826,19 @@ ExternClassBody // {{{
 // }}}
 
 ExternClassMember // {{{
-	: ExternClassMember ExternClassMemberModifier '{' ExternClassMemberList '}'
+	: ExternClassMember ClassMemberModifiers '{' ExternClassMemberList '}'
 		{
 			for(var i = 0; i < $4.length; i++) {
-				$4[i].modifiers.push($2);
+				$4[i].modifiers = $2;
 				
 				$1.push($4[i]);
 			}
 			
 			$$ = $1;
 		}
-	| ExternClassMember ExternClassMemberModifier ExternClassMemberSX NL_EOF_1
+	| ExternClassMember ClassMemberModifiers ExternClassMemberSX NL_EOF_1
 		{
-			$3.modifiers.push($2);
+			$3.modifiers = $2;
 			
 			$1.push(location($3, @2, @3));
 			
@@ -1859,28 +1867,6 @@ ExternClassMemberList // {{{
 	|
 		{
 			$$ = [];
-		}
-	;
-// }}}
-
-ExternClassMemberModifier // {{{
-	: 'PROTECTED'
-		{
-			$$ = location({
-				kind: ModifierKind.Protected
-			}, @1);
-		}
-	| 'PUBLIC'
-		{
-			$$ = location({
-				kind: ModifierKind.Public
-			}, @1);
-		}
-	| 'STATIC'
-		{
-			$$ = location({
-				kind: ModifierKind.Static
-			}, @1);
 		}
 	;
 // }}}
@@ -6311,6 +6297,28 @@ VariableName // {{{
 			}, @1, @4);
 		}
 	| Identifier
+	;
+// }}}
+
+VisibilityModifier // {{{
+	: 'PRIVATE'
+		{
+			$$ = location({
+				kind: ModifierKind.Private
+			}, @1);
+		}
+	| 'PROTECTED'
+		{
+			$$ = location({
+				kind: ModifierKind.Protected
+			}, @1);
+		}
+	| 'PUBLIC'
+		{
+			$$ = location({
+				kind: ModifierKind.Public
+			}, @1);
+		}
 	;
 // }}}
 
