@@ -78,6 +78,7 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 'for'											return 'FOR'
 'from'											return 'FROM'
 'func'											return 'FUNC'
+'get'											return 'GET'
 'if'											return 'IF'
 'impl'											return 'IMPL'
 'import'										return 'IMPORT'
@@ -97,6 +98,7 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 'require|import'								return 'REQUIRE|IMPORT'
 'require'										return 'REQUIRE'
 'return'										return 'RETURN'
+'set'											return 'SET'
 'sealed'										return 'SEALED'
 'static'										return 'STATIC'
 'switch'										return 'SWITCH'
@@ -1198,6 +1200,7 @@ ClassMemberSX // {{{
 			$$.attributes = $1;
 		}
 	| ClassField
+	| Property
 	| Method
 	;
 // }}}
@@ -3110,6 +3113,7 @@ Keyword // {{{
 	| 'FOR'
 	| 'FROM'
 	| 'FUNC'
+	| 'GET'
 	| 'IF'
 	| 'IMPL'
 	| 'IMPORT'
@@ -3126,6 +3130,7 @@ Keyword // {{{
 	| 'REQUIRE'
 	| 'RETURN'
 	| 'SEALED'
+	| 'SET'
 	| 'STATIC'
 	| 'SWITCH'
 	| 'TIL'
@@ -3166,6 +3171,7 @@ Keyword_NoWhereNoWith // {{{
 	| 'FOR'
 	| 'FROM'
 	| 'FUNC'
+	| 'GET'
 	| 'IF'
 	| 'IMPL'
 	| 'IMPORT'
@@ -3182,6 +3188,7 @@ Keyword_NoWhereNoWith // {{{
 	| 'REQUIRE'
 	| 'RETURN'
 	| 'SEALED'
+	| 'SET'
 	| 'STATIC'
 	| 'SWITCH'
 	| 'TIL'
@@ -4743,6 +4750,172 @@ PrefixUnaryOperatorKind // {{{
 			$$ = location({
 				kind: UnaryOperatorKind.BitwiseNot
 			}, @1);
+		}
+	;
+// }}}
+
+Property // {{{
+	: NameIST ColonSeparator TypeVar PropertyGetSet '=' Expression
+		{
+			$$ = location({
+				kind: NodeKind.PropertyDeclaration,
+				modifiers: [],
+				name: $1,
+				type: $3,
+				defaultValue: $6
+			}, @1, @6);
+			
+			if(!!$4.accessor) {
+				$$.accessor = $4.accessor;
+			}
+			if(!!$4.mutator) {
+				$$.mutator = $4.mutator;
+			}
+		}
+	| NameIST ColonSeparator TypeVar PropertyGetSet
+		{
+			$$ = location({
+				kind: NodeKind.PropertyDeclaration,
+				modifiers: [],
+				name: $1,
+				type: $3
+			}, @1, @4);
+			
+			if(!!$4.accessor) {
+				$$.accessor = $4.accessor;
+			}
+			if(!!$4.mutator) {
+				$$.mutator = $4.mutator;
+			}
+		}
+	| NameIST PropertyGetSet '=' Expression
+		{
+			$$ = location({
+				kind: NodeKind.PropertyDeclaration,
+				modifiers: [],
+				name: $1,
+				defaultValue: $4
+			}, @1, @4);
+			
+			if(!!$2.accessor) {
+				$$.accessor = $2.accessor;
+			}
+			if(!!$2.mutator) {
+				$$.mutator = $2.mutator;
+			}
+		}
+	| NameIST PropertyGetSet
+		{
+			$$ = location({
+				kind: NodeKind.PropertyDeclaration,
+				modifiers: [],
+				name: $1
+			}, @1, @2);
+			
+			if(!!$2.accessor) {
+				$$.accessor = $2.accessor;
+			}
+			if(!!$2.mutator) {
+				$$.mutator = $2.mutator;
+			}
+		}
+	;
+// }}}
+
+PropertyGetSet // {{{
+	: '{' 'GET' ',' 'SET' '}'
+		{
+			$$ = {
+				accessor: location({
+					kind: NodeKind.AccessorDeclaration
+				}, @2),
+				mutator: location({
+					kind: NodeKind.MutatorDeclaration
+				}, @3)
+			};
+		}
+	| '{' 'GET' '}'
+		{
+			$$ = {
+				accessor: location({
+					kind: NodeKind.AccessorDeclaration
+				}, @2)
+			};
+		}
+	| '{' 'SET' '}'
+		{
+			$$ = {
+				mutator: location({
+					kind: NodeKind.MutatorDeclaration
+				}, @3)
+			};
+		}
+	| '{' NL_1M PropertyGetter NL_1M PropertySetter NL_1M '}'
+		{
+			$$ = {
+				accessor: $3,
+				mutator: $5
+			};
+		}
+	| '{' NL_1M PropertyGetter NL_1M '}'
+		{
+			$$ = {
+				accessor: $3
+			};
+		}
+	| '{' NL_1M PropertySetter NL_1M '}'
+		{
+			$$ = {
+				mutator: $3
+			};
+		}
+	;
+// }}}
+
+PropertyGetter // {{{
+	: 'GET'
+		{
+			$$ = location({
+				kind: NodeKind.AccessorDeclaration
+			}, @1);
+		}
+	| 'GET' '=>' Expression
+		{
+			$$ = location({
+				kind: NodeKind.AccessorDeclaration,
+				body: $3
+			}, @1, @3);
+		}
+	| 'GET' Block
+		{
+			$$ = location({
+				kind: NodeKind.AccessorDeclaration,
+				body: $2
+			}, @1, @2);
+		}
+	;
+// }}}
+
+PropertySetter // {{{
+	: 'SET'
+		{
+			$$ = location({
+				kind: NodeKind.MutatorDeclaration
+			}, @1);
+		}
+	| 'SET' '=>' Expression
+		{
+			$$ = location({
+				kind: NodeKind.MutatorDeclaration,
+				body: $3
+			}, @1, @3);
+		}
+	| 'SET' Block
+		{
+			$$ = location({
+				kind: NodeKind.MutatorDeclaration,
+				body: $2
+			}, @1, @2);
 		}
 	;
 // }}}

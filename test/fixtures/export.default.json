@@ -1,18 +1,18 @@
 {
-  "kind": 58,
+  "kind": 59,
   "attributes": [],
   "body": [
     {
-      "kind": 30,
+      "kind": 31,
       "declarations": [
         {
-          "kind": 94,
+          "kind": 97,
           "rebindable": true,
           "declarations": [
             {
-              "kind": 95,
+              "kind": 98,
               "name": {
-                "kind": 40,
+                "kind": 41,
                 "name": "foo",
                 "start": {
                   "line": 1,
@@ -24,7 +24,7 @@
                 }
               },
               "init": {
-                "kind": 52,
+                "kind": 53,
                 "value": "I'm foo!",
                 "start": {
                   "line": 1,
@@ -66,16 +66,16 @@
       "attributes": []
     },
     {
-      "kind": 30,
+      "kind": 31,
       "declarations": [
         {
-          "kind": 94,
+          "kind": 97,
           "rebindable": false,
           "declarations": [
             {
-              "kind": 95,
+              "kind": 98,
               "name": {
-                "kind": 40,
+                "kind": 41,
                 "name": "c",
                 "start": {
                   "line": 2,
@@ -87,7 +87,7 @@
                 }
               },
               "init": {
-                "kind": 59,
+                "kind": 61,
                 "value": 3,
                 "start": {
                   "line": 2,
@@ -129,16 +129,16 @@
       "attributes": []
     },
     {
-      "kind": 30,
+      "kind": 31,
       "declarations": [
         {
-          "kind": 94,
+          "kind": 97,
           "rebindable": false,
           "declarations": [
             {
-              "kind": 95,
+              "kind": 98,
               "name": {
-                "kind": 40,
+                "kind": 41,
                 "name": "b",
                 "start": {
                   "line": 3,
@@ -150,7 +150,7 @@
                 }
               },
               "init": {
-                "kind": 59,
+                "kind": 61,
                 "value": 5,
                 "start": {
                   "line": 3,
@@ -192,13 +192,13 @@
       "attributes": []
     },
     {
-      "kind": 30,
+      "kind": 31,
       "declarations": [
         {
-          "kind": 38,
+          "kind": 39,
           "modifiers": [],
           "name": {
-            "kind": 40,
+            "kind": 41,
             "name": "foo",
             "start": {
               "line": 5,
@@ -212,13 +212,13 @@
           "parameters": [],
           "throws": [],
           "body": {
-            "kind": 11,
+            "kind": 12,
             "attributes": [],
             "statements": [
               {
-                "kind": 70,
+                "kind": 73,
                 "value": {
-                  "kind": 9,
+                  "kind": 10,
                   "operator": {
                     "kind": 1,
                     "start": {
@@ -239,7 +239,7 @@
                     "column": 15
                   },
                   "left": {
-                    "kind": 40,
+                    "kind": 41,
                     "name": "c",
                     "start": {
                       "line": 6,
@@ -251,7 +251,7 @@
                     }
                   },
                   "right": {
-                    "kind": 40,
+                    "kind": 41,
                     "name": "b",
                     "start": {
                       "line": 6,
@@ -304,12 +304,12 @@
       "attributes": []
     },
     {
-      "kind": 30,
+      "kind": 31,
       "declarations": [
         {
-          "kind": 15,
+          "kind": 16,
           "name": {
-            "kind": 40,
+            "kind": 41,
             "name": "BarQux",
             "start": {
               "line": 9,
@@ -323,7 +323,7 @@
           "modifiers": [],
           "members": [
             {
-              "kind": 33,
+              "kind": 34,
               "modifiers": [
                 {
                   "kind": 4,
@@ -338,7 +338,7 @@
                 }
               ],
               "name": {
-                "kind": 40,
+                "kind": 41,
                 "name": "a",
                 "start": {
                   "line": 11,
@@ -350,9 +350,9 @@
                 }
               },
               "type": {
-                "kind": 88,
+                "kind": 91,
                 "typeName": {
-                  "kind": 40,
+                  "kind": 41,
                   "name": "int",
                   "start": {
                     "line": 11,
@@ -383,7 +383,7 @@
             },
             {
               "name": {
-                "kind": 40,
+                "kind": 41,
                 "name": "BarQux",
                 "start": {
                   "line": 14,
@@ -396,7 +396,7 @@
               },
               "parameters": [
                 {
-                  "kind": 64,
+                  "kind": 66,
                   "modifiers": [
                     {
                       "kind": 2,
@@ -411,7 +411,7 @@
                     }
                   ],
                   "name": {
-                    "kind": 40,
+                    "kind": 41,
                     "name": "a",
                     "start": {
                       "line": 14,
@@ -441,7 +441,7 @@
                 "line": 14,
                 "column": 15
               },
-              "kind": 55,
+              "kind": 56,
               "modifiers": []
             }
           ],

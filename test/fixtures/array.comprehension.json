@@ -1,9 +1,9 @@
 {
-  "kind": 58,
+  "kind": 59,
   "attributes": [],
   "body": [
     {
-      "kind": 9,
+      "kind": 10,
       "operator": {
         "kind": 3,
         "assignment": 8,
@@ -17,7 +17,7 @@
         }
       },
       "left": {
-        "kind": 40,
+        "kind": 41,
         "name": "heroes",
         "start": {
           "line": 1,
@@ -29,10 +29,10 @@
         }
       },
       "right": {
-        "kind": 3,
+        "kind": 4,
         "values": [
           {
-            "kind": 52,
+            "kind": 53,
             "value": "leto",
             "start": {
               "line": 1,
@@ -44,7 +44,7 @@
             }
           },
           {
-            "kind": 52,
+            "kind": 53,
             "value": "duncan",
             "start": {
               "line": 1,
@@ -56,7 +56,7 @@
             }
           },
           {
-            "kind": 52,
+            "kind": 53,
             "value": "goku",
             "start": {
               "line": 1,
@@ -88,7 +88,7 @@
       "attributes": []
     },
     {
-      "kind": 9,
+      "kind": 10,
       "operator": {
         "kind": 3,
         "assignment": 8,
@@ -102,7 +102,7 @@
         }
       },
       "left": {
-        "kind": 40,
+        "kind": 41,
         "name": "evenHeroes",
         "start": {
           "line": 3,
@@ -114,9 +114,9 @@
         }
       },
       "right": {
-        "kind": 2,
+        "kind": 3,
         "body": {
-          "kind": 40,
+          "kind": 41,
           "name": "hero",
           "start": {
             "line": 3,
@@ -128,9 +128,9 @@
           }
         },
         "loop": {
-          "kind": 35,
+          "kind": 36,
           "value": {
-            "kind": 40,
+            "kind": 41,
             "name": "heroes",
             "start": {
               "line": 3,
@@ -152,7 +152,7 @@
           },
           "declaration": false,
           "variable": {
-            "kind": 40,
+            "kind": 41,
             "name": "hero",
             "start": {
               "line": 3,
@@ -164,7 +164,7 @@
             }
           },
           "index": {
-            "kind": 40,
+            "kind": 41,
             "name": "index",
             "start": {
               "line": 3,
@@ -176,7 +176,7 @@
             }
           },
           "when": {
-            "kind": 9,
+            "kind": 10,
             "operator": {
               "kind": 10,
               "start": {
@@ -197,7 +197,7 @@
               "column": 63
             },
             "left": {
-              "kind": 9,
+              "kind": 10,
               "operator": {
                 "kind": 16,
                 "start": {
@@ -218,7 +218,7 @@
                 "column": 58
               },
               "left": {
-                "kind": 40,
+                "kind": 41,
                 "name": "index",
                 "start": {
                   "line": 3,
@@ -230,7 +230,7 @@
                 }
               },
               "right": {
-                "kind": 59,
+                "kind": 61,
                 "value": 2,
                 "start": {
                   "line": 3,
@@ -243,7 +243,7 @@
               }
             },
             "right": {
-              "kind": 59,
+              "kind": 61,
               "value": 0,
               "start": {
                 "line": 3,

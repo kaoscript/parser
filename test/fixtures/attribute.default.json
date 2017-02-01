@@ -1,12 +1,12 @@
 {
-  "kind": 58,
+  "kind": 59,
   "attributes": [],
   "body": [
     {
-      "kind": 38,
+      "kind": 39,
       "modifiers": [],
       "name": {
-        "kind": 40,
+        "kind": 41,
         "name": "foo",
         "start": {
           "line": 2,
@@ -20,7 +20,7 @@
       "parameters": [],
       "throws": [],
       "body": {
-        "kind": 11,
+        "kind": 12,
         "attributes": [],
         "statements": [],
         "start": {
@@ -42,9 +42,9 @@
       },
       "attributes": [
         {
-          "kind": 5,
+          "kind": 6,
           "declaration": {
-            "kind": 40,
+            "kind": 41,
             "name": "test",
             "start": {
               "line": 1,
@@ -67,10 +67,10 @@
       ]
     },
     {
-      "kind": 38,
+      "kind": 39,
       "modifiers": [],
       "name": {
-        "kind": 40,
+        "kind": 41,
         "name": "darwin_only",
         "start": {
           "line": 6,
@@ -84,7 +84,7 @@
       "parameters": [],
       "throws": [],
       "body": {
-        "kind": 11,
+        "kind": 12,
         "attributes": [],
         "statements": [],
         "start": {
@@ -106,11 +106,11 @@
       },
       "attributes": [
         {
-          "kind": 5,
+          "kind": 6,
           "declaration": {
-            "kind": 6,
+            "kind": 7,
             "name": {
-              "kind": 40,
+              "kind": 41,
               "name": "cfg",
               "start": {
                 "line": 5,
@@ -123,9 +123,9 @@
             },
             "arguments": [
               {
-                "kind": 7,
+                "kind": 8,
                 "name": {
-                  "kind": 40,
+                  "kind": 41,
                   "name": "target_os",
                   "start": {
                     "line": 5,
@@ -137,7 +137,7 @@
                   }
                 },
                 "value": {
-                  "kind": 52,
+                  "kind": 53,
                   "value": "darwin",
                   "start": {
                     "line": 5,
@@ -179,10 +179,10 @@
       ]
     },
     {
-      "kind": 38,
+      "kind": 39,
       "modifiers": [],
       "name": {
-        "kind": 40,
+        "kind": 41,
         "name": "linux_only",
         "start": {
           "line": 10,
@@ -196,7 +196,7 @@
       "parameters": [],
       "throws": [],
       "body": {
-        "kind": 11,
+        "kind": 12,
         "attributes": [],
         "statements": [],
         "start": {
@@ -218,11 +218,11 @@
       },
       "attributes": [
         {
-          "kind": 5,
+          "kind": 6,
           "declaration": {
-            "kind": 6,
+            "kind": 7,
             "name": {
-              "kind": 40,
+              "kind": 41,
               "name": "cfg",
               "start": {
                 "line": 9,
@@ -235,9 +235,9 @@
             },
             "arguments": [
               {
-                "kind": 7,
+                "kind": 8,
                 "name": {
-                  "kind": 40,
+                  "kind": 41,
                   "name": "target_os",
                   "start": {
                     "line": 9,
@@ -249,7 +249,7 @@
                   }
                 },
                 "value": {
-                  "kind": 52,
+                  "kind": 53,
                   "value": "linux",
                   "start": {
                     "line": 9,
@@ -291,10 +291,10 @@
       ]
     },
     {
-      "kind": 38,
+      "kind": 39,
       "modifiers": [],
       "name": {
-        "kind": 40,
+        "kind": 41,
         "name": "needs_foo_or_bar",
         "start": {
           "line": 14,
@@ -308,7 +308,7 @@
       "parameters": [],
       "throws": [],
       "body": {
-        "kind": 11,
+        "kind": 12,
         "attributes": [],
         "statements": [],
         "start": {
@@ -330,11 +330,11 @@
       },
       "attributes": [
         {
-          "kind": 5,
+          "kind": 6,
           "declaration": {
-            "kind": 6,
+            "kind": 7,
             "name": {
-              "kind": 40,
+              "kind": 41,
               "name": "cfg",
               "start": {
                 "line": 13,
@@ -347,9 +347,9 @@
             },
             "arguments": [
               {
-                "kind": 6,
+                "kind": 7,
                 "name": {
-                  "kind": 40,
+                  "kind": 41,
                   "name": "any",
                   "start": {
                     "line": 13,
@@ -362,7 +362,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 40,
+                    "kind": 41,
                     "name": "foo",
                     "start": {
                       "line": 13,
@@ -374,7 +374,7 @@
                     }
                   },
                   {
-                    "kind": 40,
+                    "kind": 41,
                     "name": "bar",
                     "start": {
                       "line": 13,
@@ -417,10 +417,10 @@
       ]
     },
     {
-      "kind": 38,
+      "kind": 39,
       "modifiers": [],
       "name": {
-        "kind": 40,
+        "kind": 41,
         "name": "on_unix",
         "start": {
           "line": 18,
@@ -434,7 +434,7 @@
       "parameters": [],
       "throws": [],
       "body": {
-        "kind": 11,
+        "kind": 12,
         "attributes": [],
         "statements": [],
         "start": {
@@ -456,11 +456,11 @@
       },
       "attributes": [
         {
-          "kind": 5,
+          "kind": 6,
           "declaration": {
-            "kind": 6,
+            "kind": 7,
             "name": {
-              "kind": 40,
+              "kind": 41,
               "name": "cfg",
               "start": {
                 "line": 17,
@@ -473,9 +473,9 @@
             },
             "arguments": [
               {
-                "kind": 6,
+                "kind": 7,
                 "name": {
-                  "kind": 40,
+                  "kind": 41,
                   "name": "all",
                   "start": {
                     "line": 17,
@@ -488,7 +488,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 40,
+                    "kind": 41,
                     "name": "unix",
                     "start": {
                       "line": 17,
@@ -531,10 +531,10 @@
       ]
     },
     {
-      "kind": 38,
+      "kind": 39,
       "modifiers": [],
       "name": {
-        "kind": 40,
+        "kind": 41,
         "name": "needs_not_foo",
         "start": {
           "line": 22,
@@ -548,7 +548,7 @@
       "parameters": [],
       "throws": [],
       "body": {
-        "kind": 11,
+        "kind": 12,
         "attributes": [],
         "statements": [],
         "start": {
@@ -570,11 +570,11 @@
       },
       "attributes": [
         {
-          "kind": 5,
+          "kind": 6,
           "declaration": {
-            "kind": 6,
+            "kind": 7,
             "name": {
-              "kind": 40,
+              "kind": 41,
               "name": "cfg",
               "start": {
                 "line": 21,
@@ -587,9 +587,9 @@
             },
             "arguments": [
               {
-                "kind": 6,
+                "kind": 7,
                 "name": {
-                  "kind": 40,
+                  "kind": 41,
                   "name": "not",
                   "start": {
                     "line": 21,
@@ -602,7 +602,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 40,
+                    "kind": 41,
                     "name": "foo",
                     "start": {
                       "line": 21,
