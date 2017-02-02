@@ -35,6 +35,7 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 \s*'/*'											this.begin('mlcomment')
 <mlcomment>'/*'									this.begin('mlcomment')
 <mlcomment>'*/'									this.popState()
+<mlcomment>[^\*\/\\]+							/* skip comment */
 <mlcomment>(.|\n)								/* skip comment */
 '---'\r?\n										this.begin('hcomment')
 <hcomment>'---'\r?\n							this.popState()
