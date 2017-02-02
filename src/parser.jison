@@ -248,7 +248,7 @@ Array // {{{
 		{
 			$$ = location($3, @1, @4);
 		}
-	| '[' NL_0M Expression ForHeader ']'
+	| '[' NL_0M Expression ForExpression ']'
 		{
 			$$ = location({
 				kind: NodeKind.ArrayComprehension,
@@ -2192,69 +2192,136 @@ FinallyClause // {{{
 	;
 // }}}
 
-ForHeader // {{{
-	: ForHeaderBegin NL_0M ForHeaderMiddle NL_0M ForHeaderEnd
+ForExpression // {{{
+	: 'FOR' ForFromBegin NL_0M ForFromMiddle NL_0M ForExpressionEnd
 		{
-			$$ = location($3, @1, @5);
+			$$ = location($4, @1, @6);
 			
-			$$.declaration = $1.declaration;
-			$$.variable = $1.variable;
+			$$.declaration = $2.declaration;
+			$$.variable = $2.variable;
 			
-			if($1.index) {
-				$$.index = $1.index;
-			}
-			
-			if($5) {
-				if($5.until) {
-					$$.until = $5.until;
+			if($6) {
+				if($6.until) {
+					$$.until = $6.until;
 				}
-				else if($5.while) {
-					$$.while = $5.while;
+				else if($6.while) {
+					$$.while = $6.while;
 				}
 				
-				if($5.when) {
-					$$.when = $5.when;
+				if($6.when) {
+					$$.when = $6.when;
+				}
+			}
+		}
+	| 'FOR' ForInBegin NL_0M ForInMiddle NL_0M ForExpressionEnd
+		{
+			$$ = location($4, @1, @6);
+			
+			$$.declaration = $2.declaration;
+			$$.value = $2.value;
+			
+			if($2.index) {
+				$$.index = $2.index;
+			}
+			
+			if($6) {
+				if($6.until) {
+					$$.until = $6.until;
+				}
+				else if($6.while) {
+					$$.while = $6.while;
+				}
+				
+				if($6.when) {
+					$$.when = $6.when;
+				}
+			}
+		}
+	| 'FOR' ForOfBegin NL_0M ForOfMiddle NL_0M ForExpressionEnd
+		{
+			$$ = location($4, @1, @6);
+			
+			$$.declaration = $2.declaration;
+			
+			if($2.key) {
+				$$.key = $2.key;
+			}
+			if($2.value) {
+				$$.value = $2.value;
+			}
+			
+			if($6) {
+				if($6.until) {
+					$$.until = $6.until;
+				}
+				else if($6.while) {
+					$$.while = $6.while;
+				}
+				
+				if($6.when) {
+					$$.when = $6.when;
 				}
 			}
 		}
 	;
 // }}}
 
-ForHeaderBegin // {{{
-	: 'FOR' 'LET' Identifier ',' Identifier
+ForExpressionEnd // {{{
+	: 'UNTIL' Expression 'WHEN' Expression
 		{
 			$$ = {
-				variable: $3,
-				index: $5,
-				declaration: true
+				until: $2,
+				when: $4
 			};
 		}
-	| 'FOR' 'LET' Identifier
+	| 'UNTIL' Expression
 		{
 			$$ = {
-				variable: $3,
-				declaration: true
+				until: $2
 			};
 		}
-	| 'FOR' Identifier ',' Identifier
+	| 'WHILE' Expression 'WHEN' Expression
+		{
+			$$ = {
+				while: $2,
+				when: $4
+			};
+		}
+	| 'WHILE' Expression
+		{
+			$$ = {
+				while: $2
+			};
+		}
+	| 'WHEN' Expression
+		{
+			$$ = {
+				when: $2
+			};
+		}
+	|
+	;
+// }}}
+
+ForFromBegin // {{{
+	: 'LET' Identifier
 		{
 			$$ = {
 				variable: $2,
-				index: $4,
-				declaration: false
+				declaration: true
 			};
 		}
-	| 'FOR' Identifier
+	| Identifier
 		{
 			$$ = {
-				variable: $2,
+				variable: $1,
 				declaration: false
 			};
 		}
 	;
 // }}}
 
-ForHeaderMiddle // {{{
+ForFromMiddle // {{{
 	: 'FROM' Expression 'TIL' Expression 'BY' Expression
 		{
 			$$ = {
@@ -2289,7 +2356,59 @@ ForHeaderMiddle // {{{
 				to: $4
 			};
 		}
-	| 'IN' Number '...' Number '..' Number
+	;
+// }}}
+
+ForInBegin // {{{
+	: 'LET' Identifier ',' Identifier
+		{
+			$$ = {
+				value: $2,
+				index: $4,
+				declaration: true
+			};
+		}
+	| 'LET' ':' Identifier
+		{
+			$$ = {
+				index: $3,
+				declaration: true
+			};
+		}
+	| 'LET' Identifier
+		{
+			$$ = {
+				value: $2,
+				declaration: true
+			};
+		}
+	| Identifier ',' Identifier
+		{
+			$$ = {
+				value: $1,
+				index: $3,
+				declaration: false
+			};
+		}
+	| ':' Identifier
+		{
+			$$ = {
+				index: $2,
+				declaration: false
+			};
+		}
+	| Identifier
+		{
+			$$ = {
+				value: $1,
+				declaration: false
+			};
+		}
+	;
+// }}}
+
+ForInMiddle // {{{
+	: 'IN' Number '...' Number '..' Number
 		{
 			$$ = {
 				kind: NodeKind.ForRangeStatement,
@@ -2327,7 +2446,7 @@ ForHeaderMiddle // {{{
 		{
 			$$ = {
 				kind: NodeKind.ForInStatement,
-				value: $2,
+				expression: $2,
 				desc: true
 			};
 		}
@@ -2335,59 +2454,74 @@ ForHeaderMiddle // {{{
 		{
 			$$ = {
 				kind: NodeKind.ForInStatement,
-				value: $2,
+				expression: $2,
 				desc: false
-			};
-		}
-	| 'OF' Expression
-		{
-			$$ = {
-				kind: NodeKind.ForOfStatement,
-				value: $2
 			};
 		}
 	;
 // }}}
 
-ForHeaderEnd // {{{
-	: 'UNTIL' Expression 'WHEN' Expression
+ForOfBegin // {{{
+	: 'LET' Identifier ',' Identifier
 		{
 			$$ = {
-				until: $2,
-				when: $4
+				key: $2,
+				value: $4,
+				declaration: true
 			};
 		}
-	| 'UNTIL' Expression
+	| 'LET' ':' Identifier
 		{
 			$$ = {
-				until: $2
+				value: $3,
+				declaration: true
 			};
 		}
-	| 'WHILE' Expression 'WHEN' Expression
+	| 'LET' Identifier
 		{
 			$$ = {
-				while: $2,
-				when: $4
+				key: $2,
+				declaration: true
 			};
 		}
-	| 'WHILE' Expression
+	| Identifier ',' Identifier
 		{
 			$$ = {
-				while: $2
+				key: $1,
+				value: $3,
+				declaration: false
 			};
 		}
-	| 'WHEN' Expression
+	| ':' Identifier
 		{
 			$$ = {
-				when: $2
+				value: $2,
+				declaration: false
 			};
 		}
-	|
+	| Identifier
+		{
+			$$ = {
+				key: $1,
+				declaration: false
+			};
+		}
+	;
+// }}}
+
+ForOfMiddle // {{{
+	: 'OF' Expression
+		{
+			$$ = {
+				kind: NodeKind.ForOfStatement,
+				expression: $2
+			};
+		}
 	;
 // }}}
 
 ForStatement // {{{
-	: ForHeader NL_0M Block
+	: ForExpression NL_0M Block
 		{
 			$1.body = $3;
 			$$ = location($1, @3);
@@ -5193,7 +5327,7 @@ Statement // {{{
 // }}}
 
 StatementExpression // {{{
-	: Expression ForHeader
+	: Expression ForExpression
 		{
 			$2.body = $1;
 			$$ = location($2, @1, @2);
