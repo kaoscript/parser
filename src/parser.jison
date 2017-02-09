@@ -2692,29 +2692,12 @@ FunctionParameterFooter // {{{
 		}
 	| Identifier '=' Expression
 		{
-			if($3.kind === NodeKind.Identifier && $3.name === 'null') {
-				$$ = location({
-					kind: NodeKind.Parameter,
-					modifiers: [],
-					name: $1,
-					type: {
-						kind: NodeKind.TypeReference,
-						typeName: {
-							kind: NodeKind.Identifier,
-							name: 'any'
-						},
-						nullable: true
-					}
-				}, @1, @3);
-			}
-			else {
-				$$ = location({
-					kind: NodeKind.Parameter,
-					modifiers: [],
-					name: $1,
-					defaultValue: $3
-				}, @1, @3);
-			}
+			$$ = location({
+				kind: NodeKind.Parameter,
+				modifiers: [],
+				name: $1,
+				defaultValue: $3
+			}, @1, @3);
 		}
 	| Identifier '?' '=' Expression
 		{
@@ -4713,19 +4696,18 @@ Parenthesis // {{{
 		{
 			$$ = $2;
 		}
-	| '(' Identifier '=' Expression ')' LambdaBody
+	| '(' Expression ',' Expression1CList ')'
 		{
+			$4.unshift($2);
+			
 			$$ = location({
-				kind: NodeKind.LambdaExpression,
-				modifiers: [],
-				parameters: [location({
-					kind: NodeKind.Parameter,
-					modifiers: [],
-					name: $2,
-					defaultValue: $4
-				}, @2, @4)],
-				body: $6
-			}, @1, @6);
+				kind: NodeKind.SequenceExpression,
+				expressions: $4
+			}, @2, @4);
+		}
+	| '(' Identifier ')'
+		{
+			$$ = $2;
 		}
 	| '(' Identifier '=' Expression ')'
 		{
@@ -4738,32 +4720,6 @@ Parenthesis // {{{
 				left: $2,
 				right: $4
 			}, @2, @4);
-		}
-	| '(' Identifier ')' LambdaBody
-		{
-			$$ = location({
-				kind: NodeKind.LambdaExpression,
-				modifiers: [],
-				parameters: [location({
-					kind: NodeKind.Parameter,
-					modifiers: [],
-					name: $2
-				}, @2)],
-				body: $4
-			}, @1, @4);
-		}
-	| '(' Identifier ')'
-		{
-			$$ = $2;
-		}
-	| '(' Identifier 'SPACED_?' Expression 'SPACED_:' Expression ')'
-		{
-			$$ = location({
-				kind: NodeKind.ConditionalExpression,
-				condition: $2,
-				whenTrue: $4,
-				whenFalse: $6
-			}, @2, @6);
 		}
 	| '(' Identifier '=' Expression ',' Expression1CList ')'
 		{
@@ -4782,14 +4738,57 @@ Parenthesis // {{{
 				expressions: $6
 			}, @2, @6);
 		}
-	| '(' Expression ',' Expression1CList ')'
+	| '(' Identifier 'SPACED_?' Expression 'SPACED_:' Expression ')'
 		{
-			$4.unshift($2);
+			$$ = location({
+				kind: NodeKind.ConditionalExpression,
+				condition: $2,
+				whenTrue: $4,
+				whenFalse: $6
+			}, @2, @6);
+		}
+	| '(' Identifier ')' LambdaBody
+		{
+			$$ = location({
+				kind: NodeKind.LambdaExpression,
+				modifiers: [],
+				parameters: [location({
+					kind: NodeKind.Parameter,
+					modifiers: [],
+					name: $2
+				}, @2)],
+				body: $4
+			}, @1, @4);
+		}
+	| '(' Identifier '=' Expression ')' LambdaBody
+		{
+			$$ = location({
+				kind: NodeKind.LambdaExpression,
+				modifiers: [],
+				parameters: [location({
+					kind: NodeKind.Parameter,
+					modifiers: [],
+					name: $2,
+					defaultValue: $4
+				}, @2, @4)],
+				body: $6
+			}, @1, @6);
+		}
+	| '(' Identifier '=' Expression ',' FunctionParameterList ')' LambdaBody
+		{
+			$6.unshift(location({
+				kind: NodeKind.Parameter,
+				modifiers: [],
+				name: $2,
+				defaultValue: $4
+			}, @2, @4));
 			
 			$$ = location({
-				kind: NodeKind.SequenceExpression,
-				expressions: $4
-			}, @2, @4);
+				kind: NodeKind.LambdaExpression,
+				modifiers: [],
+				parameters: $6,
+				body: $8
+			}, @1, @8);
 		}
 	;
 // }}}
