@@ -3,7 +3,7 @@ class Shape {
 		_color: string = ''
 	}
 	
-	Shape(@color: string)
+	Shape(@color)
 }
 
 impl Shape {

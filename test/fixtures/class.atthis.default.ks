@@ -7,7 +7,7 @@ class Greetings {
 		this('Hello!')
 	}
 	
-	Greetings(@message: string)
+	Greetings(@message)
 	
 	greet(name: string): string {
 		return @message + '\nIt\'s nice to meet you, ' + name + '.'

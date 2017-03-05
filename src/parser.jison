@@ -3427,92 +3427,61 @@ MethodHeader // {{{
 // }}}
 
 MethodParameter // {{{
-	: MethodParameterModifier MethodParameterFooter
-		{
-			$2.modifiers = [$1];
-			
-			$$ = location($2, @1, @2);
-		}
-	| MethodParameterFooter
-	;
-// }}}
-
-MethodParameterFooter // {{{
-	: Identifier ColonSeparator TypeVar '=' Expression
+	: FunctionParameter
+	| '@' Identifier '(' ')' '=' Expression
 		{
 			$$ = location({
 				kind: NodeKind.Parameter,
-				modifiers: [],
-				name: $1,
-				type: $3,
-				defaultValue: $5
-			}, @1, @5);
+				modifiers: [
+					location({
+						kind: ModifierKind.ThisAlias
+					}, @1),
+					location({
+						kind: ModifierKind.SetterAlias
+					}, @3, @4)
+				],
+				name: $2,
+				defaultValue: $6
+			}, @1, @6);
 		}
-	| Identifier ColonSeparator TypeVar
+	| '@' Identifier '(' ')'
 		{
 			$$ = location({
 				kind: NodeKind.Parameter,
-				modifiers: [],
-				name: $1,
-				type: $3
-			}, @1, @3);
+				modifiers: [
+					location({
+						kind: ModifierKind.ThisAlias
+					}, @1),
+					location({
+						kind: ModifierKind.SetterAlias
+					}, @3, @4)
+				],
+				name: $2,
+			}, @1, @4);
 		}
-	| Identifier '=' Expression
+	| '@' Identifier '=' Expression
 		{
 			$$ = location({
 				kind: NodeKind.Parameter,
-				modifiers: [],
-				name: $1,
-				defaultValue: $3
-			}, @1, @3);
-		}
-	| Identifier '?' '=' Expression
-		{
-			$$ = location({
-				kind: NodeKind.Parameter,
-				modifiers: [],
-				name: $1,
-				type: {
-					kind: NodeKind.TypeReference,
-					typeName: {
-						kind: NodeKind.Identifier,
-						name: 'any'
-					},
-					nullable: true
-				},
+				modifiers: [
+					location({
+						kind: ModifierKind.ThisAlias
+					}, @1)
+				],
+				name: $2,
 				defaultValue: $4
 			}, @1, @4);
 		}
-	| Identifier '?'
+	| '@' Identifier
 		{
 			$$ = location({
 				kind: NodeKind.Parameter,
-				modifiers: [],
-				name: $1,
-				type: {
-					kind: NodeKind.TypeReference,
-					typeName: {
-						kind: NodeKind.Identifier,
-						name: 'any'
-					},
-					nullable: true
-				}
-			}, @1, @2);
-		}
-	| Identifier
-		{
-			$$ = location({
-				kind: NodeKind.Parameter,
-				modifiers: [],
-				name: $1
-			}, @1);
-		}
-	| ColonSeparator TypeVar
-		{
-			$$ = location({
-				kind: NodeKind.Parameter,
-				modifiers: [],
-				type: $2
+				modifiers: [
+					location({
+						kind: ModifierKind.ThisAlias
+					}, @1)
+				],
+				name: $2
 			}, @1, @2);
 		}
 	;
@@ -3551,56 +3520,6 @@ MethodParameterListSX
 	| MethodParameter
 		{
 			$$ = [$1];
-		}
-	;
-// }}}
-
-MethodParameterModifier // {{{
-	: '...' '{' Number ',' Number '}'
-		{
-			$$ = location({
-				kind: ModifierKind.Rest,
-				arity: {
-					min: $3.value,
-					max: $5.value
-				}
-			}, @1, @6);
-		}
-	| '...' '{' ',' Number '}'
-		{
-			$$ = location({
-				kind: ModifierKind.Rest,
-				arity: {
-					min: 0,
-					max: $4.value
-				}
-			}, @1, @5);
-		}
-	| '...' '{' Number ',' '}'
-		{
-			$$ = location({
-				kind: ModifierKind.Rest,
-				arity: {
-					min: $3.value,
-					max: Infinity
-				}
-			}, @1, @5);
-		}
-	| '...'
-		{
-			$$ = location({
-				kind: ModifierKind.Rest,
-				arity: {
-					min: 0,
-					max: Infinity
-				}
-			}, @1);
-		}
-	| '@'
-		{
-			$$ = location({
-				kind: ModifierKind.Alias
-			}, @1);
 		}
 	;
 // }}}

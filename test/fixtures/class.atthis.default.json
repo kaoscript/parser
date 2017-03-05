@@ -342,57 +342,43 @@
                     "kind": 1,
                     "start": {
                       "line": 13,
-                      "column": 55
+                      "column": 50
                     },
                     "end": {
                       "line": 13,
-                      "column": 56
+                      "column": 51
                     }
                   },
                   "start": {
                     "line": 13,
-                    "column": 24
+                    "column": 19
                   },
                   "end": {
                     "line": 13,
-                    "column": 63
+                    "column": 58
                   },
                   "operands": [
                     {
-                      "kind": 54,
-                      "object": {
+                      "kind": 86,
+                      "name": {
                         "kind": 41,
-                        "name": "this",
+                        "name": "message",
                         "start": {
                           "line": 13,
-                          "column": 10
+                          "column": 11
                         },
                         "end": {
                           "line": 13,
-                          "column": 14
+                          "column": 18
                         }
                       },
-                      "property": {
-                        "kind": 41,
-                        "name": "_message",
-                        "start": {
-                          "line": 13,
-                          "column": 15
-                        },
-                        "end": {
-                          "line": 13,
-                          "column": 23
-                        }
-                      },
-                      "computed": false,
-                      "nullable": false,
                       "start": {
                         "line": 13,
                         "column": 10
                       },
                       "end": {
                         "line": 13,
-                        "column": 23
+                        "column": 18
                       }
                     },
                     {
@@ -400,11 +386,11 @@
                       "value": "\\nIt's nice to meet you, ",
                       "start": {
                         "line": 13,
-                        "column": 26
+                        "column": 21
                       },
                       "end": {
                         "line": 13,
-                        "column": 54
+                        "column": 49
                       }
                     },
                     {
@@ -412,11 +398,11 @@
                       "name": "name",
                       "start": {
                         "line": 13,
-                        "column": 57
+                        "column": 52
                       },
                       "end": {
                         "line": 13,
-                        "column": 61
+                        "column": 56
                       }
                     },
                     {
@@ -424,11 +410,11 @@
                       "value": ".",
                       "start": {
                         "line": 13,
-                        "column": 64
+                        "column": 59
                       },
                       "end": {
                         "line": 13,
-                        "column": 67
+                        "column": 62
                       }
                     }
                   ]
@@ -439,7 +425,7 @@
                 },
                 "end": {
                   "line": 13,
-                  "column": 67
+                  "column": 62
                 },
                 "attributes": []
               }
@@ -464,256 +450,6 @@
         "column": 2
       },
       "attributes": []
-    },
-    {
-      "kind": 97,
-      "rebindable": true,
-      "declarations": [
-        {
-          "kind": 98,
-          "name": {
-            "kind": 41,
-            "name": "hello",
-            "start": {
-              "line": 17,
-              "column": 5
-            },
-            "end": {
-              "line": 17,
-              "column": 10
-            }
-          },
-          "init": {
-            "kind": 22,
-            "class": {
-              "kind": 41,
-              "name": "Greetings",
-              "start": {
-                "line": 17,
-                "column": 17
-              },
-              "end": {
-                "line": 17,
-                "column": 26
-              }
-            },
-            "arguments": [
-              {
-                "kind": 53,
-                "value": "Hello world!",
-                "start": {
-                  "line": 17,
-                  "column": 27
-                },
-                "end": {
-                  "line": 17,
-                  "column": 41
-                }
-              }
-            ],
-            "start": {
-              "line": 17,
-              "column": 13
-            },
-            "end": {
-              "line": 17,
-              "column": 42
-            }
-          },
-          "start": {
-            "line": 17,
-            "column": 5
-          },
-          "end": {
-            "line": 17,
-            "column": 42
-          }
-        }
-      ],
-      "start": {
-        "line": 17,
-        "column": 1
-      },
-      "end": {
-        "line": 17,
-        "column": 42
-      },
-      "attributes": []
-    },
-    {
-      "kind": 14,
-      "scope": {
-        "kind": 3
-      },
-      "callee": {
-        "kind": 54,
-        "object": {
-          "kind": 54,
-          "object": {
-            "kind": 14,
-            "scope": {
-              "kind": 3
-            },
-            "callee": {
-              "kind": 41,
-              "name": "expect",
-              "start": {
-                "line": 19,
-                "column": 1
-              },
-              "end": {
-                "line": 19,
-                "column": 7
-              }
-            },
-            "arguments": [
-              {
-                "kind": 14,
-                "scope": {
-                  "kind": 3
-                },
-                "callee": {
-                  "kind": 54,
-                  "object": {
-                    "kind": 41,
-                    "name": "hello",
-                    "start": {
-                      "line": 19,
-                      "column": 8
-                    },
-                    "end": {
-                      "line": 19,
-                      "column": 13
-                    }
-                  },
-                  "property": {
-                    "kind": 41,
-                    "name": "greet",
-                    "start": {
-                      "line": 19,
-                      "column": 14
-                    },
-                    "end": {
-                      "line": 19,
-                      "column": 19
-                    }
-                  },
-                  "computed": false,
-                  "nullable": false,
-                  "start": {
-                    "line": 19,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 19,
-                    "column": 19
-                  }
-                },
-                "arguments": [
-                  {
-                    "kind": 53,
-                    "value": "miss White",
-                    "start": {
-                      "line": 19,
-                      "column": 20
-                    },
-                    "end": {
-                      "line": 19,
-                      "column": 32
-                    }
-                  }
-                ],
-                "nullable": false,
-                "start": {
-                  "line": 19,
-                  "column": 8
-                },
-                "end": {
-                  "line": 19,
-                  "column": 33
-                }
-              }
-            ],
-            "nullable": false,
-            "start": {
-              "line": 19,
-              "column": 1
-            },
-            "end": {
-              "line": 19,
-              "column": 34
-            }
-          },
-          "property": {
-            "kind": 41,
-            "name": "to",
-            "start": {
-              "line": 19,
-              "column": 35
-            },
-            "end": {
-              "line": 19,
-              "column": 37
-            }
-          },
-          "computed": false,
-          "nullable": false,
-          "start": {
-            "line": 19,
-            "column": 1
-          },
-          "end": {
-            "line": 19,
-            "column": 37
-          }
-        },
-        "property": {
-          "kind": 41,
-          "name": "equal",
-          "start": {
-            "line": 19,
-            "column": 38
-          },
-          "end": {
-            "line": 19,
-            "column": 43
-          }
-        },
-        "computed": false,
-        "nullable": false,
-        "start": {
-          "line": 19,
-          "column": 1
-        },
-        "end": {
-          "line": 19,
-          "column": 43
-        }
-      },
-      "arguments": [
-        {
-          "kind": 53,
-          "value": "Hello world!\\nIt's nice to meet you, miss White.",
-          "start": {
-            "line": 19,
-            "column": 44
-          },
-          "end": {
-            "line": 19,
-            "column": 95
-          }
-        }
-      ],
-      "nullable": false,
-      "start": {
-        "line": 19,
-        "column": 1
-      },
-      "end": {
-        "line": 19,
-        "column": 96
-      },
-      "attributes": []
     }
   ],
   "start": {
@@ -721,7 +457,7 @@
     "column": 1
   },
   "end": {
-    "line": 19,
-    "column": 96
+    "line": 15,
+    "column": 2
   }
 }

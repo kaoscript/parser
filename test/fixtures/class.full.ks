@@ -3,11 +3,11 @@ class Shape {
 		_color: string = ''
 	}
 	
-	Shape(@color: string)
+	Shape(@color)
 	
 	color(): string => this._color
 	
-	color(@color: string): Shape => this
+	color(@color): Shape => this
 	
 	color(shape: Shape): Shape {
 		this._color = shape.color()

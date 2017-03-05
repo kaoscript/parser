@@ -3,7 +3,7 @@ class Shape {
 		_color: string = ''
 	}
 	
-	Shape(@color: string)
+	Shape(@color)
 
 	draw(canvas): string {
 		throw new Error('Not Implemented')

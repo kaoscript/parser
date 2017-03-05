@@ -8,7 +8,7 @@ class Shape {
 		_color: string = ''
 	}
 	
-	Shape(@color: string)
+	Shape(@color)
 	
 	reshape() as $reshape with black
 }
