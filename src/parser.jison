@@ -245,40 +245,48 @@ AbstractMethodList // {{{
 // }}}
 
 Array // {{{
-	: '[' NL_0M ArrayRange ']'
+	: '[' NL_0M ArrayRange NL_0M ']'
 		{
-			$$ = location($3, @1, @4);
+			$$ = location($3, @1, @5);
 		}
-	| '[' NL_0M Expression ForExpression ']'
+	| '[' NL_0M Expression ForExpression NL_0M ']'
 		{
 			$$ = location({
 				kind: NodeKind.ArrayComprehension,
 				body: $3,
 				loop: $4
-			}, @1, @5);
+			}, @1, @6);
 		}
-	| '[' NL_0M ArrayListPN Expression ']'
+	| '[' NL_0M Expression NL_1M ForExpression NL_0M ']'
+		{
+			$$ = location({
+				kind: NodeKind.ArrayComprehension,
+				body: $3,
+				loop: $5
+			}, @1, @7);
+		}
+	| '[' NL_0M ArrayListPN Expression NL_0M ']'
 		{
 			$3.push($4);
 			
 			$$ = location({
 				kind: NodeKind.ArrayExpression,
 				values: $3
-			}, @1, @5);
+			}, @1, @6);
 		}
-	| '[' NL_0M ArrayListPN ']'
+	| '[' NL_0M ArrayListPN NL_0M ']'
 		{
 			$$ = location({
 				kind: NodeKind.ArrayExpression,
 				values: $3
-			}, @1, @4);
+			}, @1, @5);
 		}
-	| '[' NL_0M Expression ']'
+	| '[' NL_0M Expression NL_0M ']'
 		{
 			$$ = location({
 				kind: NodeKind.ArrayExpression,
 				values: [$3]
-			}, @1, @4);
+			}, @1, @5);
 		}
 	| '[' NL_0M ']'
 		{
@@ -929,20 +937,20 @@ BlockStatement // {{{
 // }}}
 
 CatchClause // {{{
-	: 'CATCH' Identifier Block
+	: 'CATCH' Identifier NL_0M Block
 		{
 			$$ = location({
 				kind: NodeKind.CatchClause,
 				binding: $2,
-				body: $3
-			}, @1, @3);
+				body: $4
+			}, @1, @4);
 		}
-	| 'CATCH' Block
+	| 'CATCH' NL_0M Block
 		{
 			$$ = location({
 				kind: NodeKind.CatchClause,
-				body: $2
-			}, @1, @2);
+				body: $3
+			}, @1, @3);
 		}
 	;
 // }}}
@@ -961,22 +969,22 @@ CatchOnClauseList // {{{
 // }}}
 
 CatchOnClause // {{{
-	: 'ON' Identifier 'CATCH' Identifier Block
+	: 'ON' Identifier 'CATCH' Identifier NL_0M Block
 		{
 			$$ = location({
 				kind: NodeKind.CatchClause,
 				type: $2,
 				binding: $4,
-				body: $5
-			}, @1, @5);
+				body: $6
+			}, @1, @6);
 		}
-	| 'ON' Identifier Block
+	| 'ON' Identifier NL_0M Block
 		{
 			$$ = location({
 				kind: NodeKind.CatchClause,
 				type: $2,
-				body: $3
-			}, @1, @3);
+				body: $4
+			}, @1, @4);
 		}
 	;
 // }}}
@@ -2194,9 +2202,9 @@ FinallyClause // {{{
 // }}}
 
 ForExpression // {{{
-	: 'FOR' ForFromBegin NL_0M ForFromMiddle NL_0M ForExpressionEnd
+	: 'FOR' ForFromBegin NL_0M ForFromMiddle NL_0M ForExpressionLoop NL_0M ForExpressionWhen
 		{
-			$$ = location($4, @1, @6);
+			$$ = location($4, @1, @8);
 			
 			$$.declaration = $2.declaration;
 			$$.variable = $2.variable;
@@ -2205,18 +2213,18 @@ ForExpression // {{{
 				if($6.until) {
 					$$.until = $6.until;
 				}
-				else if($6.while) {
+				else {
 					$$.while = $6.while;
 				}
-				
-				if($6.when) {
-					$$.when = $6.when;
-				}
+			}
+			
+			if($8) {
+				$$.when = $8;
 			}
 		}
-	| 'FOR' ForInBegin NL_0M ForInMiddle NL_0M ForExpressionEnd
+	| 'FOR' ForInBegin NL_0M ForInMiddle NL_0M ForExpressionLoop NL_0M ForExpressionWhen
 		{
-			$$ = location($4, @1, @6);
+			$$ = location($4, @1, @8);
 			
 			$$.declaration = $2.declaration;
 			$$.value = $2.value;
@@ -2229,18 +2237,18 @@ ForExpression // {{{
 				if($6.until) {
 					$$.until = $6.until;
 				}
-				else if($6.while) {
+				else {
 					$$.while = $6.while;
 				}
-				
-				if($6.when) {
-					$$.when = $6.when;
-				}
+			}
+			
+			if($8) {
+				$$.when = $8;
 			}
 		}
-	| 'FOR' ForOfBegin NL_0M ForOfMiddle NL_0M ForExpressionEnd
+	| 'FOR' ForOfBegin NL_0M ForOfMiddle NL_0M ForExpressionLoop NL_0M ForExpressionWhen
 		{
-			$$ = location($4, @1, @6);
+			$$ = location($4, @1, @8);
 			
 			$$.declaration = $2.declaration;
 			
@@ -2255,37 +2263,23 @@ ForExpression // {{{
 				if($6.until) {
 					$$.until = $6.until;
 				}
-				else if($6.while) {
+				else {
 					$$.while = $6.while;
 				}
-				
-				if($6.when) {
-					$$.when = $6.when;
-				}
+			}
+			
+			if($8) {
+				$$.when = $8;
 			}
 		}
 	;
 // }}}
 
-ForExpressionEnd // {{{
-	: 'UNTIL' Expression 'WHEN' Expression
-		{
-			$$ = {
-				until: $2,
-				when: $4
-			};
-		}
-	| 'UNTIL' Expression
+ForExpressionLoop // {{{
+	: 'UNTIL' Expression
 		{
 			$$ = {
 				until: $2
-			};
-		}
-	| 'WHILE' Expression 'WHEN' Expression
-		{
-			$$ = {
-				while: $2,
-				when: $4
 			};
 		}
 	| 'WHILE' Expression
@@ -2294,11 +2288,14 @@ ForExpressionEnd // {{{
 				while: $2
 			};
 		}
-	| 'WHEN' Expression
+	|
+	;
+// }}}
+
+ForExpressionWhen // {{{
+	: 'WHEN' Expression
 		{
-			$$ = {
-				when: $2
-			};
+			$$ = $2;
 		}
 	|
 	;
@@ -2889,13 +2886,13 @@ Identifier_NoWhereNoWith // {{{
 // }}}
 
 IfStatement // {{{
-	: 'IF' Expression_NoAnonymousFunction Block
+	: 'IF' Expression_NoAnonymousFunction NL_0M Block
 		{
 			$$ = location({
 				kind: NodeKind.IfStatement,
 				condition: $2,
-				whenTrue: $3
-			}, @1, @3);
+				whenTrue: $4
+			}, @1, @4);
 		}
 	;
 // }}}
@@ -5139,6 +5136,18 @@ Statement // {{{
 			
 			$$ = location($1, @1, @6);
 		}
+	| IfStatement NL_EOF_1M IfStatementList NL_EOF_1M 'ELSE' NL_0M Block NL_EOF_1M
+		{
+			$1.whenFalse = $3[0];
+			
+			for(var i = 0, l = $3.length - 1; i < l; i++) {
+				$3[i].whenFalse = $3[i + 1];
+			}
+			
+			$3[l].whenFalse = $7;
+			
+			$$ = location($1, @1, @7);
+		}
 	| IfStatement NL_EOF_1M IfStatementList NL_EOF_1M
 		{
 			$1.whenFalse = $3[0];
@@ -5172,6 +5181,22 @@ Statement // {{{
 				condition: $5,
 				body: $2
 			}, @1, @5);
+		}
+	| 'DO' NL_1M Block NL_1M 'UNTIL' Expression NL_EOF_1M
+		{
+			$$ = location({
+				kind: NodeKind.DoUntilStatement,
+				condition: $6,
+				body: $3
+			}, @1, @6);
+		}
+	| 'DO' NL_1M Block NL_1M 'WHILE' Expression NL_EOF_1M
+		{
+			$$ = location({
+				kind: NodeKind.DoWhileStatement,
+				condition: $6,
+				body: $3
+			}, @1, @6);
 		}
 	| WhileStatement NL_EOF_1M
 	| UntilStatement NL_EOF_1M
@@ -5429,9 +5454,9 @@ SwitchBindingObjectList // {{{
 // }}}
 
 SwitchCaseList // {{{
-	: '{' NL_0M SwitchCaseListPN '}'
+	: NL_0M '{' NL_0M SwitchCaseListPN '}'
 		{
-			$$ = $3;
+			$$ = $4;
 		}
 	;
 // }}}
@@ -5901,6 +5926,13 @@ TryStatement // {{{
 				kind: NodeKind.TryStatement,
 				body: $2
 			}, @1, @2);
+		}
+	| 'TRY' NL_1M Block
+		{
+			$$ = location({
+				kind: NodeKind.TryStatement,
+				body: $3
+			}, @1, @3);
 		}
 	;
 // }}}
