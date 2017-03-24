@@ -4706,6 +4706,104 @@ Parenthesis // {{{
 				body: $8
 			}, @1, @8);
 		}
+	| '(' NL_0M Expression NL_0M ')'
+		{
+			$$ = $3;
+		}
+	| '(' NL_0M Expression ',' Expression1CList NL_0M ')'
+		{
+			$5.unshift($3);
+			
+			$$ = location({
+				kind: NodeKind.SequenceExpression,
+				expressions: $5
+			}, @3, @5);
+		}
+	| '(' NL_0M Identifier NL_0M ')'
+		{
+			$$ = $3;
+		}
+	| '(' NL_0M Identifier '=' Expression NL_0M ')'
+		{
+			$$ = location({
+				kind: NodeKind.BinaryExpression,
+				operator: location({
+					kind: BinaryOperatorKind.Assignment,
+					assignment: AssignmentOperatorKind.Equality
+				}, @4),
+				left: $3,
+				right: $5
+			}, @3, @5);
+		}
+	| '(' NL_0M Identifier '=' Expression ',' Expression1CList NL_0M ')'
+		{
+			$7.unshift(location({
+				kind: NodeKind.BinaryExpression,
+				operator: location({
+					kind: BinaryOperatorKind.Assignment,
+					assignment: AssignmentOperatorKind.Equality
+				}, @4),
+				left: $3,
+				right: $5
+			}, @3, @5));
+			
+			$$ = location({
+				kind: NodeKind.SequenceExpression,
+				expressions: $7
+			}, @3, @7);
+		}
+	| '(' NL_0M Identifier 'SPACED_?' Expression 'SPACED_:' Expression NL_0M ')'
+		{
+			$$ = location({
+				kind: NodeKind.ConditionalExpression,
+				condition: $3,
+				whenTrue: $5,
+				whenFalse: $7
+			}, @3, @7);
+		}
+	| '(' NL_0M Identifier NL_0M ')' LambdaBody
+		{
+			$$ = location({
+				kind: NodeKind.LambdaExpression,
+				modifiers: [],
+				parameters: [location({
+					kind: NodeKind.Parameter,
+					modifiers: [],
+					name: $3
+				}, @3)],
+				body: $6
+			}, @1, @6);
+		}
+	| '(' NL_0M Identifier '=' Expression NL_0M ')' LambdaBody
+		{
+			$$ = location({
+				kind: NodeKind.LambdaExpression,
+				modifiers: [],
+				parameters: [location({
+					kind: NodeKind.Parameter,
+					modifiers: [],
+					name: $3,
+					defaultValue: $5
+				}, @3, @5)],
+				body: $8
+			}, @1, @8);
+		}
+	| '(' NL_0M Identifier '=' Expression ',' FunctionParameterList NL_0M ')' LambdaBody
+		{
+			$7.unshift(location({
+				kind: NodeKind.Parameter,
+				modifiers: [],
+				name: $3,
+				defaultValue: $5
+			}, @3, @5));
+			
+			$$ = location({
+				kind: NodeKind.LambdaExpression,
+				modifiers: [],
+				parameters: $7,
+				body: $10
+			}, @1, @10);
+		}
 	;
 // }}}
 
@@ -4738,6 +4836,35 @@ Parenthesis_NoAnonymousFunction // {{{
 				whenTrue: $4,
 				whenFalse: $6
 			}, @2, @6);
+		}
+	| '(' NL_0M Expression NL_0M ')'
+		{
+			$$ = $3;
+		}
+	| '(' NL_0M Identifier '=' Expression NL_0M ')'
+		{
+			$$ = location({
+				kind: NodeKind.BinaryExpression,
+				operator: location({
+					kind: BinaryOperatorKind.Assignment,
+					assignment: AssignmentOperatorKind.Equality
+				}, @4),
+				left: $3,
+				right: $5
+			}, @3, @5);
+		}
+	| '(' NL_0M Identifier NL_0M ')'
+		{
+			$$ = $3;
+		}
+	| '(' NL_0M Identifier 'SPACED_?' Expression 'SPACED_:' Expression NL_0M ')'
+		{
+			$$ = location({
+				kind: NodeKind.ConditionalExpression,
+				condition: $3,
+				whenTrue: $5,
+				whenFalse: $7
+			}, @3, @7);
 		}
 	;
 // }}}
