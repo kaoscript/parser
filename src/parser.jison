@@ -3576,6 +3576,8 @@ ModuleBodySX // {{{
 	| ExternOrRequireDeclaration NL_EOF_1
 	| RequireOrExternDeclaration NL_EOF_1
 	| RequireOrImportDeclaration NL_EOF_1
+	| ClassDeclaration NL_EOF_1
+	| ImplementDeclaration NL_EOF_1
 	| Statement
 	;
 // }}}
@@ -5375,8 +5377,6 @@ Statement // {{{
 		{
 			$1.catchClauses = [];
 		}
-	| ClassDeclaration NL_EOF_1M
-	| ImplementDeclaration NL_EOF_1M
 	| AwaitStatement NL_EOF_1M
 	| 'BREAK' NL_EOF_1M
 		{
