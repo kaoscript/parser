@@ -89,6 +89,7 @@ RegularExpressionLiteral			{RegularExpressionBody}\/{RegularExpressionFlags}
 'is not'										return 'IS_NOT'
 'is'											return 'IS'
 'let'											return 'LET'
+'namespace'										return 'NAMESPACE'
 'new'											return 'NEW'
 'of'											return 'OF'
 'on'											return 'ON'
@@ -1106,7 +1107,7 @@ ClassIndentifier // {{{
 // }}}
 
 ClassMember // {{{
-	: ClassMember ClassMemberModifiers '{' ClassMemberList '}'
+	: ClassMember ClassMemberModifiers '{' ClassMemberList '}' NL_1M
 		{
 			for(var i = 0; i < $4.length; i++) {
 				$4[i].modifiers = $2;
@@ -1114,24 +1115,24 @@ ClassMember // {{{
 				$1.push($4[i]);
 			}
 		}
-	| ClassMember ClassMemberModifiers ClassMemberSX
+	| ClassMember ClassMemberModifiers ClassMemberSX NL_1M
 		{
 			$3.modifiers = $2;
 			
 			$1.push(location($3, @2, @3));
 		}
-	| ClassMember ClassMemberSX
+	| ClassMember ClassMemberSX NL_1M
 		{
 			$1.push($2);
 			$$ = $1;
 		}
-	| ClassMember ClassMemberAbstractModifiers AbstractMethod
+	| ClassMember ClassMemberAbstractModifiers AbstractMethod NL_1M
 		{
 			$3.modifiers = $2;
 			
 			$1.push(location($3, @2, @3));
 		}
-	| ClassMember ClassMemberAbstractModifiers '{' AbstractMethodList '}'
+	| ClassMember ClassMemberAbstractModifiers '{' AbstractMethodList '}' NL_1M
 		{
 			for(var i = 0; i < $4.length; i++) {
 				$4[i].modifiers = $2;
@@ -1139,7 +1140,7 @@ ClassMember // {{{
 				$1.push($4[i]);
 			}
 		}
-	| ClassMember NL_EOF_1M
+	| ClassMember NL_1M
 	|
 		{
 			$$ = []
@@ -1164,12 +1165,12 @@ ClassMemberAbstractModifiers // {{{
 // }}}
 
 ClassMemberList // {{{
-	: ClassMemberList ClassMemberSX NL_EOF_1
+	: ClassMemberList ClassMemberSX NL_1M
 		{
 			$1.push($2);
 			$$ = $1;
 		}
-	| ClassMemberList NL_EOF_1
+	| ClassMemberList NL_1M
 	|
 		{
 			$$ = [];
@@ -1634,6 +1635,7 @@ ExportDeclarator // {{{
 	| FunctionDeclaration
 	| ClassDeclaration
 	| EnumDeclaration
+	| NamespaceDeclaration
 	| TypeDeclaration
 	| Identifier 'AS' Identifier
 		{
@@ -1715,6 +1717,7 @@ ExternDeclaratorLBPNI // {{{
 ExternDeclarator // {{{
 	: ExternClass
 	| ExternFunction
+	| ExternNamespace
 	| ExternVariable
 	;
 // }}}
@@ -1838,7 +1841,7 @@ ExternClassBody // {{{
 // }}}
 
 ExternClassMember // {{{
-	: ExternClassMember ClassMemberModifiers '{' ExternClassMemberList '}'
+	: ExternClassMember ClassMemberModifiers '{' ExternClassMemberList '}' NL_1M
 		{
 			for(var i = 0; i < $4.length; i++) {
 				$4[i].modifiers = $2;
@@ -1848,7 +1851,7 @@ ExternClassMember // {{{
 			
 			$$ = $1;
 		}
-	| ExternClassMember ClassMemberModifiers ExternClassMemberSX NL_EOF_1
+	| ExternClassMember ClassMemberModifiers ExternClassMemberSX NL_1M
 		{
 			$3.modifiers = $2;
 			
@@ -1856,12 +1859,12 @@ ExternClassMember // {{{
 			
 			$$ = $1;
 		}
-	| ExternClassMember ExternClassMemberSX NL_EOF_1
+	| ExternClassMember ExternClassMemberSX NL_1M
 		{
 			$1.push($2);
 			$$ = $1;
 		}
-	| ExternClassMember NL_EOF_1
+	| ExternClassMember NL_1M
 	|
 		{
 			$$ = []
@@ -1870,12 +1873,12 @@ ExternClassMember // {{{
 // }}}
 
 ExternClassMemberList // {{{
-	: ExternClassMemberList ExternClassMemberSX NL_EOF_1
+	: ExternClassMemberList ExternClassMemberSX NL_1M
 		{
 			$1.push($2);
 			$$ = $1;
 		}
-	| ExternClassMemberList NL_EOF_1
+	| ExternClassMemberList NL_1M
 	|
 		{
 			$$ = [];
@@ -1957,6 +1960,67 @@ ExternMethodHeader // {{{
 				name: $1,
 				parameters: $3
 			}, @1, @4)
+		}
+	;
+// }}}
+
+ExternNamespace // {{{
+	: 'SEALED' 'NAMESPACE' Identifier NL_0M '{' NL_0M ExternNamespaceStatementList '}'
+		{
+			$$ = location({
+				kind: NodeKind.NamespaceDeclaration,
+				modifiers: [
+					location({
+						kind: ModifierKind.Sealed
+					}, @1)
+				],
+				name: $3,
+				statements: $7
+			}, @1, @8)
+		}
+	| 'NAMESPACE' Identifier NL_0M '{' NL_0M ExternNamespaceStatementList '}'
+		{
+			$$ = location({
+				kind: NodeKind.NamespaceDeclaration,
+				modifiers: [],
+				name: $2,
+				statements: $6
+			}, @1, @7)
+		}
+	| 'SEALED' 'NAMESPACE' Identifier
+		{
+			$$ = location({
+				kind: NodeKind.NamespaceDeclaration,
+				modifiers: [
+					location({
+						kind: ModifierKind.Sealed
+					}, @1)
+				],
+				name: $3,
+				statements: []
+			}, @1, @3)
+		}
+	| 'NAMESPACE' Identifier
+		{
+			$$ = location({
+				kind: NodeKind.NamespaceDeclaration,
+				modifiers: [],
+				name: $2,
+				statements: []
+			}, @1, @2)
+		}
+	;
+// }}}
+
+ExternNamespaceStatementList // {{{
+	: ExternNamespaceStatementList ExternDeclarator NL_1M
+		{
+			$1.push($2)
+			$$ = $1
+		}
+	|
+		{
+			$$ = [];
 		}
 	;
 // }}}
@@ -3244,6 +3308,7 @@ Keyword // {{{
 	| 'IS'
 	| 'LET'
 	| 'NEW'
+	| 'NAMESPACE'
 	| 'OF'
 	| 'ON'
 	| 'PRIVATE'
@@ -3302,6 +3367,7 @@ Keyword_NoWhereNoWith // {{{
 	| 'IS'
 	| 'LET'
 	| 'NEW'
+	| 'NAMESPACE'
 	| 'OF'
 	| 'ON'
 	| 'PRIVATE'
@@ -3368,36 +3434,6 @@ Method // {{{
 			$1.kind = NodeKind.MethodDeclaration;
 			$1.modifiers = $2;
 			$1.body = $3;
-			$$ = location($1, @3);
-		}
-	| MethodHeader 'AS' NameIS 'WITH' Expression1CList
-		{
-			$1.kind = NodeKind.MethodAliasDeclaration;
-			$1.modifiers = [];
-			$1.alias = $3;
-			$1.arguments = $5;
-			$$ = location($1, @5);
-		}
-	| MethodHeader 'AS' NameIS
-		{
-			$1.kind = NodeKind.MethodAliasDeclaration;
-			$1.modifiers = [];
-			$1.alias = $3;
-			$$ = location($1, @3);
-		}
-	| MethodHeader 'FOR' NameIS 'WITH' Expression1CList
-		{
-			$1.kind = NodeKind.MethodLinkDeclaration;
-			$1.modifiers = [];
-			$1.alias = $3;
-			$1.arguments = $5;
-			$$ = location($1, @5);
-		}
-	| MethodHeader 'FOR' NameIS
-		{
-			$1.kind = NodeKind.MethodLinkDeclaration;
-			$1.modifiers = [];
-			$1.alias = $3;
 			$$ = location($1, @3);
 		}
 	| MethodHeader
@@ -3597,6 +3633,42 @@ NameIST // {{{
 	: Identifier
 	| String
 	| TemplateExpression
+	;
+// }}}
+
+NamespaceDeclaration // {{{
+	: 'NAMESPACE' Identifier NL_0M '{' NL_0M NamespaceStatementList '}'
+		{
+			$$ = location({
+				kind: NodeKind.NamespaceDeclaration,
+				modifiers: [],
+				name: $2,
+				statements: $6
+			}, @1, @7)
+		}
+	;
+// }}}
+
+NamespaceStatement // {{{
+	: ClassDeclaration
+	| EnumDeclaration
+	| FunctionDeclaration
+	| NamespaceDeclaration
+	| TypeDeclaration
+	| VariableDeclaration
+	;
+// }}}
+
+NamespaceStatementList // {{{
+	: NamespaceStatementList NamespaceStatement NL_1M
+		{
+			$1.push($2)
+			$$ = $1
+		}
+	|
+		{
+			$$ = [];
+		}
 	;
 // }}}
 
@@ -5401,6 +5473,7 @@ Statement // {{{
 	| TypeDeclaration NL_EOF_1M
 	| DestroyStatement NL_EOF_1M
 	| StatementExpression NL_EOF_1M
+	| NamespaceDeclaration NL_EOF_1M
 	;
 // }}}
 
