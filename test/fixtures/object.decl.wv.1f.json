@@ -5,7 +5,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -20,175 +20,176 @@
               "column": 8
             }
           },
-          "init": {
-            "kind": 63,
-            "properties": [
-              {
-                "kind": 64,
-                "name": {
-                  "kind": 42,
-                  "name": "bar",
-                  "start": {
-                    "line": 2,
-                    "column": 2
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 5
-                  }
-                },
-                "value": {
-                  "kind": 41,
-                  "parameters": [
-                    {
-                      "kind": 66,
-                      "modifiers": [],
-                      "name": {
-                        "kind": 42,
-                        "name": "name",
-                        "start": {
-                          "line": 2,
-                          "column": 6
-                        },
-                        "end": {
-                          "line": 2,
-                          "column": 10
-                        }
-                      },
-                      "type": {
-                        "kind": 91,
-                        "typeName": {
-                          "kind": 42,
-                          "name": "string",
-                          "start": {
-                            "line": 2,
-                            "column": 12
-                          },
-                          "end": {
-                            "line": 2,
-                            "column": 18
-                          }
-                        },
-                        "start": {
-                          "line": 2,
-                          "column": 12
-                        },
-                        "end": {
-                          "line": 2,
-                          "column": 18
-                        }
-                      },
-                      "start": {
-                        "line": 2,
-                        "column": 6
-                      },
-                      "end": {
-                        "line": 2,
-                        "column": 18
-                      }
-                    }
-                  ],
-                  "modifiers": [],
-                  "body": {
-                    "kind": 12,
-                    "attributes": [],
-                    "statements": [
-                      {
-                        "kind": 10,
-                        "operator": {
-                          "kind": 3,
-                          "assignment": 8,
-                          "start": {
-                            "line": 3,
-                            "column": 3
-                          },
-                          "end": {
-                            "line": 3,
-                            "column": 4
-                          }
-                        },
-                        "left": {
-                          "kind": 42,
-                          "name": "n",
-                          "start": {
-                            "line": 3,
-                            "column": 3
-                          },
-                          "end": {
-                            "line": 3,
-                            "column": 4
-                          }
-                        },
-                        "right": {
-                          "kind": 61,
-                          "value": 0,
-                          "start": {
-                            "line": 3,
-                            "column": 7
-                          },
-                          "end": {
-                            "line": 3,
-                            "column": 8
-                          }
-                        },
-                        "start": {
-                          "line": 3,
-                          "column": 3
-                        },
-                        "end": {
-                          "line": 3,
-                          "column": 8
-                        },
-                        "attributes": []
-                      }
-                    ],
-                    "start": {
-                      "line": 2,
-                      "column": 20
-                    },
-                    "end": {
-                      "line": 4,
-                      "column": 3
-                    }
-                  },
-                  "start": {
-                    "line": 2,
-                    "column": 5
-                  },
-                  "end": {
-                    "line": 4,
-                    "column": 3
-                  }
-                },
-                "start": {
-                  "line": 2,
-                  "column": 2
-                },
-                "end": {
-                  "line": 4,
-                  "column": 3
-                }
-              }
-            ],
-            "start": {
-              "line": 1,
-              "column": 11
-            },
-            "end": {
-              "line": 5,
-              "column": 2
-            }
-          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
-            "line": 5,
-            "column": 2
+            "line": 1,
+            "column": 8
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 63,
+        "properties": [
+          {
+            "kind": 64,
+            "name": {
+              "kind": 42,
+              "name": "bar",
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 5
+              }
+            },
+            "value": {
+              "kind": 41,
+              "parameters": [
+                {
+                  "kind": 66,
+                  "modifiers": [],
+                  "name": {
+                    "kind": 42,
+                    "name": "name",
+                    "start": {
+                      "line": 2,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 10
+                    }
+                  },
+                  "type": {
+                    "kind": 91,
+                    "typeName": {
+                      "kind": 42,
+                      "name": "string",
+                      "start": {
+                        "line": 2,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 18
+                      }
+                    },
+                    "start": {
+                      "line": 2,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 18
+                    }
+                  },
+                  "start": {
+                    "line": 2,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 18
+                  }
+                }
+              ],
+              "modifiers": [],
+              "body": {
+                "kind": 12,
+                "attributes": [],
+                "statements": [
+                  {
+                    "kind": 10,
+                    "operator": {
+                      "kind": 3,
+                      "assignment": 8,
+                      "start": {
+                        "line": 3,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 4
+                      }
+                    },
+                    "left": {
+                      "kind": 42,
+                      "name": "n",
+                      "start": {
+                        "line": 3,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 4
+                      }
+                    },
+                    "right": {
+                      "kind": 61,
+                      "value": 0,
+                      "start": {
+                        "line": 3,
+                        "column": 7
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 8
+                      }
+                    },
+                    "start": {
+                      "line": 3,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 8
+                    },
+                    "attributes": []
+                  }
+                ],
+                "start": {
+                  "line": 2,
+                  "column": 20
+                },
+                "end": {
+                  "line": 4,
+                  "column": 3
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 5
+              },
+              "end": {
+                "line": 4,
+                "column": 3
+              }
+            },
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 3
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 11
+        },
+        "end": {
+          "line": 5,
+          "column": 2
+        }
+      },
       "start": {
         "line": 1,
         "column": 1

@@ -5,7 +5,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -20,53 +20,54 @@
               "column": 8
             }
           },
-          "init": {
-            "kind": 55,
-            "object": {
-              "kind": 42,
-              "name": "bar",
-              "start": {
-                "line": 1,
-                "column": 11
-              },
-              "end": {
-                "line": 1,
-                "column": 14
-              }
-            },
-            "property": {
-              "kind": 42,
-              "name": "new",
-              "start": {
-                "line": 1,
-                "column": 15
-              },
-              "end": {
-                "line": 1,
-                "column": 18
-              }
-            },
-            "computed": false,
-            "nullable": false,
-            "start": {
-              "line": 1,
-              "column": 11
-            },
-            "end": {
-              "line": 1,
-              "column": 18
-            }
-          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
             "line": 1,
-            "column": 18
+            "column": 8
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 55,
+        "object": {
+          "kind": 42,
+          "name": "bar",
+          "start": {
+            "line": 1,
+            "column": 11
+          },
+          "end": {
+            "line": 1,
+            "column": 14
+          }
+        },
+        "property": {
+          "kind": 42,
+          "name": "new",
+          "start": {
+            "line": 1,
+            "column": 15
+          },
+          "end": {
+            "line": 1,
+            "column": 18
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 1,
+          "column": 11
+        },
+        "end": {
+          "line": 1,
+          "column": 18
+        }
+      },
       "start": {
         "line": 1,
         "column": 1

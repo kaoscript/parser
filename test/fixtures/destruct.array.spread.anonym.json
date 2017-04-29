@@ -5,26 +5,15 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
-          "name": {
-            "kind": 2,
-            "elements": [
-              {
-                "kind": 11,
-                "name": {
-                  "kind": 42,
-                  "name": "x",
-                  "start": {
-                    "line": 1,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 7
-                  }
-                },
+          "name": [
+            {
+              "kind": 11,
+              "name": {
+                "kind": 42,
+                "name": "x",
                 "start": {
                   "line": 1,
                   "column": 6
@@ -34,20 +23,20 @@
                   "column": 7
                 }
               },
-              {
-                "kind": 11,
-                "name": {
-                  "kind": 42,
-                  "name": "y",
-                  "start": {
-                    "line": 1,
-                    "column": 9
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 10
-                  }
-                },
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 7
+              }
+            },
+            {
+              "kind": 11,
+              "name": {
+                "kind": 42,
+                "name": "y",
                 "start": {
                   "line": 1,
                   "column": 9
@@ -57,24 +46,24 @@
                   "column": 10
                 }
               },
-              {
-                "kind": 65,
-                "spread": true
+              "start": {
+                "line": 1,
+                "column": 9
               },
-              {
-                "kind": 11,
-                "name": {
-                  "kind": 42,
-                  "name": "z",
-                  "start": {
-                    "line": 1,
-                    "column": 17
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 18
-                  }
-                },
+              "end": {
+                "line": 1,
+                "column": 10
+              }
+            },
+            {
+              "kind": 65,
+              "spread": true
+            },
+            {
+              "kind": 11,
+              "name": {
+                "kind": 42,
+                "name": "z",
                 "start": {
                   "line": 1,
                   "column": 17
@@ -83,124 +72,125 @@
                   "line": 1,
                   "column": 18
                 }
+              },
+              "start": {
+                "line": 1,
+                "column": 17
+              },
+              "end": {
+                "line": 1,
+                "column": 18
               }
-            ],
-            "start": {
-              "line": 1,
-              "column": 5
-            },
-            "end": {
-              "line": 1,
-              "column": 19
             }
-          },
-          "init": {
-            "kind": 4,
-            "values": [
-              {
-                "kind": 61,
-                "value": 1,
-                "start": {
-                  "line": 1,
-                  "column": 23
-                },
-                "end": {
-                  "line": 1,
-                  "column": 24
-                }
-              },
-              {
-                "kind": 61,
-                "value": 2,
-                "start": {
-                  "line": 1,
-                  "column": 26
-                },
-                "end": {
-                  "line": 1,
-                  "column": 27
-                }
-              },
-              {
-                "kind": 61,
-                "value": 3,
-                "start": {
-                  "line": 1,
-                  "column": 29
-                },
-                "end": {
-                  "line": 1,
-                  "column": 30
-                }
-              },
-              {
-                "kind": 61,
-                "value": 4,
-                "start": {
-                  "line": 1,
-                  "column": 32
-                },
-                "end": {
-                  "line": 1,
-                  "column": 33
-                }
-              },
-              {
-                "kind": 61,
-                "value": 5,
-                "start": {
-                  "line": 1,
-                  "column": 35
-                },
-                "end": {
-                  "line": 1,
-                  "column": 36
-                }
-              },
-              {
-                "kind": 61,
-                "value": 6,
-                "start": {
-                  "line": 1,
-                  "column": 38
-                },
-                "end": {
-                  "line": 1,
-                  "column": 39
-                }
-              },
-              {
-                "kind": 61,
-                "value": 7,
-                "start": {
-                  "line": 1,
-                  "column": 41
-                },
-                "end": {
-                  "line": 1,
-                  "column": 42
-                }
-              }
-            ],
-            "start": {
-              "line": 1,
-              "column": 22
-            },
-            "end": {
-              "line": 1,
-              "column": 43
-            }
-          },
+          ],
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
             "line": 1,
-            "column": 43
+            "column": 19
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 4,
+        "values": [
+          {
+            "kind": 61,
+            "value": 1,
+            "start": {
+              "line": 1,
+              "column": 23
+            },
+            "end": {
+              "line": 1,
+              "column": 24
+            }
+          },
+          {
+            "kind": 61,
+            "value": 2,
+            "start": {
+              "line": 1,
+              "column": 26
+            },
+            "end": {
+              "line": 1,
+              "column": 27
+            }
+          },
+          {
+            "kind": 61,
+            "value": 3,
+            "start": {
+              "line": 1,
+              "column": 29
+            },
+            "end": {
+              "line": 1,
+              "column": 30
+            }
+          },
+          {
+            "kind": 61,
+            "value": 4,
+            "start": {
+              "line": 1,
+              "column": 32
+            },
+            "end": {
+              "line": 1,
+              "column": 33
+            }
+          },
+          {
+            "kind": 61,
+            "value": 5,
+            "start": {
+              "line": 1,
+              "column": 35
+            },
+            "end": {
+              "line": 1,
+              "column": 36
+            }
+          },
+          {
+            "kind": 61,
+            "value": 6,
+            "start": {
+              "line": 1,
+              "column": 38
+            },
+            "end": {
+              "line": 1,
+              "column": 39
+            }
+          },
+          {
+            "kind": 61,
+            "value": 7,
+            "start": {
+              "line": 1,
+              "column": 41
+            },
+            "end": {
+              "line": 1,
+              "column": 42
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 22
+        },
+        "end": {
+          "line": 1,
+          "column": 43
+        }
+      },
       "start": {
         "line": 1,
         "column": 1

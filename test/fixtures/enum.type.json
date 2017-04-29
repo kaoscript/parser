@@ -146,7 +146,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -161,51 +161,52 @@
               "column": 9
             }
           },
-          "init": {
-            "kind": 29,
-            "enum": {
-              "kind": 42,
-              "name": "CardSuit",
-              "start": {
-                "line": 8,
-                "column": 12
-              },
-              "end": {
-                "line": 8,
-                "column": 20
-              }
-            },
-            "member": {
-              "kind": 42,
-              "name": "Clubs",
-              "start": {
-                "line": 8,
-                "column": 22
-              },
-              "end": {
-                "line": 8,
-                "column": 27
-              }
-            },
-            "start": {
-              "line": 8,
-              "column": 12
-            },
-            "end": {
-              "line": 8,
-              "column": 27
-            }
-          },
           "start": {
             "line": 8,
             "column": 5
           },
           "end": {
             "line": 8,
-            "column": 27
+            "column": 9
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 29,
+        "enum": {
+          "kind": 42,
+          "name": "CardSuit",
+          "start": {
+            "line": 8,
+            "column": 12
+          },
+          "end": {
+            "line": 8,
+            "column": 20
+          }
+        },
+        "member": {
+          "kind": 42,
+          "name": "Clubs",
+          "start": {
+            "line": 8,
+            "column": 22
+          },
+          "end": {
+            "line": 8,
+            "column": 27
+          }
+        },
+        "start": {
+          "line": 8,
+          "column": 12
+        },
+        "end": {
+          "line": 8,
+          "column": 27
+        }
+      },
       "start": {
         "line": 8,
         "column": 1

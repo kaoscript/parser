@@ -42,7 +42,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -57,135 +57,136 @@
               "column": 7
             }
           },
-          "init": {
-            "kind": 92,
-            "operator": {
-              "kind": 4,
-              "start": {
-                "line": 3,
-                "column": 10
-              },
-              "end": {
-                "line": 3,
-                "column": 11
-              }
-            },
-            "argument": {
-              "kind": 55,
-              "object": {
-                "kind": 10,
-                "operator": {
-                  "kind": 3,
-                  "assignment": 8,
-                  "start": {
-                    "line": 3,
-                    "column": 16
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 17
-                  }
-                },
-                "left": {
-                  "kind": 42,
-                  "name": "bar",
-                  "start": {
-                    "line": 3,
-                    "column": 12
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 15
-                  }
-                },
-                "right": {
-                  "kind": 55,
-                  "object": {
-                    "kind": 42,
-                    "name": "foo",
-                    "start": {
-                      "line": 3,
-                      "column": 18
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 21
-                    }
-                  },
-                  "property": {
-                    "kind": 42,
-                    "name": "bar",
-                    "start": {
-                      "line": 3,
-                      "column": 22
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 25
-                    }
-                  },
-                  "computed": false,
-                  "nullable": false,
-                  "start": {
-                    "line": 3,
-                    "column": 18
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 25
-                  }
-                },
-                "start": {
-                  "line": 3,
-                  "column": 12
-                },
-                "end": {
-                  "line": 3,
-                  "column": 25
-                }
-              },
-              "property": {
-                "kind": 42,
-                "name": "qux",
-                "start": {
-                  "line": 3,
-                  "column": 27
-                },
-                "end": {
-                  "line": 3,
-                  "column": 30
-                }
-              },
-              "computed": false,
-              "nullable": false,
-              "start": {
-                "line": 3,
-                "column": 11
-              },
-              "end": {
-                "line": 3,
-                "column": 30
-              }
-            },
-            "start": {
-              "line": 3,
-              "column": 10
-            },
-            "end": {
-              "line": 3,
-              "column": 30
-            }
-          },
           "start": {
             "line": 3,
             "column": 5
           },
           "end": {
             "line": 3,
-            "column": 30
+            "column": 7
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 92,
+        "operator": {
+          "kind": 4,
+          "start": {
+            "line": 3,
+            "column": 10
+          },
+          "end": {
+            "line": 3,
+            "column": 11
+          }
+        },
+        "argument": {
+          "kind": 55,
+          "object": {
+            "kind": 10,
+            "operator": {
+              "kind": 3,
+              "assignment": 8,
+              "start": {
+                "line": 3,
+                "column": 16
+              },
+              "end": {
+                "line": 3,
+                "column": 17
+              }
+            },
+            "left": {
+              "kind": 42,
+              "name": "bar",
+              "start": {
+                "line": 3,
+                "column": 12
+              },
+              "end": {
+                "line": 3,
+                "column": 15
+              }
+            },
+            "right": {
+              "kind": 55,
+              "object": {
+                "kind": 42,
+                "name": "foo",
+                "start": {
+                  "line": 3,
+                  "column": 18
+                },
+                "end": {
+                  "line": 3,
+                  "column": 21
+                }
+              },
+              "property": {
+                "kind": 42,
+                "name": "bar",
+                "start": {
+                  "line": 3,
+                  "column": 22
+                },
+                "end": {
+                  "line": 3,
+                  "column": 25
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 3,
+                "column": 18
+              },
+              "end": {
+                "line": 3,
+                "column": 25
+              }
+            },
+            "start": {
+              "line": 3,
+              "column": 12
+            },
+            "end": {
+              "line": 3,
+              "column": 25
+            }
+          },
+          "property": {
+            "kind": 42,
+            "name": "qux",
+            "start": {
+              "line": 3,
+              "column": 27
+            },
+            "end": {
+              "line": 3,
+              "column": 30
+            }
+          },
+          "computed": false,
+          "nullable": false,
+          "start": {
+            "line": 3,
+            "column": 11
+          },
+          "end": {
+            "line": 3,
+            "column": 30
+          }
+        },
+        "start": {
+          "line": 3,
+          "column": 10
+        },
+        "end": {
+          "line": 3,
+          "column": 30
+        }
+      },
       "start": {
         "line": 3,
         "column": 1

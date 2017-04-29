@@ -5,7 +5,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -20,63 +20,64 @@
               "column": 8
             }
           },
-          "init": {
-            "kind": 21,
-            "condition": {
-              "kind": 42,
-              "name": "lang",
-              "start": {
-                "line": 1,
-                "column": 11
-              },
-              "end": {
-                "line": 1,
-                "column": 15
-              }
-            },
-            "whenTrue": {
-              "kind": 54,
-              "value": "hello",
-              "start": {
-                "line": 1,
-                "column": 18
-              },
-              "end": {
-                "line": 1,
-                "column": 25
-              }
-            },
-            "whenFalse": {
-              "kind": 54,
-              "value": "bonjour",
-              "start": {
-                "line": 1,
-                "column": 28
-              },
-              "end": {
-                "line": 1,
-                "column": 37
-              }
-            },
-            "start": {
-              "line": 1,
-              "column": 11
-            },
-            "end": {
-              "line": 1,
-              "column": 37
-            }
-          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
             "line": 1,
-            "column": 37
+            "column": 8
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 21,
+        "condition": {
+          "kind": 42,
+          "name": "lang",
+          "start": {
+            "line": 1,
+            "column": 11
+          },
+          "end": {
+            "line": 1,
+            "column": 15
+          }
+        },
+        "whenTrue": {
+          "kind": 54,
+          "value": "hello",
+          "start": {
+            "line": 1,
+            "column": 18
+          },
+          "end": {
+            "line": 1,
+            "column": 25
+          }
+        },
+        "whenFalse": {
+          "kind": 54,
+          "value": "bonjour",
+          "start": {
+            "line": 1,
+            "column": 28
+          },
+          "end": {
+            "line": 1,
+            "column": 37
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 11
+        },
+        "end": {
+          "line": 1,
+          "column": 37
+        }
+      },
       "start": {
         "line": 1,
         "column": 1

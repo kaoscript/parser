@@ -65,7 +65,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -80,62 +80,63 @@
               "column": 7
             }
           },
-          "init": {
-            "kind": 10,
-            "operator": {
-              "kind": 18,
-              "start": {
-                "line": 3,
-                "column": 14
-              },
-              "end": {
-                "line": 3,
-                "column": 16
-              }
-            },
-            "start": {
-              "line": 3,
-              "column": 14
-            },
-            "end": {
-              "line": 3,
-              "column": 16
-            },
-            "left": {
-              "kind": 42,
-              "name": "foo",
-              "start": {
-                "line": 3,
-                "column": 10
-              },
-              "end": {
-                "line": 3,
-                "column": 13
-              }
-            },
-            "right": {
-              "kind": 42,
-              "name": "bar",
-              "start": {
-                "line": 3,
-                "column": 17
-              },
-              "end": {
-                "line": 3,
-                "column": 20
-              }
-            }
-          },
           "start": {
             "line": 3,
             "column": 5
           },
           "end": {
             "line": 3,
-            "column": 20
+            "column": 7
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 10,
+        "operator": {
+          "kind": 18,
+          "start": {
+            "line": 3,
+            "column": 14
+          },
+          "end": {
+            "line": 3,
+            "column": 16
+          }
+        },
+        "start": {
+          "line": 3,
+          "column": 14
+        },
+        "end": {
+          "line": 3,
+          "column": 16
+        },
+        "left": {
+          "kind": 42,
+          "name": "foo",
+          "start": {
+            "line": 3,
+            "column": 10
+          },
+          "end": {
+            "line": 3,
+            "column": 13
+          }
+        },
+        "right": {
+          "kind": 42,
+          "name": "bar",
+          "start": {
+            "line": 3,
+            "column": 17
+          },
+          "end": {
+            "line": 3,
+            "column": 20
+          }
+        }
+      },
       "start": {
         "line": 3,
         "column": 1

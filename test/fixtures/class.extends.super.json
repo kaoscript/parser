@@ -657,7 +657,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -672,53 +672,54 @@
               "column": 6
             }
           },
-          "init": {
-            "kind": 23,
-            "class": {
-              "kind": 42,
-              "name": "Rectangle",
-              "start": {
-                "line": 23,
-                "column": 13
-              },
-              "end": {
-                "line": 23,
-                "column": 22
-              }
-            },
-            "arguments": [
-              {
-                "kind": 54,
-                "value": "black",
-                "start": {
-                  "line": 23,
-                  "column": 23
-                },
-                "end": {
-                  "line": 23,
-                  "column": 30
-                }
-              }
-            ],
-            "start": {
-              "line": 23,
-              "column": 9
-            },
-            "end": {
-              "line": 23,
-              "column": 31
-            }
-          },
           "start": {
             "line": 23,
             "column": 5
           },
           "end": {
             "line": 23,
-            "column": 31
+            "column": 6
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 23,
+        "class": {
+          "kind": 42,
+          "name": "Rectangle",
+          "start": {
+            "line": 23,
+            "column": 13
+          },
+          "end": {
+            "line": 23,
+            "column": 22
+          }
+        },
+        "arguments": [
+          {
+            "kind": 54,
+            "value": "black",
+            "start": {
+              "line": 23,
+              "column": 23
+            },
+            "end": {
+              "line": 23,
+              "column": 30
+            }
+          }
+        ],
+        "start": {
+          "line": 23,
+          "column": 9
+        },
+        "end": {
+          "line": 23,
+          "column": 31
+        }
+      },
       "start": {
         "line": 23,
         "column": 1

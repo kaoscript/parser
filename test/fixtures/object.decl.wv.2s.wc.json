@@ -5,7 +5,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -20,99 +20,100 @@
               "column": 8
             }
           },
-          "init": {
-            "kind": 63,
-            "properties": [
-              {
-                "kind": 64,
-                "name": {
-                  "kind": 42,
-                  "name": "bar",
-                  "start": {
-                    "line": 2,
-                    "column": 2
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 5
-                  }
-                },
-                "value": {
-                  "kind": 54,
-                  "value": "hello",
-                  "start": {
-                    "line": 2,
-                    "column": 7
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 14
-                  }
-                },
-                "start": {
-                  "line": 2,
-                  "column": 2
-                },
-                "end": {
-                  "line": 2,
-                  "column": 14
-                }
-              },
-              {
-                "kind": 64,
-                "name": {
-                  "kind": 54,
-                  "value": "qux",
-                  "start": {
-                    "line": 3,
-                    "column": 2
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 7
-                  }
-                },
-                "value": {
-                  "kind": 54,
-                  "value": "world",
-                  "start": {
-                    "line": 3,
-                    "column": 9
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 16
-                  }
-                },
-                "start": {
-                  "line": 3,
-                  "column": 2
-                },
-                "end": {
-                  "line": 3,
-                  "column": 16
-                }
-              }
-            ],
-            "start": {
-              "line": 1,
-              "column": 11
-            },
-            "end": {
-              "line": 4,
-              "column": 2
-            }
-          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
-            "line": 4,
-            "column": 2
+            "line": 1,
+            "column": 8
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 63,
+        "properties": [
+          {
+            "kind": 64,
+            "name": {
+              "kind": 42,
+              "name": "bar",
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 5
+              }
+            },
+            "value": {
+              "kind": 54,
+              "value": "hello",
+              "start": {
+                "line": 2,
+                "column": 7
+              },
+              "end": {
+                "line": 2,
+                "column": 14
+              }
+            },
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 14
+            }
+          },
+          {
+            "kind": 64,
+            "name": {
+              "kind": 54,
+              "value": "qux",
+              "start": {
+                "line": 3,
+                "column": 2
+              },
+              "end": {
+                "line": 3,
+                "column": 7
+              }
+            },
+            "value": {
+              "kind": 54,
+              "value": "world",
+              "start": {
+                "line": 3,
+                "column": 9
+              },
+              "end": {
+                "line": 3,
+                "column": 16
+              }
+            },
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 3,
+              "column": 16
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 11
+        },
+        "end": {
+          "line": 4,
+          "column": 2
+        }
+      },
       "start": {
         "line": 1,
         "column": 1

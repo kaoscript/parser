@@ -5,7 +5,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -20,112 +20,113 @@
               "column": 10
             }
           },
-          "init": {
-            "kind": 63,
-            "properties": [
-              {
-                "kind": 64,
-                "name": {
-                  "kind": 42,
-                  "name": "foo",
-                  "start": {
-                    "line": 2,
-                    "column": 2
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 5
-                  }
-                },
-                "value": {
-                  "kind": 61,
-                  "value": 1,
-                  "start": {
-                    "line": 2,
-                    "column": 7
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 8
-                  }
-                },
-                "start": {
-                  "line": 2,
-                  "column": 2
-                },
-                "end": {
-                  "line": 2,
-                  "column": 8
-                }
-              },
-              {
-                "kind": 64,
-                "name": {
-                  "kind": 42,
-                  "name": "bar",
-                  "start": {
-                    "line": 3,
-                    "column": 2
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 5
-                  }
-                },
-                "value": {
-                  "kind": 41,
-                  "parameters": [],
-                  "modifiers": [],
-                  "body": {
-                    "kind": 61,
-                    "value": 2,
-                    "start": {
-                      "line": 3,
-                      "column": 11
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 12
-                    }
-                  },
-                  "start": {
-                    "line": 3,
-                    "column": 5
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 12
-                  }
-                },
-                "start": {
-                  "line": 3,
-                  "column": 2
-                },
-                "end": {
-                  "line": 3,
-                  "column": 12
-                }
-              }
-            ],
-            "start": {
-              "line": 1,
-              "column": 13
-            },
-            "end": {
-              "line": 4,
-              "column": 2
-            }
-          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
-            "line": 4,
-            "column": 2
+            "line": 1,
+            "column": 10
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 63,
+        "properties": [
+          {
+            "kind": 64,
+            "name": {
+              "kind": 42,
+              "name": "foo",
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 5
+              }
+            },
+            "value": {
+              "kind": 61,
+              "value": 1,
+              "start": {
+                "line": 2,
+                "column": 7
+              },
+              "end": {
+                "line": 2,
+                "column": 8
+              }
+            },
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 8
+            }
+          },
+          {
+            "kind": 64,
+            "name": {
+              "kind": 42,
+              "name": "bar",
+              "start": {
+                "line": 3,
+                "column": 2
+              },
+              "end": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            "value": {
+              "kind": 41,
+              "parameters": [],
+              "modifiers": [],
+              "body": {
+                "kind": 61,
+                "value": 2,
+                "start": {
+                  "line": 3,
+                  "column": 11
+                },
+                "end": {
+                  "line": 3,
+                  "column": 12
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 5
+              },
+              "end": {
+                "line": 3,
+                "column": 12
+              }
+            },
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 3,
+              "column": 12
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 13
+        },
+        "end": {
+          "line": 4,
+          "column": 2
+        }
+      },
       "start": {
         "line": 1,
         "column": 1

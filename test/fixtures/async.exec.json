@@ -56,96 +56,19 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
-          "kind": 9,
-          "variables": [
-            {
-              "kind": 98,
-              "name": {
-                "kind": 42,
-                "name": "stdout",
-                "start": {
-                  "line": 3,
-                  "column": 5
-                },
-                "end": {
-                  "line": 3,
-                  "column": 11
-                }
-              },
-              "start": {
-                "line": 3,
-                "column": 5
-              },
-              "end": {
-                "line": 3,
-                "column": 11
-              }
-            },
-            {
-              "kind": 98,
-              "name": {
-                "kind": 42,
-                "name": "stderr",
-                "start": {
-                  "line": 3,
-                  "column": 13
-                },
-                "end": {
-                  "line": 3,
-                  "column": 19
-                }
-              },
-              "start": {
-                "line": 3,
-                "column": 13
-              },
-              "end": {
-                "line": 3,
-                "column": 19
-              }
-            }
-          ],
-          "operation": {
-            "kind": 14,
-            "scope": {
-              "kind": 3
-            },
-            "callee": {
-              "kind": 42,
-              "name": "exec",
-              "start": {
-                "line": 3,
-                "column": 28
-              },
-              "end": {
-                "line": 3,
-                "column": 32
-              }
-            },
-            "arguments": [
-              {
-                "kind": 42,
-                "name": "cmd",
-                "start": {
-                  "line": 3,
-                  "column": 33
-                },
-                "end": {
-                  "line": 3,
-                  "column": 36
-                }
-              }
-            ],
-            "nullable": false,
+          "kind": 98,
+          "name": {
+            "kind": 42,
+            "name": "stdout",
             "start": {
               "line": 3,
-              "column": 28
+              "column": 5
             },
             "end": {
               "line": 3,
-              "column": 37
+              "column": 11
             }
           },
           "start": {
@@ -154,10 +77,86 @@
           },
           "end": {
             "line": 3,
-            "column": 37
+            "column": 11
+          }
+        },
+        {
+          "kind": 98,
+          "name": {
+            "kind": 42,
+            "name": "stderr",
+            "start": {
+              "line": 3,
+              "column": 13
+            },
+            "end": {
+              "line": 3,
+              "column": 19
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 13
+          },
+          "end": {
+            "line": 3,
+            "column": 19
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 9,
+        "operation": {
+          "kind": 14,
+          "scope": {
+            "kind": 3
+          },
+          "callee": {
+            "kind": 42,
+            "name": "exec",
+            "start": {
+              "line": 3,
+              "column": 28
+            },
+            "end": {
+              "line": 3,
+              "column": 32
+            }
+          },
+          "arguments": [
+            {
+              "kind": 42,
+              "name": "cmd",
+              "start": {
+                "line": 3,
+                "column": 33
+              },
+              "end": {
+                "line": 3,
+                "column": 36
+              }
+            }
+          ],
+          "nullable": false,
+          "start": {
+            "line": 3,
+            "column": 28
+          },
+          "end": {
+            "line": 3,
+            "column": 37
+          }
+        },
+        "start": {
+          "line": 3,
+          "column": 22
+        },
+        "end": {
+          "line": 3,
+          "column": 37
+        }
+      },
       "start": {
         "line": 3,
         "column": 1

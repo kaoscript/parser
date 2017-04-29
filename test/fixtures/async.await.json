@@ -294,74 +294,19 @@
           {
             "kind": 97,
             "rebindable": true,
-            "declarations": [
+            "variables": [
               {
-                "kind": 9,
-                "variables": [
-                  {
-                    "kind": 42,
-                    "name": "text",
-                    "start": {
-                      "line": 6,
-                      "column": 6
-                    },
-                    "end": {
-                      "line": 6,
-                      "column": 10
-                    }
-                  }
-                ],
-                "operation": {
-                  "kind": 14,
-                  "scope": {
-                    "kind": 3
-                  },
-                  "callee": {
-                    "kind": 42,
-                    "name": "foo",
-                    "start": {
-                      "line": 6,
-                      "column": 19
-                    },
-                    "end": {
-                      "line": 6,
-                      "column": 22
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "kind": 54,
-                      "value": "foobar",
-                      "start": {
-                        "line": 6,
-                        "column": 23
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 31
-                      }
-                    },
-                    {
-                      "kind": 61,
-                      "value": 42,
-                      "start": {
-                        "line": 6,
-                        "column": 33
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 35
-                      }
-                    }
-                  ],
-                  "nullable": false,
+                "kind": 98,
+                "name": {
+                  "kind": 42,
+                  "name": "text",
                   "start": {
                     "line": 6,
-                    "column": 19
+                    "column": 6
                   },
                   "end": {
                     "line": 6,
-                    "column": 36
+                    "column": 10
                   }
                 },
                 "start": {
@@ -370,10 +315,75 @@
                 },
                 "end": {
                   "line": 6,
-                  "column": 36
+                  "column": 10
                 }
               }
             ],
+            "autotype": false,
+            "init": {
+              "kind": 9,
+              "operation": {
+                "kind": 14,
+                "scope": {
+                  "kind": 3
+                },
+                "callee": {
+                  "kind": 42,
+                  "name": "foo",
+                  "start": {
+                    "line": 6,
+                    "column": 19
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 22
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 54,
+                    "value": "foobar",
+                    "start": {
+                      "line": 6,
+                      "column": 23
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 31
+                    }
+                  },
+                  {
+                    "kind": 61,
+                    "value": 42,
+                    "start": {
+                      "line": 6,
+                      "column": 33
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 35
+                    }
+                  }
+                ],
+                "nullable": false,
+                "start": {
+                  "line": 6,
+                  "column": 19
+                },
+                "end": {
+                  "line": 6,
+                  "column": 36
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 13
+              },
+              "end": {
+                "line": 6,
+                "column": 36
+              }
+            },
             "start": {
               "line": 6,
               "column": 2

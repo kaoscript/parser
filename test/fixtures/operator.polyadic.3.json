@@ -5,7 +5,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -20,76 +20,77 @@
               "column": 14
             }
           },
-          "init": {
-            "kind": 67,
-            "operator": {
-              "kind": 11,
-              "start": {
-                "line": 1,
-                "column": 35
-              },
-              "end": {
-                "line": 1,
-                "column": 36
-              }
-            },
-            "start": {
-              "line": 1,
-              "column": 21
-            },
-            "end": {
-              "line": 1,
-              "column": 36
-            },
-            "operands": [
-              {
-                "kind": 61,
-                "value": 200,
-                "start": {
-                  "line": 1,
-                  "column": 17
-                },
-                "end": {
-                  "line": 1,
-                  "column": 20
-                }
-              },
-              {
-                "kind": 42,
-                "name": "cholesterol",
-                "start": {
-                  "line": 1,
-                  "column": 23
-                },
-                "end": {
-                  "line": 1,
-                  "column": 34
-                }
-              },
-              {
-                "kind": 61,
-                "value": 60,
-                "start": {
-                  "line": 1,
-                  "column": 37
-                },
-                "end": {
-                  "line": 1,
-                  "column": 39
-                }
-              }
-            ]
-          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
             "line": 1,
-            "column": 39
+            "column": 14
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 67,
+        "operator": {
+          "kind": 11,
+          "start": {
+            "line": 1,
+            "column": 35
+          },
+          "end": {
+            "line": 1,
+            "column": 36
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 21
+        },
+        "end": {
+          "line": 1,
+          "column": 36
+        },
+        "operands": [
+          {
+            "kind": 61,
+            "value": 200,
+            "start": {
+              "line": 1,
+              "column": 17
+            },
+            "end": {
+              "line": 1,
+              "column": 20
+            }
+          },
+          {
+            "kind": 42,
+            "name": "cholesterol",
+            "start": {
+              "line": 1,
+              "column": 23
+            },
+            "end": {
+              "line": 1,
+              "column": 34
+            }
+          },
+          {
+            "kind": 61,
+            "value": 60,
+            "start": {
+              "line": 1,
+              "column": 37
+            },
+            "end": {
+              "line": 1,
+              "column": 39
+            }
+          }
+        ]
+      },
       "start": {
         "line": 1,
         "column": 1

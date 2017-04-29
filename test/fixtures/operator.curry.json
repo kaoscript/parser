@@ -168,7 +168,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -183,56 +183,57 @@
               "column": 8
             }
           },
-          "init": {
-            "kind": 24,
-            "scope": {
-              "kind": 2
-            },
-            "callee": {
-              "kind": 42,
-              "name": "foo",
-              "start": {
-                "line": 5,
-                "column": 11
-              },
-              "end": {
-                "line": 5,
-                "column": 14
-              }
-            },
-            "arguments": [
-              {
-                "kind": 54,
-                "value": "Hello",
-                "start": {
-                  "line": 5,
-                  "column": 17
-                },
-                "end": {
-                  "line": 5,
-                  "column": 24
-                }
-              }
-            ],
-            "start": {
-              "line": 5,
-              "column": 11
-            },
-            "end": {
-              "line": 5,
-              "column": 25
-            }
-          },
           "start": {
             "line": 5,
             "column": 5
           },
           "end": {
             "line": 5,
-            "column": 25
+            "column": 8
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 24,
+        "scope": {
+          "kind": 2
+        },
+        "callee": {
+          "kind": 42,
+          "name": "foo",
+          "start": {
+            "line": 5,
+            "column": 11
+          },
+          "end": {
+            "line": 5,
+            "column": 14
+          }
+        },
+        "arguments": [
+          {
+            "kind": 54,
+            "value": "Hello",
+            "start": {
+              "line": 5,
+              "column": 17
+            },
+            "end": {
+              "line": 5,
+              "column": 24
+            }
+          }
+        ],
+        "start": {
+          "line": 5,
+          "column": 11
+        },
+        "end": {
+          "line": 5,
+          "column": 25
+        }
+      },
       "start": {
         "line": 5,
         "column": 1

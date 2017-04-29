@@ -42,7 +42,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -57,50 +57,51 @@
               "column": 7
             }
           },
-          "init": {
-            "kind": 92,
-            "operator": {
-              "kind": 4,
-              "start": {
-                "line": 3,
-                "column": 13
-              },
-              "end": {
-                "line": 3,
-                "column": 14
-              }
-            },
-            "argument": {
-              "kind": 42,
-              "name": "foo",
-              "start": {
-                "line": 3,
-                "column": 10
-              },
-              "end": {
-                "line": 3,
-                "column": 13
-              }
-            },
-            "start": {
-              "line": 3,
-              "column": 10
-            },
-            "end": {
-              "line": 3,
-              "column": 14
-            }
-          },
           "start": {
             "line": 3,
             "column": 5
           },
           "end": {
             "line": 3,
-            "column": 14
+            "column": 7
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 92,
+        "operator": {
+          "kind": 4,
+          "start": {
+            "line": 3,
+            "column": 13
+          },
+          "end": {
+            "line": 3,
+            "column": 14
+          }
+        },
+        "argument": {
+          "kind": 42,
+          "name": "foo",
+          "start": {
+            "line": 3,
+            "column": 10
+          },
+          "end": {
+            "line": 3,
+            "column": 13
+          }
+        },
+        "start": {
+          "line": 3,
+          "column": 10
+        },
+        "end": {
+          "line": 3,
+          "column": 14
+        }
+      },
       "start": {
         "line": 3,
         "column": 1

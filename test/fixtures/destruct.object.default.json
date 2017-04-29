@@ -5,7 +5,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -20,99 +20,100 @@
               "column": 8
             }
           },
-          "init": {
-            "kind": 63,
-            "properties": [
-              {
-                "kind": 64,
-                "name": {
-                  "kind": 42,
-                  "name": "bar",
-                  "start": {
-                    "line": 1,
-                    "column": 13
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 16
-                  }
-                },
-                "value": {
-                  "kind": 54,
-                  "value": "hello",
-                  "start": {
-                    "line": 1,
-                    "column": 18
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 25
-                  }
-                },
-                "start": {
-                  "line": 1,
-                  "column": 13
-                },
-                "end": {
-                  "line": 1,
-                  "column": 25
-                }
-              },
-              {
-                "kind": 64,
-                "name": {
-                  "kind": 42,
-                  "name": "baz",
-                  "start": {
-                    "line": 1,
-                    "column": 27
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 30
-                  }
-                },
-                "value": {
-                  "kind": 61,
-                  "value": 3,
-                  "start": {
-                    "line": 1,
-                    "column": 32
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 33
-                  }
-                },
-                "start": {
-                  "line": 1,
-                  "column": 27
-                },
-                "end": {
-                  "line": 1,
-                  "column": 33
-                }
-              }
-            ],
-            "start": {
-              "line": 1,
-              "column": 11
-            },
-            "end": {
-              "line": 1,
-              "column": 35
-            }
-          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
             "line": 1,
-            "column": 35
+            "column": 8
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 63,
+        "properties": [
+          {
+            "kind": 64,
+            "name": {
+              "kind": 42,
+              "name": "bar",
+              "start": {
+                "line": 1,
+                "column": 13
+              },
+              "end": {
+                "line": 1,
+                "column": 16
+              }
+            },
+            "value": {
+              "kind": 54,
+              "value": "hello",
+              "start": {
+                "line": 1,
+                "column": 18
+              },
+              "end": {
+                "line": 1,
+                "column": 25
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 25
+            }
+          },
+          {
+            "kind": 64,
+            "name": {
+              "kind": 42,
+              "name": "baz",
+              "start": {
+                "line": 1,
+                "column": 27
+              },
+              "end": {
+                "line": 1,
+                "column": 30
+              }
+            },
+            "value": {
+              "kind": 61,
+              "value": 3,
+              "start": {
+                "line": 1,
+                "column": 32
+              },
+              "end": {
+                "line": 1,
+                "column": 33
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 27
+            },
+            "end": {
+              "line": 1,
+              "column": 33
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 11
+        },
+        "end": {
+          "line": 1,
+          "column": 35
+        }
+      },
       "start": {
         "line": 1,
         "column": 1
@@ -126,26 +127,15 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
-          "name": {
-            "kind": 62,
-            "elements": [
-              {
-                "kind": 11,
-                "name": {
-                  "kind": 42,
-                  "name": "bar",
-                  "start": {
-                    "line": 3,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 9
-                  }
-                },
+          "name": [
+            {
+              "kind": 11,
+              "name": {
+                "kind": 42,
+                "name": "bar",
                 "start": {
                   "line": 3,
                   "column": 6
@@ -155,20 +145,20 @@
                   "column": 9
                 }
               },
-              {
-                "kind": 11,
-                "name": {
-                  "kind": 42,
-                  "name": "baz",
-                  "start": {
-                    "line": 3,
-                    "column": 11
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 14
-                  }
-                },
+              "start": {
+                "line": 3,
+                "column": 6
+              },
+              "end": {
+                "line": 3,
+                "column": 9
+              }
+            },
+            {
+              "kind": 11,
+              "name": {
+                "kind": 42,
+                "name": "baz",
                 "start": {
                   "line": 3,
                   "column": 11
@@ -177,39 +167,40 @@
                   "line": 3,
                   "column": 14
                 }
+              },
+              "start": {
+                "line": 3,
+                "column": 11
+              },
+              "end": {
+                "line": 3,
+                "column": 14
               }
-            ],
-            "start": {
-              "line": 3,
-              "column": 5
-            },
-            "end": {
-              "line": 3,
-              "column": 15
             }
-          },
-          "init": {
-            "kind": 42,
-            "name": "foo",
-            "start": {
-              "line": 3,
-              "column": 18
-            },
-            "end": {
-              "line": 3,
-              "column": 21
-            }
-          },
+          ],
           "start": {
             "line": 3,
             "column": 5
           },
           "end": {
             "line": 3,
-            "column": 21
+            "column": 15
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 42,
+        "name": "foo",
+        "start": {
+          "line": 3,
+          "column": 18
+        },
+        "end": {
+          "line": 3,
+          "column": 21
+        }
+      },
       "start": {
         "line": 3,
         "column": 1

@@ -65,7 +65,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -80,106 +80,107 @@
               "column": 7
             }
           },
-          "init": {
-            "kind": 10,
-            "operator": {
-              "kind": 2,
-              "start": {
-                "line": 3,
-                "column": 15
-              },
-              "end": {
-                "line": 3,
-                "column": 18
-              }
-            },
-            "start": {
-              "line": 3,
-              "column": 15
-            },
-            "end": {
-              "line": 3,
-              "column": 18
-            },
-            "left": {
-              "kind": 92,
-              "operator": {
-                "kind": 4,
-                "start": {
-                  "line": 3,
-                  "column": 10
-                },
-                "end": {
-                  "line": 3,
-                  "column": 11
-                }
-              },
-              "argument": {
-                "kind": 42,
-                "name": "foo",
-                "start": {
-                  "line": 3,
-                  "column": 11
-                },
-                "end": {
-                  "line": 3,
-                  "column": 14
-                }
-              },
-              "start": {
-                "line": 3,
-                "column": 10
-              },
-              "end": {
-                "line": 3,
-                "column": 14
-              }
-            },
-            "right": {
-              "kind": 92,
-              "operator": {
-                "kind": 4,
-                "start": {
-                  "line": 3,
-                  "column": 18
-                },
-                "end": {
-                  "line": 3,
-                  "column": 19
-                }
-              },
-              "argument": {
-                "kind": 42,
-                "name": "bar",
-                "start": {
-                  "line": 3,
-                  "column": 19
-                },
-                "end": {
-                  "line": 3,
-                  "column": 22
-                }
-              },
-              "start": {
-                "line": 3,
-                "column": 18
-              },
-              "end": {
-                "line": 3,
-                "column": 22
-              }
-            }
-          },
           "start": {
             "line": 3,
             "column": 5
           },
           "end": {
             "line": 3,
-            "column": 22
+            "column": 7
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 10,
+        "operator": {
+          "kind": 2,
+          "start": {
+            "line": 3,
+            "column": 15
+          },
+          "end": {
+            "line": 3,
+            "column": 18
+          }
+        },
+        "start": {
+          "line": 3,
+          "column": 15
+        },
+        "end": {
+          "line": 3,
+          "column": 18
+        },
+        "left": {
+          "kind": 92,
+          "operator": {
+            "kind": 4,
+            "start": {
+              "line": 3,
+              "column": 10
+            },
+            "end": {
+              "line": 3,
+              "column": 11
+            }
+          },
+          "argument": {
+            "kind": 42,
+            "name": "foo",
+            "start": {
+              "line": 3,
+              "column": 11
+            },
+            "end": {
+              "line": 3,
+              "column": 14
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 10
+          },
+          "end": {
+            "line": 3,
+            "column": 14
+          }
+        },
+        "right": {
+          "kind": 92,
+          "operator": {
+            "kind": 4,
+            "start": {
+              "line": 3,
+              "column": 18
+            },
+            "end": {
+              "line": 3,
+              "column": 19
+            }
+          },
+          "argument": {
+            "kind": 42,
+            "name": "bar",
+            "start": {
+              "line": 3,
+              "column": 19
+            },
+            "end": {
+              "line": 3,
+              "column": 22
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 18
+          },
+          "end": {
+            "line": 3,
+            "column": 22
+          }
+        }
+      },
       "start": {
         "line": 3,
         "column": 1

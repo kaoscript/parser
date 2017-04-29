@@ -42,7 +42,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -57,72 +57,73 @@
               "column": 7
             }
           },
-          "init": {
-            "kind": 92,
-            "operator": {
-              "kind": 7,
-              "start": {
-                "line": 3,
-                "column": 10
-              },
-              "end": {
-                "line": 3,
-                "column": 11
-              }
-            },
-            "argument": {
-              "kind": 92,
-              "operator": {
-                "kind": 4,
-                "start": {
-                  "line": 3,
-                  "column": 14
-                },
-                "end": {
-                  "line": 3,
-                  "column": 15
-                }
-              },
-              "argument": {
-                "kind": 42,
-                "name": "foo",
-                "start": {
-                  "line": 3,
-                  "column": 11
-                },
-                "end": {
-                  "line": 3,
-                  "column": 14
-                }
-              },
-              "start": {
-                "line": 3,
-                "column": 11
-              },
-              "end": {
-                "line": 3,
-                "column": 15
-              }
-            },
-            "start": {
-              "line": 3,
-              "column": 10
-            },
-            "end": {
-              "line": 3,
-              "column": 15
-            }
-          },
           "start": {
             "line": 3,
             "column": 5
           },
           "end": {
             "line": 3,
-            "column": 15
+            "column": 7
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 92,
+        "operator": {
+          "kind": 7,
+          "start": {
+            "line": 3,
+            "column": 10
+          },
+          "end": {
+            "line": 3,
+            "column": 11
+          }
+        },
+        "argument": {
+          "kind": 92,
+          "operator": {
+            "kind": 4,
+            "start": {
+              "line": 3,
+              "column": 14
+            },
+            "end": {
+              "line": 3,
+              "column": 15
+            }
+          },
+          "argument": {
+            "kind": 42,
+            "name": "foo",
+            "start": {
+              "line": 3,
+              "column": 11
+            },
+            "end": {
+              "line": 3,
+              "column": 14
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 11
+          },
+          "end": {
+            "line": 3,
+            "column": 15
+          }
+        },
+        "start": {
+          "line": 3,
+          "column": 10
+        },
+        "end": {
+          "line": 3,
+          "column": 15
+        }
+      },
       "start": {
         "line": 3,
         "column": 1

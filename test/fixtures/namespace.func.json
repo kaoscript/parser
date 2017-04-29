@@ -1,0 +1,362 @@
+{
+  "kind": 58,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 33,
+      "declarations": [
+        {
+          "kind": 98,
+          "name": {
+            "kind": 42,
+            "name": "console",
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 1,
+              "column": 15
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 15
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 15
+      },
+      "attributes": []
+    },
+    {
+      "kind": 60,
+      "modifiers": [],
+      "name": {
+        "kind": 42,
+        "name": "Float",
+        "start": {
+          "line": 3,
+          "column": 11
+        },
+        "end": {
+          "line": 3,
+          "column": 16
+        }
+      },
+      "statements": [
+        {
+          "kind": 40,
+          "modifiers": [],
+          "name": {
+            "kind": 42,
+            "name": "toString",
+            "start": {
+              "line": 4,
+              "column": 7
+            },
+            "end": {
+              "line": 4,
+              "column": 15
+            }
+          },
+          "parameters": [
+            {
+              "kind": 66,
+              "modifiers": [],
+              "name": {
+                "kind": 42,
+                "name": "value",
+                "start": {
+                  "line": 4,
+                  "column": 16
+                },
+                "end": {
+                  "line": 4,
+                  "column": 21
+                }
+              },
+              "type": {
+                "kind": 91,
+                "typeName": {
+                  "kind": 42,
+                  "name": "Number",
+                  "start": {
+                    "line": 4,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 29
+                  }
+                },
+                "start": {
+                  "line": 4,
+                  "column": 23
+                },
+                "end": {
+                  "line": 4,
+                  "column": 29
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 16
+              },
+              "end": {
+                "line": 4,
+                "column": 29
+              }
+            }
+          ],
+          "type": {
+            "kind": 91,
+            "typeName": {
+              "kind": 42,
+              "name": "String",
+              "start": {
+                "line": 4,
+                "column": 32
+              },
+              "end": {
+                "line": 4,
+                "column": 38
+              }
+            },
+            "start": {
+              "line": 4,
+              "column": 32
+            },
+            "end": {
+              "line": 4,
+              "column": 38
+            }
+          },
+          "throws": [],
+          "body": {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 55,
+              "object": {
+                "kind": 42,
+                "name": "value",
+                "start": {
+                  "line": 4,
+                  "column": 42
+                },
+                "end": {
+                  "line": 4,
+                  "column": 47
+                }
+              },
+              "property": {
+                "kind": 42,
+                "name": "toString",
+                "start": {
+                  "line": 4,
+                  "column": 48
+                },
+                "end": {
+                  "line": 4,
+                  "column": 56
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 4,
+                "column": 42
+              },
+              "end": {
+                "line": 4,
+                "column": 56
+              }
+            },
+            "arguments": [],
+            "nullable": false,
+            "start": {
+              "line": 4,
+              "column": 42
+            },
+            "end": {
+              "line": 4,
+              "column": 58
+            }
+          },
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 58
+          }
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 55,
+        "object": {
+          "kind": 42,
+          "name": "console",
+          "start": {
+            "line": 7,
+            "column": 1
+          },
+          "end": {
+            "line": 7,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 42,
+          "name": "log",
+          "start": {
+            "line": 7,
+            "column": 9
+          },
+          "end": {
+            "line": 7,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 7,
+          "column": 1
+        },
+        "end": {
+          "line": 7,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 85,
+          "elements": [
+            {
+              "kind": 14,
+              "scope": {
+                "kind": 3
+              },
+              "callee": {
+                "kind": 55,
+                "object": {
+                  "kind": 42,
+                  "name": "Float",
+                  "start": {
+                    "line": 7,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 21
+                  }
+                },
+                "property": {
+                  "kind": 42,
+                  "name": "toString",
+                  "start": {
+                    "line": 7,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 30
+                  }
+                },
+                "computed": false,
+                "nullable": false,
+                "start": {
+                  "line": 7,
+                  "column": 16
+                },
+                "end": {
+                  "line": 7,
+                  "column": 30
+                }
+              },
+              "arguments": [
+                {
+                  "kind": 61,
+                  "value": 3.14,
+                  "start": {
+                    "line": 7,
+                    "column": 31
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 35
+                  }
+                }
+              ],
+              "nullable": false,
+              "start": {
+                "line": 7,
+                "column": 16
+              },
+              "end": {
+                "line": 7,
+                "column": 36
+              }
+            }
+          ],
+          "start": {
+            "line": 7,
+            "column": 13
+          },
+          "end": {
+            "line": 7,
+            "column": 38
+          }
+        }
+      ],
+      "nullable": false,
+      "start": {
+        "line": 7,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 39
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 39
+  }
+}

@@ -5,7 +5,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -20,53 +20,54 @@
               "column": 9
             }
           },
-          "init": {
-            "kind": 4,
-            "values": [
-              {
-                "kind": 61,
-                "value": 2,
-                "start": {
-                  "line": 1,
-                  "column": 13
-                },
-                "end": {
-                  "line": 1,
-                  "column": 14
-                }
-              },
-              {
-                "kind": 61,
-                "value": -2,
-                "start": {
-                  "line": 1,
-                  "column": 16
-                },
-                "end": {
-                  "line": 1,
-                  "column": 18
-                }
-              }
-            ],
-            "start": {
-              "line": 1,
-              "column": 12
-            },
-            "end": {
-              "line": 1,
-              "column": 19
-            }
-          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
             "line": 1,
-            "column": 19
+            "column": 9
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 4,
+        "values": [
+          {
+            "kind": 61,
+            "value": 2,
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 14
+            }
+          },
+          {
+            "kind": 61,
+            "value": -2,
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 1,
+              "column": 18
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 12
+        },
+        "end": {
+          "line": 1,
+          "column": 19
+        }
+      },
       "start": {
         "line": 1,
         "column": 1

@@ -47,7 +47,7 @@
                 {
                   "kind": 97,
                   "rebindable": true,
-                  "declarations": [
+                  "variables": [
                     {
                       "kind": 98,
                       "name": {
@@ -62,28 +62,29 @@
                           "column": 10
                         }
                       },
-                      "init": {
-                        "kind": 61,
-                        "value": 42,
-                        "start": {
-                          "line": 6,
-                          "column": 13
-                        },
-                        "end": {
-                          "line": 6,
-                          "column": 15
-                        }
-                      },
                       "start": {
                         "line": 6,
                         "column": 7
                       },
                       "end": {
                         "line": 6,
-                        "column": 15
+                        "column": 10
                       }
                     }
                   ],
+                  "autotype": false,
+                  "init": {
+                    "kind": 61,
+                    "value": 42,
+                    "start": {
+                      "line": 6,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 15
+                    }
+                  },
                   "start": {
                     "line": 5,
                     "column": 3

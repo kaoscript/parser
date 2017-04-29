@@ -88,7 +88,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -126,28 +126,29 @@
               "column": 9
             }
           },
-          "init": {
-            "kind": 61,
-            "value": 0,
-            "start": {
-              "line": 3,
-              "column": 12
-            },
-            "end": {
-              "line": 3,
-              "column": 13
-            }
-          },
           "start": {
             "line": 3,
             "column": 5
           },
           "end": {
             "line": 3,
-            "column": 13
+            "column": 9
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 61,
+        "value": 0,
+        "start": {
+          "line": 3,
+          "column": 12
+        },
+        "end": {
+          "line": 3,
+          "column": 13
+        }
+      },
       "start": {
         "line": 3,
         "column": 1

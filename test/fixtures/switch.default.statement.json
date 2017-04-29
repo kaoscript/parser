@@ -5,7 +5,7 @@
     {
       "kind": 97,
       "rebindable": true,
-      "declarations": [
+      "variables": [
         {
           "kind": 98,
           "name": {
@@ -20,28 +20,29 @@
               "column": 11
             }
           },
-          "init": {
-            "kind": 61,
-            "value": 13,
-            "start": {
-              "line": 1,
-              "column": 14
-            },
-            "end": {
-              "line": 1,
-              "column": 16
-            }
-          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
             "line": 1,
-            "column": 16
+            "column": 11
           }
         }
       ],
+      "autotype": false,
+      "init": {
+        "kind": 61,
+        "value": 13,
+        "start": {
+          "line": 1,
+          "column": 14
+        },
+        "end": {
+          "line": 1,
+          "column": 16
+        }
+      },
       "start": {
         "line": 1,
         "column": 1

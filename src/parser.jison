@@ -1262,6 +1262,46 @@ CommaOrNewLine // {{{
 	;
 // }}}
 
+ConstDeclaration // {{{
+	: 'CONST' TypedVariableList VariableEquals 'AWAIT' Operand
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: false,
+				variables: $2,
+				autotype: $3,
+				init: location({
+					kind: NodeKind.AwaitExpression,
+					operation: $5
+				}, @4, @5)
+			}, @1, @5);
+		}
+	| 'CONST' TypedVariable VariableEquals 'AWAIT' Operand
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: false,
+				variables: [$2],
+				autotype: $3,
+				init: location({
+					kind: NodeKind.AwaitExpression,
+					operation: $5
+				}, @4, @5)
+			}, @1, @5);
+		}
+	| 'CONST' TypedVariable VariableEquals Expression
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: false,
+				variables: [$2],
+				autotype: $3,
+				init: $4
+			}, @1, @4);
+		}
+	;
+// }}}
+
 CreateClassName // {{{
 	: TypeEntity
 	| VariableName
@@ -1631,10 +1671,11 @@ ExportDeclaratorLBPNI // {{{
 // }}}
 
 ExportDeclarator // {{{
-	: VariableDeclaration
-	| FunctionDeclaration
-	| ClassDeclaration
+	: ClassDeclaration
+	| ConstDeclaration
 	| EnumDeclaration
+	| FunctionDeclaration
+	| LetDeclaration
 	| NamespaceDeclaration
 	| TypeDeclaration
 	| Identifier 'AS' Identifier
@@ -3403,6 +3444,152 @@ LambdaBody // {{{
 	;
 // }}}
 
+LetDeclaration // {{{
+	: 'LET' DestructuringArray ',' TypedVariableListX VariableEquals 'AWAIT' Operand
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [location({
+					kind: NodeKind.VariableDeclarator,
+					name: $2
+				}, @2)].concat($4),
+				autotype: $5,
+				init: location({
+					kind: NodeKind.AwaitExpression,
+					operation: $7
+				}, @6, @7)
+			}, @1, @7);
+		}
+	| 'LET' DestructuringObject ',' TypedVariableListX VariableEquals 'AWAIT' Operand
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [location({
+					kind: NodeKind.VariableDeclarator,
+					name: $2
+				}, @2)].concat($4),
+				autotype: $5,
+				init: location({
+					kind: NodeKind.AwaitExpression,
+					operation: $7
+				}, @6, @7)
+			}, @1, @7);
+		}
+	| 'LET' TypedIdentifier ',' TypedVariableListX VariableEquals 'AWAIT' Operand
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [$2].concat($4),
+				autotype: $5,
+				init: location({
+					kind: NodeKind.AwaitExpression,
+					operation: $7
+				}, @6, @7)
+			}, @1, @7);
+		}
+	| 'LET' DestructuringArray VariableEquals 'AWAIT' Operand
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [location({
+					kind: NodeKind.VariableDeclarator,
+					name: $2,
+				}, @2)],
+				autotype: $3,
+				init: location({
+					kind: NodeKind.AwaitExpression,
+					operation: $5
+				}, @4, @5)
+			}, @1, @5);
+		}
+	| 'LET' DestructuringObject VariableEquals 'AWAIT' Operand
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [location({
+					kind: NodeKind.VariableDeclarator,
+					name: $2,
+				}, @2)],
+				autotype: $3,
+				init: location({
+					kind: NodeKind.AwaitExpression,
+					operation: @5
+				}, @4, @5)
+			}, @1, @5);
+		}
+	| 'LET' TypedIdentifier VariableEquals 'AWAIT' Operand
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [$2],
+				autotype: $3,
+				init: location({
+					kind: NodeKind.AwaitExpression,
+					operation: $5
+				}, @4, @5)
+			}, @1, @5);
+		}
+	| 'LET' DestructuringArray VariableEquals Expression VariableCondition
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [location({
+					kind: NodeKind.VariableDeclarator,
+					name: $2,
+				}, @2)],
+				autotype: $3,
+				init: setCondition($4, @4, $5, @5)
+			}, @1, @5);
+		}
+	| 'LET' DestructuringObject VariableEquals Expression VariableCondition
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [location({
+					kind: NodeKind.VariableDeclarator,
+					name: $2,
+				}, @2)],
+				autotype: $3,
+				init: setCondition($4, @4, $5, @5)
+			}, @1, @5);
+		}
+	| 'LET' TypedIdentifier VariableEquals Expression VariableCondition
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [$2],
+				autotype: $3,
+				init: setCondition($4, @4, $5, @5)
+			}, @1, @5);
+		}
+	| 'LET' TypedIdentifier
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [$2]
+			}, @1, @2);
+		}
+	| 'LET' TypedIdentifier ',' TypedIdentifierListX
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [$2].concat($4)
+			}, @1, @4);
+		}
+	;
+// }}}
+
 Method // {{{
 	: MethodHeader FunctionModifiers FunctionReturns FunctionThrows MethodBody
 		{
@@ -3651,11 +3838,12 @@ NamespaceDeclaration // {{{
 
 NamespaceStatement // {{{
 	: ClassDeclaration
+	| ConstDeclaration
 	| EnumDeclaration
 	| FunctionDeclaration
+	| LetDeclaration
 	| NamespaceDeclaration
 	| TypeDeclaration
-	| VariableDeclaration
 	;
 // }}}
 
@@ -5325,10 +5513,11 @@ ReturnStatement // {{{
 // }}}
 
 Statement // {{{
-	: VariableDeclaration NL_EOF_1M
-	| AssignmentDeclaration NL_EOF_1M
+	: AssignmentDeclaration NL_EOF_1M
+	| ConstDeclaration NL_EOF_1M
 	| FunctionDeclaration NL_EOF_1M
 	| EnumDeclaration NL_EOF_1M
+	| LetDeclaration NL_EOF_1M
 	| ReturnStatement NL_EOF_1M
 	| IfStatement NL_EOF_1M IfStatementList NL_EOF_1M 'ELSE' Block NL_EOF_1M
 		{
@@ -6391,6 +6580,142 @@ TypeVarList // {{{
 	;
 // }}}
 
+TypedIdentifier // {{{
+	: Identifier ColonSeparator TypeVar
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclarator,
+				name: $1,
+				type: $3
+			}, @1, @3);
+		}
+	| Identifier
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclarator,
+				name: $1
+			}, @1, @1);
+		}
+	;
+// }}}
+
+TypedIdentifierListX // {{{
+	: TypedIdentifierListX ',' Identifier ColonSeparator TypeVar
+		{
+			$1.push(location({
+				kind: NodeKind.VariableDeclarator,
+				name: $3,
+				type: $5
+			}, @3, @5));
+			
+			$$ = $1;
+		}
+	| TypedIdentifierListX ',' Identifier
+		{
+			$1.push(location({
+				kind: NodeKind.VariableDeclarator,
+				name: $3
+			}, @3, @3));
+			
+			$$ = $1;
+		}
+	| Identifier ColonSeparator TypeVar
+		{
+			$$ = [location({
+				kind: NodeKind.VariableDeclarator,
+				name: $1,
+				type: $3
+			}, @1, @3)];
+		}
+	| Identifier
+		{
+			$$ = [location({
+				kind: NodeKind.VariableDeclarator,
+				name: $1
+			}, @1, @1)];
+		}
+	;
+// }}}
+
+TypedVariable // {{{
+	: DestructuringArray
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclarator,
+				name: $1
+			}, @1, @1);
+		}
+	| DestructuringObject
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclarator,
+				name: $1
+			}, @1, @1);
+		}
+	| TypedIdentifier
+	;
+// }}}
+
+TypedVariableList // {{{
+	: TypedVariableList ',' TypedVariable
+		{
+			$1.push($3);
+			
+			$$ = $1;
+		}
+	| TypedVariable
+		{
+			$$ = [$1];
+		}
+	;
+// }}}
+
+TypedVariableListX // {{{
+	: TypedVariableListX ',' DestructuringArray
+		{
+			$1.push(location({
+				kind: NodeKind.VariableDeclarator,
+				name: $3
+			}, @3, @3));
+			
+			$$ = $1;
+		}
+	| TypedVariableListX ',' DestructuringObject
+		{
+			$1.push(location({
+				kind: NodeKind.VariableDeclarator,
+				name: $3
+			}, @3, @3));
+			
+			$$ = $1;
+		}
+	| TypedVariableListX ',' TypedIdentifier
+		{
+			$1.push($3);
+			
+			$$ = $1;
+		}
+	| DestructuringArray
+		{
+			$$ = [location({
+				kind: NodeKind.VariableDeclarator,
+				name: $1
+			}, @1, @1)];
+		}
+	| DestructuringObject
+		{
+			$$ = [location({
+				kind: NodeKind.VariableDeclarator,
+				name: $1
+			}, @1, @1)];
+		}
+	| TypedIdentifier
+		{
+			$$ = [$1];
+		}
+	;
+// }}}
+
 UnlessStatement // {{{
 	: 'UNLESS' Expression Block
 		{
@@ -6423,97 +6748,41 @@ UntilStatement // {{{
 	;
 // }}}
 
-VariableConstDeclarator // {{{
-	: Identifier ColonSeparator TypeVar '=' 'AWAIT' Operand
+VariableCondition // {{{
+	: 'IF' Expression 'ELSE' Expression
 		{
 			$$ = location({
-				kind: NodeKind.AwaitExpression,
-				variables: [location({
-					kind: NodeKind.VariableDeclarator,
-					name: $1,
-					type: $3
-				}, @1, @3)],
-				operation: $6
-			}, @1, @6);
+				kind: NodeKind.IfExpression,
+				condition: $2,
+				whenFalse: $4
+			}, @1, @4)
 		}
-	| Identifier ColonSeparator TypeVar '=' Expression
+	| 'IF' Expression
 		{
 			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				type: $3,
-				init: $5
-			}, @1, @5);
+				kind: NodeKind.IfExpression,
+				condition: $2
+			}, @1, @2)
 		}
-	| VariableIdentifier ':=' 'AWAIT' Operand
+	| 'UNLESS' Expression
 		{
 			$$ = location({
-				kind: NodeKind.AwaitExpression,
-				variables: [$1],
-				operation: $4,
-				autotype: true
-			}, @1, @4);
+				kind: NodeKind.UnlessExpression,
+				condition: $2
+			}, @1, @2)
 		}
-	| VariableIdentifier ':=' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				init: $3,
-				autotype: true
-			}, @1, @3);
-		}
-	| VariableIdentifier '=' 'AWAIT' Operand
-		{
-			$$ = location({
-				kind: NodeKind.AwaitExpression,
-				variables: [$1],
-				operation: $4
-			}, @1, @4);
-		}
-	| VariableIdentifier '=' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				init: $3
-			}, @1, @3);
-		}
+	|
 	;
 // }}}
 
-VariableDeclaration // {{{
-	: 'CONST' VariableList
+VariableEquals // {{{
+	: ':='
 		{
-			$$ = location({
-				kind: NodeKind.VariableDeclaration,
-				rebindable: false,
-				declarations: $2
-			}, @1, @2);
+			$$ = true
 		}
-	| 'LET' VariableList
+	| '='
 		{
-			$$ = location({
-				kind: NodeKind.VariableDeclaration,
-				rebindable: true,
-				declarations: $2
-			}, @1, @2);
-		}
-	| 'CONST' VariableConstDeclarator
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclaration,
-				rebindable: false,
-				declarations: [$2]
-			}, @1, @2);
-		}
-	| 'LET' VariableLetDeclarator
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclaration,
-				rebindable: true,
-				declarations: [$2]
-			}, @1, @2);
+			$$ = false
 		}
 	;
 // }}}
@@ -6545,203 +6814,6 @@ VariableIdentifierList // {{{
 	| VariableIdentifier
 		{
 			$$ = [$1];
-		}
-	;
-// }}}
-
-VariableLetDeclarator // {{{
-	: Identifier ColonSeparator TypeVar '=' Expression 'IF' Expression 'ELSE' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				type: $3,
-				init: location({
-					kind: NodeKind.IfExpression,
-					condition: $7,
-					whenTrue: $5,
-					whenFalse: $9
-				}, @5, @9)
-			}, @1, @9);
-		}
-	| Identifier ColonSeparator TypeVar '=' Expression 'IF' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				type: $3,
-				init: location({
-					kind: NodeKind.IfExpression,
-					condition: $7,
-					whenTrue: $5
-				}, @5, @9)
-			}, @1, @7);
-		}
-	| Identifier ColonSeparator TypeVar '=' Expression 'UNLESS' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				type: $3,
-				init: location({
-					kind: NodeKind.UnlessExpression,
-					condition: $7,
-					whenFalse: $5
-				}, @5, @7)
-			}, @1, @7);
-		}
-	| Identifier ColonSeparator TypeVar '=' 'AWAIT' Operand
-		{
-			$$ = location({
-				kind: NodeKind.AwaitExpression,
-				variables: [location({
-					kind: NodeKind.VariableDeclarator,
-					name: $1,
-					type: $3
-				}, @1, @3)],
-				operation: $6
-			}, @1, @6);
-		}
-	| Identifier ColonSeparator TypeVar '=' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				type: $3,
-				init: $5
-			}, @1, @5);
-		}
-	| VariableIdentifier '=' Expression 'IF' Expression 'ELSE' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				init: location({
-					kind: NodeKind.IfExpression,
-					condition: $5,
-					whenTrue: $3,
-					whenFalse: $7
-				}, @3, @7)
-			}, @1, @7);
-		}
-	| VariableIdentifier '=' Expression 'IF' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				init: location({
-					kind: NodeKind.IfExpression,
-					condition: $5,
-					whenTrue: $3
-				}, @3, @5)
-			}, @1, @5);
-		}
-	| VariableIdentifier '=' Expression 'UNLESS' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				init: location({
-					kind: NodeKind.UnlessExpression,
-					condition: $5,
-					whenFalse: $3
-				}, @3, @5)
-			}, @1, @5);
-		}
-	| VariableIdentifier ':=' 'AWAIT' Operand
-		{
-			$$ = location({
-				kind: NodeKind.AwaitExpression,
-				variables: [$1],
-				operation: $4,
-				autotype: true
-			}, @1, @4);
-		}
-	| VariableIdentifier ':=' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				init: $3,
-				autotype: true
-			}, @1, @3);
-		}
-	| VariableIdentifier '=' 'AWAIT' Operand
-		{
-			$$ = location({
-				kind: NodeKind.AwaitExpression,
-				variables: [$1],
-				operation: $4
-			}, @1, @4);
-		}
-	| VariableIdentifier '=' Expression
-		{
-			$$ = location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				init: $3
-			}, @1, @3);
-		}
-	;
-// }}}
-
-VariableList // {{{
-	: VariableList ',' Identifier ColonSeparator TypeVar '=' 'AWAIT' Operand
-		{
-			$1.push(location({
-				kind: NodeKind.VariableDeclarator,
-				name: $2,
-				type: $4
-			}, @2, @4));
-			
-			$$ = [location({
-				kind: NodeKind.AwaitExpression,
-				variables: $1,
-				operation: $7
-			}, @1, @7)];
-		}
-	| VariableList ',' VariableIdentifier '=' 'AWAIT' Operand
-		{
-			$1.push(location({
-				kind: NodeKind.VariableDeclarator,
-				name: $3
-			}, @3));
-			
-			$$ = [location({
-				kind: NodeKind.AwaitExpression,
-				variables: $1,
-				operation: $6
-			}, @1, @6)];
-		}
-	| VariableList ',' Identifier ColonSeparator TypeVar
-		{
-			$1.push(location({
-				kind: NodeKind.VariableDeclarator,
-				name: $2,
-				type: $4
-			}, @2, @4));
-		}
-	| VariableList ',' VariableIdentifier
-		{
-			$1.push(location({
-				kind: NodeKind.VariableDeclarator,
-				name: $3
-			}, @3));
-		}
-	| Identifier ColonSeparator TypeVar
-		{
-			$$ = [location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1,
-				type: $3
-			}, @1, @3)];
-		}
-	| VariableIdentifier
-		{
-			$$ = [location({
-				kind: NodeKind.VariableDeclarator,
-				name: $1
-			}, @1)];
 		}
 	;
 // }}}
@@ -6973,6 +7045,27 @@ function reorderExpression(operations) { // {{{
 		}
 		
 		return operations[0];
+	}
+} // }}}
+
+function setCondition(value, valPosition, condition, condPosition) { // {{{
+	if(condition) {
+		if(condition.kind === NodeKind.IfExpression) {
+			condition.whenTrue = value;
+			
+			return location(condition, valPosition, condPosition);
+		}
+		else if(condition.kind === NodeKind.UnlessExpression) {
+			condition.whenFalse = value;
+			
+			return location(condition, valPosition, condPosition);
+		}
+		else {
+			throw new Error('Not supported ' + condition.kind);
+		}
+	}
+	else {
+		return value;
 	}
 } // }}}
 
