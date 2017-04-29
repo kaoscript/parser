@@ -96,12 +96,23 @@
       "variables": [
         {
           "kind": 98,
-          "name": [
-            {
-              "kind": 11,
-              "name": {
-                "kind": 42,
-                "name": "a",
+          "name": {
+            "kind": 2,
+            "elements": [
+              {
+                "kind": 11,
+                "name": {
+                  "kind": 42,
+                  "name": "a",
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 7
+                  }
+                },
                 "start": {
                   "line": 3,
                   "column": 6
@@ -111,20 +122,20 @@
                   "column": 7
                 }
               },
-              "start": {
-                "line": 3,
-                "column": 6
-              },
-              "end": {
-                "line": 3,
-                "column": 7
-              }
-            },
-            {
-              "kind": 11,
-              "name": {
-                "kind": 42,
-                "name": "b",
+              {
+                "kind": 11,
+                "name": {
+                  "kind": 42,
+                  "name": "b",
+                  "start": {
+                    "line": 3,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 10
+                  }
+                },
                 "start": {
                   "line": 3,
                   "column": 9
@@ -134,20 +145,20 @@
                   "column": 10
                 }
               },
-              "start": {
-                "line": 3,
-                "column": 9
-              },
-              "end": {
-                "line": 3,
-                "column": 10
-              }
-            },
-            {
-              "kind": 11,
-              "name": {
-                "kind": 42,
-                "name": "c",
+              {
+                "kind": 11,
+                "name": {
+                  "kind": 42,
+                  "name": "c",
+                  "start": {
+                    "line": 3,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 13
+                  }
+                },
                 "start": {
                   "line": 3,
                   "column": 12
@@ -156,17 +167,17 @@
                   "line": 3,
                   "column": 13
                 }
-              },
-              "start": {
-                "line": 3,
-                "column": 12
-              },
-              "end": {
-                "line": 3,
-                "column": 13
               }
+            ],
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 14
             }
-          ],
+          },
           "start": {
             "line": 3,
             "column": 5

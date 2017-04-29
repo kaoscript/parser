@@ -171,12 +171,23 @@
           "variables": [
             {
               "kind": 98,
-              "name": [
-                {
-                  "kind": 11,
-                  "name": {
-                    "kind": 42,
-                    "name": "gender",
+              "name": {
+                "kind": 62,
+                "elements": [
+                  {
+                    "kind": 11,
+                    "name": {
+                      "kind": 42,
+                      "name": "gender",
+                      "start": {
+                        "line": 9,
+                        "column": 7
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 13
+                      }
+                    },
                     "start": {
                       "line": 9,
                       "column": 7
@@ -186,20 +197,20 @@
                       "column": 13
                     }
                   },
-                  "start": {
-                    "line": 9,
-                    "column": 7
-                  },
-                  "end": {
-                    "line": 9,
-                    "column": 13
-                  }
-                },
-                {
-                  "kind": 11,
-                  "name": {
-                    "kind": 42,
-                    "name": "age",
+                  {
+                    "kind": 11,
+                    "name": {
+                      "kind": 42,
+                      "name": "age",
+                      "start": {
+                        "line": 9,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 18
+                      }
+                    },
                     "start": {
                       "line": 9,
                       "column": 15
@@ -208,17 +219,17 @@
                       "line": 9,
                       "column": 18
                     }
-                  },
-                  "start": {
-                    "line": 9,
-                    "column": 15
-                  },
-                  "end": {
-                    "line": 9,
-                    "column": 18
                   }
+                ],
+                "start": {
+                  "line": 9,
+                  "column": 6
+                },
+                "end": {
+                  "line": 9,
+                  "column": 19
                 }
-              ],
+              },
               "start": {
                 "line": 9,
                 "column": 6

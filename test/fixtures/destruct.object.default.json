@@ -130,12 +130,23 @@
       "variables": [
         {
           "kind": 98,
-          "name": [
-            {
-              "kind": 11,
-              "name": {
-                "kind": 42,
-                "name": "bar",
+          "name": {
+            "kind": 62,
+            "elements": [
+              {
+                "kind": 11,
+                "name": {
+                  "kind": 42,
+                  "name": "bar",
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 9
+                  }
+                },
                 "start": {
                   "line": 3,
                   "column": 6
@@ -145,20 +156,20 @@
                   "column": 9
                 }
               },
-              "start": {
-                "line": 3,
-                "column": 6
-              },
-              "end": {
-                "line": 3,
-                "column": 9
-              }
-            },
-            {
-              "kind": 11,
-              "name": {
-                "kind": 42,
-                "name": "baz",
+              {
+                "kind": 11,
+                "name": {
+                  "kind": 42,
+                  "name": "baz",
+                  "start": {
+                    "line": 3,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 14
+                  }
+                },
                 "start": {
                   "line": 3,
                   "column": 11
@@ -167,17 +178,17 @@
                   "line": 3,
                   "column": 14
                 }
-              },
-              "start": {
-                "line": 3,
-                "column": 11
-              },
-              "end": {
-                "line": 3,
-                "column": 14
               }
+            ],
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 15
             }
-          ],
+          },
           "start": {
             "line": 3,
             "column": 5

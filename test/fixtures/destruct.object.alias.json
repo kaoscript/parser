@@ -130,78 +130,89 @@
       "variables": [
         {
           "kind": 98,
-          "name": [
-            {
-              "kind": 11,
-              "alias": {
-                "kind": 42,
-                "name": "bar",
+          "name": {
+            "kind": 62,
+            "elements": [
+              {
+                "kind": 11,
+                "alias": {
+                  "kind": 42,
+                  "name": "bar",
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 9
+                  }
+                },
+                "name": {
+                  "kind": 42,
+                  "name": "a",
+                  "start": {
+                    "line": 3,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 12
+                  }
+                },
                 "start": {
                   "line": 3,
                   "column": 6
                 },
                 "end": {
                   "line": 3,
-                  "column": 9
-                }
-              },
-              "name": {
-                "kind": 42,
-                "name": "a",
-                "start": {
-                  "line": 3,
-                  "column": 11
-                },
-                "end": {
-                  "line": 3,
                   "column": 12
                 }
               },
-              "start": {
-                "line": 3,
-                "column": 6
-              },
-              "end": {
-                "line": 3,
-                "column": 12
-              }
-            },
-            {
-              "kind": 11,
-              "alias": {
-                "kind": 42,
-                "name": "baz",
+              {
+                "kind": 11,
+                "alias": {
+                  "kind": 42,
+                  "name": "baz",
+                  "start": {
+                    "line": 3,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 17
+                  }
+                },
+                "name": {
+                  "kind": 42,
+                  "name": "b",
+                  "start": {
+                    "line": 3,
+                    "column": 19
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 20
+                  }
+                },
                 "start": {
                   "line": 3,
                   "column": 14
                 },
                 "end": {
                   "line": 3,
-                  "column": 17
-                }
-              },
-              "name": {
-                "kind": 42,
-                "name": "b",
-                "start": {
-                  "line": 3,
-                  "column": 19
-                },
-                "end": {
-                  "line": 3,
                   "column": 20
                 }
-              },
-              "start": {
-                "line": 3,
-                "column": 14
-              },
-              "end": {
-                "line": 3,
-                "column": 20
               }
+            ],
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 21
             }
-          ],
+          },
           "start": {
             "line": 3,
             "column": 5

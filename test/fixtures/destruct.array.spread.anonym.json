@@ -8,12 +8,23 @@
       "variables": [
         {
           "kind": 98,
-          "name": [
-            {
-              "kind": 11,
-              "name": {
-                "kind": 42,
-                "name": "x",
+          "name": {
+            "kind": 2,
+            "elements": [
+              {
+                "kind": 11,
+                "name": {
+                  "kind": 42,
+                  "name": "x",
+                  "start": {
+                    "line": 1,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 7
+                  }
+                },
                 "start": {
                   "line": 1,
                   "column": 6
@@ -23,20 +34,20 @@
                   "column": 7
                 }
               },
-              "start": {
-                "line": 1,
-                "column": 6
-              },
-              "end": {
-                "line": 1,
-                "column": 7
-              }
-            },
-            {
-              "kind": 11,
-              "name": {
-                "kind": 42,
-                "name": "y",
+              {
+                "kind": 11,
+                "name": {
+                  "kind": 42,
+                  "name": "y",
+                  "start": {
+                    "line": 1,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 10
+                  }
+                },
                 "start": {
                   "line": 1,
                   "column": 9
@@ -46,24 +57,24 @@
                   "column": 10
                 }
               },
-              "start": {
-                "line": 1,
-                "column": 9
+              {
+                "kind": 65,
+                "spread": true
               },
-              "end": {
-                "line": 1,
-                "column": 10
-              }
-            },
-            {
-              "kind": 65,
-              "spread": true
-            },
-            {
-              "kind": 11,
-              "name": {
-                "kind": 42,
-                "name": "z",
+              {
+                "kind": 11,
+                "name": {
+                  "kind": 42,
+                  "name": "z",
+                  "start": {
+                    "line": 1,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 18
+                  }
+                },
                 "start": {
                   "line": 1,
                   "column": 17
@@ -72,17 +83,17 @@
                   "line": 1,
                   "column": 18
                 }
-              },
-              "start": {
-                "line": 1,
-                "column": 17
-              },
-              "end": {
-                "line": 1,
-                "column": 18
               }
+            ],
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 19
             }
-          ],
+          },
           "start": {
             "line": 1,
             "column": 5

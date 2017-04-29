@@ -166,29 +166,40 @@
       "variables": [
         {
           "kind": 98,
-          "name": [
-            {
-              "kind": 11,
-              "alias": {
-                "kind": 42,
-                "name": "bar",
-                "start": {
-                  "line": 3,
-                  "column": 6
+          "name": {
+            "kind": 62,
+            "elements": [
+              {
+                "kind": 11,
+                "alias": {
+                  "kind": 42,
+                  "name": "bar",
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 9
+                  }
                 },
-                "end": {
-                  "line": 3,
-                  "column": 9
-                }
-              },
-              "name": {
-                "kind": 62,
-                "elements": [
-                  {
-                    "kind": 11,
-                    "name": {
-                      "kind": 42,
-                      "name": "n1",
+                "name": {
+                  "kind": 62,
+                  "elements": [
+                    {
+                      "kind": 11,
+                      "name": {
+                        "kind": 42,
+                        "name": "n1",
+                        "start": {
+                          "line": 3,
+                          "column": 13
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 15
+                        }
+                      },
                       "start": {
                         "line": 3,
                         "column": 13
@@ -198,70 +209,70 @@
                         "column": 15
                       }
                     },
-                    "start": {
-                      "line": 3,
-                      "column": 13
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 15
-                    }
-                  },
-                  {
-                    "kind": 11,
-                    "alias": {
-                      "kind": 42,
-                      "name": "n2",
+                    {
+                      "kind": 11,
+                      "alias": {
+                        "kind": 42,
+                        "name": "n2",
+                        "start": {
+                          "line": 3,
+                          "column": 17
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 19
+                        }
+                      },
+                      "name": {
+                        "kind": 42,
+                        "name": "qux",
+                        "start": {
+                          "line": 3,
+                          "column": 21
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 24
+                        }
+                      },
                       "start": {
                         "line": 3,
                         "column": 17
                       },
                       "end": {
                         "line": 3,
-                        "column": 19
-                      }
-                    },
-                    "name": {
-                      "kind": 42,
-                      "name": "qux",
-                      "start": {
-                        "line": 3,
-                        "column": 21
-                      },
-                      "end": {
-                        "line": 3,
                         "column": 24
                       }
-                    },
-                    "start": {
-                      "line": 3,
-                      "column": 17
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 24
                     }
+                  ],
+                  "start": {
+                    "line": 3,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 26
                   }
-                ],
+                },
                 "start": {
                   "line": 3,
-                  "column": 11
+                  "column": 6
                 },
                 "end": {
                   "line": 3,
                   "column": 26
                 }
-              },
-              "start": {
-                "line": 3,
-                "column": 6
-              },
-              "end": {
-                "line": 3,
-                "column": 26
               }
+            ],
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 27
             }
-          ],
+          },
           "start": {
             "line": 3,
             "column": 5

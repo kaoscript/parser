@@ -1302,6 +1302,20 @@ ConstDeclaration // {{{
 	;
 // }}}
 
+ConstDeclaration_NoAwait // {{{
+	: 'CONST' TypedVariable VariableEquals Expression
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: false,
+				variables: [$2],
+				autotype: $3,
+				init: $4
+			}, @1, @4);
+		}
+	;
+// }}}
+
 CreateClassName // {{{
 	: TypeEntity
 	| VariableName
@@ -1347,19 +1361,25 @@ DestructuringArray // {{{
 	: '[' NL_0M DestructuringArrayPN DestructuringArrayItem ']'
 		{
 			$3.push($4);
-			$$ = $3;
+			
+			$$ = location({
+				kind: NodeKind.ArrayBinding,
+				elements: $3
+			}, @1, @5);
 		}
 	| '[' NL_0M DestructuringArrayPN ']'
 		{
-			$$ = $3;
+			$$ = location({
+				kind: NodeKind.ArrayBinding,
+				elements: [$3]
+			}, @1, @4);
 		}
 	| '[' NL_0M DestructuringArrayItem ']'
 		{
-			$$ = [$3];
-		}
-	| '[' NL_0M ']'
-		{
-			$$ = [];
+			$$ = location({
+				kind: NodeKind.ArrayBinding,
+				elements: [$3]
+			}, @1, @4);
 		}
 	;
 // }}}
@@ -1436,19 +1456,25 @@ DestructuringObject // {{{
 	: '{' NL_0M DestructuringObjectPN DestructuringObjectItem '}'
 		{
 			$3.push($4);
-			$$ = $3;
+			
+			$$ = location({
+				kind: NodeKind.ObjectBinding,
+				elements: $3
+			}, @1, @5);
 		}
 	| '{' NL_0M DestructuringObjectPN '}'
 		{
-			$$ = $3;
+			$$ = location({
+				kind: NodeKind.ObjectBinding,
+				elements: [$3]
+			}, @1, @4);
 		}
 	| '{' NL_0M DestructuringObjectItem '}'
 		{
-			$$ = [$3];
-		}
-	| '{' NL_0M '}'
-		{
-			$$ = [];
+			$$ = location({
+				kind: NodeKind.ObjectBinding,
+				elements: [$3]
+			}, @1, @4);
 		}
 	;
 // }}}
@@ -1672,10 +1698,10 @@ ExportDeclaratorLBPNI // {{{
 
 ExportDeclarator // {{{
 	: ClassDeclaration
-	| ConstDeclaration
+	| ConstDeclaration_NoAwait
 	| EnumDeclaration
 	| FunctionDeclaration
-	| LetDeclaration
+	| LetDeclaration_NoAwait
 	| NamespaceDeclaration
 	| TypeDeclaration
 	| Identifier 'AS' Identifier
@@ -3536,6 +3562,62 @@ LetDeclaration // {{{
 			}, @1, @5);
 		}
 	| 'LET' DestructuringArray VariableEquals Expression VariableCondition
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [location({
+					kind: NodeKind.VariableDeclarator,
+					name: $2,
+				}, @2)],
+				autotype: $3,
+				init: setCondition($4, @4, $5, @5)
+			}, @1, @5);
+		}
+	| 'LET' DestructuringObject VariableEquals Expression VariableCondition
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [location({
+					kind: NodeKind.VariableDeclarator,
+					name: $2,
+				}, @2)],
+				autotype: $3,
+				init: setCondition($4, @4, $5, @5)
+			}, @1, @5);
+		}
+	| 'LET' TypedIdentifier VariableEquals Expression VariableCondition
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [$2],
+				autotype: $3,
+				init: setCondition($4, @4, $5, @5)
+			}, @1, @5);
+		}
+	| 'LET' TypedIdentifier
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [$2]
+			}, @1, @2);
+		}
+	| 'LET' TypedIdentifier ',' TypedIdentifierListX
+		{
+			$$ = location({
+				kind: NodeKind.VariableDeclaration,
+				rebindable: true,
+				variables: [$2].concat($4)
+			}, @1, @4);
+		}
+	;
+// }}}
+
+LetDeclaration_NoAwait // {{{
+	: 'LET' DestructuringArray VariableEquals Expression VariableCondition
 		{
 			$$ = location({
 				kind: NodeKind.VariableDeclaration,
@@ -6790,19 +6872,7 @@ VariableEquals // {{{
 VariableIdentifier // {{{
 	: Identifier
 	| DestructuringArray
-		{
-			$$ = location({
-				kind: NodeKind.ArrayBinding,
-				elements: $1
-			}, @1);
-		}
 	| DestructuringObject
-		{
-			$$ = location({
-				kind: NodeKind.ObjectBinding,
-				elements: $1
-			}, @1);
-		}
 	;
 // }}}
 

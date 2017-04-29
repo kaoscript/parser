@@ -59,44 +59,55 @@
       "variables": [
         {
           "kind": 98,
-          "name": [
-            {
-              "kind": 11,
-              "alias": {
-                "kind": 42,
-                "name": "key",
+          "name": {
+            "kind": 62,
+            "elements": [
+              {
+                "kind": 11,
+                "alias": {
+                  "kind": 42,
+                  "name": "key",
+                  "start": {
+                    "line": 3,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 12
+                  },
+                  "computed": true
+                },
+                "name": {
+                  "kind": 42,
+                  "name": "foo",
+                  "start": {
+                    "line": 3,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 17
+                  }
+                },
                 "start": {
                   "line": 3,
                   "column": 7
                 },
                 "end": {
                   "line": 3,
-                  "column": 12
-                },
-                "computed": true
-              },
-              "name": {
-                "kind": 42,
-                "name": "foo",
-                "start": {
-                  "line": 3,
-                  "column": 14
-                },
-                "end": {
-                  "line": 3,
                   "column": 17
                 }
-              },
-              "start": {
-                "line": 3,
-                "column": 7
-              },
-              "end": {
-                "line": 3,
-                "column": 17
               }
+            ],
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 19
             }
-          ],
+          },
           "start": {
             "line": 3,
             "column": 5
