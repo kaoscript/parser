@@ -1270,10 +1270,8 @@ ConstDeclaration // {{{
 				rebindable: false,
 				variables: $2,
 				autotype: $3,
-				init: location({
-					kind: NodeKind.AwaitExpression,
-					operation: $5
-				}, @4, @5)
+				await: true,
+				init: $5
 			}, @1, @5);
 		}
 	| 'CONST' TypedVariable VariableEquals 'AWAIT' Operand
@@ -1283,10 +1281,8 @@ ConstDeclaration // {{{
 				rebindable: false,
 				variables: [$2],
 				autotype: $3,
-				init: location({
-					kind: NodeKind.AwaitExpression,
-					operation: $5
-				}, @4, @5)
+				await: true,
+				init: $5
 			}, @1, @5);
 		}
 	| 'CONST' TypedVariable VariableEquals Expression
@@ -1296,6 +1292,7 @@ ConstDeclaration // {{{
 				rebindable: false,
 				variables: [$2],
 				autotype: $3,
+				await: false,
 				init: $4
 			}, @1, @4);
 		}
@@ -1310,6 +1307,7 @@ ConstDeclaration_NoAwait // {{{
 				rebindable: false,
 				variables: [$2],
 				autotype: $3,
+				await: false,
 				init: $4
 			}, @1, @4);
 		}
@@ -3481,10 +3479,8 @@ LetDeclaration // {{{
 					name: $2
 				}, @2)].concat($4),
 				autotype: $5,
-				init: location({
-					kind: NodeKind.AwaitExpression,
-					operation: $7
-				}, @6, @7)
+				await: true,
+				init: $7
 			}, @1, @7);
 		}
 	| 'LET' DestructuringObject ',' TypedVariableListX VariableEquals 'AWAIT' Operand
@@ -3497,10 +3493,8 @@ LetDeclaration // {{{
 					name: $2
 				}, @2)].concat($4),
 				autotype: $5,
-				init: location({
-					kind: NodeKind.AwaitExpression,
-					operation: $7
-				}, @6, @7)
+				await: true,
+				init: $7
 			}, @1, @7);
 		}
 	| 'LET' TypedIdentifier ',' TypedVariableListX VariableEquals 'AWAIT' Operand
@@ -3510,10 +3504,8 @@ LetDeclaration // {{{
 				rebindable: true,
 				variables: [$2].concat($4),
 				autotype: $5,
-				init: location({
-					kind: NodeKind.AwaitExpression,
-					operation: $7
-				}, @6, @7)
+				await: true,
+				init: $7
 			}, @1, @7);
 		}
 	| 'LET' DestructuringArray VariableEquals 'AWAIT' Operand
@@ -3526,10 +3518,8 @@ LetDeclaration // {{{
 					name: $2,
 				}, @2)],
 				autotype: $3,
-				init: location({
-					kind: NodeKind.AwaitExpression,
-					operation: $5
-				}, @4, @5)
+				await: true,
+				init: $5
 			}, @1, @5);
 		}
 	| 'LET' DestructuringObject VariableEquals 'AWAIT' Operand
@@ -3542,10 +3532,8 @@ LetDeclaration // {{{
 					name: $2,
 				}, @2)],
 				autotype: $3,
-				init: location({
-					kind: NodeKind.AwaitExpression,
-					operation: @5
-				}, @4, @5)
+				await: true,
+				init: $5
 			}, @1, @5);
 		}
 	| 'LET' TypedIdentifier VariableEquals 'AWAIT' Operand
@@ -3555,10 +3543,8 @@ LetDeclaration // {{{
 				rebindable: true,
 				variables: [$2],
 				autotype: $3,
-				init: location({
-					kind: NodeKind.AwaitExpression,
-					operation: $5
-				}, @4, @5)
+				await: true,
+				init: $5
 			}, @1, @5);
 		}
 	| 'LET' DestructuringArray VariableEquals Expression VariableCondition
@@ -3571,6 +3557,7 @@ LetDeclaration // {{{
 					name: $2,
 				}, @2)],
 				autotype: $3,
+				await: false,
 				init: setCondition($4, @4, $5, @5)
 			}, @1, @5);
 		}
@@ -3584,6 +3571,7 @@ LetDeclaration // {{{
 					name: $2,
 				}, @2)],
 				autotype: $3,
+				await: false,
 				init: setCondition($4, @4, $5, @5)
 			}, @1, @5);
 		}
@@ -3594,6 +3582,7 @@ LetDeclaration // {{{
 				rebindable: true,
 				variables: [$2],
 				autotype: $3,
+				await: false,
 				init: setCondition($4, @4, $5, @5)
 			}, @1, @5);
 		}
