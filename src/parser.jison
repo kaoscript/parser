@@ -903,8 +903,7 @@ BlockSX // {{{
 			$$ = location($1, @2);
 			$$.attributes.push($2);
 		}
-	| BlockSX NL_EOF_1
-	|
+	| NL_0M
 		{
 			$$ = {
 				kind: NodeKind.Block,
@@ -916,7 +915,7 @@ BlockSX // {{{
 // }}}
 
 BlockAttribute // {{{
-	: AttributeBlock NL_EOF_1
+	: AttributeBlock NL_EOF_1M
 		{
 			$$ = $1;
 		}
@@ -2302,7 +2301,7 @@ Expression0CNListPN // {{{
 		}
 	;
 // }}}
-	
+
 Expression0CNListPNI // {{{
 	: Expression ',' NL_0M
 	| Expression NL_1M
@@ -3868,15 +3867,15 @@ ModuleBody // {{{
 // }}}
 
 ModuleBodySX // {{{
-	: ExportDeclaration NL_EOF_1
-	| ExternDeclaration NL_EOF_1
-	| ImportDeclaration NL_EOF_1
-	| IncludeDeclaration NL_EOF_1
-	| IncludeOnceDeclaration NL_EOF_1
-	| RequireDeclaration NL_EOF_1
-	| ExternOrRequireDeclaration NL_EOF_1
-	| RequireOrExternDeclaration NL_EOF_1
-	| RequireOrImportDeclaration NL_EOF_1
+	: ExportDeclaration NL_EOF_1M
+	| ExternDeclaration NL_EOF_1M
+	| ExternOrRequireDeclaration NL_EOF_1M
+	| ImportDeclaration NL_EOF_1M
+	| IncludeDeclaration NL_EOF_1M
+	| IncludeOnceDeclaration NL_EOF_1M
+	| RequireDeclaration NL_EOF_1M
+	| RequireOrExternDeclaration NL_EOF_1M
+	| RequireOrImportDeclaration NL_EOF_1M
 	| Statement
 	;
 // }}}
@@ -3908,18 +3907,17 @@ NamespaceDeclaration // {{{
 // }}}
 
 NamespaceStatement // {{{
-	: ClassDeclaration
-	| ConstDeclaration
-	| EnumDeclaration
-	| FunctionDeclaration
-	| LetDeclaration
-	| NamespaceDeclaration
-	| TypeDeclaration
+	: ExportDeclaration NL_EOF_1M
+	| ExternDeclaration NL_EOF_1M
+	| ImportDeclaration NL_EOF_1M
+	| IncludeDeclaration NL_EOF_1M
+	| IncludeOnceDeclaration NL_EOF_1M
+	| Statement
 	;
 // }}}
 
 NamespaceStatementList // {{{
-	: NamespaceStatementList NamespaceStatement NL_1M
+	: NamespaceStatementList NamespaceStatement
 		{
 			$1.push($2)
 			$$ = $1
