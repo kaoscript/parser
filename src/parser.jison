@@ -709,6 +709,17 @@ AttributeMemberList // {{{
 	;
 // }}}
 
+AwaitExpression // {{{
+	: 'AWAIT' Operand
+		{
+			$$ = location({
+				kind: NodeKind.AwaitExpression,
+				operation: $2
+			}, @1, @2);
+		}
+	;
+// }}}
+
 BinaryOperatorKind // {{{
 	: '+'
 		{
@@ -4293,6 +4304,7 @@ OperandSX // {{{
 
 OperandElement // {{{
 	: Array
+	| AwaitExpression
 	| CreateExpression
 	| Identifier
 	| Number
@@ -4505,6 +4517,7 @@ OperandSX_NoAnonymousFunction // {{{
 
 OperandElement_NoAnonymousFunction // {{{
 	: Array
+	| AwaitExpression
 	| CreateExpression
 	| Identifier
 	| Number
@@ -4717,6 +4730,7 @@ OperandSX_NoObject // {{{
 
 OperandElement_NoObject // {{{
 	: Array
+	| AwaitExpression
 	| CreateExpression
 	| Identifier
 	| Number
@@ -4931,6 +4945,7 @@ OperandSX_NoWhereNoWith // {{{
 
 OperandElement_NoWhereNoWith // {{{
 	: Array
+	| AwaitExpression
 	| CreateExpression
 	| Identifier_NoWhereNoWith
 	| Number
