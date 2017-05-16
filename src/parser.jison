@@ -2579,22 +2579,83 @@ ForInMiddle // {{{
 				to: $4
 			};
 		}
-	| 'IN' Expression 'DESC'
+	| 'IN' Expression 'DESC' NL_0M ForInTail
 		{
 			$$ = {
 				kind: NodeKind.ForInStatement,
 				expression: $2,
 				desc: true
 			};
+			
+			if($5) {
+				if($5.from) {
+					$$.from = $5.from;
+				}
+				if($5.til) {
+					$$.til = $5.til;
+				}
+				if($5.to) {
+					$$.to = $5.to;
+				}
+			}
 		}
-	| 'IN' Expression
+	| 'IN' Expression NL_0M ForInTail
 		{
 			$$ = {
 				kind: NodeKind.ForInStatement,
 				expression: $2,
 				desc: false
 			};
+			
+			if($4) {
+				if($4.from) {
+					$$.from = $4.from;
+				}
+				if($4.til) {
+					$$.til = $4.til;
+				}
+				if($4.to) {
+					$$.to = $4.to;
+				}
+			}
 		}
+	;
+// }}}
+
+ForInTail // {{{
+	: 'FROM' Expression 'TIL' Expression
+		{
+			$$ = {
+				from: $2,
+				til: $4
+			};
+		}
+	| 'FROM' Expression 'TO' Expression
+		{
+			$$ = {
+				from: $2,
+				to: $4
+			};
+		}
+	| 'FROM' Expression
+		{
+			$$ = {
+				from: $2
+			};
+		}
+	| 'TIL' Expression
+		{
+			$$ = {
+				til: $2
+			};
+		}
+	| 'TO' Expression
+		{
+			$$ = {
+				to: $2
+			};
+		}
+	|
 	;
 // }}}
 
@@ -2961,6 +3022,16 @@ FunctionParameterModifier // {{{
 					max: Infinity
 				}
 			}, @1, @5);
+		}
+	| '...' '{' Number '}'
+		{
+			$$ = location({
+				kind: ModifierKind.Rest,
+				arity: {
+					min: $3.value,
+					max: $3.value
+				}
+			}, @1, @4);
 		}
 	| '...'
 		{
@@ -5950,6 +6021,10 @@ SwitchCaseListPN // {{{
 		{
 			$$ = [$1];
 		}
+	|
+		{
+			$$ = [];
+		}
 	;
 // }}}
 
@@ -6912,6 +6987,7 @@ VariableName // {{{
 			}, @1, @4);
 		}
 	| Identifier
+	| ThisExpression
 	;
 // }}}
 
