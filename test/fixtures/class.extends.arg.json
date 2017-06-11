@@ -45,6 +45,14 @@
               "column": 9
             }
           },
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 3,
+            "column": 22
+          },
           "type": {
             "kind": 91,
             "typeName": {
@@ -79,27 +87,21 @@
               "line": 3,
               "column": 22
             }
-          },
-          "start": {
-            "line": 3,
-            "column": 3
-          },
-          "end": {
-            "line": 3,
-            "column": 22
           }
         },
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
-            "name": "Shape",
+            "name": "constructor",
             "start": {
               "line": 6,
               "column": 2
             },
             "end": {
               "line": 6,
-              "column": 7
+              "column": 13
             }
           },
           "parameters": [
@@ -110,49 +112,49 @@
                   "kind": 10,
                   "start": {
                     "line": 6,
-                    "column": 8
+                    "column": 14
                   },
                   "end": {
                     "line": 6,
-                    "column": 9
+                    "column": 15
                   }
                 }
               ],
+              "start": {
+                "line": 6,
+                "column": 14
+              },
+              "end": {
+                "line": 6,
+                "column": 20
+              },
               "name": {
                 "kind": 42,
                 "name": "color",
                 "start": {
                   "line": 6,
-                  "column": 9
+                  "column": 15
                 },
                 "end": {
                   "line": 6,
-                  "column": 14
+                  "column": 20
                 }
-              },
-              "start": {
-                "line": 6,
-                "column": 8
-              },
-              "end": {
-                "line": 6,
-                "column": 14
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 6,
             "column": 2
           },
           "end": {
             "line": 6,
-            "column": 15
+            "column": 21
           },
-          "kind": 56,
-          "modifiers": []
+          "throws": []
         },
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "draw",
@@ -169,6 +171,14 @@
             {
               "kind": 66,
               "modifiers": [],
+              "start": {
+                "line": 8,
+                "column": 7
+              },
+              "end": {
+                "line": 8,
+                "column": 13
+              },
               "name": {
                 "kind": 42,
                 "name": "canvas",
@@ -180,18 +190,9 @@
                   "line": 8,
                   "column": 13
                 }
-              },
-              "start": {
-                "line": 8,
-                "column": 7
-              },
-              "end": {
-                "line": 8,
-                "column": 13
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 8,
             "column": 2
@@ -200,8 +201,6 @@
             "line": 10,
             "column": 3
           },
-          "kind": 56,
-          "modifiers": [],
           "type": {
             "kind": 91,
             "typeName": {
@@ -225,6 +224,7 @@
               "column": 22
             }
           },
+          "throws": [],
           "body": {
             "kind": 12,
             "attributes": [],
@@ -315,30 +315,20 @@
         }
       },
       "modifiers": [],
-      "extends": {
-        "kind": 42,
-        "name": "Shape",
-        "start": {
-          "line": 13,
-          "column": 25
-        },
-        "end": {
-          "line": 13,
-          "column": 30
-        }
-      },
       "members": [
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
-            "name": "Rectangle",
+            "name": "constructor",
             "start": {
               "line": 14,
               "column": 2
             },
             "end": {
               "line": 14,
-              "column": 11
+              "column": 13
             }
           },
           "parameters": [
@@ -349,49 +339,49 @@
                   "kind": 10,
                   "start": {
                     "line": 14,
-                    "column": 12
+                    "column": 14
                   },
                   "end": {
                     "line": 14,
-                    "column": 13
+                    "column": 15
                   }
                 }
               ],
+              "start": {
+                "line": 14,
+                "column": 14
+              },
+              "end": {
+                "line": 14,
+                "column": 20
+              },
               "name": {
                 "kind": 42,
                 "name": "color",
                 "start": {
                   "line": 14,
-                  "column": 13
+                  "column": 15
                 },
                 "end": {
                   "line": 14,
-                  "column": 18
+                  "column": 20
                 }
-              },
-              "start": {
-                "line": 14,
-                "column": 12
-              },
-              "end": {
-                "line": 14,
-                "column": 18
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 14,
             "column": 2
           },
           "end": {
             "line": 14,
-            "column": 19
+            "column": 21
           },
-          "kind": 56,
-          "modifiers": []
+          "throws": []
         },
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "draw",
@@ -408,6 +398,14 @@
             {
               "kind": 66,
               "modifiers": [],
+              "start": {
+                "line": 16,
+                "column": 7
+              },
+              "end": {
+                "line": 16,
+                "column": 13
+              },
               "name": {
                 "kind": 42,
                 "name": "canvas",
@@ -419,18 +417,9 @@
                   "line": 16,
                   "column": 13
                 }
-              },
-              "start": {
-                "line": 16,
-                "column": 7
-              },
-              "end": {
-                "line": 16,
-                "column": 13
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 16,
             "column": 2
@@ -439,8 +428,6 @@
             "line": 18,
             "column": 3
           },
-          "kind": 56,
-          "modifiers": [],
           "type": {
             "kind": 91,
             "typeName": {
@@ -464,6 +451,7 @@
               "column": 22
             }
           },
+          "throws": [],
           "body": {
             "kind": 12,
             "attributes": [],
@@ -485,11 +473,11 @@
                   },
                   "start": {
                     "line": 17,
-                    "column": 28
+                    "column": 10
                   },
                   "end": {
                     "line": 17,
-                    "column": 43
+                    "column": 57
                   },
                   "operands": [
                     {
@@ -584,6 +572,18 @@
       "end": {
         "line": 19,
         "column": 2
+      },
+      "extends": {
+        "kind": 42,
+        "name": "Shape",
+        "start": {
+          "line": 13,
+          "column": 25
+        },
+        "end": {
+          "line": 13,
+          "column": 30
+        }
       },
       "attributes": []
     },

@@ -11,6 +11,17 @@
         "kind": 55,
         "object": {
           "kind": 10,
+          "operator": {
+            "kind": 21,
+            "start": {
+              "line": 1,
+              "column": 6
+            },
+            "end": {
+              "line": 1,
+              "column": 8
+            }
+          },
           "left": {
             "kind": 42,
             "name": "foo",
@@ -46,24 +57,13 @@
               "column": 15
             }
           },
-          "operator": {
-            "kind": 21,
-            "start": {
-              "line": 1,
-              "column": 6
-            },
-            "end": {
-              "line": 1,
-              "column": 8
-            }
-          },
           "start": {
             "line": 1,
-            "column": 2
+            "column": 1
           },
           "end": {
             "line": 1,
-            "column": 15
+            "column": 16
           }
         },
         "property": {

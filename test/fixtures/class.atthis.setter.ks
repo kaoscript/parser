@@ -3,11 +3,11 @@ class Greetings {
 		_message: string = ''
 	}
 	
-	Greetings() {
+	constructor() {
 		this('Hello!')
 	}
 	
-	Greetings(@message())
+	constructor(@message())
 	
 	greet(name: string): string {
 		return @message + '\nIt\'s nice to meet you, ' + name + '.'

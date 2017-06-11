@@ -1,4 +1,4 @@
 include once {
-	./module1
-	./module2
+	'./module1'
+	'./module2'
 }

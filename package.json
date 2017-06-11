@@ -1,7 +1,7 @@
 {
 	"name": "@kaoscript/parser",
 	"description": "Parse kaoscript files and generate an abstract syntax tree",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"author": {
 		"name": "Baptiste Augrain",
 		"email": "daiyam@zokugun.org"
@@ -25,18 +25,18 @@
 	],
 	"main": "lib/parser.js",
 	"dependencies": {
-		"@kaoscript/ast": "0.7.x"
+		"@kaoscript/ast": "0.7.x",
+		"@kaoscript/runtime": "0.6.x"
 	},
 	"devDependencies": {
 		"chai": "2.x",
-		"jison": "0.4.17",
+		"kaoscript": "0.9.x",
 		"mocha": "2.x"
 	},
 	"engines": {
 		"node": ">= 4.0.0"
 	},
 	"scripts": {
-		"build": "jison ./src/parser.jison -o ./lib/parser.js -p slr > /dev/null",
 		"test": "mocha --colors --check-leaks --reporter spec"
 	},
 	"keywords": [

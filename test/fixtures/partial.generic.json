@@ -273,6 +273,8 @@
       },
       "properties": [
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "sort",
@@ -286,7 +288,6 @@
             }
           },
           "parameters": [],
-          "throws": [],
           "start": {
             "line": 8,
             "column": 2
@@ -295,8 +296,6 @@
             "line": 8,
             "column": 64
           },
-          "kind": 56,
-          "modifiers": [],
           "type": {
             "kind": 91,
             "typeName": {
@@ -345,6 +344,7 @@
               "column": 23
             }
           },
+          "throws": [],
           "body": {
             "kind": 14,
             "scope": {
@@ -354,6 +354,17 @@
               "kind": 55,
               "object": {
                 "kind": 10,
+                "operator": {
+                  "kind": 21,
+                  "start": {
+                    "line": 8,
+                    "column": 33
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 35
+                  }
+                },
                 "left": {
                   "kind": 42,
                   "name": "this",
@@ -389,24 +400,13 @@
                     "column": 41
                   }
                 },
-                "operator": {
-                  "kind": 21,
-                  "start": {
-                    "line": 8,
-                    "column": 33
-                  },
-                  "end": {
-                    "line": 8,
-                    "column": 35
-                  }
-                },
                 "start": {
                   "line": 8,
-                  "column": 28
+                  "column": 27
                 },
                 "end": {
                   "line": 8,
-                  "column": 41
+                  "column": 42
                 }
               },
               "property": {
@@ -440,6 +440,14 @@
                   {
                     "kind": 66,
                     "modifiers": [],
+                    "start": {
+                      "line": 8,
+                      "column": 49
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 50
+                    },
                     "name": {
                       "kind": 42,
                       "name": "a",
@@ -451,19 +459,19 @@
                         "line": 8,
                         "column": 50
                       }
-                    },
-                    "start": {
-                      "line": 8,
-                      "column": 49
-                    },
-                    "end": {
-                      "line": 8,
-                      "column": 50
                     }
                   },
                   {
                     "kind": 66,
                     "modifiers": [],
+                    "start": {
+                      "line": 8,
+                      "column": 52
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 53
+                    },
                     "name": {
                       "kind": 42,
                       "name": "b",
@@ -475,14 +483,6 @@
                         "line": 8,
                         "column": 53
                       }
-                    },
-                    "start": {
-                      "line": 8,
-                      "column": 52
-                    },
-                    "end": {
-                      "line": 8,
-                      "column": 53
                     }
                   }
                 ],
@@ -501,11 +501,11 @@
                   },
                   "start": {
                     "line": 8,
-                    "column": 60
+                    "column": 58
                   },
                   "end": {
                     "line": 8,
-                    "column": 61
+                    "column": 63
                   },
                   "left": {
                     "kind": 42,

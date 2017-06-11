@@ -8,7 +8,7 @@ class Shape {
 		makeRectangle(color: string): Shape => new Shape('rectangle', color)
 	}
 	
-	Shape(@type, @color)
+	constructor(@type, @color)
 }
 
 let r = Shape.makeRectangle('black')

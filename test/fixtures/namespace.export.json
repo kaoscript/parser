@@ -63,7 +63,6 @@
               "declarations": [
                 {
                   "kind": 40,
-                  "modifiers": [],
                   "name": {
                     "kind": 42,
                     "name": "toFloat",
@@ -80,6 +79,14 @@
                     {
                       "kind": 66,
                       "modifiers": [],
+                      "start": {
+                        "line": 4,
+                        "column": 22
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 35
+                      },
                       "name": {
                         "kind": 42,
                         "name": "value",
@@ -114,17 +121,18 @@
                           "line": 4,
                           "column": 35
                         }
-                      },
-                      "start": {
-                        "line": 4,
-                        "column": 22
-                      },
-                      "end": {
-                        "line": 4,
-                        "column": 35
                       }
                     }
                   ],
+                  "start": {
+                    "line": 4,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 65
+                  },
+                  "modifiers": [],
                   "type": {
                     "kind": 91,
                     "typeName": {
@@ -189,14 +197,6 @@
                       "line": 4,
                       "column": 65
                     }
-                  },
-                  "start": {
-                    "line": 4,
-                    "column": 9
-                  },
-                  "end": {
-                    "line": 4,
-                    "column": 65
                   }
                 }
               ],
@@ -207,7 +207,8 @@
               "end": {
                 "line": 4,
                 "column": 65
-              }
+              },
+              "attributes": []
             }
           ],
           "start": {

@@ -3,7 +3,7 @@ class Shape {
 		_color: string = ''
 	}
 	
-	Shape(@color)
+	constructor(@color)
 	
 	color(): string => this._color
 	

@@ -16,19 +16,6 @@
           "column": 16
         }
       },
-      "version": {
-        "major": "1",
-        "minor": "0",
-        "patch": "0",
-        "start": {
-          "line": 1,
-          "column": 17
-        },
-        "end": {
-          "line": 1,
-          "column": 22
-        }
-      },
       "modifiers": [],
       "members": [
         {
@@ -58,6 +45,14 @@
               "column": 17
             }
           },
+          "start": {
+            "line": 2,
+            "column": 5
+          },
+          "end": {
+            "line": 2,
+            "column": 25
+          },
           "type": {
             "kind": 91,
             "typeName": {
@@ -80,27 +75,21 @@
               "line": 2,
               "column": 25
             }
-          },
-          "start": {
-            "line": 2,
-            "column": 5
-          },
-          "end": {
-            "line": 2,
-            "column": 25
           }
         },
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
-            "name": "Rectangle",
+            "name": "constructor",
             "start": {
               "line": 3,
               "column": 5
             },
             "end": {
               "line": 3,
-              "column": 14
+              "column": 16
             }
           },
           "parameters": [
@@ -111,24 +100,32 @@
                   "kind": 10,
                   "start": {
                     "line": 3,
-                    "column": 15
+                    "column": 17
                   },
                   "end": {
                     "line": 3,
-                    "column": 16
+                    "column": 18
                   }
                 }
               ],
+              "start": {
+                "line": 3,
+                "column": 17
+              },
+              "end": {
+                "line": 3,
+                "column": 33
+              },
               "name": {
                 "kind": 42,
                 "name": "color",
                 "start": {
                   "line": 3,
-                  "column": 16
+                  "column": 18
                 },
                 "end": {
                   "line": 3,
-                  "column": 21
+                  "column": 23
                 }
               },
               "defaultValue": {
@@ -136,36 +133,28 @@
                 "value": "black",
                 "start": {
                   "line": 3,
-                  "column": 24
+                  "column": 26
                 },
                 "end": {
                   "line": 3,
-                  "column": 31
+                  "column": 33
                 }
-              },
-              "start": {
-                "line": 3,
-                "column": 15
-              },
-              "end": {
-                "line": 3,
-                "column": 31
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 3,
             "column": 5
           },
           "end": {
             "line": 3,
-            "column": 32
+            "column": 34
           },
-          "kind": 56,
-          "modifiers": []
+          "throws": []
         },
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "draw",
@@ -182,6 +171,14 @@
             {
               "kind": 66,
               "modifiers": [],
+              "start": {
+                "line": 5,
+                "column": 10
+              },
+              "end": {
+                "line": 5,
+                "column": 16
+              },
               "name": {
                 "kind": 42,
                 "name": "canvas",
@@ -193,18 +190,9 @@
                   "line": 5,
                   "column": 16
                 }
-              },
-              "start": {
-                "line": 5,
-                "column": 10
-              },
-              "end": {
-                "line": 5,
-                "column": 16
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 5,
             "column": 5
@@ -213,8 +201,7 @@
             "line": 7,
             "column": 6
           },
-          "kind": 56,
-          "modifiers": [],
+          "throws": [],
           "body": {
             "kind": 12,
             "attributes": [],
@@ -310,6 +297,19 @@
       "end": {
         "line": 8,
         "column": 2
+      },
+      "version": {
+        "major": "1",
+        "minor": "0",
+        "patch": "0",
+        "start": {
+          "line": 1,
+          "column": 17
+        },
+        "end": {
+          "line": 1,
+          "column": 22
+        }
       },
       "attributes": []
     }

@@ -1,0 +1,3 @@
+let domain = {}
+
+domain.foo()

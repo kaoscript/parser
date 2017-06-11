@@ -11,6 +11,14 @@
           "specifiers": [
             {
               "kind": 50,
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 9
+              },
               "local": {
                 "kind": 42,
                 "name": "m1",
@@ -22,14 +30,6 @@
                   "line": 2,
                   "column": 9
                 }
-              },
-              "start": {
-                "line": 2,
-                "column": 2
-              },
-              "end": {
-                "line": 2,
-                "column": 9
               }
             }
           ],
@@ -39,7 +39,7 @@
           },
           "end": {
             "line": 2,
-            "column": 22
+            "column": 24
           }
         },
         {
@@ -76,7 +76,7 @@
           },
           "end": {
             "line": 4,
-            "column": 18
+            "column": 20
           }
         },
         {
@@ -97,6 +97,14 @@
                   "column": 5
                 }
               },
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 12
+              },
               "local": {
                 "kind": 42,
                 "name": "bar",
@@ -108,14 +116,6 @@
                   "line": 6,
                   "column": 12
                 }
-              },
-              "start": {
-                "line": 6,
-                "column": 2
-              },
-              "end": {
-                "line": 6,
-                "column": 12
               }
             }
           ],
@@ -125,7 +125,7 @@
           },
           "end": {
             "line": 6,
-            "column": 25
+            "column": 27
           }
         }
       ],

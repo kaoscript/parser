@@ -1,0 +1,1 @@
+return 'bonjour' unless lang == 'en'

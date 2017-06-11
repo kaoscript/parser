@@ -4,19 +4,6 @@
   "body": [
     {
       "kind": 40,
-      "modifiers": [
-        {
-          "kind": 2,
-          "start": {
-            "line": 1,
-            "column": 33
-          },
-          "end": {
-            "line": 1,
-            "column": 38
-          }
-        }
-      ],
       "name": {
         "kind": 42,
         "name": "foo",
@@ -33,6 +20,14 @@
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 21
+          },
           "name": {
             "kind": 42,
             "name": "bar",
@@ -67,19 +62,19 @@
               "line": 1,
               "column": 21
             }
-          },
-          "start": {
-            "line": 1,
-            "column": 10
-          },
-          "end": {
-            "line": 1,
-            "column": 21
           }
         },
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 23
+          },
+          "end": {
+            "line": 1,
+            "column": 31
+          },
           "name": {
             "kind": 42,
             "name": "qux",
@@ -114,47 +109,23 @@
               "line": 1,
               "column": 31
             }
-          },
-          "start": {
-            "line": 1,
-            "column": 23
-          },
-          "end": {
-            "line": 1,
-            "column": 31
           }
         }
       ],
-      "type": {
-        "kind": 91,
-        "typeName": {
-          "kind": 42,
-          "name": "string",
-          "start": {
-            "line": 1,
-            "column": 40
-          },
-          "end": {
-            "line": 1,
-            "column": 46
-          }
-        },
-        "start": {
-          "line": 1,
-          "column": 40
-        },
-        "end": {
-          "line": 1,
-          "column": 46
-        }
-      },
-      "throws": [],
       "body": {
         "kind": 12,
         "attributes": [],
         "statements": [
           {
             "kind": 73,
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 24
+            },
             "value": {
               "kind": 67,
               "operator": {
@@ -170,11 +141,11 @@
               },
               "start": {
                 "line": 2,
-                "column": 13
+                "column": 9
               },
               "end": {
                 "line": 2,
-                "column": 20
+                "column": 24
               },
               "operands": [
                 {
@@ -215,14 +186,6 @@
                 }
               ]
             },
-            "start": {
-              "line": 2,
-              "column": 2
-            },
-            "end": {
-              "line": 2,
-              "column": 24
-            },
             "attributes": []
           }
         ],
@@ -243,11 +206,47 @@
         "line": 3,
         "column": 2
       },
+      "modifiers": [
+        {
+          "kind": 2,
+          "start": {
+            "line": 1,
+            "column": 33
+          },
+          "end": {
+            "line": 1,
+            "column": 38
+          }
+        }
+      ],
+      "type": {
+        "kind": 91,
+        "typeName": {
+          "kind": 42,
+          "name": "string",
+          "start": {
+            "line": 1,
+            "column": 40
+          },
+          "end": {
+            "line": 1,
+            "column": 46
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 40
+        },
+        "end": {
+          "line": 1,
+          "column": 46
+        }
+      },
+      "throws": [],
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "bar",
@@ -264,6 +263,14 @@
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 5,
+            "column": 10
+          },
+          "end": {
+            "line": 5,
+            "column": 18
+          },
           "name": {
             "kind": 42,
             "name": "callback",
@@ -275,18 +282,9 @@
               "line": 5,
               "column": 18
             }
-          },
-          "start": {
-            "line": 5,
-            "column": 10
-          },
-          "end": {
-            "line": 5,
-            "column": 18
           }
         }
       ],
-      "throws": [],
       "body": {
         "kind": 12,
         "attributes": [],
@@ -456,6 +454,8 @@
         "line": 9,
         "column": 2
       },
+      "modifiers": [],
+      "throws": [],
       "attributes": []
     }
   ],

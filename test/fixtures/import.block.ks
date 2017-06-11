@@ -1,7 +1,7 @@
 import {
-	* as m1 from module1
+	* as m1 from 'module1'
 	
-	foo from module2
+	foo from 'module2'
 	
-	foo as bar from module3
+	foo as bar from 'module3'
 }

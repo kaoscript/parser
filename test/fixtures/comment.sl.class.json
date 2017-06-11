@@ -45,6 +45,14 @@
               "column": 11
             }
           },
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 3,
+            "column": 24
+          },
           "type": {
             "kind": 91,
             "typeName": {
@@ -79,17 +87,11 @@
               "line": 3,
               "column": 24
             }
-          },
-          "start": {
-            "line": 3,
-            "column": 3
-          },
-          "end": {
-            "line": 3,
-            "column": 24
           }
         },
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "greet",
@@ -106,6 +108,14 @@
             {
               "kind": 66,
               "modifiers": [],
+              "start": {
+                "line": 14,
+                "column": 8
+              },
+              "end": {
+                "line": 14,
+                "column": 20
+              },
               "name": {
                 "kind": 42,
                 "name": "name",
@@ -140,18 +150,9 @@
                   "line": 14,
                   "column": 20
                 }
-              },
-              "start": {
-                "line": 14,
-                "column": 8
-              },
-              "end": {
-                "line": 14,
-                "column": 20
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 14,
             "column": 2
@@ -160,8 +161,6 @@
             "line": 16,
             "column": 3
           },
-          "kind": 56,
-          "modifiers": [],
           "type": {
             "kind": 91,
             "typeName": {
@@ -185,12 +184,21 @@
               "column": 29
             }
           },
+          "throws": [],
           "body": {
             "kind": 12,
             "attributes": [],
             "statements": [
               {
                 "kind": 73,
+                "start": {
+                  "line": 15,
+                  "column": 3
+                },
+                "end": {
+                  "line": 15,
+                  "column": 67
+                },
                 "value": {
                   "kind": 67,
                   "operator": {
@@ -206,11 +214,11 @@
                   },
                   "start": {
                     "line": 15,
-                    "column": 24
+                    "column": 10
                   },
                   "end": {
                     "line": 15,
-                    "column": 63
+                    "column": 67
                   },
                   "operands": [
                     {
@@ -287,14 +295,6 @@
                       }
                     }
                   ]
-                },
-                "start": {
-                  "line": 15,
-                  "column": 3
-                },
-                "end": {
-                  "line": 15,
-                  "column": 67
                 },
                 "attributes": []
               }

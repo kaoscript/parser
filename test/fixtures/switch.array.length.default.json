@@ -132,21 +132,6 @@
       "clauses": [
         {
           "kind": 76,
-          "conditions": [
-            {
-              "kind": 77,
-              "values": [],
-              "start": {
-                "line": 4,
-                "column": 2
-              },
-              "end": {
-                "line": 4,
-                "column": 4
-              }
-            }
-          ],
-          "bindings": [],
           "body": {
             "kind": 14,
             "scope": {
@@ -203,6 +188,7 @@
                 }
               }
             ],
+            "nullable": false,
             "start": {
               "line": 4,
               "column": 15
@@ -219,49 +205,25 @@
           "end": {
             "line": 4,
             "column": 35
-          }
-        },
-        {
-          "kind": 76,
-          "conditions": [],
-          "bindings": [
+          },
+          "conditions": [
             {
-              "kind": 2,
-              "elements": [
-                {
-                  "kind": 11,
-                  "name": {
-                    "kind": 42,
-                    "name": "elem",
-                    "start": {
-                      "line": 5,
-                      "column": 8
-                    },
-                    "end": {
-                      "line": 5,
-                      "column": 12
-                    }
-                  },
-                  "start": {
-                    "line": 5,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 5,
-                    "column": 12
-                  }
-                }
-              ],
+              "kind": 77,
+              "values": [],
               "start": {
-                "line": 5,
-                "column": 7
+                "line": 4,
+                "column": 2
               },
               "end": {
-                "line": 5,
-                "column": 13
+                "line": 4,
+                "column": 4
               }
             }
           ],
+          "bindings": []
+        },
+        {
+          "kind": 76,
           "body": {
             "kind": 14,
             "scope": {
@@ -318,6 +280,7 @@
                 }
               }
             ],
+            "nullable": false,
             "start": {
               "line": 5,
               "column": 22
@@ -328,62 +291,55 @@
             }
           },
           "start": {
-            "line": 4,
+            "line": 5,
             "column": 2
           },
           "end": {
             "line": 5,
             "column": 39
-          }
-        },
-        {
-          "kind": 76,
+          },
           "conditions": [],
           "bindings": [
             {
               "kind": 2,
               "elements": [
                 {
-                  "kind": 65
-                },
-                {
-                  "kind": 65
-                },
-                {
                   "kind": 11,
                   "name": {
                     "kind": 42,
-                    "name": "rest",
+                    "name": "elem",
                     "start": {
-                      "line": 6,
-                      "column": 14
+                      "line": 5,
+                      "column": 8
                     },
                     "end": {
-                      "line": 6,
-                      "column": 18
+                      "line": 5,
+                      "column": 12
                     }
                   },
-                  "spread": true,
                   "start": {
-                    "line": 6,
-                    "column": 11
+                    "line": 5,
+                    "column": 8
                   },
                   "end": {
-                    "line": 6,
-                    "column": 18
+                    "line": 5,
+                    "column": 12
                   }
                 }
               ],
               "start": {
-                "line": 6,
+                "line": 5,
                 "column": 7
               },
               "end": {
-                "line": 6,
-                "column": 19
+                "line": 5,
+                "column": 13
               }
             }
-          ],
+          ]
+        },
+        {
+          "kind": 76,
           "body": {
             "kind": 14,
             "scope": {
@@ -440,6 +396,7 @@
                 }
               }
             ],
+            "nullable": false,
             "start": {
               "line": 6,
               "column": 26
@@ -450,13 +407,75 @@
             }
           },
           "start": {
-            "line": 4,
+            "line": 6,
             "column": 2
           },
           "end": {
             "line": 6,
             "column": 43
-          }
+          },
+          "conditions": [],
+          "bindings": [
+            {
+              "kind": 2,
+              "elements": [
+                {
+                  "kind": 65,
+                  "start": {
+                    "line": 6,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 8
+                  }
+                },
+                {
+                  "kind": 65,
+                  "start": {
+                    "line": 6,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 9
+                  }
+                },
+                {
+                  "kind": 11,
+                  "name": {
+                    "kind": 42,
+                    "name": "rest",
+                    "start": {
+                      "line": 6,
+                      "column": 14
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 18
+                    }
+                  },
+                  "start": {
+                    "line": 6,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 18
+                  },
+                  "spread": true
+                }
+              ],
+              "start": {
+                "line": 6,
+                "column": 7
+              },
+              "end": {
+                "line": 6,
+                "column": 19
+              }
+            }
+          ]
         }
       ],
       "start": {

@@ -125,6 +125,14 @@
               }
             }
           ],
+          "start": {
+            "line": 4,
+            "column": 8
+          },
+          "end": {
+            "line": 4,
+            "column": 40
+          },
           "references": [
             {
               "kind": 48,
@@ -133,20 +141,20 @@
                 "name": "foo1",
                 "start": {
                   "line": 4,
-                  "column": 28
+                  "column": 30
                 },
                 "end": {
                   "line": 4,
-                  "column": 32
+                  "column": 34
                 }
               },
               "start": {
                 "line": 4,
-                "column": 28
+                "column": 30
               },
               "end": {
                 "line": 4,
-                "column": 32
+                "column": 34
               }
             },
             {
@@ -156,31 +164,23 @@
                 "name": "foo2",
                 "start": {
                   "line": 4,
-                  "column": 34
+                  "column": 36
                 },
                 "end": {
                   "line": 4,
-                  "column": 38
+                  "column": 40
                 }
               },
               "start": {
                 "line": 4,
-                "column": 34
+                "column": 36
               },
               "end": {
                 "line": 4,
-                "column": 38
+                "column": 40
               }
             }
-          ],
-          "start": {
-            "line": 4,
-            "column": 8
-          },
-          "end": {
-            "line": 4,
-            "column": 38
-          }
+          ]
         }
       ],
       "start": {
@@ -189,7 +189,7 @@
       },
       "end": {
         "line": 4,
-        "column": 38
+        "column": 40
       },
       "attributes": []
     }
@@ -200,6 +200,6 @@
   },
   "end": {
     "line": 4,
-    "column": 38
+    "column": 40
   }
 }

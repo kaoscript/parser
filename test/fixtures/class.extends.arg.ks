@@ -3,7 +3,7 @@ class Shape {
 		_color: string = ''
 	}
 	
-	Shape(@color)
+	constructor(@color)
 
 	draw(canvas): string {
 		throw new Error('Not Implemented')
@@ -11,7 +11,7 @@ class Shape {
 }
 
 class Rectangle extends Shape {
-	Rectangle(@color)
+	constructor(@color)
 
 	draw(canvas): string {
 		return 'I\'m drawing a ' + this._color + ' rectangle.'

@@ -6,7 +6,6 @@
       "kind": 17,
       "name": {
         "kind": 42,
-        "name": "Vector",
         "start": {
           "line": 1,
           "column": 7
@@ -14,7 +13,8 @@
         "end": {
           "line": 1,
           "column": 13
-        }
+        },
+        "name": "Vector"
       },
       "modifiers": [],
       "members": [
@@ -35,7 +35,6 @@
           ],
           "name": {
             "kind": 42,
-            "name": "x",
             "start": {
               "line": 3,
               "column": 3
@@ -43,13 +42,21 @@
             "end": {
               "line": 3,
               "column": 4
-            }
+            },
+            "name": "x"
+          },
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 3,
+            "column": 25
           },
           "type": {
             "kind": 91,
             "typeName": {
               "kind": 42,
-              "name": "Number",
               "start": {
                 "line": 3,
                 "column": 6
@@ -57,7 +64,8 @@
               "end": {
                 "line": 3,
                 "column": 12
-              }
+              },
+              "name": "Number"
             },
             "start": {
               "line": 3,
@@ -67,14 +75,6 @@
               "line": 3,
               "column": 12
             }
-          },
-          "start": {
-            "line": 3,
-            "column": 3
-          },
-          "end": {
-            "line": 3,
-            "column": 25
           },
           "accessor": {
             "kind": 1,
@@ -91,11 +91,11 @@
             "kind": 59,
             "start": {
               "line": 3,
-              "column": 18
+              "column": 20
             },
             "end": {
               "line": 3,
-              "column": 19
+              "column": 23
             }
           }
         },
@@ -116,7 +116,6 @@
           ],
           "name": {
             "kind": 42,
-            "name": "y",
             "start": {
               "line": 4,
               "column": 3
@@ -124,13 +123,21 @@
             "end": {
               "line": 4,
               "column": 4
-            }
+            },
+            "name": "y"
+          },
+          "start": {
+            "line": 4,
+            "column": 3
+          },
+          "end": {
+            "line": 7,
+            "column": 4
           },
           "type": {
             "kind": 91,
             "typeName": {
               "kind": 42,
-              "name": "Number",
               "start": {
                 "line": 4,
                 "column": 6
@@ -138,7 +145,8 @@
               "end": {
                 "line": 4,
                 "column": 12
-              }
+              },
+              "name": "Number"
             },
             "start": {
               "line": 4,
@@ -148,14 +156,6 @@
               "line": 4,
               "column": 12
             }
-          },
-          "start": {
-            "line": 4,
-            "column": 3
-          },
-          "end": {
-            "line": 7,
-            "column": 4
           },
           "accessor": {
             "kind": 1,
@@ -179,7 +179,6 @@
                 "kind": 55,
                 "object": {
                   "kind": 42,
-                  "name": "Math",
                   "start": {
                     "line": 6,
                     "column": 11
@@ -187,11 +186,11 @@
                   "end": {
                     "line": 6,
                     "column": 15
-                  }
+                  },
+                  "name": "Math"
                 },
                 "property": {
                   "kind": 42,
-                  "name": "abs",
                   "start": {
                     "line": 6,
                     "column": 16
@@ -199,7 +198,8 @@
                   "end": {
                     "line": 6,
                     "column": 19
-                  }
+                  },
+                  "name": "abs"
                 },
                 "computed": false,
                 "nullable": false,
@@ -215,7 +215,6 @@
               "arguments": [
                 {
                   "kind": 42,
-                  "name": "y",
                   "start": {
                     "line": 6,
                     "column": 20
@@ -223,7 +222,8 @@
                   "end": {
                     "line": 6,
                     "column": 21
-                  }
+                  },
+                  "name": "y"
                 }
               ],
               "nullable": false,
@@ -263,7 +263,6 @@
           ],
           "name": {
             "kind": 42,
-            "name": "z",
             "start": {
               "line": 8,
               "column": 3
@@ -271,13 +270,21 @@
             "end": {
               "line": 8,
               "column": 4
-            }
+            },
+            "name": "z"
+          },
+          "start": {
+            "line": 8,
+            "column": 3
+          },
+          "end": {
+            "line": 10,
+            "column": 4
           },
           "type": {
             "kind": 91,
             "typeName": {
               "kind": 42,
-              "name": "Number",
               "start": {
                 "line": 8,
                 "column": 6
@@ -285,7 +292,8 @@
               "end": {
                 "line": 8,
                 "column": 12
-              }
+              },
+              "name": "Number"
             },
             "start": {
               "line": 8,
@@ -296,19 +304,10 @@
               "column": 12
             }
           },
-          "start": {
-            "line": 8,
-            "column": 3
-          },
-          "end": {
-            "line": 10,
-            "column": 4
-          },
           "accessor": {
             "kind": 1,
             "body": {
               "kind": 61,
-              "value": 0,
               "start": {
                 "line": 9,
                 "column": 11
@@ -316,7 +315,8 @@
               "end": {
                 "line": 9,
                 "column": 12
-              }
+              },
+              "value": 0
             },
             "start": {
               "line": 9,

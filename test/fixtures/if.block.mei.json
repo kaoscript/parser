@@ -10,7 +10,6 @@
           "kind": 98,
           "name": {
             "kind": 42,
-            "name": "x",
             "start": {
               "line": 1,
               "column": 5
@@ -18,7 +17,8 @@
             "end": {
               "line": 1,
               "column": 6
-            }
+            },
+            "name": "x"
           },
           "start": {
             "line": 1,
@@ -34,7 +34,6 @@
       "await": false,
       "init": {
         "kind": 61,
-        "value": 5,
         "start": {
           "line": 1,
           "column": 9
@@ -42,7 +41,8 @@
         "end": {
           "line": 1,
           "column": 10
-        }
+        },
+        "value": 5
       },
       "start": {
         "line": 1,
@@ -71,15 +71,14 @@
         },
         "start": {
           "line": 3,
-          "column": 6
+          "column": 4
         },
         "end": {
           "line": 3,
-          "column": 8
+          "column": 10
         },
         "left": {
           "kind": 42,
-          "name": "x",
           "start": {
             "line": 3,
             "column": 4
@@ -87,11 +86,11 @@
           "end": {
             "line": 3,
             "column": 5
-          }
+          },
+          "name": "x"
         },
         "right": {
           "kind": 61,
-          "value": 5,
           "start": {
             "line": 3,
             "column": 9
@@ -99,7 +98,8 @@
           "end": {
             "line": 3,
             "column": 10
-          }
+          },
+          "value": 5
         }
       },
       "whenTrue": {
@@ -140,15 +140,14 @@
           },
           "start": {
             "line": 5,
-            "column": 11
+            "column": 9
           },
           "end": {
             "line": 5,
-            "column": 13
+            "column": 15
           },
           "left": {
             "kind": 42,
-            "name": "x",
             "start": {
               "line": 5,
               "column": 9
@@ -156,11 +155,11 @@
             "end": {
               "line": 5,
               "column": 10
-            }
+            },
+            "name": "x"
           },
           "right": {
             "kind": 61,
-            "value": 6,
             "start": {
               "line": 5,
               "column": 14
@@ -168,7 +167,8 @@
             "end": {
               "line": 5,
               "column": 15
-            }
+            },
+            "value": 6
           }
         },
         "whenTrue": {
@@ -189,7 +189,7 @@
           "column": 6
         },
         "end": {
-          "line": 6,
+          "line": 12,
           "column": 2
         },
         "whenFalse": {
@@ -209,15 +209,14 @@
             },
             "start": {
               "line": 7,
-              "column": 11
+              "column": 9
             },
             "end": {
               "line": 7,
-              "column": 13
+              "column": 15
             },
             "left": {
               "kind": 42,
-              "name": "x",
               "start": {
                 "line": 7,
                 "column": 9
@@ -225,11 +224,11 @@
               "end": {
                 "line": 7,
                 "column": 10
-              }
+              },
+              "name": "x"
             },
             "right": {
               "kind": 61,
-              "value": 7,
               "start": {
                 "line": 7,
                 "column": 14
@@ -237,7 +236,8 @@
               "end": {
                 "line": 7,
                 "column": 15
-              }
+              },
+              "value": 7
             }
           },
           "whenTrue": {
@@ -258,7 +258,7 @@
             "column": 6
           },
           "end": {
-            "line": 8,
+            "line": 12,
             "column": 2
           },
           "whenFalse": {
@@ -278,15 +278,14 @@
               },
               "start": {
                 "line": 9,
-                "column": 11
+                "column": 9
               },
               "end": {
                 "line": 9,
-                "column": 13
+                "column": 15
               },
               "left": {
                 "kind": 42,
-                "name": "x",
                 "start": {
                   "line": 9,
                   "column": 9
@@ -294,11 +293,11 @@
                 "end": {
                   "line": 9,
                   "column": 10
-                }
+                },
+                "name": "x"
               },
               "right": {
                 "kind": 61,
-                "value": 8,
                 "start": {
                   "line": 9,
                   "column": 14
@@ -306,7 +305,8 @@
                 "end": {
                   "line": 9,
                   "column": 15
-                }
+                },
+                "value": 8
               }
             },
             "whenTrue": {
@@ -327,7 +327,7 @@
               "column": 6
             },
             "end": {
-              "line": 10,
+              "line": 12,
               "column": 2
             },
             "whenFalse": {

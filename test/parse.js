@@ -1,7 +1,9 @@
 var chai = require('chai');
 var expect = require('chai').expect;
 var fs = require('fs');
-var parse = require('..').parse;
+
+var parse = require('..')().parse;
+
 var path = require('path');
 
 describe('parse', function() {
@@ -19,7 +21,7 @@ describe('parse', function() {
 	function prepare(file) {
 		var name = file.slice(0, -3);
 		it(name, function() {
-			var data = fs.readFileSync(path.join(__dirname, 'fixtures', file), {
+			var source = fs.readFileSync(path.join(__dirname, 'fixtures', file), {
 				encoding: 'utf8'
 			});
 			
@@ -32,12 +34,16 @@ describe('parse', function() {
 			}
 			
 			if(error) {
+				var data;
+				
 				expect(function() {
-					parse(data);
+					data = parse(source);
 				}).to.throw(error);
+				
+				expect(data).to.not.exist;
 			}
 			else {
-				data = parse(data);
+				var data = parse(source);
 				//console.log(JSON.stringify(data, function(key, value){return value == Infinity ? 'Infinity' : value;}, 2));
 				
 				var json = fs.readFileSync(path.join(__dirname, 'fixtures', name + '.json'), {

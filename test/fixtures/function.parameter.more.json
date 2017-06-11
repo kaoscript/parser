@@ -4,7 +4,6 @@
   "body": [
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "foo",
@@ -20,11 +19,27 @@
       "parameters": [
         {
           "kind": 66,
-          "modifiers": []
+          "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 10
+          }
         },
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 11
+          },
+          "end": {
+            "line": 1,
+            "column": 12
+          },
           "name": {
             "kind": 42,
             "name": "x",
@@ -36,17 +51,18 @@
               "line": 1,
               "column": 12
             }
-          },
-          "start": {
-            "line": 1,
-            "column": 11
-          },
-          "end": {
-            "line": 1,
-            "column": 12
           }
         }
       ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -61,19 +77,10 @@
           "column": 2
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "bar",
@@ -90,6 +97,14 @@
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 4,
+            "column": 10
+          },
+          "end": {
+            "line": 4,
+            "column": 12
+          },
           "name": {
             "kind": 42,
             "name": "x",
@@ -108,24 +123,40 @@
               "kind": 42,
               "name": "any"
             },
-            "nullable": true
-          },
-          "start": {
-            "line": 4,
-            "column": 10
-          },
-          "end": {
-            "line": 4,
-            "column": 12
+            "nullable": true,
+            "start": {
+              "line": 4,
+              "column": 11
+            },
+            "end": {
+              "line": 4,
+              "column": 12
+            }
           }
         },
         {
           "kind": 66,
-          "modifiers": []
+          "modifiers": [],
+          "start": {
+            "line": 4,
+            "column": 13
+          },
+          "end": {
+            "line": 4,
+            "column": 13
+          }
         },
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 4,
+            "column": 15
+          },
+          "end": {
+            "line": 4,
+            "column": 17
+          },
           "name": {
             "kind": 42,
             "name": "z",
@@ -144,18 +175,27 @@
               "kind": 42,
               "name": "any"
             },
-            "nullable": true
-          },
-          "start": {
-            "line": 4,
-            "column": 15
-          },
-          "end": {
-            "line": 4,
-            "column": 17
+            "nullable": true,
+            "start": {
+              "line": 4,
+              "column": 16
+            },
+            "end": {
+              "line": 4,
+              "column": 17
+            }
           }
         }
       ],
+      "start": {
+        "line": 4,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -170,19 +210,10 @@
           "column": 2
         }
       },
-      "start": {
-        "line": 4,
-        "column": 1
-      },
-      "end": {
-        "line": 5,
-        "column": 2
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "baz",
@@ -199,6 +230,14 @@
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 7,
+            "column": 10
+          },
+          "end": {
+            "line": 7,
+            "column": 12
+          },
           "name": {
             "kind": 42,
             "name": "x",
@@ -217,20 +256,28 @@
               "kind": 42,
               "name": "any"
             },
-            "nullable": true
-          },
-          "start": {
-            "line": 7,
-            "column": 10
-          },
-          "end": {
-            "line": 7,
-            "column": 12
+            "nullable": true,
+            "start": {
+              "line": 7,
+              "column": 11
+            },
+            "end": {
+              "line": 7,
+              "column": 12
+            }
           }
         },
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 7,
+            "column": 14
+          },
+          "end": {
+            "line": 7,
+            "column": 19
+          },
           "type": {
             "kind": 91,
             "typeName": {
@@ -254,19 +301,19 @@
               "column": 19
             },
             "nullable": true
-          },
-          "start": {
-            "line": 7,
-            "column": 14
-          },
-          "end": {
-            "line": 7,
-            "column": 19
           }
         },
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 7,
+            "column": 21
+          },
+          "end": {
+            "line": 7,
+            "column": 23
+          },
           "name": {
             "kind": 42,
             "name": "z",
@@ -285,18 +332,27 @@
               "kind": 42,
               "name": "any"
             },
-            "nullable": true
-          },
-          "start": {
-            "line": 7,
-            "column": 21
-          },
-          "end": {
-            "line": 7,
-            "column": 23
+            "nullable": true,
+            "start": {
+              "line": 7,
+              "column": 22
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
           }
         }
       ],
+      "start": {
+        "line": 7,
+        "column": 1
+      },
+      "end": {
+        "line": 8,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -311,19 +367,10 @@
           "column": 2
         }
       },
-      "start": {
-        "line": 7,
-        "column": 1
-      },
-      "end": {
-        "line": 8,
-        "column": 2
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "qux",
@@ -356,6 +403,14 @@
               }
             }
           ],
+          "start": {
+            "line": 10,
+            "column": 10
+          },
+          "end": {
+            "line": 10,
+            "column": 22
+          },
           "name": {
             "kind": 42,
             "name": "items",
@@ -367,17 +422,18 @@
               "line": 10,
               "column": 22
             }
-          },
-          "start": {
-            "line": 10,
-            "column": 10
-          },
-          "end": {
-            "line": 10,
-            "column": 22
           }
         }
       ],
+      "start": {
+        "line": 10,
+        "column": 1
+      },
+      "end": {
+        "line": 11,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -392,19 +448,10 @@
           "column": 2
         }
       },
-      "start": {
-        "line": 10,
-        "column": 1
-      },
-      "end": {
-        "line": 11,
-        "column": 2
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "quux",
@@ -437,6 +484,14 @@
               }
             }
           ],
+          "start": {
+            "line": 13,
+            "column": 11
+          },
+          "end": {
+            "line": 13,
+            "column": 24
+          },
           "name": {
             "kind": 42,
             "name": "items",
@@ -448,19 +503,19 @@
               "line": 13,
               "column": 24
             }
-          },
-          "start": {
-            "line": 13,
-            "column": 11
-          },
-          "end": {
-            "line": 13,
-            "column": 24
           }
         },
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 13,
+            "column": 26
+          },
+          "end": {
+            "line": 13,
+            "column": 27
+          },
           "name": {
             "kind": 42,
             "name": "x",
@@ -472,17 +527,18 @@
               "line": 13,
               "column": 27
             }
-          },
-          "start": {
-            "line": 13,
-            "column": 26
-          },
-          "end": {
-            "line": 13,
-            "column": 27
           }
         }
       ],
+      "start": {
+        "line": 13,
+        "column": 1
+      },
+      "end": {
+        "line": 14,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -497,19 +553,10 @@
           "column": 2
         }
       },
-      "start": {
-        "line": 13,
-        "column": 1
-      },
-      "end": {
-        "line": 14,
-        "column": 2
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "corge",
@@ -542,6 +589,14 @@
               }
             }
           ],
+          "start": {
+            "line": 16,
+            "column": 12
+          },
+          "end": {
+            "line": 16,
+            "column": 24
+          },
           "name": {
             "kind": 42,
             "name": "items",
@@ -553,17 +608,18 @@
               "line": 16,
               "column": 24
             }
-          },
-          "start": {
-            "line": 16,
-            "column": 12
-          },
-          "end": {
-            "line": 16,
-            "column": 24
           }
         }
       ],
+      "start": {
+        "line": 16,
+        "column": 1
+      },
+      "end": {
+        "line": 17,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -578,19 +634,10 @@
           "column": 2
         }
       },
-      "start": {
-        "line": 16,
-        "column": 1
-      },
-      "end": {
-        "line": 17,
-        "column": 2
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "grault",
@@ -623,6 +670,14 @@
               }
             }
           ],
+          "start": {
+            "line": 19,
+            "column": 13
+          },
+          "end": {
+            "line": 19,
+            "column": 24
+          },
           "name": {
             "kind": 42,
             "name": "items",
@@ -634,17 +689,18 @@
               "line": 19,
               "column": 24
             }
-          },
-          "start": {
-            "line": 19,
-            "column": 13
-          },
-          "end": {
-            "line": 19,
-            "column": 24
           }
         }
       ],
+      "start": {
+        "line": 19,
+        "column": 1
+      },
+      "end": {
+        "line": 20,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -658,14 +714,6 @@
           "line": 20,
           "column": 2
         }
-      },
-      "start": {
-        "line": 19,
-        "column": 1
-      },
-      "end": {
-        "line": 20,
-        "column": 2
       },
       "attributes": []
     }

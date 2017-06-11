@@ -41,7 +41,6 @@
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "foo",
@@ -58,6 +57,14 @@
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 3,
+            "column": 10
+          },
+          "end": {
+            "line": 3,
+            "column": 15
+          },
           "name": {
             "kind": 42,
             "name": "item",
@@ -76,18 +83,27 @@
               "kind": 42,
               "name": "any"
             },
-            "nullable": true
-          },
-          "start": {
-            "line": 3,
-            "column": 10
-          },
-          "end": {
-            "line": 3,
-            "column": 15
+            "nullable": true,
+            "start": {
+              "line": 3,
+              "column": 14
+            },
+            "end": {
+              "line": 3,
+              "column": 15
+            }
           }
         }
       ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -170,19 +186,10 @@
           "column": 2
         }
       },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 5,
-        "column": 2
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "bar",
@@ -199,6 +206,14 @@
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 7,
+            "column": 10
+          },
+          "end": {
+            "line": 7,
+            "column": 21
+          },
           "name": {
             "kind": 42,
             "name": "item",
@@ -222,17 +237,18 @@
               "line": 7,
               "column": 21
             }
-          },
-          "start": {
-            "line": 7,
-            "column": 10
-          },
-          "end": {
-            "line": 7,
-            "column": 21
           }
         }
       ],
+      "start": {
+        "line": 7,
+        "column": 1
+      },
+      "end": {
+        "line": 9,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -315,19 +331,10 @@
           "column": 2
         }
       },
-      "start": {
-        "line": 7,
-        "column": 1
-      },
-      "end": {
-        "line": 9,
-        "column": 2
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "baz",
@@ -344,6 +351,14 @@
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 11,
+            "column": 10
+          },
+          "end": {
+            "line": 11,
+            "column": 23
+          },
           "name": {
             "kind": 42,
             "name": "item",
@@ -379,17 +394,18 @@
               "column": 23
             },
             "nullable": true
-          },
-          "start": {
-            "line": 11,
-            "column": 10
-          },
-          "end": {
-            "line": 11,
-            "column": 23
           }
         }
       ],
+      "start": {
+        "line": 11,
+        "column": 1
+      },
+      "end": {
+        "line": 13,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -472,19 +488,10 @@
           "column": 2
         }
       },
-      "start": {
-        "line": 11,
-        "column": 1
-      },
-      "end": {
-        "line": 13,
-        "column": 2
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "qux",
@@ -501,6 +508,14 @@
         {
           "kind": 66,
           "modifiers": [],
+          "start": {
+            "line": 15,
+            "column": 10
+          },
+          "end": {
+            "line": 15,
+            "column": 30
+          },
           "name": {
             "kind": 42,
             "name": "item",
@@ -548,17 +563,18 @@
               "line": 15,
               "column": 30
             }
-          },
-          "start": {
-            "line": 15,
-            "column": 10
-          },
-          "end": {
-            "line": 15,
-            "column": 30
           }
         }
       ],
+      "start": {
+        "line": 15,
+        "column": 1
+      },
+      "end": {
+        "line": 17,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -640,14 +656,6 @@
           "line": 17,
           "column": 2
         }
-      },
-      "start": {
-        "line": 15,
-        "column": 1
-      },
-      "end": {
-        "line": 17,
-        "column": 2
       },
       "attributes": []
     }

@@ -39,7 +39,7 @@
           },
           "end": {
             "line": 1,
-            "column": 37
+            "column": 39
           }
         }
       ],
@@ -49,7 +49,7 @@
       },
       "end": {
         "line": 1,
-        "column": 37
+        "column": 39
       },
       "attributes": []
     },
@@ -69,6 +69,8 @@
       },
       "properties": [
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "contains",
@@ -85,6 +87,14 @@
             {
               "kind": 66,
               "modifiers": [],
+              "start": {
+                "line": 4,
+                "column": 11
+              },
+              "end": {
+                "line": 4,
+                "column": 15
+              },
               "name": {
                 "kind": 42,
                 "name": "item",
@@ -96,19 +106,19 @@
                   "line": 4,
                   "column": 15
                 }
-              },
-              "start": {
-                "line": 4,
-                "column": 11
-              },
-              "end": {
-                "line": 4,
-                "column": 15
               }
             },
             {
               "kind": 66,
               "modifiers": [],
+              "start": {
+                "line": 4,
+                "column": 17
+              },
+              "end": {
+                "line": 4,
+                "column": 25
+              },
               "name": {
                 "kind": 42,
                 "name": "from",
@@ -132,18 +142,9 @@
                   "line": 4,
                   "column": 25
                 }
-              },
-              "start": {
-                "line": 4,
-                "column": 17
-              },
-              "end": {
-                "line": 4,
-                "column": 25
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 4,
             "column": 2
@@ -152,14 +153,21 @@
             "line": 6,
             "column": 3
           },
-          "kind": 56,
-          "modifiers": [],
+          "throws": [],
           "body": {
             "kind": 12,
             "attributes": [],
             "statements": [
               {
                 "kind": 73,
+                "start": {
+                  "line": 5,
+                  "column": 3
+                },
+                "end": {
+                  "line": 5,
+                  "column": 40
+                },
                 "value": {
                   "kind": 10,
                   "operator": {
@@ -175,11 +183,11 @@
                   },
                   "start": {
                     "line": 5,
-                    "column": 35
+                    "column": 10
                   },
                   "end": {
                     "line": 5,
-                    "column": 37
+                    "column": 40
                   },
                   "left": {
                     "kind": 14,
@@ -272,14 +280,6 @@
                     }
                   }
                 },
-                "start": {
-                  "line": 5,
-                  "column": 3
-                },
-                "end": {
-                  "line": 5,
-                  "column": 40
-                },
                 "attributes": []
               }
             ],
@@ -294,6 +294,8 @@
           }
         },
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "pushUniq",
@@ -326,6 +328,14 @@
                   }
                 }
               ],
+              "start": {
+                "line": 7,
+                "column": 11
+              },
+              "end": {
+                "line": 7,
+                "column": 18
+              },
               "name": {
                 "kind": 42,
                 "name": "args",
@@ -337,18 +347,9 @@
                   "line": 7,
                   "column": 18
                 }
-              },
-              "start": {
-                "line": 7,
-                "column": 11
-              },
-              "end": {
-                "line": 7,
-                "column": 18
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 7,
             "column": 2
@@ -357,8 +358,7 @@
             "line": 21,
             "column": 3
           },
-          "kind": 56,
-          "modifiers": [],
+          "throws": [],
           "body": {
             "kind": 12,
             "attributes": [],
@@ -380,11 +380,11 @@
                   },
                   "start": {
                     "line": 8,
-                    "column": 18
+                    "column": 6
                   },
                   "end": {
                     "line": 8,
-                    "column": 20
+                    "column": 22
                   },
                   "left": {
                     "kind": 55,
@@ -536,6 +536,7 @@
                               }
                             }
                           ],
+                          "nullable": false,
                           "start": {
                             "line": 9,
                             "column": 8
@@ -707,6 +708,7 @@
                         }
                       },
                       "desc": false,
+                      "declaration": false,
                       "start": {
                         "line": 14,
                         "column": 4
@@ -715,7 +717,6 @@
                         "line": 18,
                         "column": 5
                       },
-                      "declaration": false,
                       "value": {
                         "kind": 42,
                         "name": "item",
@@ -803,6 +804,7 @@
                                     }
                                   }
                                 ],
+                                "nullable": false,
                                 "start": {
                                   "line": 15,
                                   "column": 9
@@ -938,6 +940,14 @@
               },
               {
                 "kind": 73,
+                "start": {
+                  "line": 20,
+                  "column": 3
+                },
+                "end": {
+                  "line": 20,
+                  "column": 14
+                },
                 "value": {
                   "kind": 42,
                   "name": "this",
@@ -949,14 +959,6 @@
                     "line": 20,
                     "column": 14
                   }
-                },
-                "start": {
-                  "line": 20,
-                  "column": 3
-                },
-                "end": {
-                  "line": 20,
-                  "column": 14
                 },
                 "attributes": []
               }

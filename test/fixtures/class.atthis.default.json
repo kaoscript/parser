@@ -45,11 +45,19 @@
               "column": 11
             }
           },
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 3,
+            "column": 24
+          },
           "type": {
             "kind": 91,
             "typeName": {
               "kind": 42,
-              "name": "string",
+              "name": "String",
               "start": {
                 "line": 3,
                 "column": 13
@@ -79,31 +87,24 @@
               "line": 3,
               "column": 24
             }
-          },
-          "start": {
-            "line": 3,
-            "column": 3
-          },
-          "end": {
-            "line": 3,
-            "column": 24
           }
         },
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
-            "name": "Greetings",
+            "name": "constructor",
             "start": {
               "line": 6,
               "column": 2
             },
             "end": {
               "line": 6,
-              "column": 11
+              "column": 13
             }
           },
           "parameters": [],
-          "throws": [],
           "start": {
             "line": 6,
             "column": 2
@@ -112,8 +113,7 @@
             "line": 8,
             "column": 3
           },
-          "kind": 56,
-          "modifiers": [],
+          "throws": [],
           "body": {
             "kind": 12,
             "attributes": [],
@@ -163,7 +163,7 @@
             ],
             "start": {
               "line": 6,
-              "column": 14
+              "column": 16
             },
             "end": {
               "line": 8,
@@ -172,16 +172,18 @@
           }
         },
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
-            "name": "Greetings",
+            "name": "constructor",
             "start": {
               "line": 10,
               "column": 2
             },
             "end": {
               "line": 10,
-              "column": 11
+              "column": 13
             }
           },
           "parameters": [
@@ -192,49 +194,49 @@
                   "kind": 10,
                   "start": {
                     "line": 10,
-                    "column": 12
+                    "column": 14
                   },
                   "end": {
                     "line": 10,
-                    "column": 13
+                    "column": 15
                   }
                 }
               ],
+              "start": {
+                "line": 10,
+                "column": 14
+              },
+              "end": {
+                "line": 10,
+                "column": 22
+              },
               "name": {
                 "kind": 42,
                 "name": "message",
                 "start": {
                   "line": 10,
-                  "column": 13
+                  "column": 15
                 },
                 "end": {
                   "line": 10,
-                  "column": 20
+                  "column": 22
                 }
-              },
-              "start": {
-                "line": 10,
-                "column": 12
-              },
-              "end": {
-                "line": 10,
-                "column": 20
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 10,
             "column": 2
           },
           "end": {
             "line": 10,
-            "column": 21
+            "column": 23
           },
-          "kind": 56,
-          "modifiers": []
+          "throws": []
         },
         {
+          "kind": 56,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "greet",
@@ -251,6 +253,14 @@
             {
               "kind": 66,
               "modifiers": [],
+              "start": {
+                "line": 12,
+                "column": 8
+              },
+              "end": {
+                "line": 12,
+                "column": 20
+              },
               "name": {
                 "kind": 42,
                 "name": "name",
@@ -267,7 +277,7 @@
                 "kind": 91,
                 "typeName": {
                   "kind": 42,
-                  "name": "string",
+                  "name": "String",
                   "start": {
                     "line": 12,
                     "column": 14
@@ -285,18 +295,9 @@
                   "line": 12,
                   "column": 20
                 }
-              },
-              "start": {
-                "line": 12,
-                "column": 8
-              },
-              "end": {
-                "line": 12,
-                "column": 20
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 12,
             "column": 2
@@ -305,8 +306,6 @@
             "line": 14,
             "column": 3
           },
-          "kind": 56,
-          "modifiers": [],
           "type": {
             "kind": 91,
             "typeName": {
@@ -330,6 +329,7 @@
               "column": 29
             }
           },
+          "throws": [],
           "body": {
             "kind": 12,
             "attributes": [],
@@ -337,27 +337,8 @@
               {
                 "kind": 73,
                 "value": {
-                  "kind": 67,
-                  "operator": {
-                    "kind": 1,
-                    "start": {
-                      "line": 13,
-                      "column": 50
-                    },
-                    "end": {
-                      "line": 13,
-                      "column": 51
-                    }
-                  },
-                  "start": {
-                    "line": 13,
-                    "column": 19
-                  },
-                  "end": {
-                    "line": 13,
-                    "column": 58
-                  },
-                  "operands": [
+                  "kind": 85,
+                  "elements": [
                     {
                       "kind": 86,
                       "name": {
@@ -365,32 +346,32 @@
                         "name": "message",
                         "start": {
                           "line": 13,
-                          "column": 11
+                          "column": 14
                         },
                         "end": {
                           "line": 13,
-                          "column": 18
+                          "column": 21
                         }
                       },
                       "start": {
                         "line": 13,
-                        "column": 10
+                        "column": 13
                       },
                       "end": {
                         "line": 13,
-                        "column": 18
+                        "column": 21
                       }
                     },
                     {
                       "kind": 54,
-                      "value": "\\nIt's nice to meet you, ",
+                      "value": "\\nIt's nice to meet you",
                       "start": {
                         "line": 13,
-                        "column": 21
+                        "column": 22
                       },
                       "end": {
                         "line": 13,
-                        "column": 49
+                        "column": 45
                       }
                     },
                     {
@@ -398,11 +379,11 @@
                       "name": "name",
                       "start": {
                         "line": 13,
-                        "column": 52
+                        "column": 47
                       },
                       "end": {
                         "line": 13,
-                        "column": 56
+                        "column": 51
                       }
                     },
                     {
@@ -410,14 +391,22 @@
                       "value": ".",
                       "start": {
                         "line": 13,
-                        "column": 59
+                        "column": 52
                       },
                       "end": {
                         "line": 13,
-                        "column": 62
+                        "column": 53
                       }
                     }
-                  ]
+                  ],
+                  "start": {
+                    "line": 13,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 54
+                  }
                 },
                 "start": {
                   "line": 13,
@@ -425,7 +414,7 @@
                 },
                 "end": {
                   "line": 13,
-                  "column": 62
+                  "column": 54
                 },
                 "attributes": []
               }

@@ -1,11 +1,14 @@
 build:
-	node_modules/.bin/jison ./src/parser.jison -o ./lib/parser.js -p slr > /dev/null
+	time node_modules/.bin/kaoscript -c src/parser.ks -o lib
 
 test:
 ifeq ($(g),)
-	node_modules/.bin/mocha --colors --check-leaks --reporter spec
+	node_modules/.bin/mocha --colors --check-leaks --compilers ks:kaoscript/register --reporter spec
 else
-	node_modules/.bin/mocha --colors --check-leaks --reporter spec -g "$(g)"
+	node_modules/.bin/mocha --colors --check-leaks --compilers ks:kaoscript/register --reporter spec -g "$(g)"
 endif
+
+clean:
+	find -L . -type f \( -name "*.ksb" -o -name "*.ksh" -o -name "*.ksm" \) -exec rm {} \;
 
 .PHONY: test

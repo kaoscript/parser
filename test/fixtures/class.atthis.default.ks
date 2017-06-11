@@ -1,15 +1,15 @@
 class Greetings {
 	private {
-		_message: string = ''
+		_message: String = ''
 	}
 	
-	Greetings() {
+	constructor() {
 		this('Hello!')
 	}
 	
-	Greetings(@message)
+	constructor(@message)
 	
-	greet(name: string): string {
-		return @message + '\nIt\'s nice to meet you, ' + name + '.'
+	greet(name: String): string {
+		return `\(@message)\nIt's nice to meet you\(name).`
 	}
 }

@@ -96,114 +96,6 @@
       "clauses": [
         {
           "kind": 76,
-          "conditions": [],
-          "bindings": [
-            {
-              "kind": 2,
-              "elements": [
-                {
-                  "kind": 11,
-                  "name": {
-                    "kind": 42,
-                    "name": "x",
-                    "start": {
-                      "line": 4,
-                      "column": 8
-                    },
-                    "end": {
-                      "line": 4,
-                      "column": 9
-                    }
-                  },
-                  "start": {
-                    "line": 4,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 4,
-                    "column": 9
-                  }
-                },
-                {
-                  "kind": 11,
-                  "name": {
-                    "kind": 42,
-                    "name": "y",
-                    "start": {
-                      "line": 4,
-                      "column": 11
-                    },
-                    "end": {
-                      "line": 4,
-                      "column": 12
-                    }
-                  },
-                  "start": {
-                    "line": 4,
-                    "column": 11
-                  },
-                  "end": {
-                    "line": 4,
-                    "column": 12
-                  }
-                }
-              ],
-              "start": {
-                "line": 4,
-                "column": 7
-              },
-              "end": {
-                "line": 4,
-                "column": 13
-              }
-            }
-          ],
-          "filter": {
-            "kind": 10,
-            "operator": {
-              "kind": 10,
-              "start": {
-                "line": 4,
-                "column": 22
-              },
-              "end": {
-                "line": 4,
-                "column": 24
-              }
-            },
-            "start": {
-              "line": 4,
-              "column": 22
-            },
-            "end": {
-              "line": 4,
-              "column": 24
-            },
-            "left": {
-              "kind": 42,
-              "name": "x",
-              "start": {
-                "line": 4,
-                "column": 20
-              },
-              "end": {
-                "line": 4,
-                "column": 21
-              }
-            },
-            "right": {
-              "kind": 42,
-              "name": "y",
-              "start": {
-                "line": 4,
-                "column": 25
-              },
-              "end": {
-                "line": 4,
-                "column": 26
-              }
-            }
-          },
           "body": {
             "kind": 14,
             "scope": {
@@ -260,6 +152,7 @@
                 }
               }
             ],
+            "nullable": false,
             "start": {
               "line": 4,
               "column": 31
@@ -270,16 +163,198 @@
             }
           },
           "start": {
-            "line": 3,
-            "column": 14
+            "line": 4,
+            "column": 2
           },
           "end": {
             "line": 4,
             "column": 61
+          },
+          "conditions": [],
+          "bindings": [
+            {
+              "kind": 2,
+              "elements": [
+                {
+                  "kind": 11,
+                  "name": {
+                    "kind": 42,
+                    "name": "x",
+                    "start": {
+                      "line": 4,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 9
+                    }
+                  },
+                  "start": {
+                    "line": 4,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 9
+                  }
+                },
+                {
+                  "kind": 11,
+                  "name": {
+                    "kind": 42,
+                    "name": "y",
+                    "start": {
+                      "line": 4,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 12
+                    }
+                  },
+                  "start": {
+                    "line": 4,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 12
+                  }
+                }
+              ],
+              "start": {
+                "line": 4,
+                "column": 7
+              },
+              "end": {
+                "line": 4,
+                "column": 13
+              }
+            }
+          ],
+          "filter": {
+            "kind": 10,
+            "operator": {
+              "kind": 10,
+              "start": {
+                "line": 4,
+                "column": 22
+              },
+              "end": {
+                "line": 4,
+                "column": 24
+              }
+            },
+            "start": {
+              "line": 4,
+              "column": 20
+            },
+            "end": {
+              "line": 4,
+              "column": 26
+            },
+            "left": {
+              "kind": 42,
+              "name": "x",
+              "start": {
+                "line": 4,
+                "column": 20
+              },
+              "end": {
+                "line": 4,
+                "column": 21
+              }
+            },
+            "right": {
+              "kind": 42,
+              "name": "y",
+              "start": {
+                "line": 4,
+                "column": 25
+              },
+              "end": {
+                "line": 4,
+                "column": 26
+              }
+            }
           }
         },
         {
           "kind": 76,
+          "body": {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 55,
+              "object": {
+                "kind": 42,
+                "name": "console",
+                "start": {
+                  "line": 5,
+                  "column": 34
+                },
+                "end": {
+                  "line": 5,
+                  "column": 41
+                }
+              },
+              "property": {
+                "kind": 42,
+                "name": "log",
+                "start": {
+                  "line": 5,
+                  "column": 42
+                },
+                "end": {
+                  "line": 5,
+                  "column": 45
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 5,
+                "column": 34
+              },
+              "end": {
+                "line": 5,
+                "column": 45
+              }
+            },
+            "arguments": [
+              {
+                "kind": 54,
+                "value": "Antimatter, kaboom!",
+                "start": {
+                  "line": 5,
+                  "column": 46
+                },
+                "end": {
+                  "line": 5,
+                  "column": 67
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 5,
+              "column": 34
+            },
+            "end": {
+              "line": 5,
+              "column": 68
+            }
+          },
+          "start": {
+            "line": 5,
+            "column": 2
+          },
+          "end": {
+            "line": 5,
+            "column": 68
+          },
           "conditions": [],
           "bindings": [
             {
@@ -357,11 +432,11 @@
             },
             "start": {
               "line": 5,
-              "column": 26
+              "column": 20
             },
             "end": {
               "line": 5,
-              "column": 28
+              "column": 30
             },
             "left": {
               "kind": 10,
@@ -378,11 +453,11 @@
               },
               "start": {
                 "line": 5,
-                "column": 22
+                "column": 20
               },
               "end": {
                 "line": 5,
-                "column": 23
+                "column": 25
               },
               "left": {
                 "kind": 42,
@@ -421,205 +496,10 @@
                 "column": 30
               }
             }
-          },
-          "body": {
-            "kind": 14,
-            "scope": {
-              "kind": 3
-            },
-            "callee": {
-              "kind": 55,
-              "object": {
-                "kind": 42,
-                "name": "console",
-                "start": {
-                  "line": 5,
-                  "column": 34
-                },
-                "end": {
-                  "line": 5,
-                  "column": 41
-                }
-              },
-              "property": {
-                "kind": 42,
-                "name": "log",
-                "start": {
-                  "line": 5,
-                  "column": 42
-                },
-                "end": {
-                  "line": 5,
-                  "column": 45
-                }
-              },
-              "computed": false,
-              "nullable": false,
-              "start": {
-                "line": 5,
-                "column": 34
-              },
-              "end": {
-                "line": 5,
-                "column": 45
-              }
-            },
-            "arguments": [
-              {
-                "kind": 54,
-                "value": "Antimatter, kaboom!",
-                "start": {
-                  "line": 5,
-                  "column": 46
-                },
-                "end": {
-                  "line": 5,
-                  "column": 67
-                }
-              }
-            ],
-            "start": {
-              "line": 5,
-              "column": 34
-            },
-            "end": {
-              "line": 5,
-              "column": 68
-            }
-          },
-          "start": {
-            "line": 3,
-            "column": 14
-          },
-          "end": {
-            "line": 5,
-            "column": 68
           }
         },
         {
           "kind": 76,
-          "conditions": [],
-          "bindings": [
-            {
-              "kind": 2,
-              "elements": [
-                {
-                  "kind": 11,
-                  "name": {
-                    "kind": 42,
-                    "name": "x",
-                    "start": {
-                      "line": 6,
-                      "column": 8
-                    },
-                    "end": {
-                      "line": 6,
-                      "column": 9
-                    }
-                  },
-                  "start": {
-                    "line": 6,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 6,
-                    "column": 9
-                  }
-                },
-                {
-                  "kind": 65
-                }
-              ],
-              "start": {
-                "line": 6,
-                "column": 7
-              },
-              "end": {
-                "line": 6,
-                "column": 11
-              }
-            }
-          ],
-          "filter": {
-            "kind": 10,
-            "operator": {
-              "kind": 10,
-              "start": {
-                "line": 6,
-                "column": 24
-              },
-              "end": {
-                "line": 6,
-                "column": 26
-              }
-            },
-            "start": {
-              "line": 6,
-              "column": 24
-            },
-            "end": {
-              "line": 6,
-              "column": 26
-            },
-            "left": {
-              "kind": 10,
-              "operator": {
-                "kind": 16,
-                "start": {
-                  "line": 6,
-                  "column": 20
-                },
-                "end": {
-                  "line": 6,
-                  "column": 21
-                }
-              },
-              "start": {
-                "line": 6,
-                "column": 20
-              },
-              "end": {
-                "line": 6,
-                "column": 21
-              },
-              "left": {
-                "kind": 42,
-                "name": "x",
-                "start": {
-                  "line": 6,
-                  "column": 18
-                },
-                "end": {
-                  "line": 6,
-                  "column": 19
-                }
-              },
-              "right": {
-                "kind": 61,
-                "value": 2,
-                "start": {
-                  "line": 6,
-                  "column": 22
-                },
-                "end": {
-                  "line": 6,
-                  "column": 23
-                }
-              }
-            },
-            "right": {
-              "kind": 61,
-              "value": 1,
-              "start": {
-                "line": 6,
-                "column": 27
-              },
-              "end": {
-                "line": 6,
-                "column": 28
-              }
-            }
-          },
           "body": {
             "kind": 14,
             "scope": {
@@ -676,6 +556,7 @@
                 }
               }
             ],
+            "nullable": false,
             "start": {
               "line": 6,
               "column": 32
@@ -686,18 +567,146 @@
             }
           },
           "start": {
-            "line": 3,
-            "column": 14
+            "line": 6,
+            "column": 2
           },
           "end": {
             "line": 6,
             "column": 67
+          },
+          "conditions": [],
+          "bindings": [
+            {
+              "kind": 2,
+              "elements": [
+                {
+                  "kind": 11,
+                  "name": {
+                    "kind": 42,
+                    "name": "x",
+                    "start": {
+                      "line": 6,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 9
+                    }
+                  },
+                  "start": {
+                    "line": 6,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 9
+                  }
+                },
+                {
+                  "kind": 65,
+                  "start": {
+                    "line": 6,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 10
+                  }
+                }
+              ],
+              "start": {
+                "line": 6,
+                "column": 7
+              },
+              "end": {
+                "line": 6,
+                "column": 11
+              }
+            }
+          ],
+          "filter": {
+            "kind": 10,
+            "operator": {
+              "kind": 10,
+              "start": {
+                "line": 6,
+                "column": 24
+              },
+              "end": {
+                "line": 6,
+                "column": 26
+              }
+            },
+            "start": {
+              "line": 6,
+              "column": 18
+            },
+            "end": {
+              "line": 6,
+              "column": 28
+            },
+            "left": {
+              "kind": 10,
+              "operator": {
+                "kind": 16,
+                "start": {
+                  "line": 6,
+                  "column": 20
+                },
+                "end": {
+                  "line": 6,
+                  "column": 21
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 18
+              },
+              "end": {
+                "line": 6,
+                "column": 23
+              },
+              "left": {
+                "kind": 42,
+                "name": "x",
+                "start": {
+                  "line": 6,
+                  "column": 18
+                },
+                "end": {
+                  "line": 6,
+                  "column": 19
+                }
+              },
+              "right": {
+                "kind": 61,
+                "value": 2,
+                "start": {
+                  "line": 6,
+                  "column": 22
+                },
+                "end": {
+                  "line": 6,
+                  "column": 23
+                }
+              }
+            },
+            "right": {
+              "kind": 61,
+              "value": 1,
+              "start": {
+                "line": 6,
+                "column": 27
+              },
+              "end": {
+                "line": 6,
+                "column": 28
+              }
+            }
           }
         },
         {
           "kind": 76,
-          "conditions": [],
-          "bindings": [],
           "body": {
             "kind": 14,
             "scope": {
@@ -754,6 +763,7 @@
                 }
               }
             ],
+            "nullable": false,
             "start": {
               "line": 7,
               "column": 13
@@ -764,13 +774,15 @@
             }
           },
           "start": {
-            "line": 3,
-            "column": 14
+            "line": 7,
+            "column": 10
           },
           "end": {
             "line": 7,
             "column": 45
-          }
+          },
+          "conditions": [],
+          "bindings": []
         }
       ],
       "start": {

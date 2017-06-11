@@ -96,6 +96,80 @@
       "clauses": [
         {
           "kind": 76,
+          "body": {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 55,
+              "object": {
+                "kind": 42,
+                "name": "console",
+                "start": {
+                  "line": 4,
+                  "column": 45
+                },
+                "end": {
+                  "line": 4,
+                  "column": 52
+                }
+              },
+              "property": {
+                "kind": 42,
+                "name": "log",
+                "start": {
+                  "line": 4,
+                  "column": 53
+                },
+                "end": {
+                  "line": 4,
+                  "column": 56
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 4,
+                "column": 45
+              },
+              "end": {
+                "line": 4,
+                "column": 56
+              }
+            },
+            "arguments": [
+              {
+                "kind": 54,
+                "value": "(0, 0) is at the origin",
+                "start": {
+                  "line": 4,
+                  "column": 57
+                },
+                "end": {
+                  "line": 4,
+                  "column": 82
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 4,
+              "column": 45
+            },
+            "end": {
+              "line": 4,
+              "column": 83
+            }
+          },
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 83
+          },
           "conditions": [],
           "bindings": [
             {
@@ -168,16 +242,16 @@
               },
               "end": {
                 "line": 4,
-                "column": 30
+                "column": 29
               }
             },
             "start": {
               "line": 4,
-              "column": 27
+              "column": 20
             },
             "end": {
               "line": 4,
-              "column": 30
+              "column": 36
             },
             "left": {
               "kind": 10,
@@ -194,11 +268,11 @@
               },
               "start": {
                 "line": 4,
-                "column": 22
+                "column": 20
               },
               "end": {
                 "line": 4,
-                "column": 24
+                "column": 26
               },
               "left": {
                 "kind": 42,
@@ -240,11 +314,11 @@
               },
               "start": {
                 "line": 4,
-                "column": 32
+                "column": 30
               },
               "end": {
                 "line": 4,
-                "column": 34
+                "column": 36
               },
               "left": {
                 "kind": 42,
@@ -271,191 +345,10 @@
                 }
               }
             }
-          },
-          "body": {
-            "kind": 14,
-            "scope": {
-              "kind": 3
-            },
-            "callee": {
-              "kind": 55,
-              "object": {
-                "kind": 42,
-                "name": "console",
-                "start": {
-                  "line": 4,
-                  "column": 45
-                },
-                "end": {
-                  "line": 4,
-                  "column": 52
-                }
-              },
-              "property": {
-                "kind": 42,
-                "name": "log",
-                "start": {
-                  "line": 4,
-                  "column": 53
-                },
-                "end": {
-                  "line": 4,
-                  "column": 56
-                }
-              },
-              "computed": false,
-              "nullable": false,
-              "start": {
-                "line": 4,
-                "column": 45
-              },
-              "end": {
-                "line": 4,
-                "column": 56
-              }
-            },
-            "arguments": [
-              {
-                "kind": 54,
-                "value": "(0, 0) is at the origin",
-                "start": {
-                  "line": 4,
-                  "column": 57
-                },
-                "end": {
-                  "line": 4,
-                  "column": 82
-                }
-              }
-            ],
-            "start": {
-              "line": 4,
-              "column": 45
-            },
-            "end": {
-              "line": 4,
-              "column": 83
-            }
-          },
-          "start": {
-            "line": 3,
-            "column": 19
-          },
-          "end": {
-            "line": 4,
-            "column": 83
           }
         },
         {
           "kind": 76,
-          "conditions": [],
-          "bindings": [
-            {
-              "kind": 2,
-              "elements": [
-                {
-                  "kind": 11,
-                  "name": {
-                    "kind": 42,
-                    "name": "x",
-                    "start": {
-                      "line": 5,
-                      "column": 8
-                    },
-                    "end": {
-                      "line": 5,
-                      "column": 9
-                    }
-                  },
-                  "start": {
-                    "line": 5,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 5,
-                    "column": 9
-                  }
-                },
-                {
-                  "kind": 11,
-                  "name": {
-                    "kind": 42,
-                    "name": "y",
-                    "start": {
-                      "line": 5,
-                      "column": 11
-                    },
-                    "end": {
-                      "line": 5,
-                      "column": 12
-                    }
-                  },
-                  "start": {
-                    "line": 5,
-                    "column": 11
-                  },
-                  "end": {
-                    "line": 5,
-                    "column": 12
-                  }
-                }
-              ],
-              "start": {
-                "line": 5,
-                "column": 7
-              },
-              "end": {
-                "line": 5,
-                "column": 13
-              }
-            }
-          ],
-          "filter": {
-            "kind": 10,
-            "operator": {
-              "kind": 10,
-              "start": {
-                "line": 5,
-                "column": 22
-              },
-              "end": {
-                "line": 5,
-                "column": 24
-              }
-            },
-            "start": {
-              "line": 5,
-              "column": 22
-            },
-            "end": {
-              "line": 5,
-              "column": 24
-            },
-            "left": {
-              "kind": 42,
-              "name": "y",
-              "start": {
-                "line": 5,
-                "column": 20
-              },
-              "end": {
-                "line": 5,
-                "column": 21
-              }
-            },
-            "right": {
-              "kind": 61,
-              "value": 0,
-              "start": {
-                "line": 5,
-                "column": 25
-              },
-              "end": {
-                "line": 5,
-                "column": 26
-              }
-            }
-          },
           "body": {
             "kind": 14,
             "scope": {
@@ -512,6 +405,7 @@
                 }
               }
             ],
+            "nullable": false,
             "start": {
               "line": 5,
               "column": 37
@@ -522,16 +416,198 @@
             }
           },
           "start": {
-            "line": 3,
-            "column": 19
+            "line": 5,
+            "column": 2
           },
           "end": {
             "line": 5,
             "column": 78
+          },
+          "conditions": [],
+          "bindings": [
+            {
+              "kind": 2,
+              "elements": [
+                {
+                  "kind": 11,
+                  "name": {
+                    "kind": 42,
+                    "name": "x",
+                    "start": {
+                      "line": 5,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 9
+                    }
+                  },
+                  "start": {
+                    "line": 5,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 9
+                  }
+                },
+                {
+                  "kind": 11,
+                  "name": {
+                    "kind": 42,
+                    "name": "y",
+                    "start": {
+                      "line": 5,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 12
+                    }
+                  },
+                  "start": {
+                    "line": 5,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 12
+                  }
+                }
+              ],
+              "start": {
+                "line": 5,
+                "column": 7
+              },
+              "end": {
+                "line": 5,
+                "column": 13
+              }
+            }
+          ],
+          "filter": {
+            "kind": 10,
+            "operator": {
+              "kind": 10,
+              "start": {
+                "line": 5,
+                "column": 22
+              },
+              "end": {
+                "line": 5,
+                "column": 24
+              }
+            },
+            "start": {
+              "line": 5,
+              "column": 20
+            },
+            "end": {
+              "line": 5,
+              "column": 26
+            },
+            "left": {
+              "kind": 42,
+              "name": "y",
+              "start": {
+                "line": 5,
+                "column": 20
+              },
+              "end": {
+                "line": 5,
+                "column": 21
+              }
+            },
+            "right": {
+              "kind": 61,
+              "value": 0,
+              "start": {
+                "line": 5,
+                "column": 25
+              },
+              "end": {
+                "line": 5,
+                "column": 26
+              }
+            }
           }
         },
         {
           "kind": 76,
+          "body": {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 55,
+              "object": {
+                "kind": 42,
+                "name": "console",
+                "start": {
+                  "line": 6,
+                  "column": 37
+                },
+                "end": {
+                  "line": 6,
+                  "column": 44
+                }
+              },
+              "property": {
+                "kind": 42,
+                "name": "log",
+                "start": {
+                  "line": 6,
+                  "column": 45
+                },
+                "end": {
+                  "line": 6,
+                  "column": 48
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 6,
+                "column": 37
+              },
+              "end": {
+                "line": 6,
+                "column": 48
+              }
+            },
+            "arguments": [
+              {
+                "kind": 54,
+                "value": "(0, \\(y)) is on the y-axis",
+                "start": {
+                  "line": 6,
+                  "column": 49
+                },
+                "end": {
+                  "line": 6,
+                  "column": 77
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 6,
+              "column": 37
+            },
+            "end": {
+              "line": 6,
+              "column": 78
+            }
+          },
+          "start": {
+            "line": 6,
+            "column": 2
+          },
+          "end": {
+            "line": 6,
+            "column": 78
+          },
           "conditions": [],
           "bindings": [
             {
@@ -609,11 +685,11 @@
             },
             "start": {
               "line": 6,
-              "column": 22
+              "column": 20
             },
             "end": {
               "line": 6,
-              "column": 24
+              "column": 26
             },
             "left": {
               "kind": 42,
@@ -639,7 +715,10 @@
                 "column": 26
               }
             }
-          },
+          }
+        },
+        {
+          "kind": 76,
           "body": {
             "kind": 14,
             "scope": {
@@ -651,71 +730,69 @@
                 "kind": 42,
                 "name": "console",
                 "start": {
-                  "line": 6,
-                  "column": 37
+                  "line": 7,
+                  "column": 54
                 },
                 "end": {
-                  "line": 6,
-                  "column": 44
+                  "line": 7,
+                  "column": 61
                 }
               },
               "property": {
                 "kind": 42,
                 "name": "log",
                 "start": {
-                  "line": 6,
-                  "column": 45
+                  "line": 7,
+                  "column": 62
                 },
                 "end": {
-                  "line": 6,
-                  "column": 48
+                  "line": 7,
+                  "column": 65
                 }
               },
               "computed": false,
               "nullable": false,
               "start": {
-                "line": 6,
-                "column": 37
+                "line": 7,
+                "column": 54
               },
               "end": {
-                "line": 6,
-                "column": 48
+                "line": 7,
+                "column": 65
               }
             },
             "arguments": [
               {
                 "kind": 54,
-                "value": "(0, \\(y)) is on the y-axis",
+                "value": "(\\(x), \\(y)) is inside the box",
                 "start": {
-                  "line": 6,
-                  "column": 49
+                  "line": 7,
+                  "column": 66
                 },
                 "end": {
-                  "line": 6,
-                  "column": 77
+                  "line": 7,
+                  "column": 98
                 }
               }
             ],
+            "nullable": false,
             "start": {
-              "line": 6,
-              "column": 37
+              "line": 7,
+              "column": 54
             },
             "end": {
-              "line": 6,
-              "column": 78
+              "line": 7,
+              "column": 99
             }
           },
           "start": {
-            "line": 3,
-            "column": 19
+            "line": 7,
+            "column": 2
           },
           "end": {
-            "line": 6,
-            "column": 78
-          }
-        },
-        {
-          "kind": 76,
+            "line": 7,
+            "column": 99
+          },
           "conditions": [],
           "bindings": [
             {
@@ -788,16 +865,16 @@
               },
               "end": {
                 "line": 7,
-                "column": 36
+                "column": 35
               }
             },
             "start": {
               "line": 7,
-              "column": 33
+              "column": 20
             },
             "end": {
               "line": 7,
-              "column": 36
+              "column": 48
             },
             "left": {
               "kind": 67,
@@ -814,11 +891,11 @@
               },
               "start": {
                 "line": 7,
-                "column": 23
+                "column": 20
               },
               "end": {
                 "line": 7,
-                "column": 30
+                "column": 32
               },
               "operands": [
                 {
@@ -874,11 +951,11 @@
               },
               "start": {
                 "line": 7,
-                "column": 39
+                "column": 36
               },
               "end": {
                 "line": 7,
-                "column": 46
+                "column": 48
               },
               "operands": [
                 {
@@ -919,7 +996,10 @@
                 }
               ]
             }
-          },
+          }
+        },
+        {
+          "kind": 76,
           "body": {
             "kind": 14,
             "scope": {
@@ -931,71 +1011,69 @@
                 "kind": 42,
                 "name": "console",
                 "start": {
-                  "line": 7,
-                  "column": 54
+                  "line": 8,
+                  "column": 28
                 },
                 "end": {
-                  "line": 7,
-                  "column": 61
+                  "line": 8,
+                  "column": 35
                 }
               },
               "property": {
                 "kind": 42,
                 "name": "log",
                 "start": {
-                  "line": 7,
-                  "column": 62
+                  "line": 8,
+                  "column": 36
                 },
                 "end": {
-                  "line": 7,
-                  "column": 65
+                  "line": 8,
+                  "column": 39
                 }
               },
               "computed": false,
               "nullable": false,
               "start": {
-                "line": 7,
-                "column": 54
+                "line": 8,
+                "column": 28
               },
               "end": {
-                "line": 7,
-                "column": 65
+                "line": 8,
+                "column": 39
               }
             },
             "arguments": [
               {
                 "kind": 54,
-                "value": "(\\(x), \\(y)) is inside the box",
+                "value": "(\\(x), \\(y)) is outside of the box",
                 "start": {
-                  "line": 7,
-                  "column": 66
+                  "line": 8,
+                  "column": 40
                 },
                 "end": {
-                  "line": 7,
-                  "column": 98
+                  "line": 8,
+                  "column": 76
                 }
               }
             ],
+            "nullable": false,
             "start": {
-              "line": 7,
-              "column": 54
+              "line": 8,
+              "column": 28
             },
             "end": {
-              "line": 7,
-              "column": 99
+              "line": 8,
+              "column": 77
             }
           },
           "start": {
-            "line": 3,
-            "column": 19
+            "line": 8,
+            "column": 2
           },
           "end": {
-            "line": 7,
-            "column": 99
-          }
-        },
-        {
-          "kind": 76,
+            "line": 8,
+            "column": 77
+          },
           "conditions": [],
           "bindings": [
             {
@@ -1057,85 +1135,10 @@
                 "column": 13
               }
             }
-          ],
-          "body": {
-            "kind": 14,
-            "scope": {
-              "kind": 3
-            },
-            "callee": {
-              "kind": 55,
-              "object": {
-                "kind": 42,
-                "name": "console",
-                "start": {
-                  "line": 8,
-                  "column": 28
-                },
-                "end": {
-                  "line": 8,
-                  "column": 35
-                }
-              },
-              "property": {
-                "kind": 42,
-                "name": "log",
-                "start": {
-                  "line": 8,
-                  "column": 36
-                },
-                "end": {
-                  "line": 8,
-                  "column": 39
-                }
-              },
-              "computed": false,
-              "nullable": false,
-              "start": {
-                "line": 8,
-                "column": 28
-              },
-              "end": {
-                "line": 8,
-                "column": 39
-              }
-            },
-            "arguments": [
-              {
-                "kind": 54,
-                "value": "(\\(x), \\(y)) is outside of the box",
-                "start": {
-                  "line": 8,
-                  "column": 40
-                },
-                "end": {
-                  "line": 8,
-                  "column": 76
-                }
-              }
-            ],
-            "start": {
-              "line": 8,
-              "column": 28
-            },
-            "end": {
-              "line": 8,
-              "column": 77
-            }
-          },
-          "start": {
-            "line": 3,
-            "column": 19
-          },
-          "end": {
-            "line": 8,
-            "column": 77
-          }
+          ]
         },
         {
           "kind": 76,
-          "conditions": [],
-          "bindings": [],
           "body": {
             "kind": 14,
             "scope": {
@@ -1192,6 +1195,7 @@
                 }
               }
             ],
+            "nullable": false,
             "start": {
               "line": 9,
               "column": 19
@@ -1202,13 +1206,15 @@
             }
           },
           "start": {
-            "line": 3,
-            "column": 19
+            "line": 9,
+            "column": 16
           },
           "end": {
             "line": 9,
             "column": 45
-          }
+          },
+          "conditions": [],
+          "bindings": []
         }
       ],
       "start": {

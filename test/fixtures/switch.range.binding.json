@@ -4,7 +4,6 @@
   "body": [
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "age",
@@ -18,6 +17,15 @@
         }
       },
       "parameters": [],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 22
+      },
+      "modifiers": [],
       "type": {
         "kind": 91,
         "typeName": {
@@ -54,19 +62,10 @@
           "column": 22
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 22
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "main",
@@ -80,6 +79,15 @@
         }
       },
       "parameters": [],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 10,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -118,21 +126,6 @@
             "clauses": [
               {
                 "kind": 76,
-                "conditions": [
-                  {
-                    "kind": 61,
-                    "value": 0,
-                    "start": {
-                      "line": 5,
-                      "column": 3
-                    },
-                    "end": {
-                      "line": 5,
-                      "column": 4
-                    }
-                  }
-                ],
-                "bindings": [],
                 "body": {
                   "kind": 14,
                   "scope": {
@@ -202,6 +195,7 @@
                       }
                     }
                   ],
+                  "nullable": false,
                   "start": {
                     "line": 5,
                     "column": 12
@@ -218,61 +212,25 @@
                 "end": {
                   "line": 5,
                   "column": 51
-                }
-              },
-              {
-                "kind": 76,
+                },
                 "conditions": [
                   {
-                    "kind": 80,
-                    "from": {
-                      "kind": 61,
-                      "value": 1,
-                      "start": {
-                        "line": 6,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 4
-                      }
-                    },
-                    "to": {
-                      "kind": 61,
-                      "value": 12,
-                      "start": {
-                        "line": 6,
-                        "column": 9
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 11
-                      }
-                    },
+                    "kind": 61,
+                    "value": 0,
                     "start": {
-                      "line": 6,
+                      "line": 5,
                       "column": 3
                     },
                     "end": {
-                      "line": 6,
-                      "column": 11
+                      "line": 5,
+                      "column": 4
                     }
                   }
                 ],
-                "bindings": [
-                  {
-                    "kind": 42,
-                    "name": "n",
-                    "start": {
-                      "line": 6,
-                      "column": 18
-                    },
-                    "end": {
-                      "line": 6,
-                      "column": 19
-                    }
-                  }
-                ],
+                "bindings": []
+              },
+              {
+                "kind": 76,
                 "body": {
                   "kind": 14,
                   "scope": {
@@ -354,6 +312,7 @@
                       }
                     }
                   ],
+                  "nullable": false,
                   "start": {
                     "line": 6,
                     "column": 23
@@ -370,43 +329,40 @@
                 "end": {
                   "line": 6,
                   "column": 61
-                }
-              },
-              {
-                "kind": 76,
+                },
                 "conditions": [
                   {
                     "kind": 80,
                     "from": {
                       "kind": 61,
-                      "value": 13,
+                      "value": 1,
                       "start": {
-                        "line": 7,
+                        "line": 6,
                         "column": 3
                       },
                       "end": {
-                        "line": 7,
-                        "column": 5
+                        "line": 6,
+                        "column": 4
                       }
                     },
                     "to": {
                       "kind": 61,
-                      "value": 19,
+                      "value": 12,
                       "start": {
-                        "line": 7,
+                        "line": 6,
                         "column": 9
                       },
                       "end": {
-                        "line": 7,
+                        "line": 6,
                         "column": 11
                       }
                     },
                     "start": {
-                      "line": 7,
+                      "line": 6,
                       "column": 3
                     },
                     "end": {
-                      "line": 7,
+                      "line": 6,
                       "column": 11
                     }
                   }
@@ -416,15 +372,18 @@
                     "kind": 42,
                     "name": "n",
                     "start": {
-                      "line": 7,
+                      "line": 6,
                       "column": 18
                     },
                     "end": {
-                      "line": 7,
+                      "line": 6,
                       "column": 19
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "kind": 76,
                 "body": {
                   "kind": 14,
                   "scope": {
@@ -506,6 +465,7 @@
                       }
                     }
                   ],
+                  "nullable": false,
                   "start": {
                     "line": 7,
                     "column": 23
@@ -522,25 +482,61 @@
                 "end": {
                   "line": 7,
                   "column": 60
-                }
-              },
-              {
-                "kind": 76,
-                "conditions": [],
+                },
+                "conditions": [
+                  {
+                    "kind": 80,
+                    "from": {
+                      "kind": 61,
+                      "value": 13,
+                      "start": {
+                        "line": 7,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 5
+                      }
+                    },
+                    "to": {
+                      "kind": 61,
+                      "value": 19,
+                      "start": {
+                        "line": 7,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 11
+                      }
+                    },
+                    "start": {
+                      "line": 7,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 11
+                    }
+                  }
+                ],
                 "bindings": [
                   {
                     "kind": 42,
                     "name": "n",
                     "start": {
-                      "line": 8,
-                      "column": 11
+                      "line": 7,
+                      "column": 18
                     },
                     "end": {
-                      "line": 8,
-                      "column": 12
+                      "line": 7,
+                      "column": 19
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "kind": 76,
                 "body": {
                   "kind": 14,
                   "scope": {
@@ -622,6 +618,7 @@
                       }
                     }
                   ],
+                  "nullable": false,
                   "start": {
                     "line": 8,
                     "column": 16
@@ -632,13 +629,28 @@
                   }
                 },
                 "start": {
-                  "line": 5,
-                  "column": 3
+                  "line": 8,
+                  "column": 6
                 },
                 "end": {
                   "line": 8,
                   "column": 60
-                }
+                },
+                "conditions": [],
+                "bindings": [
+                  {
+                    "kind": 42,
+                    "name": "n",
+                    "start": {
+                      "line": 8,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 12
+                    }
+                  }
+                ]
               }
             ],
             "start": {
@@ -660,14 +672,6 @@
           "line": 10,
           "column": 2
         }
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 10,
-        "column": 2
       },
       "attributes": []
     }

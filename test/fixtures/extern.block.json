@@ -7,7 +7,6 @@
       "declarations": [
         {
           "kind": 40,
-          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "foo",
@@ -21,6 +20,15 @@
             }
           },
           "parameters": [],
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 2,
+            "column": 15
+          },
+          "modifiers": [],
           "type": {
             "kind": 91,
             "typeName": {
@@ -44,14 +52,7 @@
               "column": 15
             }
           },
-          "start": {
-            "line": 2,
-            "column": 2
-          },
-          "end": {
-            "line": 2,
-            "column": 15
-          }
+          "throws": []
         }
       ],
       "start": {

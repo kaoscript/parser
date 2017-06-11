@@ -62,6 +62,14 @@
                           }
                         }
                       ],
+                      "start": {
+                        "line": 2,
+                        "column": 6
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 13
+                      },
                       "name": {
                         "kind": 42,
                         "name": "args",
@@ -73,17 +81,17 @@
                           "line": 2,
                           "column": 13
                         }
-                      },
-                      "start": {
-                        "line": 2,
-                        "column": 6
-                      },
-                      "end": {
-                        "line": 2,
-                        "column": 13
                       }
                     }
                   ],
+                  "start": {
+                    "line": 2,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 14
+                  },
                   "modifiers": []
                 },
                 "start": {
@@ -132,11 +140,11 @@
         "assignment": 8,
         "start": {
           "line": 5,
-          "column": 1
+          "column": 8
         },
         "end": {
           "line": 5,
-          "column": 7
+          "column": 9
         }
       },
       "left": {
@@ -225,18 +233,7 @@
         }
       },
       "desc": false,
-      "from": {
-        "kind": 61,
-        "value": 2,
-        "start": {
-          "line": 7,
-          "column": 32
-        },
-        "end": {
-          "line": 7,
-          "column": 33
-        }
-      },
+      "declaration": false,
       "start": {
         "line": 7,
         "column": 1
@@ -245,7 +242,6 @@
         "line": 9,
         "column": 2
       },
-      "declaration": false,
       "value": {
         "kind": 42,
         "name": "hero",
@@ -268,6 +264,18 @@
         "end": {
           "line": 7,
           "column": 16
+        }
+      },
+      "from": {
+        "kind": 61,
+        "value": 2,
+        "start": {
+          "line": 7,
+          "column": 32
+        },
+        "end": {
+          "line": 7,
+          "column": 33
         }
       },
       "body": {

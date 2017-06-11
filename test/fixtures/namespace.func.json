@@ -57,7 +57,6 @@
       "statements": [
         {
           "kind": 40,
-          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "toString",
@@ -74,6 +73,14 @@
             {
               "kind": 66,
               "modifiers": [],
+              "start": {
+                "line": 4,
+                "column": 16
+              },
+              "end": {
+                "line": 4,
+                "column": 29
+              },
               "name": {
                 "kind": 42,
                 "name": "value",
@@ -108,17 +115,18 @@
                   "line": 4,
                   "column": 29
                 }
-              },
-              "start": {
-                "line": 4,
-                "column": 16
-              },
-              "end": {
-                "line": 4,
-                "column": 29
               }
             }
           ],
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 58
+          },
+          "modifiers": [],
           "type": {
             "kind": 91,
             "typeName": {
@@ -196,14 +204,7 @@
               "column": 58
             }
           },
-          "start": {
-            "line": 4,
-            "column": 2
-          },
-          "end": {
-            "line": 4,
-            "column": 58
-          }
+          "attributes": []
         }
       ],
       "start": {
