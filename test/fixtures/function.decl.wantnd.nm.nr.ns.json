@@ -1,10 +1,9 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "foo",
@@ -19,8 +18,16 @@
       },
       "parameters": [
         {
-          "kind": 66,
+          "kind": 71,
           "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 13
+          },
           "name": {
             "kind": 42,
             "name": "bar",
@@ -32,19 +39,19 @@
               "line": 1,
               "column": 13
             }
-          },
-          "start": {
-            "line": 1,
-            "column": 10
-          },
-          "end": {
-            "line": 1,
-            "column": 13
           }
         },
         {
-          "kind": 66,
+          "kind": 71,
           "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 15
+          },
+          "end": {
+            "line": 1,
+            "column": 18
+          },
           "name": {
             "kind": 42,
             "name": "qux",
@@ -56,17 +63,18 @@
               "line": 1,
               "column": 18
             }
-          },
-          "start": {
-            "line": 1,
-            "column": 15
-          },
-          "end": {
-            "line": 1,
-            "column": 18
           }
         }
       ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 12,
@@ -80,14 +88,6 @@
           "line": 2,
           "column": 2
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
       },
       "attributes": []
     }

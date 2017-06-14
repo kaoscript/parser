@@ -28,6 +28,27 @@ enum ExpressionMode {
 	NoAnonymousFunction
 	NoAwait
 	NoObject
+	WithMacro
+}
+
+#[flags]
+enum MacroTerminator {
+	COMMA = 1
+	NEWLINE
+	RIGHT_CURLY
+	RIGHT_ROUND
+	RIGHT_SQUARE
+	
+	Array		= COMMA | NEWLINE | RIGHT_SQUARE
+	List		= COMMA | NEWLINE | RIGHT_ROUND
+	Object		= COMMA | NEWLINE | RIGHT_CURLY
+	Parenthesis	= NEWLINE | RIGHT_ROUND
+}
+
+#[flags]
+enum ParserMode {
+	Default
+	MacroExpression
 }
 
 const NO = {
@@ -37,6 +58,7 @@ const NO = {
 class Parser {
 	private {
 		_history: Array		= []
+		_mode: Number		= ParserMode::Default
 		_scanner: Scanner
 		_token
 	}
@@ -179,7 +201,7 @@ class Parser {
 			else if @token == Token::COMMA {
 				this.commit().NL_0M()
 				
-				values.push(this.reqExpression(ExpressionMode::Default))
+				values.push(this.reqExpression(null, MacroTerminator::Array))
 			}
 			else if @token == Token::NEWLINE {
 				this.commit().NL_0M()
@@ -187,7 +209,7 @@ class Parser {
 				if this.match(Token::RIGHT_SQUARE, Token::COMMA) == Token::COMMA {
 					this.commit().NL_0M()
 					
-					values.push(this.reqExpression(ExpressionMode::Default))
+					values.push(this.reqExpression(null, MacroTerminator::Array))
 				}
 				else if @token == Token::RIGHT_SQUARE {
 					return this.yep(AST.ArrayExpression(values, first, this.yes()))
@@ -537,7 +559,7 @@ class Parser {
 					return this.yep(AST.ArrayExpression([], first, this.yes()))
 				}
 				
-				expression = this.reqExpression(ExpressionMode::Default)
+				expression = this.reqExpression(null, MacroTerminator::Array)
 			}
 			
 			if this.match(Token::RIGHT_SQUARE, Token::FOR, Token::NEWLINE) == Token::RIGHT_SQUARE {
@@ -813,6 +835,32 @@ class Parser {
 		}
 		
 		const mark1 = this.mark()
+		
+		if this.test(Token::MACRO) {
+			first = this.yes()
+			
+			if this.test(Token::IDENTIFIER) {
+				const statement = this.reqMacroStatement(first)
+				
+				if statement.ok {
+					this.reqNL_1M()
+					
+					if attributes == null {
+						statement.attributes = []
+					}
+					else {
+						statement.attributes = attributes
+					}
+					
+					members.push(statement)
+					
+					return
+				}
+			}
+			
+			this.rollback(mark1)
+			first = null
+		}
 		
 		const modifiers = []
 		if this.match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC) == Token::PRIVATE {
@@ -1591,7 +1639,19 @@ class Parser {
 		
 		return this.yep(AST.ExportDeclaration(declarations, first, last))
 	} // }}}
-	reqExpression(mode) ~ SyntaxError { // {{{
+	reqExpression(mode?, terminator = null) ~ SyntaxError { // {{{
+		if mode == null {
+			if @mode & ParserMode::MacroExpression != 0 &&
+				@scanner.test(Token::IDENTIFIER) &&
+				@scanner.value() == 'macro'
+			{
+				return this.reqMacroExpression(this.yes(), terminator)
+			}
+			else {
+				mode = ExpressionMode::Default
+			}
+		}
+		
 		const operation = this.reqOperation(mode)
 		
 		if this.test(Token::QUESTION) {
@@ -1623,7 +1683,7 @@ class Parser {
 			const expressions = []
 			
 			while true {
-				expressions.push(this.reqExpression(ExpressionMode::Default))
+				expressions.push(this.reqExpression(null, MacroTerminator::List))
 				
 				if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA || @token == Token::NEWLINE {
 					this.commit().NL_0M()
@@ -2336,8 +2396,6 @@ class Parser {
 			declarations.push(last = this.reqImportDeclarator())
 		}
 		
-		this.reqNL_EOF_1M()
-		
 		return this.yep(AST.ImportDeclaration(declarations, first, last))
 	} // }}}
 	reqIncludeStatement(first) ~ SyntaxError { // {{{
@@ -2525,6 +2583,317 @@ class Parser {
 			}
 		}
 	} // }}}
+	reqMacroElements(elements, terminator) ~ SyntaxError { // {{{
+		const history = []
+		
+		let literal = null
+		let first, last
+		
+		const addLiteral = () => {
+			if literal != null {
+				elements.push(this.yep(AST.Literal(literal, first, last)))
+				
+				literal = null
+			}
+		}
+		
+		const addToLiteral = () => {
+			if literal == null {
+				literal = @scanner.value()
+				first = last = this.yep()
+			}
+			else {
+				literal += @scanner.value()
+				last = this.yep()
+			}
+			
+			this.commit()
+		}
+		
+		while true {
+			switch this.matchM(M.MACRO) {
+				Token::EOF => {
+					if history.length == 0 && terminator & MacroTerminator::NEWLINE == 0 {
+						this.throw()
+					}
+					
+					break
+				}
+				Token::HASH => {
+					addLiteral()
+					
+					const first = this.yes()
+					
+					if this.testNS(Token::IDENTIFIER) {
+						const identifier = @scanner.value()
+						const last = this.yes()
+						
+						if identifier.length == 1 && (identifier == 'a' || identifier == 'b' || identifier == 'e' || identifier == 'i') && this.test(Token::LEFT_ROUND) {
+							const reification = AST.MacroReification(identifier, last)
+							
+							this.commit()
+							
+							const expression = this.reqExpression(ExpressionMode::Default)
+							
+							unless this.test(Token::RIGHT_ROUND) {
+								this.throw(')')
+							}
+							
+							elements.push(this.yep(AST.MacroVariable(expression, reification, first, this.yes())))
+						}
+						else {
+							const expression = this.yep(AST.Identifier(identifier, last))
+							
+							elements.push(this.yep(AST.MacroVariable(expression, null, first, expression)))
+						}
+					}
+					else if this.testNS(Token::LEFT_ROUND) {
+						this.commit()
+						
+						const expression = this.reqExpression(ExpressionMode::Default)
+						
+						unless this.test(Token::RIGHT_ROUND) {
+							this.throw(')')
+						}
+						
+						elements.push(this.yep(AST.MacroVariable(expression, null, first, this.yes())))
+					}
+					else {
+						this.throw()
+					}
+				}
+				Token::INVALID => {
+					addToLiteral()
+				}
+				Token::LEFT_CURLY => {
+					addToLiteral()
+					
+					history.unshift(Token::RIGHT_CURLY)
+				}
+				Token::LEFT_ROUND => {
+					addToLiteral()
+					
+					history.unshift(Token::RIGHT_ROUND)
+				}
+				Token::NEWLINE => {
+					if history.length == 0 && terminator & MacroTerminator::NEWLINE != 0 {
+						break
+					}
+					else {
+						addToLiteral()
+						
+						@scanner.skip()
+					}
+				}
+				Token::RIGHT_CURLY => {
+					if history.length == 0 {
+						if terminator & MacroTerminator::RIGHT_CURLY == 0 {
+							addToLiteral()
+						}
+						else {
+							break
+						}
+					}
+					else {
+						addToLiteral()
+						
+						if history[0] == Token::RIGHT_CURLY {
+							history.shift()
+						}
+					}
+				}
+				Token::RIGHT_ROUND => {
+					if history.length == 0 {
+						if terminator & MacroTerminator::RIGHT_ROUND == 0 {
+							addToLiteral()
+						}
+						else {
+							break
+						}
+					}
+					else {
+						addToLiteral()
+						
+						if history[0] == Token::RIGHT_ROUND {
+							history.shift()
+						}
+					}
+				}
+			}
+		}
+		
+		unless history.length == 0 {
+			this.throw()
+		}
+		
+		if literal != null {
+			elements.push(this.yep(AST.Literal(literal, first, last)))
+		}
+	} // }}}
+	reqMacroExpression(first, terminator = MacroTerminator::NEWLINE) ~ SyntaxError { // {{{
+		const elements = []
+		
+		if this.test(Token::LEFT_CURLY) {
+			if first.ok {
+				this.commit()
+			}
+			else {
+				first = this.yes()
+			}
+			
+			this.reqNL_1M()
+			
+			this.reqMacroElements(elements, MacroTerminator::RIGHT_CURLY)
+			
+			unless this.test(Token::RIGHT_CURLY) {
+				this.throw('}')
+			}
+			
+			return this.yep(AST.MacroExpression(elements, first, this.yes()))
+		}
+		else {
+			if !first.ok {
+				first = this.yep()
+			}
+			
+			this.reqMacroElements(elements, terminator)
+			
+			return this.yep(AST.MacroExpression(elements, first, elements[elements.length - 1]))
+		}
+	} // }}}
+	reqMacroParameter(parameters) ~ SyntaxError { // {{{
+		const first = this.reqMacroParameterOperand()
+		const elements = [first]
+		let last = first
+		
+		while true {
+			switch this.match(Token::COMMA, Token::RIGHT_ROUND) {
+				Token::COMMA => {
+					this.commit()
+					
+					parameters.push(this.yep(AST.MacroParameter(elements, first, last)))
+					
+					return true
+				}
+				Token::RIGHT_ROUND => {
+					parameters.push(this.yep(AST.MacroParameter(elements, first, last)))
+					
+					return false
+				}
+				=> {
+					const operator = this.tryBinaryOperator()
+					
+					if operator.ok {
+						elements.push(operator)
+						
+						elements.push(last = this.reqMacroParameterOperand())
+					}
+					else {
+						this.throw()
+					}
+				}
+			}
+		}
+	} // }}}
+	reqMacroParameterOperand() ~ SyntaxError { // {{{
+		const modifiers = this.reqParameterModifiers()
+		
+		return this.reqParameterIdendifier(modifiers, modifiers.length == 0 ? null : modifiers[0])
+	} // }}}
+	reqMacroRule(first, capture) ~ SyntaxError { // {{{
+		const parameters = []
+		
+		unless this.test(Token::RIGHT_ROUND) {
+			while this.reqMacroParameter(parameters) {
+			}
+			
+			unless this.test(Token::RIGHT_ROUND) {
+				this.throw(')')
+			}
+		}
+		
+		this.commit()
+		
+		if capture {
+			unless this.test(Token::EQUALS_RIGHT_ANGLE) {
+				this.throw('=>')
+			}
+			
+			this.commit()
+		}
+		else if this.test(Token::EQUALS_RIGHT_ANGLE) {
+			this.commit()
+			
+			const expression = this.reqMacroExpression(NO)
+			
+			return this.yep(AST.MacroRule(parameters, [expression], first, expression))
+		}
+		
+		if this.test(Token::LEFT_CURLY) {
+			this.commit().NL_0M()
+			
+			const statements = []
+			
+			@mode |= ParserMode::MacroExpression
+			
+			until this.test(Token::RIGHT_CURLY) {
+				statements.push(this.reqStatement())
+			}
+			
+			@mode ^= ParserMode::MacroExpression
+			
+			unless this.test(Token::RIGHT_CURLY) {
+				this.throw('}')
+			}
+			
+			return this.yep(AST.MacroRule(parameters, statements, first, this.yes()))
+		}
+		else {
+			const expression = this.reqMacroExpression(NO)
+			
+			return this.yep(AST.MacroRule(parameters, [expression], first, expression))
+		}
+	} // }}}
+	reqMacroStatement(first) ~ SyntaxError { // {{{
+		const name = this.tryIdentifier()
+		
+		unless name.ok {
+			return NO
+		}
+		
+		let last
+		const rules = []
+		
+		switch this.match(Token::LEFT_CURLY, Token::LEFT_ROUND) {
+			Token::LEFT_CURLY => {
+				this.commit().NL_0M()
+				
+				until this.match(Token::RIGHT_CURLY) {
+					unless this.test(Token::LEFT_ROUND) {
+						this.throw('(')
+					}
+					
+					rules.push(this.reqMacroRule(this.yes(), true))
+					
+					this.reqNL_1M()
+				}
+				
+				unless this.match(Token::RIGHT_CURLY) {
+					this.throw('}')
+				}
+				
+				last = this.yes()
+			}
+			Token::LEFT_ROUND => {
+				rules.push(last = this.reqMacroRule(this.yes(), false))
+			}
+			=> {
+				this.throw()
+			}
+		}
+		
+		return this.yep(AST.MacroDeclaration(name, rules, first, last))
+	} // }}}
 	reqModule() ~ SyntaxError { // {{{
 		this.NL_0M()
 		
@@ -2553,9 +2922,6 @@ class Parser {
 					}
 					Token::EXTERN_REQUIRE => {
 						statement = this.reqExternOrRequireStatement(this.yes()).value
-					}
-					Token::IMPORT => {
-						statement = this.reqImportStatement(this.yes()).value
 					}
 					Token::INCLUDE => {
 						statement = this.reqIncludeStatement(this.yes()).value
@@ -2737,7 +3103,7 @@ class Parser {
 		if this.test(Token::COLON) {
 			this.commit()
 			
-			const value = this.reqExpression(ExpressionMode::Default)
+			const value = this.reqExpression(null, MacroTerminator::Object)
 			
 			return this.yep(AST.ObjectMember(attributes, name, value, first ?? name, value))
 		}
@@ -2792,11 +3158,115 @@ class Parser {
 		}
 	} // }}}
 	reqParameter(parameters) ~ SyntaxError { // {{{
-		let first = null
+		const modifiers = this.reqParameterModifiers()
+		let first = modifiers.length == 0 ? null : modifiers[0]
 		
-		let modifiers = []
+		if this.match(Token::COLON, Token::COMMA, Token::IDENTIFIER, Token::RIGHT_ROUND) == Token::COLON {
+			if first == null {
+				first = this.yes()
+			}
+			else {
+				this.commit()
+			}
+			
+			const type = this.reqTypeVar()
+			
+			parameters.push(this.yep(AST.Parameter(null, type, modifiers, null, first, type)))
+			
+			if this.test(Token::COMMA) {
+				this.commit()
+			}
+			else {
+				return false
+			}
+		}
+		else if @token == Token::COMMA {
+			if first == null {
+				first = this.yes()
+				first.end = first.start
+			}
+			else {
+				this.commit()
+			}
+			
+			parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
+		}
+		else if @token == Token::IDENTIFIER {
+			parameters.push(this.reqParameterIdendifier(modifiers, first))
+			
+			if this.test(Token::COMMA) {
+				this.commit()
+			}
+			else {
+				return false
+			}
+		}
+		else if @token == Token::RIGHT_ROUND {
+			first = this.yep(@scanner.position())
+			first.end = first.start
+			
+			parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
+			
+			return false
+		}
+		else if modifiers.length != 0 {
+			parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
+		}
+		else {
+			this.throw()
+		}
+		
+		return true
+	} // }}}
+	reqParameterIdendifier(modifiers, first?) ~ SyntaxError { // {{{
+		const identifier = this.reqIdentifier()
+		
+		if this.match(Token::COLON, Token::EQUALS, Token::QUESTION) == Token::COLON {
+			this.commit()
+			
+			const type = this.reqTypeVar()
+			
+			if this.test(Token::EQUALS) {
+				this.commit()
+				
+				const defaultValue = this.reqExpression(ExpressionMode::Default)
+				
+				return this.yep(AST.Parameter(identifier, type, modifiers, defaultValue, first ?? identifier, defaultValue))
+			}
+			else {
+				return this.yep(AST.Parameter(identifier, type, modifiers, null, first ?? identifier, type))
+			}
+		}
+		else if @token == Token::EQUALS {
+			this.commit()
+			
+			const defaultValue = this.reqExpression(ExpressionMode::Default)
+			
+			return this.yep(AST.Parameter(identifier, null, modifiers, defaultValue, first ?? identifier, defaultValue))
+		}
+		else if @token == Token::QUESTION {
+			const type = this.yep(AST.Nullable(this.yes()))
+			
+			if this.test(Token::EQUALS) {
+				this.commit()
+				
+				const defaultValue = this.reqExpression(ExpressionMode::Default)
+				
+				return this.yep(AST.Parameter(identifier, type, modifiers, defaultValue, first ?? identifier, defaultValue))
+			}
+			else {
+				return this.yep(AST.Parameter(identifier, type, modifiers, null, first ?? identifier, type))
+			}
+		}
+		else {
+			return this.yep(AST.Parameter(identifier, null, modifiers, null, first ?? identifier, identifier))
+		}
+	} // }}}
+	reqParameterModifiers() ~ SyntaxError { // {{{
+		const modifiers = []
+		
 		if this.test(Token::DOT_DOT_DOT) {
-			first = this.yes()
+			const first = this.yes()
 			
 			if this.test(Token::LEFT_CURLY) {
 				this.commit()
@@ -2838,109 +3308,13 @@ class Parser {
 			}
 		}
 		
-		if this.match(Token::COLON, Token::COMMA, Token::IDENTIFIER, Token::RIGHT_ROUND) == Token::COLON {
-			if first == null {
-				first = this.yes()
-			}
-			else {
-				this.commit()
-			}
-			
-			const type = this.reqTypeVar()
-			
-			parameters.push(this.yep(AST.Parameter(null, type, modifiers, null, first, type)))
-			
-			if this.test(Token::COMMA) {
-				this.commit()
-			}
-			else {
-				return false
-			}
-		}
-		else if @token == Token::COMMA {
-			if first == null {
-				first = this.yes()
-				first.end = first.start
-			}
-			else {
-				this.commit()
-			}
-			
-			parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
-		}
-		else if @token == Token::IDENTIFIER {
-			const identifier = this.reqIdentifier()
-			
-			if this.match(Token::COLON, Token::EQUALS, Token::QUESTION) == Token::COLON {
-				this.commit()
-				
-				const type = this.reqTypeVar()
-				
-				if this.test(Token::EQUALS) {
-					this.commit()
-					
-					const defaultValue = this.reqExpression(ExpressionMode::Default)
-					
-					parameters.push(this.yep(AST.Parameter(identifier, type, modifiers, defaultValue, first ?? identifier, defaultValue)))
-				}
-				else {
-					parameters.push(this.yep(AST.Parameter(identifier, type, modifiers, null, first ?? identifier, type)))
-				}
-			}
-			else if @token == Token::EQUALS {
-				this.commit()
-				
-				const defaultValue = this.reqExpression(ExpressionMode::Default)
-				
-				parameters.push(this.yep(AST.Parameter(identifier, null, modifiers, defaultValue, first ??identifier, defaultValue)))
-			}
-			else if @token == Token::QUESTION {
-				const type = this.yep(AST.Nullable(this.yes()))
-				
-				if this.test(Token::EQUALS) {
-					this.commit()
-					
-					const defaultValue = this.reqExpression(ExpressionMode::Default)
-					
-					parameters.push(this.yep(AST.Parameter(identifier, type, modifiers, defaultValue, first ?? identifier, defaultValue)))
-				}
-				else {
-					parameters.push(this.yep(AST.Parameter(identifier, type, modifiers, null, first ?? identifier, type)))
-				}
-			}
-			else {
-				parameters.push(this.yep(AST.Parameter(identifier, null, modifiers, null, first ?? identifier, identifier)))
-			}
-			
-			if this.test(Token::COMMA) {
-				this.commit()
-			}
-			else {
-				return false
-			}
-		}
-		else if @token == Token::RIGHT_ROUND {
-			first = this.yep(@scanner.position())
-			first.end = first.start
-			
-			parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
-			
-			return false
-		}
-		else if modifiers.length != 0 {
-			parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
-		}
-		else {
-			this.throw()
-		}
-		
-		return true
+		return modifiers
 	} // }}}
 	reqParenthesis(first) ~ SyntaxError { // {{{
 		if this.test(Token::NEWLINE) {
 			this.commit().NL_0M()
 			
-			const expression = this.reqExpression(ExpressionMode::Default)
+			const expression = this.reqExpression(null, MacroTerminator::Parenthesis)
 			
 			this.NL_0M()
 			
@@ -2953,12 +3327,12 @@ class Parser {
 			return expression
 		}
 		else {
-			const expressions = [this.reqExpression(ExpressionMode::Default)]
+			const expressions = [this.reqExpression(null, MacroTerminator::List)]
 			
 			while this.test(Token::COMMA) {
 				this.commit()
 				
-				expressions.push(this.reqExpression(ExpressionMode::Default))
+				expressions.push(this.reqExpression(null, MacroTerminator::List))
 			}
 			
 			unless this.test(Token::RIGHT_ROUND) {
@@ -3276,8 +3650,19 @@ class Parser {
 			Token::IMPL => {
 				statement = this.reqImplementStatement(this.yes())
 			}
+			Token::IMPORT => {
+				statement = this.reqImportStatement(this.yes())
+			}
 			Token::LET => {
 				statement = this.reqLetStatement(this.yes())
+			}
+			Token::MACRO => {
+				if @mode & ParserMode::MacroExpression == 0 {
+					statement = this.reqMacroStatement(this.yes())
+				}
+				else {
+					statement = this.reqMacroExpression(this.yes())
+				}
 			}
 			Token::NAMESPACE => {
 				statement = this.reqNamespaceStatement(this.yes())
@@ -4153,6 +4538,11 @@ class Parser {
 					this.commit()
 					
 					value = this.yep(AST.MemberExpression(value, this.reqIdentifier(), false, false))
+				}
+				Token::EXCLAMATION_LEFT_ROUND => {
+					this.commit()
+					
+					value = this.yep(AST.CallMacroExpression(value, this.reqExpression0CNList(), value, this.yes()))
 				}
 				Token::LEFT_SQUARE => {
 					this.commit()

@@ -1,12 +1,12 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
-      "kind": 70,
+      "kind": 75,
       "declarations": [
         {
-          "kind": 98,
+          "kind": 103,
           "name": {
             "kind": 42,
             "name": "Color",
@@ -20,7 +20,7 @@
             }
           },
           "type": {
-            "kind": 91,
+            "kind": 96,
             "typeName": {
               "kind": 42,
               "name": "class",
@@ -52,7 +52,7 @@
           }
         },
         {
-          "kind": 98,
+          "kind": 103,
           "name": {
             "kind": 42,
             "name": "Space",
@@ -66,7 +66,7 @@
             }
           },
           "type": {
-            "kind": 91,
+            "kind": 96,
             "typeName": {
               "kind": 42,
               "name": "enum",
@@ -150,8 +150,16 @@
               "column": 15
             }
           },
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 20
+          },
           "type": {
-            "kind": 91,
+            "kind": 96,
             "typeName": {
               "kind": 42,
               "name": "int",
@@ -172,17 +180,11 @@
               "line": 4,
               "column": 20
             }
-          },
-          "start": {
-            "line": 4,
-            "column": 2
-          },
-          "end": {
-            "line": 4,
-            "column": 20
           }
         },
         {
+          "kind": 61,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "luma",
@@ -196,7 +198,6 @@
             }
           },
           "parameters": [],
-          "throws": [],
           "start": {
             "line": 6,
             "column": 2
@@ -205,10 +206,8 @@
             "line": 6,
             "column": 22
           },
-          "kind": 56,
-          "modifiers": [],
           "type": {
-            "kind": 91,
+            "kind": 96,
             "typeName": {
               "kind": 42,
               "name": "int",
@@ -230,8 +229,9 @@
               "column": 13
             }
           },
+          "throws": [],
           "body": {
-            "kind": 86,
+            "kind": 91,
             "name": {
               "kind": 42,
               "name": "luma",
@@ -255,6 +255,8 @@
           }
         },
         {
+          "kind": 61,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "luma",
@@ -269,7 +271,7 @@
           },
           "parameters": [
             {
-              "kind": 66,
+              "kind": 71,
               "modifiers": [
                 {
                   "kind": 10,
@@ -283,6 +285,14 @@
                   }
                 }
               ],
+              "start": {
+                "line": 8,
+                "column": 7
+              },
+              "end": {
+                "line": 8,
+                "column": 12
+              },
               "name": {
                 "kind": 42,
                 "name": "luma",
@@ -294,18 +304,9 @@
                   "line": 8,
                   "column": 12
                 }
-              },
-              "start": {
-                "line": 8,
-                "column": 7
-              },
-              "end": {
-                "line": 8,
-                "column": 12
               }
             }
           ],
-          "throws": [],
           "start": {
             "line": 8,
             "column": 2
@@ -314,8 +315,7 @@
             "line": 8,
             "column": 21
           },
-          "kind": 56,
-          "modifiers": [],
+          "throws": [],
           "body": {
             "kind": 42,
             "name": "this",

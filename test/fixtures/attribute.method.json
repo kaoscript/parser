@@ -1,5 +1,5 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
@@ -19,6 +19,8 @@
       "modifiers": [],
       "members": [
         {
+          "kind": 61,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "bar",
@@ -32,7 +34,6 @@
             }
           },
           "parameters": [],
-          "throws": [],
           "start": {
             "line": 2,
             "column": 2
@@ -40,21 +41,6 @@
           "end": {
             "line": 4,
             "column": 3
-          },
-          "kind": 56,
-          "modifiers": [],
-          "body": {
-            "kind": 12,
-            "attributes": [],
-            "statements": [],
-            "start": {
-              "line": 3,
-              "column": 8
-            },
-            "end": {
-              "line": 4,
-              "column": 3
-            }
           },
           "attributes": [
             {
@@ -80,7 +66,21 @@
                 "column": 8
               }
             }
-          ]
+          ],
+          "throws": [],
+          "body": {
+            "kind": 12,
+            "attributes": [],
+            "statements": [],
+            "start": {
+              "line": 3,
+              "column": 8
+            },
+            "end": {
+              "line": 4,
+              "column": 3
+            }
+          }
         }
       ],
       "start": {

@@ -1,13 +1,13 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
-      "kind": 97,
+      "kind": 102,
       "rebindable": false,
       "variables": [
         {
-          "kind": 98,
+          "kind": 103,
           "name": {
             "kind": 42,
             "name": "foo",
@@ -36,7 +36,7 @@
         "kind": 41,
         "parameters": [
           {
-            "kind": 66,
+            "kind": 71,
             "modifiers": [],
             "start": {
               "line": 1,
@@ -59,7 +59,7 @@
               }
             },
             "type": {
-              "kind": 91,
+              "kind": 96,
               "typeName": {
                 "kind": 42,
                 "name": "int",
@@ -83,7 +83,7 @@
             }
           },
           {
-            "kind": 66,
+            "kind": 71,
             "modifiers": [],
             "start": {
               "line": 1,
@@ -106,7 +106,7 @@
               }
             },
             "type": {
-              "kind": 91,
+              "kind": 96,
               "typeName": {
                 "kind": 42,
                 "name": "int",
@@ -140,7 +140,7 @@
         },
         "modifiers": [],
         "type": {
-          "kind": 91,
+          "kind": 96,
           "typeName": {
             "kind": 42,
             "name": "int",
@@ -167,15 +167,7 @@
           "attributes": [],
           "statements": [
             {
-              "kind": 73,
-              "start": {
-                "line": 2,
-                "column": 2
-              },
-              "end": {
-                "line": 2,
-                "column": 14
-              },
+              "kind": 78,
               "value": {
                 "kind": 10,
                 "operator": {
@@ -221,6 +213,14 @@
                     "column": 14
                   }
                 }
+              },
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 14
               },
               "attributes": []
             }

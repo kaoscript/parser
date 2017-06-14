@@ -1,13 +1,13 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
-      "kind": 97,
+      "kind": 102,
       "rebindable": true,
       "variables": [
         {
-          "kind": 98,
+          "kind": 103,
           "name": {
             "kind": 42,
             "name": "number",
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 61,
+        "kind": 66,
         "value": 13,
         "start": {
           "line": 1,
@@ -55,7 +55,7 @@
       "attributes": []
     },
     {
-      "kind": 83,
+      "kind": 88,
       "expression": {
         "kind": 42,
         "name": "number",
@@ -70,9 +70,7 @@
       },
       "clauses": [
         {
-          "kind": 76,
-          "conditions": [],
-          "bindings": [],
+          "kind": 81,
           "body": {
             "kind": 12,
             "attributes": [],
@@ -83,7 +81,7 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 55,
+                  "kind": 60,
                   "object": {
                     "kind": 42,
                     "name": "console",
@@ -161,7 +159,9 @@
           "end": {
             "line": 6,
             "column": 3
-          }
+          },
+          "conditions": [],
+          "bindings": []
         }
       ],
       "start": {

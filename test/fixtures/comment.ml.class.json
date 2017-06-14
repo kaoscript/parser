@@ -1,5 +1,5 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
@@ -54,7 +54,7 @@
             "column": 24
           },
           "type": {
-            "kind": 91,
+            "kind": 96,
             "typeName": {
               "kind": 42,
               "name": "string",
@@ -90,7 +90,7 @@
           }
         },
         {
-          "kind": 56,
+          "kind": 61,
           "modifiers": [],
           "name": {
             "kind": 42,
@@ -106,7 +106,7 @@
           },
           "parameters": [
             {
-              "kind": 66,
+              "kind": 71,
               "modifiers": [],
               "start": {
                 "line": 14,
@@ -129,7 +129,7 @@
                 }
               },
               "type": {
-                "kind": 91,
+                "kind": 96,
                 "typeName": {
                   "kind": 42,
                   "name": "string",
@@ -162,7 +162,7 @@
             "column": 3
           },
           "type": {
-            "kind": 91,
+            "kind": 96,
             "typeName": {
               "kind": 42,
               "name": "string",
@@ -190,17 +190,9 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 73,
-                "start": {
-                  "line": 15,
-                  "column": 3
-                },
-                "end": {
-                  "line": 15,
-                  "column": 67
-                },
+                "kind": 78,
                 "value": {
-                  "kind": 67,
+                  "kind": 72,
                   "operator": {
                     "kind": 1,
                     "start": {
@@ -222,7 +214,7 @@
                   },
                   "operands": [
                     {
-                      "kind": 55,
+                      "kind": 60,
                       "object": {
                         "kind": 42,
                         "name": "this",
@@ -296,6 +288,14 @@
                     }
                   ]
                 },
+                "start": {
+                  "line": 15,
+                  "column": 3
+                },
+                "end": {
+                  "line": 15,
+                  "column": 67
+                },
                 "attributes": []
               }
             ],
@@ -321,11 +321,11 @@
       "attributes": []
     },
     {
-      "kind": 97,
+      "kind": 102,
       "rebindable": true,
       "variables": [
         {
-          "kind": 98,
+          "kind": 103,
           "name": {
             "kind": 42,
             "name": "hello",
@@ -403,9 +403,9 @@
         "kind": 3
       },
       "callee": {
-        "kind": 55,
+        "kind": 60,
         "object": {
-          "kind": 55,
+          "kind": 60,
           "object": {
             "kind": 14,
             "scope": {
@@ -430,7 +430,7 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 55,
+                  "kind": 60,
                   "object": {
                     "kind": 42,
                     "name": "hello",

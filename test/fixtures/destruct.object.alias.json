@@ -1,13 +1,13 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
-      "kind": 97,
+      "kind": 102,
       "rebindable": true,
       "variables": [
         {
-          "kind": 98,
+          "kind": 103,
           "name": {
             "kind": 42,
             "name": "foo",
@@ -33,10 +33,10 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 63,
+        "kind": 68,
         "properties": [
           {
-            "kind": 64,
+            "kind": 69,
             "name": {
               "kind": 42,
               "name": "bar",
@@ -71,7 +71,7 @@
             }
           },
           {
-            "kind": 64,
+            "kind": 69,
             "name": {
               "kind": 42,
               "name": "baz",
@@ -85,7 +85,7 @@
               }
             },
             "value": {
-              "kind": 61,
+              "kind": 66,
               "value": 3,
               "start": {
                 "line": 1,
@@ -126,28 +126,16 @@
       "attributes": []
     },
     {
-      "kind": 97,
+      "kind": 102,
       "rebindable": true,
       "variables": [
         {
-          "kind": 98,
+          "kind": 103,
           "name": {
-            "kind": 62,
+            "kind": 67,
             "elements": [
               {
                 "kind": 11,
-                "alias": {
-                  "kind": 42,
-                  "name": "bar",
-                  "start": {
-                    "line": 3,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 9
-                  }
-                },
                 "name": {
                   "kind": 42,
                   "name": "a",
@@ -167,22 +155,22 @@
                 "end": {
                   "line": 3,
                   "column": 12
+                },
+                "alias": {
+                  "kind": 42,
+                  "name": "bar",
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 9
+                  }
                 }
               },
               {
                 "kind": 11,
-                "alias": {
-                  "kind": 42,
-                  "name": "baz",
-                  "start": {
-                    "line": 3,
-                    "column": 14
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 17
-                  }
-                },
                 "name": {
                   "kind": 42,
                   "name": "b",
@@ -202,6 +190,18 @@
                 "end": {
                   "line": 3,
                   "column": 20
+                },
+                "alias": {
+                  "kind": 42,
+                  "name": "baz",
+                  "start": {
+                    "line": 3,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 17
+                  }
                 }
               }
             ],
@@ -254,7 +254,7 @@
         "kind": 3
       },
       "callee": {
-        "kind": 55,
+        "kind": 60,
         "object": {
           "kind": 42,
           "name": "console",
@@ -321,7 +321,7 @@
         "kind": 3
       },
       "callee": {
-        "kind": 55,
+        "kind": 60,
         "object": {
           "kind": 42,
           "name": "console",

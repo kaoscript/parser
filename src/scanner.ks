@@ -45,6 +45,7 @@ enum Token {
 	EQUALS_RIGHT_ANGLE
 	EXCLAMATION
 	EXCLAMATION_EQUALS
+	EXCLAMATION_LEFT_ROUND
 	EXCLAMATION_QUESTION_EQUALS
 	EXPORT
 	EXTENDS
@@ -55,6 +56,7 @@ enum Token {
 	FROM
 	FUNC
 	GET
+	HASH
 	HASH_EXCLAMATION_LEFT_SQUARE
 	HASH_LEFT_SQUARE
 	HEX_NUMBER
@@ -76,6 +78,7 @@ enum Token {
 	LEFT_ROUND
 	LEFT_SQUARE
 	LET
+	MACRO
 	MINUS
 	MINUS_EQUALS
 	MINUS_MINUS
@@ -152,6 +155,7 @@ const regex = {
 	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?[a-zA-Z]*/
 	double_quote: /^([^\\"]|\\.)*\"/
 	hex_number: /^0x[_0-9a-fA-F]+[a-zA-Z]*/
+	macro_value: /^[^#\r\n]+/
 	octal_number: /^0o[_0-8]+[a-zA-Z]*/
 	radix_number: /^(?:[0-9]|[1-2][0-9]|3[0-6])r[_0-9a-zA-Z]+/
 	regex: /^=?(?:[^\n\r\*\\\/\[]|\\[^\n\r]|\[(?:[^\n\r\]\\]|\\[^\n\r])*\])(?:[^\n\r\\\/\[]|\\[^\n\r]|\[(?:[^\n\r\]\\]|\\[^\n\r])*\])*\/[gmi]*/
@@ -532,6 +536,66 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 		
+		func MACRO(that, index) { // {{{
+			let c = that._data.charCodeAt(++index)
+			if c == 13 && that.charAt(1) == 10 {
+				that.nextLine(2)
+				
+				return Token::NEWLINE
+			}
+			else if c == 10 || c == 13 {
+				that.nextLine(1)
+				
+				return Token::NEWLINE
+			}
+			else if c == 35 {
+				that.next(1)
+				
+				return Token::HASH
+			}
+			else if c == 40 {
+				that.next(1)
+				
+				return Token::LEFT_ROUND
+			}
+			else if c == 41 {
+				that.next(1)
+				
+				return Token::RIGHT_ROUND
+			}
+			else if c == 123 {
+				that.next(1)
+				
+				return Token::LEFT_CURLY
+			}
+			else if c == 125 {
+				that.next(1)
+				
+				return Token::RIGHT_CURLY
+			}
+			
+			const from = index
+			
+			while ++index < that._length {
+				c = that._data.charCodeAt(index)
+				
+				if c == 10 || c == 13 || c == 35 || c == 40 || c == 41 || c == 123 || c == 125 {
+					that.next(index - from)
+					
+					return Token::INVALID
+				}
+			}
+			
+			if index == from + 1 {
+				return Token::EOF
+			}
+			else {
+				that.next(index - from - 1)
+				
+				return Token::INVALID
+			}
+		} // }}}
+		
 		func MODULE_STATEMENT(that, index) { // {{{
 			let c = that.skip(index)
 			
@@ -585,23 +649,12 @@ namespace M {
 			// import, include, include once
 			else if c == 105
 			{
-				if	that.charAt(1) == 109 &&
-					that.charAt(2) == 112 &&
-					that.charAt(3) == 111 &&
-					that.charAt(4) == 114 &&
-					that.charAt(5) == 116 &&
-					that.isBoundary(6)
-				{
-					that.next(6)
-					
-					return Token::IMPORT
-				}
-				else if that.charAt(1) == 110 &&
-						that.charAt(2) == 99 &&
-						that.charAt(3) == 108 &&
-						that.charAt(4) == 117 &&
-						that.charAt(5) == 100 &&
-						that.charAt(6) == 101
+				if	that.charAt(1) == 110 &&
+					that.charAt(2) == 99 &&
+					that.charAt(3) == 108 &&
+					that.charAt(4) == 117 &&
+					that.charAt(5) == 100 &&
+					that.charAt(6) == 101
 				{
 					if	that.charAt(7) == 32 &&
 						that.charAt(8) == 111 &&
@@ -816,6 +869,13 @@ namespace M {
 				that.nextLine(1)
 				
 				return Token::NEWLINE
+			}
+			else if c == 33 { // !
+				if that.charAt(1) == 40 {
+					that.next(2)
+					
+					return Token::EXCLAMATION_LEFT_ROUND
+				}
 			}
 			else if c == 40 { // (
 				that.next(1)
@@ -1131,7 +1191,7 @@ namespace M {
 					return Token::FUNC
 				}
 			}
-			// if
+			// if, impl, import
 			else if c == 105
 			{
 				if	that.charAt(1) == 102 &&
@@ -1150,6 +1210,17 @@ namespace M {
 					
 					return Token::IMPL
 				}
+				else if that.charAt(1) == 109 &&
+					that.charAt(2) == 112 &&
+					that.charAt(3) == 111 &&
+					that.charAt(4) == 114 &&
+					that.charAt(5) == 116 &&
+					that.isBoundary(6)
+				{
+					that.next(6)
+					
+					return Token::IMPORT
+				}
 			}
 			// let
 			else if c == 108
@@ -1161,6 +1232,20 @@ namespace M {
 					that.next(3)
 					
 					return Token::LET
+				}
+			}
+			// macro
+			else if c == 109
+			{
+				if	that.charAt(1) == 97 &&
+					that.charAt(2) == 99 &&
+					that.charAt(3) == 114 &&
+					that.charAt(4) == 111 &&
+					that.isBoundary(5)
+				{
+					that.next(5)
+					
+					return Token::MACRO
 				}
 			}
 			// namespace
@@ -1783,6 +1868,20 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	`\(Token::MACRO)`(that, c) { // {{{
+		if	c == 109 &&
+			that.charAt(1) == 97 &&
+			that.charAt(2) == 99 &&
+			that.charAt(3) == 114 &&
+			that.charAt(4) == 111 &&
+			that.isBoundary(5)
+		{
+			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} // }}}
 	`\(Token::MINUS)`(that, c) { // {{{
 		if c == 45 && (c = that.charAt(1)) != 61 {
 			return that.next(1)
@@ -2273,6 +2372,9 @@ class Scanner {
 		else {
 			this.next(index - @index)
 		}
+	} // }}}
+	skip() { // {{{
+		this.skip(@index  - 1)
 	} // }}}
 	private skip(index) { // {{{
 		let c

@@ -1,11 +1,22 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
       "kind": 44,
       "condition": {
         "kind": 10,
+        "operator": {
+          "kind": 22,
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 12
+          }
+        },
         "left": {
           "kind": 42,
           "name": "value",
@@ -19,7 +30,7 @@
           }
         },
         "right": {
-          "kind": 91,
+          "kind": 96,
           "typeName": {
             "kind": 42,
             "name": "string",
@@ -39,17 +50,6 @@
           "end": {
             "line": 1,
             "column": 19
-          }
-        },
-        "operator": {
-          "kind": 22,
-          "start": {
-            "line": 1,
-            "column": 10
-          },
-          "end": {
-            "line": 1,
-            "column": 12
           }
         },
         "start": {

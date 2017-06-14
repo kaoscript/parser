@@ -1,11 +1,12 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
       "kind": 40,
       "name": {
         "kind": 42,
+        "name": "foo",
         "start": {
           "line": 2,
           "column": 6
@@ -13,10 +14,19 @@
         "end": {
           "line": 2,
           "column": 9
-        },
-        "name": "foo"
+        }
       },
       "parameters": [],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 8,
+        "column": 2
+      },
+      "modifiers": [],
+      "throws": [],
       "body": {
         "kind": 12,
         "attributes": [],
@@ -25,6 +35,7 @@
             "kind": 40,
             "name": {
               "kind": 42,
+              "name": "bar",
               "start": {
                 "line": 4,
                 "column": 7
@@ -32,22 +43,32 @@
               "end": {
                 "line": 4,
                 "column": 10
-              },
-              "name": "bar"
+              }
             },
             "parameters": [],
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 3
+            },
+            "modifiers": [],
+            "throws": [],
             "body": {
               "kind": 12,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 97,
+                  "kind": 102,
                   "rebindable": true,
                   "variables": [
                     {
-                      "kind": 98,
+                      "kind": 103,
                       "name": {
                         "kind": 42,
+                        "name": "qux",
                         "start": {
                           "line": 6,
                           "column": 7
@@ -55,8 +76,7 @@
                         "end": {
                           "line": 6,
                           "column": 10
-                        },
-                        "name": "qux"
+                        }
                       },
                       "start": {
                         "line": 6,
@@ -71,7 +91,8 @@
                   "autotype": false,
                   "await": false,
                   "init": {
-                    "kind": 61,
+                    "kind": 66,
+                    "value": 42,
                     "start": {
                       "line": 6,
                       "column": 13
@@ -79,8 +100,7 @@
                     "end": {
                       "line": 6,
                       "column": 15
-                    },
-                    "value": 42
+                    }
                   },
                   "start": {
                     "line": 5,
@@ -95,6 +115,7 @@
                       "kind": 6,
                       "declaration": {
                         "kind": 42,
+                        "name": "qux",
                         "start": {
                           "line": 5,
                           "column": 5
@@ -102,8 +123,7 @@
                         "end": {
                           "line": 5,
                           "column": 8
-                        },
-                        "name": "qux"
+                        }
                       },
                       "start": {
                         "line": 5,
@@ -126,21 +146,12 @@
                 "column": 3
               }
             },
-            "throws": [],
-            "start": {
-              "line": 3,
-              "column": 2
-            },
-            "end": {
-              "line": 7,
-              "column": 3
-            },
-            "modifiers": [],
             "attributes": [
               {
                 "kind": 6,
                 "declaration": {
                   "kind": 42,
+                  "name": "bar",
                   "start": {
                     "line": 3,
                     "column": 4
@@ -148,8 +159,7 @@
                   "end": {
                     "line": 3,
                     "column": 7
-                  },
-                  "name": "bar"
+                  }
                 },
                 "start": {
                   "line": 3,
@@ -172,21 +182,12 @@
           "column": 2
         }
       },
-      "throws": [],
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 8,
-        "column": 2
-      },
-      "modifiers": [],
       "attributes": [
         {
           "kind": 6,
           "declaration": {
             "kind": 42,
+            "name": "foo",
             "start": {
               "line": 1,
               "column": 3
@@ -194,8 +195,7 @@
             "end": {
               "line": 1,
               "column": 6
-            },
-            "name": "foo"
+            }
           },
           "start": {
             "line": 1,

@@ -24,6 +24,7 @@ describe('parse', function() {
 			var source = fs.readFileSync(path.join(__dirname, 'fixtures', file), {
 				encoding: 'utf8'
 			});
+			//console.log(source);
 			
 			try {
 				var error = fs.readFileSync(path.join(__dirname, 'fixtures', name + '.error'), {
@@ -51,8 +52,17 @@ describe('parse', function() {
 				});
 				
 				expect(data).to.eql(JSON.parse(json, function(key, value) {
-					return value === "Infinity"? Infinity : value;
+					return value === 'Infinity' ? Infinity : value;
 				}));
+				
+				// when AST is changed
+				/* data = JSON.parse(JSON.stringify(data, function(key, value){return value == Infinity ? 'Infinity' : key == 'kind' ? 0 : value;}, 2), function(key, value) {
+					return value === 'Infinity' ? Infinity : key == 'kind' ? 0 : value;
+				});
+				
+				expect(data).to.eql(JSON.parse(json, function(key, value) {
+					return value === 'Infinity' ? Infinity : key == 'kind' ? 0 : value;
+				})); */
 			}
 		});
 	}

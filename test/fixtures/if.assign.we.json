@@ -1,5 +1,5 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
@@ -18,6 +18,7 @@
       },
       "left": {
         "kind": 42,
+        "name": "x",
         "start": {
           "line": 1,
           "column": 1
@@ -25,8 +26,7 @@
         "end": {
           "line": 1,
           "column": 2
-        },
-        "name": "x"
+        }
       },
       "right": {
         "kind": 43,
@@ -53,6 +53,7 @@
           },
           "left": {
             "kind": 42,
+            "name": "x",
             "start": {
               "line": 1,
               "column": 10
@@ -60,11 +61,11 @@
             "end": {
               "line": 1,
               "column": 11
-            },
-            "name": "x"
+            }
           },
           "right": {
-            "kind": 61,
+            "kind": 66,
+            "value": 0,
             "start": {
               "line": 1,
               "column": 15
@@ -72,12 +73,12 @@
             "end": {
               "line": 1,
               "column": 16
-            },
-            "value": 0
+            }
           }
         },
         "whenTrue": {
-          "kind": 61,
+          "kind": 66,
+          "value": 1,
           "start": {
             "line": 1,
             "column": 5
@@ -85,8 +86,7 @@
           "end": {
             "line": 1,
             "column": 6
-          },
-          "value": 1
+          }
         },
         "start": {
           "line": 1,
@@ -97,7 +97,8 @@
           "column": 23
         },
         "whenFalse": {
-          "kind": 61,
+          "kind": 66,
+          "value": 8,
           "start": {
             "line": 1,
             "column": 22
@@ -105,8 +106,7 @@
           "end": {
             "line": 1,
             "column": 23
-          },
-          "value": 8
+          }
         }
       },
       "start": {

@@ -368,6 +368,14 @@ namespace AST {
 			}, first, last)
 		} // }}}
 		
+		func CallMacroExpression(callee, arguments, first, last) { // {{{
+			return location({
+				kind: NodeKind::CallMacroExpression
+				callee: callee.value
+				arguments: [argument.value for argument in arguments.value]
+			}, first, last)
+		} // }}}
+		
 		func CatchClause(binding?, type?, body, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::CatchClause
@@ -872,11 +880,84 @@ namespace AST {
 			return node
 		} // }}}
 		
-		func Literal(value, first) { // {{{
+		func Literal(value, first, last = null) { // {{{
 			return location({
 				kind: NodeKind::Literal
 				value: value
-			}, first)
+			}, first, last)
+		} // }}}
+		
+		func MacroDeclaration(name, rules, first, last) { // {{{
+			return location({
+				kind: NodeKind::MacroDeclaration
+				name: name.value
+				rules: [rule.value for rule in rules]
+			}, first, last)
+		} // }}}
+		
+		func MacroExpression(elements, first, last) { // {{{
+			return location({
+				kind: NodeKind::MacroExpression
+				elements: [element.value for element in elements]
+			}, first, last)
+		} // }}}
+		
+		func MacroParameter(elements, first, last) { // {{{
+			return location({
+				kind: NodeKind::MacroParameter
+				elements: [element.value for element in elements]
+			}, first, last)
+		} // }}}
+		
+		func MacroReification(value, first) { // {{{
+			switch value {
+				'a' => {
+					return location({
+						kind: ReificationKind::Arguments
+					}, first)
+				}
+				'b' => {
+					return location({
+						kind: ReificationKind::Block
+					}, first)
+				}
+				'e' => {
+					return location({
+						kind: ReificationKind::Expression
+					}, first)
+				}
+				'i' => {
+					return location({
+						kind: ReificationKind::Identifier
+					}, first)
+				}
+			}
+		} // }}}
+		
+		func MacroRule(parameters, body, first, last) { // {{{
+			return location({
+				kind: NodeKind::MacroRule
+				parameters: [parameter.value for parameter in parameters]
+				body: [statement.value for statement in body]
+			}, first, last)
+		} // }}}
+		
+		func MacroVariable(expression, reification?, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::MacroVariable
+				expression: expression.value
+			}, first, last)
+			
+			if reification == null {
+				node.reification = {
+					kind: ReificationKind::Expression
+				}
+			}
+			else {
+				node.reification = reification
+			}
+			
+			return node
 		} // }}}
 		
 		func MemberExpression(object, property, computed, nullable, first = object, last = property) { // {{{

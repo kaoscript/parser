@@ -8,27 +8,27 @@ class Color {
 			for name, component in expression.components {
 				field = `_\(name)`
 				
-				fields.push(macro private $i{field}: Number)
+				fields.push(macro private #i(field): Number)
 				
 				methods.push(macro {
-					$i{name}() => this.getField($v{name})
-					$i{name}(value) => this.setField($v{name}, value)
+					#i(name)() => this.getField(#(name))
+					#i(name)(value) => this.setField(#(name), value)
 				})
 				
 				expression.components[name].field = field
 			}
 			
 			macro {
-				Color.registerSpace($v{expression})
+				Color.registerSpace(#(expression))
 				
 				impl Color {
-					$b{fields}
-					$b{methods}
+					#b(fields)
+					#b(methods)
 				}
 			}
 		}
 		else {
-			macro Color.registerSpace($v{expression})
+			macro Color.registerSpace(#(expression))
 		}
 	}
 }

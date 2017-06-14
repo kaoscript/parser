@@ -1,5 +1,5 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
@@ -98,11 +98,11 @@
       "attributes": []
     },
     {
-      "kind": 97,
+      "kind": 102,
       "rebindable": true,
       "variables": [
         {
-          "kind": 98,
+          "kind": 103,
           "name": {
             "kind": 42,
             "name": "k",
@@ -129,6 +129,17 @@
       "await": false,
       "init": {
         "kind": 10,
+        "operator": {
+          "kind": 21,
+          "start": {
+            "line": 7,
+            "column": 13
+          },
+          "end": {
+            "line": 7,
+            "column": 14
+          }
+        },
         "left": {
           "kind": 42,
           "name": "Kind",
@@ -142,7 +153,7 @@
           }
         },
         "right": {
-          "kind": 91,
+          "kind": 96,
           "typeName": {
             "kind": 42,
             "name": "A",
@@ -162,17 +173,6 @@
           "end": {
             "line": 7,
             "column": 15
-          }
-        },
-        "operator": {
-          "kind": 21,
-          "start": {
-            "line": 7,
-            "column": 13
-          },
-          "end": {
-            "line": 7,
-            "column": 14
           }
         },
         "start": {

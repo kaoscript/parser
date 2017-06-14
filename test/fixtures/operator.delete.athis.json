@@ -1,5 +1,5 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
@@ -55,6 +55,8 @@
           }
         },
         {
+          "kind": 61,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "foo",
@@ -68,7 +70,6 @@
             }
           },
           "parameters": [],
-          "throws": [],
           "start": {
             "line": 5,
             "column": 2
@@ -77,8 +78,7 @@
             "line": 7,
             "column": 3
           },
-          "kind": 56,
-          "modifiers": [],
+          "throws": [],
           "body": {
             "kind": 12,
             "attributes": [],
@@ -86,7 +86,7 @@
               {
                 "kind": 25,
                 "variable": {
-                  "kind": 86,
+                  "kind": 91,
                   "name": {
                     "kind": 42,
                     "name": "x",

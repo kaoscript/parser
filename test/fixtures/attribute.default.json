@@ -1,11 +1,12 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
       "kind": 40,
       "name": {
         "kind": 42,
+        "name": "foo",
         "start": {
           "line": 2,
           "column": 6
@@ -13,10 +14,19 @@
         "end": {
           "line": 2,
           "column": 9
-        },
-        "name": "foo"
+        }
       },
       "parameters": [],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      },
+      "modifiers": [],
+      "throws": [],
       "body": {
         "kind": 12,
         "attributes": [],
@@ -30,21 +40,12 @@
           "column": 2
         }
       },
-      "throws": [],
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 2
-      },
-      "modifiers": [],
       "attributes": [
         {
           "kind": 6,
           "declaration": {
             "kind": 42,
+            "name": "test",
             "start": {
               "line": 1,
               "column": 3
@@ -52,8 +53,7 @@
             "end": {
               "line": 1,
               "column": 7
-            },
-            "name": "test"
+            }
           },
           "start": {
             "line": 1,
@@ -70,6 +70,7 @@
       "kind": 40,
       "name": {
         "kind": 42,
+        "name": "darwin_only",
         "start": {
           "line": 6,
           "column": 6
@@ -77,10 +78,19 @@
         "end": {
           "line": 6,
           "column": 17
-        },
-        "name": "darwin_only"
+        }
       },
       "parameters": [],
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      },
+      "modifiers": [],
+      "throws": [],
       "body": {
         "kind": 12,
         "attributes": [],
@@ -94,16 +104,6 @@
           "column": 2
         }
       },
-      "throws": [],
-      "start": {
-        "line": 5,
-        "column": 1
-      },
-      "end": {
-        "line": 7,
-        "column": 2
-      },
-      "modifiers": [],
       "attributes": [
         {
           "kind": 6,
@@ -111,6 +111,7 @@
             "kind": 7,
             "name": {
               "kind": 42,
+              "name": "cfg",
               "start": {
                 "line": 5,
                 "column": 3
@@ -118,14 +119,14 @@
               "end": {
                 "line": 5,
                 "column": 6
-              },
-              "name": "cfg"
+              }
             },
             "arguments": [
               {
                 "kind": 8,
                 "name": {
                   "kind": 42,
+                  "name": "target_os",
                   "start": {
                     "line": 5,
                     "column": 7
@@ -133,11 +134,11 @@
                   "end": {
                     "line": 5,
                     "column": 16
-                  },
-                  "name": "target_os"
+                  }
                 },
                 "value": {
                   "kind": 54,
+                  "value": "darwin",
                   "start": {
                     "line": 5,
                     "column": 19
@@ -145,8 +146,7 @@
                   "end": {
                     "line": 5,
                     "column": 27
-                  },
-                  "value": "darwin"
+                  }
                 },
                 "start": {
                   "line": 5,
@@ -182,6 +182,7 @@
       "kind": 40,
       "name": {
         "kind": 42,
+        "name": "linux_only",
         "start": {
           "line": 10,
           "column": 6
@@ -189,10 +190,19 @@
         "end": {
           "line": 10,
           "column": 16
-        },
-        "name": "linux_only"
+        }
       },
       "parameters": [],
+      "start": {
+        "line": 9,
+        "column": 1
+      },
+      "end": {
+        "line": 11,
+        "column": 2
+      },
+      "modifiers": [],
+      "throws": [],
       "body": {
         "kind": 12,
         "attributes": [],
@@ -206,16 +216,6 @@
           "column": 2
         }
       },
-      "throws": [],
-      "start": {
-        "line": 9,
-        "column": 1
-      },
-      "end": {
-        "line": 11,
-        "column": 2
-      },
-      "modifiers": [],
       "attributes": [
         {
           "kind": 6,
@@ -223,6 +223,7 @@
             "kind": 7,
             "name": {
               "kind": 42,
+              "name": "cfg",
               "start": {
                 "line": 9,
                 "column": 3
@@ -230,14 +231,14 @@
               "end": {
                 "line": 9,
                 "column": 6
-              },
-              "name": "cfg"
+              }
             },
             "arguments": [
               {
                 "kind": 8,
                 "name": {
                   "kind": 42,
+                  "name": "target_os",
                   "start": {
                     "line": 9,
                     "column": 7
@@ -245,11 +246,11 @@
                   "end": {
                     "line": 9,
                     "column": 16
-                  },
-                  "name": "target_os"
+                  }
                 },
                 "value": {
                   "kind": 54,
+                  "value": "linux",
                   "start": {
                     "line": 9,
                     "column": 17
@@ -257,8 +258,7 @@
                   "end": {
                     "line": 9,
                     "column": 24
-                  },
-                  "value": "linux"
+                  }
                 },
                 "start": {
                   "line": 9,
@@ -294,6 +294,7 @@
       "kind": 40,
       "name": {
         "kind": 42,
+        "name": "needs_foo_or_bar",
         "start": {
           "line": 14,
           "column": 6
@@ -301,10 +302,19 @@
         "end": {
           "line": 14,
           "column": 22
-        },
-        "name": "needs_foo_or_bar"
+        }
       },
       "parameters": [],
+      "start": {
+        "line": 13,
+        "column": 1
+      },
+      "end": {
+        "line": 15,
+        "column": 2
+      },
+      "modifiers": [],
+      "throws": [],
       "body": {
         "kind": 12,
         "attributes": [],
@@ -318,16 +328,6 @@
           "column": 2
         }
       },
-      "throws": [],
-      "start": {
-        "line": 13,
-        "column": 1
-      },
-      "end": {
-        "line": 15,
-        "column": 2
-      },
-      "modifiers": [],
       "attributes": [
         {
           "kind": 6,
@@ -335,6 +335,7 @@
             "kind": 7,
             "name": {
               "kind": 42,
+              "name": "cfg",
               "start": {
                 "line": 13,
                 "column": 3
@@ -342,14 +343,14 @@
               "end": {
                 "line": 13,
                 "column": 6
-              },
-              "name": "cfg"
+              }
             },
             "arguments": [
               {
                 "kind": 7,
                 "name": {
                   "kind": 42,
+                  "name": "any",
                   "start": {
                     "line": 13,
                     "column": 7
@@ -357,12 +358,12 @@
                   "end": {
                     "line": 13,
                     "column": 10
-                  },
-                  "name": "any"
+                  }
                 },
                 "arguments": [
                   {
                     "kind": 42,
+                    "name": "foo",
                     "start": {
                       "line": 13,
                       "column": 11
@@ -370,11 +371,11 @@
                     "end": {
                       "line": 13,
                       "column": 14
-                    },
-                    "name": "foo"
+                    }
                   },
                   {
                     "kind": 42,
+                    "name": "bar",
                     "start": {
                       "line": 13,
                       "column": 16
@@ -382,8 +383,7 @@
                     "end": {
                       "line": 13,
                       "column": 19
-                    },
-                    "name": "bar"
+                    }
                   }
                 ],
                 "start": {
@@ -420,6 +420,7 @@
       "kind": 40,
       "name": {
         "kind": 42,
+        "name": "on_unix",
         "start": {
           "line": 18,
           "column": 6
@@ -427,10 +428,19 @@
         "end": {
           "line": 18,
           "column": 13
-        },
-        "name": "on_unix"
+        }
       },
       "parameters": [],
+      "start": {
+        "line": 17,
+        "column": 1
+      },
+      "end": {
+        "line": 19,
+        "column": 2
+      },
+      "modifiers": [],
+      "throws": [],
       "body": {
         "kind": 12,
         "attributes": [],
@@ -444,16 +454,6 @@
           "column": 2
         }
       },
-      "throws": [],
-      "start": {
-        "line": 17,
-        "column": 1
-      },
-      "end": {
-        "line": 19,
-        "column": 2
-      },
-      "modifiers": [],
       "attributes": [
         {
           "kind": 6,
@@ -461,6 +461,7 @@
             "kind": 7,
             "name": {
               "kind": 42,
+              "name": "cfg",
               "start": {
                 "line": 17,
                 "column": 3
@@ -468,14 +469,14 @@
               "end": {
                 "line": 17,
                 "column": 6
-              },
-              "name": "cfg"
+              }
             },
             "arguments": [
               {
                 "kind": 7,
                 "name": {
                   "kind": 42,
+                  "name": "all",
                   "start": {
                     "line": 17,
                     "column": 7
@@ -483,12 +484,12 @@
                   "end": {
                     "line": 17,
                     "column": 10
-                  },
-                  "name": "all"
+                  }
                 },
                 "arguments": [
                   {
                     "kind": 42,
+                    "name": "unix",
                     "start": {
                       "line": 17,
                       "column": 11
@@ -496,8 +497,7 @@
                     "end": {
                       "line": 17,
                       "column": 15
-                    },
-                    "name": "unix"
+                    }
                   }
                 ],
                 "start": {
@@ -534,6 +534,7 @@
       "kind": 40,
       "name": {
         "kind": 42,
+        "name": "needs_not_foo",
         "start": {
           "line": 22,
           "column": 6
@@ -541,10 +542,19 @@
         "end": {
           "line": 22,
           "column": 19
-        },
-        "name": "needs_not_foo"
+        }
       },
       "parameters": [],
+      "start": {
+        "line": 21,
+        "column": 1
+      },
+      "end": {
+        "line": 23,
+        "column": 2
+      },
+      "modifiers": [],
+      "throws": [],
       "body": {
         "kind": 12,
         "attributes": [],
@@ -558,16 +568,6 @@
           "column": 2
         }
       },
-      "throws": [],
-      "start": {
-        "line": 21,
-        "column": 1
-      },
-      "end": {
-        "line": 23,
-        "column": 2
-      },
-      "modifiers": [],
       "attributes": [
         {
           "kind": 6,
@@ -575,6 +575,7 @@
             "kind": 7,
             "name": {
               "kind": 42,
+              "name": "cfg",
               "start": {
                 "line": 21,
                 "column": 3
@@ -582,14 +583,14 @@
               "end": {
                 "line": 21,
                 "column": 6
-              },
-              "name": "cfg"
+              }
             },
             "arguments": [
               {
                 "kind": 7,
                 "name": {
                   "kind": 42,
+                  "name": "not",
                   "start": {
                     "line": 21,
                     "column": 7
@@ -597,12 +598,12 @@
                   "end": {
                     "line": 21,
                     "column": 10
-                  },
-                  "name": "not"
+                  }
                 },
                 "arguments": [
                   {
                     "kind": 42,
+                    "name": "foo",
                     "start": {
                       "line": 21,
                       "column": 11
@@ -610,8 +611,7 @@
                     "end": {
                       "line": 21,
                       "column": 14
-                    },
-                    "name": "foo"
+                    }
                   }
                 ],
                 "start": {

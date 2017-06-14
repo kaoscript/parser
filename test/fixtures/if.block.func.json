@@ -1,11 +1,12 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
       "kind": 40,
       "name": {
         "kind": 42,
+        "name": "foo",
         "start": {
           "line": 1,
           "column": 6
@@ -13,12 +14,11 @@
         "end": {
           "line": 1,
           "column": 9
-        },
-        "name": "foo"
+        }
       },
       "parameters": [
         {
-          "kind": 66,
+          "kind": 71,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -30,6 +30,7 @@
           },
           "name": {
             "kind": 42,
+            "name": "x",
             "start": {
               "line": 1,
               "column": 10
@@ -37,11 +38,11 @@
             "end": {
               "line": 1,
               "column": 11
-            },
-            "name": "x"
+            }
           },
           "defaultValue": {
-            "kind": 61,
+            "kind": 66,
+            "value": 5,
             "start": {
               "line": 1,
               "column": 14
@@ -49,11 +50,20 @@
             "end": {
               "line": 1,
               "column": 15
-            },
-            "value": 5
+            }
           }
         }
       ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 8,
+        "column": 2
+      },
+      "modifiers": [],
+      "throws": [],
       "body": {
         "kind": 12,
         "attributes": [],
@@ -83,6 +93,7 @@
               },
               "left": {
                 "kind": 42,
+                "name": "x",
                 "start": {
                   "line": 2,
                   "column": 5
@@ -90,11 +101,11 @@
                 "end": {
                   "line": 2,
                   "column": 6
-                },
-                "name": "x"
+                }
               },
               "right": {
-                "kind": 61,
+                "kind": 66,
+                "value": 5,
                 "start": {
                   "line": 2,
                   "column": 10
@@ -102,8 +113,7 @@
                 "end": {
                   "line": 2,
                   "column": 11
-                },
-                "value": 5
+                }
               }
             },
             "whenTrue": {
@@ -116,9 +126,10 @@
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 55,
+                    "kind": 60,
                     "object": {
                       "kind": 42,
+                      "name": "console",
                       "start": {
                         "line": 3,
                         "column": 3
@@ -126,11 +137,11 @@
                       "end": {
                         "line": 3,
                         "column": 10
-                      },
-                      "name": "console"
+                      }
                     },
                     "property": {
                       "kind": 42,
+                      "name": "log",
                       "start": {
                         "line": 3,
                         "column": 11
@@ -138,8 +149,7 @@
                       "end": {
                         "line": 3,
                         "column": 14
-                      },
-                      "name": "log"
+                      }
                     },
                     "computed": false,
                     "nullable": false,
@@ -155,6 +165,7 @@
                   "arguments": [
                     {
                       "kind": 54,
+                      "value": "GIVE FIVE!",
                       "start": {
                         "line": 3,
                         "column": 15
@@ -162,8 +173,7 @@
                       "end": {
                         "line": 3,
                         "column": 27
-                      },
-                      "value": "GIVE FIVE!"
+                      }
                     }
                   ],
                   "nullable": false,
@@ -205,9 +215,10 @@
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 55,
+                    "kind": 60,
                     "object": {
                       "kind": 42,
+                      "name": "console",
                       "start": {
                         "line": 6,
                         "column": 3
@@ -215,11 +226,11 @@
                       "end": {
                         "line": 6,
                         "column": 10
-                      },
-                      "name": "console"
+                      }
                     },
                     "property": {
                       "kind": 42,
+                      "name": "log",
                       "start": {
                         "line": 6,
                         "column": 11
@@ -227,8 +238,7 @@
                       "end": {
                         "line": 6,
                         "column": 14
-                      },
-                      "name": "log"
+                      }
                     },
                     "computed": false,
                     "nullable": false,
@@ -244,6 +254,7 @@
                   "arguments": [
                     {
                       "kind": 54,
+                      "value": "BOO!",
                       "start": {
                         "line": 6,
                         "column": 15
@@ -251,8 +262,7 @@
                       "end": {
                         "line": 6,
                         "column": 21
-                      },
-                      "value": "BOO!"
+                      }
                     }
                   ],
                   "nullable": false,
@@ -288,16 +298,6 @@
           "column": 2
         }
       },
-      "throws": [],
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 8,
-        "column": 2
-      },
-      "modifiers": [],
       "attributes": []
     }
   ],

@@ -1,22 +1,9 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
       "kind": 40,
-      "modifiers": [
-        {
-          "kind": 2,
-          "start": {
-            "line": 1,
-            "column": 33
-          },
-          "end": {
-            "line": 1,
-            "column": 38
-          }
-        }
-      ],
       "name": {
         "kind": 42,
         "name": "foo",
@@ -31,8 +18,16 @@
       },
       "parameters": [
         {
-          "kind": 66,
+          "kind": 71,
           "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 21
+          },
           "name": {
             "kind": 42,
             "name": "bar",
@@ -46,7 +41,7 @@
             }
           },
           "type": {
-            "kind": 91,
+            "kind": 96,
             "typeName": {
               "kind": 42,
               "name": "string",
@@ -67,19 +62,19 @@
               "line": 1,
               "column": 21
             }
-          },
-          "start": {
-            "line": 1,
-            "column": 10
-          },
-          "end": {
-            "line": 1,
-            "column": 21
           }
         },
         {
-          "kind": 66,
+          "kind": 71,
           "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 23
+          },
+          "end": {
+            "line": 1,
+            "column": 31
+          },
           "name": {
             "kind": 42,
             "name": "qux",
@@ -93,7 +88,7 @@
             }
           },
           "type": {
-            "kind": 91,
+            "kind": 96,
             "typeName": {
               "kind": 42,
               "name": "int",
@@ -114,19 +109,32 @@
               "line": 1,
               "column": 31
             }
-          },
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
+      },
+      "modifiers": [
+        {
+          "kind": 2,
           "start": {
             "line": 1,
-            "column": 23
+            "column": 33
           },
           "end": {
             "line": 1,
-            "column": 31
+            "column": 38
           }
         }
       ],
       "type": {
-        "kind": 91,
+        "kind": 96,
         "typeName": {
           "kind": 42,
           "name": "string",
@@ -161,14 +169,6 @@
           "line": 2,
           "column": 2
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
       },
       "attributes": []
     }

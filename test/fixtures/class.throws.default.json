@@ -1,5 +1,5 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
@@ -19,6 +19,8 @@
       "modifiers": [],
       "members": [
         {
+          "kind": 61,
+          "modifiers": [],
           "name": {
             "kind": 42,
             "name": "bar",
@@ -32,6 +34,14 @@
             }
           },
           "parameters": [],
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 3,
+            "column": 3
+          },
           "throws": [
             {
               "kind": 42,
@@ -46,16 +56,6 @@
               }
             }
           ],
-          "start": {
-            "line": 2,
-            "column": 2
-          },
-          "end": {
-            "line": 3,
-            "column": 3
-          },
-          "kind": 56,
-          "modifiers": [],
           "body": {
             "kind": 12,
             "attributes": [],

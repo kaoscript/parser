@@ -1,11 +1,23 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
       "kind": 36,
+      "variable": {
+        "kind": 42,
+        "name": "x",
+        "start": {
+          "line": 1,
+          "column": 5
+        },
+        "end": {
+          "line": 1,
+          "column": 6
+        }
+      },
       "from": {
-        "kind": 61,
+        "kind": 66,
         "value": 0,
         "start": {
           "line": 1,
@@ -16,8 +28,17 @@
           "column": 13
         }
       },
+      "declaration": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
+      },
       "to": {
-        "kind": 61,
+        "kind": 66,
         "value": 10,
         "start": {
           "line": 1,
@@ -29,7 +50,7 @@
         }
       },
       "by": {
-        "kind": 61,
+        "kind": 66,
         "value": 2,
         "start": {
           "line": 1,
@@ -38,27 +59,6 @@
         "end": {
           "line": 1,
           "column": 24
-        }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
-      "declaration": false,
-      "variable": {
-        "kind": 42,
-        "name": "x",
-        "start": {
-          "line": 1,
-          "column": 5
-        },
-        "end": {
-          "line": 1,
-          "column": 6
         }
       },
       "body": {

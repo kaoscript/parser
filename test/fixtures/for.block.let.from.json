@@ -1,13 +1,13 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
-      "kind": 97,
+      "kind": 102,
       "rebindable": true,
       "variables": [
         {
-          "kind": 98,
+          "kind": 103,
           "name": {
             "kind": 42,
             "name": "x",
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 61,
+        "kind": 66,
         "value": 3.14,
         "start": {
           "line": 1,
@@ -56,8 +56,20 @@
     },
     {
       "kind": 36,
+      "variable": {
+        "kind": 42,
+        "name": "x",
+        "start": {
+          "line": 3,
+          "column": 9
+        },
+        "end": {
+          "line": 3,
+          "column": 10
+        }
+      },
       "from": {
-        "kind": 61,
+        "kind": 66,
         "value": 0,
         "start": {
           "line": 3,
@@ -68,8 +80,17 @@
           "column": 17
         }
       },
+      "declaration": true,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 2
+      },
       "to": {
-        "kind": 61,
+        "kind": 66,
         "value": 10,
         "start": {
           "line": 3,
@@ -81,7 +102,7 @@
         }
       },
       "by": {
-        "kind": 61,
+        "kind": 66,
         "value": 2,
         "start": {
           "line": 3,
@@ -90,27 +111,6 @@
         "end": {
           "line": 3,
           "column": 28
-        }
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 4,
-        "column": 2
-      },
-      "declaration": true,
-      "variable": {
-        "kind": 42,
-        "name": "x",
-        "start": {
-          "line": 3,
-          "column": 9
-        },
-        "end": {
-          "line": 3,
-          "column": 10
         }
       },
       "body": {

@@ -1,10 +1,9 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "foo",
@@ -19,8 +18,16 @@
       },
       "parameters": [
         {
-          "kind": 66,
+          "kind": 71,
           "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 13
+          },
           "name": {
             "kind": 42,
             "name": "bar",
@@ -32,17 +39,18 @@
               "line": 1,
               "column": 13
             }
-          },
-          "start": {
-            "line": 1,
-            "column": 10
-          },
-          "end": {
-            "line": 1,
-            "column": 13
           }
         }
       ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
+      },
+      "modifiers": [],
       "throws": [
         {
           "kind": 42,
@@ -93,14 +101,6 @@
           "line": 2,
           "column": 2
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
       },
       "attributes": []
     }

@@ -1,5 +1,5 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
@@ -237,7 +237,6 @@
     },
     {
       "kind": 40,
-      "modifiers": [],
       "name": {
         "kind": 42,
         "name": "color",
@@ -252,8 +251,16 @@
       },
       "parameters": [
         {
-          "kind": 66,
+          "kind": 71,
           "modifiers": [],
+          "start": {
+            "line": 13,
+            "column": 12
+          },
+          "end": {
+            "line": 13,
+            "column": 25
+          },
           "name": {
             "kind": 42,
             "name": "fg",
@@ -267,7 +274,7 @@
             }
           },
           "type": {
-            "kind": 91,
+            "kind": 96,
             "typeName": {
               "kind": 42,
               "name": "ANSIColor",
@@ -288,19 +295,19 @@
               "line": 13,
               "column": 25
             }
-          },
-          "start": {
-            "line": 13,
-            "column": 12
-          },
-          "end": {
-            "line": 13,
-            "column": 25
           }
         },
         {
-          "kind": 66,
+          "kind": 71,
           "modifiers": [],
+          "start": {
+            "line": 13,
+            "column": 27
+          },
+          "end": {
+            "line": 13,
+            "column": 40
+          },
           "name": {
             "kind": 42,
             "name": "bg",
@@ -314,7 +321,7 @@
             }
           },
           "type": {
-            "kind": 91,
+            "kind": 96,
             "typeName": {
               "kind": 42,
               "name": "ANSIColor",
@@ -335,19 +342,20 @@
               "line": 13,
               "column": 40
             }
-          },
-          "start": {
-            "line": 13,
-            "column": 27
-          },
-          "end": {
-            "line": 13,
-            "column": 40
           }
         }
       ],
+      "start": {
+        "line": 13,
+        "column": 1
+      },
+      "end": {
+        "line": 39,
+        "column": 2
+      },
+      "modifiers": [],
       "type": {
-        "kind": 91,
+        "kind": 96,
         "typeName": {
           "kind": 42,
           "name": "String",
@@ -375,11 +383,11 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 97,
+            "kind": 102,
             "rebindable": true,
             "variables": [
               {
-                "kind": 98,
+                "kind": 103,
                 "name": {
                   "kind": 42,
                   "name": "fg_code",
@@ -405,7 +413,7 @@
             "autotype": false,
             "await": false,
             "init": {
-              "kind": 82,
+              "kind": 87,
               "expression": {
                 "kind": 42,
                 "name": "fg",
@@ -420,24 +428,9 @@
               },
               "clauses": [
                 {
-                  "kind": 76,
-                  "conditions": [
-                    {
-                      "kind": 42,
-                      "name": "black",
-                      "start": {
-                        "line": 15,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 15,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "bindings": [],
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 30,
                     "start": {
                       "line": 15,
@@ -455,27 +448,27 @@
                   "end": {
                     "line": 15,
                     "column": 14
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "red",
+                      "name": "black",
                       "start": {
-                        "line": 16,
+                        "line": 15,
                         "column": 3
                       },
                       "end": {
-                        "line": 16,
-                        "column": 6
+                        "line": 15,
+                        "column": 8
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 31,
                     "start": {
                       "line": 16,
@@ -493,27 +486,27 @@
                   "end": {
                     "line": 16,
                     "column": 12
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "green",
+                      "name": "red",
                       "start": {
-                        "line": 17,
+                        "line": 16,
                         "column": 3
                       },
                       "end": {
-                        "line": 17,
-                        "column": 8
+                        "line": 16,
+                        "column": 6
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 32,
                     "start": {
                       "line": 17,
@@ -531,27 +524,27 @@
                   "end": {
                     "line": 17,
                     "column": 14
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "yellow",
+                      "name": "green",
                       "start": {
-                        "line": 18,
+                        "line": 17,
                         "column": 3
                       },
                       "end": {
-                        "line": 18,
-                        "column": 9
+                        "line": 17,
+                        "column": 8
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 33,
                     "start": {
                       "line": 18,
@@ -569,27 +562,27 @@
                   "end": {
                     "line": 18,
                     "column": 15
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "blue",
+                      "name": "yellow",
                       "start": {
-                        "line": 19,
+                        "line": 18,
                         "column": 3
                       },
                       "end": {
-                        "line": 19,
-                        "column": 7
+                        "line": 18,
+                        "column": 9
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 34,
                     "start": {
                       "line": 19,
@@ -607,27 +600,27 @@
                   "end": {
                     "line": 19,
                     "column": 13
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "magenta",
+                      "name": "blue",
                       "start": {
-                        "line": 20,
+                        "line": 19,
                         "column": 3
                       },
                       "end": {
-                        "line": 20,
-                        "column": 10
+                        "line": 19,
+                        "column": 7
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 35,
                     "start": {
                       "line": 20,
@@ -645,27 +638,27 @@
                   "end": {
                     "line": 20,
                     "column": 16
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "cyan",
+                      "name": "magenta",
                       "start": {
-                        "line": 21,
+                        "line": 20,
                         "column": 3
                       },
                       "end": {
-                        "line": 21,
-                        "column": 7
+                        "line": 20,
+                        "column": 10
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 36,
                     "start": {
                       "line": 21,
@@ -683,27 +676,27 @@
                   "end": {
                     "line": 21,
                     "column": 13
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "white",
+                      "name": "cyan",
                       "start": {
-                        "line": 22,
+                        "line": 21,
                         "column": 3
                       },
                       "end": {
-                        "line": 22,
-                        "column": 8
+                        "line": 21,
+                        "column": 7
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 37,
                     "start": {
                       "line": 22,
@@ -721,27 +714,27 @@
                   "end": {
                     "line": 22,
                     "column": 14
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "default",
+                      "name": "white",
                       "start": {
-                        "line": 23,
+                        "line": 22,
                         "column": 3
                       },
                       "end": {
-                        "line": 23,
-                        "column": 10
+                        "line": 22,
+                        "column": 8
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 39,
                     "start": {
                       "line": 23,
@@ -759,7 +752,22 @@
                   "end": {
                     "line": 23,
                     "column": 16
-                  }
+                  },
+                  "conditions": [
+                    {
+                      "kind": 42,
+                      "name": "default",
+                      "start": {
+                        "line": 23,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 23,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "bindings": []
                 }
               ],
               "start": {
@@ -782,11 +790,11 @@
             "attributes": []
           },
           {
-            "kind": 97,
+            "kind": 102,
             "rebindable": true,
             "variables": [
               {
-                "kind": 98,
+                "kind": 103,
                 "name": {
                   "kind": 42,
                   "name": "bg_code",
@@ -812,7 +820,7 @@
             "autotype": false,
             "await": false,
             "init": {
-              "kind": 82,
+              "kind": 87,
               "expression": {
                 "kind": 42,
                 "name": "bg",
@@ -827,24 +835,9 @@
               },
               "clauses": [
                 {
-                  "kind": 76,
-                  "conditions": [
-                    {
-                      "kind": 42,
-                      "name": "black",
-                      "start": {
-                        "line": 27,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 27,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "bindings": [],
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 40,
                     "start": {
                       "line": 27,
@@ -862,27 +855,27 @@
                   "end": {
                     "line": 27,
                     "column": 14
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "red",
+                      "name": "black",
                       "start": {
-                        "line": 28,
+                        "line": 27,
                         "column": 3
                       },
                       "end": {
-                        "line": 28,
-                        "column": 6
+                        "line": 27,
+                        "column": 8
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 41,
                     "start": {
                       "line": 28,
@@ -900,27 +893,27 @@
                   "end": {
                     "line": 28,
                     "column": 12
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "green",
+                      "name": "red",
                       "start": {
-                        "line": 29,
+                        "line": 28,
                         "column": 3
                       },
                       "end": {
-                        "line": 29,
-                        "column": 8
+                        "line": 28,
+                        "column": 6
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 42,
                     "start": {
                       "line": 29,
@@ -938,27 +931,27 @@
                   "end": {
                     "line": 29,
                     "column": 14
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "yellow",
+                      "name": "green",
                       "start": {
-                        "line": 30,
+                        "line": 29,
                         "column": 3
                       },
                       "end": {
-                        "line": 30,
-                        "column": 9
+                        "line": 29,
+                        "column": 8
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 44,
                     "start": {
                       "line": 30,
@@ -976,27 +969,27 @@
                   "end": {
                     "line": 30,
                     "column": 15
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "blue",
+                      "name": "yellow",
                       "start": {
-                        "line": 31,
+                        "line": 30,
                         "column": 3
                       },
                       "end": {
-                        "line": 31,
-                        "column": 7
+                        "line": 30,
+                        "column": 9
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 44,
                     "start": {
                       "line": 31,
@@ -1014,27 +1007,27 @@
                   "end": {
                     "line": 31,
                     "column": 13
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "magenta",
+                      "name": "blue",
                       "start": {
-                        "line": 32,
+                        "line": 31,
                         "column": 3
                       },
                       "end": {
-                        "line": 32,
-                        "column": 10
+                        "line": 31,
+                        "column": 7
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 45,
                     "start": {
                       "line": 32,
@@ -1052,27 +1045,27 @@
                   "end": {
                     "line": 32,
                     "column": 16
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "cyan",
+                      "name": "magenta",
                       "start": {
-                        "line": 33,
+                        "line": 32,
                         "column": 3
                       },
                       "end": {
-                        "line": 33,
-                        "column": 7
+                        "line": 32,
+                        "column": 10
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 46,
                     "start": {
                       "line": 33,
@@ -1090,27 +1083,27 @@
                   "end": {
                     "line": 33,
                     "column": 13
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "white",
+                      "name": "cyan",
                       "start": {
-                        "line": 34,
+                        "line": 33,
                         "column": 3
                       },
                       "end": {
-                        "line": 34,
-                        "column": 8
+                        "line": 33,
+                        "column": 7
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 47,
                     "start": {
                       "line": 34,
@@ -1128,27 +1121,27 @@
                   "end": {
                     "line": 34,
                     "column": 14
-                  }
-                },
-                {
-                  "kind": 76,
+                  },
                   "conditions": [
                     {
                       "kind": 42,
-                      "name": "default",
+                      "name": "white",
                       "start": {
-                        "line": 35,
+                        "line": 34,
                         "column": 3
                       },
                       "end": {
-                        "line": 35,
-                        "column": 10
+                        "line": 34,
+                        "column": 8
                       }
                     }
                   ],
-                  "bindings": [],
+                  "bindings": []
+                },
+                {
+                  "kind": 81,
                   "body": {
-                    "kind": 61,
+                    "kind": 66,
                     "value": 49,
                     "start": {
                       "line": 35,
@@ -1166,7 +1159,22 @@
                   "end": {
                     "line": 35,
                     "column": 16
-                  }
+                  },
+                  "conditions": [
+                    {
+                      "kind": 42,
+                      "name": "default",
+                      "start": {
+                        "line": 35,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 35,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "bindings": []
                 }
               ],
               "start": {
@@ -1189,9 +1197,9 @@
             "attributes": []
           },
           {
-            "kind": 73,
+            "kind": 78,
             "value": {
-              "kind": 85,
+              "kind": 90,
               "elements": [
                 {
                   "kind": 42,
@@ -1270,14 +1278,6 @@
           "line": 39,
           "column": 2
         }
-      },
-      "start": {
-        "line": 13,
-        "column": 1
-      },
-      "end": {
-        "line": 39,
-        "column": 2
       },
       "attributes": []
     }

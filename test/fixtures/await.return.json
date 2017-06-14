@@ -1,22 +1,9 @@
 {
-  "kind": 58,
+  "kind": 63,
   "attributes": [],
   "body": [
     {
       "kind": 40,
-      "modifiers": [
-        {
-          "kind": 2,
-          "start": {
-            "line": 1,
-            "column": 16
-          },
-          "end": {
-            "line": 1,
-            "column": 21
-          }
-        }
-      ],
       "name": {
         "kind": 42,
         "name": "foo",
@@ -31,8 +18,16 @@
       },
       "parameters": [
         {
-          "kind": 66,
+          "kind": 71,
           "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 11
+          },
           "name": {
             "kind": 42,
             "name": "x",
@@ -44,19 +39,19 @@
               "line": 1,
               "column": 11
             }
-          },
-          "start": {
-            "line": 1,
-            "column": 10
-          },
-          "end": {
-            "line": 1,
-            "column": 11
           }
         },
         {
-          "kind": 66,
+          "kind": 71,
           "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 13
+          },
+          "end": {
+            "line": 1,
+            "column": 14
+          },
           "name": {
             "kind": 42,
             "name": "y",
@@ -68,14 +63,27 @@
               "line": 1,
               "column": 14
             }
-          },
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 30
+      },
+      "modifiers": [
+        {
+          "kind": 2,
           "start": {
             "line": 1,
-            "column": 13
+            "column": 16
           },
           "end": {
             "line": 1,
-            "column": 14
+            "column": 21
           }
         }
       ],
@@ -126,31 +134,10 @@
           }
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 30
-      },
       "attributes": []
     },
     {
       "kind": 40,
-      "modifiers": [
-        {
-          "kind": 2,
-          "start": {
-            "line": 3,
-            "column": 12
-          },
-          "end": {
-            "line": 3,
-            "column": 17
-          }
-        }
-      ],
       "name": {
         "kind": 42,
         "name": "bar",
@@ -164,6 +151,27 @@
         }
       },
       "parameters": [],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 38
+      },
+      "modifiers": [
+        {
+          "kind": 2,
+          "start": {
+            "line": 3,
+            "column": 12
+          },
+          "end": {
+            "line": 3,
+            "column": 17
+          }
+        }
+      ],
       "throws": [],
       "body": {
         "kind": 9,
@@ -186,7 +194,7 @@
           },
           "arguments": [
             {
-              "kind": 61,
+              "kind": 66,
               "value": 42,
               "start": {
                 "line": 3,
@@ -198,7 +206,7 @@
               }
             },
             {
-              "kind": 61,
+              "kind": 66,
               "value": 24,
               "start": {
                 "line": 3,
@@ -228,14 +236,6 @@
           "line": 3,
           "column": 38
         }
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 38
       },
       "attributes": []
     }

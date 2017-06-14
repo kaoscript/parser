@@ -1,5 +1,5 @@
 macro sayHello() {
-	print {
+	macro {
 		console.log('Hello!')
 	}
 }
