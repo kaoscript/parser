@@ -1,4 +1,4 @@
-require|import Array from './array.ks'
+require|import './array.ks' for Array
 
 impl Array {
 	contains(item, from = 0) { // {{{

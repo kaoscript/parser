@@ -1,5 +1,5 @@
 {
-  "kind": 63,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
@@ -16,9 +16,17 @@
           "column": 9
         }
       },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      },
       "parameters": [
         {
-          "kind": 71,
+          "kind": 73,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -41,10 +49,10 @@
             }
           },
           "type": {
-            "kind": 101,
+            "kind": 103,
             "types": [
               {
-                "kind": 96,
+                "kind": 98,
                 "typeName": {
                   "kind": 42,
                   "name": "string",
@@ -67,7 +75,7 @@
                 }
               },
               {
-                "kind": 96,
+                "kind": 98,
                 "typeName": {
                   "kind": 42,
                   "name": "number",
@@ -101,17 +109,9 @@
           }
         }
       ],
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 2
-      },
       "modifiers": [],
       "type": {
-        "kind": 96,
+        "kind": 98,
         "typeName": {
           "kind": 42,
           "name": "int",
@@ -139,28 +139,28 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 78,
+            "kind": 80,
             "value": {
               "kind": 14,
               "scope": {
                 "kind": 3
               },
               "callee": {
-                "kind": 60,
+                "kind": 61,
                 "object": {
                   "kind": 14,
                   "scope": {
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 60,
+                    "kind": 61,
                     "object": {
                       "kind": 14,
                       "scope": {
                         "kind": 3
                       },
                       "callee": {
-                        "kind": 60,
+                        "kind": 61,
                         "object": {
                           "kind": 42,
                           "name": "Float",
@@ -245,7 +245,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 66,
+                      "kind": 68,
                       "value": 0,
                       "start": {
                         "line": 2,
@@ -257,7 +257,7 @@
                       }
                     },
                     {
-                      "kind": 66,
+                      "kind": 68,
                       "value": 255,
                       "start": {
                         "line": 2,
@@ -341,7 +341,7 @@
         "kind": 3
       },
       "callee": {
-        "kind": 60,
+        "kind": 61,
         "object": {
           "kind": 42,
           "name": "console",
@@ -397,7 +397,7 @@
           },
           "arguments": [
             {
-              "kind": 66,
+              "kind": 68,
               "value": 128,
               "start": {
                 "line": 5,

@@ -1,13 +1,13 @@
 {
-  "kind": 63,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 102,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 103,
+          "kind": 105,
           "name": {
             "kind": 42,
             "name": "key",
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 54,
+        "kind": 55,
         "value": "qux",
         "start": {
           "line": 1,
@@ -55,13 +55,13 @@
       "attributes": []
     },
     {
-      "kind": 102,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 103,
+          "kind": 105,
           "name": {
-            "kind": 67,
+            "kind": 69,
             "elements": [
               {
                 "kind": 11,
@@ -122,10 +122,10 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 68,
+        "kind": 70,
         "properties": [
           {
-            "kind": 69,
+            "kind": 71,
             "name": {
               "kind": 42,
               "name": "qux",
@@ -139,7 +139,7 @@
               }
             },
             "value": {
-              "kind": 54,
+              "kind": 55,
               "value": "bar",
               "start": {
                 "line": 3,
@@ -185,7 +185,7 @@
         "kind": 3
       },
       "callee": {
-        "kind": 60,
+        "kind": 61,
         "object": {
           "kind": 42,
           "name": "console",

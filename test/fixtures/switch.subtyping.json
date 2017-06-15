@@ -1,13 +1,13 @@
 {
-  "kind": 63,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 102,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 103,
+          "kind": 105,
           "name": {
             "kind": 42,
             "name": "view",
@@ -21,7 +21,7 @@
             }
           },
           "type": {
-            "kind": 96,
+            "kind": 98,
             "typeName": {
               "kind": 42,
               "name": "UIView",
@@ -64,7 +64,7 @@
       "attributes": []
     },
     {
-      "kind": 88,
+      "kind": 90,
       "expression": {
         "kind": 42,
         "name": "view",
@@ -79,14 +79,14 @@
       },
       "clauses": [
         {
-          "kind": 81,
+          "kind": 83,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 60,
+              "kind": 61,
               "object": {
                 "kind": 42,
                 "name": "console",
@@ -124,7 +124,7 @@
             },
             "arguments": [
               {
-                "kind": 54,
+                "kind": 55,
                 "value": "It's an image view",
                 "start": {
                   "line": 4,
@@ -156,9 +156,9 @@
           },
           "conditions": [
             {
-              "kind": 86,
+              "kind": 88,
               "type": {
-                "kind": 96,
+                "kind": 98,
                 "typeName": {
                   "kind": 42,
                   "name": "UIImageView",
@@ -193,14 +193,14 @@
           "bindings": []
         },
         {
-          "kind": 81,
+          "kind": 83,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 60,
+              "kind": 61,
               "object": {
                 "kind": 42,
                 "name": "console",
@@ -238,7 +238,7 @@
             },
             "arguments": [
               {
-                "kind": 54,
+                "kind": 55,
                 "value": "It's a label",
                 "start": {
                   "line": 5,
@@ -270,9 +270,9 @@
           },
           "conditions": [
             {
-              "kind": 86,
+              "kind": 88,
               "type": {
-                "kind": 96,
+                "kind": 98,
                 "typeName": {
                   "kind": 42,
                   "name": "UILabel",
@@ -306,7 +306,7 @@
           ],
           "bindings": [
             {
-              "kind": 89,
+              "kind": 91,
               "name": {
                 "kind": 42,
                 "name": "label",
@@ -320,7 +320,7 @@
                 }
               },
               "type": {
-                "kind": 96,
+                "kind": 98,
                 "typeName": {
                   "kind": 42,
                   "name": "UILabel",
@@ -354,17 +354,17 @@
           ]
         },
         {
-          "kind": 81,
+          "kind": 83,
           "body": {
             "kind": 12,
             "attributes": [],
             "statements": [
               {
-                "kind": 102,
+                "kind": 104,
                 "rebindable": true,
                 "variables": [
                   {
-                    "kind": 103,
+                    "kind": 105,
                     "name": {
                       "kind": 42,
                       "name": "sectionCount",
@@ -395,7 +395,7 @@
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 60,
+                    "kind": 61,
                     "object": {
                       "kind": 42,
                       "name": "tblv",
@@ -458,7 +458,7 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 60,
+                  "kind": 61,
                   "object": {
                     "kind": 42,
                     "name": "console",
@@ -496,7 +496,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 54,
+                    "kind": 55,
                     "value": "It's a table view with \\(sectionCount) sections",
                     "start": {
                       "line": 8,
@@ -539,9 +539,9 @@
           },
           "conditions": [
             {
-              "kind": 86,
+              "kind": 88,
               "type": {
-                "kind": 96,
+                "kind": 98,
                 "typeName": {
                   "kind": 42,
                   "name": "UITableView",
@@ -575,7 +575,7 @@
           ],
           "bindings": [
             {
-              "kind": 89,
+              "kind": 91,
               "name": {
                 "kind": 42,
                 "name": "tblv",
@@ -589,7 +589,7 @@
                 }
               },
               "type": {
-                "kind": 96,
+                "kind": 98,
                 "typeName": {
                   "kind": 42,
                   "name": "UITableView",
@@ -623,14 +623,14 @@
           ]
         },
         {
-          "kind": 81,
+          "kind": 83,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 60,
+              "kind": 61,
               "object": {
                 "kind": 42,
                 "name": "console",
@@ -668,7 +668,7 @@
             },
             "arguments": [
               {
-                "kind": 54,
+                "kind": 55,
                 "value": "It's some other UIView or subclass",
                 "start": {
                   "line": 10,

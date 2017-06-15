@@ -1,3 +1,3 @@
 extern {
-	foo(): string
+	func foo(): string
 }

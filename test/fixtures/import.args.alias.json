@@ -1,23 +1,23 @@
 {
-  "kind": 63,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 102,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 103,
+          "kind": 105,
           "name": {
             "kind": 42,
-            "name": "foo1",
+            "name": "foo",
             "start": {
               "line": 1,
               "column": 5
             },
             "end": {
               "line": 1,
-              "column": 9
+              "column": 8
             }
           },
           "start": {
@@ -26,22 +26,22 @@
           },
           "end": {
             "line": 1,
-            "column": 9
+            "column": 8
           }
         }
       ],
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 66,
+        "kind": 68,
         "value": 1,
         "start": {
           "line": 1,
-          "column": 12
+          "column": 11
         },
         "end": {
           "line": 1,
-          "column": 13
+          "column": 12
         }
       },
       "start": {
@@ -50,26 +50,26 @@
       },
       "end": {
         "line": 1,
-        "column": 13
+        "column": 12
       },
       "attributes": []
     },
     {
-      "kind": 102,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 103,
+          "kind": 105,
           "name": {
             "kind": 42,
-            "name": "foo2",
+            "name": "bar",
             "start": {
               "line": 2,
               "column": 5
             },
             "end": {
               "line": 2,
-              "column": 9
+              "column": 8
             }
           },
           "start": {
@@ -78,22 +78,22 @@
           },
           "end": {
             "line": 2,
-            "column": 9
+            "column": 8
           }
         }
       ],
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 66,
+        "kind": 68,
         "value": 2,
         "start": {
           "line": 2,
-          "column": 12
+          "column": 11
         },
         "end": {
           "line": 2,
-          "column": 13
+          "column": 12
         }
       },
       "start": {
@@ -102,82 +102,105 @@
       },
       "end": {
         "line": 2,
-        "column": 13
+        "column": 12
       },
       "attributes": []
     },
     {
-      "kind": 46,
+      "kind": 47,
       "declarations": [
         {
-          "kind": 47,
-          "module": "module1",
-          "specifiers": [
-            {
-              "kind": 50,
-              "start": {
-                "line": 4,
-                "column": 8
-              },
-              "end": {
-                "line": 4,
-                "column": 9
-              }
+          "kind": 48,
+          "source": {
+            "kind": 55,
+            "value": "module1",
+            "start": {
+              "line": 4,
+              "column": 8
+            },
+            "end": {
+              "line": 4,
+              "column": 17
             }
-          ],
+          },
+          "specifiers": [],
           "start": {
             "line": 4,
             "column": 8
           },
           "end": {
             "line": 4,
-            "column": 40
+            "column": 17
           },
-          "references": [
+          "arguments": [
             {
-              "kind": 48,
-              "alias": {
+              "kind": 66,
+              "name": {
                 "kind": 42,
                 "name": "foo1",
                 "start": {
                   "line": 4,
-                  "column": 30
+                  "column": 18
                 },
                 "end": {
                   "line": 4,
-                  "column": 34
+                  "column": 22
+                }
+              },
+              "value": {
+                "kind": 42,
+                "name": "foo",
+                "start": {
+                  "line": 4,
+                  "column": 24
+                },
+                "end": {
+                  "line": 4,
+                  "column": 27
                 }
               },
               "start": {
                 "line": 4,
-                "column": 30
+                "column": 18
               },
               "end": {
                 "line": 4,
-                "column": 34
+                "column": 27
               }
             },
             {
-              "kind": 48,
-              "alias": {
+              "kind": 66,
+              "name": {
                 "kind": 42,
                 "name": "foo2",
                 "start": {
                   "line": 4,
-                  "column": 36
+                  "column": 29
                 },
                 "end": {
                   "line": 4,
-                  "column": 40
+                  "column": 33
+                }
+              },
+              "value": {
+                "kind": 42,
+                "name": "bar",
+                "start": {
+                  "line": 4,
+                  "column": 35
+                },
+                "end": {
+                  "line": 4,
+                  "column": 38
                 }
               },
               "start": {
                 "line": 4,
-                "column": 36
+                "column": 29
               },
               "end": {
                 "line": 4,
-                "column": 40
+                "column": 38
               }
             }
           ]
@@ -189,7 +212,7 @@
       },
       "end": {
         "line": 4,
-        "column": 40
+        "column": 17
       },
       "attributes": []
     }
@@ -200,6 +223,6 @@
   },
   "end": {
     "line": 4,
-    "column": 40
+    "column": 39
   }
 }

@@ -39,10 +39,10 @@ enum MacroTerminator {
 	RIGHT_ROUND
 	RIGHT_SQUARE
 	
-	Array		= COMMA | NEWLINE | RIGHT_SQUARE
-	List		= COMMA | NEWLINE | RIGHT_ROUND
-	Object		= COMMA | NEWLINE | RIGHT_CURLY
-	Parenthesis	= NEWLINE | RIGHT_ROUND
+	Array				= COMMA | NEWLINE | RIGHT_SQUARE
+	List				= COMMA | NEWLINE | RIGHT_ROUND
+	Object				= COMMA | NEWLINE | RIGHT_CURLY
+	Parenthesis			= NEWLINE | RIGHT_ROUND
 }
 
 #[flags]
@@ -1566,41 +1566,82 @@ class Parser {
 		return this.yep(AST.EnumDeclaration(name, type, members, first, this.yes()))
 	} // }}}
 	reqExportDeclarator() ~ SyntaxError { // {{{
-		if this.matchM(M.EXPORT_STATEMENT) == Token::CLASS {
-			return this.reqClassStatement(this.yes())
-		}
-		else if @token == Token::CONST {
-			return this.reqConstStatement(this.yes(), ExpressionMode::NoAwait)
-		}
-		else if @token == Token::IDENTIFIER {
-			const name = this.reqIdentifier()
-			
-			if this.test(Token::AS) {
-				this.commit()
+		switch this.matchM(M.EXPORT_STATEMENT) {
+			Token::ABSTRACT => {
+				const first = this.yes()
 				
-				return this.yep(AST.ExportAlias(name, this.reqIdentifier()))
+				if this.test(Token::CLASS) {
+					this.commit()
+					
+					const modifiers = [this.yep(AST.Modifier(ModifierKind::Abstract, first))]
+					
+					return this.reqClassStatement(first, modifiers)
+				}
+				else {
+					this.throw('class')
+				}
 			}
-			else {
-				return name
+			Token::CLASS => {
+				return this.reqClassStatement(this.yes())
 			}
-		}
-		else if @token == Token::ENUM {
-			return this.reqEnumStatement(this.yes())
-		}
-		else if @token == Token::FUNC {
-			return this.reqFunctionStatement(this.yes())
-		}
-		else if @token == Token::LET {
-			return this.reqLetStatement(this.yes(), ExpressionMode::NoAwait)
-		}
-		else if @token == Token::NAMESPACE {
-			return this.reqNamespaceStatement(this.yes())
-		}
-		else if @token == Token::TYPE {
-			return this.reqTypeStatement(this.yes())
-		}
-		else {
-			this.throw()
+			Token::CONST => {
+				return this.reqConstStatement(this.yes(), ExpressionMode::NoAwait)
+			}
+			Token::IDENTIFIER => {
+				const name = this.reqIdentifier()
+				
+				if this.test(Token::AS) {
+					this.commit()
+					
+					return this.yep(AST.ExportAlias(name, this.reqIdentifier()))
+				}
+				else {
+					return name
+				}
+			}
+			Token::ENUM => {
+				return this.reqEnumStatement(this.yes())
+			}
+			Token::FUNC => {
+				return this.reqFunctionStatement(this.yes())
+			}
+			Token::LET => {
+				return this.reqLetStatement(this.yes(), ExpressionMode::NoAwait)
+			}
+			Token::NAMESPACE => {
+				return this.reqNamespaceStatement(this.yes())
+			}
+			Token::SEALED => {
+				const first = this.yes()
+				const modifiers = [this.yep(AST.Modifier(ModifierKind::Sealed, first))]
+				
+				if this.test(Token::CLASS) {
+					this.commit()
+					
+					return this.reqClassStatement(first, modifiers)
+				}
+				else if this.test(Token::ABSTRACT) {
+					modifiers.push(this.yep(AST.Modifier(ModifierKind::Abstract, this.yes())))
+					
+					if this.test(Token::CLASS) {
+						this.commit()
+						
+						return this.reqClassStatement(first, modifiers)
+					}
+					else {
+						this.throw('class')
+					}
+				}
+				else {
+					this.throw('class')
+				}
+			}
+			Token::TYPE => {
+				return this.reqTypeStatement(this.yes())
+			}
+			=> {
+				this.throw()
+			}
 		}
 	} // }}}
 	reqExportStatement(first) ~ SyntaxError { // {{{
@@ -1898,25 +1939,140 @@ class Parser {
 			Token::CLASS => {
 				return this.reqExternClassDeclaration(this.yes(), [])
 			}
+			Token::FUNC => {
+				const first = this.yes()
+				const name = this.reqIdentifier()
+				
+				if this.test(Token::LEFT_ROUND) {
+					const parameters = this.reqFunctionParameterList()
+					const modifiers = this.reqFunctionModifiers()
+					const type = this.reqFunctionReturns()
+					
+					return this.yep(AST.FunctionDeclaration(name, parameters, modifiers, type, null, null, first, type ?? modifiers ?? parameters))
+				}
+				else {
+					return this.yep(AST.FunctionDeclaration(name, null, null, null, null, null, first, name))
+				}
+			}
 			Token::IDENTIFIER => {
 				const name = this.reqIdentifier()
 				
-				if this.match(Token::COLON, Token::LEFT_ROUND) == Token::COLON {
+				if this.test(Token::COLON) {
 					this.commit()
 					
 					const type = this.reqTypeVar()
 					
 					return this.yep(AST.VariableDeclarator(name, type))
 				}
-				else if @token == Token::LEFT_ROUND {
-					const parameters = this.reqFunctionParameterList()
-					const modifiers = this.reqFunctionModifiers()
-					const type = this.reqFunctionReturns()
-					
-					return this.yep(AST.FunctionDeclaration(name, parameters, modifiers, type, null, null, name, type ?? modifiers ?? parameters))
-				}
 				else {
 					return this.yep(AST.VariableDeclarator(name))
+				}
+			}
+			Token::NAMESPACE => {
+				return this.reqExternNamespaceDeclaration(this.yes(), [])
+			}
+			Token::SEALED => {
+				const sealed = this.yep(AST.Modifier(ModifierKind::Sealed, this.yes()))
+				
+				if this.matchM(M.EXTERN_STATEMENT) == Token::ABSTRACT {
+					const abstract = this.yep(AST.Modifier(ModifierKind::Abstract, this.yes()))
+					
+					if this.test(Token::CLASS) {
+						this.commit()
+						
+						return this.reqExternClassDeclaration(sealed, [sealed, abstract])
+					}
+					else {
+						this.throw('class')
+					}
+				}
+				else if @token == Token::CLASS {
+					this.commit()
+					
+					return this.reqExternClassDeclaration(sealed, [sealed])
+				}
+				else if @token == Token::IDENTIFIER {
+					const name = this.reqIdentifier()
+					
+					if this.test(Token::COLON) {
+						this.commit()
+						
+						const type = this.reqTypeVar()
+						
+						return this.yep(AST.VariableDeclarator(name, type, true, sealed, type))
+					}
+					else {
+						return this.yep(AST.VariableDeclarator(name, null, true, sealed, name))
+					}
+				}
+				else if @token == Token::NAMESPACE {
+					this.commit()
+					
+					return this.reqExternNamespaceDeclaration(sealed, [sealed])
+				}
+				else {
+					this.throw(['class', 'namespace'])
+				}
+			}
+			=> {
+				this.throw()
+			}
+		}
+	} // }}}
+	reqExternNamespaceDeclarator() ~ SyntaxError { // {{{
+		switch this.matchM(M.EXTERN_STATEMENT) {
+			Token::ABSTRACT => {
+				const abstract = this.yep(AST.Modifier(ModifierKind::Abstract, this.yes()))
+				
+				if this.test(Token::CLASS) {
+					this.commit()
+					
+					return this.reqExternClassDeclaration(abstract, [abstract])
+				}
+				else {
+					this.throw('class')
+				}
+			}
+			Token::CLASS => {
+				return this.reqExternClassDeclaration(this.yes(), [])
+			}
+			Token::CONST => {
+				const first = this.yes()
+				const name = this.reqIdentifier()
+				
+				if this.test(Token::COLON) {
+					this.commit()
+					
+					const type = this.reqTypeVar()
+					
+					return this.yep(AST.VariableDeclarator(name, type, true, first, type))
+				}
+				else {
+					return this.yep(AST.VariableDeclarator(name, null, true, first, name))
+				}
+			}
+			Token::FUNC => {
+				const first = this.yes()
+				const name = this.reqIdentifier()
+				const parameters = this.reqFunctionParameterList()
+				const modifiers = this.reqFunctionModifiers()
+				const type = this.reqFunctionReturns()
+				
+				return this.yep(AST.FunctionDeclaration(name, parameters, modifiers, type, null, null, first, type ?? modifiers ?? parameters))
+			}
+			Token::LET => {
+				const first = this.yes()
+				const name = this.reqIdentifier()
+				
+				if this.test(Token::COLON) {
+					this.commit()
+					
+					const type = this.reqTypeVar()
+					
+					return this.yep(AST.VariableDeclarator(name, type, false, first, type))
+				}
+				else {
+					return this.yep(AST.VariableDeclarator(name, null, false, first, name))
 				}
 			}
 			Token::NAMESPACE => {
@@ -1979,7 +2135,7 @@ class Parser {
 			const statements = []
 			
 			until this.test(Token::RIGHT_CURLY) {
-				statements.push(this.reqExternDeclarator())
+				statements.push(this.reqExternNamespaceDeclarator())
 				
 				this.reqNL_1M()
 			}
@@ -2217,6 +2373,8 @@ class Parser {
 		}
 	} // }}}
 	reqIfStatement(first) ~ SyntaxError { // {{{
+		this.NL_0M()
+		
 		const condition = this.reqExpression(ExpressionMode::NoAnonymousFunction)
 		
 		this.NL_0M()
@@ -2238,7 +2396,7 @@ class Parser {
 				return this.yep(AST.IfStatement(condition, whenTrue, whenFalse, first, whenFalse))
 			}
 			else if @token == Token::ELSE {
-				this.commit()
+				this.commit().NL_0M()
 				
 				const whenFalse = this.reqBlock()
 				
@@ -2280,106 +2438,155 @@ class Parser {
 		return this.yep(AST.ImplementDeclaration(variable, members, first, this.yes()))
 	} // }}}
 	reqImportDeclarator() ~ SyntaxError { // {{{
-		const specifiers = [this.reqImportSpecifier()]
+		const source = this.reqString()
+		let last = source
 		
-		while this.test(Token::COMMA) {
+		let arguments = null
+		if this.test(Token::LEFT_ROUND) {
 			this.commit()
 			
-			specifiers.push(this.reqImportSpecifier())
-		}
-		
-		unless this.test(Token::FROM) {
-			this.throw('from')
-		}
-		
-		this.commit()
-		
-		unless this.test(Token::STRING) {
-			this.throw('String')
-		}
-		
-		const module = this.value()
-		
-		let last = this.yes()
-		
-		let references
-		if this.test(Token::WITH) {
-			this.commit()
+			arguments = []
 			
-			references = [this.reqImportReference()]
-			
-			while this.test(Token::COMMA) {
-				this.commit()
+			let name, value
+			until this.test(Token::RIGHT_ROUND) {
+				if this.test(Token::IDENTIFIER) {
+					name = this.reqIdentifier()
+					
+					if this.test(Token::COLON) {
+						this.commit()
+						
+						value = this.reqOperation(ExpressionMode::Default)
+						
+						arguments.push(this.yep(AST.NamedArgument(name, value)))
+					}
+					else {
+						arguments.push(this.reqOperation(ExpressionMode::Default, name))
+					}
+				}
+				else {
+					arguments.push(this.reqOperation(ExpressionMode::Default))
+				}
 				
-				references.push(this.reqImportReference())
+				if this.test(Token::COMMA) {
+					this.commit()
+				}
 			}
 			
-			last = references[references.length - 1]
+			unless this.test(Token::RIGHT_ROUND) {
+				this.throw(')')
+			}
+			
+			this.commit()
 		}
 		
-		return this.yep(AST.ImportDeclarator(module, specifiers, references, specifiers[0], last))
-	} // }}}
-	reqImportReference() ~ SyntaxError { // {{{
-		const alias = this.reqIdentifier()
-		
-		if this.test(Token::AS) {
+		const specifiers = []
+		if this.match(Token::AS, Token::FOR, Token::LEFT_CURLY) == Token::AS {
 			this.commit()
 			
-			return this.yep(AST.ImportReference(alias, this.reqIdentifier()))
-		}
-		else {
-			return this.yep(AST.ImportReference(alias))
-		}
-	} // }}}
-	reqImportSpecifier() ~ SyntaxError { // {{{
-		if this.test(Token::ASTERISK) {
-			const first = this.yes()
+			last = this.reqIdentifier()
 			
-			if this.test(Token::AS) {
-				this.commit()
-				
-				const local = this.reqIdentifier()
-				
-				return this.yep(AST.ImportWildcardSpecifier(local, first, local))
+			if this.test(Token::LEFT_CURLY) {
+				specifiers.push(this.yep(AST.ImportNamespaceSpecifier(last, this.reqImportSpecifiers([]), last, this.yes())))
 			}
 			else {
-				return this.yep(AST.ImportWildcardSpecifier(null, first, first))
+				specifiers.push(this.yep(AST.ImportNamespaceSpecifier(last, null, last, last)))
 			}
 		}
-		else {
-			const alias = this.reqIdentifier()
+		else if @token == Token::FOR {
+			this.commit()
 			
-			if this.test(Token::AS) {
+			let imported, local
+			until this.test(Token::NEWLINE) {
+				imported = this.reqIdentifier()
+				
+				if this.test(Token::EQUALS_RIGHT_ANGLE) {
+					this.commit()
+					
+					local = this.reqIdentifier()
+					
+					specifiers.push(this.yep(AST.ImportSpecifier(imported, local, imported, local)))
+				}
+				else {
+					specifiers.push(this.yep(AST.ImportSpecifier(imported, imported, imported, imported)))
+				}
+				
+				if this.test(Token::COMMA) {
+					this.commit()
+				}
+				else {
+					break
+				}
+			}
+		}
+		else if @token == Token::LEFT_CURLY {
+			this.reqImportSpecifiers(specifiers)
+			
+			last = this.yes()
+		}
+		
+		return this.yep(AST.ImportDeclarator(source, specifiers, arguments, source, last))
+	} // }}}
+	reqImportSpecifiers(specifiers) ~ SyntaxError { // {{{
+		this.commit().reqNL_1M()
+		
+		let first, imported, local
+		until this.test(Token::RIGHT_CURLY) {
+			if this.match(Token::ASTERISK) == Token::ASTERISK {
+				first = this.yes()
+				
+				unless this.test(Token::EQUALS_RIGHT_ANGLE) {
+					this.throw('=>')
+				}
+				
 				this.commit()
 				
-				const local = this.reqIdentifier()
+				local = this.reqIdentifier()
 				
-				return this.yep(AST.ImportSpecifier(alias, local, alias, local))
+				specifiers.push(this.yep(AST.ImportNamespaceSpecifier(local, null, first, local)))
 			}
 			else {
-				return this.yep(AST.ImportSpecifier(alias, null, alias, alias))
+				imported = this.reqExternDeclarator()
+				
+				if this.test(Token::EQUALS_RIGHT_ANGLE) {
+					this.commit()
+					
+					local = this.reqIdentifier()
+					
+					specifiers.push(this.yep(AST.ImportSpecifier(imported, local, imported, local)))
+				}
+				else {
+					specifiers.push(this.yep(AST.ImportSpecifier(imported, this.yep(imported.value.name), imported, imported)))
+				}
+			}
+			
+			if this.test(Token::NEWLINE) {
+				this.commit().NL_0M()
+			}
+			else {
+				break
 			}
 		}
+		
+		unless this.test(Token::RIGHT_CURLY) {
+			this.throw('}')
+		}
+		
+		return specifiers
 	} // }}}
 	reqImportStatement(first) ~ SyntaxError { // {{{
+		this.NL_0M()
+		
 		const declarations = []
 		
 		let last
 		if this.test(Token::LEFT_CURLY) {
-			this.commit().NL_0M()
+			this.commit().reqNL_1M()
 			
 			until this.test(Token::RIGHT_CURLY) {
 				declarations.push(this.reqImportDeclarator())
 				
-				if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
+				if this.test(Token::NEWLINE) {
 					this.commit().NL_0M()
-				}
-				else if @token == Token::NEWLINE {
-					this.commit().NL_0M()
-					
-					if this.test(Token::COMMA) {
-						this.commit().NL_0M()
-					}
 				}
 				else {
 					break
@@ -3508,20 +3715,13 @@ class Parser {
 		
 		let last
 		if this.test(Token::LEFT_CURLY) {
-			this.commit().NL_0M()
+			this.commit().reqNL_1M()
 			
 			until this.test(Token::RIGHT_CURLY) {
 				declarations.push(this.reqImportDeclarator())
 				
-				if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
+				if this.test(Token::NEWLINE) {
 					this.commit().NL_0M()
-				}
-				else if @token == Token::NEWLINE {
-					this.commit().NL_0M()
-					
-					if this.test(Token::COMMA) {
-						this.commit().NL_0M()
-					}
 				}
 				else {
 					break

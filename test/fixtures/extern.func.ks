@@ -1,1 +1,1 @@
-extern foo(): string
+extern func foo(): string

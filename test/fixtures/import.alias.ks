@@ -1,5 +1,7 @@
-import * as m1 from 'module1'
+import 'module1' {
+	foo
+}
 
-import foo from 'module2'
-
-import foo as bar from 'module3'
+import 'module2' {
+	foo => bar
+}

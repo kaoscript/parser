@@ -1,35 +1,58 @@
 {
-  "kind": 63,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 46,
+      "kind": 47,
       "declarations": [
         {
-          "kind": 47,
-          "module": "child_process",
+          "kind": 48,
+          "source": {
+            "kind": 55,
+            "value": "child_process",
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 1,
+              "column": 23
+            }
+          },
           "specifiers": [
             {
-              "kind": 49,
-              "alias": {
+              "kind": 51,
+              "imported": {
                 "kind": 42,
                 "name": "exec",
                 "start": {
                   "line": 1,
-                  "column": 8
+                  "column": 28
                 },
                 "end": {
                   "line": 1,
-                  "column": 12
+                  "column": 32
+                }
+              },
+              "local": {
+                "kind": 42,
+                "name": "exec",
+                "start": {
+                  "line": 1,
+                  "column": 28
+                },
+                "end": {
+                  "line": 1,
+                  "column": 32
                 }
               },
               "start": {
                 "line": 1,
-                "column": 8
+                "column": 28
               },
               "end": {
                 "line": 1,
-                "column": 12
+                "column": 32
               }
             }
           ],
@@ -39,7 +62,7 @@
           },
           "end": {
             "line": 1,
-            "column": 33
+            "column": 23
           }
         }
       ],
@@ -49,16 +72,16 @@
       },
       "end": {
         "line": 1,
-        "column": 33
+        "column": 23
       },
       "attributes": []
     },
     {
-      "kind": 102,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 103,
+          "kind": 105,
           "name": {
             "kind": 42,
             "name": "stdout",
@@ -81,7 +104,7 @@
           }
         },
         {
-          "kind": 103,
+          "kind": 105,
           "name": {
             "kind": 42,
             "name": "stderr",

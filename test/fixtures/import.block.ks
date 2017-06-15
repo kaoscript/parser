@@ -1,7 +1,11 @@
 import {
-	* as m1 from 'module1'
+	'module1' as m1
 	
-	foo from 'module2'
+	'module2' {
+		foo
+	}
 	
-	foo as bar from 'module3'
+	'module3' {
+		foo => bar
+	}
 }

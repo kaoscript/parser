@@ -1,5 +1,5 @@
 {
-  "kind": 63,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
@@ -16,7 +16,6 @@
           "column": 9
         }
       },
-      "parameters": [],
       "start": {
         "line": 1,
         "column": 1
@@ -25,6 +24,7 @@
         "line": 3,
         "column": 2
       },
+      "parameters": [],
       "modifiers": [],
       "throws": [],
       "body": {
@@ -32,11 +32,11 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 102,
+            "kind": 104,
             "rebindable": true,
             "variables": [
               {
-                "kind": 103,
+                "kind": 105,
                 "name": {
                   "kind": 42,
                   "name": "bar",
@@ -62,7 +62,7 @@
             "autotype": false,
             "await": false,
             "init": {
-              "kind": 54,
+              "kind": 55,
               "value": "hello",
               "start": {
                 "line": 2,

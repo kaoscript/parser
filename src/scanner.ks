@@ -399,6 +399,17 @@ namespace M {
 			if c == -1 {
 				return Token::EOF
 			}
+			// abstract
+			else if c == 97 {
+				const identifier = that.scanIdentifier(true)
+				
+				if identifier == 'bstract' {
+					return Token::ABSTRACT
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
 			// class, const
 			else if c == 99 {
 				const identifier = that.scanIdentifier(true)
@@ -449,6 +460,17 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
+			// sealed
+			else if c == 115 {
+				const identifier = that.scanIdentifier(true)
+				
+				if identifier == 'ealed' {
+					return Token::SEALED
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
 			// type
 			else if c == 116 {
 				if that.scanIdentifier(true) == 'ype' {
@@ -482,10 +504,14 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// class
+			// class, const
 			else if c == 99 {
-				if that.scanIdentifier(true) == 'lass' {
+				const identifier = that.scanIdentifier(true)
+				if identifier == 'lass' {
 					return Token::CLASS
+				}
+				else if identifier == 'onst' {
+					return Token::CONST
 				}
 				else {
 					return Token::IDENTIFIER

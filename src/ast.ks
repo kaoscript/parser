@@ -686,12 +686,18 @@ namespace AST {
 			return node
 		} // }}}
 		
-		func FunctionDeclaration(name, parameters, modifiers?, type?, throws?, body?, first, last) { // {{{
+		func FunctionDeclaration(name, parameters?, modifiers?, type?, throws?, body?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::FunctionDeclaration
 				name: name.value
-				parameters: [parameter.value for parameter in parameters.value]
 			}, first, last)
+			
+			if parameters == null {
+				node.parameters = []
+			}
+			else {
+				node.parameters = [parameter.value for parameter in parameters.value]
+			}
 			
 			if modifiers == null {
 				node.modifiers = []
@@ -783,6 +789,41 @@ namespace AST {
 			}, first, last)
 		} // }}}
 		
+		func ImportDeclarator(source, specifiers, arguments?, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::ImportDeclarator
+				source: source.value
+				specifiers: [specifier.value for specifier in specifiers]
+			}, first, last)
+			
+			if arguments != null {
+				node.arguments = [argument.value for argument in arguments]
+			}
+			
+			return node
+		} // }}}
+		
+		func ImportNamespaceSpecifier(local, specifiers?, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::ImportNamespaceSpecifier
+				local: local.value
+			}, first, last)
+			
+			if specifiers != null {
+				node.specifiers = [specifier.value for specifier in specifiers]
+			}
+			
+			return node
+		} // }}}
+		
+		func ImportSpecifier(imported, local, first, last) { // {{{
+			return location({
+				kind: NodeKind::ImportSpecifier
+				imported: imported.value
+				local: local.value
+			}, first, last)
+		} // }}}
+		/* 
 		func ImportDeclarator(module, specifiers, references?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ImportDeclarator
@@ -836,7 +877,7 @@ namespace AST {
 			
 			return node
 		} // }}}
-		
+		 */
 		func Identifier(name, first) { // {{{
 			return location({
 				kind: NodeKind::Identifier
@@ -1029,6 +1070,14 @@ namespace AST {
 				body: body.value
 			}, first, last)
 		} // }}}
+		
+		func NamedArgument(name, value) {
+			return location({
+				kind: NodeKind::NamedArgument
+				name: name.value
+				value: value.value
+			}, name, value)
+		}
 		
 		func Nullable(first) { // {{{
 			return location({

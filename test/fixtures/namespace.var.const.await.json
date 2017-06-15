@@ -1,12 +1,12 @@
 {
-  "kind": 63,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
       "kind": 33,
       "declarations": [
         {
-          "kind": 103,
+          "kind": 105,
           "name": {
             "kind": 42,
             "name": "console",
@@ -53,7 +53,6 @@
           "column": 9
         }
       },
-      "parameters": [],
       "start": {
         "line": 3,
         "column": 1
@@ -62,6 +61,7 @@
         "line": 3,
         "column": 29
       },
+      "parameters": [],
       "modifiers": [
         {
           "kind": 2,
@@ -77,7 +77,7 @@
       ],
       "throws": [],
       "body": {
-        "kind": 54,
+        "kind": 55,
         "value": "female",
         "start": {
           "line": 3,
@@ -91,7 +91,7 @@
       "attributes": []
     },
     {
-      "kind": 65,
+      "kind": 67,
       "modifiers": [],
       "name": {
         "kind": 42,
@@ -107,11 +107,11 @@
       },
       "statements": [
         {
-          "kind": 102,
+          "kind": 104,
           "rebindable": false,
           "variables": [
             {
-              "kind": 103,
+              "kind": 105,
               "name": {
                 "kind": 42,
                 "name": "gender",
@@ -191,7 +191,7 @@
         "kind": 3
       },
       "callee": {
-        "kind": 60,
+        "kind": 61,
         "object": {
           "kind": 42,
           "name": "console",
@@ -229,10 +229,10 @@
       },
       "arguments": [
         {
-          "kind": 90,
+          "kind": 92,
           "elements": [
             {
-              "kind": 60,
+              "kind": 61,
               "object": {
                 "kind": 42,
                 "name": "foo",

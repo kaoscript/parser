@@ -1,0 +1,2 @@
+export sealed class Foobar {
+}

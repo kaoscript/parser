@@ -1,33 +1,32 @@
 {
-  "kind": 63,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 46,
+      "kind": 47,
       "declarations": [
         {
-          "kind": 47,
-          "module": "@oz/lang",
-          "specifiers": [
-            {
-              "kind": 50,
-              "start": {
-                "line": 1,
-                "column": 8
-              },
-              "end": {
-                "line": 1,
-                "column": 9
-              }
+          "kind": 48,
+          "source": {
+            "kind": 55,
+            "value": "@oz/lang",
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 1,
+              "column": 18
             }
-          ],
+          },
+          "specifiers": [],
           "start": {
             "line": 1,
             "column": 8
           },
           "end": {
             "line": 1,
-            "column": 25
+            "column": 18
           }
         }
       ],
@@ -37,16 +36,16 @@
       },
       "end": {
         "line": 1,
-        "column": 25
+        "column": 18
       },
       "attributes": []
     },
     {
-      "kind": 102,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 103,
+          "kind": 105,
           "name": {
             "kind": 42,
             "name": "a",
@@ -60,7 +59,7 @@
             }
           },
           "type": {
-            "kind": 96,
+            "kind": 98,
             "typeName": {
               "kind": 42,
               "name": "Array",
@@ -75,7 +74,7 @@
             },
             "typeParameters": [
               {
-                "kind": 96,
+                "kind": 98,
                 "typeName": {
                   "kind": 42,
                   "name": "number",
@@ -123,7 +122,7 @@
         "kind": 4,
         "values": [
           {
-            "kind": 66,
+            "kind": 68,
             "value": 1,
             "start": {
               "line": 3,
@@ -135,7 +134,7 @@
             }
           },
           {
-            "kind": 66,
+            "kind": 68,
             "value": 3,
             "start": {
               "line": 3,
@@ -147,7 +146,7 @@
             }
           },
           {
-            "kind": 66,
+            "kind": 68,
             "value": 2,
             "start": {
               "line": 3,
@@ -159,7 +158,7 @@
             }
           },
           {
-            "kind": 66,
+            "kind": 68,
             "value": 4,
             "start": {
               "line": 3,
@@ -196,7 +195,7 @@
         "kind": 3
       },
       "callee": {
-        "kind": 60,
+        "kind": 61,
         "object": {
           "kind": 42,
           "name": "console",
@@ -273,7 +272,7 @@
       },
       "properties": [
         {
-          "kind": 61,
+          "kind": 62,
           "modifiers": [],
           "name": {
             "kind": 42,
@@ -297,7 +296,7 @@
             "column": 64
           },
           "type": {
-            "kind": 96,
+            "kind": 98,
             "typeName": {
               "kind": 42,
               "name": "Array",
@@ -312,7 +311,7 @@
             },
             "typeParameters": [
               {
-                "kind": 96,
+                "kind": 98,
                 "typeName": {
                   "kind": 42,
                   "name": "number",
@@ -351,7 +350,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 60,
+              "kind": 61,
               "object": {
                 "kind": 10,
                 "operator": {
@@ -378,7 +377,7 @@
                   }
                 },
                 "right": {
-                  "kind": 96,
+                  "kind": 98,
                   "typeName": {
                     "kind": 42,
                     "name": "Array",
@@ -434,11 +433,11 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "parameters": [
                   {
-                    "kind": 71,
+                    "kind": 73,
                     "modifiers": [],
                     "start": {
                       "line": 8,
@@ -462,7 +461,7 @@
                     }
                   },
                   {
-                    "kind": 71,
+                    "kind": 73,
                     "modifiers": [],
                     "start": {
                       "line": 8,
@@ -570,7 +569,7 @@
         "kind": 3
       },
       "callee": {
-        "kind": 60,
+        "kind": 61,
         "object": {
           "kind": 42,
           "name": "console",
@@ -613,7 +612,7 @@
             "kind": 3
           },
           "callee": {
-            "kind": 60,
+            "kind": 61,
             "object": {
               "kind": 42,
               "name": "a",

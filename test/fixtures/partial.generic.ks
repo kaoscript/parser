@@ -1,4 +1,4 @@
-import * from '@oz/lang'
+import '@oz/lang'
 
 let a : Array<number> = [1, 3, 2, 4]
 

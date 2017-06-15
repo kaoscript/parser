@@ -1,5 +1,5 @@
 import {
-	* from './module1'
-	/* * from ./module2 */
-	* from './module3'
+	'./module1'
+	/* './module2' */
+	'./module3'
 }
