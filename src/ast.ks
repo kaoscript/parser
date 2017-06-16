@@ -1,4 +1,4 @@
-import * from '@kaoscript/ast'
+import '@kaoscript/ast'
 
 namespace AST {
 	// {{{
