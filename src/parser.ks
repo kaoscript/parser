@@ -214,6 +214,9 @@ class Parser {
 				else if @token == Token::RIGHT_SQUARE {
 					return this.yep(AST.ArrayExpression(values, first, this.yes()))
 				}
+				else {
+					values.push(this.reqExpression(null, MacroTerminator::Array))
+				}
 			}
 			else {
 				this.throw(']')
@@ -569,6 +572,8 @@ class Parser {
 				return this.altArrayComprehension(expression, first)
 			}
 			else if @token == Token::NEWLINE {
+				const mark = this.mark()
+				
 				this.commit().NL_0M()
 				
 				if this.match(Token::RIGHT_SQUARE, Token::FOR) == Token::RIGHT_SQUARE {
@@ -578,6 +583,8 @@ class Parser {
 					return this.altArrayComprehension(expression, first)
 				}
 				else {
+					this.rollback(mark)
+					
 					return this.altArrayList(expression, first)
 				}
 			}
