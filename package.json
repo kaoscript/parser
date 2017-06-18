@@ -25,18 +25,18 @@
 	],
 	"main": "lib/parser.js",
 	"dependencies": {
-		"@kaoscript/ast": "kaoscript/ast#v0.7.x",
-		"@kaoscript/runtime": "kaoscript/runtime#v0.6.x"
+		"@kaoscript/ast": "kaoscript/ast#v0.7.0",
+		"@kaoscript/runtime": "kaoscript/runtime#v0.6.0"
 	},
 	"devDependencies": {
-		"@kaoscript/coverage-istanbul": "kaoscript/coverage-istanbul#v0.2.x",
+		"@kaoscript/coverage-istanbul": "kaoscript/coverage-istanbul#v0.2.0",
 		"@zokugun/istanbul.cover": "0.5.x",
 		"@zokugun/istanbul.cover.cmd.mocha": "0.4.x",
 		"@zokugun/istanbul.reporter.minimap": "0.5.x",
 		"chai": "2.x",
 		"coveralls": "2.x",
 		"istanbul": "^0.4",
-		"kaoscript": "kaoscript#v0.9.x",
+		"kaoscript": "kaoscript#v0.9.0",
 		"mocha": "2.x"
 	},
 	"engines": {
