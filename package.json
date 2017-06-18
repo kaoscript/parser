@@ -29,7 +29,13 @@
 		"@kaoscript/runtime": "0.6.x"
 	},
 	"devDependencies": {
+		"@kaoscript/coverage-istanbul": "0.2.x",
+		"@zokugun/istanbul.cover": "0.5.x",
+		"@zokugun/istanbul.cover.cmd.mocha": "0.4.x",
+		"@zokugun/istanbul.reporter.minimap": "0.5.x",
 		"chai": "2.x",
+		"coveralls": "2.x",
+		"istanbul": "^0.4",
 		"kaoscript": "0.9.x",
 		"mocha": "2.x"
 	},
@@ -37,7 +43,9 @@
 		"node": ">= 4.0.0"
 	},
 	"scripts": {
-		"test": "mocha --colors --check-leaks --reporter spec"
+		"push-coverage": "npm run test-coverage && cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
+		"test": "mocha --colors --check-leaks --reporter spec",
+		"test-coverage": "node node_modules/@zokugun/istanbul.cover/src/cli.js"
 	},
 	"keywords": [
 		"kaoscript",
