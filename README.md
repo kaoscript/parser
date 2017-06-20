@@ -5,6 +5,7 @@
 ![Dependencies](https://img.shields.io/david/kaoscript/parser.svg)
 [![Build Status](https://travis-ci.org/kaoscript/parser.svg?branch=master)](https://travis-ci.org/kaoscript/parser)
 [![CircleCI](https://circleci.com/gh/kaoscript/parser/tree/master.svg?style=shield)](https://circleci.com/gh/kaoscript/parser/tree/master)
+[![Coverage Status](https://img.shields.io/coveralls/kaoscript/parser/master.svg)](https://coveralls.io/github/kaoscript/parser)
 
 Parse kaoscript files and generates an abstract syntax tree.
 
@@ -17,7 +18,7 @@ Evolution
 
 - August 2016 - May 2017: I've used [Jison](https://zaa.ch/jison/) to generate a **SLR** parser. Faster (10x) but the syntax was getting complex and tricky.
 
-- May 2017: I've tried [chevrotain](https://github.com/SAP/chevrotain) (a fast **LL(5)** parser).
+- May 2017: I've tried [chevrotain](https://github.com/SAP/chevrotain) (a fast **LL(4)** parser).
 
 	I didn't choice it because:
 	- You have to distinguish ambiguous rules, complexify the syntax
@@ -34,6 +35,4 @@ Evolution
 License
 -------
 
-Copyright &copy; 2016 Baptiste Augrain
-
-Licensed under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
+[MIT](http://www.opensource.org/licenses/mit-license.php) © Baptiste Augrain
