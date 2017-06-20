@@ -35,4 +35,4 @@ Evolution
 License
 -------
 
-[MIT](http://www.opensource.org/licenses/mit-license.php) © Baptiste Augrain
+[MIT](http://www.opensource.org/licenses/mit-license.php) &copy; Baptiste Augrain

@@ -1,5 +1,5 @@
 build:
-	time node_modules/.bin/kaoscript -c src/parser.ks -o lib
+	time node_modules/.bin/kaoscript -c -t ecma-v5 -o lib src/parser.ks
 
 test:
 ifeq ($(g),)
