@@ -33,7 +33,7 @@ enum ExpressionMode {
 
 #[flags]
 enum MacroTerminator {
-	COMMA = 1
+	COMMA
 	NEWLINE
 	RIGHT_CURLY
 	RIGHT_ROUND
@@ -43,6 +43,12 @@ enum MacroTerminator {
 	List				= COMMA | NEWLINE | RIGHT_ROUND
 	Object				= COMMA | NEWLINE | RIGHT_CURLY
 	Parenthesis			= NEWLINE | RIGHT_ROUND
+}
+
+enum ParameterMode {
+	Function = 1
+	Macro
+	Method
 }
 
 #[flags]
@@ -1038,47 +1044,7 @@ class Parser {
 		const parameters = []
 		
 		unless this.test(Token::RIGHT_ROUND) {
-			while true {
-				if this.test(Token::AT) {
-					const first = this.yes()
-					
-					const modifiers = [AST.Modifier(ModifierKind::ThisAlias, first)]
-					
-					const identifier = this.reqIdentifier()
-					
-					let last = identifier
-					
-					if this.test(Token::LEFT_ROUND) {
-						let first = this.yes()
-						
-						unless this.test(Token::RIGHT_ROUND) {
-							this.throw(')')
-						}
-						
-						modifiers.push(last = AST.Modifier(ModifierKind::SetterAlias, first, this.yes()))
-					}
-					
-					if this.test(Token::EQUALS) {
-						this.commit()
-						
-						const defaultValue = this.reqExpression(ExpressionMode::Default)
-						
-						parameters.push(this.yep(AST.Parameter(identifier, null, modifiers, defaultValue, first, defaultValue)))
-					}
-					else {
-						parameters.push(this.yep(AST.Parameter(identifier, null, modifiers, null, first, last)))
-					}
-					
-					if this.test(Token::COMMA) {
-						this.commit()
-					}
-					else {
-						break
-					}
-				}
-				else if !this.reqParameter(parameters) {
-					break
-				}
+			while this.reqParameter(parameters, ParameterMode::Method) {
 			}
 		}
 		
@@ -2085,7 +2051,6 @@ class Parser {
 			const statements = []
 			
 			until this.test(Token::RIGHT_CURLY) {
-				/* statements.push(this.reqExternNamespaceDeclarator()) */
 				statements.push(this.reqExternDeclarator(true))
 				
 				this.reqNL_1M()
@@ -2267,7 +2232,7 @@ class Parser {
 		const parameters = []
 		
 		unless this.test(Token::RIGHT_ROUND) {
-			while this.reqParameter(parameters) {
+			while this.reqParameter(parameters, ParameterMode::Function) {
 			}
 			
 			unless this.test(Token::RIGHT_ROUND) {
@@ -2912,50 +2877,17 @@ class Parser {
 			return this.yep(AST.MacroExpression(elements, first, elements[elements.length - 1]))
 		}
 	} // }}}
-	reqMacroParameter(parameters) ~ SyntaxError { // {{{
-		const first = this.reqMacroParameterOperand()
-		const elements = [first]
-		let last = first
-		
-		while true {
-			switch this.match(Token::COMMA, Token::RIGHT_ROUND) {
-				Token::COMMA => {
-					this.commit()
-					
-					parameters.push(this.yep(AST.MacroParameter(elements, first, last)))
-					
-					return true
-				}
-				Token::RIGHT_ROUND => {
-					parameters.push(this.yep(AST.MacroParameter(elements, first, last)))
-					
-					return false
-				}
-				=> {
-					const operator = this.tryBinaryOperator()
-					
-					if operator.ok {
-						elements.push(operator)
-						
-						elements.push(last = this.reqMacroParameterOperand())
-					}
-					else {
-						this.throw()
-					}
-				}
-			}
+	reqMacroParameterList() ~ SyntaxError { // {{{
+		unless this.test(Token::LEFT_ROUND) {
+			this.throw('(')
 		}
-	} // }}}
-	reqMacroParameterOperand() ~ SyntaxError { // {{{
-		const modifiers = this.reqParameterModifiers()
 		
-		return this.reqParameterIdendifier(modifiers, modifiers.length == 0 ? null : modifiers[0])
-	} // }}}
-	reqMacroRule(first, capture) ~ SyntaxError { // {{{
+		const first = this.yes()
+		
 		const parameters = []
 		
 		unless this.test(Token::RIGHT_ROUND) {
-			while this.reqMacroParameter(parameters) {
+			while this.reqParameter(parameters, ParameterMode::Macro) {
 			}
 			
 			unless this.test(Token::RIGHT_ROUND) {
@@ -2963,46 +2895,23 @@ class Parser {
 			}
 		}
 		
-		this.commit()
-		
-		if capture {
-			unless this.test(Token::EQUALS_RIGHT_ANGLE) {
-				this.throw('=>')
-			}
-			
-			this.commit()
-		}
-		else if this.test(Token::EQUALS_RIGHT_ANGLE) {
-			this.commit()
-			
-			const expression = this.reqMacroExpression(NO)
-			
-			return this.yep(AST.MacroRule(parameters, [expression], first, expression))
-		}
-		
-		if this.test(Token::LEFT_CURLY) {
-			this.commit().NL_0M()
-			
-			const statements = []
-			
+		return this.yep(parameters, first, this.yes())
+	} // }}}
+	reqMacroBody() ~ SyntaxError { // {{{
+		if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) == Token::LEFT_CURLY {
 			@mode |= ParserMode::MacroExpression
 			
-			until this.test(Token::RIGHT_CURLY) {
-				statements.push(this.reqStatement())
-			}
+			const body = this.reqBlock(this.yes())
 			
 			@mode ^= ParserMode::MacroExpression
 			
-			unless this.test(Token::RIGHT_CURLY) {
-				this.throw('}')
-			}
-			
-			return this.yep(AST.MacroRule(parameters, statements, first, this.yes()))
+			return body
+		}
+		else if @token == Token::EQUALS_RIGHT_ANGLE {
+			return this.reqMacroExpression(this.yes())
 		}
 		else {
-			const expression = this.reqMacroExpression(NO)
-			
-			return this.yep(AST.MacroRule(parameters, [expression], first, expression))
+			this.throw(['{', '=>'])
 		}
 	} // }}}
 	reqMacroStatement(first) ~ SyntaxError { // {{{
@@ -3012,38 +2921,11 @@ class Parser {
 			return NO
 		}
 		
-		let last
-		const rules = []
+		const parameters = this.reqMacroParameterList()
 		
-		switch this.match(Token::LEFT_CURLY, Token::LEFT_ROUND) {
-			Token::LEFT_CURLY => {
-				this.commit().NL_0M()
-				
-				until this.match(Token::RIGHT_CURLY) {
-					unless this.test(Token::LEFT_ROUND) {
-						this.throw('(')
-					}
-					
-					rules.push(this.reqMacroRule(this.yes(), true))
-					
-					this.reqNL_1M()
-				}
-				
-				unless this.match(Token::RIGHT_CURLY) {
-					this.throw('}')
-				}
-				
-				last = this.yes()
-			}
-			Token::LEFT_ROUND => {
-				rules.push(last = this.reqMacroRule(this.yes(), false))
-			}
-			=> {
-				this.throw()
-			}
-		}
+		const body = this.reqMacroBody()
 		
-		return this.yep(AST.MacroDeclaration(name, rules, first, last))
+		return this.yep(AST.MacroDeclaration(name, parameters, body, first, body))
 	} // }}}
 	reqModule() ~ SyntaxError { // {{{
 		this.NL_0M()
@@ -3308,43 +3190,77 @@ class Parser {
 			return this.yep(AST.reorderExpression(values))
 		}
 	} // }}}
-	reqParameter(parameters) ~ SyntaxError { // {{{
-		const modifiers = this.reqParameterModifiers()
-		let first = modifiers.length == 0 ? null : modifiers[0]
+	reqParameter(parameters, mode) ~ SyntaxError { // {{{
+		const modifiers = []
 		
-		if this.match(Token::COLON, Token::COMMA, Token::IDENTIFIER, Token::RIGHT_ROUND) == Token::COLON {
-			if first == null {
-				first = this.yes()
+		if this.test(Token::DOT_DOT_DOT) {
+			const first = this.yes()
+			
+			if this.test(Token::LEFT_CURLY) {
+				this.commit()
+				
+				let min, max
+				
+				if this.test(Token::COMMA) {
+					this.commit()
+					
+					min = 0
+					max = this.reqNumber().value.value
+				}
+				else {
+					min = this.reqNumber().value.value
+					
+					if this.test(Token::COMMA) {
+						this.commit()
+						
+						if this.test(Token::RIGHT_CURLY) {
+							max = Infinity
+						}
+						else {
+							max = this.reqNumber().value.value
+						}
+					}
+					else {
+						max = min
+					}
+				}
+				
+				unless this.test(Token::RIGHT_CURLY) {
+					this.throw('}')
+				}
+				
+				modifiers.push(AST.RestModifier(min, max, first, this.yes()))
 			}
 			else {
-				this.commit()
-			}
-			
-			const type = this.reqTypeVar()
-			
-			parameters.push(this.yep(AST.Parameter(null, type, modifiers, null, first, type)))
-			
-			if this.test(Token::COMMA) {
-				this.commit()
-			}
-			else {
-				return false
+				modifiers.push(AST.RestModifier(0, Infinity, first, first))
 			}
 		}
-		else if @token == Token::COMMA {
-			if first == null {
-				first = this.yes()
-				first.end = first.start
+		
+		if this.test(Token::AT) {
+			let first
+			
+			if mode == ParameterMode::Macro {
+				modifiers.push(AST.Modifier(ModifierKind::AutoEvaluate, first = this.yes()))
+			}
+			else if mode == ParameterMode::Method {
+				modifiers.push(AST.Modifier(ModifierKind::ThisAlias, first = this.yes()))
 			}
 			else {
-				this.commit()
+				this.throw()
 			}
 			
-			parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
-		}
-		else if @token == Token::IDENTIFIER {
 			parameters.push(this.reqParameterIdendifier(modifiers, first))
 			
+			if mode == ParameterMode::Method && this.test(Token::LEFT_ROUND) {
+				let first = this.yes()
+				
+				unless this.test(Token::RIGHT_ROUND) {
+					this.throw(')')
+				}
+				
+				modifiers.push(AST.Modifier(ModifierKind::SetterAlias, first, this.yes()))
+			}
+			
 			if this.test(Token::COMMA) {
 				this.commit()
 			}
@@ -3352,19 +3268,63 @@ class Parser {
 				return false
 			}
 		}
-		else if @token == Token::RIGHT_ROUND {
-			first = this.yep(@scanner.position())
-			first.end = first.start
-			
-			parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
-			
-			return false
-		}
-		else if modifiers.length != 0 {
-			parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
-		}
 		else {
-			this.throw()
+			let first = modifiers.length == 0 ? null : modifiers[0]
+			
+			if this.match(Token::COLON, Token::COMMA, Token::IDENTIFIER, Token::RIGHT_ROUND) == Token::COLON {
+				if first == null {
+					first = this.yes()
+				}
+				else {
+					this.commit()
+				}
+				
+				const type = this.reqTypeVar()
+				
+				parameters.push(this.yep(AST.Parameter(null, type, modifiers, null, first, type)))
+				
+				if this.test(Token::COMMA) {
+					this.commit()
+				}
+				else {
+					return false
+				}
+			}
+			else if @token == Token::COMMA {
+				if first == null {
+					first = this.yes()
+					first.end = first.start
+				}
+				else {
+					this.commit()
+				}
+				
+				parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
+			}
+			else if @token == Token::IDENTIFIER {
+				parameters.push(this.reqParameterIdendifier(modifiers, first))
+				
+				if this.test(Token::COMMA) {
+					this.commit()
+				}
+				else {
+					return false
+				}
+			}
+			else if @token == Token::RIGHT_ROUND {
+				first = this.yep(@scanner.position())
+				first.end = first.start
+				
+				parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
+				
+				return false
+			}
+			else if modifiers.length != 0 {
+				parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
+			}
+			else {
+				this.throw()
+			}
 		}
 		
 		return true
@@ -3412,54 +3372,6 @@ class Parser {
 		else {
 			return this.yep(AST.Parameter(identifier, null, modifiers, null, first ?? identifier, identifier))
 		}
-	} // }}}
-	reqParameterModifiers() ~ SyntaxError { // {{{
-		const modifiers = []
-		
-		if this.test(Token::DOT_DOT_DOT) {
-			const first = this.yes()
-			
-			if this.test(Token::LEFT_CURLY) {
-				this.commit()
-				
-				let min, max
-				
-				if this.test(Token::COMMA) {
-					this.commit()
-					
-					min = 0
-					max = this.reqNumber().value.value
-				}
-				else {
-					min = this.reqNumber().value.value
-					
-					if this.test(Token::COMMA) {
-						this.commit()
-						
-						if this.test(Token::RIGHT_CURLY) {
-							max = Infinity
-						}
-						else {
-							max = this.reqNumber().value.value
-						}
-					}
-					else {
-						max = min
-					}
-				}
-				
-				unless this.test(Token::RIGHT_CURLY) {
-					this.throw('}')
-				}
-				
-				modifiers.push(AST.RestModifier(min, max, first, this.yes()))
-			}
-			else {
-				modifiers.push(AST.RestModifier(0, Infinity, first, first))
-			}
-		}
-		
-		return modifiers
 	} // }}}
 	reqParenthesis(first) ~ SyntaxError { // {{{
 		if this.test(Token::NEWLINE) {
@@ -5176,7 +5088,7 @@ class Parser {
 		const parameters = []
 		
 		unless this.test(Token::RIGHT_ROUND) {
-			while this.tryParameter(parameters) {
+			while this.tryParameter(parameters, ParameterMode::Function) {
 			}
 			
 			unless this.test(Token::RIGHT_ROUND) {
@@ -5265,9 +5177,9 @@ class Parser {
 			return this.tryNumber()
 		}
 	} // }}}
-	tryParameter(parameters) { // {{{
+	tryParameter(parameters, mode) { // {{{
 		try {
-			return this.reqParameter(parameters)
+			return this.reqParameter(parameters, mode)
 		}
 		catch {
 			return false

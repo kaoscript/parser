@@ -1,5 +1,5 @@
 {
-  "kind": 64,
+  "kind": 62,
   "attributes": [],
   "body": [
     {
@@ -16,111 +16,83 @@
           "column": 17
         }
       },
-      "rules": [
+      "parameters": [
         {
-          "kind": 59,
-          "parameters": [
-            {
-              "kind": 58,
-              "elements": [
-                {
-                  "kind": 73,
-                  "modifiers": [],
-                  "start": {
-                    "line": 1,
-                    "column": 18
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 19
-                  },
-                  "name": {
-                    "kind": 42,
-                    "name": "e",
-                    "start": {
-                      "line": 1,
-                      "column": 18
-                    },
-                    "end": {
-                      "line": 1,
-                      "column": 19
-                    }
-                  }
-                }
-              ],
-              "start": {
-                "line": 1,
-                "column": 18
-              },
-              "end": {
-                "line": 1,
-                "column": 19
-              }
+          "kind": 71,
+          "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 18
+          },
+          "end": {
+            "line": 1,
+            "column": 19
+          },
+          "name": {
+            "kind": 42,
+            "name": "e",
+            "start": {
+              "line": 1,
+              "column": 18
+            },
+            "end": {
+              "line": 1,
+              "column": 19
             }
-          ],
-          "body": [
-            {
-              "kind": 57,
-              "elements": [
-                {
-                  "kind": 55,
-                  "value": "5 * ",
-                  "start": {
-                    "line": 1,
-                    "column": 24
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 28
-                  }
-                },
-                {
-                  "kind": 60,
-                  "expression": {
-                    "kind": 42,
-                    "name": "e",
-                    "start": {
-                      "line": 1,
-                      "column": 29
-                    },
-                    "end": {
-                      "line": 1,
-                      "column": 30
-                    }
-                  },
-                  "start": {
-                    "line": 1,
-                    "column": 28
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 30
-                  },
-                  "reification": {
-                    "kind": 3
-                  }
-                }
-              ],
+          }
+        }
+      ],
+      "body": {
+        "kind": 57,
+        "elements": [
+          {
+            "kind": 55,
+            "value": "5 * ",
+            "start": {
+              "line": 1,
+              "column": 24
+            },
+            "end": {
+              "line": 1,
+              "column": 28
+            }
+          },
+          {
+            "kind": 58,
+            "expression": {
+              "kind": 42,
+              "name": "e",
               "start": {
                 "line": 1,
-                "column": 24
+                "column": 29
               },
               "end": {
                 "line": 1,
                 "column": 30
               }
+            },
+            "start": {
+              "line": 1,
+              "column": 28
+            },
+            "end": {
+              "line": 1,
+              "column": 30
+            },
+            "reification": {
+              "kind": 3
             }
-          ],
-          "start": {
-            "line": 1,
-            "column": 17
-          },
-          "end": {
-            "line": 1,
-            "column": 30
           }
+        ],
+        "start": {
+          "line": 1,
+          "column": 21
+        },
+        "end": {
+          "line": 1,
+          "column": 30
         }
-      ],
+      },
       "start": {
         "line": 1,
         "column": 1

@@ -616,7 +616,7 @@ namespace M {
 				return Token::EOF
 			}
 			else {
-				that.next(index - from - 1)
+				that.next(index - from)
 				
 				return Token::INVALID
 			}

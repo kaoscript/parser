@@ -1,13 +1,13 @@
 {
-  "kind": 64,
+  "kind": 62,
   "attributes": [],
   "body": [
     {
-      "kind": 104,
+      "kind": 102,
       "rebindable": true,
       "variables": [
         {
-          "kind": 105,
+          "kind": 103,
           "name": {
             "kind": 42,
             "name": "value",
@@ -33,10 +33,10 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 70,
+        "kind": 68,
         "properties": [
           {
-            "kind": 71,
+            "kind": 69,
             "name": {
               "kind": 42,
               "name": "foo",
@@ -50,7 +50,7 @@
               }
             },
             "value": {
-              "kind": 68,
+              "kind": 66,
               "value": 1,
               "start": {
                 "line": 2,
@@ -71,7 +71,7 @@
             }
           },
           {
-            "kind": 71,
+            "kind": 69,
             "name": {
               "kind": 42,
               "name": "bar",
@@ -97,7 +97,7 @@
               },
               "modifiers": [],
               "body": {
-                "kind": 68,
+                "kind": 66,
                 "value": 2,
                 "start": {
                   "line": 3,
@@ -139,7 +139,7 @@
       "attributes": []
     },
     {
-      "kind": 90,
+      "kind": 88,
       "expression": {
         "kind": 42,
         "name": "value",
@@ -154,14 +154,14 @@
       },
       "clauses": [
         {
-          "kind": 83,
+          "kind": 81,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 61,
+              "kind": 59,
               "object": {
                 "kind": 42,
                 "name": "console",
@@ -199,7 +199,7 @@
             },
             "arguments": [
               {
-                "kind": 92,
+                "kind": 90,
                 "elements": [
                   {
                     "kind": 55,
@@ -256,10 +256,10 @@
           },
           "conditions": [
             {
-              "kind": 86,
+              "kind": 84,
               "members": [
                 {
-                  "kind": 71,
+                  "kind": 69,
                   "name": {
                     "kind": 42,
                     "name": "foo",
@@ -273,7 +273,7 @@
                     }
                   },
                   "value": {
-                    "kind": 68,
+                    "kind": 66,
                     "value": 1,
                     "start": {
                       "line": 7,
@@ -306,7 +306,7 @@
           ],
           "bindings": [
             {
-              "kind": 69,
+              "kind": 67,
               "elements": [
                 {
                   "kind": 11,
@@ -356,14 +356,14 @@
           ]
         },
         {
-          "kind": 83,
+          "kind": 81,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 61,
+              "kind": 59,
               "object": {
                 "kind": 42,
                 "name": "console",
@@ -433,10 +433,10 @@
           },
           "conditions": [
             {
-              "kind": 86,
+              "kind": 84,
               "members": [
                 {
-                  "kind": 71,
+                  "kind": 69,
                   "name": {
                     "kind": 42,
                     "name": "foo",
@@ -450,7 +450,7 @@
                     }
                   },
                   "value": {
-                    "kind": 68,
+                    "kind": 66,
                     "value": 1,
                     "start": {
                       "line": 8,
@@ -484,14 +484,14 @@
           "bindings": []
         },
         {
-          "kind": 83,
+          "kind": 81,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 61,
+              "kind": 59,
               "object": {
                 "kind": 42,
                 "name": "console",
@@ -561,10 +561,10 @@
           },
           "conditions": [
             {
-              "kind": 86,
+              "kind": 84,
               "members": [
                 {
-                  "kind": 71,
+                  "kind": 69,
                   "name": {
                     "kind": 42,
                     "name": "foo",
@@ -600,14 +600,14 @@
           "bindings": []
         },
         {
-          "kind": 83,
+          "kind": 81,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 61,
+              "kind": 59,
               "object": {
                 "kind": 42,
                 "name": "console",
@@ -677,10 +677,10 @@
           },
           "conditions": [
             {
-              "kind": 86,
+              "kind": 84,
               "members": [
                 {
-                  "kind": 71,
+                  "kind": 69,
                   "name": {
                     "kind": 42,
                     "name": "qux",
@@ -716,14 +716,14 @@
           "bindings": []
         },
         {
-          "kind": 83,
+          "kind": 81,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 61,
+              "kind": 59,
               "object": {
                 "kind": 42,
                 "name": "console",
@@ -820,7 +820,7 @@
                 "kind": 3
               },
               "callee": {
-                "kind": 61,
+                "kind": 59,
                 "object": {
                   "kind": 42,
                   "name": "value",
@@ -868,7 +868,7 @@
               }
             },
             "right": {
-              "kind": 68,
+              "kind": 66,
               "value": 0,
               "start": {
                 "line": 11,
@@ -882,14 +882,14 @@
           }
         },
         {
-          "kind": 83,
+          "kind": 81,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 61,
+              "kind": 59,
               "object": {
                 "kind": 42,
                 "name": "console",

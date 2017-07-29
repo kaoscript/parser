@@ -1,5 +1,2 @@
-macro match_tokens {
-	(a + b) => 'got an addition'
-	(i: Identifier) => 'got an identifier'
-	(...others) => 'got something else'
-}
+macro match_tokens(i: Identifier) => 'got an identifier'
+macro match_tokens(...others) => 'got something else'

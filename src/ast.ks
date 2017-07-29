@@ -823,61 +823,7 @@ namespace AST {
 				local: local.value
 			}, first, last)
 		} // }}}
-		/* 
-		func ImportDeclarator(module, specifiers, references?, first, last) { // {{{
-			const node = location({
-				kind: NodeKind::ImportDeclarator
-				module: module
-				specifiers: [specifier.value for specifier in specifiers]
-			}, first, last)
-			
-			if references != null {
-				node.references = [reference.value for reference in references]
-			}
-			
-			return node
-		} // }}}
 		
-		func ImportReference(alias) { // {{{
-			return location({
-				kind: NodeKind::ImportReference
-				alias: alias.value
-			}, alias)
-		} // }}}
-		
-		func ImportReference(alias, foreign) { // {{{
-			return location({
-				kind: NodeKind::ImportReference
-				alias: alias.value
-				foreign: foreign.value
-			}, alias, foreign)
-		} // }}}
-		
-		func ImportSpecifier(alias, local?, first, last) { // {{{
-			const node = location({
-				kind: NodeKind::ImportSpecifier
-				alias: alias.value
-			}, first, last)
-			
-			if local? {
-				node.local = local.value
-			}
-			
-			return node
-		} // }}}
-		
-		func ImportWildcardSpecifier(local?, first, last) { // {{{
-			const node = location({
-				kind: NodeKind::ImportWildcardSpecifier
-			}, first, last)
-			
-			if local? {
-				node.local = local.value
-			}
-			
-			return node
-		} // }}}
-		 */
 		func Identifier(name, first) { // {{{
 			return location({
 				kind: NodeKind::Identifier
@@ -928,24 +874,18 @@ namespace AST {
 			}, first, last)
 		} // }}}
 		
-		func MacroDeclaration(name, rules, first, last) { // {{{
+		func MacroDeclaration(name, parameters, body, first, last) { // {{{
 			return location({
 				kind: NodeKind::MacroDeclaration
 				name: name.value
-				rules: [rule.value for rule in rules]
+				parameters: [parameter.value for parameter in parameters.value]
+				body: body.value
 			}, first, last)
 		} // }}}
 		
 		func MacroExpression(elements, first, last) { // {{{
 			return location({
 				kind: NodeKind::MacroExpression
-				elements: [element.value for element in elements]
-			}, first, last)
-		} // }}}
-		
-		func MacroParameter(elements, first, last) { // {{{
-			return location({
-				kind: NodeKind::MacroParameter
 				elements: [element.value for element in elements]
 			}, first, last)
 		} // }}}
@@ -973,14 +913,6 @@ namespace AST {
 					}, first)
 				}
 			}
-		} // }}}
-		
-		func MacroRule(parameters, body, first, last) { // {{{
-			return location({
-				kind: NodeKind::MacroRule
-				parameters: [parameter.value for parameter in parameters]
-				body: [statement.value for statement in body]
-			}, first, last)
 		} // }}}
 		
 		func MacroVariable(expression, reification?, first, last) { // {{{
@@ -1071,13 +1003,13 @@ namespace AST {
 			}, first, last)
 		} // }}}
 		
-		func NamedArgument(name, value) {
+		func NamedArgument(name, value) { // {{{
 			return location({
 				kind: NodeKind::NamedArgument
 				name: name.value
 				value: value.value
 			}, name, value)
-		}
+		} // }}}
 		
 		func Nullable(first) { // {{{
 			return location({

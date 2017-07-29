@@ -1,11 +1,11 @@
 class Color {
-	macro registerSpace(expression: Object) {
-		if expression.components? {
+	macro registerSpace(@data: Object) {
+		if data.components? {
 			const fields: Array<Expr> = []
 			const methods: Array<Expr> = []
 			
 			let field
-			for name, component in expression.components {
+			for name, component in data.components {
 				field = `_\(name)`
 				
 				fields.push(macro private #i(field): Number)
@@ -15,11 +15,11 @@ class Color {
 					#i(name)(value) => this.setField(#(name), value)
 				})
 				
-				expression.components[name].field = field
+				data.components[name].field = field
 			}
 			
 			macro {
-				Color.registerSpace(#(expression))
+				Color.registerSpace(#(data))
 				
 				impl Color {
 					#b(fields)
@@ -28,7 +28,7 @@ class Color {
 			}
 		}
 		else {
-			macro Color.registerSpace(#(expression))
+			macro Color.registerSpace(#(data))
 		}
 	}
 }

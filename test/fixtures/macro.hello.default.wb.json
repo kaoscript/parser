@@ -1,5 +1,5 @@
 {
-  "kind": 64,
+  "kind": 62,
   "attributes": [],
   "body": [
     {
@@ -16,47 +16,47 @@
           "column": 15
         }
       },
-      "rules": [
-        {
-          "kind": 59,
-          "parameters": [],
-          "body": [
-            {
-              "kind": 57,
-              "elements": [
-                {
-                  "kind": 55,
-                  "value": "console.log('Hello!')",
-                  "start": {
-                    "line": 2,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 29
-                  }
+      "parameters": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 57,
+            "elements": [
+              {
+                "kind": 55,
+                "value": "console.log('Hello!')",
+                "start": {
+                  "line": 2,
+                  "column": 8
+                },
+                "end": {
+                  "line": 2,
+                  "column": 29
                 }
-              ],
-              "start": {
-                "line": 2,
-                "column": 2
-              },
-              "end": {
-                "line": 2,
-                "column": 29
               }
-            }
-          ],
-          "start": {
-            "line": 1,
-            "column": 15
-          },
-          "end": {
-            "line": 3,
-            "column": 2
+            ],
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 29
+            },
+            "attributes": []
           }
+        ],
+        "start": {
+          "line": 1,
+          "column": 18
+        },
+        "end": {
+          "line": 3,
+          "column": 2
         }
-      ],
+      },
       "start": {
         "line": 1,
         "column": 1

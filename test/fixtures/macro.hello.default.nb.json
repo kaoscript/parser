@@ -1,5 +1,5 @@
 {
-  "kind": 64,
+  "kind": 62,
   "attributes": [],
   "body": [
     {
@@ -16,47 +16,32 @@
           "column": 15
         }
       },
-      "rules": [
-        {
-          "kind": 59,
-          "parameters": [],
-          "body": [
-            {
-              "kind": 57,
-              "elements": [
-                {
-                  "kind": 55,
-                  "value": "console.log('Hello!')",
-                  "start": {
-                    "line": 1,
-                    "column": 21
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 42
-                  }
-                }
-              ],
-              "start": {
-                "line": 1,
-                "column": 21
-              },
-              "end": {
-                "line": 1,
-                "column": 42
-              }
+      "parameters": [],
+      "body": {
+        "kind": 57,
+        "elements": [
+          {
+            "kind": 55,
+            "value": "console.log('Hello!')",
+            "start": {
+              "line": 1,
+              "column": 21
+            },
+            "end": {
+              "line": 1,
+              "column": 42
             }
-          ],
-          "start": {
-            "line": 1,
-            "column": 15
-          },
-          "end": {
-            "line": 1,
-            "column": 42
           }
+        ],
+        "start": {
+          "line": 1,
+          "column": 18
+        },
+        "end": {
+          "line": 1,
+          "column": 42
         }
-      ],
+      },
       "start": {
         "line": 1,
         "column": 1

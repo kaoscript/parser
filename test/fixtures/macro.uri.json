@@ -1,5 +1,5 @@
 {
-  "kind": 64,
+  "kind": 62,
   "attributes": [],
   "body": [
     {
@@ -32,162 +32,150 @@
               "column": 16
             }
           },
-          "rules": [
+          "parameters": [
             {
-              "kind": 59,
-              "parameters": [
+              "kind": 71,
+              "modifiers": [
                 {
-                  "kind": 58,
-                  "elements": [
-                    {
-                      "kind": 73,
-                      "modifiers": [],
-                      "start": {
-                        "line": 2,
-                        "column": 17
-                      },
-                      "end": {
-                        "line": 2,
-                        "column": 31
-                      },
-                      "name": {
-                        "kind": 42,
-                        "name": "scheme",
-                        "start": {
-                          "line": 2,
-                          "column": 17
-                        },
-                        "end": {
-                          "line": 2,
-                          "column": 23
-                        }
-                      },
-                      "type": {
-                        "kind": 98,
-                        "typeName": {
-                          "kind": 42,
-                          "name": "String",
-                          "start": {
-                            "line": 2,
-                            "column": 25
-                          },
-                          "end": {
-                            "line": 2,
-                            "column": 31
-                          }
-                        },
-                        "start": {
-                          "line": 2,
-                          "column": 25
-                        },
-                        "end": {
-                          "line": 2,
-                          "column": 31
-                        }
-                      }
-                    }
-                  ],
+                  "kind": 3,
                   "start": {
                     "line": 2,
                     "column": 17
                   },
                   "end": {
                     "line": 2,
-                    "column": 31
-                  }
-                },
-                {
-                  "kind": 58,
-                  "elements": [
-                    {
-                      "kind": 73,
-                      "modifiers": [],
-                      "start": {
-                        "line": 2,
-                        "column": 33
-                      },
-                      "end": {
-                        "line": 2,
-                        "column": 90
-                      },
-                      "name": {
-                        "kind": 42,
-                        "name": "meta",
-                        "start": {
-                          "line": 2,
-                          "column": 33
-                        },
-                        "end": {
-                          "line": 2,
-                          "column": 37
-                        }
-                      },
-                      "type": {
-                        "kind": 98,
-                        "typeName": {
-                          "kind": 42,
-                          "name": "String",
-                          "start": {
-                            "line": 2,
-                            "column": 39
-                          },
-                          "end": {
-                            "line": 2,
-                            "column": 45
-                          }
-                        },
-                        "start": {
-                          "line": 2,
-                          "column": 39
-                        },
-                        "end": {
-                          "line": 2,
-                          "column": 45
-                        }
-                      },
-                      "defaultValue": {
-                        "kind": 55,
-                        "value": "hier_part [ \"?\" query ] [ \"#\" fragment ]",
-                        "start": {
-                          "line": 2,
-                          "column": 48
-                        },
-                        "end": {
-                          "line": 2,
-                          "column": 90
-                        }
-                      }
-                    }
-                  ],
-                  "start": {
-                    "line": 2,
-                    "column": 33
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 90
+                    "column": 18
                   }
                 }
               ],
-              "body": [
+              "start": {
+                "line": 2,
+                "column": 17
+              },
+              "end": {
+                "line": 2,
+                "column": 32
+              },
+              "name": {
+                "kind": 42,
+                "name": "scheme",
+                "start": {
+                  "line": 2,
+                  "column": 18
+                },
+                "end": {
+                  "line": 2,
+                  "column": 24
+                }
+              },
+              "type": {
+                "kind": 96,
+                "typeName": {
+                  "kind": 42,
+                  "name": "String",
+                  "start": {
+                    "line": 2,
+                    "column": 26
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 32
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 26
+                },
+                "end": {
+                  "line": 2,
+                  "column": 32
+                }
+              }
+            },
+            {
+              "kind": 71,
+              "modifiers": [
                 {
-                  "kind": 47,
-                  "declarations": [
-                    {
-                      "kind": 48,
-                      "source": {
-                        "kind": 55,
-                        "value": "@zokugun/test-import",
-                        "start": {
-                          "line": 3,
-                          "column": 10
-                        },
-                        "end": {
-                          "line": 3,
-                          "column": 32
-                        }
-                      },
-                      "specifiers": [],
+                  "kind": 3,
+                  "start": {
+                    "line": 2,
+                    "column": 34
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 35
+                  }
+                }
+              ],
+              "start": {
+                "line": 2,
+                "column": 34
+              },
+              "end": {
+                "line": 2,
+                "column": 92
+              },
+              "name": {
+                "kind": 42,
+                "name": "meta",
+                "start": {
+                  "line": 2,
+                  "column": 35
+                },
+                "end": {
+                  "line": 2,
+                  "column": 39
+                }
+              },
+              "type": {
+                "kind": 96,
+                "typeName": {
+                  "kind": 42,
+                  "name": "String",
+                  "start": {
+                    "line": 2,
+                    "column": 41
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 47
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 41
+                },
+                "end": {
+                  "line": 2,
+                  "column": 47
+                }
+              },
+              "defaultValue": {
+                "kind": 55,
+                "value": "hier_part [ \"?\" query ] [ \"#\" fragment ]",
+                "start": {
+                  "line": 2,
+                  "column": 50
+                },
+                "end": {
+                  "line": 2,
+                  "column": 92
+                }
+              }
+            }
+          ],
+          "body": {
+            "kind": 12,
+            "attributes": [],
+            "statements": [
+              {
+                "kind": 47,
+                "declarations": [
+                  {
+                    "kind": 48,
+                    "source": {
+                      "kind": 55,
+                      "value": "@zokugun/test-import",
                       "start": {
                         "line": 3,
                         "column": 10
@@ -196,35 +184,37 @@
                         "line": 3,
                         "column": 32
                       }
+                    },
+                    "specifiers": [],
+                    "start": {
+                      "line": 3,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 32
                     }
-                  ],
-                  "start": {
-                    "line": 3,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 32
                   }
+                ],
+                "start": {
+                  "line": 3,
+                  "column": 3
                 },
-                {
-                  "kind": 104,
-                  "rebindable": false,
-                  "variables": [
-                    {
-                      "kind": 105,
-                      "name": {
-                        "kind": 42,
-                        "name": "name",
-                        "start": {
-                          "line": 5,
-                          "column": 9
-                        },
-                        "end": {
-                          "line": 5,
-                          "column": 13
-                        }
-                      },
+                "end": {
+                  "line": 3,
+                  "column": 32
+                },
+                "attributes": []
+              },
+              {
+                "kind": 102,
+                "rebindable": false,
+                "variables": [
+                  {
+                    "kind": 103,
+                    "name": {
+                      "kind": 42,
+                      "name": "name",
                       "start": {
                         "line": 5,
                         "column": 9
@@ -233,70 +223,56 @@
                         "line": 5,
                         "column": 13
                       }
+                    },
+                    "start": {
+                      "line": 5,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 13
                     }
-                  ],
-                  "autotype": false,
-                  "await": false,
-                  "init": {
-                    "kind": 92,
-                    "elements": [
-                      {
-                        "kind": 14,
-                        "scope": {
-                          "kind": 3
-                        },
-                        "callee": {
-                          "kind": 61,
+                  }
+                ],
+                "autotype": false,
+                "await": false,
+                "init": {
+                  "kind": 90,
+                  "elements": [
+                    {
+                      "kind": 14,
+                      "scope": {
+                        "kind": 3
+                      },
+                      "callee": {
+                        "kind": 59,
+                        "object": {
+                          "kind": 59,
                           "object": {
-                            "kind": 61,
-                            "object": {
-                              "kind": 42,
-                              "name": "scheme",
-                              "start": {
-                                "line": 5,
-                                "column": 19
-                              },
-                              "end": {
-                                "line": 5,
-                                "column": 25
-                              }
-                            },
-                            "property": {
-                              "kind": 68,
-                              "value": 0,
-                              "start": {
-                                "line": 5,
-                                "column": 26
-                              },
-                              "end": {
-                                "line": 5,
-                                "column": 27
-                              }
-                            },
-                            "computed": true,
-                            "nullable": false,
+                            "kind": 42,
+                            "name": "scheme",
                             "start": {
                               "line": 5,
                               "column": 19
                             },
                             "end": {
                               "line": 5,
-                              "column": 28
+                              "column": 25
                             }
                           },
                           "property": {
-                            "kind": 42,
-                            "name": "toUpperCase",
+                            "kind": 66,
+                            "value": 0,
                             "start": {
                               "line": 5,
-                              "column": 29
+                              "column": 26
                             },
                             "end": {
                               "line": 5,
-                              "column": 40
+                              "column": 27
                             }
                           },
-                          "computed": false,
+                          "computed": true,
                           "nullable": false,
                           "start": {
                             "line": 5,
@@ -304,10 +280,22 @@
                           },
                           "end": {
                             "line": 5,
+                            "column": 28
+                          }
+                        },
+                        "property": {
+                          "kind": 42,
+                          "name": "toUpperCase",
+                          "start": {
+                            "line": 5,
+                            "column": 29
+                          },
+                          "end": {
+                            "line": 5,
                             "column": 40
                           }
                         },
-                        "arguments": [],
+                        "computed": false,
                         "nullable": false,
                         "start": {
                           "line": 5,
@@ -315,59 +303,59 @@
                         },
                         "end": {
                           "line": 5,
-                          "column": 42
+                          "column": 40
                         }
                       },
-                      {
-                        "kind": 14,
-                        "scope": {
-                          "kind": 3
-                        },
-                        "callee": {
-                          "kind": 61,
-                          "object": {
-                            "kind": 14,
-                            "scope": {
-                              "kind": 3
-                            },
-                            "callee": {
-                              "kind": 61,
-                              "object": {
-                                "kind": 42,
-                                "name": "scheme",
-                                "start": {
-                                  "line": 5,
-                                  "column": 45
-                                },
-                                "end": {
-                                  "line": 5,
-                                  "column": 51
-                                }
-                              },
-                              "property": {
-                                "kind": 42,
-                                "name": "substr",
-                                "start": {
-                                  "line": 5,
-                                  "column": 52
-                                },
-                                "end": {
-                                  "line": 5,
-                                  "column": 58
-                                }
-                              },
-                              "computed": false,
-                              "nullable": false,
+                      "arguments": [],
+                      "nullable": false,
+                      "start": {
+                        "line": 5,
+                        "column": 19
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 42
+                      }
+                    },
+                    {
+                      "kind": 14,
+                      "scope": {
+                        "kind": 3
+                      },
+                      "callee": {
+                        "kind": 59,
+                        "object": {
+                          "kind": 14,
+                          "scope": {
+                            "kind": 3
+                          },
+                          "callee": {
+                            "kind": 59,
+                            "object": {
+                              "kind": 42,
+                              "name": "scheme",
                               "start": {
                                 "line": 5,
                                 "column": 45
                               },
                               "end": {
                                 "line": 5,
+                                "column": 51
+                              }
+                            },
+                            "property": {
+                              "kind": 42,
+                              "name": "substr",
+                              "start": {
+                                "line": 5,
+                                "column": 52
+                              },
+                              "end": {
+                                "line": 5,
                                 "column": 58
                               }
                             },
-                            "arguments": [],
+                            "computed": false,
                             "nullable": false,
                             "start": {
                               "line": 5,
@@ -375,22 +363,10 @@
                             },
                             "end": {
                               "line": 5,
-                              "column": 60
+                              "column": 58
                             }
                           },
-                          "property": {
-                            "kind": 42,
-                            "name": "toLowerCase",
-                            "start": {
-                              "line": 5,
-                              "column": 61
-                            },
-                            "end": {
-                              "line": 5,
-                              "column": 72
-                            }
-                          },
-                          "computed": false,
+                          "arguments": [],
                           "nullable": false,
                           "start": {
                             "line": 5,
@@ -398,10 +374,22 @@
                           },
                           "end": {
                             "line": 5,
+                            "column": 60
+                          }
+                        },
+                        "property": {
+                          "kind": 42,
+                          "name": "toLowerCase",
+                          "start": {
+                            "line": 5,
+                            "column": 61
+                          },
+                          "end": {
+                            "line": 5,
                             "column": 72
                           }
                         },
-                        "arguments": [],
+                        "computed": false,
                         "nullable": false,
                         "start": {
                           "line": 5,
@@ -409,160 +397,172 @@
                         },
                         "end": {
                           "line": 5,
-                          "column": 74
+                          "column": 72
                         }
                       },
-                      {
-                        "kind": 55,
-                        "value": "URI",
-                        "start": {
-                          "line": 5,
-                          "column": 75
-                        },
-                        "end": {
-                          "line": 5,
-                          "column": 78
-                        }
+                      "arguments": [],
+                      "nullable": false,
+                      "start": {
+                        "line": 5,
+                        "column": 45
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 74
                       }
-                    ],
-                    "start": {
-                      "line": 5,
-                      "column": 16
                     },
-                    "end": {
-                      "line": 5,
-                      "column": 79
+                    {
+                      "kind": 55,
+                      "value": "URI",
+                      "start": {
+                        "line": 5,
+                        "column": 75
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 78
+                      }
                     }
-                  },
+                  ],
                   "start": {
                     "line": 5,
-                    "column": 3
+                    "column": 16
                   },
                   "end": {
                     "line": 5,
                     "column": 79
                   }
                 },
-                {
-                  "kind": 57,
-                  "elements": [
-                    {
-                      "kind": 55,
-                      "value": "class ",
+                "start": {
+                  "line": 5,
+                  "column": 3
+                },
+                "end": {
+                  "line": 5,
+                  "column": 79
+                },
+                "attributes": []
+              },
+              {
+                "kind": 57,
+                "elements": [
+                  {
+                    "kind": 55,
+                    "value": "class ",
+                    "start": {
+                      "line": 8,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 10
+                    }
+                  },
+                  {
+                    "kind": 58,
+                    "expression": {
+                      "kind": 42,
+                      "name": "name",
                       "start": {
                         "line": 8,
-                        "column": 4
+                        "column": 13
                       },
                       "end": {
                         "line": 8,
-                        "column": 10
+                        "column": 17
                       }
                     },
-                    {
-                      "kind": 60,
-                      "expression": {
-                        "kind": 42,
-                        "name": "name",
-                        "start": {
-                          "line": 8,
-                          "column": 13
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 17
-                        }
-                      },
+                    "start": {
+                      "line": 8,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 18
+                    },
+                    "reification": {
+                      "kind": 4,
                       "start": {
                         "line": 8,
-                        "column": 10
+                        "column": 11
                       },
                       "end": {
                         "line": 8,
-                        "column": 18
-                      },
-                      "reification": {
-                        "kind": 4,
-                        "start": {
-                          "line": 8,
-                          "column": 11
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 12
-                        }
-                      }
-                    },
-                    {
-                      "kind": 55,
-                      "value": " extends URI {\nprivate {\n_e: Number\t= ",
-                      "start": {
-                        "line": 8,
-                        "column": 18
-                      },
-                      "end": {
-                        "line": 10,
-                        "column": 19
-                      }
-                    },
-                    {
-                      "kind": 60,
-                      "expression": {
-                        "kind": 42,
-                        "name": "PI",
-                        "start": {
-                          "line": 10,
-                          "column": 20
-                        },
-                        "end": {
-                          "line": 10,
-                          "column": 22
-                        }
-                      },
-                      "start": {
-                        "line": 10,
-                        "column": 19
-                      },
-                      "end": {
-                        "line": 10,
-                        "column": 22
-                      },
-                      "reification": {
-                        "kind": 3
-                      }
-                    },
-                    {
-                      "kind": 55,
-                      "value": "\n}\n}\n",
-                      "start": {
-                        "line": 10,
-                        "column": 22
-                      },
-                      "end": {
-                        "line": 13,
-                        "column": 1
+                        "column": 12
                       }
                     }
-                  ],
-                  "start": {
-                    "line": 7,
-                    "column": 3
                   },
-                  "end": {
-                    "line": 13,
-                    "column": 4
+                  {
+                    "kind": 55,
+                    "value": " extends URI {\nprivate {\n_e: Number\t= ",
+                    "start": {
+                      "line": 8,
+                      "column": 18
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 19
+                    }
+                  },
+                  {
+                    "kind": 58,
+                    "expression": {
+                      "kind": 42,
+                      "name": "PI",
+                      "start": {
+                        "line": 10,
+                        "column": 20
+                      },
+                      "end": {
+                        "line": 10,
+                        "column": 22
+                      }
+                    },
+                    "start": {
+                      "line": 10,
+                      "column": 19
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 22
+                    },
+                    "reification": {
+                      "kind": 3
+                    }
+                  },
+                  {
+                    "kind": 55,
+                    "value": "\n}\n}\n",
+                    "start": {
+                      "line": 10,
+                      "column": 22
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 1
+                    }
                   }
-                }
-              ],
-              "start": {
-                "line": 2,
-                "column": 16
-              },
-              "end": {
-                "line": 14,
-                "column": 3
+                ],
+                "start": {
+                  "line": 7,
+                  "column": 3
+                },
+                "end": {
+                  "line": 13,
+                  "column": 4
+                },
+                "attributes": []
               }
+            ],
+            "start": {
+              "line": 2,
+              "column": 94
+            },
+            "end": {
+              "line": 14,
+              "column": 3
             }
-          ],
+          },
           "start": {
             "line": 2,
             "column": 2
@@ -586,7 +586,7 @@
     {
       "kind": 15,
       "callee": {
-        "kind": 61,
+        "kind": 59,
         "object": {
           "kind": 42,
           "name": "URI",
