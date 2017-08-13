@@ -1282,7 +1282,7 @@ class Parser {
 	} // }}}
 	reqCreateExpression(first) ~ SyntaxError { // {{{
 		let class, last
-		if this.match(Token::IDENTIFIER, Token::LEFT_ROUND) == Token::IDENTIFIER {
+		if this.match(Token::IDENTIFIER, Token::LEFT_ROUND, Token::AT) == Token::IDENTIFIER {
 			class = this.reqIdentifier()
 			
 			while this.test(Token::DOT) {
@@ -1315,8 +1315,11 @@ class Parser {
 			
 			last = this.yes()
 		}
+		else if @token == Token::AT {
+			class = this.reqThisExpression(this.yes())
+		}
 		else {
-			this.throw(['Identifier', ')'])
+			this.throw(['Identifier', '('])
 		}
 		
 		if this.test(Token::LEFT_ROUND) {
