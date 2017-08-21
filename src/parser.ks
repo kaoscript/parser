@@ -2416,10 +2416,10 @@ class Parser {
 					
 					local = this.reqIdentifier()
 					
-					specifiers.push(this.yep(AST.ImportSpecifier(imported, local, imported, local)))
+					specifiers.push(this.yep(AST.ImportSpecifier(this.yep(AST.VariableDeclarator(imported)), local, imported, local)))
 				}
 				else {
-					specifiers.push(this.yep(AST.ImportSpecifier(imported, imported, imported, imported)))
+					specifiers.push(this.yep(AST.ImportSpecifier(this.yep(AST.VariableDeclarator(imported)), imported, imported, imported)))
 				}
 				
 				if this.test(Token::COMMA) {
