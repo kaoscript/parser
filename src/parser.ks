@@ -774,13 +774,26 @@ class Parser {
 	reqBreakStatement(first) { // {{{
 		return this.yep(AST.BreakStatement(first))
 	} // }}}
-	reqClassAbstractMethod(attributes?, modifiers, first?) ~ SyntaxError { // {{{
-		const name = this.tryNameIST()
+	reqCatchOnClause(first) ~ SyntaxError { // {{{
+		const type = this.reqIdentifier()
 		
-		unless name.ok {
-			return NO
+		let binding
+		if this.test(Token::CATCH) {
+			this.commit()
+			
+			binding = this.reqIdentifier()
 		}
 		
+		this.NL_0M()
+		
+		const body = this.reqBlock()
+		
+		return this.yep(AST.CatchClause(binding, type, body, first, body))
+	} // }}}
+	reqClassAbstractMethod(attributes?, modifiers, first?) ~ SyntaxError { // {{{
+		return this.reqClassAbstractMethodBody(attributes, modifiers, this.reqNameIST, first)
+	} // }}}
+	reqClassAbstractMethodBody(attributes?, modifiers, name, first?) ~ SyntaxError { // {{{
 		const parameters = this.reqClassMethodParameterList()
 		const mods = this.reqFunctionModifiers()
 		const type = this.reqFunctionReturns()
@@ -807,12 +820,9 @@ class Parser {
 		return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first, defaultValue ?? type ?? name))
 	} // }}}
 	reqClassMember(attributes?, modifiers, first?) ~ SyntaxError { // {{{
-		const name = this.tryNameIST()
-		
-		unless name.ok {
-			return NO
-		}
-		
+		return this.reqClassMemberBody(attributes, modifiers, this.reqNameIST(), first)
+	} // }}}
+	reqClassMemberBody(attributes?, modifiers, name, first?) ~ SyntaxError { // {{{
 		if this.match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
 			this.commit()
 			
@@ -853,7 +863,7 @@ class Parser {
 			first = this.yes()
 			
 			if this.test(Token::IDENTIFIER) {
-				const statement = this.reqMacroStatement(first)
+				const statement = this.tryMacroStatement(first)
 				
 				if statement.ok {
 					this.reqNL_1M()
@@ -930,7 +940,7 @@ class Parser {
 				this.reqNL_1M()
 			}
 			else {
-				const member = this.reqClassAbstractMethod(attributes, modifiers, first)
+				const member = this.tryClassAbstractMethod(attributes, modifiers, first)
 				
 				if member.ok {
 					members.push(member)
@@ -989,7 +999,7 @@ class Parser {
 				this.reqNL_1M()
 			}
 			else {
-				const member = this.reqClassMember(attributes, modifiers, first)
+				const member = this.tryClassMember(attributes, modifiers, first)
 				
 				if member.ok {
 					members.push(member)
@@ -1167,12 +1177,9 @@ class Parser {
 		return this.yep(AST.PropertyDeclaration(attributes, modifiers, name, type, defaultValue, accessor, mutator, first, defaultValue ?? last))
 	} // }}}
 	reqClassStatement(first, modifiers = []) ~ SyntaxError { // {{{
-		const name = this.tryIdentifier()
-		
-		unless name.ok {
-			return NO
-		}
-		
+		return this.reqClassStatementBody(this.reqIdentifier(), first, modifiers)
+	} // }}}
+	reqClassStatementBody(name, first, modifiers = []) ~ SyntaxError { // {{{
 		let generic
 		if this.test(Token::LEFT_ANGLE) {
 			generic = this.reqTypeGeneric(this.yes())
@@ -1329,16 +1336,6 @@ class Parser {
 		}
 		else {
 			return this.yep(AST.CreateExpression(class, this.yep([]), first, last))
-		}
-	} // }}}
-	reqDestroyStatement(first) ~ SyntaxError { // {{{
-		const variable = this.tryVariableName()
-		
-		if variable.ok {
-			return this.yep(AST.DestroyStatement(variable, first, variable))
-		}
-		else {
-			return NO
 		}
 	} // }}}
 	reqDestructuringArray(first) ~ SyntaxError { // {{{
@@ -2710,7 +2707,7 @@ class Parser {
 		
 		const addLiteral = () => {
 			if literal != null {
-				elements.push(this.yep(AST.Literal(literal, first, last)))
+				elements.push(this.yep(AST.MacroElementLiteral(literal, first, last)))
 				
 				literal = null
 			}
@@ -2746,6 +2743,7 @@ class Parser {
 					if this.testNS(Token::IDENTIFIER) {
 						const identifier = @scanner.value()
 						const last = this.yes()
+						const mark = this.mark()
 						
 						if identifier.length == 1 && (identifier == 'a' || identifier == 'b' || identifier == 'e' || identifier == 'i') && this.test(Token::LEFT_ROUND) {
 							const reification = AST.MacroReification(identifier, last)
@@ -2758,12 +2756,14 @@ class Parser {
 								this.throw(')')
 							}
 							
-							elements.push(this.yep(AST.MacroVariable(expression, reification, first, this.yes())))
+							elements.push(this.yep(AST.MacroElementExpression(expression, reification, first, this.yes())))
 						}
 						else {
+							this.rollback(mark)
+							
 							const expression = this.yep(AST.Identifier(identifier, last))
 							
-							elements.push(this.yep(AST.MacroVariable(expression, null, first, expression)))
+							elements.push(this.yep(AST.MacroElementExpression(expression, null, first, expression)))
 						}
 					}
 					else if this.testNS(Token::LEFT_ROUND) {
@@ -2775,7 +2775,7 @@ class Parser {
 							this.throw(')')
 						}
 						
-						elements.push(this.yep(AST.MacroVariable(expression, null, first, this.yes())))
+						elements.push(this.yep(AST.MacroElementExpression(expression, null, first, this.yes())))
 					}
 					else {
 						this.throw()
@@ -2799,7 +2799,9 @@ class Parser {
 						break
 					}
 					else {
-						addToLiteral()
+						addLiteral()
+						
+						elements.push(this.yep(AST.MacroElementNewLine(this.yes())))
 						
 						@scanner.skip()
 					}
@@ -2846,7 +2848,7 @@ class Parser {
 		}
 		
 		if literal != null {
-			elements.push(this.yep(AST.Literal(literal, first, last)))
+			elements.push(this.yep(AST.MacroElementLiteral(literal, first, last)))
 		}
 	} // }}}
 	reqMacroExpression(first, terminator = MacroTerminator::NEWLINE) ~ SyntaxError { // {{{
@@ -2868,7 +2870,7 @@ class Parser {
 				this.throw('}')
 			}
 			
-			return this.yep(AST.MacroExpression(elements, first, this.yes()))
+			return this.yep(AST.MacroExpression(elements, true, first, this.yes()))
 		}
 		else {
 			if !first.ok {
@@ -2877,7 +2879,7 @@ class Parser {
 			
 			this.reqMacroElements(elements, terminator)
 			
-			return this.yep(AST.MacroExpression(elements, first, elements[elements.length - 1]))
+			return this.yep(AST.MacroExpression(elements, false, first, elements[elements.length - 1]))
 		}
 	} // }}}
 	reqMacroParameterList() ~ SyntaxError { // {{{
@@ -2916,19 +2918,6 @@ class Parser {
 		else {
 			this.throw(['{', '=>'])
 		}
-	} // }}}
-	reqMacroStatement(first) ~ SyntaxError { // {{{
-		const name = this.tryIdentifier()
-		
-		unless name.ok {
-			return NO
-		}
-		
-		const parameters = this.reqMacroParameterList()
-		
-		const body = this.reqMacroBody()
-		
-		return this.yep(AST.MacroDeclaration(name, parameters, body, first, body))
 	} // }}}
 	reqModule() ~ SyntaxError { // {{{
 		this.NL_0M()
@@ -3680,7 +3669,7 @@ class Parser {
 				statement = this.reqBreakStatement(this.yes())
 			}
 			Token::CLASS => {
-				statement = this.reqClassStatement(this.yes())
+				statement = this.tryClassStatement(this.yes())
 			}
 			Token::CONST => {
 				statement = this.reqConstStatement(this.yes())
@@ -3689,7 +3678,7 @@ class Parser {
 				statement = this.reqContinueStatement(this.yes())
 			}
 			Token::DELETE => {
-				statement = this.reqDestroyStatement(this.yes())
+				statement = this.tryDestroyStatement(this.yes())
 			}
 			Token::DO => {
 				statement = this.reqDoStatement(this.yes())
@@ -3717,7 +3706,7 @@ class Parser {
 			}
 			Token::MACRO => {
 				if @mode & ParserMode::MacroExpression == 0 {
-					statement = this.reqMacroStatement(this.yes())
+					statement = this.tryMacroStatement(this.yes())
 				}
 				else {
 					statement = this.reqMacroExpression(this.yes())
@@ -3764,16 +3753,16 @@ class Parser {
 				statement = this.reqTryStatement(this.yes())
 			}
 			Token::TYPE => {
-				statement = this.reqTypeStatement(this.yes())
+				statement = this.tryTypeStatement(this.yes())
 			}
 			Token::UNLESS => {
 				statement = this.reqUnlessStatement(this.yes())
 			}
 			Token::UNTIL => {
-				statement = this.reqUntilStatement(this.yes())
+				statement = this.tryUntilStatement(this.yes())
 			}
 			Token::WHILE => {
-				statement = this.reqWhileStatement(this.yes())
+				statement = this.tryWhileStatement(this.yes())
 			}
 		}
 		
@@ -4313,22 +4302,6 @@ class Parser {
 		
 		return this.yep(AST.CatchClause(binding, null, body, first, body))
 	} // }}}
-	reqCatchOnClause(first) ~ SyntaxError { // {{{
-		const type = this.reqIdentifier()
-		
-		let binding
-		if this.test(Token::CATCH) {
-			this.commit()
-			
-			binding = this.reqIdentifier()
-		}
-		
-		this.NL_0M()
-		
-		const body = this.reqBlock()
-		
-		return this.yep(AST.CatchClause(binding, type, body, first, body))
-	} // }}}
 	reqTryStatement(first) ~ SyntaxError { // {{{
 		this.NL_0M()
 		
@@ -4424,11 +4397,7 @@ class Parser {
 		return this.yes(entities)
 	} // }}}
 	reqTypeStatement(first) ~ SyntaxError { // {{{
-		const name = this.tryIdentifier()
-		
-		unless name.ok {
-			return NO
-		}
+		const name = this.reqIdentifier()
 		
 		unless this.test(Token::EQUALS) {
 			this.throw('=')
@@ -4672,28 +4641,6 @@ class Parser {
 		
 		return this.yep(AST.UnlessStatement(condition, whenFalse, first, whenFalse))
 	} // }}}
-	reqUntilStatement(first) ~ SyntaxError { // {{{
-		const condition = this.tryExpression()
-		
-		unless condition.ok {
-			return NO
-		}
-		
-		let body
-		if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) == Token::LEFT_CURLY {
-			body = this.reqBlock(this.yes())
-		}
-		else if @token == Token::EQUALS_RIGHT_ANGLE {
-			this.commit()
-			
-			body = this.reqExpression(ExpressionMode::Default)
-		}
-		else {
-			this.throw(['{', '=>'])
-		}
-		
-		return this.yep(AST.UntilStatement(condition, body, first, body))
-	} // }}}
 	reqVariableEquals() ~ SyntaxError { // {{{
 		if this.match(Token::EQUALS, Token::COLON_EQUALS) == Token::EQUALS {
 			return this.yes(false)
@@ -4755,28 +4702,6 @@ class Parser {
 		}
 		
 		return object
-	} // }}}
-	reqWhileStatement(first) ~ SyntaxError { // {{{
-		const condition = this.tryExpression()
-		
-		unless condition.ok {
-			return NO
-		}
-		
-		let body
-		if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) == Token::LEFT_CURLY {
-			body = this.reqBlock(this.yes())
-		}
-		else if @token == Token::EQUALS_RIGHT_ANGLE {
-			this.commit()
-			
-			body = this.reqExpression(ExpressionMode::Default)
-		}
-		else {
-			this.throw(['{', '=>'])
-		}
-		
-		return this.yep(AST.WhileStatement(condition, body, first, body))
 	} // }}}
 	tryAssignementStatement() ~ SyntaxError { // {{{
 		let identifier = NO
@@ -4990,6 +4915,43 @@ class Parser {
 			}
 		}
 	} // }}}
+	tryClassAbstractMethod(attributes?, modifiers, first?) ~ SyntaxError { // {{{
+		const name = this.tryNameIST()
+		
+		unless name.ok {
+			return NO
+		}
+		
+		return this.reqClassAbstractMethodBody(attributes, modifiers, name, first)
+	} // }}}
+	tryClassMember(attributes?, modifiers, first?) ~ SyntaxError { // {{{
+		const name = this.tryNameIST()
+		
+		unless name.ok {
+			return NO
+		}
+		
+		return this.reqClassMemberBody(attributes, modifiers, name, first)
+	} // }}}
+	tryClassStatement(first, modifiers = []) ~ SyntaxError { // {{{
+		const name = this.tryIdentifier()
+		
+		unless name.ok {
+			return NO
+		}
+		
+		return this.reqClassStatementBody(name, first, modifiers)
+	} // }}}
+	tryDestroyStatement(first) ~ SyntaxError { // {{{
+		const variable = this.tryVariableName()
+		
+		if variable.ok {
+			return this.yep(AST.DestroyStatement(variable, first, variable))
+		}
+		else {
+			return NO
+		}
+	} // }}}
 	tryDestructuringArray(first) ~ SyntaxError { // {{{
 		try {
 			return this.reqDestructuringArray(first)
@@ -5109,6 +5071,19 @@ class Parser {
 			return NO
 		}
 	} // }}}
+	tryMacroStatement(first) ~ SyntaxError { // {{{
+		const name = this.tryIdentifier()
+		
+		unless name.ok {
+			return NO
+		}
+		
+		const parameters = this.reqMacroParameterList()
+		
+		const body = this.reqMacroBody()
+		
+		return this.yep(AST.MacroDeclaration(name, parameters, body, first, body))
+	} // }}}
 	tryNameIST() ~ SyntaxError { // {{{
 		if this.match(Token::IDENTIFIER, Token::STRING, Token::TEMPLATE_BEGIN) == Token::IDENTIFIER {
 			return this.reqIdentifier()
@@ -5208,6 +5183,45 @@ class Parser {
 		
 		return this.yep(AST.SwitchExpression(expression, clauses, first, clauses))
 	} // }}}
+	tryTypeStatement(first) ~ SyntaxError { // {{{
+		const name = this.tryIdentifier()
+		
+		unless name.ok {
+			return NO
+		}
+		
+		unless this.test(Token::EQUALS) {
+			this.throw('=')
+		}
+		
+		this.commit()
+		
+		const type = this.reqTypeVar()
+		
+		return this.yep(AST.TypeAliasDeclaration(name, type, first, type))
+	} // }}}
+	tryUntilStatement(first) ~ SyntaxError { // {{{
+		const condition = this.tryExpression()
+		
+		unless condition.ok {
+			return NO
+		}
+		
+		let body
+		if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) == Token::LEFT_CURLY {
+			body = this.reqBlock(this.yes())
+		}
+		else if @token == Token::EQUALS_RIGHT_ANGLE {
+			this.commit()
+			
+			body = this.reqExpression(ExpressionMode::Default)
+		}
+		else {
+			this.throw(['{', '=>'])
+		}
+		
+		return this.yep(AST.UntilStatement(condition, body, first, body))
+	} // }}}
 	tryVariableEquals() ~ SyntaxError { // {{{
 		if this.match(Token::EQUALS, Token::COLON_EQUALS) == Token::EQUALS {
 			return this.yes(false)
@@ -5234,6 +5248,28 @@ class Parser {
 		
 		return this.reqVariableName(object)
 	} // }}}}
+	tryWhileStatement(first) ~ SyntaxError { // {{{
+		const condition = this.tryExpression()
+		
+		unless condition.ok {
+			return NO
+		}
+		
+		let body
+		if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) == Token::LEFT_CURLY {
+			body = this.reqBlock(this.yes())
+		}
+		else if @token == Token::EQUALS_RIGHT_ANGLE {
+			this.commit()
+			
+			body = this.reqExpression(ExpressionMode::Default)
+		}
+		else {
+			this.throw(['{', '=>'])
+		}
+		
+		return this.yep(AST.WhileStatement(condition, body, first, body))
+	} // }}}
 }
 
 export func parse(data: String) ~ SyntaxError { // {{{

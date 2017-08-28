@@ -1,5 +1,5 @@
 {
-  "kind": 62,
+  "kind": 61,
   "attributes": [],
   "body": [
     {
@@ -18,7 +18,7 @@
       },
       "parameters": [
         {
-          "kind": 71,
+          "kind": 70,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -41,7 +41,7 @@
             }
           },
           "type": {
-            "kind": 96,
+            "kind": 95,
             "typeName": {
               "kind": 42,
               "name": "Identifier",
@@ -65,7 +65,7 @@
           }
         },
         {
-          "kind": 71,
+          "kind": 70,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -88,7 +88,7 @@
             }
           },
           "type": {
-            "kind": 96,
+            "kind": 95,
             "typeName": {
               "kind": 42,
               "name": "Expression",
@@ -120,11 +120,34 @@
             "kind": 57,
             "elements": [
               {
-                "kind": 55,
-                "value": "(() => {\nlet ",
+                "kind": 2,
+                "value": "(() => {",
                 "start": {
                   "line": 3,
                   "column": 3
+                },
+                "end": {
+                  "line": 3,
+                  "column": 11
+                }
+              },
+              {
+                "kind": 3,
+                "start": {
+                  "line": 3,
+                  "column": 11
+                },
+                "end": {
+                  "line": 4,
+                  "column": 1
+                }
+              },
+              {
+                "kind": 2,
+                "value": "let ",
+                "start": {
+                  "line": 4,
+                  "column": 4
                 },
                 "end": {
                   "line": 4,
@@ -132,7 +155,7 @@
                 }
               },
               {
-                "kind": 58,
+                "kind": 1,
                 "expression": {
                   "kind": 42,
                   "name": "a",
@@ -158,11 +181,34 @@
                 }
               },
               {
-                "kind": 55,
-                "value": "= 42\nreturn ",
+                "kind": 2,
+                "value": " = 42",
                 "start": {
                   "line": 4,
-                  "column": 11
+                  "column": 10
+                },
+                "end": {
+                  "line": 4,
+                  "column": 15
+                }
+              },
+              {
+                "kind": 3,
+                "start": {
+                  "line": 4,
+                  "column": 15
+                },
+                "end": {
+                  "line": 5,
+                  "column": 1
+                }
+              },
+              {
+                "kind": 2,
+                "value": "return ",
+                "start": {
+                  "line": 5,
+                  "column": 4
                 },
                 "end": {
                   "line": 5,
@@ -170,7 +216,7 @@
                 }
               },
               {
-                "kind": 58,
+                "kind": 1,
                 "expression": {
                   "kind": 42,
                   "name": "e",
@@ -196,11 +242,33 @@
                 }
               },
               {
-                "kind": 55,
-                "value": "\n})()\n",
+                "kind": 3,
                 "start": {
                   "line": 5,
                   "column": 13
+                },
+                "end": {
+                  "line": 6,
+                  "column": 1
+                }
+              },
+              {
+                "kind": 2,
+                "value": "})()",
+                "start": {
+                  "line": 6,
+                  "column": 3
+                },
+                "end": {
+                  "line": 6,
+                  "column": 7
+                }
+              },
+              {
+                "kind": 3,
+                "start": {
+                  "line": 6,
+                  "column": 7
                 },
                 "end": {
                   "line": 7,
@@ -208,6 +276,7 @@
                 }
               }
             ],
+            "multilines": true,
             "start": {
               "line": 2,
               "column": 2
@@ -239,11 +308,11 @@
       "attributes": []
     },
     {
-      "kind": 102,
+      "kind": 101,
       "rebindable": true,
       "variables": [
         {
-          "kind": 103,
+          "kind": 102,
           "name": {
             "kind": 42,
             "name": "four",
@@ -329,7 +398,7 @@
               }
             },
             "right": {
-              "kind": 66,
+              "kind": 65,
               "value": 10,
               "start": {
                 "line": 10,

@@ -1,5 +1,5 @@
 {
-  "kind": 62,
+  "kind": 61,
   "attributes": [],
   "body": [
     {
@@ -25,11 +25,22 @@
             "kind": 57,
             "elements": [
               {
-                "kind": 55,
-                "value": "console.log('Hello!')\n",
+                "kind": 2,
+                "value": "console.log('Hello!')",
                 "start": {
                   "line": 3,
                   "column": 3
+                },
+                "end": {
+                  "line": 3,
+                  "column": 24
+                }
+              },
+              {
+                "kind": 3,
+                "start": {
+                  "line": 3,
+                  "column": 24
                 },
                 "end": {
                   "line": 4,
@@ -37,6 +48,7 @@
                 }
               }
             ],
+            "multilines": true,
             "start": {
               "line": 2,
               "column": 2

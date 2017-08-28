@@ -883,11 +883,43 @@ namespace AST {
 			}, first, last)
 		} // }}}
 		
-		func MacroExpression(elements, first, last) { // {{{
+		func MacroExpression(elements, multilines, first, last) { // {{{
 			return location({
 				kind: NodeKind::MacroExpression
 				elements: [element.value for element in elements]
+				multilines: multilines
 			}, first, last)
+		} // }}}
+		
+		func MacroElementExpression(expression, reification?, first, last) { // {{{
+			const node = location({
+				kind: MacroElementKind::Expression
+				expression: expression.value
+			}, first, last)
+			
+			if reification == null {
+				node.reification = {
+					kind: ReificationKind::Expression
+				}
+			}
+			else {
+				node.reification = reification
+			}
+			
+			return node
+		} // }}}
+		
+		func MacroElementLiteral(value, first, last) { // {{{
+			return location({
+				kind: MacroElementKind::Literal
+				value: value
+			}, first, last)
+		} // }}}
+		
+		func MacroElementNewLine(first) { // {{{
+			return location({
+				kind: MacroElementKind::NewLine
+			}, first)
 		} // }}}
 		
 		func MacroReification(value, first) { // {{{
@@ -913,24 +945,6 @@ namespace AST {
 					}, first)
 				}
 			}
-		} // }}}
-		
-		func MacroVariable(expression, reification?, first, last) { // {{{
-			const node = location({
-				kind: NodeKind::MacroVariable
-				expression: expression.value
-			}, first, last)
-			
-			if reification == null {
-				node.reification = {
-					kind: ReificationKind::Expression
-				}
-			}
-			else {
-				node.reification = reification
-			}
-			
-			return node
 		} // }}}
 		
 		func MemberExpression(object, property, computed, nullable, first = object, last = property) { // {{{
