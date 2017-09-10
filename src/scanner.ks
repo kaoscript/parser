@@ -67,7 +67,7 @@ enum Token {
 	IMPORT_LITERAL
 	IN
 	INCLUDE
-	INCLUDE_ONCE
+	INCLUDE_AGAIN
 	IS
 	IS_NOT
 	LEFT_ANGLE
@@ -517,6 +517,19 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
+			// enum
+			else if c == 101
+			{
+				if	that.charAt(1) == 110 &&
+					that.charAt(2) == 117 &&
+					that.charAt(3) == 109 &&
+					that.isBoundary(4)
+				{
+					that.next(4)
+				
+					return Token::ENUM
+				}
+			}
 			// func
 			else if c == 102 {
 				if that.scanIdentifier(true) == 'unc' {
@@ -672,7 +685,7 @@ namespace M {
 					}
 				}
 			}
-			// import, include, include once
+			// import, include, include again
 			else if c == 105
 			{
 				if	that.charAt(1) == 110 &&
@@ -683,15 +696,16 @@ namespace M {
 					that.charAt(6) == 101
 				{
 					if	that.charAt(7) == 32 &&
-						that.charAt(8) == 111 &&
-						that.charAt(9) == 110 &&
-						that.charAt(10) == 99 &&
-						that.charAt(11) == 101 &&
-						that.isBoundary(12)
+						that.charAt(8) == 97 &&
+						that.charAt(9) == 103 &&
+						that.charAt(10) == 97 &&
+						that.charAt(11) == 105 &&
+						that.charAt(12) == 110 &&
+						that.isBoundary(13)
 					{
-						that.next(12)
+						that.next(13)
 						
-						return Token::INCLUDE_ONCE
+						return Token::INCLUDE_AGAIN
 					}
 					else if that.isBoundary(7) {
 						that.next(7)

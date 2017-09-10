@@ -1,0 +1,179 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 67,
+      "modifiers": [],
+      "name": {
+        "kind": 45,
+        "name": "NS",
+        "start": {
+          "line": 1,
+          "column": 11
+        },
+        "end": {
+          "line": 1,
+          "column": 13
+        }
+      },
+      "statements": [
+        {
+          "kind": 31,
+          "declarations": [
+            {
+              "kind": 32,
+              "declaration": {
+                "kind": 43,
+                "name": {
+                  "kind": 45,
+                  "name": "foo",
+                  "start": {
+                    "line": 2,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 17
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
+                  "column": 3
+                },
+                "parameters": [],
+                "modifiers": [],
+                "throws": [],
+                "body": {
+                  "kind": 12,
+                  "attributes": [],
+                  "statements": [],
+                  "start": {
+                    "line": 2,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 3
+                  }
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 3,
+                "column": 3
+              }
+            }
+          ],
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 3,
+            "column": 3
+          },
+          "attributes": []
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 31,
+      "declarations": [
+        {
+          "kind": 33,
+          "local": {
+            "kind": 61,
+            "object": {
+              "kind": 45,
+              "name": "NS",
+              "start": {
+                "line": 6,
+                "column": 8
+              },
+              "end": {
+                "line": 6,
+                "column": 10
+              }
+            },
+            "property": {
+              "kind": 45,
+              "name": "foo",
+              "start": {
+                "line": 6,
+                "column": 11
+              },
+              "end": {
+                "line": 6,
+                "column": 14
+              }
+            },
+            "computed": false,
+            "nullable": false,
+            "start": {
+              "line": 6,
+              "column": 8
+            },
+            "end": {
+              "line": 6,
+              "column": 14
+            }
+          },
+          "exported": {
+            "kind": 45,
+            "name": "foo",
+            "start": {
+              "line": 6,
+              "column": 11
+            },
+            "end": {
+              "line": 6,
+              "column": 14
+            }
+          },
+          "start": {
+            "line": 6,
+            "column": 8
+          },
+          "end": {
+            "line": 6,
+            "column": 14
+          }
+        }
+      ],
+      "start": {
+        "line": 6,
+        "column": 1
+      },
+      "end": {
+        "line": 6,
+        "column": 14
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 6,
+    "column": 14
+  }
+}

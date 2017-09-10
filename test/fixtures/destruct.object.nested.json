@@ -1,15 +1,15 @@
 {
-  "kind": 61,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 101,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 102,
+          "kind": 105,
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "foo",
             "start": {
               "line": 1,
@@ -33,12 +33,12 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 67,
+        "kind": 70,
         "properties": [
           {
-            "kind": 68,
+            "kind": 71,
             "name": {
-              "kind": 42,
+              "kind": 45,
               "name": "bar",
               "start": {
                 "line": 1,
@@ -50,12 +50,12 @@
               }
             },
             "value": {
-              "kind": 67,
+              "kind": 70,
               "properties": [
                 {
-                  "kind": 68,
+                  "kind": 71,
                   "name": {
-                    "kind": 42,
+                    "kind": 45,
                     "name": "n1",
                     "start": {
                       "line": 1,
@@ -67,7 +67,7 @@
                     }
                   },
                   "value": {
-                    "kind": 55,
+                    "kind": 58,
                     "value": "hello",
                     "start": {
                       "line": 1,
@@ -88,9 +88,9 @@
                   }
                 },
                 {
-                  "kind": 68,
+                  "kind": 71,
                   "name": {
-                    "kind": 42,
+                    "kind": 45,
                     "name": "n2",
                     "start": {
                       "line": 1,
@@ -102,7 +102,7 @@
                     }
                   },
                   "value": {
-                    "kind": 55,
+                    "kind": 58,
                     "value": "world",
                     "start": {
                       "line": 1,
@@ -162,23 +162,23 @@
       "attributes": []
     },
     {
-      "kind": 101,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 102,
+          "kind": 105,
           "name": {
-            "kind": 66,
+            "kind": 69,
             "elements": [
               {
                 "kind": 11,
                 "name": {
-                  "kind": 66,
+                  "kind": 69,
                   "elements": [
                     {
                       "kind": 11,
                       "name": {
-                        "kind": 42,
+                        "kind": 45,
                         "name": "n1",
                         "start": {
                           "line": 3,
@@ -201,7 +201,7 @@
                     {
                       "kind": 11,
                       "name": {
-                        "kind": 42,
+                        "kind": 45,
                         "name": "qux",
                         "start": {
                           "line": 3,
@@ -221,7 +221,7 @@
                         "column": 24
                       },
                       "alias": {
-                        "kind": 42,
+                        "kind": 45,
                         "name": "n2",
                         "start": {
                           "line": 3,
@@ -252,7 +252,7 @@
                   "column": 26
                 },
                 "alias": {
-                  "kind": 42,
+                  "kind": 45,
                   "name": "bar",
                   "start": {
                     "line": 3,
@@ -287,7 +287,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 42,
+        "kind": 45,
         "name": "foo",
         "start": {
           "line": 3,
@@ -314,9 +314,9 @@
         "kind": 3
       },
       "callee": {
-        "kind": 58,
+        "kind": 61,
         "object": {
-          "kind": 42,
+          "kind": 45,
           "name": "consoloe",
           "start": {
             "line": 5,
@@ -328,7 +328,7 @@
           }
         },
         "property": {
-          "kind": 42,
+          "kind": 45,
           "name": "log",
           "start": {
             "line": 5,
@@ -352,7 +352,7 @@
       },
       "arguments": [
         {
-          "kind": 42,
+          "kind": 45,
           "name": "n1",
           "start": {
             "line": 5,
@@ -364,7 +364,7 @@
           }
         },
         {
-          "kind": 42,
+          "kind": 45,
           "name": "qux",
           "start": {
             "line": 5,

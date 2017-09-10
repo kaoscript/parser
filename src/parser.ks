@@ -1561,41 +1561,126 @@ class Parser {
 					
 					const modifiers = [this.yep(AST.Modifier(ModifierKind::Abstract, first))]
 					
-					return this.reqClassStatement(first, modifiers)
+					return this.yep(AST.ExportDeclarationSpecifier(this.reqClassStatement(first, modifiers)))
 				}
 				else {
 					this.throw('class')
 				}
 			}
 			Token::CLASS => {
-				return this.reqClassStatement(this.yes())
+				return this.yep(AST.ExportDeclarationSpecifier(this.reqClassStatement(this.yes())))
 			}
 			Token::CONST => {
-				return this.reqConstStatement(this.yes(), ExpressionMode::NoAwait)
+				return this.yep(AST.ExportDeclarationSpecifier(this.reqConstStatement(this.yes(), ExpressionMode::NoAwait)))
 			}
 			Token::IDENTIFIER => {
-				const name = this.reqIdentifier()
+				let value = this.reqIdentifier()
+				let identifier = null
 				
-				if this.test(Token::AS) {
+				if this.testNS(Token::DOT) {
+					do {
+						this.commit()
+						
+						if this.testNS(Token::ASTERISK) {
+							return this.yep(AST.ExportWildcardSpecifier(value, this.yes()))
+						}
+						else {
+							identifier = this.reqIdentifier()
+							
+							value = this.yep(AST.MemberExpression(value, identifier, false, false))
+						}
+					}
+					while this.testNS(Token::DOT)
+				}
+				
+				if this.test(Token::EQUALS_RIGHT_ANGLE) {
 					this.commit()
 					
-					return this.yep(AST.ExportAlias(name, this.reqIdentifier()))
+					return this.yep(AST.ExportNamedSpecifier(value, this.reqIdentifier()))
+				}
+				else if this.test(Token::FOR) {
+					this.commit()
+					
+					if this.test(Token::ASTERISK) {
+						return this.yep(AST.ExportWildcardSpecifier(value, this.yes()))
+					}
+					else if this.test(Token::LEFT_CURLY) {
+						const members = []
+						
+						this.commit().NL_0M()
+						
+						until this.test(Token::RIGHT_CURLY) {
+							identifier = this.reqIdentifier()
+							
+							if this.test(Token::EQUALS_RIGHT_ANGLE) {
+								this.commit()
+								
+								members.push(AST.ExportNamedSpecifier(identifier, this.reqIdentifier()))
+							}
+							else {
+								members.push(AST.ExportNamedSpecifier(identifier, identifier))
+							}
+							
+							if this.test(Token::COMMA) {
+								this.commit()
+							}
+							
+							this.reqNL_1M()
+						}
+						
+						unless this.test(Token::RIGHT_CURLY) {
+							this.throw('}')
+						}
+						
+						return this.yep(AST.ExportPropertiesSpecifier(value, members, this.yes()))
+					}
+					else {
+						const members = []
+						
+						identifier = this.reqIdentifier()
+						
+						if this.test(Token::EQUALS_RIGHT_ANGLE) {
+							this.commit()
+							
+							members.push(AST.ExportNamedSpecifier(identifier, this.reqIdentifier()))
+						}
+						else {
+							members.push(AST.ExportNamedSpecifier(identifier, identifier))
+						}
+						
+						while this.test(Token::COMMA) {
+							this.commit()
+							
+							identifier = this.reqIdentifier()
+							
+							if this.test(Token::EQUALS_RIGHT_ANGLE) {
+								this.commit()
+								
+								members.push(AST.ExportNamedSpecifier(identifier, this.reqIdentifier()))
+							}
+							else {
+								members.push(AST.ExportNamedSpecifier(identifier, identifier))
+							}
+						}
+						
+						return this.yep(AST.ExportPropertiesSpecifier(value, members, this.yep()))
+					}
 				}
 				else {
-					return name
+					return this.yep(AST.ExportNamedSpecifier(value, identifier ?? value))
 				}
 			}
 			Token::ENUM => {
-				return this.reqEnumStatement(this.yes())
+				return this.yep(AST.ExportDeclarationSpecifier(this.reqEnumStatement(this.yes())))
 			}
 			Token::FUNC => {
-				return this.reqFunctionStatement(this.yes())
+				return this.yep(AST.ExportDeclarationSpecifier(this.reqFunctionStatement(this.yes())))
 			}
 			Token::LET => {
-				return this.reqLetStatement(this.yes(), ExpressionMode::NoAwait)
+				return this.yep(AST.ExportDeclarationSpecifier(this.reqLetStatement(this.yes(), ExpressionMode::NoAwait)))
 			}
 			Token::NAMESPACE => {
-				return this.reqNamespaceStatement(this.yes())
+				return this.yep(AST.ExportDeclarationSpecifier(this.reqNamespaceStatement(this.yes())))
 			}
 			Token::SEALED => {
 				const first = this.yes()
@@ -1604,7 +1689,7 @@ class Parser {
 				if this.test(Token::CLASS) {
 					this.commit()
 					
-					return this.reqClassStatement(first, modifiers)
+					return this.yep(AST.ExportDeclarationSpecifier(this.reqClassStatement(first, modifiers)))
 				}
 				else if this.test(Token::ABSTRACT) {
 					modifiers.push(this.yep(AST.Modifier(ModifierKind::Abstract, this.yes())))
@@ -1612,7 +1697,7 @@ class Parser {
 					if this.test(Token::CLASS) {
 						this.commit()
 						
-						return this.reqClassStatement(first, modifiers)
+						return this.yep(AST.ExportDeclarationSpecifier(this.reqClassStatement(first, modifiers)))
 					}
 					else {
 						this.throw('class')
@@ -1623,7 +1708,7 @@ class Parser {
 				}
 			}
 			Token::TYPE => {
-				return this.reqTypeStatement(this.yes())
+				return this.yep(AST.ExportDeclarationSpecifier(this.reqTypeStatement(this.yes())))
 			}
 			=> {
 				this.throw()
@@ -1635,8 +1720,7 @@ class Parser {
 		
 		let last
 		if this.test(Token::LEFT_CURLY) {
-			this.commit()
-			this.NL_0M()
+			this.commit().NL_0M()
 			
 			until this.test(Token::RIGHT_CURLY) {
 				declarations.push(this.reqExportDeclarator())
@@ -1940,6 +2024,9 @@ class Parser {
 					return this.yep(AST.VariableDeclarator(name, null, true, first, name))
 				}
 			}
+			Token::ENUM => {
+				return this.reqExternEnumDeclaration(this.yes())
+			}
 			Token::FUNC => {
 				const first = this.yes()
 				const name = this.reqIdentifier()
@@ -2041,6 +2128,56 @@ class Parser {
 				this.throw()
 			}
 		}
+	} // }}}
+	reqExternEnumDeclaration(first) ~ SyntaxError { // {{{
+		const name = this.reqIdentifier()
+		
+		let type
+		if this.test(Token::LEFT_ANGLE) {
+			this.commit()
+			
+			type = this.reqTypeEntity(NO)
+			
+			unless this.test(Token::RIGHT_ANGLE) {
+				this.throw('>')
+			}
+			
+			this.commit()
+		}
+		
+		unless this.test(Token::LEFT_CURLY) {
+			this.throw('{')
+		}
+		
+		this.commit()
+		
+		this.NL_0M()
+		
+		const members = []
+		
+		until this.test(Token::RIGHT_CURLY) {
+			members.push(AST.EnumMember(this.reqIdentifier()))
+			
+			if this.test(Token::COMMA) {
+				this.commit().NL_0M()
+			}
+			else if this.test(Token::NEWLINE) {
+				this.commit().NL_0M()
+				
+				if this.test(Token::COMMA) {
+					this.commit().NL_0M()
+				}
+			}
+			else {
+				break
+			}
+		}
+		
+		unless this.test(Token::RIGHT_CURLY) {
+			this.throw('}')
+		}
+		
+		return this.yep(AST.EnumDeclaration(name, type, members, first, this.yes()))
 	} // }}}
 	reqExternNamespaceDeclaration(first, modifiers = []) ~ SyntaxError { // {{{
 		const name = this.reqIdentifier()
@@ -2389,7 +2526,7 @@ class Parser {
 		}
 		
 		const specifiers = []
-		if this.match(Token::AS, Token::FOR, Token::LEFT_CURLY) == Token::AS {
+		if this.match(Token::EQUALS_RIGHT_ANGLE, Token::FOR, Token::LEFT_CURLY) == Token::EQUALS_RIGHT_ANGLE {
 			this.commit()
 			
 			last = this.reqIdentifier()
@@ -2554,7 +2691,7 @@ class Parser {
 			return this.yep(AST.IncludeDeclaration(files, first, last))
 		}
 	} // }}}
-	reqIncludeOnceStatement(first) ~ SyntaxError { // {{{
+	reqIncludeAgainStatement(first) ~ SyntaxError { // {{{
 		if this.test(Token::LEFT_CURLY) {
 			this.commit().reqNL_1M()
 			
@@ -2579,7 +2716,7 @@ class Parser {
 			
 			this.reqNL_EOF_1M()
 			
-			return this.yep(AST.IncludeOnceDeclaration(files, first, last))
+			return this.yep(AST.IncludeAgainDeclaration(files, first, last))
 		}
 		else {
 			unless this.test(Token::STRING) {
@@ -2591,7 +2728,7 @@ class Parser {
 			
 			this.reqNL_EOF_1M()
 			
-			return this.yep(AST.IncludeOnceDeclaration(files, first, last))
+			return this.yep(AST.IncludeAgainDeclaration(files, first, last))
 		}
 	} // }}}
 	reqLetStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
@@ -2951,8 +3088,8 @@ class Parser {
 					Token::INCLUDE => {
 						statement = this.reqIncludeStatement(this.yes()).value
 					}
-					Token::INCLUDE_ONCE => {
-						statement = this.reqIncludeOnceStatement(this.yes()).value
+					Token::INCLUDE_AGAIN => {
+						statement = this.reqIncludeAgainStatement(this.yes()).value
 					}
 					Token::REQUIRE => {
 						statement = this.reqRequireStatement(this.yes()).value
@@ -3034,8 +3171,8 @@ class Parser {
 			else if @token == Token::INCLUDE {
 				statement = this.reqIncludeStatement(this.yes())
 			}
-			else if @token == Token::INCLUDE_ONCE {
-				statement = this.reqIncludeOnceStatement(this.yes())
+			else if @token == Token::INCLUDE_AGAIN {
+				statement = this.reqIncludeAgainStatement(this.yes())
 			}
 			else {
 				statement = this.reqStatement()

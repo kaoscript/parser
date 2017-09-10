@@ -1,4 +1,4 @@
-import 'benchmark' as Benchmark
+import 'benchmark' => Benchmark
 import 'fs'
 import 'chevrotain' {
 	func createToken

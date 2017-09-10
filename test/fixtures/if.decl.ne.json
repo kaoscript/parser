@@ -1,15 +1,15 @@
 {
-  "kind": 61,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 101,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 102,
+          "kind": 105,
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "x",
             "start": {
               "line": 1,
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 65,
+        "kind": 68,
         "value": 5,
         "start": {
           "line": 1,
@@ -55,13 +55,13 @@
       "attributes": []
     },
     {
-      "kind": 101,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 102,
+          "kind": 105,
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "y",
             "start": {
               "line": 3,
@@ -85,7 +85,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 43,
+        "kind": 46,
         "condition": {
           "kind": 10,
           "operator": {
@@ -108,7 +108,7 @@
             "column": 21
           },
           "left": {
-            "kind": 42,
+            "kind": 45,
             "name": "x",
             "start": {
               "line": 3,
@@ -120,7 +120,7 @@
             }
           },
           "right": {
-            "kind": 65,
+            "kind": 68,
             "value": 5,
             "start": {
               "line": 3,
@@ -133,7 +133,7 @@
           }
         },
         "whenTrue": {
-          "kind": 65,
+          "kind": 68,
           "value": 10,
           "start": {
             "line": 3,

@@ -1,5 +1,5 @@
 import {
-	'benchmark' as Benchmark
+	'benchmark' => Benchmark
 	'fs'
 	'chevrotain' {
 		func createToken

@@ -1,38 +1,49 @@
 {
-  "kind": 61,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 32,
+      "kind": 31,
       "declarations": [
         {
-          "kind": 17,
-          "name": {
-            "kind": 42,
-            "name": "Foobar",
-            "start": {
-              "line": 1,
-              "column": 21
-            },
-            "end": {
-              "line": 1,
-              "column": 27
-            }
-          },
-          "modifiers": [
-            {
-              "kind": 8,
+          "kind": 32,
+          "declaration": {
+            "kind": 17,
+            "name": {
+              "kind": 45,
+              "name": "Foobar",
               "start": {
                 "line": 1,
-                "column": 8
+                "column": 21
               },
               "end": {
                 "line": 1,
-                "column": 14
+                "column": 27
               }
+            },
+            "modifiers": [
+              {
+                "kind": 8,
+                "start": {
+                  "line": 1,
+                  "column": 8
+                },
+                "end": {
+                  "line": 1,
+                  "column": 14
+                }
+              }
+            ],
+            "members": [],
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 2,
+              "column": 2
             }
-          ],
-          "members": [],
+          },
           "start": {
             "line": 1,
             "column": 8

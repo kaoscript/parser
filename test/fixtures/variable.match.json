@@ -1,9 +1,9 @@
 {
-  "kind": 61,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 44,
+      "kind": 47,
       "condition": {
         "kind": 10,
         "operator": {
@@ -27,7 +27,7 @@
           "column": 83
         },
         "left": {
-          "kind": 42,
+          "kind": 45,
           "name": "match",
           "start": {
             "line": 2,
@@ -44,9 +44,9 @@
             "kind": 3
           },
           "callee": {
-            "kind": 58,
+            "kind": 61,
             "object": {
-              "kind": 73,
+              "kind": 76,
               "value": "/^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/",
               "start": {
                 "line": 2,
@@ -58,7 +58,7 @@
               }
             },
             "property": {
-              "kind": 42,
+              "kind": 45,
               "name": "exec",
               "start": {
                 "line": 2,
@@ -82,7 +82,7 @@
           },
           "arguments": [
             {
-              "kind": 42,
+              "kind": 45,
               "name": "color",
               "start": {
                 "line": 2,
@@ -115,9 +115,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 58,
+              "kind": 61,
               "object": {
-                "kind": 42,
+                "kind": 45,
                 "name": "console",
                 "start": {
                   "line": 3,
@@ -129,7 +129,7 @@
                 }
               },
               "property": {
-                "kind": 42,
+                "kind": 45,
                 "name": "log",
                 "start": {
                   "line": 3,
@@ -153,7 +153,7 @@
             },
             "arguments": [
               {
-                "kind": 55,
+                "kind": 58,
                 "value": "red",
                 "start": {
                   "line": 3,
@@ -170,9 +170,9 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 58,
+                  "kind": 61,
                   "object": {
-                    "kind": 42,
+                    "kind": 45,
                     "name": "Integer",
                     "start": {
                       "line": 3,
@@ -184,7 +184,7 @@
                     }
                   },
                   "property": {
-                    "kind": 42,
+                    "kind": 45,
                     "name": "parse",
                     "start": {
                       "line": 3,
@@ -208,9 +208,9 @@
                 },
                 "arguments": [
                   {
-                    "kind": 58,
+                    "kind": 61,
                     "object": {
-                      "kind": 42,
+                      "kind": 45,
                       "name": "match",
                       "start": {
                         "line": 3,
@@ -222,7 +222,7 @@
                       }
                     },
                     "property": {
-                      "kind": 65,
+                      "kind": 68,
                       "value": 1,
                       "start": {
                         "line": 3,
@@ -245,7 +245,7 @@
                     }
                   },
                   {
-                    "kind": 65,
+                    "kind": 68,
                     "value": 16,
                     "start": {
                       "line": 3,
@@ -285,9 +285,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 58,
+              "kind": 61,
               "object": {
-                "kind": 42,
+                "kind": 45,
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -299,7 +299,7 @@
                 }
               },
               "property": {
-                "kind": 42,
+                "kind": 45,
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -323,7 +323,7 @@
             },
             "arguments": [
               {
-                "kind": 55,
+                "kind": 58,
                 "value": "green",
                 "start": {
                   "line": 4,
@@ -340,9 +340,9 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 58,
+                  "kind": 61,
                   "object": {
-                    "kind": 42,
+                    "kind": 45,
                     "name": "Integer",
                     "start": {
                       "line": 4,
@@ -354,7 +354,7 @@
                     }
                   },
                   "property": {
-                    "kind": 42,
+                    "kind": 45,
                     "name": "parse",
                     "start": {
                       "line": 4,
@@ -378,9 +378,9 @@
                 },
                 "arguments": [
                   {
-                    "kind": 58,
+                    "kind": 61,
                     "object": {
-                      "kind": 42,
+                      "kind": 45,
                       "name": "match",
                       "start": {
                         "line": 4,
@@ -392,7 +392,7 @@
                       }
                     },
                     "property": {
-                      "kind": 65,
+                      "kind": 68,
                       "value": 2,
                       "start": {
                         "line": 4,
@@ -415,7 +415,7 @@
                     }
                   },
                   {
-                    "kind": 65,
+                    "kind": 68,
                     "value": 16,
                     "start": {
                       "line": 4,
@@ -455,9 +455,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 58,
+              "kind": 61,
               "object": {
-                "kind": 42,
+                "kind": 45,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -469,7 +469,7 @@
                 }
               },
               "property": {
-                "kind": 42,
+                "kind": 45,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -493,7 +493,7 @@
             },
             "arguments": [
               {
-                "kind": 55,
+                "kind": 58,
                 "value": "blue",
                 "start": {
                   "line": 5,
@@ -510,9 +510,9 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 58,
+                  "kind": 61,
                   "object": {
-                    "kind": 42,
+                    "kind": 45,
                     "name": "Integer",
                     "start": {
                       "line": 5,
@@ -524,7 +524,7 @@
                     }
                   },
                   "property": {
-                    "kind": 42,
+                    "kind": 45,
                     "name": "parse",
                     "start": {
                       "line": 5,
@@ -548,9 +548,9 @@
                 },
                 "arguments": [
                   {
-                    "kind": 58,
+                    "kind": 61,
                     "object": {
-                      "kind": 42,
+                      "kind": 45,
                       "name": "match",
                       "start": {
                         "line": 5,
@@ -562,7 +562,7 @@
                       }
                     },
                     "property": {
-                      "kind": 65,
+                      "kind": 68,
                       "value": 3,
                       "start": {
                         "line": 5,
@@ -585,7 +585,7 @@
                     }
                   },
                   {
-                    "kind": 65,
+                    "kind": 68,
                     "value": 16,
                     "start": {
                       "line": 5,
@@ -625,9 +625,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 58,
+              "kind": 61,
               "object": {
-                "kind": 42,
+                "kind": 45,
                 "name": "console",
                 "start": {
                   "line": 6,
@@ -639,7 +639,7 @@
                 }
               },
               "property": {
-                "kind": 42,
+                "kind": 45,
                 "name": "log",
                 "start": {
                   "line": 6,
@@ -663,7 +663,7 @@
             },
             "arguments": [
               {
-                "kind": 55,
+                "kind": 58,
                 "value": "alpha",
                 "start": {
                   "line": 6,
@@ -680,9 +680,9 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 58,
+                  "kind": 61,
                   "object": {
-                    "kind": 42,
+                    "kind": 45,
                     "name": "$caster",
                     "start": {
                       "line": 6,
@@ -694,7 +694,7 @@
                     }
                   },
                   "property": {
-                    "kind": 42,
+                    "kind": 45,
                     "name": "alpha",
                     "start": {
                       "line": 6,
@@ -744,9 +744,9 @@
                         "kind": 3
                       },
                       "callee": {
-                        "kind": 58,
+                        "kind": 61,
                         "object": {
-                          "kind": 42,
+                          "kind": 45,
                           "name": "Integer",
                           "start": {
                             "line": 6,
@@ -758,7 +758,7 @@
                           }
                         },
                         "property": {
-                          "kind": 42,
+                          "kind": 45,
                           "name": "parse",
                           "start": {
                             "line": 6,
@@ -782,9 +782,9 @@
                       },
                       "arguments": [
                         {
-                          "kind": 58,
+                          "kind": 61,
                           "object": {
-                            "kind": 42,
+                            "kind": 45,
                             "name": "match",
                             "start": {
                               "line": 6,
@@ -796,7 +796,7 @@
                             }
                           },
                           "property": {
-                            "kind": 65,
+                            "kind": 68,
                             "value": 4,
                             "start": {
                               "line": 6,
@@ -819,7 +819,7 @@
                           }
                         },
                         {
-                          "kind": 65,
+                          "kind": 68,
                           "value": 16,
                           "start": {
                             "line": 6,
@@ -842,7 +842,7 @@
                       }
                     },
                     "right": {
-                      "kind": 65,
+                      "kind": 68,
                       "value": 255,
                       "start": {
                         "line": 6,

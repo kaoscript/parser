@@ -1,14 +1,14 @@
 {
-  "kind": 61,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 74,
+      "kind": 77,
       "declarations": [
         {
-          "kind": 102,
+          "kind": 105,
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "Color",
             "start": {
               "line": 1,
@@ -20,9 +20,9 @@
             }
           },
           "type": {
-            "kind": 95,
+            "kind": 98,
             "typeName": {
-              "kind": 42,
+              "kind": 45,
               "name": "class",
               "start": {
                 "line": 1,
@@ -52,9 +52,9 @@
           }
         },
         {
-          "kind": 102,
+          "kind": 105,
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "Space",
             "start": {
               "line": 1,
@@ -66,9 +66,9 @@
             }
           },
           "type": {
-            "kind": 95,
+            "kind": 98,
             "typeName": {
-              "kind": 42,
+              "kind": 45,
               "name": "enum",
               "start": {
                 "line": 1,
@@ -109,9 +109,9 @@
       "attributes": []
     },
     {
-      "kind": 45,
+      "kind": 48,
       "variable": {
-        "kind": 42,
+        "kind": 45,
         "name": "Color",
         "start": {
           "line": 3,
@@ -124,7 +124,7 @@
       },
       "properties": [
         {
-          "kind": 35,
+          "kind": 38,
           "modifiers": [
             {
               "kind": 4,
@@ -139,7 +139,7 @@
             }
           ],
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "_luma",
             "start": {
               "line": 4,
@@ -159,9 +159,9 @@
             "column": 20
           },
           "type": {
-            "kind": 95,
+            "kind": 98,
             "typeName": {
-              "kind": 42,
+              "kind": 45,
               "name": "int",
               "start": {
                 "line": 4,
@@ -183,10 +183,10 @@
           }
         },
         {
-          "kind": 59,
+          "kind": 62,
           "modifiers": [],
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "luma",
             "start": {
               "line": 6,
@@ -207,9 +207,9 @@
             "column": 22
           },
           "type": {
-            "kind": 95,
+            "kind": 98,
             "typeName": {
-              "kind": 42,
+              "kind": 45,
               "name": "int",
               "start": {
                 "line": 6,
@@ -231,9 +231,9 @@
           },
           "throws": [],
           "body": {
-            "kind": 90,
+            "kind": 93,
             "name": {
-              "kind": 42,
+              "kind": 45,
               "name": "luma",
               "start": {
                 "line": 6,
@@ -255,10 +255,10 @@
           }
         },
         {
-          "kind": 59,
+          "kind": 62,
           "modifiers": [],
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "luma",
             "start": {
               "line": 8,
@@ -271,7 +271,7 @@
           },
           "parameters": [
             {
-              "kind": 70,
+              "kind": 73,
               "modifiers": [
                 {
                   "kind": 11,
@@ -294,7 +294,7 @@
                 "column": 12
               },
               "name": {
-                "kind": 42,
+                "kind": 45,
                 "name": "luma",
                 "start": {
                   "line": 8,
@@ -317,7 +317,7 @@
           },
           "throws": [],
           "body": {
-            "kind": 42,
+            "kind": 45,
             "name": "this",
             "start": {
               "line": 8,
@@ -341,11 +341,34 @@
       "attributes": []
     },
     {
-      "kind": 32,
+      "kind": 31,
       "declarations": [
         {
-          "kind": 42,
-          "name": "Color",
+          "kind": 33,
+          "local": {
+            "kind": 45,
+            "name": "Color",
+            "start": {
+              "line": 11,
+              "column": 8
+            },
+            "end": {
+              "line": 11,
+              "column": 13
+            }
+          },
+          "exported": {
+            "kind": 45,
+            "name": "Color",
+            "start": {
+              "line": 11,
+              "column": 8
+            },
+            "end": {
+              "line": 11,
+              "column": 13
+            }
+          },
           "start": {
             "line": 11,
             "column": 8
@@ -356,8 +379,31 @@
           }
         },
         {
-          "kind": 42,
-          "name": "Space",
+          "kind": 33,
+          "local": {
+            "kind": 45,
+            "name": "Space",
+            "start": {
+              "line": 11,
+              "column": 15
+            },
+            "end": {
+              "line": 11,
+              "column": 20
+            }
+          },
+          "exported": {
+            "kind": 45,
+            "name": "Space",
+            "start": {
+              "line": 11,
+              "column": 15
+            },
+            "end": {
+              "line": 11,
+              "column": 20
+            }
+          },
           "start": {
             "line": 11,
             "column": 15

@@ -502,19 +502,41 @@ namespace AST {
 			}, name, value)
 		} // }}}
 		
-		func ExportAlias(name, alias) { // {{{
-			return location({
-				kind: NodeKind::ExportAlias
-				name: name.value
-				alias: alias.value
-			}, name, alias)
-		} // }}}
-		
 		func ExportDeclaration(declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExportDeclaration
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
+		} // }}}
+		
+		func ExportDeclarationSpecifier(declaration) { // {{{
+			return location({
+				kind: NodeKind::ExportDeclarationSpecifier
+				declaration: declaration.value
+			}, declaration)
+		} // }}}
+		
+		func ExportNamedSpecifier(local, exported) { // {{{
+			return location({
+				kind: NodeKind::ExportNamedSpecifier
+				local: local.value
+				exported: exported.value
+			}, local, exported)
+		} // }}}
+		
+		func ExportPropertiesSpecifier(object, properties, last) { // {{{
+			return location({
+				kind: NodeKind::ExportPropertiesSpecifier
+				object: object.value
+				properties: properties
+			}, object, last)
+		} // }}}
+		
+		func ExportWildcardSpecifier(local, end) { // {{{
+			return location({
+				kind: NodeKind::ExportWildcardSpecifier
+				local: local.value
+			}, local, end)
 		} // }}}
 		
 		func ExternDeclaration(declarations, first, last) { // {{{
@@ -831,16 +853,16 @@ namespace AST {
 			}, first)
 		} // }}}
 		
-		func IncludeDeclaration(files, first, last) { // {{{
+		func IncludeAgainDeclaration(files, first, last) { // {{{
 			return location({
-				kind: NodeKind::IncludeDeclaration
+				kind: NodeKind::IncludeAgainDeclaration
 				files: files
 			}, first, last)
 		} // }}}
 		
-		func IncludeOnceDeclaration(files, first, last) { // {{{
+		func IncludeDeclaration(files, first, last) { // {{{
 			return location({
-				kind: NodeKind::IncludeOnceDeclaration
+				kind: NodeKind::IncludeDeclaration
 				files: files
 			}, first, last)
 		} // }}}

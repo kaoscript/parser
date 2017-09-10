@@ -1,12 +1,12 @@
 {
-  "kind": 61,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 64,
+      "kind": 67,
       "modifiers": [],
       "name": {
-        "kind": 42,
+        "kind": 45,
         "name": "T",
         "start": {
           "line": 1,
@@ -19,24 +19,35 @@
       },
       "statements": [
         {
-          "kind": 32,
+          "kind": 31,
           "declarations": [
             {
-              "kind": 17,
-              "name": {
-                "kind": 42,
-                "name": "FooX",
+              "kind": 32,
+              "declaration": {
+                "kind": 17,
+                "name": {
+                  "kind": 45,
+                  "name": "FooX",
+                  "start": {
+                    "line": 2,
+                    "column": 15
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 19
+                  }
+                },
+                "modifiers": [],
+                "members": [],
                 "start": {
                   "line": 2,
-                  "column": 15
+                  "column": 9
                 },
                 "end": {
-                  "line": 2,
-                  "column": 19
+                  "line": 3,
+                  "column": 3
                 }
               },
-              "modifiers": [],
-              "members": [],
               "start": {
                 "line": 2,
                 "column": 9
@@ -71,7 +82,7 @@
     {
       "kind": 17,
       "name": {
-        "kind": 42,
+        "kind": 45,
         "name": "FooY",
         "start": {
           "line": 6,
@@ -93,9 +104,9 @@
         "column": 2
       },
       "extends": {
-        "kind": 58,
+        "kind": 61,
         "object": {
-          "kind": 42,
+          "kind": 45,
           "name": "T",
           "start": {
             "line": 6,
@@ -107,7 +118,7 @@
           }
         },
         "property": {
-          "kind": 42,
+          "kind": 45,
           "name": "FooX",
           "start": {
             "line": 6,

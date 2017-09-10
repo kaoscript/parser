@@ -1,5 +1,5 @@
 import {
-	'module1' as m1
+	'module1' => m1
 	
 	'module2' {
 		foo

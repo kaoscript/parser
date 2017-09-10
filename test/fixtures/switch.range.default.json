@@ -1,15 +1,15 @@
 {
-  "kind": 61,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 101,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 102,
+          "kind": 105,
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "temperature",
             "start": {
               "line": 1,
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 65,
+        "kind": 68,
         "value": 83,
         "start": {
           "line": 1,
@@ -55,9 +55,9 @@
       "attributes": []
     },
     {
-      "kind": 87,
+      "kind": 90,
       "expression": {
-        "kind": 42,
+        "kind": 45,
         "name": "temperature",
         "start": {
           "line": 3,
@@ -70,16 +70,16 @@
       },
       "clauses": [
         {
-          "kind": 80,
+          "kind": 83,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 58,
+              "kind": 61,
               "object": {
-                "kind": 42,
+                "kind": 45,
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -91,7 +91,7 @@
                 }
               },
               "property": {
-                "kind": 42,
+                "kind": 45,
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -115,7 +115,7 @@
             },
             "arguments": [
               {
-                "kind": 55,
+                "kind": 58,
                 "value": "Cold",
                 "start": {
                   "line": 4,
@@ -147,9 +147,9 @@
           },
           "conditions": [
             {
-              "kind": 84,
+              "kind": 87,
               "from": {
-                "kind": 65,
+                "kind": 68,
                 "value": 0,
                 "start": {
                   "line": 4,
@@ -161,7 +161,7 @@
                 }
               },
               "to": {
-                "kind": 65,
+                "kind": 68,
                 "value": 49,
                 "start": {
                   "line": 4,
@@ -185,16 +185,16 @@
           "bindings": []
         },
         {
-          "kind": 80,
+          "kind": 83,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 58,
+              "kind": 61,
               "object": {
-                "kind": 42,
+                "kind": 45,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -206,7 +206,7 @@
                 }
               },
               "property": {
-                "kind": 42,
+                "kind": 45,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -230,7 +230,7 @@
             },
             "arguments": [
               {
-                "kind": 55,
+                "kind": 58,
                 "value": "Warm",
                 "start": {
                   "line": 5,
@@ -262,9 +262,9 @@
           },
           "conditions": [
             {
-              "kind": 84,
+              "kind": 87,
               "from": {
-                "kind": 65,
+                "kind": 68,
                 "value": 50,
                 "start": {
                   "line": 5,
@@ -276,7 +276,7 @@
                 }
               },
               "to": {
-                "kind": 65,
+                "kind": 68,
                 "value": 79,
                 "start": {
                   "line": 5,
@@ -300,16 +300,16 @@
           "bindings": []
         },
         {
-          "kind": 80,
+          "kind": 83,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 58,
+              "kind": 61,
               "object": {
-                "kind": 42,
+                "kind": 45,
                 "name": "console",
                 "start": {
                   "line": 6,
@@ -321,7 +321,7 @@
                 }
               },
               "property": {
-                "kind": 42,
+                "kind": 45,
                 "name": "log",
                 "start": {
                   "line": 6,
@@ -345,7 +345,7 @@
             },
             "arguments": [
               {
-                "kind": 55,
+                "kind": 58,
                 "value": "Hot",
                 "start": {
                   "line": 6,
@@ -377,9 +377,9 @@
           },
           "conditions": [
             {
-              "kind": 84,
+              "kind": 87,
               "from": {
-                "kind": 65,
+                "kind": 68,
                 "value": 80,
                 "start": {
                   "line": 6,
@@ -391,7 +391,7 @@
                 }
               },
               "to": {
-                "kind": 65,
+                "kind": 68,
                 "value": 110,
                 "start": {
                   "line": 6,
@@ -415,16 +415,16 @@
           "bindings": []
         },
         {
-          "kind": 80,
+          "kind": 83,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 58,
+              "kind": 61,
               "object": {
-                "kind": 42,
+                "kind": 45,
                 "name": "console",
                 "start": {
                   "line": 7,
@@ -436,7 +436,7 @@
                 }
               },
               "property": {
-                "kind": 42,
+                "kind": 45,
                 "name": "log",
                 "start": {
                   "line": 7,
@@ -460,7 +460,7 @@
             },
             "arguments": [
               {
-                "kind": 55,
+                "kind": 58,
                 "value": "Temperature out of range",
                 "start": {
                   "line": 7,

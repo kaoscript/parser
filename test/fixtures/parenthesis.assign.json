@@ -1,15 +1,15 @@
 {
-  "kind": 61,
+  "kind": 64,
   "attributes": [],
   "body": [
     {
-      "kind": 101,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 102,
+          "kind": 105,
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "a",
             "start": {
               "line": 1,
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 55,
+        "kind": 58,
         "value": "HELLO",
         "start": {
           "line": 1,
@@ -55,13 +55,13 @@
       "attributes": []
     },
     {
-      "kind": 101,
+      "kind": 104,
       "rebindable": true,
       "variables": [
         {
-          "kind": 102,
+          "kind": 105,
           "name": {
-            "kind": 42,
+            "kind": 45,
             "name": "c",
             "start": {
               "line": 2,
@@ -90,7 +90,7 @@
           "kind": 3
         },
         "callee": {
-          "kind": 58,
+          "kind": 61,
           "object": {
             "kind": 10,
             "operator": {
@@ -114,7 +114,7 @@
               "column": 16
             },
             "left": {
-              "kind": 42,
+              "kind": 45,
               "name": "b",
               "start": {
                 "line": 2,
@@ -126,7 +126,7 @@
               }
             },
             "right": {
-              "kind": 42,
+              "kind": 45,
               "name": "a",
               "start": {
                 "line": 2,
@@ -139,7 +139,7 @@
             }
           },
           "property": {
-            "kind": 42,
+            "kind": 45,
             "name": "toLowerCase",
             "start": {
               "line": 2,
