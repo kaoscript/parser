@@ -1,5 +1,3 @@
-import '@kaoscript/ast'
-
 namespace AST {
 	// {{{
 	const $polyadic = {}

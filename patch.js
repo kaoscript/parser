@@ -1,5 +1,7 @@
+require('kaoscript/register')
+
 var fs = require('fs');
-var parse = require('./lib/parser.js')().parse;
+var parse = require('.')().parse;
 var path = require('path');
 
 var files = fs.readdirSync(path.join(__dirname, 'test', 'fixtures'));

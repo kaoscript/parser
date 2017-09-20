@@ -1,6 +1,3 @@
-build:
-	time node_modules/.bin/kaoscript -c -t ecma-v5 -o lib src/parser.ks
-
 test:
 ifeq ($(g),)
 	node_modules/.bin/mocha --colors --check-leaks --compilers ks:kaoscript/register --reporter spec

@@ -1,9 +1,7 @@
 var chai = require('chai');
 var expect = require('chai').expect;
 var fs = require('fs');
-
-var parse = require(process.env.running_under_istanbul ? '../src/parser.ks' : '..')().parse;
-
+var parse = require('..')().parse;
 var path = require('path');
 
 describe('parse', function() {
