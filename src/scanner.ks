@@ -520,14 +520,11 @@ namespace M {
 			// enum
 			else if c == 101
 			{
-				if	that.charAt(1) == 110 &&
-					that.charAt(2) == 117 &&
-					that.charAt(3) == 109 &&
-					that.isBoundary(4)
-				{
-					that.next(4)
-				
+				if that.scanIdentifier(true) == 'num' {
 					return Token::ENUM
+				}
+				else {
+					return Token::IDENTIFIER
 				}
 			}
 			// func
