@@ -1460,22 +1460,19 @@ namespace M {
 			{
 				if that.charAt(1) == 115 {
 					if (c = that.charAt(2)) == 9 || c == 32 {
-						if	that.charAt(3) == 110
+						if	that.charAt(3) == 110 &&
+							that.charAt(4) == 111 &&
+							that.charAt(5) == 116 &&
+							that.isBoundary(6)
 						{
-							if	that.charAt(4) == 111 &&
-								that.charAt(5) == 116 &&
-								that.isBoundary(6)
-							{
-								that.next(6)
-								
-								return Token::IS_NOT
-							}
-						}
-						else {
-							that.next(2)
+							that.next(6)
 							
-							return Token::IS
+							return Token::IS_NOT
 						}
+						
+						that.next(2)
+						
+						return Token::IS
 					}
 					else if that.isBoundary(2) {
 						that.next(2)
