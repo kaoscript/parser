@@ -894,9 +894,10 @@ namespace AST {
 			}, first, last)
 		} // }}}
 		
-		func MacroDeclaration(name, parameters, body, first, last) { // {{{
+		func MacroDeclaration(attributes = [], name, parameters, body, first, last) { // {{{
 			return location({
 				kind: NodeKind::MacroDeclaration
+				attributes: attributes
 				name: name.value
 				parameters: [parameter.value for parameter in parameters.value]
 				body: body.value

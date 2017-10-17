@@ -16,7 +16,6 @@ export namespace Parser {
 		console
 		parseFloat
 		parseInt
-		sealed class Error
 		sealed class SyntaxError
 	}
 	
@@ -865,23 +864,25 @@ export namespace Parser {
 			if this.test(Token::MACRO) {
 				first = this.yes()
 				
-				if this.test(Token::IDENTIFIER) {
-					const statement = this.tryMacroStatement(first)
+				if this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
 					
-					if statement.ok {
-						this.reqNL_1M()
-						
-						if attributes == null {
-							statement.attributes = []
-						}
-						else {
-							statement.attributes = attributes
-						}
-						
-						members.push(statement)
-						
-						return
+					until this.test(Token::RIGHT_CURLY) {
+						members.push(this.reqMacroStatement(attributes))
 					}
+					
+					unless this.test(Token::RIGHT_CURLY) {
+						this.throw('}')
+					}
+					
+					this.commit().reqNL_1M()
+					
+					return
+				}
+				else if (identifier = this.tryIdentifier()).ok {
+					members.push(this.reqMacroStatement(attributes, identifier, first))
+					
+					return
 				}
 				
 				this.rollback(mark1)
@@ -3058,6 +3059,25 @@ export namespace Parser {
 			else {
 				this.throw(['{', '=>'])
 			}
+		} // }}}
+		reqMacroStatement(attributes = []) ~ SyntaxError { // {{{
+			const name = this.reqIdentifier()
+			const parameters = this.reqMacroParameterList()
+			
+			const body = this.reqMacroBody()
+			
+			this.reqNL_1M()
+			
+			return this.yep(AST.MacroDeclaration(attributes, name, parameters, body, name, body))
+		} // }}}
+		reqMacroStatement(attributes = [], name, first) ~ SyntaxError { // {{{
+			const parameters = this.reqMacroParameterList()
+			
+			const body = this.reqMacroBody()
+			
+			this.reqNL_1M()
+			
+			return this.yep(AST.MacroDeclaration(attributes, name, parameters, body, first, body))
 		} // }}}
 		reqModule() ~ SyntaxError { // {{{
 			this.NL_0M()
