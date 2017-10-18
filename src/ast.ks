@@ -51,6 +51,8 @@ namespace AST {
 	$precedence[BinaryOperatorKind::TypeInequality] = 8
 	// }}}
 	
+	const CONDITIONAL_PRECEDENCE = 4
+	
 	func location(descriptor, firstToken, lastToken = null) { // {{{
 		if lastToken == null {
 			if !?descriptor.start {
@@ -74,16 +76,30 @@ namespace AST {
 		
 		let precedence
 		for i from 1 til operations.length by 2 {
-			precedence = $precedence[operations[i].operator.kind]
-			
-			if precedences[precedence] {
-				++precedences[precedence]
+			if operations[i].kind == NodeKind::ConditionalExpression {
+				if precedences[CONDITIONAL_PRECEDENCE] {
+					++precedences[CONDITIONAL_PRECEDENCE]
+				}
+				else {
+					precedences[CONDITIONAL_PRECEDENCE] = 1
+				}
+				
+				precedenceList.push(CONDITIONAL_PRECEDENCE)
+				
+				i++
 			}
 			else {
-				precedences[precedence] = 1
+				precedence = $precedence[operations[i].operator.kind]
+				
+				if precedences[precedence] {
+					++precedences[precedence]
+				}
+				else {
+					precedences[precedence] = 1
+				}
+				
+				precedenceList.push(precedence)
 			}
-			
-			precedenceList.push(precedence)
 		}
 		
 		precedenceList = precedenceList.sort(func(a, b) {
@@ -95,7 +111,28 @@ namespace AST {
 			count = precedences[precedence]
 			
 			for k from 1 til operations.length by 2 while count {
-				if $precedence[operations[k].operator.kind] == precedence {
+				if operations[k].kind == NodeKind::ConditionalExpression {
+					if precedence == CONDITIONAL_PRECEDENCE {
+						--count
+						
+						operator = operations[k]
+						
+						operator.condition = operations[k - 1]
+						operator.whenTrue = operations[k + 1]
+						operator.whenFalse = operations[k + 2]
+						
+						operator.start = operator.condition.start
+						operator.end = operator.whenFalse.end
+						
+						operations.splice(k - 1, 4, operator)
+						
+						k -= 3
+					}
+					else {
+						k++
+					}
+				}
+				else if $precedence[operations[k].operator.kind] == precedence {
 					--count
 					
 					operator = operations[k]
@@ -406,6 +443,12 @@ namespace AST {
 			}
 			
 			return node
+		} // }}}
+		
+		func ConditionalExpression(first) { // {{{
+			return location({
+				kind: NodeKind::ConditionalExpression
+			}, first)
 		} // }}}
 		
 		func ConditionalExpression(condition, whenTrue, whenFalse) { // {{{

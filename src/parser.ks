@@ -1767,26 +1767,7 @@ export namespace Parser {
 				}
 			}
 			
-			const operation = this.reqOperation(mode)
-			
-			if this.test(Token::QUESTION) {
-				this.commit()
-				
-				const whenTrue = this.reqExpression(ExpressionMode::Default)
-				
-				unless this.test(Token::COLON) {
-					this.throw(':')
-				}
-				
-				this.commit()
-				
-				const whenFalse = this.reqExpression(ExpressionMode::Default)
-				
-				return this.yep(AST.ConditionalExpression(operation, whenTrue, whenFalse))
-			}
-			else {
-				return operation
-			}
+			return this.reqOperation(mode)
 		} // }}}
 		reqExpression0CNList() ~ SyntaxError { // {{{
 			this.NL_0M()
@@ -3327,6 +3308,19 @@ export namespace Parser {
 					this.NL_0M()
 					
 					values.push(this.reqBinaryOperand(mode).value)
+				}
+				else if this.test(Token::QUESTION) {
+					values.push(AST.ConditionalExpression(this.yes()))
+					
+					values.push(this.reqExpression(ExpressionMode::Default).value)
+					
+					unless this.test(Token::COLON) {
+						this.throw(':')
+					}
+					
+					this.commit()
+					
+					values.push(this.reqExpression(ExpressionMode::Default).value)
 				}
 				else {
 					this.rollback(mark)
