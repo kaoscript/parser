@@ -1,6 +1,6 @@
 extern console
 
-func min() async => 'female'
+async func min() => 'female'
 
 namespace foo {
 	let gender: String = await min()

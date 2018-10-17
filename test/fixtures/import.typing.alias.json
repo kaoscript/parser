@@ -1,14 +1,14 @@
 {
-  "kind": 64,
+  "kind": 65,
   "attributes": [],
   "body": [
     {
-      "kind": 50,
+      "kind": 51,
       "declarations": [
         {
-          "kind": 51,
+          "kind": 52,
           "source": {
-            "kind": 58,
+            "kind": 59,
             "value": "chevrotain",
             "start": {
               "line": 1,
@@ -21,11 +21,11 @@
           },
           "specifiers": [
             {
-              "kind": 54,
+              "kind": 55,
               "imported": {
                 "kind": 43,
                 "name": {
-                  "kind": 45,
+                  "kind": 46,
                   "name": "createToken",
                   "start": {
                     "line": 2,
@@ -44,12 +44,41 @@
                   "line": 2,
                   "column": 18
                 },
-                "parameters": [],
+                "parameters": [
+                  {
+                    "kind": 74,
+                    "modifiers": [
+                      {
+                        "kind": 7,
+                        "arity": {
+                          "min": 0,
+                          "max": "Infinity"
+                        },
+                        "start": {
+                          "line": 2,
+                          "column": 19
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 19
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 2,
+                      "column": 19
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 19
+                    }
+                  }
+                ],
                 "modifiers": [],
                 "throws": []
               },
               "local": {
-                "kind": 45,
+                "kind": 46,
                 "name": "createChevrotainToken",
                 "start": {
                   "line": 2,
@@ -70,11 +99,11 @@
               }
             },
             {
-              "kind": 54,
+              "kind": 55,
               "imported": {
                 "kind": 17,
                 "name": {
-                  "kind": 45,
+                  "kind": 46,
                   "name": "Lexer",
                   "start": {
                     "line": 3,
@@ -109,7 +138,7 @@
                 }
               },
               "local": {
-                "kind": 45,
+                "kind": 46,
                 "name": "ChevrotainLexer",
                 "start": {
                   "line": 3,
@@ -130,11 +159,11 @@
               }
             },
             {
-              "kind": 54,
+              "kind": 55,
               "imported": {
                 "kind": 17,
                 "name": {
-                  "kind": 45,
+                  "kind": 46,
                   "name": "Parser",
                   "start": {
                     "line": 4,
@@ -169,7 +198,7 @@
                 }
               },
               "local": {
-                "kind": 45,
+                "kind": 46,
                 "name": "ChevrotainParser",
                 "start": {
                   "line": 4,
@@ -190,11 +219,11 @@
               }
             },
             {
-              "kind": 54,
+              "kind": 55,
               "imported": {
                 "kind": 17,
                 "name": {
-                  "kind": 45,
+                  "kind": 46,
                   "name": "Token",
                   "start": {
                     "line": 5,
@@ -229,7 +258,7 @@
                 }
               },
               "local": {
-                "kind": 45,
+                "kind": 46,
                 "name": "ChevrotainToken",
                 "start": {
                   "line": 5,

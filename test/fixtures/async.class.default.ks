@@ -1,3 +1,3 @@
 class Foo {
-	foo() async => 42
+	async foo() => 42
 }

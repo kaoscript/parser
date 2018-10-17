@@ -1,3 +1,3 @@
-func foo(x, y) async => x - y
+async func foo(x, y) => x - y
 
-func bar() async => await foo(42, 24)
+async func bar() => await foo(42, 24)

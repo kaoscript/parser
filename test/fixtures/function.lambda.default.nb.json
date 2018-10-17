@@ -1,15 +1,15 @@
 {
-  "kind": 64,
+  "kind": 65,
   "attributes": [],
   "body": [
     {
-      "kind": 104,
+      "kind": 106,
       "rebindable": false,
       "variables": [
         {
-          "kind": 105,
+          "kind": 107,
           "name": {
-            "kind": 45,
+            "kind": 46,
             "name": "foo",
             "start": {
               "line": 1,
@@ -33,11 +33,11 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 57,
+        "kind": 58,
         "modifiers": [],
         "parameters": [
           {
-            "kind": 73,
+            "kind": 74,
             "modifiers": [],
             "start": {
               "line": 1,
@@ -45,10 +45,10 @@
             },
             "end": {
               "line": 1,
-              "column": 19
+              "column": 22
             },
             "name": {
-              "kind": 45,
+              "kind": 46,
               "name": "a",
               "start": {
                 "line": 1,
@@ -60,17 +60,17 @@
               }
             },
             "type": {
-              "kind": 98,
+              "kind": 100,
               "typeName": {
-                "kind": 45,
-                "name": "int",
+                "kind": 46,
+                "name": "Number",
                 "start": {
                   "line": 1,
                   "column": 16
                 },
                 "end": {
                   "line": 1,
-                  "column": 19
+                  "column": 22
                 }
               },
               "start": {
@@ -79,54 +79,54 @@
               },
               "end": {
                 "line": 1,
-                "column": 19
+                "column": 22
               }
             }
           },
           {
-            "kind": 73,
+            "kind": 74,
             "modifiers": [],
             "start": {
               "line": 1,
-              "column": 21
+              "column": 24
             },
             "end": {
               "line": 1,
-              "column": 26
+              "column": 32
             },
             "name": {
-              "kind": 45,
+              "kind": 46,
               "name": "b",
               "start": {
                 "line": 1,
-                "column": 21
+                "column": 24
               },
               "end": {
                 "line": 1,
-                "column": 22
+                "column": 25
               }
             },
             "type": {
-              "kind": 98,
+              "kind": 100,
               "typeName": {
-                "kind": 45,
-                "name": "int",
+                "kind": 46,
+                "name": "Number",
                 "start": {
                   "line": 1,
-                  "column": 23
+                  "column": 26
                 },
                 "end": {
                   "line": 1,
-                  "column": 26
+                  "column": 32
                 }
               },
               "start": {
                 "line": 1,
-                "column": 23
+                "column": 26
               },
               "end": {
                 "line": 1,
-                "column": 26
+                "column": 32
               }
             }
           }
@@ -137,43 +137,43 @@
             "kind": 20,
             "start": {
               "line": 1,
-              "column": 33
+              "column": 47
             },
             "end": {
               "line": 1,
-              "column": 34
+              "column": 48
             }
           },
           "start": {
             "line": 1,
-            "column": 31
+            "column": 45
           },
           "end": {
             "line": 1,
-            "column": 36
+            "column": 50
           },
           "left": {
-            "kind": 45,
+            "kind": 46,
             "name": "a",
             "start": {
               "line": 1,
-              "column": 31
+              "column": 45
             },
             "end": {
               "line": 1,
-              "column": 32
+              "column": 46
             }
           },
           "right": {
-            "kind": 45,
+            "kind": 46,
             "name": "b",
             "start": {
               "line": 1,
-              "column": 35
+              "column": 49
             },
             "end": {
               "line": 1,
-              "column": 36
+              "column": 50
             }
           }
         },
@@ -183,7 +183,30 @@
         },
         "end": {
           "line": 1,
-          "column": 36
+          "column": 50
+        },
+        "type": {
+          "kind": 100,
+          "typeName": {
+            "kind": 46,
+            "name": "Number",
+            "start": {
+              "line": 1,
+              "column": 35
+            },
+            "end": {
+              "line": 1,
+              "column": 41
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 35
+          },
+          "end": {
+            "line": 1,
+            "column": 41
+          }
         }
       },
       "start": {
@@ -192,7 +215,7 @@
       },
       "end": {
         "line": 1,
-        "column": 36
+        "column": 50
       },
       "attributes": []
     }
@@ -203,6 +226,6 @@
   },
   "end": {
     "line": 1,
-    "column": 36
+    "column": 50
   }
 }

@@ -1,19 +1,19 @@
 {
-  "kind": 64,
+  "kind": 65,
   "attributes": [],
   "body": [
     {
       "kind": 43,
       "name": {
-        "kind": 45,
+        "kind": 46,
         "name": "foo",
         "start": {
           "line": 1,
-          "column": 6
+          "column": 12
         },
         "end": {
           "line": 1,
-          "column": 9
+          "column": 15
         }
       },
       "start": {
@@ -26,50 +26,50 @@
       },
       "parameters": [
         {
-          "kind": 73,
+          "kind": 74,
           "modifiers": [],
           "start": {
             "line": 1,
-            "column": 10
+            "column": 16
           },
           "end": {
             "line": 1,
-            "column": 11
+            "column": 17
           },
           "name": {
-            "kind": 45,
+            "kind": 46,
             "name": "x",
             "start": {
               "line": 1,
-              "column": 10
+              "column": 16
             },
             "end": {
               "line": 1,
-              "column": 11
+              "column": 17
             }
           }
         },
         {
-          "kind": 73,
+          "kind": 74,
           "modifiers": [],
           "start": {
             "line": 1,
-            "column": 13
+            "column": 19
           },
           "end": {
             "line": 1,
-            "column": 14
+            "column": 20
           },
           "name": {
-            "kind": 45,
+            "kind": 46,
             "name": "y",
             "start": {
               "line": 1,
-              "column": 13
+              "column": 19
             },
             "end": {
               "line": 1,
-              "column": 14
+              "column": 20
             }
           }
         }
@@ -79,11 +79,11 @@
           "kind": 2,
           "start": {
             "line": 1,
-            "column": 16
+            "column": 1
           },
           "end": {
             "line": 1,
-            "column": 21
+            "column": 6
           }
         }
       ],
@@ -110,7 +110,7 @@
           "column": 30
         },
         "left": {
-          "kind": 45,
+          "kind": 46,
           "name": "x",
           "start": {
             "line": 1,
@@ -122,7 +122,7 @@
           }
         },
         "right": {
-          "kind": 45,
+          "kind": 46,
           "name": "y",
           "start": {
             "line": 1,
@@ -139,15 +139,15 @@
     {
       "kind": 43,
       "name": {
-        "kind": 45,
+        "kind": 46,
         "name": "bar",
         "start": {
           "line": 3,
-          "column": 6
+          "column": 12
         },
         "end": {
           "line": 3,
-          "column": 9
+          "column": 15
         }
       },
       "start": {
@@ -164,11 +164,11 @@
           "kind": 2,
           "start": {
             "line": 3,
-            "column": 12
+            "column": 1
           },
           "end": {
             "line": 3,
-            "column": 17
+            "column": 6
           }
         }
       ],
@@ -181,7 +181,7 @@
             "kind": 3
           },
           "callee": {
-            "kind": 45,
+            "kind": 46,
             "name": "foo",
             "start": {
               "line": 3,
@@ -194,7 +194,7 @@
           },
           "arguments": [
             {
-              "kind": 68,
+              "kind": 69,
               "value": 42,
               "start": {
                 "line": 3,
@@ -206,7 +206,7 @@
               }
             },
             {
-              "kind": 68,
+              "kind": 69,
               "value": 24,
               "start": {
                 "line": 3,
