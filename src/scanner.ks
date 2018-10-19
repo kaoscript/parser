@@ -1979,7 +1979,7 @@ const recognize = {
 		}
 	} // }}}
 	`\(Token::PIPE)`(that, c) { // {{{
-		if c == 124 {
+		if c == 124 && that.charAt(1) != 61 {
 			return that.next(1)
 		}
 		else {

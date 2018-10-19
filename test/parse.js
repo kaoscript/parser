@@ -1,31 +1,34 @@
 var chai = require('chai');
 var expect = require('chai').expect;
 var fs = require('fs');
+var klaw = require('klaw-sync');
 var parse = require('..')().parse;
 var path = require('path');
 
 describe('parse', function() {
-	var files = fs.readdirSync(path.join(__dirname, 'fixtures'));
-
-	var file;
-	for(var i = 0; i < files.length; i++) {
-		file = files[i];
-
-		if(file.slice(-3) === '.ks') {
-			prepare(file);
+	var files = klaw(path.join(__dirname, 'fixtures'), {
+		nodir: true,
+		traverseAll: true,
+		filter: function(item) {
+			return item.path.slice(-3) === '.ks'
 		}
+	})
+
+	for(var i = 0; i < files.length; i++) {
+		prepare(files[i].path)
 	}
 
 	function prepare(file) {
-		var name = file.slice(0, -3);
+		var root = path.dirname(file)
+		var name = path.basename(file).slice(0, -3);
 		it(name, function() {
-			var source = fs.readFileSync(path.join(__dirname, 'fixtures', file), {
+			var source = fs.readFileSync(file, {
 				encoding: 'utf8'
 			});
 			//console.log(source);
 
 			try {
-				var error = fs.readFileSync(path.join(__dirname, 'fixtures', name + '.error'), {
+				var error = fs.readFileSync(path.join(root, name + '.error'), {
 					encoding: 'utf8'
 				});
 			}
@@ -45,7 +48,7 @@ describe('parse', function() {
 				var data = parse(source);
 				//console.log(JSON.stringify(data, function(key, value){return value == Infinity ? 'Infinity' : value;}, 2));
 
-				var json = fs.readFileSync(path.join(__dirname, 'fixtures', name + '.json'), {
+				var json = fs.readFileSync(path.join(root, name + '.json'), {
 					encoding: 'utf8'
 				});
 

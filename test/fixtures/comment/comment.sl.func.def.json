@@ -1,0 +1,159 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 43,
+      "name": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      },
+      "parameters": [],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 105,
+            "rebindable": true,
+            "variables": [
+              {
+                "kind": 106,
+                "name": {
+                  "kind": 45,
+                  "name": "foo",
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 9
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 6
+                },
+                "end": {
+                  "line": 3,
+                  "column": 9
+                }
+              }
+            ],
+            "autotype": false,
+            "await": false,
+            "init": {
+              "kind": 68,
+              "value": 42,
+              "start": {
+                "line": 3,
+                "column": 12
+              },
+              "end": {
+                "line": 3,
+                "column": 14
+              }
+            },
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 3,
+              "column": 14
+            },
+            "attributes": []
+          },
+          {
+            "kind": 105,
+            "rebindable": true,
+            "variables": [
+              {
+                "kind": 106,
+                "name": {
+                  "kind": 45,
+                  "name": "bar",
+                  "start": {
+                    "line": 5,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 9
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 6
+                },
+                "end": {
+                  "line": 5,
+                  "column": 9
+                }
+              }
+            ],
+            "autotype": false,
+            "await": false,
+            "init": {
+              "kind": 68,
+              "value": 24,
+              "start": {
+                "line": 5,
+                "column": 12
+              },
+              "end": {
+                "line": 5,
+                "column": 14
+              }
+            },
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 5,
+              "column": 14
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 12
+        },
+        "end": {
+          "line": 7,
+          "column": 2
+        }
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 9
+  }
+}

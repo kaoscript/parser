@@ -1,0 +1,297 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 28,
+      "name": {
+        "kind": 45,
+        "name": "CardSuit",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 14
+        }
+      },
+      "members": [
+        {
+          "kind": 30,
+          "name": {
+            "kind": 45,
+            "name": "Clubs",
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 7
+            }
+          },
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 2,
+            "column": 7
+          }
+        },
+        {
+          "kind": 30,
+          "name": {
+            "kind": 45,
+            "name": "Diamonds",
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 3,
+              "column": 10
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 2
+          },
+          "end": {
+            "line": 3,
+            "column": 10
+          }
+        },
+        {
+          "kind": 30,
+          "name": {
+            "kind": 45,
+            "name": "Hearts",
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 8
+            }
+          },
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 8
+          }
+        },
+        {
+          "kind": 30,
+          "name": {
+            "kind": 45,
+            "name": "Spades",
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 5,
+              "column": 8
+            }
+          },
+          "start": {
+            "line": 5,
+            "column": 2
+          },
+          "end": {
+            "line": 5,
+            "column": 8
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 6,
+        "column": 2
+      },
+      "type": {
+        "kind": 99,
+        "typeName": {
+          "kind": 45,
+          "name": "string",
+          "start": {
+            "line": 1,
+            "column": 15
+          },
+          "end": {
+            "line": 1,
+            "column": 21
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 15
+        },
+        "end": {
+          "line": 1,
+          "column": 21
+        }
+      },
+      "attributes": []
+    },
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "card",
+            "start": {
+              "line": 8,
+              "column": 5
+            },
+            "end": {
+              "line": 8,
+              "column": 9
+            }
+          },
+          "start": {
+            "line": 8,
+            "column": 5
+          },
+          "end": {
+            "line": 8,
+            "column": 9
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 29,
+        "enum": {
+          "kind": 45,
+          "name": "CardSuit",
+          "start": {
+            "line": 8,
+            "column": 12
+          },
+          "end": {
+            "line": 8,
+            "column": 20
+          }
+        },
+        "member": {
+          "kind": 45,
+          "name": "Clubs",
+          "start": {
+            "line": 8,
+            "column": 22
+          },
+          "end": {
+            "line": 8,
+            "column": 27
+          }
+        },
+        "start": {
+          "line": 8,
+          "column": 12
+        },
+        "end": {
+          "line": 8,
+          "column": 27
+        }
+      },
+      "start": {
+        "line": 8,
+        "column": 1
+      },
+      "end": {
+        "line": 8,
+        "column": 27
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 61,
+        "object": {
+          "kind": 45,
+          "name": "console",
+          "start": {
+            "line": 10,
+            "column": 1
+          },
+          "end": {
+            "line": 10,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 45,
+          "name": "log",
+          "start": {
+            "line": 10,
+            "column": 9
+          },
+          "end": {
+            "line": 10,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 10,
+          "column": 1
+        },
+        "end": {
+          "line": 10,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 45,
+          "name": "card",
+          "start": {
+            "line": 10,
+            "column": 13
+          },
+          "end": {
+            "line": 10,
+            "column": 17
+          }
+        }
+      ],
+      "nullable": false,
+      "start": {
+        "line": 10,
+        "column": 1
+      },
+      "end": {
+        "line": 10,
+        "column": 18
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 11,
+    "column": 12
+  }
+}

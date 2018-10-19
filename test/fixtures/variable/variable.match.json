@@ -1,0 +1,909 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 47,
+      "condition": {
+        "kind": 10,
+        "operator": {
+          "kind": 3,
+          "assignment": 9,
+          "start": {
+            "line": 2,
+            "column": 10
+          },
+          "end": {
+            "line": 2,
+            "column": 12
+          }
+        },
+        "start": {
+          "line": 2,
+          "column": 4
+        },
+        "end": {
+          "line": 2,
+          "column": 83
+        },
+        "left": {
+          "kind": 45,
+          "name": "match",
+          "start": {
+            "line": 2,
+            "column": 4
+          },
+          "end": {
+            "line": 2,
+            "column": 9
+          }
+        },
+        "right": {
+          "kind": 14,
+          "scope": {
+            "kind": 3
+          },
+          "callee": {
+            "kind": 61,
+            "object": {
+              "kind": 76,
+              "value": "/^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/",
+              "start": {
+                "line": 2,
+                "column": 13
+              },
+              "end": {
+                "line": 2,
+                "column": 71
+              }
+            },
+            "property": {
+              "kind": 45,
+              "name": "exec",
+              "start": {
+                "line": 2,
+                "column": 72
+              },
+              "end": {
+                "line": 2,
+                "column": 76
+              }
+            },
+            "computed": false,
+            "nullable": false,
+            "start": {
+              "line": 2,
+              "column": 13
+            },
+            "end": {
+              "line": 2,
+              "column": 76
+            }
+          },
+          "arguments": [
+            {
+              "kind": 45,
+              "name": "color",
+              "start": {
+                "line": 2,
+                "column": 77
+              },
+              "end": {
+                "line": 2,
+                "column": 82
+              }
+            }
+          ],
+          "nullable": false,
+          "start": {
+            "line": 2,
+            "column": 13
+          },
+          "end": {
+            "line": 2,
+            "column": 83
+          }
+        }
+      },
+      "whenTrue": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "console",
+                "start": {
+                  "line": 3,
+                  "column": 2
+                },
+                "end": {
+                  "line": 3,
+                  "column": 9
+                }
+              },
+              "property": {
+                "kind": 45,
+                "name": "log",
+                "start": {
+                  "line": 3,
+                  "column": 10
+                },
+                "end": {
+                  "line": 3,
+                  "column": 13
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 3,
+                "column": 2
+              },
+              "end": {
+                "line": 3,
+                "column": 13
+              }
+            },
+            "arguments": [
+              {
+                "kind": 58,
+                "value": "red",
+                "start": {
+                  "line": 3,
+                  "column": 14
+                },
+                "end": {
+                  "line": 3,
+                  "column": 19
+                }
+              },
+              {
+                "kind": 14,
+                "scope": {
+                  "kind": 3
+                },
+                "callee": {
+                  "kind": 61,
+                  "object": {
+                    "kind": 45,
+                    "name": "Integer",
+                    "start": {
+                      "line": 3,
+                      "column": 21
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 28
+                    }
+                  },
+                  "property": {
+                    "kind": 45,
+                    "name": "parse",
+                    "start": {
+                      "line": 3,
+                      "column": 29
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 34
+                    }
+                  },
+                  "computed": false,
+                  "nullable": false,
+                  "start": {
+                    "line": 3,
+                    "column": 21
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 34
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 61,
+                    "object": {
+                      "kind": 45,
+                      "name": "match",
+                      "start": {
+                        "line": 3,
+                        "column": 35
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 40
+                      }
+                    },
+                    "property": {
+                      "kind": 68,
+                      "value": 1,
+                      "start": {
+                        "line": 3,
+                        "column": 41
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 42
+                      }
+                    },
+                    "computed": true,
+                    "nullable": false,
+                    "start": {
+                      "line": 3,
+                      "column": 35
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 43
+                    }
+                  },
+                  {
+                    "kind": 68,
+                    "value": 16,
+                    "start": {
+                      "line": 3,
+                      "column": 45
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 47
+                    }
+                  }
+                ],
+                "nullable": false,
+                "start": {
+                  "line": 3,
+                  "column": 21
+                },
+                "end": {
+                  "line": 3,
+                  "column": 48
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 3,
+              "column": 49
+            },
+            "attributes": []
+          },
+          {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "console",
+                "start": {
+                  "line": 4,
+                  "column": 2
+                },
+                "end": {
+                  "line": 4,
+                  "column": 9
+                }
+              },
+              "property": {
+                "kind": 45,
+                "name": "log",
+                "start": {
+                  "line": 4,
+                  "column": 10
+                },
+                "end": {
+                  "line": 4,
+                  "column": 13
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 13
+              }
+            },
+            "arguments": [
+              {
+                "kind": 58,
+                "value": "green",
+                "start": {
+                  "line": 4,
+                  "column": 14
+                },
+                "end": {
+                  "line": 4,
+                  "column": 21
+                }
+              },
+              {
+                "kind": 14,
+                "scope": {
+                  "kind": 3
+                },
+                "callee": {
+                  "kind": 61,
+                  "object": {
+                    "kind": 45,
+                    "name": "Integer",
+                    "start": {
+                      "line": 4,
+                      "column": 23
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 30
+                    }
+                  },
+                  "property": {
+                    "kind": 45,
+                    "name": "parse",
+                    "start": {
+                      "line": 4,
+                      "column": 31
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 36
+                    }
+                  },
+                  "computed": false,
+                  "nullable": false,
+                  "start": {
+                    "line": 4,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 36
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 61,
+                    "object": {
+                      "kind": 45,
+                      "name": "match",
+                      "start": {
+                        "line": 4,
+                        "column": 37
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 42
+                      }
+                    },
+                    "property": {
+                      "kind": 68,
+                      "value": 2,
+                      "start": {
+                        "line": 4,
+                        "column": 43
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 44
+                      }
+                    },
+                    "computed": true,
+                    "nullable": false,
+                    "start": {
+                      "line": 4,
+                      "column": 37
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 45
+                    }
+                  },
+                  {
+                    "kind": 68,
+                    "value": 16,
+                    "start": {
+                      "line": 4,
+                      "column": 47
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 49
+                    }
+                  }
+                ],
+                "nullable": false,
+                "start": {
+                  "line": 4,
+                  "column": 23
+                },
+                "end": {
+                  "line": 4,
+                  "column": 50
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 51
+            },
+            "attributes": []
+          },
+          {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "console",
+                "start": {
+                  "line": 5,
+                  "column": 2
+                },
+                "end": {
+                  "line": 5,
+                  "column": 9
+                }
+              },
+              "property": {
+                "kind": 45,
+                "name": "log",
+                "start": {
+                  "line": 5,
+                  "column": 10
+                },
+                "end": {
+                  "line": 5,
+                  "column": 13
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 13
+              }
+            },
+            "arguments": [
+              {
+                "kind": 58,
+                "value": "blue",
+                "start": {
+                  "line": 5,
+                  "column": 14
+                },
+                "end": {
+                  "line": 5,
+                  "column": 20
+                }
+              },
+              {
+                "kind": 14,
+                "scope": {
+                  "kind": 3
+                },
+                "callee": {
+                  "kind": 61,
+                  "object": {
+                    "kind": 45,
+                    "name": "Integer",
+                    "start": {
+                      "line": 5,
+                      "column": 22
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 29
+                    }
+                  },
+                  "property": {
+                    "kind": 45,
+                    "name": "parse",
+                    "start": {
+                      "line": 5,
+                      "column": 30
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 35
+                    }
+                  },
+                  "computed": false,
+                  "nullable": false,
+                  "start": {
+                    "line": 5,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 35
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 61,
+                    "object": {
+                      "kind": 45,
+                      "name": "match",
+                      "start": {
+                        "line": 5,
+                        "column": 36
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 41
+                      }
+                    },
+                    "property": {
+                      "kind": 68,
+                      "value": 3,
+                      "start": {
+                        "line": 5,
+                        "column": 42
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 43
+                      }
+                    },
+                    "computed": true,
+                    "nullable": false,
+                    "start": {
+                      "line": 5,
+                      "column": 36
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 44
+                    }
+                  },
+                  {
+                    "kind": 68,
+                    "value": 16,
+                    "start": {
+                      "line": 5,
+                      "column": 46
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 48
+                    }
+                  }
+                ],
+                "nullable": false,
+                "start": {
+                  "line": 5,
+                  "column": 22
+                },
+                "end": {
+                  "line": 5,
+                  "column": 49
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 5,
+              "column": 50
+            },
+            "attributes": []
+          },
+          {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "console",
+                "start": {
+                  "line": 6,
+                  "column": 2
+                },
+                "end": {
+                  "line": 6,
+                  "column": 9
+                }
+              },
+              "property": {
+                "kind": 45,
+                "name": "log",
+                "start": {
+                  "line": 6,
+                  "column": 10
+                },
+                "end": {
+                  "line": 6,
+                  "column": 13
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 13
+              }
+            },
+            "arguments": [
+              {
+                "kind": 58,
+                "value": "alpha",
+                "start": {
+                  "line": 6,
+                  "column": 14
+                },
+                "end": {
+                  "line": 6,
+                  "column": 21
+                }
+              },
+              {
+                "kind": 14,
+                "scope": {
+                  "kind": 3
+                },
+                "callee": {
+                  "kind": 61,
+                  "object": {
+                    "kind": 45,
+                    "name": "$caster",
+                    "start": {
+                      "line": 6,
+                      "column": 23
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 30
+                    }
+                  },
+                  "property": {
+                    "kind": 45,
+                    "name": "alpha",
+                    "start": {
+                      "line": 6,
+                      "column": 31
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 36
+                    }
+                  },
+                  "computed": false,
+                  "nullable": false,
+                  "start": {
+                    "line": 6,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 36
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 10,
+                    "operator": {
+                      "kind": 9,
+                      "start": {
+                        "line": 6,
+                        "column": 65
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 66
+                      }
+                    },
+                    "start": {
+                      "line": 6,
+                      "column": 37
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 70
+                    },
+                    "left": {
+                      "kind": 14,
+                      "scope": {
+                        "kind": 3
+                      },
+                      "callee": {
+                        "kind": 61,
+                        "object": {
+                          "kind": 45,
+                          "name": "Integer",
+                          "start": {
+                            "line": 6,
+                            "column": 37
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 44
+                          }
+                        },
+                        "property": {
+                          "kind": 45,
+                          "name": "parse",
+                          "start": {
+                            "line": 6,
+                            "column": 45
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 50
+                          }
+                        },
+                        "computed": false,
+                        "nullable": false,
+                        "start": {
+                          "line": 6,
+                          "column": 37
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 50
+                        }
+                      },
+                      "arguments": [
+                        {
+                          "kind": 61,
+                          "object": {
+                            "kind": 45,
+                            "name": "match",
+                            "start": {
+                              "line": 6,
+                              "column": 51
+                            },
+                            "end": {
+                              "line": 6,
+                              "column": 56
+                            }
+                          },
+                          "property": {
+                            "kind": 68,
+                            "value": 4,
+                            "start": {
+                              "line": 6,
+                              "column": 57
+                            },
+                            "end": {
+                              "line": 6,
+                              "column": 58
+                            }
+                          },
+                          "computed": true,
+                          "nullable": false,
+                          "start": {
+                            "line": 6,
+                            "column": 51
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 59
+                          }
+                        },
+                        {
+                          "kind": 68,
+                          "value": 16,
+                          "start": {
+                            "line": 6,
+                            "column": 61
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 63
+                          }
+                        }
+                      ],
+                      "nullable": false,
+                      "start": {
+                        "line": 6,
+                        "column": 37
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 64
+                      }
+                    },
+                    "right": {
+                      "kind": 68,
+                      "value": 255,
+                      "start": {
+                        "line": 6,
+                        "column": 67
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 70
+                      }
+                    }
+                  }
+                ],
+                "nullable": false,
+                "start": {
+                  "line": 6,
+                  "column": 23
+                },
+                "end": {
+                  "line": 6,
+                  "column": 71
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 72
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 2,
+          "column": 84
+        },
+        "end": {
+          "line": 7,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 2,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 2
+  }
+}

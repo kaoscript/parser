@@ -1,0 +1,307 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 50,
+      "declarations": [
+        {
+          "kind": 51,
+          "source": {
+            "kind": 58,
+            "value": "chevrotain",
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 1,
+              "column": 20
+            }
+          },
+          "specifiers": [
+            {
+              "kind": 52,
+              "local": {
+                "kind": 45,
+                "name": "chevrotain",
+                "start": {
+                  "line": 1,
+                  "column": 24
+                },
+                "end": {
+                  "line": 1,
+                  "column": 34
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 24
+              },
+              "end": {
+                "line": 6,
+                "column": 2
+              },
+              "specifiers": [
+                {
+                  "kind": 54,
+                  "imported": {
+                    "kind": 43,
+                    "name": {
+                      "kind": 45,
+                      "name": "createToken",
+                      "start": {
+                        "line": 2,
+                        "column": 7
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 18
+                      }
+                    },
+                    "start": {
+                      "line": 2,
+                      "column": 2
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 18
+                    },
+                    "parameters": [],
+                    "modifiers": [],
+                    "throws": []
+                  },
+                  "local": {
+                    "kind": 45,
+                    "name": "createToken",
+                    "start": {
+                      "line": 2,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 18
+                    }
+                  },
+                  "start": {
+                    "line": 2,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 18
+                  }
+                },
+                {
+                  "kind": 54,
+                  "imported": {
+                    "kind": 17,
+                    "name": {
+                      "kind": 45,
+                      "name": "Lexer",
+                      "start": {
+                        "line": 3,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 20
+                      }
+                    },
+                    "modifiers": [
+                      {
+                        "kind": 8,
+                        "start": {
+                          "line": 3,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 8
+                        }
+                      }
+                    ],
+                    "members": [],
+                    "start": {
+                      "line": 3,
+                      "column": 2
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 20
+                    }
+                  },
+                  "local": {
+                    "kind": 45,
+                    "name": "Lexer",
+                    "start": {
+                      "line": 3,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 20
+                    }
+                  },
+                  "start": {
+                    "line": 3,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 20
+                  }
+                },
+                {
+                  "kind": 54,
+                  "imported": {
+                    "kind": 17,
+                    "name": {
+                      "kind": 45,
+                      "name": "Parser",
+                      "start": {
+                        "line": 4,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 21
+                      }
+                    },
+                    "modifiers": [
+                      {
+                        "kind": 8,
+                        "start": {
+                          "line": 4,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 8
+                        }
+                      }
+                    ],
+                    "members": [],
+                    "start": {
+                      "line": 4,
+                      "column": 2
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 21
+                    }
+                  },
+                  "local": {
+                    "kind": 45,
+                    "name": "Parser",
+                    "start": {
+                      "line": 4,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 21
+                    }
+                  },
+                  "start": {
+                    "line": 4,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 21
+                  }
+                },
+                {
+                  "kind": 54,
+                  "imported": {
+                    "kind": 17,
+                    "name": {
+                      "kind": 45,
+                      "name": "Token",
+                      "start": {
+                        "line": 5,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 20
+                      }
+                    },
+                    "modifiers": [
+                      {
+                        "kind": 8,
+                        "start": {
+                          "line": 5,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 8
+                        }
+                      }
+                    ],
+                    "members": [],
+                    "start": {
+                      "line": 5,
+                      "column": 2
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 20
+                    }
+                  },
+                  "local": {
+                    "kind": 45,
+                    "name": "Token",
+                    "start": {
+                      "line": 5,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 20
+                    }
+                  },
+                  "start": {
+                    "line": 5,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 20
+                  }
+                }
+              ]
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 34
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 34
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 6,
+    "column": 2
+  }
+}

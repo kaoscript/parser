@@ -1,0 +1,116 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 59,
+      "attributes": [],
+      "name": {
+        "kind": 45,
+        "name": "times_five",
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 17
+        }
+      },
+      "parameters": [
+        {
+          "kind": 73,
+          "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 18
+          },
+          "end": {
+            "line": 1,
+            "column": 19
+          },
+          "name": {
+            "kind": 45,
+            "name": "e",
+            "start": {
+              "line": 1,
+              "column": 18
+            },
+            "end": {
+              "line": 1,
+              "column": 19
+            }
+          }
+        }
+      ],
+      "body": {
+        "kind": 60,
+        "elements": [
+          {
+            "kind": 2,
+            "value": "5 * ",
+            "start": {
+              "line": 1,
+              "column": 24
+            },
+            "end": {
+              "line": 1,
+              "column": 28
+            }
+          },
+          {
+            "kind": 1,
+            "expression": {
+              "kind": 45,
+              "name": "e",
+              "start": {
+                "line": 1,
+                "column": 29
+              },
+              "end": {
+                "line": 1,
+                "column": 30
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 28
+            },
+            "end": {
+              "line": 1,
+              "column": 30
+            },
+            "reification": {
+              "kind": 3
+            }
+          }
+        ],
+        "multilines": false,
+        "start": {
+          "line": 1,
+          "column": 21
+        },
+        "end": {
+          "line": 1,
+          "column": 30
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 30
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 1,
+    "column": 30
+  }
+}

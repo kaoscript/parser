@@ -1,0 +1,308 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "text",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 9
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 9
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 21,
+        "start": {
+          "line": 1,
+          "column": 12
+        },
+        "end": {
+          "line": 1,
+          "column": 93
+        },
+        "condition": {
+          "kind": 10,
+          "operator": {
+            "kind": 2,
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 1,
+              "column": 18
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 12
+          },
+          "end": {
+            "line": 1,
+            "column": 22
+          },
+          "left": {
+            "kind": 45,
+            "name": "foo",
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 15
+            }
+          },
+          "right": {
+            "kind": 45,
+            "name": "bar",
+            "start": {
+              "line": 1,
+              "column": 19
+            },
+            "end": {
+              "line": 1,
+              "column": 22
+            }
+          }
+        },
+        "whenTrue": {
+          "kind": 21,
+          "start": {
+            "line": 1,
+            "column": 25
+          },
+          "end": {
+            "line": 1,
+            "column": 49
+          },
+          "condition": {
+            "kind": 10,
+            "operator": {
+              "kind": 19,
+              "start": {
+                "line": 1,
+                "column": 29
+              },
+              "end": {
+                "line": 1,
+                "column": 31
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 25
+            },
+            "end": {
+              "line": 1,
+              "column": 37
+            },
+            "left": {
+              "kind": 45,
+              "name": "qux",
+              "start": {
+                "line": 1,
+                "column": 25
+              },
+              "end": {
+                "line": 1,
+                "column": 28
+              }
+            },
+            "right": {
+              "kind": 45,
+              "name": "corge",
+              "start": {
+                "line": 1,
+                "column": 32
+              },
+              "end": {
+                "line": 1,
+                "column": 37
+              }
+            }
+          },
+          "whenTrue": {
+            "kind": 58,
+            "value": "a",
+            "start": {
+              "line": 1,
+              "column": 40
+            },
+            "end": {
+              "line": 1,
+              "column": 43
+            }
+          },
+          "whenFalse": {
+            "kind": 58,
+            "value": "b",
+            "start": {
+              "line": 1,
+              "column": 46
+            },
+            "end": {
+              "line": 1,
+              "column": 49
+            }
+          }
+        },
+        "whenFalse": {
+          "kind": 21,
+          "start": {
+            "line": 1,
+            "column": 52
+          },
+          "end": {
+            "line": 1,
+            "column": 93
+          },
+          "condition": {
+            "kind": 10,
+            "operator": {
+              "kind": 1,
+              "start": {
+                "line": 1,
+                "column": 59
+              },
+              "end": {
+                "line": 1,
+                "column": 60
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 52
+            },
+            "end": {
+              "line": 1,
+              "column": 67
+            },
+            "left": {
+              "kind": 45,
+              "name": "grault",
+              "start": {
+                "line": 1,
+                "column": 52
+              },
+              "end": {
+                "line": 1,
+                "column": 58
+              }
+            },
+            "right": {
+              "kind": 45,
+              "name": "garply",
+              "start": {
+                "line": 1,
+                "column": 61
+              },
+              "end": {
+                "line": 1,
+                "column": 67
+              }
+            }
+          },
+          "whenTrue": {
+            "kind": 58,
+            "value": "c",
+            "start": {
+              "line": 1,
+              "column": 70
+            },
+            "end": {
+              "line": 1,
+              "column": 73
+            }
+          },
+          "whenFalse": {
+            "kind": 21,
+            "start": {
+              "line": 1,
+              "column": 76
+            },
+            "end": {
+              "line": 1,
+              "column": 93
+            },
+            "condition": {
+              "kind": 45,
+              "name": "waldo",
+              "start": {
+                "line": 1,
+                "column": 76
+              },
+              "end": {
+                "line": 1,
+                "column": 81
+              }
+            },
+            "whenTrue": {
+              "kind": 58,
+              "value": "d",
+              "start": {
+                "line": 1,
+                "column": 84
+              },
+              "end": {
+                "line": 1,
+                "column": 87
+              }
+            },
+            "whenFalse": {
+              "kind": 58,
+              "value": "e",
+              "start": {
+                "line": 1,
+                "column": 90
+              },
+              "end": {
+                "line": 1,
+                "column": 93
+              }
+            }
+          }
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 93
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 1,
+    "column": 93
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 10,
+      "operator": {
+        "kind": 3,
+        "assignment": 8,
+        "start": {
+          "line": 1,
+          "column": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 10
+        }
+      },
+      "left": {
+        "kind": 61,
+        "object": {
+          "kind": 45,
+          "name": "foo",
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 4
+          }
+        },
+        "property": {
+          "kind": 45,
+          "name": "bar",
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 8
+        }
+      },
+      "right": {
+        "kind": 44,
+        "parameters": [
+          {
+            "kind": 73,
+            "modifiers": [],
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 1,
+              "column": 22
+            },
+            "name": {
+              "kind": 45,
+              "name": "a",
+              "start": {
+                "line": 1,
+                "column": 16
+              },
+              "end": {
+                "line": 1,
+                "column": 17
+              }
+            },
+            "type": {
+              "kind": 99,
+              "typeName": {
+                "kind": 45,
+                "name": "int",
+                "start": {
+                  "line": 1,
+                  "column": 19
+                },
+                "end": {
+                  "line": 1,
+                  "column": 22
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 19
+              },
+              "end": {
+                "line": 1,
+                "column": 22
+              }
+            }
+          },
+          {
+            "kind": 73,
+            "modifiers": [],
+            "start": {
+              "line": 1,
+              "column": 24
+            },
+            "end": {
+              "line": 1,
+              "column": 30
+            },
+            "name": {
+              "kind": 45,
+              "name": "b",
+              "start": {
+                "line": 1,
+                "column": 24
+              },
+              "end": {
+                "line": 1,
+                "column": 25
+              }
+            },
+            "type": {
+              "kind": 99,
+              "typeName": {
+                "kind": 45,
+                "name": "int",
+                "start": {
+                  "line": 1,
+                  "column": 27
+                },
+                "end": {
+                  "line": 1,
+                  "column": 30
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 27
+              },
+              "end": {
+                "line": 1,
+                "column": 30
+              }
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 11
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        },
+        "modifiers": [],
+        "type": {
+          "kind": 99,
+          "typeName": {
+            "kind": 45,
+            "name": "int",
+            "start": {
+              "line": 1,
+              "column": 33
+            },
+            "end": {
+              "line": 1,
+              "column": 36
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 33
+          },
+          "end": {
+            "line": 1,
+            "column": 36
+          }
+        },
+        "throws": [],
+        "body": {
+          "kind": 12,
+          "attributes": [],
+          "statements": [
+            {
+              "kind": 80,
+              "value": {
+                "kind": 10,
+                "operator": {
+                  "kind": 20,
+                  "start": {
+                    "line": 2,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 12
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 14
+                },
+                "left": {
+                  "kind": 45,
+                  "name": "a",
+                  "start": {
+                    "line": 2,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 10
+                  }
+                },
+                "right": {
+                  "kind": 45,
+                  "name": "b",
+                  "start": {
+                    "line": 2,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 14
+                  }
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 14
+              },
+              "attributes": []
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 37
+          },
+          "end": {
+            "line": 3,
+            "column": 2
+          }
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 2
+  }
+}

@@ -1,0 +1,500 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 36,
+      "declarations": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "console",
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 1,
+              "column": 15
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 15
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 15
+      },
+      "attributes": []
+    },
+    {
+      "kind": 43,
+      "name": {
+        "kind": 45,
+        "name": "min",
+        "start": {
+          "line": 3,
+          "column": 6
+        },
+        "end": {
+          "line": 3,
+          "column": 9
+        }
+      },
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 6,
+        "column": 2
+      },
+      "parameters": [],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 70,
+        "properties": [
+          {
+            "kind": 71,
+            "name": {
+              "kind": 45,
+              "name": "gender",
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 8
+              }
+            },
+            "value": {
+              "kind": 58,
+              "value": "female",
+              "start": {
+                "line": 4,
+                "column": 10
+              },
+              "end": {
+                "line": 4,
+                "column": 18
+              }
+            },
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 18
+            }
+          },
+          {
+            "kind": 71,
+            "name": {
+              "kind": 45,
+              "name": "age",
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 5
+              }
+            },
+            "value": {
+              "kind": 68,
+              "value": 24,
+              "start": {
+                "line": 5,
+                "column": 7
+              },
+              "end": {
+                "line": 5,
+                "column": 9
+              }
+            },
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 5,
+              "column": 9
+            }
+          }
+        ],
+        "start": {
+          "line": 3,
+          "column": 15
+        },
+        "end": {
+          "line": 6,
+          "column": 2
+        }
+      },
+      "attributes": []
+    },
+    {
+      "kind": 67,
+      "modifiers": [],
+      "name": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 8,
+          "column": 11
+        },
+        "end": {
+          "line": 8,
+          "column": 14
+        }
+      },
+      "statements": [
+        {
+          "kind": 105,
+          "rebindable": true,
+          "variables": [
+            {
+              "kind": 106,
+              "name": {
+                "kind": 69,
+                "elements": [
+                  {
+                    "kind": 11,
+                    "name": {
+                      "kind": 45,
+                      "name": "gender",
+                      "start": {
+                        "line": 9,
+                        "column": 7
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 13
+                      }
+                    },
+                    "start": {
+                      "line": 9,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 13
+                    }
+                  },
+                  {
+                    "kind": 11,
+                    "name": {
+                      "kind": 45,
+                      "name": "age",
+                      "start": {
+                        "line": 9,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 18
+                      }
+                    },
+                    "start": {
+                      "line": 9,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 18
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 9,
+                  "column": 6
+                },
+                "end": {
+                  "line": 9,
+                  "column": 19
+                }
+              },
+              "start": {
+                "line": 9,
+                "column": 6
+              },
+              "end": {
+                "line": 9,
+                "column": 19
+              }
+            }
+          ],
+          "autotype": false,
+          "await": false,
+          "init": {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 45,
+              "name": "min",
+              "start": {
+                "line": 9,
+                "column": 22
+              },
+              "end": {
+                "line": 9,
+                "column": 25
+              }
+            },
+            "arguments": [],
+            "nullable": false,
+            "start": {
+              "line": 9,
+              "column": 22
+            },
+            "end": {
+              "line": 9,
+              "column": 27
+            }
+          },
+          "start": {
+            "line": 9,
+            "column": 2
+          },
+          "end": {
+            "line": 9,
+            "column": 27
+          },
+          "attributes": []
+        }
+      ],
+      "start": {
+        "line": 8,
+        "column": 1
+      },
+      "end": {
+        "line": 10,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 61,
+        "object": {
+          "kind": 45,
+          "name": "console",
+          "start": {
+            "line": 12,
+            "column": 1
+          },
+          "end": {
+            "line": 12,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 45,
+          "name": "log",
+          "start": {
+            "line": 12,
+            "column": 9
+          },
+          "end": {
+            "line": 12,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 12,
+          "column": 1
+        },
+        "end": {
+          "line": 12,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 61,
+          "object": {
+            "kind": 45,
+            "name": "foo",
+            "start": {
+              "line": 12,
+              "column": 13
+            },
+            "end": {
+              "line": 12,
+              "column": 16
+            }
+          },
+          "property": {
+            "kind": 45,
+            "name": "age",
+            "start": {
+              "line": 12,
+              "column": 17
+            },
+            "end": {
+              "line": 12,
+              "column": 20
+            }
+          },
+          "computed": false,
+          "nullable": false,
+          "start": {
+            "line": 12,
+            "column": 13
+          },
+          "end": {
+            "line": 12,
+            "column": 20
+          }
+        }
+      ],
+      "nullable": false,
+      "start": {
+        "line": 12,
+        "column": 1
+      },
+      "end": {
+        "line": 12,
+        "column": 21
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 61,
+        "object": {
+          "kind": 45,
+          "name": "console",
+          "start": {
+            "line": 13,
+            "column": 1
+          },
+          "end": {
+            "line": 13,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 45,
+          "name": "log",
+          "start": {
+            "line": 13,
+            "column": 9
+          },
+          "end": {
+            "line": 13,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 13,
+          "column": 1
+        },
+        "end": {
+          "line": 13,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 93,
+          "elements": [
+            {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "foo",
+                "start": {
+                  "line": 13,
+                  "column": 16
+                },
+                "end": {
+                  "line": 13,
+                  "column": 19
+                }
+              },
+              "property": {
+                "kind": 45,
+                "name": "gender",
+                "start": {
+                  "line": 13,
+                  "column": 20
+                },
+                "end": {
+                  "line": 13,
+                  "column": 26
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 13,
+                "column": 16
+              },
+              "end": {
+                "line": 13,
+                "column": 26
+              }
+            }
+          ],
+          "start": {
+            "line": 13,
+            "column": 13
+          },
+          "end": {
+            "line": 13,
+            "column": 28
+          }
+        }
+      ],
+      "nullable": false,
+      "start": {
+        "line": 13,
+        "column": 1
+      },
+      "end": {
+        "line": 13,
+        "column": 29
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 13,
+    "column": 29
+  }
+}

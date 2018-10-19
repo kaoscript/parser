@@ -1,0 +1,105 @@
+{
+  "kind": 64,
+  "attributes": [
+    {
+      "kind": 6,
+      "declaration": {
+        "kind": 45,
+        "name": "bin",
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 7
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 8
+      }
+    }
+  ],
+  "body": [
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 61,
+        "object": {
+          "kind": 45,
+          "name": "console",
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 45,
+          "name": "log",
+          "start": {
+            "line": 3,
+            "column": 9
+          },
+          "end": {
+            "line": 3,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 58,
+          "value": "main program",
+          "start": {
+            "line": 3,
+            "column": 13
+          },
+          "end": {
+            "line": 3,
+            "column": 27
+          }
+        }
+      ],
+      "nullable": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 28
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 28
+  }
+}

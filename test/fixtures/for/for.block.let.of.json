@@ -1,0 +1,439 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "key",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 8
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 58,
+        "value": "you",
+        "start": {
+          "line": 1,
+          "column": 11
+        },
+        "end": {
+          "line": 1,
+          "column": 16
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 16
+      },
+      "attributes": []
+    },
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "value",
+            "start": {
+              "line": 2,
+              "column": 5
+            },
+            "end": {
+              "line": 2,
+              "column": 10
+            }
+          },
+          "start": {
+            "line": 2,
+            "column": 5
+          },
+          "end": {
+            "line": 2,
+            "column": 10
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 68,
+        "value": 42,
+        "start": {
+          "line": 2,
+          "column": 13
+        },
+        "end": {
+          "line": 2,
+          "column": 15
+        }
+      },
+      "start": {
+        "line": 2,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 15
+      },
+      "attributes": []
+    },
+    {
+      "kind": 10,
+      "operator": {
+        "kind": 3,
+        "assignment": 8,
+        "start": {
+          "line": 4,
+          "column": 7
+        },
+        "end": {
+          "line": 4,
+          "column": 8
+        }
+      },
+      "left": {
+        "kind": 45,
+        "name": "likes",
+        "start": {
+          "line": 4,
+          "column": 1
+        },
+        "end": {
+          "line": 4,
+          "column": 6
+        }
+      },
+      "right": {
+        "kind": 70,
+        "properties": [
+          {
+            "kind": 71,
+            "name": {
+              "kind": 45,
+              "name": "leto",
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 6
+              }
+            },
+            "value": {
+              "kind": 58,
+              "value": "spice",
+              "start": {
+                "line": 5,
+                "column": 8
+              },
+              "end": {
+                "line": 5,
+                "column": 15
+              }
+            },
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 5,
+              "column": 15
+            }
+          },
+          {
+            "kind": 71,
+            "name": {
+              "kind": 45,
+              "name": "paul",
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 6
+              }
+            },
+            "value": {
+              "kind": 58,
+              "value": "chani",
+              "start": {
+                "line": 6,
+                "column": 8
+              },
+              "end": {
+                "line": 6,
+                "column": 15
+              }
+            },
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 15
+            }
+          },
+          {
+            "kind": 71,
+            "name": {
+              "kind": 45,
+              "name": "duncan",
+              "start": {
+                "line": 7,
+                "column": 2
+              },
+              "end": {
+                "line": 7,
+                "column": 8
+              }
+            },
+            "value": {
+              "kind": 58,
+              "value": "murbella",
+              "start": {
+                "line": 7,
+                "column": 10
+              },
+              "end": {
+                "line": 7,
+                "column": 20
+              }
+            },
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 20
+            }
+          }
+        ],
+        "start": {
+          "line": 4,
+          "column": 9
+        },
+        "end": {
+          "line": 8,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 4,
+        "column": 1
+      },
+      "end": {
+        "line": 8,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 41,
+      "expression": {
+        "kind": 45,
+        "name": "likes",
+        "start": {
+          "line": 10,
+          "column": 23
+        },
+        "end": {
+          "line": 10,
+          "column": 28
+        }
+      },
+      "declaration": true,
+      "start": {
+        "line": 10,
+        "column": 1
+      },
+      "end": {
+        "line": 12,
+        "column": 2
+      },
+      "key": {
+        "kind": 45,
+        "name": "key",
+        "start": {
+          "line": 10,
+          "column": 9
+        },
+        "end": {
+          "line": 10,
+          "column": 12
+        }
+      },
+      "value": {
+        "kind": 45,
+        "name": "value",
+        "start": {
+          "line": 10,
+          "column": 14
+        },
+        "end": {
+          "line": 10,
+          "column": 19
+        }
+      },
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "console",
+                "start": {
+                  "line": 11,
+                  "column": 2
+                },
+                "end": {
+                  "line": 11,
+                  "column": 9
+                }
+              },
+              "property": {
+                "kind": 45,
+                "name": "log",
+                "start": {
+                  "line": 11,
+                  "column": 10
+                },
+                "end": {
+                  "line": 11,
+                  "column": 13
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 11,
+                "column": 2
+              },
+              "end": {
+                "line": 11,
+                "column": 13
+              }
+            },
+            "arguments": [
+              {
+                "kind": 93,
+                "elements": [
+                  {
+                    "kind": 45,
+                    "name": "key",
+                    "start": {
+                      "line": 11,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 20
+                    }
+                  },
+                  {
+                    "kind": 58,
+                    "value": " likes ",
+                    "start": {
+                      "line": 11,
+                      "column": 21
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 28
+                    }
+                  },
+                  {
+                    "kind": 45,
+                    "name": "value",
+                    "start": {
+                      "line": 11,
+                      "column": 30
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 35
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 11,
+                  "column": 14
+                },
+                "end": {
+                  "line": 11,
+                  "column": 37
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 11,
+              "column": 2
+            },
+            "end": {
+              "line": 11,
+              "column": 38
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 10,
+          "column": 29
+        },
+        "end": {
+          "line": 12,
+          "column": 2
+        }
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 12,
+    "column": 2
+  }
+}

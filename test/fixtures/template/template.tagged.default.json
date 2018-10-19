@@ -1,0 +1,1043 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "person",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 11
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 11
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 58,
+        "value": "Mike",
+        "start": {
+          "line": 1,
+          "column": 14
+        },
+        "end": {
+          "line": 1,
+          "column": 20
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 20
+      },
+      "attributes": []
+    },
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "age",
+            "start": {
+              "line": 2,
+              "column": 5
+            },
+            "end": {
+              "line": 2,
+              "column": 8
+            }
+          },
+          "start": {
+            "line": 2,
+            "column": 5
+          },
+          "end": {
+            "line": 2,
+            "column": 8
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 68,
+        "value": 28,
+        "start": {
+          "line": 2,
+          "column": 11
+        },
+        "end": {
+          "line": 2,
+          "column": 13
+        }
+      },
+      "start": {
+        "line": 2,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 13
+      },
+      "attributes": []
+    },
+    {
+      "kind": 43,
+      "name": {
+        "kind": 45,
+        "name": "myTag",
+        "start": {
+          "line": 4,
+          "column": 6
+        },
+        "end": {
+          "line": 4,
+          "column": 11
+        }
+      },
+      "start": {
+        "line": 4,
+        "column": 1
+      },
+      "end": {
+        "line": 17,
+        "column": 2
+      },
+      "parameters": [
+        {
+          "kind": 73,
+          "modifiers": [],
+          "start": {
+            "line": 4,
+            "column": 12
+          },
+          "end": {
+            "line": 4,
+            "column": 19
+          },
+          "name": {
+            "kind": 45,
+            "name": "strings",
+            "start": {
+              "line": 4,
+              "column": 12
+            },
+            "end": {
+              "line": 4,
+              "column": 19
+            }
+          }
+        },
+        {
+          "kind": 73,
+          "modifiers": [],
+          "start": {
+            "line": 4,
+            "column": 21
+          },
+          "end": {
+            "line": 4,
+            "column": 30
+          },
+          "name": {
+            "kind": 45,
+            "name": "personExp",
+            "start": {
+              "line": 4,
+              "column": 21
+            },
+            "end": {
+              "line": 4,
+              "column": 30
+            }
+          }
+        },
+        {
+          "kind": 73,
+          "modifiers": [],
+          "start": {
+            "line": 4,
+            "column": 32
+          },
+          "end": {
+            "line": 4,
+            "column": 38
+          },
+          "name": {
+            "kind": 45,
+            "name": "ageExp",
+            "start": {
+              "line": 4,
+              "column": 32
+            },
+            "end": {
+              "line": 4,
+              "column": 38
+            }
+          }
+        }
+      ],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 105,
+            "rebindable": false,
+            "variables": [
+              {
+                "kind": 106,
+                "name": {
+                  "kind": 45,
+                  "name": "str0",
+                  "start": {
+                    "line": 5,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 12
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 8
+                },
+                "end": {
+                  "line": 5,
+                  "column": 12
+                }
+              }
+            ],
+            "autotype": false,
+            "await": false,
+            "init": {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "strings",
+                "start": {
+                  "line": 5,
+                  "column": 15
+                },
+                "end": {
+                  "line": 5,
+                  "column": 22
+                }
+              },
+              "property": {
+                "kind": 68,
+                "value": 0,
+                "start": {
+                  "line": 5,
+                  "column": 23
+                },
+                "end": {
+                  "line": 5,
+                  "column": 24
+                }
+              },
+              "computed": true,
+              "nullable": false,
+              "start": {
+                "line": 5,
+                "column": 15
+              },
+              "end": {
+                "line": 5,
+                "column": 25
+              }
+            },
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 5,
+              "column": 25
+            },
+            "attributes": []
+          },
+          {
+            "kind": 105,
+            "rebindable": false,
+            "variables": [
+              {
+                "kind": 106,
+                "name": {
+                  "kind": 45,
+                  "name": "str1",
+                  "start": {
+                    "line": 6,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 12
+                  }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 8
+                },
+                "end": {
+                  "line": 6,
+                  "column": 12
+                }
+              }
+            ],
+            "autotype": false,
+            "await": false,
+            "init": {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "strings",
+                "start": {
+                  "line": 6,
+                  "column": 15
+                },
+                "end": {
+                  "line": 6,
+                  "column": 22
+                }
+              },
+              "property": {
+                "kind": 68,
+                "value": 1,
+                "start": {
+                  "line": 6,
+                  "column": 23
+                },
+                "end": {
+                  "line": 6,
+                  "column": 24
+                }
+              },
+              "computed": true,
+              "nullable": false,
+              "start": {
+                "line": 6,
+                "column": 15
+              },
+              "end": {
+                "line": 6,
+                "column": 25
+              }
+            },
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 25
+            },
+            "attributes": []
+          },
+          {
+            "kind": 105,
+            "rebindable": true,
+            "variables": [
+              {
+                "kind": 106,
+                "name": {
+                  "kind": 45,
+                  "name": "ageStr",
+                  "start": {
+                    "line": 8,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 12
+                  }
+                },
+                "start": {
+                  "line": 8,
+                  "column": 6
+                },
+                "end": {
+                  "line": 8,
+                  "column": 12
+                }
+              }
+            ],
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 12
+            },
+            "attributes": []
+          },
+          {
+            "kind": 47,
+            "condition": {
+              "kind": 10,
+              "operator": {
+                "kind": 11,
+                "start": {
+                  "line": 9,
+                  "column": 12
+                },
+                "end": {
+                  "line": 9,
+                  "column": 13
+                }
+              },
+              "start": {
+                "line": 9,
+                "column": 5
+              },
+              "end": {
+                "line": 9,
+                "column": 16
+              },
+              "left": {
+                "kind": 45,
+                "name": "ageExp",
+                "start": {
+                  "line": 9,
+                  "column": 5
+                },
+                "end": {
+                  "line": 9,
+                  "column": 11
+                }
+              },
+              "right": {
+                "kind": 68,
+                "value": 99,
+                "start": {
+                  "line": 9,
+                  "column": 14
+                },
+                "end": {
+                  "line": 9,
+                  "column": 16
+                }
+              }
+            },
+            "whenTrue": {
+              "kind": 12,
+              "attributes": [],
+              "statements": [
+                {
+                  "kind": 10,
+                  "operator": {
+                    "kind": 3,
+                    "assignment": 8,
+                    "start": {
+                      "line": 10,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 11
+                    }
+                  },
+                  "left": {
+                    "kind": 45,
+                    "name": "ageStr",
+                    "start": {
+                      "line": 10,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 9
+                    }
+                  },
+                  "right": {
+                    "kind": 58,
+                    "value": "centenarian",
+                    "start": {
+                      "line": 10,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 25
+                    }
+                  },
+                  "start": {
+                    "line": 10,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 25
+                  },
+                  "attributes": []
+                }
+              ],
+              "start": {
+                "line": 9,
+                "column": 17
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            },
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 14,
+              "column": 3
+            },
+            "whenFalse": {
+              "kind": 12,
+              "attributes": [],
+              "statements": [
+                {
+                  "kind": 10,
+                  "operator": {
+                    "kind": 3,
+                    "assignment": 8,
+                    "start": {
+                      "line": 13,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 11
+                    }
+                  },
+                  "left": {
+                    "kind": 45,
+                    "name": "ageStr",
+                    "start": {
+                      "line": 13,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 9
+                    }
+                  },
+                  "right": {
+                    "kind": 58,
+                    "value": "youngster",
+                    "start": {
+                      "line": 13,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 23
+                    }
+                  },
+                  "start": {
+                    "line": 13,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 23
+                  },
+                  "attributes": []
+                }
+              ],
+              "start": {
+                "line": 12,
+                "column": 7
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            },
+            "attributes": []
+          },
+          {
+            "kind": 80,
+            "value": {
+              "kind": 93,
+              "elements": [
+                {
+                  "kind": 45,
+                  "name": "str0",
+                  "start": {
+                    "line": 16,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 16,
+                    "column": 16
+                  }
+                },
+                {
+                  "kind": 45,
+                  "name": "personExp",
+                  "start": {
+                    "line": 16,
+                    "column": 19
+                  },
+                  "end": {
+                    "line": 16,
+                    "column": 28
+                  }
+                },
+                {
+                  "kind": 45,
+                  "name": "str1",
+                  "start": {
+                    "line": 16,
+                    "column": 31
+                  },
+                  "end": {
+                    "line": 16,
+                    "column": 35
+                  }
+                },
+                {
+                  "kind": 45,
+                  "name": "ageStr",
+                  "start": {
+                    "line": 16,
+                    "column": 38
+                  },
+                  "end": {
+                    "line": 16,
+                    "column": 44
+                  }
+                }
+              ],
+              "start": {
+                "line": 16,
+                "column": 9
+              },
+              "end": {
+                "line": 16,
+                "column": 46
+              }
+            },
+            "start": {
+              "line": 16,
+              "column": 2
+            },
+            "end": {
+              "line": 16,
+              "column": 46
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 4,
+          "column": 40
+        },
+        "end": {
+          "line": 17,
+          "column": 2
+        }
+      },
+      "attributes": []
+    },
+    {
+      "kind": 105,
+      "rebindable": false,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "output",
+            "start": {
+              "line": 19,
+              "column": 7
+            },
+            "end": {
+              "line": 19,
+              "column": 13
+            }
+          },
+          "start": {
+            "line": 19,
+            "column": 7
+          },
+          "end": {
+            "line": 19,
+            "column": 13
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 92,
+        "tag": {
+          "kind": 45,
+          "name": "myTag",
+          "start": {
+            "line": 19,
+            "column": 16
+          },
+          "end": {
+            "line": 19,
+            "column": 21
+          }
+        },
+        "template": {
+          "kind": 93,
+          "elements": [
+            {
+              "kind": 58,
+              "value": "That ",
+              "start": {
+                "line": 19,
+                "column": 22
+              },
+              "end": {
+                "line": 19,
+                "column": 27
+              }
+            },
+            {
+              "kind": 45,
+              "name": "person",
+              "start": {
+                "line": 19,
+                "column": 30
+              },
+              "end": {
+                "line": 19,
+                "column": 36
+              }
+            },
+            {
+              "kind": 58,
+              "value": " is a ",
+              "start": {
+                "line": 19,
+                "column": 38
+              },
+              "end": {
+                "line": 19,
+                "column": 44
+              }
+            },
+            {
+              "kind": 45,
+              "name": "age",
+              "start": {
+                "line": 19,
+                "column": 47
+              },
+              "end": {
+                "line": 19,
+                "column": 50
+              }
+            }
+          ],
+          "start": {
+            "line": 19,
+            "column": 21
+          },
+          "end": {
+            "line": 19,
+            "column": 53
+          }
+        },
+        "start": {
+          "line": 19,
+          "column": 16
+        },
+        "end": {
+          "line": 19,
+          "column": 53
+        }
+      },
+      "start": {
+        "line": 19,
+        "column": 1
+      },
+      "end": {
+        "line": 19,
+        "column": 53
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 61,
+        "object": {
+          "kind": 45,
+          "name": "console",
+          "start": {
+            "line": 21,
+            "column": 1
+          },
+          "end": {
+            "line": 21,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 45,
+          "name": "log",
+          "start": {
+            "line": 21,
+            "column": 9
+          },
+          "end": {
+            "line": 21,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 21,
+          "column": 1
+        },
+        "end": {
+          "line": 21,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 10,
+          "operator": {
+            "kind": 1,
+            "start": {
+              "line": 21,
+              "column": 20
+            },
+            "end": {
+              "line": 21,
+              "column": 21
+            }
+          },
+          "start": {
+            "line": 21,
+            "column": 13
+          },
+          "end": {
+            "line": 21,
+            "column": 24
+          },
+          "left": {
+            "kind": 45,
+            "name": "output",
+            "start": {
+              "line": 21,
+              "column": 13
+            },
+            "end": {
+              "line": 21,
+              "column": 19
+            }
+          },
+          "right": {
+            "kind": 68,
+            "value": 12,
+            "start": {
+              "line": 21,
+              "column": 22
+            },
+            "end": {
+              "line": 21,
+              "column": 24
+            }
+          }
+        }
+      ],
+      "nullable": false,
+      "start": {
+        "line": 21,
+        "column": 1
+      },
+      "end": {
+        "line": 21,
+        "column": 25
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 61,
+        "object": {
+          "kind": 45,
+          "name": "console",
+          "start": {
+            "line": 23,
+            "column": 1
+          },
+          "end": {
+            "line": 23,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 45,
+          "name": "log",
+          "start": {
+            "line": 23,
+            "column": 9
+          },
+          "end": {
+            "line": 23,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 23,
+          "column": 1
+        },
+        "end": {
+          "line": 23,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 92,
+          "tag": {
+            "kind": 45,
+            "name": "myTag",
+            "start": {
+              "line": 23,
+              "column": 13
+            },
+            "end": {
+              "line": 23,
+              "column": 18
+            }
+          },
+          "template": {
+            "kind": 93,
+            "elements": [
+              {
+                "kind": 58,
+                "value": "That ",
+                "start": {
+                  "line": 23,
+                  "column": 19
+                },
+                "end": {
+                  "line": 23,
+                  "column": 24
+                }
+              },
+              {
+                "kind": 45,
+                "name": "person",
+                "start": {
+                  "line": 23,
+                  "column": 27
+                },
+                "end": {
+                  "line": 23,
+                  "column": 33
+                }
+              },
+              {
+                "kind": 58,
+                "value": " is a ",
+                "start": {
+                  "line": 23,
+                  "column": 35
+                },
+                "end": {
+                  "line": 23,
+                  "column": 41
+                }
+              },
+              {
+                "kind": 45,
+                "name": "age",
+                "start": {
+                  "line": 23,
+                  "column": 44
+                },
+                "end": {
+                  "line": 23,
+                  "column": 47
+                }
+              }
+            ],
+            "start": {
+              "line": 23,
+              "column": 18
+            },
+            "end": {
+              "line": 23,
+              "column": 50
+            }
+          },
+          "start": {
+            "line": 23,
+            "column": 13
+          },
+          "end": {
+            "line": 23,
+            "column": 50
+          }
+        }
+      ],
+      "nullable": false,
+      "start": {
+        "line": 23,
+        "column": 1
+      },
+      "end": {
+        "line": 23,
+        "column": 51
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 23,
+    "column": 51
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 61,
+        "object": {
+          "kind": 14,
+          "scope": {
+            "kind": 3
+          },
+          "callee": {
+            "kind": 61,
+            "object": {
+              "kind": 45,
+              "name": "foo",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 4
+              }
+            },
+            "property": {
+              "kind": 45,
+              "name": "baz",
+              "start": {
+                "line": 3,
+                "column": 3
+              },
+              "end": {
+                "line": 3,
+                "column": 6
+              }
+            },
+            "computed": false,
+            "nullable": false,
+            "start": {
+              "line": 1,
+              "column": 1
+            },
+            "end": {
+              "line": 3,
+              "column": 6
+            }
+          },
+          "arguments": [],
+          "nullable": false,
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 45,
+          "name": "qux",
+          "start": {
+            "line": 4,
+            "column": 3
+          },
+          "end": {
+            "line": 4,
+            "column": 6
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 4,
+          "column": 6
+        }
+      },
+      "arguments": [],
+      "nullable": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 8
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 4,
+    "column": 8
+  }
+}

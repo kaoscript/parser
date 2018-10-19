@@ -2203,11 +2203,10 @@ export namespace Parser {
 			}
 			else {
 				const position = this.yep()
-				const parameters = this.yep([this.yep(AST.Parameter(null, null, [AST.RestModifier(0, Infinity, position, position)], null, position, position))])
 				const type = this.reqFunctionReturns()
 				const throws = this.reqFunctionThrows()
 
-				return this.yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, null, first, throws ?? type ?? name))
+				return this.yep(AST.FunctionDeclaration(name, null, modifiers, type, throws, null, first, throws ?? type ?? name))
 			}
 		} // }}}
 		reqExternNamespaceDeclaration(first, modifiers = []) ~ SyntaxError { // {{{

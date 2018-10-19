@@ -1,34 +1,37 @@
 require('kaoscript/register')
 
 var fs = require('fs');
+var klaw = require('klaw-sync');
 var parse = require('.')().parse;
 var path = require('path');
 
-var files = fs.readdirSync(path.join(__dirname, 'test', 'fixtures'));
-
-var file;
-for(var i = 0; i < files.length; i++) {
-	file = files[i];
-	
-	if(file.slice(-3) === '.ks') {
-		prepare(file);
+var files = klaw(path.join(__dirname, 'test', 'fixtures'), {
+	nodir: true,
+	traverseAll: true,
+	filter: function(item) {
+		return item.path.slice(-3) === '.ks'
 	}
+})
+
+for(var i = 0; i < files.length; i++) {
+	prepare(files[i].path)
 }
-	
+
 function prepare(file) {
-	var name = file.slice(0, -3);
-	var data = fs.readFileSync(path.join(__dirname, 'test', 'fixtures', file), {
+	var root = path.dirname(file)
+	var name = path.basename(file).slice(0, -3);
+	var data = fs.readFileSync(file, {
 		encoding: 'utf8'
 	});
-	
+
 	try {
-		var error = fs.readFileSync(path.join(__dirname, 'test', 'fixtures', name + '.error'), {
+		var error = fs.readFileSync(path.join(root, name + '.error'), {
 			encoding: 'utf8'
 		});
 	}
 	catch(error) {
 	}
-	
+
 	if(error) {
 		try {
 			parse(data);
@@ -39,18 +42,17 @@ function prepare(file) {
 	else {
 		try {
 			data = parse(data);
-			
-			var json = fs.writeFileSync(
-				path.join(__dirname, 'test', 'fixtures', name + '.json'),
-				JSON.stringify(data, function(key, value) {
-					if(value == Infinity) {
-						return 'Infinity';
-					}
-					return value;
-				}, 2), {
-					encoding: 'utf8'
+
+			data = JSON.stringify(data, function(key, value) {
+				if(value == Infinity) {
+					return 'Infinity';
 				}
-			);
+				return value;
+			}, 2);
+
+			var json = fs.writeFileSync(path.join(root, name + '.json'), data, {
+				encoding: 'utf8'
+			});
 		}
 		catch(error) {
 		}

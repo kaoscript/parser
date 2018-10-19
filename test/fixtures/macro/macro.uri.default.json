@@ -1,0 +1,763 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 17,
+      "name": {
+        "kind": 45,
+        "name": "URI",
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 10
+        }
+      },
+      "modifiers": [],
+      "members": [
+        {
+          "kind": 59,
+          "attributes": [],
+          "name": {
+            "kind": 45,
+            "name": "register",
+            "start": {
+              "line": 2,
+              "column": 8
+            },
+            "end": {
+              "line": 2,
+              "column": 16
+            }
+          },
+          "parameters": [
+            {
+              "kind": 73,
+              "modifiers": [
+                {
+                  "kind": 3,
+                  "start": {
+                    "line": 2,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 18
+                  }
+                }
+              ],
+              "start": {
+                "line": 2,
+                "column": 17
+              },
+              "end": {
+                "line": 2,
+                "column": 32
+              },
+              "name": {
+                "kind": 45,
+                "name": "scheme",
+                "start": {
+                  "line": 2,
+                  "column": 18
+                },
+                "end": {
+                  "line": 2,
+                  "column": 24
+                }
+              },
+              "type": {
+                "kind": 99,
+                "typeName": {
+                  "kind": 45,
+                  "name": "String",
+                  "start": {
+                    "line": 2,
+                    "column": 26
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 32
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 26
+                },
+                "end": {
+                  "line": 2,
+                  "column": 32
+                }
+              }
+            },
+            {
+              "kind": 73,
+              "modifiers": [
+                {
+                  "kind": 3,
+                  "start": {
+                    "line": 2,
+                    "column": 34
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 35
+                  }
+                }
+              ],
+              "start": {
+                "line": 2,
+                "column": 34
+              },
+              "end": {
+                "line": 2,
+                "column": 92
+              },
+              "name": {
+                "kind": 45,
+                "name": "meta",
+                "start": {
+                  "line": 2,
+                  "column": 35
+                },
+                "end": {
+                  "line": 2,
+                  "column": 39
+                }
+              },
+              "type": {
+                "kind": 99,
+                "typeName": {
+                  "kind": 45,
+                  "name": "String",
+                  "start": {
+                    "line": 2,
+                    "column": 41
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 47
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 41
+                },
+                "end": {
+                  "line": 2,
+                  "column": 47
+                }
+              },
+              "defaultValue": {
+                "kind": 58,
+                "value": "hier_part [ \"?\" query ] [ \"#\" fragment ]",
+                "start": {
+                  "line": 2,
+                  "column": 50
+                },
+                "end": {
+                  "line": 2,
+                  "column": 92
+                }
+              }
+            }
+          ],
+          "body": {
+            "kind": 12,
+            "attributes": [],
+            "statements": [
+              {
+                "kind": 50,
+                "declarations": [
+                  {
+                    "kind": 51,
+                    "source": {
+                      "kind": 58,
+                      "value": "@zokugun/test-import",
+                      "start": {
+                        "line": 3,
+                        "column": 10
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 32
+                      }
+                    },
+                    "specifiers": [],
+                    "start": {
+                      "line": 3,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 32
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 3,
+                  "column": 3
+                },
+                "end": {
+                  "line": 3,
+                  "column": 32
+                },
+                "attributes": []
+              },
+              {
+                "kind": 105,
+                "rebindable": false,
+                "variables": [
+                  {
+                    "kind": 106,
+                    "name": {
+                      "kind": 45,
+                      "name": "name",
+                      "start": {
+                        "line": 5,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 13
+                      }
+                    },
+                    "start": {
+                      "line": 5,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 13
+                    }
+                  }
+                ],
+                "autotype": false,
+                "await": false,
+                "init": {
+                  "kind": 93,
+                  "elements": [
+                    {
+                      "kind": 14,
+                      "scope": {
+                        "kind": 3
+                      },
+                      "callee": {
+                        "kind": 61,
+                        "object": {
+                          "kind": 61,
+                          "object": {
+                            "kind": 45,
+                            "name": "scheme",
+                            "start": {
+                              "line": 5,
+                              "column": 19
+                            },
+                            "end": {
+                              "line": 5,
+                              "column": 25
+                            }
+                          },
+                          "property": {
+                            "kind": 68,
+                            "value": 0,
+                            "start": {
+                              "line": 5,
+                              "column": 26
+                            },
+                            "end": {
+                              "line": 5,
+                              "column": 27
+                            }
+                          },
+                          "computed": true,
+                          "nullable": false,
+                          "start": {
+                            "line": 5,
+                            "column": 19
+                          },
+                          "end": {
+                            "line": 5,
+                            "column": 28
+                          }
+                        },
+                        "property": {
+                          "kind": 45,
+                          "name": "toUpperCase",
+                          "start": {
+                            "line": 5,
+                            "column": 29
+                          },
+                          "end": {
+                            "line": 5,
+                            "column": 40
+                          }
+                        },
+                        "computed": false,
+                        "nullable": false,
+                        "start": {
+                          "line": 5,
+                          "column": 19
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 40
+                        }
+                      },
+                      "arguments": [],
+                      "nullable": false,
+                      "start": {
+                        "line": 5,
+                        "column": 19
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 42
+                      }
+                    },
+                    {
+                      "kind": 14,
+                      "scope": {
+                        "kind": 3
+                      },
+                      "callee": {
+                        "kind": 61,
+                        "object": {
+                          "kind": 14,
+                          "scope": {
+                            "kind": 3
+                          },
+                          "callee": {
+                            "kind": 61,
+                            "object": {
+                              "kind": 45,
+                              "name": "scheme",
+                              "start": {
+                                "line": 5,
+                                "column": 45
+                              },
+                              "end": {
+                                "line": 5,
+                                "column": 51
+                              }
+                            },
+                            "property": {
+                              "kind": 45,
+                              "name": "substr",
+                              "start": {
+                                "line": 5,
+                                "column": 52
+                              },
+                              "end": {
+                                "line": 5,
+                                "column": 58
+                              }
+                            },
+                            "computed": false,
+                            "nullable": false,
+                            "start": {
+                              "line": 5,
+                              "column": 45
+                            },
+                            "end": {
+                              "line": 5,
+                              "column": 58
+                            }
+                          },
+                          "arguments": [],
+                          "nullable": false,
+                          "start": {
+                            "line": 5,
+                            "column": 45
+                          },
+                          "end": {
+                            "line": 5,
+                            "column": 60
+                          }
+                        },
+                        "property": {
+                          "kind": 45,
+                          "name": "toLowerCase",
+                          "start": {
+                            "line": 5,
+                            "column": 61
+                          },
+                          "end": {
+                            "line": 5,
+                            "column": 72
+                          }
+                        },
+                        "computed": false,
+                        "nullable": false,
+                        "start": {
+                          "line": 5,
+                          "column": 45
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 72
+                        }
+                      },
+                      "arguments": [],
+                      "nullable": false,
+                      "start": {
+                        "line": 5,
+                        "column": 45
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 74
+                      }
+                    },
+                    {
+                      "kind": 58,
+                      "value": "URI",
+                      "start": {
+                        "line": 5,
+                        "column": 75
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 78
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 5,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 79
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 3
+                },
+                "end": {
+                  "line": 5,
+                  "column": 79
+                },
+                "attributes": []
+              },
+              {
+                "kind": 60,
+                "elements": [
+                  {
+                    "kind": 2,
+                    "value": "class ",
+                    "start": {
+                      "line": 8,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 10
+                    }
+                  },
+                  {
+                    "kind": 1,
+                    "expression": {
+                      "kind": 45,
+                      "name": "name",
+                      "start": {
+                        "line": 8,
+                        "column": 13
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 17
+                      }
+                    },
+                    "start": {
+                      "line": 8,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 18
+                    },
+                    "reification": {
+                      "kind": 4,
+                      "start": {
+                        "line": 8,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 12
+                      }
+                    }
+                  },
+                  {
+                    "kind": 2,
+                    "value": " extends URI {",
+                    "start": {
+                      "line": 8,
+                      "column": 18
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 32
+                    }
+                  },
+                  {
+                    "kind": 3,
+                    "start": {
+                      "line": 8,
+                      "column": 32
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 1
+                    }
+                  },
+                  {
+                    "kind": 2,
+                    "value": "private {",
+                    "start": {
+                      "line": 9,
+                      "column": 5
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 14
+                    }
+                  },
+                  {
+                    "kind": 3,
+                    "start": {
+                      "line": 9,
+                      "column": 14
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 1
+                    }
+                  },
+                  {
+                    "kind": 2,
+                    "value": "_e: Number\t= ",
+                    "start": {
+                      "line": 10,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 19
+                    }
+                  },
+                  {
+                    "kind": 1,
+                    "expression": {
+                      "kind": 45,
+                      "name": "PI",
+                      "start": {
+                        "line": 10,
+                        "column": 20
+                      },
+                      "end": {
+                        "line": 10,
+                        "column": 22
+                      }
+                    },
+                    "start": {
+                      "line": 10,
+                      "column": 19
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 22
+                    },
+                    "reification": {
+                      "kind": 3
+                    }
+                  },
+                  {
+                    "kind": 3,
+                    "start": {
+                      "line": 10,
+                      "column": 22
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 1
+                    }
+                  },
+                  {
+                    "kind": 2,
+                    "value": "}",
+                    "start": {
+                      "line": 11,
+                      "column": 5
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 6
+                    }
+                  },
+                  {
+                    "kind": 3,
+                    "start": {
+                      "line": 11,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 12,
+                      "column": 1
+                    }
+                  },
+                  {
+                    "kind": 2,
+                    "value": "}",
+                    "start": {
+                      "line": 12,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 12,
+                      "column": 5
+                    }
+                  },
+                  {
+                    "kind": 3,
+                    "start": {
+                      "line": 12,
+                      "column": 5
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 1
+                    }
+                  }
+                ],
+                "multilines": true,
+                "start": {
+                  "line": 7,
+                  "column": 3
+                },
+                "end": {
+                  "line": 13,
+                  "column": 4
+                },
+                "attributes": []
+              }
+            ],
+            "start": {
+              "line": 2,
+              "column": 94
+            },
+            "end": {
+              "line": 14,
+              "column": 3
+            }
+          },
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 14,
+            "column": 3
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 15,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 15,
+      "callee": {
+        "kind": 61,
+        "object": {
+          "kind": 45,
+          "name": "URI",
+          "start": {
+            "line": 17,
+            "column": 1
+          },
+          "end": {
+            "line": 17,
+            "column": 4
+          }
+        },
+        "property": {
+          "kind": 45,
+          "name": "register",
+          "start": {
+            "line": 17,
+            "column": 5
+          },
+          "end": {
+            "line": 17,
+            "column": 13
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 17,
+          "column": 1
+        },
+        "end": {
+          "line": 17,
+          "column": 13
+        }
+      },
+      "arguments": [
+        {
+          "kind": 58,
+          "value": "file",
+          "start": {
+            "line": 17,
+            "column": 15
+          },
+          "end": {
+            "line": 17,
+            "column": 21
+          }
+        },
+        {
+          "kind": 58,
+          "value": "[ \"//\" [ host ] ] path_absolute",
+          "start": {
+            "line": 17,
+            "column": 23
+          },
+          "end": {
+            "line": 17,
+            "column": 56
+          }
+        }
+      ],
+      "start": {
+        "line": 17,
+        "column": 1
+      },
+      "end": {
+        "line": 17,
+        "column": 57
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 17,
+    "column": 57
+  }
+}

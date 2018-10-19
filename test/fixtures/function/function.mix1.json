@@ -1,0 +1,1014 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "a",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 6
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 6
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 4,
+        "values": [
+          {
+            "kind": 58,
+            "value": "Hydrogen",
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 12
+            }
+          },
+          {
+            "kind": 58,
+            "value": "Helium",
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 3,
+              "column": 10
+            }
+          },
+          {
+            "kind": 58,
+            "value": "Lithium",
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 11
+            }
+          },
+          {
+            "kind": 58,
+            "value": "Beryl­lium",
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 5,
+              "column": 14
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 9
+        },
+        "end": {
+          "line": 6,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 6,
+        "column": 2
+      },
+      "attributes": []
+    },
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "a2",
+            "start": {
+              "line": 8,
+              "column": 5
+            },
+            "end": {
+              "line": 8,
+              "column": 7
+            }
+          },
+          "start": {
+            "line": 8,
+            "column": 5
+          },
+          "end": {
+            "line": 8,
+            "column": 7
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 14,
+        "scope": {
+          "kind": 3
+        },
+        "callee": {
+          "kind": 61,
+          "object": {
+            "kind": 45,
+            "name": "a",
+            "start": {
+              "line": 8,
+              "column": 10
+            },
+            "end": {
+              "line": 8,
+              "column": 11
+            }
+          },
+          "property": {
+            "kind": 45,
+            "name": "map",
+            "start": {
+              "line": 8,
+              "column": 12
+            },
+            "end": {
+              "line": 8,
+              "column": 15
+            }
+          },
+          "computed": false,
+          "nullable": false,
+          "start": {
+            "line": 8,
+            "column": 10
+          },
+          "end": {
+            "line": 8,
+            "column": 15
+          }
+        },
+        "arguments": [
+          {
+            "kind": 44,
+            "parameters": [
+              {
+                "kind": 73,
+                "modifiers": [],
+                "start": {
+                  "line": 8,
+                  "column": 21
+                },
+                "end": {
+                  "line": 8,
+                  "column": 22
+                },
+                "name": {
+                  "kind": 45,
+                  "name": "s",
+                  "start": {
+                    "line": 8,
+                    "column": 21
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 22
+                  }
+                }
+              }
+            ],
+            "start": {
+              "line": 8,
+              "column": 16
+            },
+            "end": {
+              "line": 10,
+              "column": 2
+            },
+            "modifiers": [],
+            "throws": [],
+            "body": {
+              "kind": 12,
+              "attributes": [],
+              "statements": [
+                {
+                  "kind": 80,
+                  "value": {
+                    "kind": 61,
+                    "object": {
+                      "kind": 45,
+                      "name": "s",
+                      "start": {
+                        "line": 9,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 10
+                      }
+                    },
+                    "property": {
+                      "kind": 45,
+                      "name": "length",
+                      "start": {
+                        "line": 9,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 17
+                      }
+                    },
+                    "computed": false,
+                    "nullable": false,
+                    "start": {
+                      "line": 9,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 17
+                    }
+                  },
+                  "start": {
+                    "line": 9,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 17
+                  },
+                  "attributes": []
+                }
+              ],
+              "start": {
+                "line": 8,
+                "column": 24
+              },
+              "end": {
+                "line": 10,
+                "column": 2
+              }
+            }
+          }
+        ],
+        "nullable": false,
+        "start": {
+          "line": 8,
+          "column": 10
+        },
+        "end": {
+          "line": 10,
+          "column": 3
+        }
+      },
+      "start": {
+        "line": 8,
+        "column": 1
+      },
+      "end": {
+        "line": 10,
+        "column": 3
+      },
+      "attributes": []
+    },
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "a3",
+            "start": {
+              "line": 12,
+              "column": 5
+            },
+            "end": {
+              "line": 12,
+              "column": 7
+            }
+          },
+          "start": {
+            "line": 12,
+            "column": 5
+          },
+          "end": {
+            "line": 12,
+            "column": 7
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 14,
+        "scope": {
+          "kind": 3
+        },
+        "callee": {
+          "kind": 61,
+          "object": {
+            "kind": 45,
+            "name": "a",
+            "start": {
+              "line": 12,
+              "column": 10
+            },
+            "end": {
+              "line": 12,
+              "column": 11
+            }
+          },
+          "property": {
+            "kind": 45,
+            "name": "map",
+            "start": {
+              "line": 12,
+              "column": 12
+            },
+            "end": {
+              "line": 12,
+              "column": 15
+            }
+          },
+          "computed": false,
+          "nullable": false,
+          "start": {
+            "line": 12,
+            "column": 10
+          },
+          "end": {
+            "line": 12,
+            "column": 15
+          }
+        },
+        "arguments": [
+          {
+            "kind": 57,
+            "modifiers": [],
+            "parameters": [
+              {
+                "kind": 73,
+                "modifiers": [],
+                "start": {
+                  "line": 12,
+                  "column": 17
+                },
+                "end": {
+                  "line": 12,
+                  "column": 18
+                },
+                "name": {
+                  "kind": 45,
+                  "name": "s",
+                  "start": {
+                    "line": 12,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 12,
+                    "column": 18
+                  }
+                }
+              }
+            ],
+            "body": {
+              "kind": 12,
+              "attributes": [],
+              "statements": [
+                {
+                  "kind": 80,
+                  "value": {
+                    "kind": 61,
+                    "object": {
+                      "kind": 45,
+                      "name": "s",
+                      "start": {
+                        "line": 13,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 10
+                      }
+                    },
+                    "property": {
+                      "kind": 45,
+                      "name": "length",
+                      "start": {
+                        "line": 13,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 17
+                      }
+                    },
+                    "computed": false,
+                    "nullable": false,
+                    "start": {
+                      "line": 13,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 17
+                    }
+                  },
+                  "start": {
+                    "line": 13,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 17
+                  },
+                  "attributes": []
+                }
+              ],
+              "start": {
+                "line": 12,
+                "column": 23
+              },
+              "end": {
+                "line": 14,
+                "column": 2
+              }
+            },
+            "start": {
+              "line": 12,
+              "column": 16
+            },
+            "end": {
+              "line": 14,
+              "column": 2
+            }
+          }
+        ],
+        "nullable": false,
+        "start": {
+          "line": 12,
+          "column": 10
+        },
+        "end": {
+          "line": 14,
+          "column": 3
+        }
+      },
+      "start": {
+        "line": 12,
+        "column": 1
+      },
+      "end": {
+        "line": 14,
+        "column": 3
+      },
+      "attributes": []
+    },
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "a3",
+            "start": {
+              "line": 16,
+              "column": 5
+            },
+            "end": {
+              "line": 16,
+              "column": 7
+            }
+          },
+          "start": {
+            "line": 16,
+            "column": 5
+          },
+          "end": {
+            "line": 16,
+            "column": 7
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 14,
+        "scope": {
+          "kind": 3
+        },
+        "callee": {
+          "kind": 61,
+          "object": {
+            "kind": 45,
+            "name": "a",
+            "start": {
+              "line": 16,
+              "column": 10
+            },
+            "end": {
+              "line": 16,
+              "column": 11
+            }
+          },
+          "property": {
+            "kind": 45,
+            "name": "map",
+            "start": {
+              "line": 16,
+              "column": 12
+            },
+            "end": {
+              "line": 16,
+              "column": 15
+            }
+          },
+          "computed": false,
+          "nullable": false,
+          "start": {
+            "line": 16,
+            "column": 10
+          },
+          "end": {
+            "line": 16,
+            "column": 15
+          }
+        },
+        "arguments": [
+          {
+            "kind": 44,
+            "parameters": [
+              {
+                "kind": 73,
+                "modifiers": [],
+                "start": {
+                  "line": 16,
+                  "column": 21
+                },
+                "end": {
+                  "line": 16,
+                  "column": 22
+                },
+                "name": {
+                  "kind": 45,
+                  "name": "s",
+                  "start": {
+                    "line": 16,
+                    "column": 21
+                  },
+                  "end": {
+                    "line": 16,
+                    "column": 22
+                  }
+                }
+              }
+            ],
+            "start": {
+              "line": 16,
+              "column": 16
+            },
+            "end": {
+              "line": 16,
+              "column": 35
+            },
+            "modifiers": [],
+            "throws": [],
+            "body": {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "s",
+                "start": {
+                  "line": 16,
+                  "column": 27
+                },
+                "end": {
+                  "line": 16,
+                  "column": 28
+                }
+              },
+              "property": {
+                "kind": 45,
+                "name": "length",
+                "start": {
+                  "line": 16,
+                  "column": 29
+                },
+                "end": {
+                  "line": 16,
+                  "column": 35
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 16,
+                "column": 27
+              },
+              "end": {
+                "line": 16,
+                "column": 35
+              }
+            }
+          }
+        ],
+        "nullable": false,
+        "start": {
+          "line": 16,
+          "column": 10
+        },
+        "end": {
+          "line": 16,
+          "column": 36
+        }
+      },
+      "start": {
+        "line": 16,
+        "column": 1
+      },
+      "end": {
+        "line": 16,
+        "column": 36
+      },
+      "attributes": []
+    },
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "a4",
+            "start": {
+              "line": 18,
+              "column": 5
+            },
+            "end": {
+              "line": 18,
+              "column": 7
+            }
+          },
+          "start": {
+            "line": 18,
+            "column": 5
+          },
+          "end": {
+            "line": 18,
+            "column": 7
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 14,
+        "scope": {
+          "kind": 3
+        },
+        "callee": {
+          "kind": 61,
+          "object": {
+            "kind": 45,
+            "name": "a",
+            "start": {
+              "line": 18,
+              "column": 10
+            },
+            "end": {
+              "line": 18,
+              "column": 11
+            }
+          },
+          "property": {
+            "kind": 45,
+            "name": "map",
+            "start": {
+              "line": 18,
+              "column": 12
+            },
+            "end": {
+              "line": 18,
+              "column": 15
+            }
+          },
+          "computed": false,
+          "nullable": false,
+          "start": {
+            "line": 18,
+            "column": 10
+          },
+          "end": {
+            "line": 18,
+            "column": 15
+          }
+        },
+        "arguments": [
+          {
+            "kind": 57,
+            "modifiers": [],
+            "parameters": [
+              {
+                "kind": 73,
+                "modifiers": [],
+                "start": {
+                  "line": 18,
+                  "column": 17
+                },
+                "end": {
+                  "line": 18,
+                  "column": 18
+                },
+                "name": {
+                  "kind": 45,
+                  "name": "s",
+                  "start": {
+                    "line": 18,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 18,
+                    "column": 18
+                  }
+                }
+              }
+            ],
+            "body": {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "s",
+                "start": {
+                  "line": 18,
+                  "column": 23
+                },
+                "end": {
+                  "line": 18,
+                  "column": 24
+                }
+              },
+              "property": {
+                "kind": 45,
+                "name": "length",
+                "start": {
+                  "line": 18,
+                  "column": 25
+                },
+                "end": {
+                  "line": 18,
+                  "column": 31
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 18,
+                "column": 23
+              },
+              "end": {
+                "line": 18,
+                "column": 31
+              }
+            },
+            "start": {
+              "line": 18,
+              "column": 16
+            },
+            "end": {
+              "line": 18,
+              "column": 31
+            }
+          }
+        ],
+        "nullable": false,
+        "start": {
+          "line": 18,
+          "column": 10
+        },
+        "end": {
+          "line": 18,
+          "column": 32
+        }
+      },
+      "start": {
+        "line": 18,
+        "column": 1
+      },
+      "end": {
+        "line": 18,
+        "column": 32
+      },
+      "attributes": []
+    },
+    {
+      "kind": 105,
+      "rebindable": true,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "a5",
+            "start": {
+              "line": 20,
+              "column": 5
+            },
+            "end": {
+              "line": 20,
+              "column": 7
+            }
+          },
+          "start": {
+            "line": 20,
+            "column": 5
+          },
+          "end": {
+            "line": 20,
+            "column": 7
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 14,
+        "scope": {
+          "kind": 3
+        },
+        "callee": {
+          "kind": 61,
+          "object": {
+            "kind": 45,
+            "name": "a",
+            "start": {
+              "line": 20,
+              "column": 10
+            },
+            "end": {
+              "line": 20,
+              "column": 11
+            }
+          },
+          "property": {
+            "kind": 45,
+            "name": "map",
+            "start": {
+              "line": 20,
+              "column": 12
+            },
+            "end": {
+              "line": 20,
+              "column": 15
+            }
+          },
+          "computed": false,
+          "nullable": false,
+          "start": {
+            "line": 20,
+            "column": 10
+          },
+          "end": {
+            "line": 20,
+            "column": 15
+          }
+        },
+        "arguments": [
+          {
+            "kind": 57,
+            "modifiers": [],
+            "parameters": [
+              {
+                "kind": 73,
+                "modifiers": [],
+                "name": {
+                  "kind": 45,
+                  "name": "s",
+                  "start": {
+                    "line": 20,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 20,
+                    "column": 17
+                  }
+                },
+                "start": {
+                  "line": 20,
+                  "column": 16
+                },
+                "end": {
+                  "line": 20,
+                  "column": 17
+                }
+              }
+            ],
+            "body": {
+              "kind": 61,
+              "object": {
+                "kind": 45,
+                "name": "s",
+                "start": {
+                  "line": 20,
+                  "column": 21
+                },
+                "end": {
+                  "line": 20,
+                  "column": 22
+                }
+              },
+              "property": {
+                "kind": 45,
+                "name": "length",
+                "start": {
+                  "line": 20,
+                  "column": 23
+                },
+                "end": {
+                  "line": 20,
+                  "column": 29
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 20,
+                "column": 21
+              },
+              "end": {
+                "line": 20,
+                "column": 29
+              }
+            },
+            "start": {
+              "line": 20,
+              "column": 16
+            },
+            "end": {
+              "line": 20,
+              "column": 29
+            }
+          }
+        ],
+        "nullable": false,
+        "start": {
+          "line": 20,
+          "column": 10
+        },
+        "end": {
+          "line": 20,
+          "column": 30
+        }
+      },
+      "start": {
+        "line": 20,
+        "column": 1
+      },
+      "end": {
+        "line": 20,
+        "column": 30
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 20,
+    "column": 30
+  }
+}

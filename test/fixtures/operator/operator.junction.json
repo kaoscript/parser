@@ -1,0 +1,549 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 61,
+      "object": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 4
+        }
+      },
+      "property": {
+        "kind": 45,
+        "name": "bar",
+        "start": {
+          "line": 1,
+          "column": 5
+        },
+        "end": {
+          "line": 1,
+          "column": 8
+        }
+      },
+      "computed": false,
+      "nullable": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 8
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 4
+        }
+      },
+      "arguments": [
+        {
+          "kind": 45,
+          "name": "bar",
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        }
+      ],
+      "nullable": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 9
+      },
+      "attributes": []
+    },
+    {
+      "kind": 61,
+      "object": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 5,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 4
+        }
+      },
+      "property": {
+        "kind": 45,
+        "name": "bar",
+        "start": {
+          "line": 5,
+          "column": 5
+        },
+        "end": {
+          "line": 5,
+          "column": 8
+        }
+      },
+      "computed": true,
+      "nullable": false,
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 9
+      },
+      "attributes": []
+    },
+    {
+      "kind": 61,
+      "object": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 7,
+          "column": 1
+        },
+        "end": {
+          "line": 7,
+          "column": 4
+        }
+      },
+      "property": {
+        "kind": 45,
+        "name": "bar",
+        "start": {
+          "line": 7,
+          "column": 6
+        },
+        "end": {
+          "line": 7,
+          "column": 9
+        }
+      },
+      "computed": false,
+      "nullable": true,
+      "start": {
+        "line": 7,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 9
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 4
+        }
+      },
+      "arguments": [
+        {
+          "kind": 45,
+          "name": "bar",
+          "start": {
+            "line": 9,
+            "column": 6
+          },
+          "end": {
+            "line": 9,
+            "column": 9
+          }
+        }
+      ],
+      "nullable": true,
+      "start": {
+        "line": 9,
+        "column": 1
+      },
+      "end": {
+        "line": 9,
+        "column": 10
+      },
+      "attributes": []
+    },
+    {
+      "kind": 61,
+      "object": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 11,
+          "column": 1
+        },
+        "end": {
+          "line": 11,
+          "column": 4
+        }
+      },
+      "property": {
+        "kind": 45,
+        "name": "bar",
+        "start": {
+          "line": 11,
+          "column": 6
+        },
+        "end": {
+          "line": 11,
+          "column": 9
+        }
+      },
+      "computed": true,
+      "nullable": true,
+      "start": {
+        "line": 11,
+        "column": 1
+      },
+      "end": {
+        "line": 11,
+        "column": 10
+      },
+      "attributes": []
+    },
+    {
+      "kind": 24,
+      "scope": {
+        "kind": 2
+      },
+      "callee": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 13,
+          "column": 1
+        },
+        "end": {
+          "line": 13,
+          "column": 4
+        }
+      },
+      "arguments": [
+        {
+          "kind": 45,
+          "name": "bar",
+          "start": {
+            "line": 13,
+            "column": 7
+          },
+          "end": {
+            "line": 13,
+            "column": 10
+          }
+        }
+      ],
+      "start": {
+        "line": 13,
+        "column": 1
+      },
+      "end": {
+        "line": 13,
+        "column": 11
+      },
+      "attributes": []
+    },
+    {
+      "kind": 24,
+      "scope": {
+        "kind": 1,
+        "value": {
+          "kind": 45,
+          "name": "bar",
+          "start": {
+            "line": 15,
+            "column": 7
+          },
+          "end": {
+            "line": 15,
+            "column": 10
+          }
+        }
+      },
+      "callee": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "line": 15,
+          "column": 4
+        }
+      },
+      "arguments": [],
+      "start": {
+        "line": 15,
+        "column": 1
+      },
+      "end": {
+        "line": 15,
+        "column": 11
+      },
+      "attributes": []
+    },
+    {
+      "kind": 24,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 17,
+          "column": 1
+        },
+        "end": {
+          "line": 17,
+          "column": 4
+        }
+      },
+      "arguments": [
+        {
+          "kind": 45,
+          "name": "bar",
+          "start": {
+            "line": 17,
+            "column": 7
+          },
+          "end": {
+            "line": 17,
+            "column": 10
+          }
+        }
+      ],
+      "start": {
+        "line": 17,
+        "column": 1
+      },
+      "end": {
+        "line": 17,
+        "column": 11
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 2
+      },
+      "callee": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 19,
+          "column": 1
+        },
+        "end": {
+          "line": 19,
+          "column": 4
+        }
+      },
+      "arguments": [
+        {
+          "kind": 45,
+          "name": "bar",
+          "start": {
+            "line": 19,
+            "column": 7
+          },
+          "end": {
+            "line": 19,
+            "column": 10
+          }
+        }
+      ],
+      "nullable": false,
+      "start": {
+        "line": 19,
+        "column": 1
+      },
+      "end": {
+        "line": 19,
+        "column": 11
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 1,
+        "value": {
+          "kind": 45,
+          "name": "bar",
+          "start": {
+            "line": 21,
+            "column": 7
+          },
+          "end": {
+            "line": 21,
+            "column": 10
+          }
+        }
+      },
+      "callee": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 21,
+          "column": 1
+        },
+        "end": {
+          "line": 21,
+          "column": 4
+        }
+      },
+      "arguments": [],
+      "nullable": false,
+      "start": {
+        "line": 21,
+        "column": 1
+      },
+      "end": {
+        "line": 21,
+        "column": 11
+      },
+      "attributes": []
+    },
+    {
+      "kind": 29,
+      "enum": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 23,
+          "column": 1
+        },
+        "end": {
+          "line": 23,
+          "column": 4
+        }
+      },
+      "member": {
+        "kind": 45,
+        "name": "bar",
+        "start": {
+          "line": 23,
+          "column": 6
+        },
+        "end": {
+          "line": 23,
+          "column": 9
+        }
+      },
+      "start": {
+        "line": 23,
+        "column": 1
+      },
+      "end": {
+        "line": 23,
+        "column": 9
+      },
+      "attributes": []
+    },
+    {
+      "kind": 10,
+      "operator": {
+        "kind": 21,
+        "start": {
+          "line": 25,
+          "column": 4
+        },
+        "end": {
+          "line": 25,
+          "column": 5
+        }
+      },
+      "left": {
+        "kind": 45,
+        "name": "foo",
+        "start": {
+          "line": 25,
+          "column": 1
+        },
+        "end": {
+          "line": 25,
+          "column": 4
+        }
+      },
+      "right": {
+        "kind": 99,
+        "typeName": {
+          "kind": 45,
+          "name": "bar",
+          "start": {
+            "line": 25,
+            "column": 5
+          },
+          "end": {
+            "line": 25,
+            "column": 8
+          }
+        },
+        "start": {
+          "line": 25,
+          "column": 5
+        },
+        "end": {
+          "line": 25,
+          "column": 8
+        }
+      },
+      "start": {
+        "line": 25,
+        "column": 1
+      },
+      "end": {
+        "line": 25,
+        "column": 8
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 25,
+    "column": 8
+  }
+}
