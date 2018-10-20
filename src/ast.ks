@@ -755,10 +755,7 @@ namespace AST {
 				name: name.value
 			}, first, last)
 
-			if parameters == null {
-				node.parameters = []
-			}
-			else {
+			if parameters != null {
 				node.parameters = [parameter.value for parameter in parameters.value]
 			}
 
