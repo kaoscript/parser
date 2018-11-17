@@ -1629,6 +1629,14 @@ export namespace Parser {
 				Token::LET => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqLetStatement(this.yes(), ExpressionMode::NoAwait)))
 				}
+				Token::MACRO => {
+					if @mode & ParserMode::MacroExpression == 0 {
+						return this.yep(AST.ExportDeclarationSpecifier(this.tryMacroStatement(this.yes())))
+					}
+					else {
+						return this.yep(AST.ExportDeclarationSpecifier(this.reqMacroExpression(this.yes())))
+					}
+				}
 				Token::NAMESPACE => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqNamespaceStatement(this.yes())))
 				}

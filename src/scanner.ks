@@ -454,6 +454,15 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
+			// macro
+			else if c == 109 {
+				if that.scanIdentifier(true) == 'acro' {
+					return Token::MACRO
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
 			// namespace
 			else if c == 110 {
 				if that.scanIdentifier(true) == 'amespace' {
