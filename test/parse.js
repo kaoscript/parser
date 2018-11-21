@@ -52,18 +52,18 @@ describe('parse', function() {
 					encoding: 'utf8'
 				});
 
-				/* expect(data).to.eql(JSON.parse(json, function(key, value) {
+				expect(data).to.eql(JSON.parse(json, function(key, value) {
 					return value === 'Infinity' ? Infinity : value;
-				})); */
+				}));
 
 				// when AST is changed
-				data = JSON.parse(JSON.stringify(data, function(key, value){return value == Infinity ? 'Infinity' : key == 'kind' ? 0 : value;}, 2), function(key, value) {
+				/* data = JSON.parse(JSON.stringify(data, function(key, value){return value == Infinity ? 'Infinity' : key == 'kind' ? 0 : value;}, 2), function(key, value) {
 					return value === 'Infinity' ? Infinity : key == 'kind' ? 0 : value;
 				});
 
 				expect(data).to.eql(JSON.parse(json, function(key, value) {
 					return value === 'Infinity' ? Infinity : key == 'kind' ? 0 : value;
-				}));
+				})); */
 			}
 		});
 	}

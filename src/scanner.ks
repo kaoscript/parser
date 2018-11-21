@@ -88,6 +88,7 @@ enum Token {
 	OCTAL_NUMBER
 	OF
 	ON
+	OVERRIDE
 	PERCENT
 	PERCENT_EQUALS
 	PIPE
@@ -1982,6 +1983,23 @@ const recognize = {
 			that.isBoundary(2)
 		{
 			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} // }}}
+	`\(Token::OVERRIDE)`(that, c) { // {{{
+		if	c == 111 &&
+			that.charAt(1) == 118 &&
+			that.charAt(2) == 101 &&
+			that.charAt(3) == 114 &&
+			that.charAt(4) == 114 &&
+			that.charAt(5) == 105 &&
+			that.charAt(6) == 100 &&
+			that.charAt(7) == 101 &&
+			that.isBoundary(8)
+		{
+			return that.next(8)
 		}
 		else {
 			return false

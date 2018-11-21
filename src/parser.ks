@@ -2512,6 +2512,98 @@ export namespace Parser {
 				return this.yep(AST.IfStatement(condition, whenTrue, null, first, whenTrue))
 			}
 		} // }}}
+		reqImplementMemberList(members) ~ SyntaxError { // {{{
+			let first = null
+
+			let attributes = null
+			if this.test(Token::HASH_LEFT_SQUARE) {
+				attributes = this.reqAttributeList(first = this.yes())
+			}
+
+			let mark = this.mark()
+
+			const modifiers = []
+
+			if this.test(Token::OVERRIDE) {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
+			}
+
+			if this.match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC) == Token::PRIVATE {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
+
+				mark = this.mark() if modifiers.length > 1
+			}
+			else if @token == Token::PROTECTED {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Protected, this.yes())))
+
+				mark = this.mark() if modifiers.length > 1
+			}
+			else if @token == Token::PUBLIC {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, this.yes())))
+
+				mark = this.mark() if modifiers.length > 1
+			}
+
+			if this.test(Token::STATIC) {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Static, this.yes())))
+
+				mark = this.mark() if modifiers.length > 1
+			}
+
+			if modifiers.length != 0 {
+				first = modifiers[0]
+			}
+
+			if this.test(Token::LEFT_CURLY) {
+				if first == null {
+					first = this.yes()
+				}
+				else {
+					this.commit()
+				}
+
+				this.NL_0M()
+
+				let attrs
+				until this.test(Token::RIGHT_CURLY) {
+					if this.test(Token::HASH_LEFT_SQUARE) {
+						attrs = this.reqAttributeList(first = this.yes())
+
+						if attributes != null {
+							attrs.value = [].concat(attributes.value, attrs.value)
+						}
+					}
+					else {
+						attrs = attributes
+						first = null
+					}
+
+					members.push(this.reqClassMember(attrs, modifiers, first))
+				}
+
+				unless this.test(Token::RIGHT_CURLY) {
+					this.throw('}')
+				}
+
+				this.commit()
+
+				this.reqNL_1M()
+			}
+			else {
+				const member = this.tryClassMember(attributes, modifiers, first)
+
+				if member.ok {
+					members.push(member)
+				}
+				else {
+					this.rollback(mark)
+
+					modifiers.pop()
+
+					members.push(this.reqClassMember(attributes, modifiers, first))
+				}
+			}
+		} // }}}
 		reqImplementStatement(first) ~ SyntaxError { // {{{
 			const variable = this.reqIdentifier()
 
@@ -2528,7 +2620,7 @@ export namespace Parser {
 			const members = []
 
 			until this.test(Token::RIGHT_CURLY) {
-				this.reqClassMemberList(members)
+				this.reqImplementMemberList(members)
 			}
 
 			unless this.test(Token::RIGHT_CURLY) {

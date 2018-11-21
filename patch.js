@@ -50,7 +50,7 @@ function prepare(file) {
 				return value;
 			}, 2);
 
-			var json = fs.writeFileSync(path.join(root, name + '.json'), data, {
+			fs.writeFileSync(path.join(root, name + '.json'), data, {
 				encoding: 'utf8'
 			});
 		}
