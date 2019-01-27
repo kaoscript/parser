@@ -1,0 +1,120 @@
+{
+  "kind": 64,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 105,
+      "rebindable": false,
+      "variables": [
+        {
+          "kind": 106,
+          "name": {
+            "kind": 45,
+            "name": "namespace",
+            "start": {
+              "line": 1,
+              "column": 7
+            },
+            "end": {
+              "line": 1,
+              "column": 16
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 7
+          },
+          "end": {
+            "line": 1,
+            "column": 16
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 68,
+        "value": 0,
+        "start": {
+          "line": 1,
+          "column": 19
+        },
+        "end": {
+          "line": 1,
+          "column": 20
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 20
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 61,
+        "object": {
+          "kind": 45,
+          "name": "namespace",
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 10
+          }
+        },
+        "property": {
+          "kind": 45,
+          "name": "toString",
+          "start": {
+            "line": 3,
+            "column": 11
+          },
+          "end": {
+            "line": 3,
+            "column": 19
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 19
+        }
+      },
+      "arguments": [],
+      "nullable": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 21
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 21
+  }
+}

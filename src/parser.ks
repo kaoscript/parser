@@ -1638,7 +1638,7 @@ export namespace Parser {
 					}
 				}
 				Token::NAMESPACE => {
-					return this.yep(AST.ExportDeclarationSpecifier(this.reqNamespaceStatement(this.yes())))
+					return this.yep(AST.ExportDeclarationSpecifier(this.tryNamespaceStatement(this.yes())))
 				}
 				Token::SEALED => {
 					const first = this.yes()
@@ -3293,9 +3293,7 @@ export namespace Parser {
 				this.throw(['Identifier', 'String', 'Template'])
 			}
 		} // }}}
-		reqNamespaceStatement(first) ~ SyntaxError { // {{{
-			const name = this.reqIdentifier()
-
+		reqNamespaceStatement(first, name) ~ SyntaxError { // {{{
 			this.NL_0M()
 
 			unless this.test(Token::LEFT_CURLY) {
@@ -4053,7 +4051,7 @@ export namespace Parser {
 					}
 				}
 				Token::NAMESPACE => {
-					statement = this.reqNamespaceStatement(this.yes())
+					statement = this.tryNamespaceStatement(this.yes())
 				}
 				Token::RETURN => {
 					statement = this.reqReturnStatement(this.yes())
@@ -5633,6 +5631,15 @@ export namespace Parser {
 			else {
 				return NO
 			}
+		} // }}}
+		tryNamespaceStatement(first) ~ SyntaxError { // {{{
+			const name = this.tryIdentifier()
+
+			unless name.ok {
+				return NO
+			}
+
+			return this.reqNamespaceStatement(first, name)
 		} // }}}
 		tryNumber() ~ SyntaxError { // {{{
 			if this.matchM(M.NUMBER) == Token::BINARY_NUMBER {
