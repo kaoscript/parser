@@ -1,8 +1,8 @@
 test:
 ifeq ($(g),)
-	node_modules/.bin/mocha --colors --check-leaks --compilers ks:kaoscript/register --reporter spec
+	node_modules/.bin/mocha --colors --check-leaks --require kaoscript/register --reporter spec
 else
-	node_modules/.bin/mocha --colors --check-leaks --compilers ks:kaoscript/register --reporter spec -g "$(g)"
+	node_modules/.bin/mocha --colors --check-leaks --require kaoscript/register --reporter spec -g "$(g)"
 endif
 
 coverage:
