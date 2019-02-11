@@ -3002,6 +3002,17 @@ export namespace Parser {
 				this.commit()
 			}
 
+			const pushToLiteral = (value, position) => {
+				if literal == null {
+					literal = value
+					first = last = position
+				}
+				else {
+					literal += value
+					last = position
+				}
+			}
+
 			while true {
 				switch this.matchM(M.MACRO) {
 					Token::EOF => {
@@ -3012,11 +3023,11 @@ export namespace Parser {
 						break
 					}
 					Token::HASH => {
-						addLiteral()
-
 						const first = this.yes()
 
 						if this.testNS(Token::IDENTIFIER) {
+							addLiteral()
+
 							const identifier = @scanner.value()
 							const last = this.yes()
 							const mark = this.mark()
@@ -3043,6 +3054,8 @@ export namespace Parser {
 							}
 						}
 						else if this.testNS(Token::LEFT_ROUND) {
+							addLiteral()
+
 							this.commit()
 
 							const expression = this.reqExpression(ExpressionMode::Default)
@@ -3054,7 +3067,7 @@ export namespace Parser {
 							elements.push(this.yep(AST.MacroElementExpression(expression, null, first, this.yes())))
 						}
 						else {
-							this.throw()
+							pushToLiteral('#', first)
 						}
 					}
 					Token::INVALID => {

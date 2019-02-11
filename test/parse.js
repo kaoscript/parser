@@ -46,7 +46,7 @@ describe('parse', function() {
 			}
 			else {
 				var data = parse(source);
-				//console.log(JSON.stringify(data, function(key, value){return value == Infinity ? 'Infinity' : value;}, 2));
+				// console.log(JSON.stringify(data, function(key, value){return value == Infinity ? 'Infinity' : value;}, 2));
 
 				var json = fs.readFileSync(path.join(root, name + '.json'), {
 					encoding: 'utf8'
