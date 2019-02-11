@@ -2,8 +2,8 @@
 =================================================================
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![NPM](https://img.shields.io/npm/v/@kaoscript/parser.svg?colorB=green)](https://www.npmjs.com/package/@kaoscript/parser)
-[![Dependencies](https://badges.depfu.com/badges/3c221673253adbcd9f9672933837315e/count.svg)](https://depfu.com/github/kaoscript/parser)
+[![NPM Version](https://img.shields.io/npm/v/@kaoscript/parser.svg?colorB=green)](https://www.npmjs.com/package/@kaoscript/parser)
+[![Dependency Status](https://badges.depfu.com/badges/3c221673253adbcd9f9672933837315e/count.svg)](https://depfu.com/github/kaoscript/parser)
 [![Build Status](https://travis-ci.org/kaoscript/parser.svg?branch=master)](https://travis-ci.org/kaoscript/parser)
 [![CircleCI](https://circleci.com/gh/kaoscript/parser/tree/master.svg?style=shield)](https://circleci.com/gh/kaoscript/parser/tree/master)
 [![Coverage Status](https://img.shields.io/coveralls/kaoscript/parser/master.svg)](https://coveralls.io/github/kaoscript/parser)

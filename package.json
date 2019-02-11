@@ -41,7 +41,7 @@
 		"mocha": "^5.2.0"
 	},
 	"engines": {
-		"node": ">= 4.0.0"
+		"node": ">= 4.5.0"
 	},
 	"scripts": {
 		"push-coverage": "npm run test-coverage && cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
