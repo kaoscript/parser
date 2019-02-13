@@ -29,6 +29,4 @@ else {
 	}
 	else if qux {
 	}
-	else {
-	}
 }
