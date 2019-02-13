@@ -45,7 +45,7 @@ namespace AST {
 	$precedence[BinaryOperatorKind::Multiplication] = 14
 	$precedence[BinaryOperatorKind::NullCoalescing] = 15
 	$precedence[BinaryOperatorKind::Or] = 5
-	$precedence[BinaryOperatorKind::Subtraction] = 15
+	$precedence[BinaryOperatorKind::Subtraction] = 13
 	$precedence[BinaryOperatorKind::TypeCasting] = 8
 	$precedence[BinaryOperatorKind::TypeEquality] = 8
 	$precedence[BinaryOperatorKind::TypeInequality] = 8
