@@ -616,6 +616,8 @@ export namespace Parser {
 
 			this.commit()
 
+			@token = @scanner.skipComments()
+
 			return this.yep(AST.AttributeDeclaration(declaration, first, last))
 		} // }}}
 		reqAttributeBlock(first) ~ SyntaxError { // {{{

@@ -1,0 +1,4 @@
+#[test]
+// foobar
+func foo() {
+}

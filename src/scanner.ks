@@ -2560,6 +2560,149 @@ class Scanner {
 
 		return -1
 	} // }}}
+	skipComments() { // {{{
+		let index = @index  - 1
+
+		let c
+		while ++index < @length {
+			c = @data.charCodeAt(index)
+			//console.log(index, c, @line, @column)
+
+			if c == 32 || c == 9 {
+				// skip
+				@column++
+			}
+			else if c == 47 { // /
+				c = @data.charCodeAt(index + 1)
+
+				if c == 42 { // /*
+					const oldIndex = index
+
+					let line = @line
+					let column = @column
+
+					let left = 1
+					let lineIndex = index - @column
+
+					++index
+
+					while ++index < @length {
+						c = @data.charCodeAt(index)
+
+						if c == 10 {
+							line++
+							column = 1
+
+							lineIndex = index
+						}
+						else if c == 42 && @data.charCodeAt(index + 1) == 47 { // * /
+							--left
+
+							if left == 0 {
+								++index
+
+								column += index - lineIndex
+
+								break
+							}
+						}
+						else if c == 47 && @data.charCodeAt(index + 1) == 42 { // / *
+							++left
+						}
+					}
+
+					if left != 0 {
+						@nextIndex = @index = oldIndex
+						@nextColumn = @column
+						@nextLine = @line
+
+						return 47
+					}
+
+					// skip spaces
+					while ++index < @length {
+						c = @data.charCodeAt(index)
+
+						if c == 32 || c == 9 {
+							// skip
+							column++
+						}
+						else {
+							break
+						}
+					}
+
+					// skip new line
+					c = @data.charCodeAt(index)
+
+					if c == 13 && @data.charCodeAt(index + 1) == 10 {
+						line++
+						column = 1
+
+						++index
+					}
+					else if c == 10 || c == 13 {
+						line++
+						column = 1
+					}
+					else {
+						--index
+					}
+
+					@line = line
+					@column = column
+				}
+				else if c == 47 { // //
+					const lineIndex = index
+
+					while ++index < @length && @data.charCodeAt(index + 1) != 10 {
+					}
+
+					@column += index - lineIndex
+
+					console.log(index, @data.charCodeAt(index))
+
+					// skip new line
+					c = @data.charCodeAt(index + 1)
+
+					if c == 13 && @data.charCodeAt(index + 2) == 10 {
+						@line++
+						@column = 1
+
+						index += 2
+					}
+					else if c == 10 || c == 13 {
+						@line++
+						@column = 1
+
+						++index
+					}
+				}
+				else {
+					@nextIndex = @index = index
+					@nextColumn = @column
+					@nextLine = @line
+
+					return 47
+				}
+			}
+			else {
+				@nextIndex = @index = index
+				@nextColumn = @column
+				@nextLine = @line
+
+				return c
+			}
+		}
+
+		@nextIndex = @index = index
+		@nextColumn = @column
+		@nextLine = @line
+
+		this.eof()
+
+		return -1
+	} // }}}
 	skipNewLine(index = @index - 1) { // {{{
 		let c
 		while ++index < @length {
