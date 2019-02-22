@@ -2401,7 +2401,7 @@ export namespace Parser {
 				return this.reqBlock(this.yes())
 			}
 			else if @token == Token::EQUALS_RIGHT_ANGLE {
-				this.commit()
+				this.commit().NL_0M()
 
 				return this.reqExpression(ExpressionMode::Default)
 			}
@@ -2444,6 +2444,9 @@ export namespace Parser {
 			const parameters = this.reqFunctionParameterList()
 			const type = this.reqFunctionReturns()
 			const throws = this.reqFunctionThrows()
+
+			this.NL_0M()
+
 			const body = this.reqFunctionBody()
 
 			return this.yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, body, first, body))
