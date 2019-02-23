@@ -25,7 +25,7 @@
 	],
 	"main": "src/parser.ks",
 	"dependencies": {
-		"@kaoscript/ast": "^0.7.1",
+		"@kaoscript/ast": "github:kaoscript/ast",
 		"@kaoscript/runtime": "^0.6.0"
 	},
 	"devDependencies": {
@@ -34,7 +34,7 @@
 		"@zokugun/istanbul.cover.cmd.mocha": "^0.4.0",
 		"@zokugun/istanbul.reporter.minimap": "^0.5.0",
 		"chai": "^4.2.0",
-		"coveralls": "^3.0.2",
+		"coveralls": "^3.0.3",
 		"istanbul": "^0.4.5",
 		"kaoscript": "github:kaoscript/kaoscript",
 		"klaw-sync": "^6.0.0",

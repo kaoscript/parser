@@ -1,11 +1,11 @@
 {
-  "kind": 64,
+  "kind": 65,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "name": {
-        "kind": 45,
+        "kind": 46,
         "name": "foo",
         "start": {
           "line": 1,
@@ -26,7 +26,7 @@
       },
       "parameters": [
         {
-          "kind": 73,
+          "kind": 74,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -37,7 +37,7 @@
             "column": 15
           },
           "name": {
-            "kind": 45,
+            "kind": 46,
             "name": "intro",
             "start": {
               "line": 1,
@@ -50,7 +50,7 @@
           }
         },
         {
-          "kind": 73,
+          "kind": 74,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -61,7 +61,7 @@
             "column": 21
           },
           "name": {
-            "kind": 45,
+            "kind": 46,
             "name": "name",
             "start": {
               "line": 1,
@@ -81,12 +81,12 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 80,
+            "kind": 81,
             "value": {
-              "kind": 93,
+              "kind": 94,
               "elements": [
                 {
-                  "kind": 45,
+                  "kind": 46,
                   "name": "intro",
                   "start": {
                     "line": 2,
@@ -98,7 +98,7 @@
                   }
                 },
                 {
-                  "kind": 58,
+                  "kind": 59,
                   "value": " ",
                   "start": {
                     "line": 2,
@@ -110,7 +110,7 @@
                   }
                 },
                 {
-                  "kind": 45,
+                  "kind": 46,
                   "name": "name",
                   "start": {
                     "line": 2,
@@ -122,7 +122,7 @@
                   }
                 },
                 {
-                  "kind": 58,
+                  "kind": 59,
                   "value": "!",
                   "start": {
                     "line": 2,
@@ -166,13 +166,13 @@
       "attributes": []
     },
     {
-      "kind": 105,
+      "kind": 106,
       "rebindable": true,
       "variables": [
         {
-          "kind": 106,
+          "kind": 107,
           "name": {
-            "kind": 45,
+            "kind": 46,
             "name": "bar",
             "start": {
               "line": 5,
@@ -196,12 +196,12 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 24,
+        "kind": 25,
         "scope": {
           "kind": 2
         },
         "callee": {
-          "kind": 45,
+          "kind": 46,
           "name": "foo",
           "start": {
             "line": 5,
@@ -214,7 +214,7 @@
         },
         "arguments": [
           {
-            "kind": 58,
+            "kind": 59,
             "value": "Hello",
             "start": {
               "line": 5,
@@ -251,9 +251,9 @@
         "kind": 3
       },
       "callee": {
-        "kind": 61,
+        "kind": 62,
         "object": {
-          "kind": 45,
+          "kind": 46,
           "name": "console",
           "start": {
             "line": 7,
@@ -265,7 +265,7 @@
           }
         },
         "property": {
-          "kind": 45,
+          "kind": 46,
           "name": "log",
           "start": {
             "line": 7,
@@ -294,7 +294,7 @@
             "kind": 3
           },
           "callee": {
-            "kind": 45,
+            "kind": 46,
             "name": "bar",
             "start": {
               "line": 7,
@@ -307,7 +307,7 @@
           },
           "arguments": [
             {
-              "kind": 58,
+              "kind": 59,
               "value": "world",
               "start": {
                 "line": 7,

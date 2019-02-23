@@ -1,11 +1,11 @@
 {
-  "kind": 64,
+  "kind": 65,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "name": {
-        "kind": 45,
+        "kind": 46,
         "name": "foo",
         "start": {
           "line": 1,
@@ -26,7 +26,7 @@
       },
       "parameters": [
         {
-          "kind": 73,
+          "kind": 74,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -37,7 +37,7 @@
             "column": 15
           },
           "name": {
-            "kind": 45,
+            "kind": 46,
             "name": "x",
             "start": {
               "line": 1,
@@ -49,7 +49,7 @@
             }
           },
           "defaultValue": {
-            "kind": 68,
+            "kind": 69,
             "value": 5,
             "start": {
               "line": 1,
@@ -69,7 +69,7 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 47,
+            "kind": 48,
             "condition": {
               "kind": 10,
               "operator": {
@@ -92,7 +92,7 @@
                 "column": 11
               },
               "left": {
-                "kind": 45,
+                "kind": 46,
                 "name": "x",
                 "start": {
                   "line": 2,
@@ -104,7 +104,7 @@
                 }
               },
               "right": {
-                "kind": 68,
+                "kind": 69,
                 "value": 5,
                 "start": {
                   "line": 2,
@@ -126,9 +126,9 @@
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 61,
+                    "kind": 62,
                     "object": {
-                      "kind": 45,
+                      "kind": 46,
                       "name": "console",
                       "start": {
                         "line": 3,
@@ -140,7 +140,7 @@
                       }
                     },
                     "property": {
-                      "kind": 45,
+                      "kind": 46,
                       "name": "log",
                       "start": {
                         "line": 3,
@@ -164,7 +164,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 58,
+                      "kind": 59,
                       "value": "GIVE FIVE!",
                       "start": {
                         "line": 3,
@@ -215,9 +215,9 @@
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 61,
+                    "kind": 62,
                     "object": {
-                      "kind": 45,
+                      "kind": 46,
                       "name": "console",
                       "start": {
                         "line": 6,
@@ -229,7 +229,7 @@
                       }
                     },
                     "property": {
-                      "kind": 45,
+                      "kind": 46,
                       "name": "log",
                       "start": {
                         "line": 6,
@@ -253,7 +253,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 58,
+                      "kind": 59,
                       "value": "BOO!",
                       "start": {
                         "line": 6,
