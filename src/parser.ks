@@ -1274,6 +1274,15 @@ export namespace Parser {
 
 			return this.yep(AST.ClassDeclaration(name, version, extends, modifiers, members, first, this.yes()))
 		} // }}}
+		reqComputedPropertyName(first) ~ SyntaxError { // {{{
+			const expression = this.reqExpression(ExpressionMode::Default)
+
+			unless this.test(Token::RIGHT_SQUARE) {
+				this.throw(']')
+			}
+
+			return this.yep(AST.ComputedPropertyName(expression, first, this.yes()))
+		} // }}}
 		reqConstStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
 			const variable = this.reqTypedVariable()
 
@@ -3453,7 +3462,22 @@ export namespace Parser {
 				}
 			}
 
-			const name = this.reqNameIST()
+			let name
+			if this.match(Token::IDENTIFIER, Token::LEFT_SQUARE, Token::STRING, Token::TEMPLATE_BEGIN) == Token::IDENTIFIER {
+				name = this.reqIdentifier()
+			}
+			else if @token == Token::LEFT_SQUARE {
+				name = this.reqComputedPropertyName(this.yes())
+			}
+			else if @token == Token::STRING {
+				name = this.reqString()
+			}
+			else if @token == Token::TEMPLATE_BEGIN {
+				name = this.reqTemplateExpression(this.yes())
+			}
+			else {
+				this.throw(['Identifier', 'String', 'Template', 'Computed Property Name'])
+			}
 
 			if this.test(Token::COLON) {
 				this.commit()

@@ -445,6 +445,13 @@ namespace AST {
 			return node
 		} // }}}
 
+		func ComputedPropertyName(expression, first, last) { // {{{
+			return location({
+				kind: NodeKind::ComputedPropertyName
+				expression: expression.value
+			}, first, last)
+		} // }}}
+
 		func ConditionalExpression(first) { // {{{
 			return location({
 				kind: NodeKind::ConditionalExpression
