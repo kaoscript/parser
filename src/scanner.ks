@@ -2660,8 +2660,6 @@ class Scanner {
 
 					@column += index - lineIndex
 
-					console.log(index, @data.charCodeAt(index))
-
 					// skip new line
 					c = @data.charCodeAt(index + 1)
 

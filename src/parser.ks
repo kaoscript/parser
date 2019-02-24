@@ -230,8 +230,6 @@ export namespace Parser {
 					this.throw(']')
 				}
 			}
-
-			this.throw(']')
 		} // }}}
 		altDestructuringObjectItem(name) ~ SyntaxError { // {{{
 			if this.match(Token::EQUALS, Token::COLON) == Token::EQUALS {

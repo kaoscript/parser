@@ -1,0 +1,264 @@
+{
+  "kind": 65,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 10,
+      "operator": {
+        "kind": 3,
+        "assignment": 8,
+        "start": {
+          "line": 1,
+          "column": 8
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      },
+      "left": {
+        "kind": 46,
+        "name": "heroes",
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 7
+        }
+      },
+      "right": {
+        "kind": 4,
+        "values": [
+          {
+            "kind": 59,
+            "value": "leto",
+            "start": {
+              "line": 1,
+              "column": 11
+            },
+            "end": {
+              "line": 1,
+              "column": 17
+            }
+          },
+          {
+            "kind": 59,
+            "value": "duncan",
+            "start": {
+              "line": 1,
+              "column": 19
+            },
+            "end": {
+              "line": 1,
+              "column": 27
+            }
+          },
+          {
+            "kind": 59,
+            "value": "goku",
+            "start": {
+              "line": 1,
+              "column": 29
+            },
+            "end": {
+              "line": 1,
+              "column": 35
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 10
+        },
+        "end": {
+          "line": 1,
+          "column": 36
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 36
+      },
+      "attributes": []
+    },
+    {
+      "kind": 41,
+      "expression": {
+        "kind": 46,
+        "name": "heroes",
+        "start": {
+          "line": 3,
+          "column": 13
+        },
+        "end": {
+          "line": 3,
+          "column": 19
+        }
+      },
+      "desc": false,
+      "declaration": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 6,
+        "column": 2
+      },
+      "value": {
+        "kind": 46,
+        "name": "hero",
+        "start": {
+          "line": 3,
+          "column": 5
+        },
+        "end": {
+          "line": 3,
+          "column": 9
+        }
+      },
+      "while": {
+        "kind": 10,
+        "operator": {
+          "kind": 13,
+          "start": {
+            "line": 3,
+            "column": 31
+          },
+          "end": {
+            "line": 3,
+            "column": 33
+          }
+        },
+        "start": {
+          "line": 3,
+          "column": 26
+        },
+        "end": {
+          "line": 3,
+          "column": 40
+        },
+        "left": {
+          "kind": 46,
+          "name": "hero",
+          "start": {
+            "line": 3,
+            "column": 26
+          },
+          "end": {
+            "line": 3,
+            "column": 30
+          }
+        },
+        "right": {
+          "kind": 59,
+          "value": "goku",
+          "start": {
+            "line": 3,
+            "column": 34
+          },
+          "end": {
+            "line": 3,
+            "column": 40
+          }
+        }
+      },
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 62,
+              "object": {
+                "kind": 46,
+                "name": "console",
+                "start": {
+                  "line": 5,
+                  "column": 2
+                },
+                "end": {
+                  "line": 5,
+                  "column": 9
+                }
+              },
+              "property": {
+                "kind": 46,
+                "name": "log",
+                "start": {
+                  "line": 5,
+                  "column": 10
+                },
+                "end": {
+                  "line": 5,
+                  "column": 13
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 13
+              }
+            },
+            "arguments": [
+              {
+                "kind": 46,
+                "name": "hero",
+                "start": {
+                  "line": 5,
+                  "column": 14
+                },
+                "end": {
+                  "line": 5,
+                  "column": 18
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 5,
+              "column": 19
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 4,
+          "column": 1
+        },
+        "end": {
+          "line": 6,
+          "column": 2
+        }
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 6,
+    "column": 2
+  }
+}
