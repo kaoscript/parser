@@ -463,6 +463,8 @@ export namespace Parser {
 			return this.yep(AST.VariableDeclaration(variables, true, equals, true, operand, first, operand))
 		} // }}}
 		altLetStatementEquals(first, variables, equals) ~ SyntaxError { // {{{
+			this.NL_0M()
+
 			if this.test(Token::AWAIT) {
 				this.commit()
 

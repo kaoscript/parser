@@ -8,11 +8,11 @@
         "kind": 46,
         "name": "foo",
         "start": {
-          "line": 1,
+          "line": 2,
           "column": 6
         },
         "end": {
-          "line": 1,
+          "line": 2,
           "column": 9
         }
       },
@@ -29,31 +29,7 @@
       "throws": [],
       "body": {
         "kind": 12,
-        "attributes": [
-          {
-            "kind": 6,
-            "declaration": {
-              "kind": 46,
-              "name": "bar",
-              "start": {
-                "line": 2,
-                "column": 5
-              },
-              "end": {
-                "line": 2,
-                "column": 8
-              }
-            },
-            "start": {
-              "line": 2,
-              "column": 2
-            },
-            "end": {
-              "line": 2,
-              "column": 9
-            }
-          }
-        ],
+        "attributes": [],
         "statements": [
           {
             "kind": 106,
@@ -98,18 +74,42 @@
               }
             },
             "start": {
-              "line": 4,
+              "line": 3,
               "column": 2
             },
             "end": {
               "line": 4,
               "column": 14
             },
-            "attributes": []
+            "attributes": [
+              {
+                "kind": 6,
+                "declaration": {
+                  "kind": 46,
+                  "name": "bar",
+                  "start": {
+                    "line": 3,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 7
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 2
+                },
+                "end": {
+                  "line": 3,
+                  "column": 8
+                }
+              }
+            ]
           }
         ],
         "start": {
-          "line": 1,
+          "line": 2,
           "column": 12
         },
         "end": {
@@ -117,7 +117,31 @@
           "column": 2
         }
       },
-      "attributes": []
+      "attributes": [
+        {
+          "kind": 6,
+          "declaration": {
+            "kind": 46,
+            "name": "foo",
+            "start": {
+              "line": 1,
+              "column": 3
+            },
+            "end": {
+              "line": 1,
+              "column": 6
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 7
+          }
+        }
+      ]
     }
   ],
   "start": {

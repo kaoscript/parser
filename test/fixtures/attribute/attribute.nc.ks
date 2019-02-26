@@ -1,0 +1,3 @@
+#[test
+func foo() {
+}
