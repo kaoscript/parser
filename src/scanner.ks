@@ -1643,6 +1643,20 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	`\(Token::CONST)`(that, c) { // {{{
+		if	c == 99 &&
+			that.charAt(1) == 111 &&
+			that.charAt(2) == 110 &&
+			that.charAt(3) == 115 &&
+			that.charAt(4) == 116 &&
+			that.isBoundary(5)
+		{
+			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} // }}}
 	`\(Token::CLASS)`(that, c) { // {{{
 		if	c == 99 &&
 			that.charAt(1) == 108 &&

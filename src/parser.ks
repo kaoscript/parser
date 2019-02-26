@@ -259,7 +259,7 @@ export namespace Parser {
 				return this.yep(AST.BindingElement(name, null, null, null, name, name))
 			}
 		} // }}}
-		altForExpressionFrom(declaration, variable, first) ~ SyntaxError { // {{{
+		altForExpressionFrom(declaration, rebindable, variable, first) ~ SyntaxError { // {{{
 			this.commit()
 
 			const from = this.reqExpression(ExpressionMode::Default)
@@ -307,9 +307,9 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForFromStatement(declaration, variable, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from))
+			return this.yep(AST.ForFromStatement(declaration, rebindable, variable, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from))
 		} // }}}
-		altForExpressionIn(declaration, value?, index?, expression, first) ~ SyntaxError { // {{{
+		altForExpressionIn(declaration, rebindable, value?, index?, expression, first) ~ SyntaxError { // {{{
 			let desc = null
 			if this.test(Token::DESC) {
 				desc = this.yes()
@@ -357,9 +357,9 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForInStatement(declaration, value, index, expression, desc, from, til, to, until, while, whenExp, first, whenExp ?? while ?? until ?? to ?? til ?? from ?? desc ?? expression))
+			return this.yep(AST.ForInStatement(declaration, rebindable, value, index, expression, desc, from, til, to, until, while, whenExp, first, whenExp ?? while ?? until ?? to ?? til ?? from ?? desc ?? expression))
 		} // }}}
-		altForExpressionInRange(declaration, value?, index?, first) ~ SyntaxError { // {{{
+		altForExpressionInRange(declaration, rebindable, value?, index?, first) ~ SyntaxError { // {{{
 			this.commit()
 
 			if (number1 = this.tryNumber()).ok {
@@ -371,10 +371,10 @@ export namespace Parser {
 					if this.test(Token::DOT_DOT) {
 						this.commit()
 
-						return this.altForExpressionRange(declaration, value, index, number1, number2, null, this.reqNumber(), first)
+						return this.altForExpressionRange(declaration, rebindable, value, index, number1, number2, null, this.reqNumber(), first)
 					}
 					else {
-						return this.altForExpressionRange(declaration, value, index, number1, number2, null, null, first)
+						return this.altForExpressionRange(declaration, rebindable, value, index, number1, number2, null, null, first)
 					}
 				}
 				else if @token == Token::DOT_DOT {
@@ -385,21 +385,21 @@ export namespace Parser {
 					if this.test(Token::DOT_DOT) {
 						this.commit()
 
-						return this.altForExpressionRange(declaration, value, index, number1, null, number2, this.reqNumber(), first)
+						return this.altForExpressionRange(declaration, rebindable, value, index, number1, null, number2, this.reqNumber(), first)
 					}
 					else {
-						return this.altForExpressionRange(declaration, value, index, number1, null, number2, null, first)
+						return this.altForExpressionRange(declaration, rebindable, value, index, number1, null, number2, null, first)
 					}
 				}
 				else {
-					return this.altForExpressionIn(declaration, value, index, this.reqOperation(ExpressionMode::Default, number1), first)
+					return this.altForExpressionIn(declaration, rebindable, value, index, this.reqOperation(ExpressionMode::Default, number1), first)
 				}
 			}
 			else {
-				return this.altForExpressionIn(declaration, value, index, this.reqExpression(ExpressionMode::Default), first)
+				return this.altForExpressionIn(declaration, rebindable, value, index, this.reqExpression(ExpressionMode::Default), first)
 			}
 		} // }}}
-		altForExpressionOf(declaration, key?, value?, first) ~ SyntaxError { // {{{
+		altForExpressionOf(declaration, rebindable, key?, value?, first) ~ SyntaxError { // {{{
 			this.commit()
 
 			const expression = this.reqExpression(ExpressionMode::Default)
@@ -425,9 +425,9 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForOfStatement(declaration, key, value, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
+			return this.yep(AST.ForOfStatement(declaration, rebindable, key, value, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
 		} // }}}
-		altForExpressionRange(declaration, value, index?, from, til?, to?, by?, first) ~ SyntaxError { // {{{
+		altForExpressionRange(declaration, rebindable, value, index?, from, til?, to?, by?, first) ~ SyntaxError { // {{{
 			let until, while
 			if this.match(Token::UNTIL, Token::WHILE) == Token::UNTIL {
 				this.commit()
@@ -449,7 +449,7 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForRangeStatement(declaration, value, index, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from))
+			return this.yep(AST.ForRangeStatement(declaration, rebindable, value, index, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from))
 		} // }}}
 		altLetStatementAwait(first, variables, equals) ~ SyntaxError { // {{{
 			unless this.test(Token::AWAIT) {
@@ -2342,10 +2342,18 @@ export namespace Parser {
 		} // }}}
 		reqForExpression(first) ~ SyntaxError { // {{{
 			let declaration = false
+			let rebindable = true
+
 			if this.test(Token::LET) {
 				this.commit()
 
 				declaration = true
+			}
+			else if this.test(Token::CONST) {
+				this.commit()
+
+				declaration = true
+				rebindable = false
 			}
 
 			let identifier1, identifier2
@@ -2369,10 +2377,10 @@ export namespace Parser {
 
 			if identifier2? {
 				if this.match(Token::IN, Token::OF) == Token::IN {
-					return this.altForExpressionInRange(declaration, identifier1, identifier2, first)
+					return this.altForExpressionInRange(declaration, rebindable, identifier1, identifier2, first)
 				}
 				else if @token == Token::OF {
-					return this.altForExpressionOf(declaration, identifier1, identifier2, first)
+					return this.altForExpressionOf(declaration, rebindable, identifier1, identifier2, first)
 				}
 				else {
 					this.throw(['in', 'of'])
@@ -2380,13 +2388,13 @@ export namespace Parser {
 			}
 			else {
 				if this.match(Token::FROM, Token::IN, Token::OF) == Token::FROM {
-					return this.altForExpressionFrom(declaration, identifier1, first)
+					return this.altForExpressionFrom(declaration, rebindable, identifier1, first)
 				}
 				else if @token == Token::IN {
-					return this.altForExpressionInRange(declaration, identifier1, identifier2, first)
+					return this.altForExpressionInRange(declaration, rebindable, identifier1, identifier2, first)
 				}
 				else if @token == Token::OF {
-					return this.altForExpressionOf(declaration, identifier1, identifier2, first)
+					return this.altForExpressionOf(declaration, rebindable, identifier1, identifier2, first)
 				}
 				else {
 					this.throw(['from', 'in', 'of'])

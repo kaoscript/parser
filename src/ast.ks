@@ -621,13 +621,17 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForFromStatement(declaration: Boolean, variable, from, til?, to?, by?, until?, while?, when?, first, last) { // {{{
+		func ForFromStatement(declaration: Boolean, rebindable: Boolean, variable, from, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForFromStatement
 				variable: variable.value
 				from: from.value
 				declaration: declaration
 			}, first, last)
+
+			if declaration {
+				node.rebindable = rebindable
+			}
 
 			if til != null {
 				node.til = til.value
@@ -653,13 +657,17 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForInStatement(declaration: Boolean, value?, index?, expression, desc?, from?, til?, to?, until?, while?, when?, first, last) { // {{{
+		func ForInStatement(declaration: Boolean, rebindable: Boolean, value?, index?, expression, desc?, from?, til?, to?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForInStatement
 				expression: expression.value
 				desc: desc != null
 				declaration: declaration
 			}, first, last)
+
+			if declaration {
+				node.rebindable = rebindable
+			}
 
 			if value != null {
 				node.value = value.value
@@ -692,13 +700,17 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForRangeStatement(declaration: Boolean, value, index?, from, til?, to?, by?, until?, while?, when?, first, last) { // {{{
+		func ForRangeStatement(declaration: Boolean, rebindable: Boolean, value, index?, from, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForRangeStatement
 				value: value.value
 				from: from.value
 				declaration: declaration
 			}, first, last)
+
+			if declaration {
+				node.rebindable = rebindable
+			}
 
 			if index != null {
 				node.index = index.value
@@ -728,12 +740,16 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForOfStatement(declaration: Boolean, key?, value?, expression, until?, while?, when?, first, last) { // {{{
+		func ForOfStatement(declaration: Boolean, rebindable: Boolean, key?, value?, expression, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForOfStatement
 				expression: expression.value
 				declaration: declaration
 			}, first, last)
+
+			if declaration {
+				node.rebindable = rebindable
+			}
 
 			if key != null {
 				node.key = key.value

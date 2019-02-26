@@ -10,14 +10,14 @@
           "kind": 107,
           "name": {
             "kind": 46,
-            "name": "hero",
+            "name": "key",
             "start": {
               "line": 1,
               "column": 5
             },
             "end": {
               "line": 1,
-              "column": 9
+              "column": 8
             }
           },
           "start": {
@@ -26,7 +26,7 @@
           },
           "end": {
             "line": 1,
-            "column": 9
+            "column": 8
           }
         }
       ],
@@ -37,11 +37,11 @@
         "value": "you",
         "start": {
           "line": 1,
-          "column": 12
+          "column": 11
         },
         "end": {
           "line": 1,
-          "column": 17
+          "column": 16
         }
       },
       "start": {
@@ -50,7 +50,7 @@
       },
       "end": {
         "line": 1,
-        "column": 17
+        "column": 16
       },
       "attributes": []
     },
@@ -62,7 +62,7 @@
           "kind": 107,
           "name": {
             "kind": 46,
-            "name": "index",
+            "name": "value",
             "start": {
               "line": 2,
               "column": 5
@@ -113,131 +113,199 @@
         "assignment": 8,
         "start": {
           "line": 4,
-          "column": 8
+          "column": 7
         },
         "end": {
           "line": 4,
-          "column": 9
+          "column": 8
         }
       },
       "left": {
         "kind": 46,
-        "name": "heroes",
+        "name": "likes",
         "start": {
           "line": 4,
           "column": 1
         },
         "end": {
           "line": 4,
-          "column": 7
+          "column": 6
         }
       },
       "right": {
-        "kind": 4,
-        "values": [
+        "kind": 71,
+        "properties": [
           {
-            "kind": 59,
-            "value": "leto",
+            "kind": 72,
+            "name": {
+              "kind": 46,
+              "name": "leto",
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 6
+              }
+            },
+            "value": {
+              "kind": 59,
+              "value": "spice",
+              "start": {
+                "line": 5,
+                "column": 8
+              },
+              "end": {
+                "line": 5,
+                "column": 15
+              }
+            },
             "start": {
-              "line": 4,
-              "column": 11
+              "line": 5,
+              "column": 2
             },
             "end": {
-              "line": 4,
-              "column": 17
+              "line": 5,
+              "column": 15
             }
           },
           {
-            "kind": 59,
-            "value": "duncan",
+            "kind": 72,
+            "name": {
+              "kind": 46,
+              "name": "paul",
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 6
+              }
+            },
+            "value": {
+              "kind": 59,
+              "value": "chani",
+              "start": {
+                "line": 6,
+                "column": 8
+              },
+              "end": {
+                "line": 6,
+                "column": 15
+              }
+            },
             "start": {
-              "line": 4,
-              "column": 19
+              "line": 6,
+              "column": 2
             },
             "end": {
-              "line": 4,
-              "column": 27
+              "line": 6,
+              "column": 15
             }
           },
           {
-            "kind": 59,
-            "value": "goku",
+            "kind": 72,
+            "name": {
+              "kind": 46,
+              "name": "duncan",
+              "start": {
+                "line": 7,
+                "column": 2
+              },
+              "end": {
+                "line": 7,
+                "column": 8
+              }
+            },
+            "value": {
+              "kind": 59,
+              "value": "murbella",
+              "start": {
+                "line": 7,
+                "column": 10
+              },
+              "end": {
+                "line": 7,
+                "column": 20
+              }
+            },
             "start": {
-              "line": 4,
-              "column": 29
+              "line": 7,
+              "column": 2
             },
             "end": {
-              "line": 4,
-              "column": 35
+              "line": 7,
+              "column": 20
             }
           }
         ],
         "start": {
           "line": 4,
-          "column": 10
+          "column": 9
         },
         "end": {
-          "line": 4,
-          "column": 36
+          "line": 8,
+          "column": 2
         }
       },
       "start": {
         "line": 4,
-        "column": 1
-      },
-      "end": {
-        "line": 4,
-        "column": 36
-      },
-      "attributes": []
-    },
-    {
-      "kind": 41,
-      "expression": {
-        "kind": 46,
-        "name": "heroes",
-        "start": {
-          "line": 6,
-          "column": 24
-        },
-        "end": {
-          "line": 6,
-          "column": 30
-        }
-      },
-      "desc": false,
-      "declaration": true,
-      "rebindable": true,
-      "start": {
-        "line": 6,
         "column": 1
       },
       "end": {
         "line": 8,
         "column": 2
       },
-      "value": {
+      "attributes": []
+    },
+    {
+      "kind": 42,
+      "expression": {
         "kind": 46,
-        "name": "hero",
+        "name": "likes",
         "start": {
-          "line": 6,
-          "column": 9
+          "line": 10,
+          "column": 25
         },
         "end": {
-          "line": 6,
-          "column": 13
+          "line": 10,
+          "column": 30
         }
       },
-      "index": {
+      "declaration": true,
+      "rebindable": false,
+      "start": {
+        "line": 10,
+        "column": 1
+      },
+      "end": {
+        "line": 12,
+        "column": 2
+      },
+      "key": {
         "kind": 46,
-        "name": "index",
+        "name": "key",
         "start": {
-          "line": 6,
-          "column": 15
+          "line": 10,
+          "column": 11
         },
         "end": {
-          "line": 6,
-          "column": 20
+          "line": 10,
+          "column": 14
+        }
+      },
+      "value": {
+        "kind": 46,
+        "name": "value",
+        "start": {
+          "line": 10,
+          "column": 16
+        },
+        "end": {
+          "line": 10,
+          "column": 21
         }
       },
       "body": {
@@ -255,11 +323,11 @@
                 "kind": 46,
                 "name": "console",
                 "start": {
-                  "line": 7,
+                  "line": 11,
                   "column": 2
                 },
                 "end": {
-                  "line": 7,
+                  "line": 11,
                   "column": 9
                 }
               },
@@ -267,81 +335,94 @@
                 "kind": 46,
                 "name": "log",
                 "start": {
-                  "line": 7,
+                  "line": 11,
                   "column": 10
                 },
                 "end": {
-                  "line": 7,
+                  "line": 11,
                   "column": 13
                 }
               },
               "computed": false,
               "nullable": false,
               "start": {
-                "line": 7,
+                "line": 11,
                 "column": 2
               },
               "end": {
-                "line": 7,
+                "line": 11,
                 "column": 13
               }
             },
             "arguments": [
               {
-                "kind": 59,
-                "value": "The hero at index %d is %s",
+                "kind": 94,
+                "elements": [
+                  {
+                    "kind": 46,
+                    "name": "key",
+                    "start": {
+                      "line": 11,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 20
+                    }
+                  },
+                  {
+                    "kind": 59,
+                    "value": " likes ",
+                    "start": {
+                      "line": 11,
+                      "column": 21
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 28
+                    }
+                  },
+                  {
+                    "kind": 46,
+                    "name": "value",
+                    "start": {
+                      "line": 11,
+                      "column": 30
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 35
+                    }
+                  }
+                ],
                 "start": {
-                  "line": 7,
+                  "line": 11,
                   "column": 14
                 },
                 "end": {
-                  "line": 7,
-                  "column": 42
-                }
-              },
-              {
-                "kind": 46,
-                "name": "index",
-                "start": {
-                  "line": 7,
-                  "column": 44
-                },
-                "end": {
-                  "line": 7,
-                  "column": 49
-                }
-              },
-              {
-                "kind": 46,
-                "name": "hero",
-                "start": {
-                  "line": 7,
-                  "column": 51
-                },
-                "end": {
-                  "line": 7,
-                  "column": 55
+                  "line": 11,
+                  "column": 37
                 }
               }
             ],
             "nullable": false,
             "start": {
-              "line": 7,
+              "line": 11,
               "column": 2
             },
             "end": {
-              "line": 7,
-              "column": 56
+              "line": 11,
+              "column": 38
             },
             "attributes": []
           }
         ],
         "start": {
-          "line": 6,
+          "line": 10,
           "column": 31
         },
         "end": {
-          "line": 8,
+          "line": 12,
           "column": 2
         }
       },
@@ -353,7 +434,7 @@
     "column": 1
   },
   "end": {
-    "line": 8,
+    "line": 12,
     "column": 2
   }
 }
