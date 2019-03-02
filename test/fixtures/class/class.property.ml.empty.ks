@@ -1,0 +1,6 @@
+class Foobar {
+	public {
+		foo {
+		}
+	}
+}

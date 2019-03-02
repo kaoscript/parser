@@ -1,0 +1,2 @@
+class Foobar {
+	async foo

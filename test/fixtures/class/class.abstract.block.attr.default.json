@@ -1,0 +1,164 @@
+{
+  "kind": 65,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 17,
+      "name": {
+        "kind": 46,
+        "name": "AbstractGreetings",
+        "start": {
+          "line": 1,
+          "column": 16
+        },
+        "end": {
+          "line": 1,
+          "column": 33
+        }
+      },
+      "modifiers": [
+        {
+          "kind": 1,
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 9
+          }
+        }
+      ],
+      "members": [
+        {
+          "kind": 63,
+          "modifiers": [
+            {
+              "kind": 1,
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 10
+              }
+            }
+          ],
+          "name": {
+            "kind": 46,
+            "name": "greet",
+            "start": {
+              "line": 4,
+              "column": 3
+            },
+            "end": {
+              "line": 4,
+              "column": 8
+            }
+          },
+          "parameters": [
+            {
+              "kind": 74,
+              "modifiers": [],
+              "start": {
+                "line": 4,
+                "column": 9
+              },
+              "end": {
+                "line": 4,
+                "column": 13
+              },
+              "name": {
+                "kind": 46,
+                "name": "name",
+                "start": {
+                  "line": 4,
+                  "column": 9
+                },
+                "end": {
+                  "line": 4,
+                  "column": 13
+                }
+              }
+            }
+          ],
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 4,
+            "column": 22
+          },
+          "attributes": [
+            {
+              "kind": 6,
+              "declaration": {
+                "kind": 46,
+                "name": "foo",
+                "start": {
+                  "line": 3,
+                  "column": 5
+                },
+                "end": {
+                  "line": 3,
+                  "column": 8
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 3
+              },
+              "end": {
+                "line": 3,
+                "column": 9
+              }
+            }
+          ],
+          "type": {
+            "kind": 100,
+            "typeName": {
+              "kind": 46,
+              "name": "String",
+              "start": {
+                "line": 4,
+                "column": 16
+              },
+              "end": {
+                "line": 4,
+                "column": 22
+              }
+            },
+            "start": {
+              "line": 4,
+              "column": 16
+            },
+            "end": {
+              "line": 4,
+              "column": 22
+            }
+          },
+          "throws": []
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 6,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 6,
+    "column": 2
+  }
+}

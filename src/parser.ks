@@ -135,6 +135,7 @@ export namespace Parser {
 		throw(expecteds: Array) ~ SyntaxError { // {{{
 			throw new SyntaxError(`Expecting "\(expecteds.slice(0, expecteds.length - 1).join('", "'))" or "\(expecteds[expecteds.length - 1])" but got \(@scanner.toQuote()) at line \(@scanner.line()) and column \(@scanner.column())`)
 		} // }}}
+		until(token) => !@scanner.test(token) && !@scanner.isEOF()
 		value() => @scanner.value(@token)
 		yep() { // {{{
 			const position = @scanner.position()
@@ -794,7 +795,7 @@ export namespace Parser {
 
 			return this.yep(AST.CatchClause(binding, type, body, first, body))
 		} // }}}
-		reqClassAbstractMethod(attributes?, modifiers, first) ~ SyntaxError { // {{{
+		reqClassAbstractMethod(attributes?, modifiers, first?) ~ SyntaxError { // {{{
 			let name
 			if this.test(Token::ASYNC) {
 				let async = this.reqIdentifier()
@@ -812,7 +813,7 @@ export namespace Parser {
 				name = this.reqIdentifier()
 			}
 
-			return this.reqClassAbstractMethodBody(attributes, modifiers, name, first)
+			return this.reqClassAbstractMethodBody(attributes, modifiers, name, first ?? name)
 		} // }}}
 		reqClassAbstractMethodBody(attributes?, modifiers, name, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList()
@@ -840,7 +841,7 @@ export namespace Parser {
 			if this.test(Token::ASYNC) {
 				let async = this.reqIdentifier()
 
-				name = this.reqNameIST()
+				name = this.tryNameIST()
 
 				if name.ok {
 					modifiers.push(this.yep(AST.Modifier(ModifierKind::Async, async)))
@@ -900,7 +901,7 @@ export namespace Parser {
 				if this.test(Token::LEFT_CURLY) {
 					this.commit().NL_0M()
 
-					until this.test(Token::RIGHT_CURLY) {
+					while this.until(Token::RIGHT_CURLY) {
 						members.push(this.reqMacroStatement(attributes))
 					}
 
@@ -937,22 +938,14 @@ export namespace Parser {
 
 			if this.test(Token::ABSTRACT) {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Abstract, this.yes())))
-				if first == null && modifiers.length != 0 {
-					first = modifiers[0]
-				}
+
+				first ??= modifiers[0]
 
 				if this.test(Token::LEFT_CURLY) {
-					if first == null {
-						first = this.yes()
-					}
-					else {
-						this.commit()
-					}
-
-					this.NL_0M()
+					this.commit().NL_0M()
 
 					let attrs
-					until this.test(Token::RIGHT_CURLY) {
+					while this.until(Token::RIGHT_CURLY) {
 						if this.test(Token::HASH_LEFT_SQUARE) {
 							attrs = this.reqAttributeList(first = this.yes())
 
@@ -1000,18 +993,11 @@ export namespace Parser {
 					first = modifiers[0]
 				}
 
-				if this.test(Token::LEFT_CURLY) {
-					if first == null {
-						first = this.yes()
-					}
-					else {
-						this.commit()
-					}
-
-					this.NL_0M()
+				if first != null && this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
 
 					let attrs
-					until this.test(Token::RIGHT_CURLY) {
+					while this.until(Token::RIGHT_CURLY) {
 						if this.test(Token::HASH_LEFT_SQUARE) {
 							attrs = this.reqAttributeList(first = this.yes())
 
@@ -1085,7 +1071,7 @@ export namespace Parser {
 
 			const parameters = []
 
-			unless this.test(Token::RIGHT_ROUND) {
+			while this.until(Token::RIGHT_ROUND) {
 				while this.reqParameter(parameters, ParameterMode::Method) {
 				}
 			}
@@ -1264,7 +1250,7 @@ export namespace Parser {
 
 			const members = []
 
-			until this.test(Token::RIGHT_CURLY) {
+			while this.until(Token::RIGHT_CURLY) {
 				this.reqClassMemberList(members)
 			}
 

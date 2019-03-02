@@ -1,0 +1,7 @@
+class Foobar {
+	{
+		constructor() {
+
+		}
+	}
+}
