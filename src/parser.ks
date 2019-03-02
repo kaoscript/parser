@@ -5249,22 +5249,22 @@ export namespace Parser {
 				while this.test(Token::COMMA)
 
 				if this.match(Token::COLON_EQUALS, Token::EQUALS) == Token::COLON_EQUALS {
+					this.commit().NL_0M()
+
 					unless this.test(Token::AWAIT) {
 						this.throw('await')
 					}
-
-					this.commit()
 
 					const operand = this.reqPrefixedOperand(ExpressionMode::Default)
 
 					statement = this.yep(AST.AwaitExpression(variables, true, operand, identifier, operand))
 				}
 				else if @token == Token::EQUALS {
+					this.commit().NL_0M()
+
 					unless this.test(Token::AWAIT) {
 						this.throw('await')
 					}
-
-					this.commit()
 
 					const operand = this.reqPrefixedOperand(ExpressionMode::Default)
 
@@ -5278,12 +5278,17 @@ export namespace Parser {
 				const operator = AST.AssignmentOperator(AssignmentOperatorKind::Equality, this.yes())
 				operator.autotype = true
 
+				this.NL_0M()
+
 				const expression = this.reqExpression(ExpressionMode::Default)
 
 				statement = this.yep(AST.BinaryExpression(identifier, this.yep(operator), expression, identifier, expression))
 			}
 			else if @token == Token::EQUALS {
 				const equals = this.yes()
+
+				this.NL_0M()
+
 				const expression = this.reqExpression(ExpressionMode::Default)
 
 				statement = this.yep(AST.BinaryExpression(identifier, this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Equality, equals)), expression, identifier, expression))
