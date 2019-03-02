@@ -3447,9 +3447,10 @@ export namespace Parser {
 					const modifiers = [this.yep(AST.Modifier(ModifierKind::Async, async))]
 					const parameters = this.reqFunctionParameterList()
 					const type = this.reqFunctionReturns()
+					const throws = this.reqFunctionThrows()
 					const body = this.reqFunctionBody()
 
-					return this.yep(AST.ObjectMember(attributes, name, this.yep(AST.FunctionExpression(parameters, modifiers, type, null, body, parameters, body)), first ?? async ?? name, body))
+					return this.yep(AST.ObjectMember(attributes, name, this.yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, parameters, body)), first ?? async ?? name, body))
 				}
 				else {
 					this.rollback(marker)
@@ -3483,9 +3484,10 @@ export namespace Parser {
 			else if this.test(Token::LEFT_ROUND) {
 				const parameters = this.reqFunctionParameterList()
 				const type = this.reqFunctionReturns()
+				const throws = this.reqFunctionThrows()
 				const body = this.reqFunctionBody()
 
-				return this.yep(AST.ObjectMember(attributes, name, this.yep(AST.FunctionExpression(parameters, null, type, null, body, parameters, body)), first ?? name, body))
+				return this.yep(AST.ObjectMember(attributes, name, this.yep(AST.FunctionExpression(parameters, null, type, throws, body, parameters, body)), first ?? name, body))
 			}
 			else {
 				return this.yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
