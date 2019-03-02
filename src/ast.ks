@@ -1347,6 +1347,19 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
+		func ShorthandProperty(attributes?, name, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::ShorthandProperty
+				name: name.value
+			}, first, last)
+
+			if attributes != null {
+				node.attributes = [attribute.value for attribute in attributes.value]
+			}
+
+			return node
+		} // }}}
+
 		func SwitchClause(conditions?, bindings?, filter?, body, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::SwitchClause

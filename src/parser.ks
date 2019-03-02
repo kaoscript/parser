@@ -3480,12 +3480,15 @@ export namespace Parser {
 
 				return this.yep(AST.ObjectMember(attributes, name, value, first ?? name, value))
 			}
-			else {
+			else if this.test(Token::LEFT_ROUND) {
 				const parameters = this.reqFunctionParameterList()
 				const type = this.reqFunctionReturns()
 				const body = this.reqFunctionBody()
 
 				return this.yep(AST.ObjectMember(attributes, name, this.yep(AST.FunctionExpression(parameters, null, type, null, body, parameters, body)), first ?? name, body))
+			}
+			else {
+				return this.yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
 			}
 		} // }}}
 		reqOperand(mode) ~ SyntaxError { // {{{
