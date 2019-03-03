@@ -363,37 +363,42 @@ export namespace Parser {
 		altForExpressionInRange(declaration, rebindable, value?, index?, first) ~ SyntaxError { // {{{
 			this.commit()
 
-			if (number1 = this.tryNumber()).ok {
-				if this.match(Token::DOT_DOT_DOT, Token::DOT_DOT) == Token::DOT_DOT_DOT {
-					this.commit()
+			let operand = this.tryPrefixedOperand(ExpressionMode::Default)
 
-					const number2 = this.reqNumber()
+			if operand.ok {
+				if this.match(Token::LEFT_ANGLE, Token::DOT_DOT) == Token::LEFT_ANGLE || @token == Token::DOT_DOT {
+					const then = @token == Token::LEFT_ANGLE
+					if then {
+						this.commit()
 
+						unless this.test(Token::DOT_DOT) {
+							this.throw('..')
+						}
+
+						this.commit()
+					}
+					else {
+						this.commit()
+					}
+
+					const til = this.test(Token::LEFT_ANGLE)
+					if til {
+						this.commit()
+					}
+
+					const toOperand = this.reqPrefixedOperand(ExpressionMode::Default)
+
+					let byOperand
 					if this.test(Token::DOT_DOT) {
 						this.commit()
 
-						return this.altForExpressionRange(declaration, rebindable, value, index, number1, number2, null, this.reqNumber(), first)
+						byOperand = this.reqPrefixedOperand(ExpressionMode::Default)
 					}
-					else {
-						return this.altForExpressionRange(declaration, rebindable, value, index, number1, number2, null, null, first)
-					}
-				}
-				else if @token == Token::DOT_DOT {
-					this.commit()
 
-					const number2 = this.reqNumber()
-
-					if this.test(Token::DOT_DOT) {
-						this.commit()
-
-						return this.altForExpressionRange(declaration, rebindable, value, index, number1, null, number2, this.reqNumber(), first)
-					}
-					else {
-						return this.altForExpressionRange(declaration, rebindable, value, index, number1, null, number2, null, first)
-					}
+					return this.altForExpressionRange(declaration, rebindable, value, index, then ? null : operand, then ? operand : null, til ? toOperand : null, til ? null : toOperand, byOperand, first)
 				}
 				else {
-					return this.altForExpressionIn(declaration, rebindable, value, index, this.reqOperation(ExpressionMode::Default, number1), first)
+					return this.altForExpressionIn(declaration, rebindable, value, index, operand, first)
 				}
 			}
 			else {
@@ -428,7 +433,7 @@ export namespace Parser {
 
 			return this.yep(AST.ForOfStatement(declaration, rebindable, key, value, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
 		} // }}}
-		altForExpressionRange(declaration, rebindable, value, index?, from, til?, to?, by?, first) ~ SyntaxError { // {{{
+		altForExpressionRange(declaration, rebindable, value, index?, from?, then?, til?, to?, by?, first) ~ SyntaxError { // {{{
 			let until, while
 			if this.match(Token::UNTIL, Token::WHILE) == Token::UNTIL {
 				this.commit()
@@ -450,7 +455,7 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForRangeStatement(declaration, rebindable, value, index, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from))
+			return this.yep(AST.ForRangeStatement(declaration, rebindable, value, index, from, then, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? then ?? from))
 		} // }}}
 		altLetStatementAwait(first, variables, equals) ~ SyntaxError { // {{{
 			unless this.test(Token::AWAIT) {

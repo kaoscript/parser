@@ -700,11 +700,10 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForRangeStatement(declaration: Boolean, rebindable: Boolean, value, index?, from, til?, to?, by?, until?, while?, when?, first, last) { // {{{
+		func ForRangeStatement(declaration: Boolean, rebindable: Boolean, value, index?, from?, then?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForRangeStatement
 				value: value.value
-				from: from.value
 				declaration: declaration
 			}, first, last)
 
@@ -716,6 +715,12 @@ namespace AST {
 				node.index = index.value
 			}
 
+			if from != null {
+				node.from = from.value
+			}
+			else if then != null {
+				node.then = then.value
+			}
 			if til != null {
 				node.til = til.value
 			}
