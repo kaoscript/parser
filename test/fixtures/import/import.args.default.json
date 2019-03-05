@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 107,
+      "kind": 106,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 107,
           "name": {
             "kind": 46,
             "name": "foo1",
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 69,
+        "kind": 68,
         "value": 1,
         "start": {
           "line": 1,
@@ -55,11 +55,11 @@
       "attributes": []
     },
     {
-      "kind": 107,
+      "kind": 106,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 107,
           "name": {
             "kind": 46,
             "name": "foo2",
@@ -85,7 +85,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 69,
+        "kind": 68,
         "value": 2,
         "start": {
           "line": 2,
@@ -134,8 +134,32 @@
           },
           "arguments": [
             {
-              "kind": 46,
-              "name": "foo1",
+              "kind": 50,
+              "imported": {
+                "kind": 46,
+                "name": "foo1",
+                "start": {
+                  "line": 4,
+                  "column": 18
+                },
+                "end": {
+                  "line": 4,
+                  "column": 22
+                }
+              },
+              "local": {
+                "kind": 46,
+                "name": "foo1",
+                "start": {
+                  "line": 4,
+                  "column": 18
+                },
+                "end": {
+                  "line": 4,
+                  "column": 22
+                }
+              },
+              "seeped": false,
               "start": {
                 "line": 4,
                 "column": 18
@@ -146,8 +170,32 @@
               }
             },
             {
-              "kind": 46,
-              "name": "foo2",
+              "kind": 50,
+              "imported": {
+                "kind": 46,
+                "name": "foo2",
+                "start": {
+                  "line": 4,
+                  "column": 24
+                },
+                "end": {
+                  "line": 4,
+                  "column": 28
+                }
+              },
+              "local": {
+                "kind": 46,
+                "name": "foo2",
+                "start": {
+                  "line": 4,
+                  "column": 24
+                },
+                "end": {
+                  "line": 4,
+                  "column": 28
+                }
+              },
+              "seeped": false,
               "start": {
                 "line": 4,
                 "column": 24

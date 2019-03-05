@@ -2652,21 +2652,39 @@ export namespace Parser {
 
 				arguments = []
 
-				let identifier
-				until this.test(Token::RIGHT_ROUND) {
-					identifier = this.reqIdentifier()
+				let identifier, seep
+				while this.until(Token::RIGHT_ROUND) {
+					if !@scanner.test(Token::IDENTIFIER) {
+						this.throw('Identifier')
+					}
+
+					if @scanner.value() == 'seep' {
+						seep = this.yes()
+
+						if !(identifier = this.tryIdentifier()).ok {
+							identifier = this.yep(AST.Identifier('seep', seep))
+							seep = null
+						}
+					}
+					else {
+						identifier = this.reqIdentifier()
+						seep = null
+					}
 
 					if this.test(Token::COLON) {
 						this.commit()
 
-						arguments.push(this.yep(AST.NamedArgument(identifier, this.reqIdentifier())))
+						arguments.push(AST.ImportArgument(seep, identifier, this.reqIdentifier()))
 					}
 					else {
-						arguments.push(identifier)
+						arguments.push(AST.ImportArgument(seep, identifier, identifier))
 					}
 
 					if this.test(Token::COMMA) {
 						this.commit()
+					}
+					else {
+						break
 					}
 				}
 

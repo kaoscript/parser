@@ -879,6 +879,15 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
+		func ImportArgument(seep?, imported, local = null) { // {{{
+			return location({
+				kind: NodeKind::ImportArgument
+				imported: imported.value
+				local: local.value
+				seeped: seep != null
+			}, seep ?? imported, local ?? imported)
+		} // }}}
+
 		func ImportDeclaration(declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ImportDeclaration
@@ -894,7 +903,7 @@ namespace AST {
 			}, first, last)
 
 			if arguments != null {
-				node.arguments = [argument.value for argument in arguments]
+				node.arguments = arguments
 			}
 
 			return node
@@ -1113,14 +1122,6 @@ namespace AST {
 				kind: NodeKind::MutatorDeclaration
 				body: body.value
 			}, first, last)
-		} // }}}
-
-		func NamedArgument(name, value) { // {{{
-			return location({
-				kind: NodeKind::NamedArgument
-				name: name.value
-				value: value.value
-			}, name, value)
 		} // }}}
 
 		func Nullable(first) { // {{{
