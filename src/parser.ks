@@ -2694,18 +2694,18 @@ export namespace Parser {
 				this.commit()
 
 				let imported, local
-				until this.test(Token::NEWLINE) {
-					imported = this.reqIdentifier()
+				while this.until(Token::NEWLINE) {
+					imported = this.reqExternDeclarator()
 
 					if this.test(Token::EQUALS_RIGHT_ANGLE) {
 						this.commit()
 
 						local = this.reqIdentifier()
 
-						specifiers.push(this.yep(AST.ImportSpecifier(this.yep(AST.VariableDeclarator(imported)), local, imported, local)))
+						specifiers.push(this.yep(AST.ImportSpecifier(imported, local, imported, local)))
 					}
 					else {
-						specifiers.push(this.yep(AST.ImportSpecifier(this.yep(AST.VariableDeclarator(imported)), imported, imported, imported)))
+						specifiers.push(this.yep(AST.ImportSpecifier(imported, this.yep(imported.value.name), imported, imported)))
 					}
 
 					if this.test(Token::COMMA) {
