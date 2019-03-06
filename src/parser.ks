@@ -1937,6 +1937,11 @@ export namespace Parser {
 				return this.yep(AST.ClassDeclaration(name, null, extends, modifiers, [], first, extends ?? generic ?? name))
 			}
 		} // }}}
+		reqExternClassField(modifiers, name, type, first) ~ SyntaxError { // {{{
+			this.reqNL_1M()
+
+			return this.yep(AST.FieldDeclaration(null, modifiers, name, type, null, first, type ?? name))
+		} // }}}
 		reqExternClassMember(modifiers, first?) ~ SyntaxError { // {{{
 			const name = this.reqIdentifier()
 
