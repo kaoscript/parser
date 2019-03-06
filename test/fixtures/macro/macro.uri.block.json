@@ -1,11 +1,11 @@
 {
-  "kind": 65,
+  "kind": 66,
   "attributes": [],
   "body": [
     {
       "kind": 17,
       "name": {
-        "kind": 46,
+        "kind": 47,
         "name": "URI",
         "start": {
           "line": 1,
@@ -19,10 +19,10 @@
       "modifiers": [],
       "members": [
         {
-          "kind": 60,
+          "kind": 61,
           "attributes": [],
           "name": {
-            "kind": 46,
+            "kind": 47,
             "name": "register",
             "start": {
               "line": 3,
@@ -35,7 +35,7 @@
           },
           "parameters": [
             {
-              "kind": 73,
+              "kind": 74,
               "modifiers": [
                 {
                   "kind": 3,
@@ -58,7 +58,7 @@
                 "column": 27
               },
               "name": {
-                "kind": 46,
+                "kind": 47,
                 "name": "scheme",
                 "start": {
                   "line": 3,
@@ -70,9 +70,9 @@
                 }
               },
               "type": {
-                "kind": 100,
+                "kind": 101,
                 "typeName": {
-                  "kind": 46,
+                  "kind": 47,
                   "name": "String",
                   "start": {
                     "line": 3,
@@ -94,7 +94,7 @@
               }
             },
             {
-              "kind": 73,
+              "kind": 74,
               "modifiers": [
                 {
                   "kind": 3,
@@ -117,7 +117,7 @@
                 "column": 87
               },
               "name": {
-                "kind": 46,
+                "kind": 47,
                 "name": "meta",
                 "start": {
                   "line": 3,
@@ -129,9 +129,9 @@
                 }
               },
               "type": {
-                "kind": 100,
+                "kind": 101,
                 "typeName": {
-                  "kind": 46,
+                  "kind": 47,
                   "name": "String",
                   "start": {
                     "line": 3,
@@ -152,7 +152,7 @@
                 }
               },
               "defaultValue": {
-                "kind": 59,
+                "kind": 60,
                 "value": "hier_part [ \"?\" query ] [ \"#\" fragment ]",
                 "start": {
                   "line": 3,
@@ -170,12 +170,12 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 51,
+                "kind": 52,
                 "declarations": [
                   {
-                    "kind": 52,
+                    "kind": 53,
                     "source": {
-                      "kind": 59,
+                      "kind": 60,
                       "value": "@zokugun/test-import",
                       "start": {
                         "line": 4,
@@ -208,13 +208,13 @@
                 "attributes": []
               },
               {
-                "kind": 106,
+                "kind": 107,
                 "rebindable": false,
                 "variables": [
                   {
-                    "kind": 107,
+                    "kind": 108,
                     "name": {
-                      "kind": 46,
+                      "kind": 47,
                       "name": "name",
                       "start": {
                         "line": 6,
@@ -238,7 +238,7 @@
                 "autotype": false,
                 "await": false,
                 "init": {
-                  "kind": 94,
+                  "kind": 95,
                   "elements": [
                     {
                       "kind": 14,
@@ -246,11 +246,11 @@
                         "kind": 3
                       },
                       "callee": {
-                        "kind": 62,
+                        "kind": 63,
                         "object": {
-                          "kind": 62,
+                          "kind": 63,
                           "object": {
-                            "kind": 46,
+                            "kind": 47,
                             "name": "scheme",
                             "start": {
                               "line": 6,
@@ -262,7 +262,7 @@
                             }
                           },
                           "property": {
-                            "kind": 68,
+                            "kind": 69,
                             "value": 0,
                             "start": {
                               "line": 6,
@@ -285,7 +285,7 @@
                           }
                         },
                         "property": {
-                          "kind": 46,
+                          "kind": 47,
                           "name": "toUpperCase",
                           "start": {
                             "line": 6,
@@ -324,16 +324,16 @@
                         "kind": 3
                       },
                       "callee": {
-                        "kind": 62,
+                        "kind": 63,
                         "object": {
                           "kind": 14,
                           "scope": {
                             "kind": 3
                           },
                           "callee": {
-                            "kind": 62,
+                            "kind": 63,
                             "object": {
-                              "kind": 46,
+                              "kind": 47,
                               "name": "scheme",
                               "start": {
                                 "line": 6,
@@ -345,7 +345,7 @@
                               }
                             },
                             "property": {
-                              "kind": 46,
+                              "kind": 47,
                               "name": "substr",
                               "start": {
                                 "line": 6,
@@ -379,7 +379,7 @@
                           }
                         },
                         "property": {
-                          "kind": 46,
+                          "kind": 47,
                           "name": "toLowerCase",
                           "start": {
                             "line": 6,
@@ -413,7 +413,7 @@
                       }
                     },
                     {
-                      "kind": 59,
+                      "kind": 60,
                       "value": "URI",
                       "start": {
                         "line": 6,
@@ -445,7 +445,7 @@
                 "attributes": []
               },
               {
-                "kind": 61,
+                "kind": 62,
                 "elements": [
                   {
                     "kind": 2,
@@ -462,7 +462,7 @@
                   {
                     "kind": 1,
                     "expression": {
-                      "kind": 46,
+                      "kind": 47,
                       "name": "name",
                       "start": {
                         "line": 9,
@@ -554,7 +554,7 @@
                   {
                     "kind": 1,
                     "expression": {
-                      "kind": 46,
+                      "kind": 47,
                       "name": "PI",
                       "start": {
                         "line": 11,
@@ -679,9 +679,9 @@
     {
       "kind": 15,
       "callee": {
-        "kind": 62,
+        "kind": 63,
         "object": {
-          "kind": 46,
+          "kind": 47,
           "name": "URI",
           "start": {
             "line": 19,
@@ -693,7 +693,7 @@
           }
         },
         "property": {
-          "kind": 46,
+          "kind": 47,
           "name": "register",
           "start": {
             "line": 19,
@@ -717,7 +717,7 @@
       },
       "arguments": [
         {
-          "kind": 59,
+          "kind": 60,
           "value": "file",
           "start": {
             "line": 19,
@@ -729,7 +729,7 @@
           }
         },
         {
-          "kind": 59,
+          "kind": 60,
           "value": "[ \"//\" [ host ] ] path_absolute",
           "start": {
             "line": 19,

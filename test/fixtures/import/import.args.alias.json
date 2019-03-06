@@ -1,15 +1,15 @@
 {
-  "kind": 65,
+  "kind": 66,
   "attributes": [],
   "body": [
     {
-      "kind": 106,
+      "kind": 107,
       "rebindable": true,
       "variables": [
         {
-          "kind": 107,
+          "kind": 108,
           "name": {
-            "kind": 46,
+            "kind": 47,
             "name": "foo",
             "start": {
               "line": 1,
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 68,
+        "kind": 69,
         "value": 1,
         "start": {
           "line": 1,
@@ -55,13 +55,13 @@
       "attributes": []
     },
     {
-      "kind": 106,
+      "kind": 107,
       "rebindable": true,
       "variables": [
         {
-          "kind": 107,
+          "kind": 108,
           "name": {
-            "kind": 46,
+            "kind": 47,
             "name": "bar",
             "start": {
               "line": 2,
@@ -85,7 +85,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 68,
+        "kind": 69,
         "value": 2,
         "start": {
           "line": 2,
@@ -107,12 +107,12 @@
       "attributes": []
     },
     {
-      "kind": 51,
+      "kind": 52,
       "declarations": [
         {
-          "kind": 52,
+          "kind": 53,
           "source": {
-            "kind": 59,
+            "kind": 60,
             "value": "module1",
             "start": {
               "line": 4,
@@ -134,9 +134,9 @@
           },
           "arguments": [
             {
-              "kind": 50,
+              "kind": 51,
               "imported": {
-                "kind": 46,
+                "kind": 47,
                 "name": "foo1",
                 "start": {
                   "line": 4,
@@ -148,7 +148,7 @@
                 }
               },
               "local": {
-                "kind": 46,
+                "kind": 47,
                 "name": "foo",
                 "start": {
                   "line": 4,
@@ -170,9 +170,9 @@
               }
             },
             {
-              "kind": 50,
+              "kind": 51,
               "imported": {
-                "kind": 46,
+                "kind": 47,
                 "name": "foo2",
                 "start": {
                   "line": 4,
@@ -184,7 +184,7 @@
                 }
               },
               "local": {
-                "kind": 46,
+                "kind": 47,
                 "name": "bar",
                 "start": {
                   "line": 4,

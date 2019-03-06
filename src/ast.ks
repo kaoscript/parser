@@ -497,6 +497,14 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
+		func DiscloseDeclaration(name, members, first, last) { // {{{
+			return location({
+				kind: NodeKind::DiscloseDeclaration
+				name: name.value
+				members: [member.value for member in members]
+			}, first, last)
+		} // }}}
+
 		func DoUntilStatement(condition, body, first, last) { // {{{
 			return location({
 				kind: NodeKind::DoUntilStatement

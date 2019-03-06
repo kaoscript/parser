@@ -32,6 +32,7 @@ enum Token {
 	DECIMAL_NUMBER
 	DELETE
 	DESC
+	DISCLOSE
 	DO
 	DOT
 	DOT_DOT
@@ -654,6 +655,23 @@ namespace M {
 
 			if c == -1 {
 				return Token::EOF
+			}
+			// disclose
+			else if c == 100
+			{
+				if	that.charAt(1) == 105 &&
+					that.charAt(2) == 115 &&
+					that.charAt(3) == 99 &&
+					that.charAt(4) == 108 &&
+					that.charAt(5) == 111 &&
+					that.charAt(6) == 115 &&
+					that.charAt(7) == 101 &&
+					that.isBoundary(8)
+				{
+					that.next(8)
+
+					return Token::DISCLOSE
+				}
 			}
 			// export, extern
 			else if c == 101

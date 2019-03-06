@@ -1498,6 +1498,27 @@ export namespace Parser {
 				this.throw(['Identifier', '{', '['])
 			}
 		} // }}}
+		reqDiscloseStatement(first) ~ SyntaxError { // {{{
+			const name = this.reqIdentifier()
+
+			unless this.test(Token::LEFT_CURLY) {
+				this.throw('{')
+			}
+
+			this.commit().NL_0M()
+
+			const members = []
+
+			while this.until(Token::RIGHT_CURLY) {
+				this.reqExternClassMemberList(members)
+			}
+
+			unless this.test(Token::RIGHT_CURLY) {
+				this.throw('}')
+			}
+
+			return this.yep(AST.DiscloseDeclaration(name, members, first, this.yes()))
+		} // }}}
 		reqDoStatement(first) ~ SyntaxError { // {{{
 			this.NL_0M()
 
@@ -3278,6 +3299,9 @@ export namespace Parser {
 					}
 
 					switch this.matchM(M.MODULE_STATEMENT) {
+						Token::DISCLOSE => {
+							statement = this.reqDiscloseStatement(this.yes()).value
+						}
 						Token::EXPORT => {
 							statement = this.reqExportStatement(this.yes()).value
 						}

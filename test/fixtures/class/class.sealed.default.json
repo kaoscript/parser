@@ -1,11 +1,11 @@
 {
-  "kind": 65,
+  "kind": 66,
   "attributes": [],
   "body": [
     {
       "kind": 17,
       "name": {
-        "kind": 46,
+        "kind": 47,
         "name": "Greetings",
         "start": {
           "line": 1,
@@ -31,7 +31,7 @@
       ],
       "members": [
         {
-          "kind": 39,
+          "kind": 40,
           "modifiers": [
             {
               "kind": 5,
@@ -46,7 +46,7 @@
             }
           ],
           "name": {
-            "kind": 46,
+            "kind": 47,
             "name": "_message",
             "start": {
               "line": 3,
@@ -66,9 +66,9 @@
             "column": 24
           },
           "type": {
-            "kind": 100,
+            "kind": 101,
             "typeName": {
-              "kind": 46,
+              "kind": 47,
               "name": "String",
               "start": {
                 "line": 3,
@@ -89,7 +89,7 @@
             }
           },
           "defaultValue": {
-            "kind": 59,
+            "kind": 60,
             "value": "",
             "start": {
               "line": 3,
@@ -102,10 +102,10 @@
           }
         },
         {
-          "kind": 63,
+          "kind": 64,
           "modifiers": [],
           "name": {
-            "kind": 46,
+            "kind": 47,
             "name": "constructor",
             "start": {
               "line": 6,
@@ -136,7 +136,7 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 46,
+                  "kind": 47,
                   "name": "this",
                   "start": {
                     "line": 7,
@@ -149,7 +149,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 59,
+                    "kind": 60,
                     "value": "Hello!",
                     "start": {
                       "line": 7,
@@ -184,10 +184,10 @@
           }
         },
         {
-          "kind": 63,
+          "kind": 64,
           "modifiers": [],
           "name": {
-            "kind": 46,
+            "kind": 47,
             "name": "constructor",
             "start": {
               "line": 10,
@@ -200,7 +200,7 @@
           },
           "parameters": [
             {
-              "kind": 73,
+              "kind": 74,
               "modifiers": [
                 {
                   "kind": 12,
@@ -223,7 +223,7 @@
                 "column": 22
               },
               "name": {
-                "kind": 46,
+                "kind": 47,
                 "name": "message",
                 "start": {
                   "line": 10,
@@ -247,10 +247,10 @@
           "throws": []
         },
         {
-          "kind": 63,
+          "kind": 64,
           "modifiers": [],
           "name": {
-            "kind": 46,
+            "kind": 47,
             "name": "greet",
             "start": {
               "line": 12,
@@ -263,7 +263,7 @@
           },
           "parameters": [
             {
-              "kind": 73,
+              "kind": 74,
               "modifiers": [],
               "start": {
                 "line": 12,
@@ -274,7 +274,7 @@
                 "column": 20
               },
               "name": {
-                "kind": 46,
+                "kind": 47,
                 "name": "name",
                 "start": {
                   "line": 12,
@@ -286,9 +286,9 @@
                 }
               },
               "type": {
-                "kind": 100,
+                "kind": 101,
                 "typeName": {
-                  "kind": 46,
+                  "kind": 47,
                   "name": "String",
                   "start": {
                     "line": 12,
@@ -324,14 +324,14 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 80,
+                "kind": 81,
                 "value": {
-                  "kind": 94,
+                  "kind": 95,
                   "elements": [
                     {
-                      "kind": 95,
+                      "kind": 96,
                       "name": {
-                        "kind": 46,
+                        "kind": 47,
                         "name": "message",
                         "start": {
                           "line": 13,
@@ -352,7 +352,7 @@
                       }
                     },
                     {
-                      "kind": 59,
+                      "kind": 60,
                       "value": "\\nIt's nice to meet you",
                       "start": {
                         "line": 13,
@@ -364,7 +364,7 @@
                       }
                     },
                     {
-                      "kind": 46,
+                      "kind": 47,
                       "name": "name",
                       "start": {
                         "line": 13,
@@ -376,7 +376,7 @@
                       }
                     },
                     {
-                      "kind": 59,
+                      "kind": 60,
                       "value": ".",
                       "start": {
                         "line": 13,

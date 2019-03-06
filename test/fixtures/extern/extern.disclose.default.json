@@ -1,0 +1,321 @@
+{
+  "kind": 66,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 38,
+      "declarations": [
+        {
+          "kind": 17,
+          "name": {
+            "kind": 47,
+            "name": "String",
+            "start": {
+              "line": 1,
+              "column": 21
+            },
+            "end": {
+              "line": 1,
+              "column": 27
+            }
+          },
+          "modifiers": [
+            {
+              "kind": 9,
+              "start": {
+                "line": 1,
+                "column": 8
+              },
+              "end": {
+                "line": 1,
+                "column": 14
+              }
+            }
+          ],
+          "members": [],
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 27
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 27
+      },
+      "attributes": []
+    },
+    {
+      "kind": 27,
+      "name": {
+        "kind": 47,
+        "name": "String",
+        "start": {
+          "line": 3,
+          "column": 10
+        },
+        "end": {
+          "line": 3,
+          "column": 16
+        }
+      },
+      "members": [
+        {
+          "kind": 64,
+          "modifiers": [],
+          "name": {
+            "kind": 47,
+            "name": "split",
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 7
+            }
+          },
+          "parameters": [
+            {
+              "kind": 74,
+              "modifiers": [
+                {
+                  "kind": 8,
+                  "arity": {
+                    "min": 0,
+                    "max": "Infinity"
+                  },
+                  "start": {
+                    "line": 4,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 11
+                  }
+                }
+              ],
+              "start": {
+                "line": 4,
+                "column": 11
+              },
+              "end": {
+                "line": 4,
+                "column": 11
+              }
+            }
+          ],
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 27
+          },
+          "type": {
+            "kind": 101,
+            "typeName": {
+              "kind": 47,
+              "name": "Array",
+              "start": {
+                "line": 4,
+                "column": 14
+              },
+              "end": {
+                "line": 4,
+                "column": 19
+              }
+            },
+            "typeParameters": [
+              {
+                "kind": 101,
+                "typeName": {
+                  "kind": 47,
+                  "name": "String",
+                  "start": {
+                    "line": 4,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 26
+                  }
+                },
+                "start": {
+                  "line": 4,
+                  "column": 20
+                },
+                "end": {
+                  "line": 4,
+                  "column": 26
+                }
+              }
+            ],
+            "start": {
+              "line": 4,
+              "column": 14
+            },
+            "end": {
+              "line": 4,
+              "column": 27
+            }
+          },
+          "throws": []
+        },
+        {
+          "kind": 64,
+          "modifiers": [],
+          "name": {
+            "kind": 47,
+            "name": "replace",
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 5,
+              "column": 9
+            }
+          },
+          "parameters": [
+            {
+              "kind": 74,
+              "modifiers": [
+                {
+                  "kind": 8,
+                  "arity": {
+                    "min": 0,
+                    "max": "Infinity"
+                  },
+                  "start": {
+                    "line": 5,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 13
+                  }
+                }
+              ],
+              "start": {
+                "line": 5,
+                "column": 13
+              },
+              "end": {
+                "line": 5,
+                "column": 13
+              }
+            }
+          ],
+          "start": {
+            "line": 5,
+            "column": 2
+          },
+          "end": {
+            "line": 5,
+            "column": 22
+          },
+          "type": {
+            "kind": 101,
+            "typeName": {
+              "kind": 47,
+              "name": "String",
+              "start": {
+                "line": 5,
+                "column": 16
+              },
+              "end": {
+                "line": 5,
+                "column": 22
+              }
+            },
+            "start": {
+              "line": 5,
+              "column": 16
+            },
+            "end": {
+              "line": 5,
+              "column": 22
+            }
+          },
+          "throws": []
+        },
+        {
+          "kind": 64,
+          "modifiers": [],
+          "name": {
+            "kind": 47,
+            "name": "trim",
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 6
+            }
+          },
+          "parameters": [],
+          "start": {
+            "line": 6,
+            "column": 2
+          },
+          "end": {
+            "line": 6,
+            "column": 16
+          },
+          "type": {
+            "kind": 101,
+            "typeName": {
+              "kind": 47,
+              "name": "String",
+              "start": {
+                "line": 6,
+                "column": 10
+              },
+              "end": {
+                "line": 6,
+                "column": 16
+              }
+            },
+            "start": {
+              "line": 6,
+              "column": 10
+            },
+            "end": {
+              "line": 6,
+              "column": 16
+            }
+          },
+          "throws": []
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 2
+  }
+}
