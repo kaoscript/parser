@@ -154,12 +154,13 @@ const overhauls = {
 const regex = {
 	binary_number: /^0b[_0-1]+[a-zA-Z]*/
 	class_version: /^\d+(\.\d+(\.\d+)?)?/
-	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?[a-zA-Z]*/
+	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?(?:[eE][-+]?[_0-9]+|[a-zA-Z]*)/
+	dot_number: /^\.[_0-9]+(?:[eE][-+]?[_0-9]+|[a-zA-Z]*)/
 	double_quote: /^([^\\"]|\\.)*\"/
-	hex_number: /^0x[_0-9a-fA-F]+[a-zA-Z]*/
+	hex_number: /^0x[_0-9a-fA-F]+(\.[_0-9a-fA-F]+[pP][-+]?[_0-9]+)?[a-zA-Z]*/
 	macro_value: /^[^#\r\n]+/
-	octal_number: /^0o[_0-8]+[a-zA-Z]*/
-	radix_number: /^(?:[0-9]|[1-2][0-9]|3[0-6])r[_0-9a-zA-Z]+/
+	octal_number: /^0o[_0-8]+(\.[_0-8]+[pP][-+]?[_0-9]+)?[a-zA-Z]*/
+	radix_number: /^(?:[0-9]|[1-2][0-9]|3[0-6])r[_0-9a-zA-Z]+(\.[_0-9a-zA-Z]+)?/
 	regex: /^=?(?:[^\n\r\*\\\/\[]|\\[^\n\r]|\[(?:[^\n\r\]\\]|\\[^\n\r])*\])(?:[^\n\r\\\/\[]|\\[^\n\r]|\[(?:[^\n\r\]\\]|\\[^\n\r])*\])*\/[gmi]*/
 	resource: /(^\s*\r?\n\s*)|(^\})|(^\s*\/\/[^\r\n]*\r?\n\s*)|(^\s*\/\*)|(^\S+)/
 	single_quote: /^([^\\']|\\.)*\'/
@@ -799,6 +800,15 @@ namespace M {
 
 			if c == -1 {
 				return Token::EOF
+			}
+			else if c == 46 {
+				let substr = that._data.substr(that._index)
+
+				if match ?= regex.dot_number.exec(substr) {
+					that.next(match[0].length)
+
+					return Token::DECIMAL_NUMBER
+				}
 			}
 			else if c >= 48 && c <= 57 { // 0 - 9
 				let substr = that._data.substr(that._index)

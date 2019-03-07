@@ -5744,10 +5744,52 @@ export namespace Parser {
 				return this.yep(AST.NumericExpression(parseInt(@scanner.value().slice(2).replace(/\_/g, ''), 2), this.yes()))
 			}
 			else if @token == Token::OCTAL_NUMBER {
-				return this.yep(AST.NumericExpression(parseInt(@scanner.value().slice(2).replace(/\_/g, ''), 8), this.yes()))
+				const radix = 8
+
+				const number = @scanner.value().slice(2).replace(/\_/g, '').split('p')
+				const literals = number[0].split('.')
+
+				let value = parseInt(literals[0], radix)
+				if literals.length > 1 {
+					const floating = literals[1]
+					let power = 1
+
+					for const i from 0 til floating.length {
+						power *= radix
+
+						value += parseInt(floating[i], radix) / power
+					}
+				}
+
+				if number.length > 1 && number[1] != '0' {
+					value *= Math.pow(2, parseInt(number[1]))
+				}
+
+				return this.yep(AST.NumericExpression(value, this.yes()))
 			}
 			else if @token == Token::HEX_NUMBER {
-				return this.yep(AST.NumericExpression(parseInt(@scanner.value().slice(2).replace(/\_/g, ''), 16), this.yes()))
+				const radix = 16
+
+				const number = @scanner.value().slice(2).replace(/\_/g, '').split('p')
+				const literals = number[0].split('.')
+
+				let value = parseInt(literals[0], radix)
+				if literals.length > 1 {
+					const floating = literals[1]
+					let power = 1
+
+					for const i from 0 til floating.length {
+						power *= radix
+
+						value += parseInt(floating[i], radix) / power
+					}
+				}
+
+				if number.length > 1 && number[1] != '0' {
+					value *= Math.pow(2, parseInt(number[1]))
+				}
+
+				return this.yep(AST.NumericExpression(value, this.yes()))
 			}
 			else if @token == Token::RADIX_NUMBER {
 				const data = /^(\d+)r(.*)$/.exec(@scanner.value())
