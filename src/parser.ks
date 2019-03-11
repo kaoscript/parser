@@ -116,6 +116,7 @@ export namespace Parser {
 				return false
 			}
 		} // }}}
+		test(...tokens) => tokens.indexOf(this.match(...tokens)) != -1
 		testNS(token) { // {{{
 			if @scanner.testNS(token) {
 				@token = token
@@ -2512,9 +2513,32 @@ export namespace Parser {
 			}
 		} // }}}
 		reqIfStatement(first) ~ SyntaxError { // {{{
-			this.NL_0M()
+			let condition
+			if this.test(Token::LET, Token::CONST) {
+				const mark = this.mark()
+				const mutable = @token == Token::LET
 
-			const condition = this.reqExpression(ExpressionMode::NoAnonymousFunction)
+				const first = this.yes()
+
+				if this.test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+					if mutable {
+						condition = this.reqLetStatement(first)
+					}
+					else {
+						condition = this.reqConstStatement(first)
+					}
+				}
+				else {
+					this.rollback(mark)
+
+					condition = this.reqExpression(ExpressionMode::NoAnonymousFunction)
+				}
+			}
+			else {
+				this.NL_0M()
+
+				condition = this.reqExpression(ExpressionMode::NoAnonymousFunction)
+			}
 
 			this.NL_0M()
 

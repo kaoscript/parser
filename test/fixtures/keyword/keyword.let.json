@@ -1,0 +1,167 @@
+{
+  "kind": 66,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 107,
+      "rebindable": false,
+      "variables": [
+        {
+          "kind": 108,
+          "name": {
+            "kind": 47,
+            "name": "let",
+            "start": {
+              "line": 1,
+              "column": 7
+            },
+            "end": {
+              "line": 1,
+              "column": 10
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 7
+          },
+          "end": {
+            "line": 1,
+            "column": 10
+          }
+        }
+      ],
+      "autotype": false,
+      "await": false,
+      "init": {
+        "kind": 69,
+        "value": 42,
+        "start": {
+          "line": 1,
+          "column": 13
+        },
+        "end": {
+          "line": 1,
+          "column": 15
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 15
+      },
+      "attributes": []
+    },
+    {
+      "kind": 14,
+      "scope": {
+        "kind": 3
+      },
+      "callee": {
+        "kind": 63,
+        "object": {
+          "kind": 47,
+          "name": "console",
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        },
+        "property": {
+          "kind": 47,
+          "name": "log",
+          "start": {
+            "line": 3,
+            "column": 9
+          },
+          "end": {
+            "line": 3,
+            "column": 12
+          }
+        },
+        "computed": false,
+        "nullable": false,
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 12
+        }
+      },
+      "arguments": [
+        {
+          "kind": 10,
+          "operator": {
+            "kind": 1,
+            "start": {
+              "line": 3,
+              "column": 17
+            },
+            "end": {
+              "line": 3,
+              "column": 18
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 13
+          },
+          "end": {
+            "line": 3,
+            "column": 21
+          },
+          "left": {
+            "kind": 47,
+            "name": "let",
+            "start": {
+              "line": 3,
+              "column": 13
+            },
+            "end": {
+              "line": 3,
+              "column": 16
+            }
+          },
+          "right": {
+            "kind": 69,
+            "value": 24,
+            "start": {
+              "line": 3,
+              "column": 19
+            },
+            "end": {
+              "line": 3,
+              "column": 21
+            }
+          }
+        }
+      ],
+      "nullable": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 22
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 22
+  }
+}

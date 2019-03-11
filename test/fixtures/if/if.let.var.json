@@ -1,0 +1,170 @@
+{
+  "kind": 66,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 49,
+      "condition": {
+        "kind": 10,
+        "operator": {
+          "kind": 3,
+          "assignment": 8,
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 9
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 18
+        },
+        "left": {
+          "kind": 47,
+          "name": "let",
+          "start": {
+            "line": 1,
+            "column": 4
+          },
+          "end": {
+            "line": 1,
+            "column": 7
+          }
+        },
+        "right": {
+          "kind": 14,
+          "scope": {
+            "kind": 3
+          },
+          "callee": {
+            "kind": 47,
+            "name": "foobar",
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 16
+            }
+          },
+          "arguments": [],
+          "nullable": false,
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 18
+          }
+        }
+      },
+      "whenTrue": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 63,
+              "object": {
+                "kind": 47,
+                "name": "console",
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 9
+                }
+              },
+              "property": {
+                "kind": 47,
+                "name": "log",
+                "start": {
+                  "line": 2,
+                  "column": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 13
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 13
+              }
+            },
+            "arguments": [
+              {
+                "kind": 47,
+                "name": "let",
+                "start": {
+                  "line": 2,
+                  "column": 14
+                },
+                "end": {
+                  "line": 2,
+                  "column": 17
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 18
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 19
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 2
+  }
+}
