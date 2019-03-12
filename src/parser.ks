@@ -458,56 +458,6 @@ export namespace Parser {
 
 			return this.yep(AST.ForRangeStatement(declaration, rebindable, value, index, from, then, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? then ?? from))
 		} // }}}
-		altLetStatementAwait(first, variables, equals) ~ SyntaxError { // {{{
-			unless this.test(Token::AWAIT) {
-				this.throw('await')
-			}
-
-			this.commit()
-
-			const operand = this.reqPrefixedOperand(ExpressionMode::Default)
-
-			return this.yep(AST.VariableDeclaration(variables, true, equals, true, operand, first, operand))
-		} // }}}
-		altLetStatementEquals(first, variables, equals) ~ SyntaxError { // {{{
-			this.NL_0M()
-
-			if this.test(Token::AWAIT) {
-				this.commit()
-
-				const operand = this.reqPrefixedOperand(ExpressionMode::Default)
-
-				return this.yep(AST.VariableDeclaration(variables, true, equals, true, operand, first, operand))
-			}
-			else {
-				let init = this.reqExpression(ExpressionMode::Default)
-
-				if this.match(Token::IF, Token::UNLESS) == Token::IF {
-					const first = this.yes()
-					const condition = this.reqExpression(ExpressionMode::Default)
-
-					if this.test(Token::ELSE) {
-						this.commit()
-
-						const whenFalse = this.reqExpression(ExpressionMode::Default)
-
-						init = this.yep(AST.IfExpression(condition, init, whenFalse, init, whenFalse))
-					}
-					else {
-						init = this.yep(AST.IfExpression(condition, init, null, init, condition))
-					}
-				}
-				else if @token == Token::UNLESS {
-					this.commit()
-
-					const condition = this.reqExpression(ExpressionMode::Default)
-
-					init = this.yep(AST.UnlessExpression(condition, init, init, condition))
-				}
-
-				return statement = this.yep(AST.VariableDeclaration(variables, true, equals, false, init, first, init))
-			}
-		} // }}}
 		reqArray(first) ~ SyntaxError { // {{{
 			if this.test(Token::RIGHT_SQUARE) {
 				return this.yep(AST.ArrayExpression([], first, this.yes()))
@@ -2521,11 +2471,45 @@ export namespace Parser {
 				const first = this.yes()
 
 				if this.test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
-					if mutable {
-						condition = this.reqLetStatement(first)
+					const variable = this.reqTypedVariable()
+
+					if this.test(Token::COMMA) {
+						const variables = [variable]
+
+						do {
+							this.commit()
+
+							variables.push(this.reqTypedVariable())
+						}
+						while this.test(Token::COMMA)
+
+						const equals = this.reqVariableEquals()
+
+						unless this.test(Token::AWAIT) {
+							this.throw('await')
+						}
+
+						this.commit()
+
+						const operand = this.reqPrefixedOperand(ExpressionMode::Default)
+
+						condition = this.yep(AST.VariableDeclaration(variables, mutable, equals, true, operand, first, operand))
 					}
 					else {
-						condition = this.reqConstStatement(first)
+						const equals = this.reqVariableEquals()
+
+						if this.test(Token::AWAIT) {
+							this.commit()
+
+							const operand = this.reqPrefixedOperand(ExpressionMode::Default)
+
+							condition = this.yep(AST.VariableDeclaration([variable], mutable, equals, true, operand, first, operand))
+						}
+						else {
+							const expression = this.reqExpression(ExpressionMode::Default)
+
+							condition = this.yep(AST.VariableDeclaration([variable], mutable, equals, false, expression, first, expression))
+						}
 					}
 				}
 				else {
@@ -2952,107 +2936,81 @@ export namespace Parser {
 			}
 		} // }}}
 		reqLetStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
-			if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
-				const variables = []
+			const variable = this.reqTypedVariable()
 
-				variables.push(this.yep(AST.VariableDeclarator(this.reqDestructuringObject(this.yes()))))
+			if this.test(Token::COMMA) {
+				const variables = [variable]
 
-				if this.test(Token::COMMA) {
-					do {
-						this.commit()
+				do {
+					this.commit()
 
-						if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
-							variables.push(this.yep(AST.VariableDeclarator(this.reqDestructuringObject(this.yes()))))
-						}
-						else if @token == Token::LEFT_SQUARE {
-							variables.push(this.yep(AST.VariableDeclarator(this.reqDestructuringArray(this.yes()))))
-						}
-						else {
-							variables.push(this.reqTypedIdentifier())
-						}
+					variables.push(this.reqTypedVariable())
+				}
+				while this.test(Token::COMMA)
+
+				const equals = this.tryVariableEquals()
+
+				if equals.ok {
+					this.NL_0M()
+
+					unless this.test(Token::AWAIT) {
+						this.throw('await')
 					}
-					while this.test(Token::COMMA)
 
-					return this.altLetStatementAwait(first, variables, this.reqVariableEquals())
+					this.commit()
+
+					const operand = this.reqPrefixedOperand(mode)
+
+					return this.yep(AST.VariableDeclaration(variables, true, equals, true, operand, first, operand))
 				}
 				else {
-					return this.altLetStatementEquals(first, variables, this.reqVariableEquals())
-				}
-			}
-			else if @token == Token::LEFT_SQUARE {
-				const variables = []
-
-				variables.push(this.yep(AST.VariableDeclarator(this.reqDestructuringArray(this.yes()))))
-
-				if this.test(Token::COMMA) {
-					do {
-						this.commit()
-
-						if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
-							variables.push(this.yep(AST.VariableDeclarator(this.reqDestructuringObject(this.yes()))))
-						}
-						else if @token == Token::LEFT_SQUARE {
-							variables.push(this.yep(AST.VariableDeclarator(this.reqDestructuringArray(this.yes()))))
-						}
-						else {
-							variables.push(this.reqTypedIdentifier())
-						}
-					}
-					while this.test(Token::COMMA)
-
-					return this.altLetStatementAwait(first, variables, this.reqVariableEquals())
-				}
-				else {
-					return this.altLetStatementEquals(first, variables, this.reqVariableEquals())
+					return this.yep(AST.VariableDeclaration(variables, true, first, variables[variables.length - 1]))
 				}
 			}
 			else {
-				const identifier = this.reqTypedIdentifier()
+				const equals = this.tryVariableEquals()
 
-				if this.test(Token::COMMA) {
-					const variables = [identifier]
+				if equals.ok {
+					this.NL_0M()
 
-					let onlyIdentifiers = true
-					do {
+					if this.test(Token::AWAIT) {
 						this.commit()
 
-						if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
-							variables.push(this.yep(AST.VariableDeclarator(this.reqDestructuringObject(this.yes()))))
+						const operand = this.reqPrefixedOperand(mode)
 
-							onlyIdentifiers = false
-						}
-						else if @token == Token::LEFT_SQUARE {
-							variables.push(this.yep(AST.VariableDeclarator(this.reqDestructuringArray(this.yes()))))
-
-							onlyIdentifiers = false
-						}
-						else {
-							variables.push(this.reqTypedIdentifier())
-						}
-					}
-					while this.test(Token::COMMA)
-
-					if onlyIdentifiers {
-						const equals = this.tryVariableEquals()
-						if equals.ok {
-							return this.altLetStatementAwait(first, variables, equals)
-						}
-						else {
-							return this.yep(AST.VariableDeclaration(variables, true, first, variables[variables.length - 1]))
-						}
+						return this.yep(AST.VariableDeclaration([variable], true, equals, true, operand, first, operand))
 					}
 					else {
-						return this.altLetStatementAwait(first, variables, this.reqVariableEquals())
+						let init = this.reqExpression(mode)
+
+						if this.match(Token::IF, Token::UNLESS) == Token::IF {
+							const first = this.yes()
+							const condition = this.reqExpression(ExpressionMode::Default)
+
+							if this.test(Token::ELSE) {
+								this.commit()
+
+								const whenFalse = this.reqExpression(ExpressionMode::Default)
+
+								init = this.yep(AST.IfExpression(condition, init, whenFalse, init, whenFalse))
+							}
+							else {
+								init = this.yep(AST.IfExpression(condition, init, null, init, condition))
+							}
+						}
+						else if @token == Token::UNLESS {
+							this.commit()
+
+							const condition = this.reqExpression(ExpressionMode::Default)
+
+							init = this.yep(AST.UnlessExpression(condition, init, init, condition))
+						}
+
+						return this.yep(AST.VariableDeclaration([variable], true, equals, false, init, first, init))
 					}
 				}
 				else {
-					const equals = this.tryVariableEquals()
-					if equals.ok {
-						return this.altLetStatementEquals(first, [identifier], equals)
-					}
-					else {
-						return this.yep(AST.VariableDeclaration([identifier], true, first, identifier))
-					}
+					return this.yep(AST.VariableDeclaration([variable], true, first, variable))
 				}
 			}
 		} // }}}
