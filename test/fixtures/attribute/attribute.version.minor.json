@@ -1,0 +1,128 @@
+{
+  "kind": 66,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 45,
+      "name": {
+        "kind": 47,
+        "name": "foo",
+        "start": {
+          "line": 2,
+          "column": 6
+        },
+        "end": {
+          "line": 2,
+          "column": 9
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      },
+      "parameters": [],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 2,
+          "column": 12
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "attributes": [
+        {
+          "kind": 6,
+          "declaration": {
+            "kind": 7,
+            "name": {
+              "kind": 47,
+              "name": "if",
+              "start": {
+                "line": 1,
+                "column": 3
+              },
+              "end": {
+                "line": 1,
+                "column": 5
+              }
+            },
+            "arguments": [
+              {
+                "kind": 7,
+                "name": {
+                  "kind": 47,
+                  "name": "gt",
+                  "start": {
+                    "line": 1,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 8
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 47,
+                    "name": "v8-v6.2",
+                    "start": {
+                      "line": 1,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 16
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 1,
+                  "column": 6
+                },
+                "end": {
+                  "line": 1,
+                  "column": 17
+                }
+              }
+            ],
+            "start": {
+              "line": 1,
+              "column": 3
+            },
+            "end": {
+              "line": 1,
+              "column": 18
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 19
+          }
+        }
+      ]
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 2
+  }
+}

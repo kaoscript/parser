@@ -11,6 +11,7 @@ enum Token {
 	ASTERISK_EQUALS
 	ASYNC
 	AT
+	ATTRIBUTE_IDENTIFIER
 	AWAIT
 	BINARY_NUMBER
 	BREAK
@@ -1601,6 +1602,29 @@ const recognize = {
 	`\(Token::AT)`(that, c) { // {{{
 		if c == 64 {
 			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} // }}}
+	`\(Token::ATTRIBUTE_IDENTIFIER)`(that, c) { // {{{
+		if c == 36 || c == 95 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
+			let index = that._index - 1
+
+			let c
+			while ++index < that._length &&
+			(
+				(c = that._data.charCodeAt(index)) == 36 ||
+				c == 45 || c == 46 ||
+				(c >= 48 && c <= 57) ||
+				(c >= 65 && c <= 90) ||
+				c == 95 ||
+				(c >= 97 && c <= 122)
+			) {}
+
+			that.next(index - that._index)
+
+			return true
 		}
 		else {
 			return false

@@ -590,6 +590,14 @@ export namespace Parser {
 
 			return this.yep(AST.AttributeDeclaration(declaration, first, last))
 		} // }}}
+		reqAttributeIdentifier() ~ SyntaxError {
+			if @scanner.test(Token::ATTRIBUTE_IDENTIFIER) {
+				return this.yep(AST.Identifier(@scanner.value(), this.yes()))
+			}
+			else {
+				this.throw('Identifier')
+			}
+		}
 		reqAttributeList(first) ~ SyntaxError { // {{{
 			const attributes = [this.reqAttribute(first)]
 
@@ -600,24 +608,9 @@ export namespace Parser {
 			return this.yep(attributes)
 		} // }}}
 		reqAttributeMember() ~ SyntaxError { // {{{
-			const identifier = this.reqIdentifier()
+			const identifier = this.reqAttributeIdentifier()
 
-			if this.match(Token::MINUS, Token::EQUALS, Token::LEFT_ROUND) == Token::MINUS {
-				let plus
-
-				do {
-					this.commit()
-
-					plus = this.reqIdentifier()
-
-					identifier.value.name += '-' + plus.value.name
-					identifier.value.end = identifier.end = plus.end
-				}
-				while this.test(Token::MINUS)
-
-				return identifier
-			}
-			else if @token == Token::EQUALS {
+			if this.match(Token::EQUALS, Token::LEFT_ROUND) == Token::EQUALS {
 				this.commit()
 
 				const value = this.reqString()
