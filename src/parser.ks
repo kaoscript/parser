@@ -590,14 +590,14 @@ export namespace Parser {
 
 			return this.yep(AST.AttributeDeclaration(declaration, first, last))
 		} // }}}
-		reqAttributeIdentifier() ~ SyntaxError {
+		reqAttributeIdentifier() ~ SyntaxError { // {{{
 			if @scanner.test(Token::ATTRIBUTE_IDENTIFIER) {
 				return this.yep(AST.Identifier(@scanner.value(), this.yes()))
 			}
 			else {
 				this.throw('Identifier')
 			}
-		}
+		} // }}}
 		reqAttributeList(first) ~ SyntaxError { // {{{
 			const attributes = [this.reqAttribute(first)]
 
