@@ -599,14 +599,73 @@
                                         },
                                         {
                                           "kind": 2,
-                                          "value": ": Number",
+                                          "value": ": ",
                                           "start": {
                                             "line": 11,
                                             "column": 40
                                           },
                                           "end": {
                                             "line": 11,
-                                            "column": 48
+                                            "column": 42
+                                          }
+                                        },
+                                        {
+                                          "kind": 1,
+                                          "expression": {
+                                            "kind": 63,
+                                            "object": {
+                                              "kind": 47,
+                                              "name": "component",
+                                              "start": {
+                                                "line": 11,
+                                                "column": 45
+                                              },
+                                              "end": {
+                                                "line": 11,
+                                                "column": 54
+                                              }
+                                            },
+                                            "property": {
+                                              "kind": 47,
+                                              "name": "type",
+                                              "start": {
+                                                "line": 11,
+                                                "column": 55
+                                              },
+                                              "end": {
+                                                "line": 11,
+                                                "column": 59
+                                              }
+                                            },
+                                            "computed": false,
+                                            "nullable": false,
+                                            "start": {
+                                              "line": 11,
+                                              "column": 45
+                                            },
+                                            "end": {
+                                              "line": 11,
+                                              "column": 59
+                                            }
+                                          },
+                                          "start": {
+                                            "line": 11,
+                                            "column": 42
+                                          },
+                                          "end": {
+                                            "line": 11,
+                                            "column": 60
+                                          },
+                                          "reification": {
+                                            "kind": 4,
+                                            "start": {
+                                              "line": 11,
+                                              "column": 43
+                                            },
+                                            "end": {
+                                              "line": 11,
+                                              "column": 44
+                                            }
                                           }
                                         }
                                       ],
@@ -617,7 +676,7 @@
                                       },
                                       "end": {
                                         "line": 11,
-                                        "column": 48
+                                        "column": 60
                                       }
                                     }
                                   ],
@@ -628,7 +687,7 @@
                                   },
                                   "end": {
                                     "line": 11,
-                                    "column": 49
+                                    "column": 61
                                   },
                                   "attributes": []
                                 },

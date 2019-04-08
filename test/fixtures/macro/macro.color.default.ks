@@ -3,24 +3,24 @@ class Color {
 		if data.components? {
 			const fields: Array<Expr> = []
 			const methods: Array<Expr> = []
-			
+
 			let field
 			for name, component in data.components {
 				field = `_\(name)`
-				
-				fields.push(macro private #i(field): Number)
-				
+
+				fields.push(macro private #i(field): #i(component.type))
+
 				methods.push(macro {
 					#i(name)() => this.getField(#(name))
 					#i(name)(value) => this.setField(#(name), value)
 				})
-				
+
 				data.components[name].field = field
 			}
-			
+
 			macro {
 				Color.registerSpace(#(data))
-				
+
 				impl Color {
 					#b(fields)
 					#b(methods)

@@ -8,7 +8,7 @@ export class Color {
 			for name, component of expression.components {
 				field = `_\(name)`
 
-				fields.push(macro private #i(field): Number)
+				fields.push(macro private #i(field): #i(component.type))
 
 				methods.push(macro {
 					#[error(off)]
