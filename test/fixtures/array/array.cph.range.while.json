@@ -1,0 +1,203 @@
+{
+  "kind": 66,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 10,
+      "operator": {
+        "kind": 3,
+        "assignment": 8,
+        "start": {
+          "line": 1,
+          "column": 3
+        },
+        "end": {
+          "line": 1,
+          "column": 4
+        }
+      },
+      "left": {
+        "kind": 47,
+        "name": "a",
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 2
+        }
+      },
+      "right": {
+        "kind": 3,
+        "body": {
+          "kind": 47,
+          "name": "i",
+          "start": {
+            "line": 1,
+            "column": 6
+          },
+          "end": {
+            "line": 1,
+            "column": 7
+          }
+        },
+        "loop": {
+          "kind": 44,
+          "value": {
+            "kind": 47,
+            "name": "i",
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 13
+            }
+          },
+          "declaration": false,
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 49
+          },
+          "then": {
+            "kind": 69,
+            "value": 0,
+            "start": {
+              "line": 1,
+              "column": 17
+            },
+            "end": {
+              "line": 1,
+              "column": 18
+            }
+          },
+          "til": {
+            "kind": 69,
+            "value": 10,
+            "start": {
+              "line": 1,
+              "column": 22
+            },
+            "end": {
+              "line": 1,
+              "column": 24
+            }
+          },
+          "while": {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 47,
+              "name": "foo",
+              "start": {
+                "line": 1,
+                "column": 31
+              },
+              "end": {
+                "line": 1,
+                "column": 34
+              }
+            },
+            "arguments": [
+              {
+                "kind": 47,
+                "name": "i",
+                "start": {
+                  "line": 1,
+                  "column": 35
+                },
+                "end": {
+                  "line": 1,
+                  "column": 36
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 1,
+              "column": 31
+            },
+            "end": {
+              "line": 1,
+              "column": 37
+            }
+          },
+          "when": {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 47,
+              "name": "bar",
+              "start": {
+                "line": 1,
+                "column": 43
+              },
+              "end": {
+                "line": 1,
+                "column": 46
+              }
+            },
+            "arguments": [
+              {
+                "kind": 47,
+                "name": "i",
+                "start": {
+                  "line": 1,
+                  "column": 47
+                },
+                "end": {
+                  "line": 1,
+                  "column": 48
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 1,
+              "column": 38
+            },
+            "end": {
+              "line": 1,
+              "column": 49
+            }
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 5
+        },
+        "end": {
+          "line": 1,
+          "column": 50
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 50
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 1,
+    "column": 50
+  }
+}

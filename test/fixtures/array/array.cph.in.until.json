@@ -141,7 +141,7 @@
               "column": 45
             }
           },
-          "desc": false,
+          "desc": true,
           "declaration": false,
           "start": {
             "line": 3,
@@ -149,7 +149,7 @@
           },
           "end": {
             "line": 3,
-            "column": 65
+            "column": 78
           },
           "value": {
             "kind": 47,
@@ -175,84 +175,69 @@
               "column": 35
             }
           },
-          "when": {
-            "kind": 10,
-            "operator": {
-              "kind": 10,
-              "start": {
-                "line": 3,
-                "column": 61
-              },
-              "end": {
-                "line": 3,
-                "column": 63
-              }
-            },
+          "to": {
+            "kind": 69,
+            "value": 2,
             "start": {
               "line": 3,
-              "column": 46
+              "column": 54
             },
             "end": {
               "line": 3,
-              "column": 65
+              "column": 55
+            }
+          },
+          "until": {
+            "kind": 14,
+            "scope": {
+              "kind": 3
             },
-            "left": {
-              "kind": 10,
-              "operator": {
-                "kind": 16,
-                "start": {
-                  "line": 3,
-                  "column": 57
-                },
-                "end": {
-                  "line": 3,
-                  "column": 58
-                }
-              },
+            "callee": {
+              "kind": 47,
+              "name": "foo",
               "start": {
                 "line": 3,
-                "column": 51
-              },
-              "end": {
-                "line": 3,
-                "column": 60
-              },
-              "left": {
-                "kind": 47,
-                "name": "index",
-                "start": {
-                  "line": 3,
-                  "column": 51
-                },
-                "end": {
-                  "line": 3,
-                  "column": 56
-                }
-              },
-              "right": {
-                "kind": 69,
-                "value": 2,
-                "start": {
-                  "line": 3,
-                  "column": 59
-                },
-                "end": {
-                  "line": 3,
-                  "column": 60
-                }
-              }
-            },
-            "right": {
-              "kind": 69,
-              "value": 0,
-              "start": {
-                "line": 3,
-                "column": 64
+                "column": 62
               },
               "end": {
                 "line": 3,
                 "column": 65
               }
+            },
+            "arguments": [
+              {
+                "kind": 47,
+                "name": "hero",
+                "start": {
+                  "line": 3,
+                  "column": 66
+                },
+                "end": {
+                  "line": 3,
+                  "column": 70
+                }
+              },
+              {
+                "kind": 47,
+                "name": "index",
+                "start": {
+                  "line": 3,
+                  "column": 72
+                },
+                "end": {
+                  "line": 3,
+                  "column": 77
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 3,
+              "column": 62
+            },
+            "end": {
+              "line": 3,
+              "column": 78
             }
           }
         },
@@ -262,7 +247,7 @@
         },
         "end": {
           "line": 3,
-          "column": 66
+          "column": 79
         }
       },
       "start": {
@@ -271,7 +256,7 @@
       },
       "end": {
         "line": 3,
-        "column": 66
+        "column": 79
       },
       "attributes": []
     }
@@ -282,6 +267,6 @@
   },
   "end": {
     "line": 3,
-    "column": 66
+    "column": 79
   }
 }

@@ -1,0 +1,1 @@
+a = [i for i in 0<..<10 while foo(i) when bar(i)]

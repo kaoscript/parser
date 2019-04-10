@@ -1,0 +1,1 @@
+a = [i for const i in 0..10]
