@@ -2,7 +2,7 @@ class Shape {
 	protected {
 		_color: string = ''
 	}
-	
+
 	constructor(@color)
 
 	draw(canvas): string {
