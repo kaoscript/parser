@@ -1,5 +1,5 @@
 [@kaoscript/parser](https://github.com/kaoscript/parser)
-=================================================================
+========================================================
 
 [![kaoscript](https://img.shields.io/badge/language-kaoscript-orange.svg)](https://github.com/kaoscript/kaoscript)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)

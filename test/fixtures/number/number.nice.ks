@@ -6,6 +6,7 @@ let radix = 36rNFfdH45
 let float = 123_456.789_012
 let exponent_positive = -7.2e+22
 let exponent_negative = 1.1e-10
+let exponent_time = 0.1e5_ms
 let float_exponent = 1.23456e-65
 let float_dot = .789_012
 let float_dot_exponent = .1E4

@@ -155,7 +155,7 @@ const overhauls = {
 const regex = {
 	binary_number: /^0b[_0-1]+[a-zA-Z]*/
 	class_version: /^\d+(\.\d+(\.\d+)?)?/
-	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?(?:[eE][-+]?[_0-9]+|[a-zA-Z]*)/
+	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?(?:[eE][-+]?[_0-9]+)?(?:[a-zA-Z]*)/
 	dot_number: /^\.[_0-9]+(?:[eE][-+]?[_0-9]+|[a-zA-Z]*)/
 	double_quote: /^([^\\"]|\\.)*\"/
 	hex_number: /^0x[_0-9a-fA-F]+(?:\.[_0-9a-fA-F]+[pP][-+]?[_0-9]+)?[a-zA-Z]*/
