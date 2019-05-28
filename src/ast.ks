@@ -1,82 +1,85 @@
 namespace AST {
 	// {{{
-	const $comparison = {}
-	$comparison[BinaryOperatorKind::Addition] = false
-	$comparison[BinaryOperatorKind::And] = false
-	$comparison[BinaryOperatorKind::Assignment] = false
-	$comparison[BinaryOperatorKind::BitwiseAnd] = false
-	$comparison[BinaryOperatorKind::BitwiseLeftShift] = false
-	$comparison[BinaryOperatorKind::BitwiseOr] = false
-	$comparison[BinaryOperatorKind::BitwiseRightShift] = false
-	$comparison[BinaryOperatorKind::BitwiseXor] = false
-	$comparison[BinaryOperatorKind::Division] = false
-	$comparison[BinaryOperatorKind::Equality] = true
-	$comparison[BinaryOperatorKind::GreaterThan] = true
-	$comparison[BinaryOperatorKind::GreaterThanOrEqual] = true
-	$comparison[BinaryOperatorKind::Implies] = true
-	$comparison[BinaryOperatorKind::Inequality] = true
-	$comparison[BinaryOperatorKind::LessThan] = true
-	$comparison[BinaryOperatorKind::LessThanOrEqual] = true
-	$comparison[BinaryOperatorKind::Modulo] = false
-	$comparison[BinaryOperatorKind::Multiplication] = false
-	$comparison[BinaryOperatorKind::NullCoalescing] = false
-	$comparison[BinaryOperatorKind::Or] = false
-	$comparison[BinaryOperatorKind::Quotient] = false
-	$comparison[BinaryOperatorKind::Subtraction] = false
-	$comparison[BinaryOperatorKind::TypeCasting] = false
-	$comparison[BinaryOperatorKind::TypeEquality] = false
-	$comparison[BinaryOperatorKind::TypeInequality] = false
-	$comparison[BinaryOperatorKind::Xor] = false
+	const $comparison = {
+		[BinaryOperatorKind::Addition]: false
+		[BinaryOperatorKind::And]: false
+		[BinaryOperatorKind::Assignment]: false
+		[BinaryOperatorKind::BitwiseAnd]: false
+		[BinaryOperatorKind::BitwiseLeftShift]: false
+		[BinaryOperatorKind::BitwiseOr]: false
+		[BinaryOperatorKind::BitwiseRightShift]: false
+		[BinaryOperatorKind::BitwiseXor]: false
+		[BinaryOperatorKind::Division]: false
+		[BinaryOperatorKind::Equality]: true
+		[BinaryOperatorKind::GreaterThan]: true
+		[BinaryOperatorKind::GreaterThanOrEqual]: true
+		[BinaryOperatorKind::Implies]: true
+		[BinaryOperatorKind::Inequality]: true
+		[BinaryOperatorKind::LessThan]: true
+		[BinaryOperatorKind::LessThanOrEqual]: true
+		[BinaryOperatorKind::Modulo]: false
+		[BinaryOperatorKind::Multiplication]: false
+		[BinaryOperatorKind::NullCoalescing]: false
+		[BinaryOperatorKind::Or]: false
+		[BinaryOperatorKind::Quotient]: false
+		[BinaryOperatorKind::Subtraction]: false
+		[BinaryOperatorKind::TypeCasting]: false
+		[BinaryOperatorKind::TypeEquality]: false
+		[BinaryOperatorKind::TypeInequality]: false
+		[BinaryOperatorKind::Xor]: false
+	}
 
-	const $polyadic = {}
-	$polyadic[BinaryOperatorKind::Addition] = true
-	$polyadic[BinaryOperatorKind::And] = true
-	$polyadic[BinaryOperatorKind::Assignment] = false
-	$polyadic[BinaryOperatorKind::BitwiseAnd] = true
-	$polyadic[BinaryOperatorKind::BitwiseLeftShift] = true
-	$polyadic[BinaryOperatorKind::BitwiseOr] = true
-	$polyadic[BinaryOperatorKind::BitwiseRightShift] = true
-	$polyadic[BinaryOperatorKind::BitwiseXor] = true
-	$polyadic[BinaryOperatorKind::Division] = true
-	$polyadic[BinaryOperatorKind::Implies] = true
-	$polyadic[BinaryOperatorKind::Modulo] = true
-	$polyadic[BinaryOperatorKind::Multiplication] = true
-	$polyadic[BinaryOperatorKind::NullCoalescing] = true
-	$polyadic[BinaryOperatorKind::Or] = true
-	$polyadic[BinaryOperatorKind::Quotient] = true
-	$polyadic[BinaryOperatorKind::Subtraction] = true
-	$polyadic[BinaryOperatorKind::TypeCasting] = false
-	$polyadic[BinaryOperatorKind::TypeEquality] = false
-	$polyadic[BinaryOperatorKind::TypeInequality] = false
-	$polyadic[BinaryOperatorKind::Xor] = false
+	const $polyadic = {
+		[BinaryOperatorKind::Addition]: true
+		[BinaryOperatorKind::And]: true
+		[BinaryOperatorKind::Assignment]: false
+		[BinaryOperatorKind::BitwiseAnd]: true
+		[BinaryOperatorKind::BitwiseLeftShift]: true
+		[BinaryOperatorKind::BitwiseOr]: true
+		[BinaryOperatorKind::BitwiseRightShift]: true
+		[BinaryOperatorKind::BitwiseXor]: true
+		[BinaryOperatorKind::Division]: true
+		[BinaryOperatorKind::Implies]: true
+		[BinaryOperatorKind::Modulo]: true
+		[BinaryOperatorKind::Multiplication]: true
+		[BinaryOperatorKind::NullCoalescing]: true
+		[BinaryOperatorKind::Or]: true
+		[BinaryOperatorKind::Quotient]: true
+		[BinaryOperatorKind::Subtraction]: true
+		[BinaryOperatorKind::TypeCasting]: false
+		[BinaryOperatorKind::TypeEquality]: false
+		[BinaryOperatorKind::TypeInequality]: false
+		[BinaryOperatorKind::Xor]: false
+	}
 
-	const $precedence = {}
-	$precedence[BinaryOperatorKind::Addition] = 13
-	$precedence[BinaryOperatorKind::And] = 6
-	$precedence[BinaryOperatorKind::Assignment] = 3
-	$precedence[BinaryOperatorKind::BitwiseAnd] = 11
-	$precedence[BinaryOperatorKind::BitwiseLeftShift] = 12
-	$precedence[BinaryOperatorKind::BitwiseOr] = 9
-	$precedence[BinaryOperatorKind::BitwiseRightShift] = 12
-	$precedence[BinaryOperatorKind::BitwiseXor] = 10
-	$precedence[BinaryOperatorKind::Division] = 14
-	$precedence[BinaryOperatorKind::Equality] = 8
-	$precedence[BinaryOperatorKind::GreaterThan] = 8
-	$precedence[BinaryOperatorKind::GreaterThanOrEqual] = 8
-	$precedence[BinaryOperatorKind::Implies] = 5
-	$precedence[BinaryOperatorKind::Inequality] = 8
-	$precedence[BinaryOperatorKind::LessThan] = 8
-	$precedence[BinaryOperatorKind::LessThanOrEqual] = 8
-	$precedence[BinaryOperatorKind::Modulo] = 14
-	$precedence[BinaryOperatorKind::Multiplication] = 14
-	$precedence[BinaryOperatorKind::NullCoalescing] = 15
-	$precedence[BinaryOperatorKind::Or] = 5
-	$precedence[BinaryOperatorKind::Quotient] = 14
-	$precedence[BinaryOperatorKind::Subtraction] = 13
-	$precedence[BinaryOperatorKind::TypeCasting] = 8
-	$precedence[BinaryOperatorKind::TypeEquality] = 8
-	$precedence[BinaryOperatorKind::TypeInequality] = 8
-	$precedence[BinaryOperatorKind::Xor] = 5
+	const $precedence = {
+		[BinaryOperatorKind::Addition]: 13
+		[BinaryOperatorKind::And]: 6
+		[BinaryOperatorKind::Assignment]: 3
+		[BinaryOperatorKind::BitwiseAnd]: 11
+		[BinaryOperatorKind::BitwiseLeftShift]: 12
+		[BinaryOperatorKind::BitwiseOr]: 9
+		[BinaryOperatorKind::BitwiseRightShift]: 12
+		[BinaryOperatorKind::BitwiseXor]: 10
+		[BinaryOperatorKind::Division]: 14
+		[BinaryOperatorKind::Equality]: 8
+		[BinaryOperatorKind::GreaterThan]: 8
+		[BinaryOperatorKind::GreaterThanOrEqual]: 8
+		[BinaryOperatorKind::Implies]: 5
+		[BinaryOperatorKind::Inequality]: 8
+		[BinaryOperatorKind::LessThan]: 8
+		[BinaryOperatorKind::LessThanOrEqual]: 8
+		[BinaryOperatorKind::Modulo]: 14
+		[BinaryOperatorKind::Multiplication]: 14
+		[BinaryOperatorKind::NullCoalescing]: 15
+		[BinaryOperatorKind::Or]: 5
+		[BinaryOperatorKind::Quotient]: 14
+		[BinaryOperatorKind::Subtraction]: 13
+		[BinaryOperatorKind::TypeCasting]: 8
+		[BinaryOperatorKind::TypeEquality]: 8
+		[BinaryOperatorKind::TypeInequality]: 8
+		[BinaryOperatorKind::Xor]: 5
+	}
 	// }}}
 
 	const CONDITIONAL_PRECEDENCE = 4
