@@ -1,5 +1,5 @@
 {
-  "kind": 66,
+  "kind": 67,
   "attributes": [],
   "body": [
     {
@@ -17,7 +17,7 @@
         }
       },
       "left": {
-        "kind": 47,
+        "kind": 48,
         "name": "heroes",
         "start": {
           "line": 1,
@@ -32,7 +32,7 @@
         "kind": 4,
         "values": [
           {
-            "kind": 60,
+            "kind": 61,
             "value": "leto",
             "start": {
               "line": 1,
@@ -44,7 +44,7 @@
             }
           },
           {
-            "kind": 60,
+            "kind": 61,
             "value": "duncan",
             "start": {
               "line": 1,
@@ -56,7 +56,7 @@
             }
           },
           {
-            "kind": 60,
+            "kind": 61,
             "value": "goku",
             "start": {
               "line": 1,
@@ -88,9 +88,9 @@
       "attributes": []
     },
     {
-      "kind": 42,
+      "kind": 43,
       "expression": {
-        "kind": 47,
+        "kind": 48,
         "name": "heroes",
         "start": {
           "line": 3,
@@ -112,7 +112,7 @@
         "column": 2
       },
       "value": {
-        "kind": 47,
+        "kind": 48,
         "name": "hero",
         "start": {
           "line": 3,
@@ -124,18 +124,44 @@
         }
       },
       "until": {
-        "kind": 10,
-        "operator": {
-          "kind": 10,
-          "start": {
-            "line": 3,
-            "column": 31
+        "kind": 21,
+        "values": [
+          {
+            "kind": 48,
+            "name": "hero",
+            "start": {
+              "line": 3,
+              "column": 26
+            },
+            "end": {
+              "line": 3,
+              "column": 30
+            }
           },
-          "end": {
-            "line": 3,
-            "column": 33
+          {
+            "kind": 10,
+            "start": {
+              "line": 3,
+              "column": 31
+            },
+            "end": {
+              "line": 3,
+              "column": 33
+            }
+          },
+          {
+            "kind": 61,
+            "value": "duncan",
+            "start": {
+              "line": 3,
+              "column": 34
+            },
+            "end": {
+              "line": 3,
+              "column": 42
+            }
           }
-        },
+        ],
         "start": {
           "line": 3,
           "column": 26
@@ -143,30 +169,6 @@
         "end": {
           "line": 3,
           "column": 42
-        },
-        "left": {
-          "kind": 47,
-          "name": "hero",
-          "start": {
-            "line": 3,
-            "column": 26
-          },
-          "end": {
-            "line": 3,
-            "column": 30
-          }
-        },
-        "right": {
-          "kind": 60,
-          "value": "duncan",
-          "start": {
-            "line": 3,
-            "column": 34
-          },
-          "end": {
-            "line": 3,
-            "column": 42
-          }
         }
       },
       "body": {
@@ -179,9 +181,9 @@
               "kind": 3
             },
             "callee": {
-              "kind": 63,
+              "kind": 64,
               "object": {
-                "kind": 47,
+                "kind": 48,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -193,7 +195,7 @@
                 }
               },
               "property": {
-                "kind": 47,
+                "kind": 48,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -217,7 +219,7 @@
             },
             "arguments": [
               {
-                "kind": 47,
+                "kind": 48,
                 "name": "hero",
                 "start": {
                   "line": 5,

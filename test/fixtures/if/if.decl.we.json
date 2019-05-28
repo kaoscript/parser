@@ -1,15 +1,15 @@
 {
-  "kind": 66,
+  "kind": 67,
   "attributes": [],
   "body": [
     {
-      "kind": 107,
+      "kind": 108,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 109,
           "name": {
-            "kind": 47,
+            "kind": 48,
             "name": "x",
             "start": {
               "line": 1,
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 69,
+        "kind": 70,
         "value": 5,
         "start": {
           "line": 1,
@@ -55,13 +55,13 @@
       "attributes": []
     },
     {
-      "kind": 107,
+      "kind": 108,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 109,
           "name": {
-            "kind": 47,
+            "kind": 48,
             "name": "y",
             "start": {
               "line": 3,
@@ -85,20 +85,46 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 48,
+        "kind": 49,
         "condition": {
-          "kind": 10,
-          "operator": {
-            "kind": 10,
-            "start": {
-              "line": 3,
-              "column": 17
+          "kind": 21,
+          "values": [
+            {
+              "kind": 48,
+              "name": "x",
+              "start": {
+                "line": 3,
+                "column": 15
+              },
+              "end": {
+                "line": 3,
+                "column": 16
+              }
             },
-            "end": {
-              "line": 3,
-              "column": 19
+            {
+              "kind": 10,
+              "start": {
+                "line": 3,
+                "column": 17
+              },
+              "end": {
+                "line": 3,
+                "column": 19
+              }
+            },
+            {
+              "kind": 70,
+              "value": 5,
+              "start": {
+                "line": 3,
+                "column": 20
+              },
+              "end": {
+                "line": 3,
+                "column": 21
+              }
             }
-          },
+          ],
           "start": {
             "line": 3,
             "column": 15
@@ -106,34 +132,10 @@
           "end": {
             "line": 3,
             "column": 21
-          },
-          "left": {
-            "kind": 47,
-            "name": "x",
-            "start": {
-              "line": 3,
-              "column": 15
-            },
-            "end": {
-              "line": 3,
-              "column": 16
-            }
-          },
-          "right": {
-            "kind": 69,
-            "value": 5,
-            "start": {
-              "line": 3,
-              "column": 20
-            },
-            "end": {
-              "line": 3,
-              "column": 21
-            }
           }
         },
         "whenTrue": {
-          "kind": 69,
+          "kind": 70,
           "value": 10,
           "start": {
             "line": 3,
@@ -153,7 +155,7 @@
           "column": 29
         },
         "whenFalse": {
-          "kind": 69,
+          "kind": 70,
           "value": 15,
           "start": {
             "line": 3,

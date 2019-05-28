@@ -1,15 +1,15 @@
 {
-  "kind": 66,
+  "kind": 67,
   "attributes": [],
   "body": [
     {
-      "kind": 107,
+      "kind": 108,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 109,
           "name": {
-            "kind": 47,
+            "kind": 48,
             "name": "pair",
             "start": {
               "line": 1,
@@ -36,7 +36,7 @@
         "kind": 4,
         "values": [
           {
-            "kind": 69,
+            "kind": 70,
             "value": 2,
             "start": {
               "line": 1,
@@ -48,7 +48,7 @@
             }
           },
           {
-            "kind": 69,
+            "kind": 70,
             "value": -2,
             "start": {
               "line": 1,
@@ -80,9 +80,9 @@
       "attributes": []
     },
     {
-      "kind": 92,
+      "kind": 93,
       "expression": {
-        "kind": 47,
+        "kind": 48,
         "name": "pair",
         "start": {
           "line": 3,
@@ -95,16 +95,16 @@
       },
       "clauses": [
         {
-          "kind": 85,
+          "kind": 86,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 63,
+              "kind": 64,
               "object": {
-                "kind": 47,
+                "kind": 48,
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -116,7 +116,7 @@
                 }
               },
               "property": {
-                "kind": 47,
+                "kind": 48,
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -140,7 +140,7 @@
             },
             "arguments": [
               {
-                "kind": 60,
+                "kind": 61,
                 "value": "These are twins",
                 "start": {
                   "line": 4,
@@ -178,7 +178,7 @@
                 {
                   "kind": 11,
                   "name": {
-                    "kind": 47,
+                    "kind": 48,
                     "name": "x",
                     "start": {
                       "line": 4,
@@ -201,7 +201,7 @@
                 {
                   "kind": 11,
                   "name": {
-                    "kind": 47,
+                    "kind": 48,
                     "name": "y",
                     "start": {
                       "line": 4,
@@ -233,18 +233,44 @@
             }
           ],
           "filter": {
-            "kind": 10,
-            "operator": {
-              "kind": 10,
-              "start": {
-                "line": 4,
-                "column": 22
+            "kind": 21,
+            "values": [
+              {
+                "kind": 48,
+                "name": "x",
+                "start": {
+                  "line": 4,
+                  "column": 20
+                },
+                "end": {
+                  "line": 4,
+                  "column": 21
+                }
               },
-              "end": {
-                "line": 4,
-                "column": 24
+              {
+                "kind": 10,
+                "start": {
+                  "line": 4,
+                  "column": 22
+                },
+                "end": {
+                  "line": 4,
+                  "column": 24
+                }
+              },
+              {
+                "kind": 48,
+                "name": "y",
+                "start": {
+                  "line": 4,
+                  "column": 25
+                },
+                "end": {
+                  "line": 4,
+                  "column": 26
+                }
               }
-            },
+            ],
             "start": {
               "line": 4,
               "column": 20
@@ -252,44 +278,20 @@
             "end": {
               "line": 4,
               "column": 26
-            },
-            "left": {
-              "kind": 47,
-              "name": "x",
-              "start": {
-                "line": 4,
-                "column": 20
-              },
-              "end": {
-                "line": 4,
-                "column": 21
-              }
-            },
-            "right": {
-              "kind": 47,
-              "name": "y",
-              "start": {
-                "line": 4,
-                "column": 25
-              },
-              "end": {
-                "line": 4,
-                "column": 26
-              }
             }
           }
         },
         {
-          "kind": 85,
+          "kind": 86,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 63,
+              "kind": 64,
               "object": {
-                "kind": 47,
+                "kind": 48,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -301,7 +303,7 @@
                 }
               },
               "property": {
-                "kind": 47,
+                "kind": 48,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -325,7 +327,7 @@
             },
             "arguments": [
               {
-                "kind": 60,
+                "kind": 61,
                 "value": "Antimatter, kaboom!",
                 "start": {
                   "line": 5,
@@ -363,7 +365,7 @@
                 {
                   "kind": 11,
                   "name": {
-                    "kind": 47,
+                    "kind": 48,
                     "name": "x",
                     "start": {
                       "line": 5,
@@ -386,7 +388,7 @@
                 {
                   "kind": 11,
                   "name": {
-                    "kind": 47,
+                    "kind": 48,
                     "name": "y",
                     "start": {
                       "line": 5,
@@ -418,18 +420,78 @@
             }
           ],
           "filter": {
-            "kind": 10,
-            "operator": {
-              "kind": 10,
-              "start": {
-                "line": 5,
-                "column": 26
+            "kind": 21,
+            "values": [
+              {
+                "kind": 10,
+                "operator": {
+                  "kind": 1,
+                  "start": {
+                    "line": 5,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 23
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 20
+                },
+                "end": {
+                  "line": 5,
+                  "column": 25
+                },
+                "left": {
+                  "kind": 48,
+                  "name": "x",
+                  "start": {
+                    "line": 5,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 21
+                  }
+                },
+                "right": {
+                  "kind": 48,
+                  "name": "y",
+                  "start": {
+                    "line": 5,
+                    "column": 24
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 25
+                  }
+                }
               },
-              "end": {
-                "line": 5,
-                "column": 28
+              {
+                "kind": 10,
+                "start": {
+                  "line": 5,
+                  "column": 26
+                },
+                "end": {
+                  "line": 5,
+                  "column": 28
+                }
+              },
+              {
+                "kind": 70,
+                "value": 0,
+                "start": {
+                  "line": 5,
+                  "column": 29
+                },
+                "end": {
+                  "line": 5,
+                  "column": 30
+                }
               }
-            },
+            ],
             "start": {
               "line": 5,
               "column": 20
@@ -437,78 +499,20 @@
             "end": {
               "line": 5,
               "column": 30
-            },
-            "left": {
-              "kind": 10,
-              "operator": {
-                "kind": 1,
-                "start": {
-                  "line": 5,
-                  "column": 22
-                },
-                "end": {
-                  "line": 5,
-                  "column": 23
-                }
-              },
-              "start": {
-                "line": 5,
-                "column": 20
-              },
-              "end": {
-                "line": 5,
-                "column": 25
-              },
-              "left": {
-                "kind": 47,
-                "name": "x",
-                "start": {
-                  "line": 5,
-                  "column": 20
-                },
-                "end": {
-                  "line": 5,
-                  "column": 21
-                }
-              },
-              "right": {
-                "kind": 47,
-                "name": "y",
-                "start": {
-                  "line": 5,
-                  "column": 24
-                },
-                "end": {
-                  "line": 5,
-                  "column": 25
-                }
-              }
-            },
-            "right": {
-              "kind": 69,
-              "value": 0,
-              "start": {
-                "line": 5,
-                "column": 29
-              },
-              "end": {
-                "line": 5,
-                "column": 30
-              }
             }
           }
         },
         {
-          "kind": 85,
+          "kind": 86,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 63,
+              "kind": 64,
               "object": {
-                "kind": 47,
+                "kind": 48,
                 "name": "console",
                 "start": {
                   "line": 6,
@@ -520,7 +524,7 @@
                 }
               },
               "property": {
-                "kind": 47,
+                "kind": 48,
                 "name": "log",
                 "start": {
                   "line": 6,
@@ -544,7 +548,7 @@
             },
             "arguments": [
               {
-                "kind": 60,
+                "kind": 61,
                 "value": "The first one is odd",
                 "start": {
                   "line": 6,
@@ -582,7 +586,7 @@
                 {
                   "kind": 11,
                   "name": {
-                    "kind": 47,
+                    "kind": 48,
                     "name": "x",
                     "start": {
                       "line": 6,
@@ -603,7 +607,7 @@
                   }
                 },
                 {
-                  "kind": 73,
+                  "kind": 74,
                   "start": {
                     "line": 6,
                     "column": 10
@@ -625,18 +629,78 @@
             }
           ],
           "filter": {
-            "kind": 10,
-            "operator": {
-              "kind": 10,
-              "start": {
-                "line": 6,
-                "column": 24
+            "kind": 21,
+            "values": [
+              {
+                "kind": 10,
+                "operator": {
+                  "kind": 17,
+                  "start": {
+                    "line": 6,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 21
+                  }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 18
+                },
+                "end": {
+                  "line": 6,
+                  "column": 23
+                },
+                "left": {
+                  "kind": 48,
+                  "name": "x",
+                  "start": {
+                    "line": 6,
+                    "column": 18
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 19
+                  }
+                },
+                "right": {
+                  "kind": 70,
+                  "value": 2,
+                  "start": {
+                    "line": 6,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 23
+                  }
+                }
               },
-              "end": {
-                "line": 6,
-                "column": 26
+              {
+                "kind": 10,
+                "start": {
+                  "line": 6,
+                  "column": 24
+                },
+                "end": {
+                  "line": 6,
+                  "column": 26
+                }
+              },
+              {
+                "kind": 70,
+                "value": 1,
+                "start": {
+                  "line": 6,
+                  "column": 27
+                },
+                "end": {
+                  "line": 6,
+                  "column": 28
+                }
               }
-            },
+            ],
             "start": {
               "line": 6,
               "column": 18
@@ -644,78 +708,20 @@
             "end": {
               "line": 6,
               "column": 28
-            },
-            "left": {
-              "kind": 10,
-              "operator": {
-                "kind": 16,
-                "start": {
-                  "line": 6,
-                  "column": 20
-                },
-                "end": {
-                  "line": 6,
-                  "column": 21
-                }
-              },
-              "start": {
-                "line": 6,
-                "column": 18
-              },
-              "end": {
-                "line": 6,
-                "column": 23
-              },
-              "left": {
-                "kind": 47,
-                "name": "x",
-                "start": {
-                  "line": 6,
-                  "column": 18
-                },
-                "end": {
-                  "line": 6,
-                  "column": 19
-                }
-              },
-              "right": {
-                "kind": 69,
-                "value": 2,
-                "start": {
-                  "line": 6,
-                  "column": 22
-                },
-                "end": {
-                  "line": 6,
-                  "column": 23
-                }
-              }
-            },
-            "right": {
-              "kind": 69,
-              "value": 1,
-              "start": {
-                "line": 6,
-                "column": 27
-              },
-              "end": {
-                "line": 6,
-                "column": 28
-              }
             }
           }
         },
         {
-          "kind": 85,
+          "kind": 86,
           "body": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 63,
+              "kind": 64,
               "object": {
-                "kind": 47,
+                "kind": 48,
                 "name": "console",
                 "start": {
                   "line": 7,
@@ -727,7 +733,7 @@
                 }
               },
               "property": {
-                "kind": 47,
+                "kind": 48,
                 "name": "log",
                 "start": {
                   "line": 7,
@@ -751,7 +757,7 @@
             },
             "arguments": [
               {
-                "kind": 60,
+                "kind": 61,
                 "value": "No correlation...",
                 "start": {
                   "line": 7,

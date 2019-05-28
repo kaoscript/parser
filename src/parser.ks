@@ -5373,6 +5373,9 @@ export namespace Parser {
 				Token::CARET => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseXor, this.yes()))
 				}
+				Token::CARET_CARET => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Xor, this.yes()))
+				}
 				Token::CARET_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseXor, this.yes()))
 				}
@@ -5405,6 +5408,9 @@ export namespace Parser {
 				}
 				Token::MINUS_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Subtraction, this.yes()))
+				}
+				Token::MINUS_RIGHT_ANGLE => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Implies, this.yes()))
 				}
 				Token::PERCENT => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Modulo, this.yes()))
@@ -5450,6 +5456,12 @@ export namespace Parser {
 				}
 				Token::SLASH => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Division, this.yes()))
+				}
+				Token::SLASH_DOT => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Quotient, this.yes()))
+				}
+				Token::SLASH_DOT_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Quotient, this.yes()))
 				}
 				Token::SLASH_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Division, this.yes()))

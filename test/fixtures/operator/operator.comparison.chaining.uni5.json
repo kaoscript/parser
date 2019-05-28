@@ -1,15 +1,15 @@
 {
-  "kind": 66,
+  "kind": 67,
   "attributes": [],
   "body": [
     {
-      "kind": 107,
+      "kind": 108,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 109,
           "name": {
-            "kind": 47,
+            "kind": 48,
             "name": "foo",
             "start": {
               "line": 1,
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 69,
+        "kind": 70,
         "value": 180,
         "start": {
           "line": 1,
@@ -55,13 +55,13 @@
       "attributes": []
     },
     {
-      "kind": 107,
+      "kind": 108,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 109,
           "name": {
-            "kind": 47,
+            "kind": 48,
             "name": "bar",
             "start": {
               "line": 2,
@@ -85,7 +85,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 69,
+        "kind": 70,
         "value": 120,
         "start": {
           "line": 2,
@@ -107,13 +107,13 @@
       "attributes": []
     },
     {
-      "kind": 107,
+      "kind": 108,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 109,
           "name": {
-            "kind": 47,
+            "kind": 48,
             "name": "qux",
             "start": {
               "line": 3,
@@ -137,7 +137,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 69,
+        "kind": 70,
         "value": 80,
         "start": {
           "line": 3,
@@ -159,13 +159,13 @@
       "attributes": []
     },
     {
-      "kind": 107,
+      "kind": 108,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 109,
           "name": {
-            "kind": 47,
+            "kind": 48,
             "name": "isIt",
             "start": {
               "line": 5,
@@ -189,29 +189,10 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 75,
-        "operator": {
-          "kind": 11,
-          "start": {
-            "line": 5,
-            "column": 22
-          },
-          "end": {
-            "line": 5,
-            "column": 23
-          }
-        },
-        "start": {
-          "line": 5,
-          "column": 12
-        },
-        "end": {
-          "line": 5,
-          "column": 38
-        },
-        "operands": [
+        "kind": 21,
+        "values": [
           {
-            "kind": 69,
+            "kind": 70,
             "value": 200,
             "start": {
               "line": 5,
@@ -223,7 +204,18 @@
             }
           },
           {
-            "kind": 47,
+            "kind": 11,
+            "start": {
+              "line": 5,
+              "column": 16
+            },
+            "end": {
+              "line": 5,
+              "column": 17
+            }
+          },
+          {
+            "kind": 48,
             "name": "foo",
             "start": {
               "line": 5,
@@ -235,7 +227,18 @@
             }
           },
           {
-            "kind": 47,
+            "kind": 11,
+            "start": {
+              "line": 5,
+              "column": 22
+            },
+            "end": {
+              "line": 5,
+              "column": 23
+            }
+          },
+          {
+            "kind": 48,
             "name": "bar",
             "start": {
               "line": 5,
@@ -247,7 +250,18 @@
             }
           },
           {
-            "kind": 47,
+            "kind": 11,
+            "start": {
+              "line": 5,
+              "column": 28
+            },
+            "end": {
+              "line": 5,
+              "column": 29
+            }
+          },
+          {
+            "kind": 48,
             "name": "qux",
             "start": {
               "line": 5,
@@ -259,7 +273,18 @@
             }
           },
           {
-            "kind": 69,
+            "kind": 11,
+            "start": {
+              "line": 5,
+              "column": 34
+            },
+            "end": {
+              "line": 5,
+              "column": 35
+            }
+          },
+          {
+            "kind": 70,
             "value": 60,
             "start": {
               "line": 5,
@@ -270,7 +295,15 @@
               "column": 38
             }
           }
-        ]
+        ],
+        "start": {
+          "line": 5,
+          "column": 12
+        },
+        "end": {
+          "line": 5,
+          "column": 38
+        }
       },
       "start": {
         "line": 5,

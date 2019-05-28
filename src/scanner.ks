@@ -18,6 +18,7 @@ enum Token {
 	BY
 	CARET
 	CARET_AT_LEFT_ROUND
+	CARET_CARET
 	CARET_CARET_LEFT_ROUND
 	CARET_DOLLAR_LEFT_ROUND
 	CARET_EQUALS
@@ -84,6 +85,7 @@ enum Token {
 	MINUS
 	MINUS_EQUALS
 	MINUS_MINUS
+	MINUS_RIGHT_ANGLE
 	NAMESPACE
 	NEW
 	NEWLINE
@@ -125,6 +127,8 @@ enum Token {
 	SEALED
 	SET
 	SLASH
+	SLASH_DOT
+	SLASH_DOT_EQUALS
 	SLASH_EQUALS
 	STATIC
 	STRING
@@ -255,6 +259,11 @@ namespace M {
 
 					return Token::MINUS_EQUALS
 				}
+				else if c == 62 {
+					that.next(2)
+
+					return Token::MINUS_RIGHT_ANGLE
+				}
 				else if c != 45 {
 					that.next(1)
 
@@ -262,7 +271,21 @@ namespace M {
 				}
 			}
 			else if c == 47 { // /
-				if that.charAt(1) == 61 {
+				c = that.charAt(1)
+
+				if c == 46 {
+					if that.charAt(2) == 61 {
+						that.next(3)
+
+						return Token::SLASH_DOT_EQUALS
+					}
+					else {
+						that.next(2)
+
+						return Token::SLASH_DOT
+					}
+				}
+				else if c == 61 {
 					that.next(2)
 
 					return Token::SLASH_EQUALS
@@ -367,6 +390,11 @@ namespace M {
 					that.next(2)
 
 					return Token::CARET_EQUALS
+				}
+				else if c == 94 {
+					that.next(2)
+
+					return Token::CARET_CARET
 				}
 				else {
 					that.next(1)

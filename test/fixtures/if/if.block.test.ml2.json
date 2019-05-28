@@ -1,9 +1,9 @@
 {
-  "kind": 66,
+  "kind": 67,
   "attributes": [],
   "body": [
     {
-      "kind": 49,
+      "kind": 50,
       "condition": {
         "kind": 10,
         "operator": {
@@ -26,7 +26,7 @@
           "column": 3
         },
         "left": {
-          "kind": 102,
+          "kind": 103,
           "operator": {
             "kind": 7,
             "start": {
@@ -39,7 +39,7 @@
             }
           },
           "argument": {
-            "kind": 47,
+            "kind": 48,
             "name": "arrow",
             "start": {
               "line": 1,
@@ -62,7 +62,7 @@
         "right": {
           "kind": 10,
           "operator": {
-            "kind": 19,
+            "kind": 20,
             "start": {
               "line": 3,
               "column": 54
@@ -81,7 +81,7 @@
             "column": 3
           },
           "left": {
-            "kind": 75,
+            "kind": 76,
             "operator": {
               "kind": 2,
               "start": {
@@ -103,18 +103,44 @@
             },
             "operands": [
               {
-                "kind": 10,
-                "operator": {
-                  "kind": 13,
-                  "start": {
-                    "line": 3,
-                    "column": 9
+                "kind": 21,
+                "values": [
+                  {
+                    "kind": 48,
+                    "name": "rest",
+                    "start": {
+                      "line": 3,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 8
+                    }
                   },
-                  "end": {
-                    "line": 3,
-                    "column": 11
+                  {
+                    "kind": 14,
+                    "start": {
+                      "line": 3,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 11
+                    }
+                  },
+                  {
+                    "kind": 70,
+                    "value": -1,
+                    "start": {
+                      "line": 3,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 14
+                    }
                   }
-                },
+                ],
                 "start": {
                   "line": 3,
                   "column": 4
@@ -122,34 +148,10 @@
                 "end": {
                   "line": 3,
                   "column": 14
-                },
-                "left": {
-                  "kind": 47,
-                  "name": "rest",
-                  "start": {
-                    "line": 3,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 8
-                  }
-                },
-                "right": {
-                  "kind": 69,
-                  "value": -1,
-                  "start": {
-                    "line": 3,
-                    "column": 12
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 14
-                  }
                 }
               },
               {
-                "kind": 102,
+                "kind": 103,
                 "operator": {
                   "kind": 7,
                   "start": {
@@ -162,7 +164,7 @@
                   }
                 },
                 "argument": {
-                  "kind": 47,
+                  "kind": 48,
                   "name": "fr",
                   "start": {
                     "line": 3,
@@ -185,7 +187,7 @@
               {
                 "kind": 10,
                 "operator": {
-                  "kind": 19,
+                  "kind": 20,
                   "start": {
                     "line": 3,
                     "column": 34
@@ -204,18 +206,44 @@
                   "column": 52
                 },
                 "left": {
-                  "kind": 10,
-                  "operator": {
-                    "kind": 10,
-                    "start": {
-                      "line": 3,
-                      "column": 29
+                  "kind": 21,
+                  "values": [
+                    {
+                      "kind": 48,
+                      "name": "db",
+                      "start": {
+                        "line": 3,
+                        "column": 26
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 28
+                      }
                     },
-                    "end": {
-                      "line": 3,
-                      "column": 31
+                    {
+                      "kind": 10,
+                      "start": {
+                        "line": 3,
+                        "column": 29
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 31
+                      }
+                    },
+                    {
+                      "kind": 70,
+                      "value": 0,
+                      "start": {
+                        "line": 3,
+                        "column": 32
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 33
+                      }
                     }
-                  },
+                  ],
                   "start": {
                     "line": 3,
                     "column": 26
@@ -223,45 +251,81 @@
                   "end": {
                     "line": 3,
                     "column": 33
-                  },
-                  "left": {
-                    "kind": 47,
-                    "name": "db",
-                    "start": {
-                      "line": 3,
-                      "column": 26
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 28
-                    }
-                  },
-                  "right": {
-                    "kind": 69,
-                    "value": 0,
-                    "start": {
-                      "line": 3,
-                      "column": 32
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 33
-                    }
                   }
                 },
                 "right": {
-                  "kind": 10,
-                  "operator": {
-                    "kind": 10,
-                    "start": {
-                      "line": 3,
-                      "column": 44
+                  "kind": 21,
+                  "values": [
+                    {
+                      "kind": 10,
+                      "operator": {
+                        "kind": 1,
+                        "start": {
+                          "line": 3,
+                          "column": 40
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 41
+                        }
+                      },
+                      "start": {
+                        "line": 3,
+                        "column": 37
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 43
+                      },
+                      "left": {
+                        "kind": 48,
+                        "name": "db",
+                        "start": {
+                          "line": 3,
+                          "column": 37
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 39
+                        }
+                      },
+                      "right": {
+                        "kind": 70,
+                        "value": 1,
+                        "start": {
+                          "line": 3,
+                          "column": 42
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 43
+                        }
+                      }
                     },
-                    "end": {
-                      "line": 3,
-                      "column": 46
+                    {
+                      "kind": 10,
+                      "start": {
+                        "line": 3,
+                        "column": 44
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 46
+                      }
+                    },
+                    {
+                      "kind": 48,
+                      "name": "rest",
+                      "start": {
+                        "line": 3,
+                        "column": 47
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 51
+                      }
                     }
-                  },
+                  ],
                   "start": {
                     "line": 3,
                     "column": 37
@@ -269,64 +333,6 @@
                   "end": {
                     "line": 3,
                     "column": 51
-                  },
-                  "left": {
-                    "kind": 10,
-                    "operator": {
-                      "kind": 1,
-                      "start": {
-                        "line": 3,
-                        "column": 40
-                      },
-                      "end": {
-                        "line": 3,
-                        "column": 41
-                      }
-                    },
-                    "start": {
-                      "line": 3,
-                      "column": 37
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 43
-                    },
-                    "left": {
-                      "kind": 47,
-                      "name": "db",
-                      "start": {
-                        "line": 3,
-                        "column": 37
-                      },
-                      "end": {
-                        "line": 3,
-                        "column": 39
-                      }
-                    },
-                    "right": {
-                      "kind": 69,
-                      "value": 1,
-                      "start": {
-                        "line": 3,
-                        "column": 42
-                      },
-                      "end": {
-                        "line": 3,
-                        "column": 43
-                      }
-                    }
-                  },
-                  "right": {
-                    "kind": 47,
-                    "name": "rest",
-                    "start": {
-                      "line": 3,
-                      "column": 47
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 51
-                    }
                   }
                 }
               }
@@ -354,18 +360,44 @@
               "column": 4
             },
             "left": {
-              "kind": 10,
-              "operator": {
-                "kind": 10,
-                "start": {
-                  "line": 5,
-                  "column": 9
+              "kind": 21,
+              "values": [
+                {
+                  "kind": 48,
+                  "name": "rest",
+                  "start": {
+                    "line": 5,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 8
+                  }
                 },
-                "end": {
-                  "line": 5,
-                  "column": 11
+                {
+                  "kind": 10,
+                  "start": {
+                    "line": 5,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 11
+                  }
+                },
+                {
+                  "kind": 70,
+                  "value": -1,
+                  "start": {
+                    "line": 5,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 14
+                  }
                 }
-              },
+              ],
               "start": {
                 "line": 5,
                 "column": 4
@@ -373,36 +405,12 @@
               "end": {
                 "line": 5,
                 "column": 14
-              },
-              "left": {
-                "kind": 47,
-                "name": "rest",
-                "start": {
-                  "line": 5,
-                  "column": 4
-                },
-                "end": {
-                  "line": 5,
-                  "column": 8
-                }
-              },
-              "right": {
-                "kind": 69,
-                "value": -1,
-                "start": {
-                  "line": 5,
-                  "column": 12
-                },
-                "end": {
-                  "line": 5,
-                  "column": 14
-                }
               }
             },
             "right": {
               "kind": 10,
               "operator": {
-                "kind": 19,
+                "kind": 20,
                 "start": {
                   "line": 7,
                   "column": 70
@@ -421,7 +429,7 @@
                 "column": 5
               },
               "left": {
-                "kind": 75,
+                "kind": 76,
                 "operator": {
                   "kind": 2,
                   "start": {
@@ -443,7 +451,7 @@
                 },
                 "operands": [
                   {
-                    "kind": 102,
+                    "kind": 103,
                     "operator": {
                       "kind": 7,
                       "start": {
@@ -456,9 +464,9 @@
                       }
                     },
                     "argument": {
-                      "kind": 63,
+                      "kind": 64,
                       "object": {
-                        "kind": 47,
+                        "kind": 48,
                         "name": "signature",
                         "start": {
                           "line": 7,
@@ -470,7 +478,7 @@
                         }
                       },
                       "property": {
-                        "kind": 47,
+                        "kind": 48,
                         "name": "async",
                         "start": {
                           "line": 7,
@@ -502,18 +510,69 @@
                     }
                   },
                   {
-                    "kind": 10,
-                    "operator": {
-                      "kind": 10,
-                      "start": {
-                        "line": 7,
-                        "column": 40
+                    "kind": 21,
+                    "values": [
+                      {
+                        "kind": 64,
+                        "object": {
+                          "kind": 48,
+                          "name": "signature",
+                          "start": {
+                            "line": 7,
+                            "column": 26
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 35
+                          }
+                        },
+                        "property": {
+                          "kind": 48,
+                          "name": "max",
+                          "start": {
+                            "line": 7,
+                            "column": 36
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 39
+                          }
+                        },
+                        "computed": false,
+                        "nullable": false,
+                        "start": {
+                          "line": 7,
+                          "column": 26
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 39
+                        }
                       },
-                      "end": {
-                        "line": 7,
-                        "column": 42
+                      {
+                        "kind": 10,
+                        "start": {
+                          "line": 7,
+                          "column": 40
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 42
+                        }
+                      },
+                      {
+                        "kind": 48,
+                        "name": "l",
+                        "start": {
+                          "line": 7,
+                          "column": 43
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 44
+                        }
                       }
-                    },
+                    ],
                     "start": {
                       "line": 7,
                       "column": 26
@@ -521,61 +580,12 @@
                     "end": {
                       "line": 7,
                       "column": 44
-                    },
-                    "left": {
-                      "kind": 63,
-                      "object": {
-                        "kind": 47,
-                        "name": "signature",
-                        "start": {
-                          "line": 7,
-                          "column": 26
-                        },
-                        "end": {
-                          "line": 7,
-                          "column": 35
-                        }
-                      },
-                      "property": {
-                        "kind": 47,
-                        "name": "max",
-                        "start": {
-                          "line": 7,
-                          "column": 36
-                        },
-                        "end": {
-                          "line": 7,
-                          "column": 39
-                        }
-                      },
-                      "computed": false,
-                      "nullable": false,
-                      "start": {
-                        "line": 7,
-                        "column": 26
-                      },
-                      "end": {
-                        "line": 7,
-                        "column": 39
-                      }
-                    },
-                    "right": {
-                      "kind": 47,
-                      "name": "l",
-                      "start": {
-                        "line": 7,
-                        "column": 43
-                      },
-                      "end": {
-                        "line": 7,
-                        "column": 44
-                      }
                     }
                   },
                   {
                     "kind": 10,
                     "operator": {
-                      "kind": 19,
+                      "kind": 20,
                       "start": {
                         "line": 7,
                         "column": 57
@@ -594,18 +604,44 @@
                       "column": 68
                     },
                     "left": {
-                      "kind": 10,
-                      "operator": {
-                        "kind": 10,
-                        "start": {
-                          "line": 7,
-                          "column": 52
+                      "kind": 21,
+                      "values": [
+                        {
+                          "kind": 48,
+                          "name": "db",
+                          "start": {
+                            "line": 7,
+                            "column": 49
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 51
+                          }
                         },
-                        "end": {
-                          "line": 7,
-                          "column": 54
+                        {
+                          "kind": 10,
+                          "start": {
+                            "line": 7,
+                            "column": 52
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 54
+                          }
+                        },
+                        {
+                          "kind": 70,
+                          "value": 0,
+                          "start": {
+                            "line": 7,
+                            "column": 55
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 56
+                          }
                         }
-                      },
+                      ],
                       "start": {
                         "line": 7,
                         "column": 49
@@ -613,45 +649,47 @@
                       "end": {
                         "line": 7,
                         "column": 56
-                      },
-                      "left": {
-                        "kind": 47,
-                        "name": "db",
-                        "start": {
-                          "line": 7,
-                          "column": 49
-                        },
-                        "end": {
-                          "line": 7,
-                          "column": 51
-                        }
-                      },
-                      "right": {
-                        "kind": 69,
-                        "value": 0,
-                        "start": {
-                          "line": 7,
-                          "column": 55
-                        },
-                        "end": {
-                          "line": 7,
-                          "column": 56
-                        }
                       }
                     },
                     "right": {
-                      "kind": 10,
-                      "operator": {
-                        "kind": 10,
-                        "start": {
-                          "line": 7,
-                          "column": 63
+                      "kind": 21,
+                      "values": [
+                        {
+                          "kind": 48,
+                          "name": "db",
+                          "start": {
+                            "line": 7,
+                            "column": 60
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 62
+                          }
                         },
-                        "end": {
-                          "line": 7,
-                          "column": 65
+                        {
+                          "kind": 10,
+                          "start": {
+                            "line": 7,
+                            "column": 63
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 65
+                          }
+                        },
+                        {
+                          "kind": 48,
+                          "name": "l",
+                          "start": {
+                            "line": 7,
+                            "column": 66
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 67
+                          }
                         }
-                      },
+                      ],
                       "start": {
                         "line": 7,
                         "column": 60
@@ -659,37 +697,13 @@
                       "end": {
                         "line": 7,
                         "column": 67
-                      },
-                      "left": {
-                        "kind": 47,
-                        "name": "db",
-                        "start": {
-                          "line": 7,
-                          "column": 60
-                        },
-                        "end": {
-                          "line": 7,
-                          "column": 62
-                        }
-                      },
-                      "right": {
-                        "kind": 47,
-                        "name": "l",
-                        "start": {
-                          "line": 7,
-                          "column": 66
-                        },
-                        "end": {
-                          "line": 7,
-                          "column": 67
-                        }
                       }
                     }
                   }
                 ]
               },
               "right": {
-                "kind": 75,
+                "kind": 76,
                 "operator": {
                   "kind": 2,
                   "start": {
@@ -711,9 +725,9 @@
                 },
                 "operands": [
                   {
-                    "kind": 63,
+                    "kind": 64,
                     "object": {
-                      "kind": 47,
+                      "kind": 48,
                       "name": "signature",
                       "start": {
                         "line": 8,
@@ -725,7 +739,7 @@
                       }
                     },
                     "property": {
-                      "kind": 47,
+                      "kind": 48,
                       "name": "async",
                       "start": {
                         "line": 8,
@@ -748,18 +762,103 @@
                     }
                   },
                   {
-                    "kind": 10,
-                    "operator": {
-                      "kind": 10,
-                      "start": {
-                        "line": 8,
-                        "column": 39
+                    "kind": 21,
+                    "values": [
+                      {
+                        "kind": 64,
+                        "object": {
+                          "kind": 48,
+                          "name": "signature",
+                          "start": {
+                            "line": 8,
+                            "column": 25
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 34
+                          }
+                        },
+                        "property": {
+                          "kind": 48,
+                          "name": "max",
+                          "start": {
+                            "line": 8,
+                            "column": 35
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 38
+                          }
+                        },
+                        "computed": false,
+                        "nullable": false,
+                        "start": {
+                          "line": 8,
+                          "column": 25
+                        },
+                        "end": {
+                          "line": 8,
+                          "column": 38
+                        }
                       },
-                      "end": {
-                        "line": 8,
-                        "column": 41
+                      {
+                        "kind": 10,
+                        "start": {
+                          "line": 8,
+                          "column": 39
+                        },
+                        "end": {
+                          "line": 8,
+                          "column": 41
+                        }
+                      },
+                      {
+                        "kind": 10,
+                        "operator": {
+                          "kind": 1,
+                          "start": {
+                            "line": 8,
+                            "column": 44
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 45
+                          }
+                        },
+                        "start": {
+                          "line": 8,
+                          "column": 42
+                        },
+                        "end": {
+                          "line": 8,
+                          "column": 47
+                        },
+                        "left": {
+                          "kind": 48,
+                          "name": "l",
+                          "start": {
+                            "line": 8,
+                            "column": 42
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 43
+                          }
+                        },
+                        "right": {
+                          "kind": 70,
+                          "value": 1,
+                          "start": {
+                            "line": 8,
+                            "column": 46
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 47
+                          }
+                        }
                       }
-                    },
+                    ],
                     "start": {
                       "line": 8,
                       "column": 25
@@ -767,95 +866,12 @@
                     "end": {
                       "line": 8,
                       "column": 47
-                    },
-                    "left": {
-                      "kind": 63,
-                      "object": {
-                        "kind": 47,
-                        "name": "signature",
-                        "start": {
-                          "line": 8,
-                          "column": 25
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 34
-                        }
-                      },
-                      "property": {
-                        "kind": 47,
-                        "name": "max",
-                        "start": {
-                          "line": 8,
-                          "column": 35
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 38
-                        }
-                      },
-                      "computed": false,
-                      "nullable": false,
-                      "start": {
-                        "line": 8,
-                        "column": 25
-                      },
-                      "end": {
-                        "line": 8,
-                        "column": 38
-                      }
-                    },
-                    "right": {
-                      "kind": 10,
-                      "operator": {
-                        "kind": 1,
-                        "start": {
-                          "line": 8,
-                          "column": 44
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 45
-                        }
-                      },
-                      "start": {
-                        "line": 8,
-                        "column": 42
-                      },
-                      "end": {
-                        "line": 8,
-                        "column": 47
-                      },
-                      "left": {
-                        "kind": 47,
-                        "name": "l",
-                        "start": {
-                          "line": 8,
-                          "column": 42
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 43
-                        }
-                      },
-                      "right": {
-                        "kind": 69,
-                        "value": 1,
-                        "start": {
-                          "line": 8,
-                          "column": 46
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 47
-                        }
-                      }
                     }
                   },
                   {
                     "kind": 10,
                     "operator": {
-                      "kind": 19,
+                      "kind": 20,
                       "start": {
                         "line": 8,
                         "column": 60
@@ -874,18 +890,44 @@
                       "column": 75
                     },
                     "left": {
-                      "kind": 10,
-                      "operator": {
-                        "kind": 10,
-                        "start": {
-                          "line": 8,
-                          "column": 55
+                      "kind": 21,
+                      "values": [
+                        {
+                          "kind": 48,
+                          "name": "db",
+                          "start": {
+                            "line": 8,
+                            "column": 52
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 54
+                          }
                         },
-                        "end": {
-                          "line": 8,
-                          "column": 57
+                        {
+                          "kind": 10,
+                          "start": {
+                            "line": 8,
+                            "column": 55
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 57
+                          }
+                        },
+                        {
+                          "kind": 70,
+                          "value": 0,
+                          "start": {
+                            "line": 8,
+                            "column": 58
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 59
+                          }
                         }
-                      },
+                      ],
                       "start": {
                         "line": 8,
                         "column": 52
@@ -893,45 +935,81 @@
                       "end": {
                         "line": 8,
                         "column": 59
-                      },
-                      "left": {
-                        "kind": 47,
-                        "name": "db",
-                        "start": {
-                          "line": 8,
-                          "column": 52
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 54
-                        }
-                      },
-                      "right": {
-                        "kind": 69,
-                        "value": 0,
-                        "start": {
-                          "line": 8,
-                          "column": 58
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 59
-                        }
                       }
                     },
                     "right": {
-                      "kind": 10,
-                      "operator": {
-                        "kind": 10,
-                        "start": {
-                          "line": 8,
-                          "column": 66
+                      "kind": 21,
+                      "values": [
+                        {
+                          "kind": 48,
+                          "name": "db",
+                          "start": {
+                            "line": 8,
+                            "column": 63
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 65
+                          }
                         },
-                        "end": {
-                          "line": 8,
-                          "column": 68
+                        {
+                          "kind": 10,
+                          "start": {
+                            "line": 8,
+                            "column": 66
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 68
+                          }
+                        },
+                        {
+                          "kind": 10,
+                          "operator": {
+                            "kind": 1,
+                            "start": {
+                              "line": 8,
+                              "column": 71
+                            },
+                            "end": {
+                              "line": 8,
+                              "column": 72
+                            }
+                          },
+                          "start": {
+                            "line": 8,
+                            "column": 69
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 74
+                          },
+                          "left": {
+                            "kind": 48,
+                            "name": "l",
+                            "start": {
+                              "line": 8,
+                              "column": 69
+                            },
+                            "end": {
+                              "line": 8,
+                              "column": 70
+                            }
+                          },
+                          "right": {
+                            "kind": 70,
+                            "value": 1,
+                            "start": {
+                              "line": 8,
+                              "column": 73
+                            },
+                            "end": {
+                              "line": 8,
+                              "column": 74
+                            }
+                          }
                         }
-                      },
+                      ],
                       "start": {
                         "line": 8,
                         "column": 63
@@ -939,64 +1017,6 @@
                       "end": {
                         "line": 8,
                         "column": 74
-                      },
-                      "left": {
-                        "kind": 47,
-                        "name": "db",
-                        "start": {
-                          "line": 8,
-                          "column": 63
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 65
-                        }
-                      },
-                      "right": {
-                        "kind": 10,
-                        "operator": {
-                          "kind": 1,
-                          "start": {
-                            "line": 8,
-                            "column": 71
-                          },
-                          "end": {
-                            "line": 8,
-                            "column": 72
-                          }
-                        },
-                        "start": {
-                          "line": 8,
-                          "column": 69
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 74
-                        },
-                        "left": {
-                          "kind": 47,
-                          "name": "l",
-                          "start": {
-                            "line": 8,
-                            "column": 69
-                          },
-                          "end": {
-                            "line": 8,
-                            "column": 70
-                          }
-                        },
-                        "right": {
-                          "kind": 69,
-                          "value": 1,
-                          "start": {
-                            "line": 8,
-                            "column": 73
-                          },
-                          "end": {
-                            "line": 8,
-                            "column": 74
-                          }
-                        }
                       }
                     }
                   }

@@ -1,5 +1,5 @@
 {
-  "kind": 66,
+  "kind": 67,
   "attributes": [],
   "body": [
     {
@@ -17,7 +17,7 @@
         }
       },
       "left": {
-        "kind": 47,
+        "kind": 48,
         "name": "heroes",
         "start": {
           "line": 1,
@@ -32,7 +32,7 @@
         "kind": 4,
         "values": [
           {
-            "kind": 60,
+            "kind": 61,
             "value": "leto",
             "start": {
               "line": 1,
@@ -44,7 +44,7 @@
             }
           },
           {
-            "kind": 60,
+            "kind": 61,
             "value": "duncan",
             "start": {
               "line": 1,
@@ -56,7 +56,7 @@
             }
           },
           {
-            "kind": 60,
+            "kind": 61,
             "value": "goku",
             "start": {
               "line": 1,
@@ -102,7 +102,7 @@
         }
       },
       "left": {
-        "kind": 47,
+        "kind": 48,
         "name": "evenHeroes",
         "start": {
           "line": 3,
@@ -116,7 +116,7 @@
       "right": {
         "kind": 3,
         "body": {
-          "kind": 47,
+          "kind": 48,
           "name": "hero",
           "start": {
             "line": 3,
@@ -128,9 +128,9 @@
           }
         },
         "loop": {
-          "kind": 42,
+          "kind": 43,
           "expression": {
-            "kind": 47,
+            "kind": 48,
             "name": "heroes",
             "start": {
               "line": 3,
@@ -152,7 +152,7 @@
             "column": 102
           },
           "value": {
-            "kind": 47,
+            "kind": 48,
             "name": "hero",
             "start": {
               "line": 3,
@@ -164,7 +164,7 @@
             }
           },
           "index": {
-            "kind": 47,
+            "kind": 48,
             "name": "index",
             "start": {
               "line": 3,
@@ -176,7 +176,7 @@
             }
           },
           "from": {
-            "kind": 69,
+            "kind": 70,
             "value": 1,
             "start": {
               "line": 3,
@@ -188,7 +188,7 @@
             }
           },
           "til": {
-            "kind": 69,
+            "kind": 70,
             "value": -1,
             "start": {
               "line": 3,
@@ -205,7 +205,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 47,
+              "kind": 48,
               "name": "foo",
               "start": {
                 "line": 3,
@@ -218,7 +218,7 @@
             },
             "arguments": [
               {
-                "kind": 47,
+                "kind": 48,
                 "name": "hero",
                 "start": {
                   "line": 3,
@@ -230,7 +230,7 @@
                 }
               },
               {
-                "kind": 47,
+                "kind": 48,
                 "name": "index",
                 "start": {
                   "line": 3,
@@ -253,18 +253,78 @@
             }
           },
           "when": {
-            "kind": 10,
-            "operator": {
-              "kind": 10,
-              "start": {
-                "line": 3,
-                "column": 98
+            "kind": 21,
+            "values": [
+              {
+                "kind": 10,
+                "operator": {
+                  "kind": 17,
+                  "start": {
+                    "line": 3,
+                    "column": 94
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 95
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 88
+                },
+                "end": {
+                  "line": 3,
+                  "column": 97
+                },
+                "left": {
+                  "kind": 48,
+                  "name": "index",
+                  "start": {
+                    "line": 3,
+                    "column": 88
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 93
+                  }
+                },
+                "right": {
+                  "kind": 70,
+                  "value": 2,
+                  "start": {
+                    "line": 3,
+                    "column": 96
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 97
+                  }
+                }
               },
-              "end": {
-                "line": 3,
-                "column": 100
+              {
+                "kind": 10,
+                "start": {
+                  "line": 3,
+                  "column": 98
+                },
+                "end": {
+                  "line": 3,
+                  "column": 100
+                }
+              },
+              {
+                "kind": 70,
+                "value": 0,
+                "start": {
+                  "line": 3,
+                  "column": 101
+                },
+                "end": {
+                  "line": 3,
+                  "column": 102
+                }
               }
-            },
+            ],
             "start": {
               "line": 3,
               "column": 83
@@ -272,64 +332,6 @@
             "end": {
               "line": 3,
               "column": 102
-            },
-            "left": {
-              "kind": 10,
-              "operator": {
-                "kind": 16,
-                "start": {
-                  "line": 3,
-                  "column": 94
-                },
-                "end": {
-                  "line": 3,
-                  "column": 95
-                }
-              },
-              "start": {
-                "line": 3,
-                "column": 88
-              },
-              "end": {
-                "line": 3,
-                "column": 97
-              },
-              "left": {
-                "kind": 47,
-                "name": "index",
-                "start": {
-                  "line": 3,
-                  "column": 88
-                },
-                "end": {
-                  "line": 3,
-                  "column": 93
-                }
-              },
-              "right": {
-                "kind": 69,
-                "value": 2,
-                "start": {
-                  "line": 3,
-                  "column": 96
-                },
-                "end": {
-                  "line": 3,
-                  "column": 97
-                }
-              }
-            },
-            "right": {
-              "kind": 69,
-              "value": 0,
-              "start": {
-                "line": 3,
-                "column": 101
-              },
-              "end": {
-                "line": 3,
-                "column": 102
-              }
             }
           }
         },

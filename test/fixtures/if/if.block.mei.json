@@ -1,15 +1,15 @@
 {
-  "kind": 66,
+  "kind": 67,
   "attributes": [],
   "body": [
     {
-      "kind": 107,
+      "kind": 108,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 109,
           "name": {
-            "kind": 47,
+            "kind": 48,
             "name": "x",
             "start": {
               "line": 1,
@@ -33,7 +33,7 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 69,
+        "kind": 70,
         "value": 5,
         "start": {
           "line": 1,
@@ -55,20 +55,46 @@
       "attributes": []
     },
     {
-      "kind": 49,
+      "kind": 50,
       "condition": {
-        "kind": 10,
-        "operator": {
-          "kind": 10,
-          "start": {
-            "line": 3,
-            "column": 6
+        "kind": 21,
+        "values": [
+          {
+            "kind": 48,
+            "name": "x",
+            "start": {
+              "line": 3,
+              "column": 4
+            },
+            "end": {
+              "line": 3,
+              "column": 5
+            }
           },
-          "end": {
-            "line": 3,
-            "column": 8
+          {
+            "kind": 10,
+            "start": {
+              "line": 3,
+              "column": 6
+            },
+            "end": {
+              "line": 3,
+              "column": 8
+            }
+          },
+          {
+            "kind": 70,
+            "value": 5,
+            "start": {
+              "line": 3,
+              "column": 9
+            },
+            "end": {
+              "line": 3,
+              "column": 10
+            }
           }
-        },
+        ],
         "start": {
           "line": 3,
           "column": 4
@@ -76,30 +102,6 @@
         "end": {
           "line": 3,
           "column": 10
-        },
-        "left": {
-          "kind": 47,
-          "name": "x",
-          "start": {
-            "line": 3,
-            "column": 4
-          },
-          "end": {
-            "line": 3,
-            "column": 5
-          }
-        },
-        "right": {
-          "kind": 69,
-          "value": 5,
-          "start": {
-            "line": 3,
-            "column": 9
-          },
-          "end": {
-            "line": 3,
-            "column": 10
-          }
         }
       },
       "whenTrue": {
@@ -124,20 +126,46 @@
         "column": 2
       },
       "whenFalse": {
-        "kind": 49,
+        "kind": 50,
         "condition": {
-          "kind": 10,
-          "operator": {
-            "kind": 10,
-            "start": {
-              "line": 5,
-              "column": 11
+          "kind": 21,
+          "values": [
+            {
+              "kind": 48,
+              "name": "x",
+              "start": {
+                "line": 5,
+                "column": 9
+              },
+              "end": {
+                "line": 5,
+                "column": 10
+              }
             },
-            "end": {
-              "line": 5,
-              "column": 13
+            {
+              "kind": 10,
+              "start": {
+                "line": 5,
+                "column": 11
+              },
+              "end": {
+                "line": 5,
+                "column": 13
+              }
+            },
+            {
+              "kind": 70,
+              "value": 6,
+              "start": {
+                "line": 5,
+                "column": 14
+              },
+              "end": {
+                "line": 5,
+                "column": 15
+              }
             }
-          },
+          ],
           "start": {
             "line": 5,
             "column": 9
@@ -145,30 +173,6 @@
           "end": {
             "line": 5,
             "column": 15
-          },
-          "left": {
-            "kind": 47,
-            "name": "x",
-            "start": {
-              "line": 5,
-              "column": 9
-            },
-            "end": {
-              "line": 5,
-              "column": 10
-            }
-          },
-          "right": {
-            "kind": 69,
-            "value": 6,
-            "start": {
-              "line": 5,
-              "column": 14
-            },
-            "end": {
-              "line": 5,
-              "column": 15
-            }
           }
         },
         "whenTrue": {
@@ -193,20 +197,46 @@
           "column": 2
         },
         "whenFalse": {
-          "kind": 49,
+          "kind": 50,
           "condition": {
-            "kind": 10,
-            "operator": {
-              "kind": 10,
-              "start": {
-                "line": 7,
-                "column": 11
+            "kind": 21,
+            "values": [
+              {
+                "kind": 48,
+                "name": "x",
+                "start": {
+                  "line": 7,
+                  "column": 9
+                },
+                "end": {
+                  "line": 7,
+                  "column": 10
+                }
               },
-              "end": {
-                "line": 7,
-                "column": 13
+              {
+                "kind": 10,
+                "start": {
+                  "line": 7,
+                  "column": 11
+                },
+                "end": {
+                  "line": 7,
+                  "column": 13
+                }
+              },
+              {
+                "kind": 70,
+                "value": 7,
+                "start": {
+                  "line": 7,
+                  "column": 14
+                },
+                "end": {
+                  "line": 7,
+                  "column": 15
+                }
               }
-            },
+            ],
             "start": {
               "line": 7,
               "column": 9
@@ -214,30 +244,6 @@
             "end": {
               "line": 7,
               "column": 15
-            },
-            "left": {
-              "kind": 47,
-              "name": "x",
-              "start": {
-                "line": 7,
-                "column": 9
-              },
-              "end": {
-                "line": 7,
-                "column": 10
-              }
-            },
-            "right": {
-              "kind": 69,
-              "value": 7,
-              "start": {
-                "line": 7,
-                "column": 14
-              },
-              "end": {
-                "line": 7,
-                "column": 15
-              }
             }
           },
           "whenTrue": {
@@ -262,20 +268,46 @@
             "column": 2
           },
           "whenFalse": {
-            "kind": 49,
+            "kind": 50,
             "condition": {
-              "kind": 10,
-              "operator": {
-                "kind": 10,
-                "start": {
-                  "line": 9,
-                  "column": 11
+              "kind": 21,
+              "values": [
+                {
+                  "kind": 48,
+                  "name": "x",
+                  "start": {
+                    "line": 9,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 10
+                  }
                 },
-                "end": {
-                  "line": 9,
-                  "column": 13
+                {
+                  "kind": 10,
+                  "start": {
+                    "line": 9,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 13
+                  }
+                },
+                {
+                  "kind": 70,
+                  "value": 8,
+                  "start": {
+                    "line": 9,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 15
+                  }
                 }
-              },
+              ],
               "start": {
                 "line": 9,
                 "column": 9
@@ -283,30 +315,6 @@
               "end": {
                 "line": 9,
                 "column": 15
-              },
-              "left": {
-                "kind": 47,
-                "name": "x",
-                "start": {
-                  "line": 9,
-                  "column": 9
-                },
-                "end": {
-                  "line": 9,
-                  "column": 10
-                }
-              },
-              "right": {
-                "kind": 69,
-                "value": 8,
-                "start": {
-                  "line": 9,
-                  "column": 14
-                },
-                "end": {
-                  "line": 9,
-                  "column": 15
-                }
               }
             },
             "whenTrue": {

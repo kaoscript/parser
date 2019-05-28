@@ -1,24 +1,50 @@
 {
-  "kind": 66,
+  "kind": 67,
   "attributes": [],
   "body": [
     {
-      "kind": 81,
+      "kind": 82,
       "value": {
-        "kind": 48,
+        "kind": 49,
         "condition": {
-          "kind": 10,
-          "operator": {
-            "kind": 10,
-            "start": {
-              "line": 1,
-              "column": 24
+          "kind": 21,
+          "values": [
+            {
+              "kind": 48,
+              "name": "lang",
+              "start": {
+                "line": 1,
+                "column": 19
+              },
+              "end": {
+                "line": 1,
+                "column": 23
+              }
             },
-            "end": {
-              "line": 1,
-              "column": 26
+            {
+              "kind": 10,
+              "start": {
+                "line": 1,
+                "column": 24
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            },
+            {
+              "kind": 61,
+              "value": "en",
+              "start": {
+                "line": 1,
+                "column": 27
+              },
+              "end": {
+                "line": 1,
+                "column": 31
+              }
             }
-          },
+          ],
           "start": {
             "line": 1,
             "column": 19
@@ -26,34 +52,10 @@
           "end": {
             "line": 1,
             "column": 31
-          },
-          "left": {
-            "kind": 47,
-            "name": "lang",
-            "start": {
-              "line": 1,
-              "column": 19
-            },
-            "end": {
-              "line": 1,
-              "column": 23
-            }
-          },
-          "right": {
-            "kind": 60,
-            "value": "en",
-            "start": {
-              "line": 1,
-              "column": 27
-            },
-            "end": {
-              "line": 1,
-              "column": 31
-            }
           }
         },
         "whenTrue": {
-          "kind": 60,
+          "kind": 61,
           "value": "hello",
           "start": {
             "line": 1,
@@ -73,7 +75,7 @@
           "column": 46
         },
         "whenFalse": {
-          "kind": 60,
+          "kind": 61,
           "value": "bonjour",
           "start": {
             "line": 1,

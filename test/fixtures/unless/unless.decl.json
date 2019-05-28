@@ -1,15 +1,15 @@
 {
-  "kind": 66,
+  "kind": 67,
   "attributes": [],
   "body": [
     {
-      "kind": 107,
+      "kind": 108,
       "rebindable": true,
       "variables": [
         {
-          "kind": 108,
+          "kind": 109,
           "name": {
-            "kind": 47,
+            "kind": 48,
             "name": "x",
             "start": {
               "line": 1,
@@ -33,20 +33,46 @@
       "autotype": false,
       "await": false,
       "init": {
-        "kind": 103,
+        "kind": 104,
         "condition": {
-          "kind": 10,
-          "operator": {
-            "kind": 10,
-            "start": {
-              "line": 1,
-              "column": 20
+          "kind": 21,
+          "values": [
+            {
+              "kind": 48,
+              "name": "x",
+              "start": {
+                "line": 1,
+                "column": 18
+              },
+              "end": {
+                "line": 1,
+                "column": 19
+              }
             },
-            "end": {
-              "line": 1,
-              "column": 22
+            {
+              "kind": 10,
+              "start": {
+                "line": 1,
+                "column": 20
+              },
+              "end": {
+                "line": 1,
+                "column": 22
+              }
+            },
+            {
+              "kind": 70,
+              "value": 0,
+              "start": {
+                "line": 1,
+                "column": 23
+              },
+              "end": {
+                "line": 1,
+                "column": 24
+              }
             }
-          },
+          ],
           "start": {
             "line": 1,
             "column": 18
@@ -54,34 +80,10 @@
           "end": {
             "line": 1,
             "column": 24
-          },
-          "left": {
-            "kind": 47,
-            "name": "x",
-            "start": {
-              "line": 1,
-              "column": 18
-            },
-            "end": {
-              "line": 1,
-              "column": 19
-            }
-          },
-          "right": {
-            "kind": 69,
-            "value": 0,
-            "start": {
-              "line": 1,
-              "column": 23
-            },
-            "end": {
-              "line": 1,
-              "column": 24
-            }
           }
         },
         "whenFalse": {
-          "kind": 69,
+          "kind": 70,
           "value": 1,
           "start": {
             "line": 1,

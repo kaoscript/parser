@@ -1,5 +1,33 @@
 namespace AST {
 	// {{{
+	const $comparison = {}
+	$comparison[BinaryOperatorKind::Addition] = false
+	$comparison[BinaryOperatorKind::And] = false
+	$comparison[BinaryOperatorKind::Assignment] = false
+	$comparison[BinaryOperatorKind::BitwiseAnd] = false
+	$comparison[BinaryOperatorKind::BitwiseLeftShift] = false
+	$comparison[BinaryOperatorKind::BitwiseOr] = false
+	$comparison[BinaryOperatorKind::BitwiseRightShift] = false
+	$comparison[BinaryOperatorKind::BitwiseXor] = false
+	$comparison[BinaryOperatorKind::Division] = false
+	$comparison[BinaryOperatorKind::Equality] = true
+	$comparison[BinaryOperatorKind::GreaterThan] = true
+	$comparison[BinaryOperatorKind::GreaterThanOrEqual] = true
+	$comparison[BinaryOperatorKind::Implies] = true
+	$comparison[BinaryOperatorKind::Inequality] = true
+	$comparison[BinaryOperatorKind::LessThan] = true
+	$comparison[BinaryOperatorKind::LessThanOrEqual] = true
+	$comparison[BinaryOperatorKind::Modulo] = false
+	$comparison[BinaryOperatorKind::Multiplication] = false
+	$comparison[BinaryOperatorKind::NullCoalescing] = false
+	$comparison[BinaryOperatorKind::Or] = false
+	$comparison[BinaryOperatorKind::Quotient] = false
+	$comparison[BinaryOperatorKind::Subtraction] = false
+	$comparison[BinaryOperatorKind::TypeCasting] = false
+	$comparison[BinaryOperatorKind::TypeEquality] = false
+	$comparison[BinaryOperatorKind::TypeInequality] = false
+	$comparison[BinaryOperatorKind::Xor] = false
+
 	const $polyadic = {}
 	$polyadic[BinaryOperatorKind::Addition] = true
 	$polyadic[BinaryOperatorKind::And] = true
@@ -10,20 +38,17 @@ namespace AST {
 	$polyadic[BinaryOperatorKind::BitwiseRightShift] = true
 	$polyadic[BinaryOperatorKind::BitwiseXor] = true
 	$polyadic[BinaryOperatorKind::Division] = true
-	$polyadic[BinaryOperatorKind::Equality] = true
-	$polyadic[BinaryOperatorKind::GreaterThan] = true
-	$polyadic[BinaryOperatorKind::GreaterThanOrEqual] = true
-	$polyadic[BinaryOperatorKind::Inequality] = false
-	$polyadic[BinaryOperatorKind::LessThan] = true
-	$polyadic[BinaryOperatorKind::LessThanOrEqual] = true
+	$polyadic[BinaryOperatorKind::Implies] = true
 	$polyadic[BinaryOperatorKind::Modulo] = true
 	$polyadic[BinaryOperatorKind::Multiplication] = true
 	$polyadic[BinaryOperatorKind::NullCoalescing] = true
 	$polyadic[BinaryOperatorKind::Or] = true
+	$polyadic[BinaryOperatorKind::Quotient] = true
 	$polyadic[BinaryOperatorKind::Subtraction] = true
 	$polyadic[BinaryOperatorKind::TypeCasting] = false
 	$polyadic[BinaryOperatorKind::TypeEquality] = false
 	$polyadic[BinaryOperatorKind::TypeInequality] = false
+	$polyadic[BinaryOperatorKind::Xor] = false
 
 	const $precedence = {}
 	$precedence[BinaryOperatorKind::Addition] = 13
@@ -35,20 +60,23 @@ namespace AST {
 	$precedence[BinaryOperatorKind::BitwiseRightShift] = 12
 	$precedence[BinaryOperatorKind::BitwiseXor] = 10
 	$precedence[BinaryOperatorKind::Division] = 14
-	$precedence[BinaryOperatorKind::Equality] = 7
+	$precedence[BinaryOperatorKind::Equality] = 8
 	$precedence[BinaryOperatorKind::GreaterThan] = 8
 	$precedence[BinaryOperatorKind::GreaterThanOrEqual] = 8
-	$precedence[BinaryOperatorKind::Inequality] = 7
+	$precedence[BinaryOperatorKind::Implies] = 5
+	$precedence[BinaryOperatorKind::Inequality] = 8
 	$precedence[BinaryOperatorKind::LessThan] = 8
 	$precedence[BinaryOperatorKind::LessThanOrEqual] = 8
 	$precedence[BinaryOperatorKind::Modulo] = 14
 	$precedence[BinaryOperatorKind::Multiplication] = 14
 	$precedence[BinaryOperatorKind::NullCoalescing] = 15
 	$precedence[BinaryOperatorKind::Or] = 5
+	$precedence[BinaryOperatorKind::Quotient] = 14
 	$precedence[BinaryOperatorKind::Subtraction] = 13
 	$precedence[BinaryOperatorKind::TypeCasting] = 8
 	$precedence[BinaryOperatorKind::TypeEquality] = 8
 	$precedence[BinaryOperatorKind::TypeInequality] = 8
+	$precedence[BinaryOperatorKind::Xor] = 5
 	// }}}
 
 	const CONDITIONAL_PRECEDENCE = 4
@@ -152,6 +180,17 @@ namespace AST {
 							left.end = operations[k + 1].end
 
 							operator = left
+						}
+						else if $comparison[operator.operator.kind] {
+							if left.kind == NodeKind::ComparisonExpression {
+								left.values.push(operator.operator, operations[k + 1])
+								left.end = operations[k + 1].end
+
+								operator = left
+							}
+							else {
+								operator = ComparisonExpression([left, operator.operator, operations[k + 1]])
+							}
 						}
 						else {
 							operator.left = left
@@ -443,6 +482,13 @@ namespace AST {
 			}
 
 			return node
+		} // }}}
+
+		func ComparisonExpression(values) { // {{{
+			return location({
+				kind: NodeKind::ComparisonExpression
+				values
+			}, values[0], values[values.length - 1])
 		} // }}}
 
 		func ComputedPropertyName(expression, first, last) { // {{{
