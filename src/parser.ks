@@ -5410,7 +5410,7 @@ export namespace Parser {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Subtraction, this.yes()))
 				}
 				Token::MINUS_RIGHT_ANGLE => {
-					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Implies, this.yes()))
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Imply, this.yes()))
 				}
 				Token::PERCENT => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Modulo, this.yes()))

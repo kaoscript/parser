@@ -13,7 +13,7 @@ namespace AST {
 		[BinaryOperatorKind::Equality]: true
 		[BinaryOperatorKind::GreaterThan]: true
 		[BinaryOperatorKind::GreaterThanOrEqual]: true
-		[BinaryOperatorKind::Implies]: true
+		[BinaryOperatorKind::Imply]: true
 		[BinaryOperatorKind::Inequality]: true
 		[BinaryOperatorKind::LessThan]: true
 		[BinaryOperatorKind::LessThanOrEqual]: true
@@ -39,7 +39,7 @@ namespace AST {
 		[BinaryOperatorKind::BitwiseRightShift]: true
 		[BinaryOperatorKind::BitwiseXor]: true
 		[BinaryOperatorKind::Division]: true
-		[BinaryOperatorKind::Implies]: true
+		[BinaryOperatorKind::Imply]: true
 		[BinaryOperatorKind::Modulo]: true
 		[BinaryOperatorKind::Multiplication]: true
 		[BinaryOperatorKind::NullCoalescing]: true
@@ -49,7 +49,7 @@ namespace AST {
 		[BinaryOperatorKind::TypeCasting]: false
 		[BinaryOperatorKind::TypeEquality]: false
 		[BinaryOperatorKind::TypeInequality]: false
-		[BinaryOperatorKind::Xor]: false
+		[BinaryOperatorKind::Xor]: true
 	}
 
 	const $precedence = {
@@ -65,7 +65,7 @@ namespace AST {
 		[BinaryOperatorKind::Equality]: 8
 		[BinaryOperatorKind::GreaterThan]: 8
 		[BinaryOperatorKind::GreaterThanOrEqual]: 8
-		[BinaryOperatorKind::Implies]: 5
+		[BinaryOperatorKind::Imply]: 5
 		[BinaryOperatorKind::Inequality]: 8
 		[BinaryOperatorKind::LessThan]: 8
 		[BinaryOperatorKind::LessThanOrEqual]: 8
