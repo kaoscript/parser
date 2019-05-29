@@ -1189,44 +1189,18 @@
         }
       },
       "right": {
-        "kind": 21,
-        "values": [
-          {
-            "kind": 48,
-            "name": "x",
-            "start": {
-              "line": 29,
-              "column": 5
-            },
-            "end": {
-              "line": 29,
-              "column": 6
-            }
+        "kind": 10,
+        "operator": {
+          "kind": 13,
+          "start": {
+            "line": 29,
+            "column": 7
           },
-          {
-            "kind": 13,
-            "start": {
-              "line": 29,
-              "column": 7
-            },
-            "end": {
-              "line": 29,
-              "column": 9
-            }
-          },
-          {
-            "kind": 48,
-            "name": "y",
-            "start": {
-              "line": 29,
-              "column": 10
-            },
-            "end": {
-              "line": 29,
-              "column": 11
-            }
+          "end": {
+            "line": 29,
+            "column": 9
           }
-        ],
+        },
         "start": {
           "line": 29,
           "column": 5
@@ -1234,6 +1208,30 @@
         "end": {
           "line": 29,
           "column": 11
+        },
+        "left": {
+          "kind": 48,
+          "name": "x",
+          "start": {
+            "line": 29,
+            "column": 5
+          },
+          "end": {
+            "line": 29,
+            "column": 6
+          }
+        },
+        "right": {
+          "kind": 48,
+          "name": "y",
+          "start": {
+            "line": 29,
+            "column": 10
+          },
+          "end": {
+            "line": 29,
+            "column": 11
+          }
         }
       },
       "start": {

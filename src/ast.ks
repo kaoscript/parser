@@ -13,7 +13,7 @@ namespace AST {
 		[BinaryOperatorKind::Equality]: true
 		[BinaryOperatorKind::GreaterThan]: true
 		[BinaryOperatorKind::GreaterThanOrEqual]: true
-		[BinaryOperatorKind::Imply]: true
+		[BinaryOperatorKind::Imply]: false
 		[BinaryOperatorKind::Inequality]: true
 		[BinaryOperatorKind::LessThan]: true
 		[BinaryOperatorKind::LessThanOrEqual]: true
