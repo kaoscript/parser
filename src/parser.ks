@@ -4640,58 +4640,39 @@ export namespace Parser {
 			return this.yep(AST.ThisExpression(identifier, first, identifier))
 		} // }}}
 		reqThrowStatement(first) ~ SyntaxError { // {{{
+			const expression = this.reqExpression(ExpressionMode::Default)
+
 			if this.match(Token::IF, Token::UNLESS, Token::NEWLINE) == Token::IF {
 				this.commit()
 
 				const condition = this.reqExpression(ExpressionMode::Default)
 
-				return this.yep(AST.IfStatement(condition, this.yep(AST.ThrowStatement(first)), null, first, condition))
+				if this.match(Token::ELSE, Token::NEWLINE) == Token::ELSE {
+					this.commit()
+
+					const whenFalse = this.reqExpression(ExpressionMode::Default)
+
+					return this.yep(AST.ThrowStatement(this.yep(AST.IfExpression(condition, expression, whenFalse, expression, whenFalse)), first, whenFalse))
+				}
+				else if @token == Token::NEWLINE || @token == Token::EOF {
+					return this.yep(AST.IfStatement(condition, this.yep(AST.ThrowStatement(expression, first, expression)), null, first, condition))
+				}
+				else {
+					this.throw()
+				}
 			}
 			else if @token == Token::NEWLINE || @token == Token::EOF {
-				return this.yep(AST.ThrowStatement(first))
+				return this.yep(AST.ThrowStatement(expression, first, expression))
 			}
 			else if @token == Token::UNLESS {
 				this.commit()
 
 				const condition = this.reqExpression(ExpressionMode::Default)
 
-				return this.yep(AST.UnlessStatement(condition, this.yep(AST.ThrowStatement(first)), first, condition))
+				return this.yep(AST.UnlessStatement(condition, this.yep(AST.ThrowStatement(expression, first, expression)), first, condition))
 			}
 			else {
-				const expression = this.reqExpression(ExpressionMode::Default)
-
-				if this.match(Token::IF, Token::UNLESS, Token::NEWLINE) == Token::IF {
-					this.commit()
-
-					const condition = this.reqExpression(ExpressionMode::Default)
-
-					if this.match(Token::ELSE, Token::NEWLINE) == Token::ELSE {
-						this.commit()
-
-						const whenFalse = this.reqExpression(ExpressionMode::Default)
-
-						return this.yep(AST.ThrowStatement(this.yep(AST.IfExpression(condition, expression, whenFalse, expression, whenFalse)), first, whenFalse))
-					}
-					else if @token == Token::NEWLINE || @token == Token::EOF {
-						return this.yep(AST.IfStatement(condition, this.yep(AST.ThrowStatement(expression, first, expression)), null, first, condition))
-					}
-					else {
-						this.throw()
-					}
-				}
-				else if @token == Token::NEWLINE || @token == Token::EOF {
-					return this.yep(AST.ThrowStatement(expression, first, expression))
-				}
-				else if @token == Token::UNLESS {
-					this.commit()
-
-					const condition = this.reqExpression(ExpressionMode::Default)
-
-					return this.yep(AST.UnlessStatement(condition, this.yep(AST.ThrowStatement(expression, first, expression)), first, condition))
-				}
-				else {
-					this.throw()
-				}
+				this.throw()
 			}
 		} // }}}
 		reqTryCatchClause(first) ~ SyntaxError { // {{{
@@ -5263,7 +5244,7 @@ export namespace Parser {
 			}
 
 			let statement
-			if this.match(Token::COMMA, Token::COLON_EQUALS, Token::EQUALS) == Token::COMMA {
+			if this.match(Token::COMMA, Token::EQUALS) == Token::COMMA {
 				unless identifier.value.kind == NodeKind::Identifier || identifier.value.kind == NodeKind::ArrayBinding || identifier.value.kind == NodeKind::ObjectBinding {
 					return NO
 				}
@@ -5277,18 +5258,7 @@ export namespace Parser {
 				}
 				while this.test(Token::COMMA)
 
-				if this.match(Token::COLON_EQUALS, Token::EQUALS) == Token::COLON_EQUALS {
-					this.commit().NL_0M()
-
-					unless this.test(Token::AWAIT) {
-						this.throw('await')
-					}
-
-					const operand = this.reqPrefixedOperand(ExpressionMode::Default)
-
-					statement = this.yep(AST.AwaitExpression(variables, true, operand, identifier, operand))
-				}
-				else if @token == Token::EQUALS {
+				if this.test(Token::EQUALS) {
 					this.commit().NL_0M()
 
 					unless this.test(Token::AWAIT) {
@@ -5300,18 +5270,8 @@ export namespace Parser {
 					statement = this.yep(AST.AwaitExpression(variables, false, operand, identifier, operand))
 				}
 				else {
-					this.throw(['=', ':='])
+					this.throw('=')
 				}
-			}
-			else if @token == Token::COLON_EQUALS {
-				const operator = AST.AssignmentOperator(AssignmentOperatorKind::Equality, this.yes())
-				operator.autotype = true
-
-				this.NL_0M()
-
-				const expression = this.reqExpression(ExpressionMode::Default)
-
-				statement = this.yep(AST.BinaryExpression(identifier, this.yep(operator), expression, identifier, expression))
 			}
 			else if @token == Token::EQUALS {
 				const equals = this.yes()
