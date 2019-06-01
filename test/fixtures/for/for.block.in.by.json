@@ -1,0 +1,230 @@
+{
+  "kind": 67,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 10,
+      "operator": {
+        "kind": 3,
+        "assignment": 8,
+        "start": {
+          "line": 1,
+          "column": 8
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      },
+      "left": {
+        "kind": 48,
+        "name": "heroes",
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 7
+        }
+      },
+      "right": {
+        "kind": 4,
+        "values": [
+          {
+            "kind": 61,
+            "value": "leto",
+            "start": {
+              "line": 1,
+              "column": 11
+            },
+            "end": {
+              "line": 1,
+              "column": 17
+            }
+          },
+          {
+            "kind": 61,
+            "value": "duncan",
+            "start": {
+              "line": 1,
+              "column": 19
+            },
+            "end": {
+              "line": 1,
+              "column": 27
+            }
+          },
+          {
+            "kind": 61,
+            "value": "goku",
+            "start": {
+              "line": 1,
+              "column": 29
+            },
+            "end": {
+              "line": 1,
+              "column": 35
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 10
+        },
+        "end": {
+          "line": 1,
+          "column": 36
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 36
+      },
+      "attributes": []
+    },
+    {
+      "kind": 43,
+      "expression": {
+        "kind": 48,
+        "name": "heroes",
+        "start": {
+          "line": 3,
+          "column": 13
+        },
+        "end": {
+          "line": 3,
+          "column": 19
+        }
+      },
+      "desc": false,
+      "declaration": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      },
+      "value": {
+        "kind": 48,
+        "name": "hero",
+        "start": {
+          "line": 3,
+          "column": 5
+        },
+        "end": {
+          "line": 3,
+          "column": 9
+        }
+      },
+      "by": {
+        "kind": 70,
+        "value": 2,
+        "start": {
+          "line": 3,
+          "column": 23
+        },
+        "end": {
+          "line": 3,
+          "column": 24
+        }
+      },
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 14,
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 64,
+              "object": {
+                "kind": 48,
+                "name": "console",
+                "start": {
+                  "line": 4,
+                  "column": 2
+                },
+                "end": {
+                  "line": 4,
+                  "column": 9
+                }
+              },
+              "property": {
+                "kind": 48,
+                "name": "log",
+                "start": {
+                  "line": 4,
+                  "column": 10
+                },
+                "end": {
+                  "line": 4,
+                  "column": 13
+                }
+              },
+              "computed": false,
+              "nullable": false,
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 13
+              }
+            },
+            "arguments": [
+              {
+                "kind": 48,
+                "name": "hero",
+                "start": {
+                  "line": 4,
+                  "column": 14
+                },
+                "end": {
+                  "line": 4,
+                  "column": 18
+                }
+              }
+            ],
+            "nullable": false,
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 19
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 3,
+          "column": 25
+        },
+        "end": {
+          "line": 5,
+          "column": 2
+        }
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 2
+  }
+}

@@ -714,7 +714,7 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForInStatement(declaration: Boolean, rebindable: Boolean, value?, index?, expression, desc?, from?, til?, to?, until?, while?, when?, first, last) { // {{{
+		func ForInStatement(declaration: Boolean, rebindable: Boolean, value?, index?, expression, desc?, from?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForInStatement
 				expression: expression.value
@@ -741,6 +741,9 @@ namespace AST {
 			}
 			else if to != null {
 				node.to = to.value
+			}
+			if by != null {
+				node.by = by.value
 			}
 
 			if until != null {

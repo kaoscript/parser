@@ -319,7 +319,7 @@ export namespace Parser {
 
 			this.NL_0M()
 
-			let from, til, to
+			let from, til, to, by
 			if this.test(Token::FROM) {
 				this.commit()
 
@@ -334,6 +334,11 @@ export namespace Parser {
 				this.commit()
 
 				to = this.reqExpression(ExpressionMode::Default)
+			}
+			if this.test(Token::BY) {
+				this.commit()
+
+				by = this.reqExpression(ExpressionMode::Default)
 			}
 
 			this.NL_0M()
@@ -359,7 +364,7 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForInStatement(declaration, rebindable, value, index, expression, desc, from, til, to, until, while, whenExp, first, whenExp ?? while ?? until ?? to ?? til ?? from ?? desc ?? expression))
+			return this.yep(AST.ForInStatement(declaration, rebindable, value, index, expression, desc, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from ?? desc ?? expression))
 		} // }}}
 		altForExpressionInRange(declaration, rebindable, value?, index?, first) ~ SyntaxError { // {{{
 			this.commit()
