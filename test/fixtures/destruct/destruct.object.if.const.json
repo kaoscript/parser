@@ -1,0 +1,137 @@
+{
+  "kind": 67,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 50,
+      "condition": {
+        "kind": 108,
+        "rebindable": false,
+        "variables": [
+          {
+            "kind": 109,
+            "name": {
+              "kind": 71,
+              "elements": [
+                {
+                  "kind": 11,
+                  "name": {
+                    "kind": 48,
+                    "name": "bar",
+                    "start": {
+                      "line": 1,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 14
+                    }
+                  },
+                  "start": {
+                    "line": 1,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 14
+                  }
+                },
+                {
+                  "kind": 11,
+                  "name": {
+                    "kind": 48,
+                    "name": "baz",
+                    "start": {
+                      "line": 1,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 19
+                    }
+                  },
+                  "start": {
+                    "line": 1,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 19
+                  }
+                }
+              ],
+              "start": {
+                "line": 1,
+                "column": 10
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 20
+            }
+          }
+        ],
+        "autotype": false,
+        "await": false,
+        "init": {
+          "kind": 48,
+          "name": "foo",
+          "start": {
+            "line": 1,
+            "column": 23
+          },
+          "end": {
+            "line": 1,
+            "column": 26
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 26
+        }
+      },
+      "whenTrue": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 1,
+          "column": 27
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 2
+  }
+}

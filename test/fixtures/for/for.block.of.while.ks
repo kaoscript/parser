@@ -4,6 +4,6 @@ likes = {
 	duncan: 'murbella'
 }
 
-for key, value of likes while key != 'duncan' {
+for value, key of likes while key != 'duncan' {
 	console.log(`\(key) likes \(value)`)
 }

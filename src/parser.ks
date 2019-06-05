@@ -262,8 +262,6 @@ export namespace Parser {
 			}
 		} // }}}
 		altForExpressionFrom(declaration, rebindable, variable, first) ~ SyntaxError { // {{{
-			this.commit()
-
 			const from = this.reqExpression(ExpressionMode::Default)
 
 			let til, to
@@ -367,8 +365,6 @@ export namespace Parser {
 			return this.yep(AST.ForInStatement(declaration, rebindable, value, index, expression, desc, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from ?? desc ?? expression))
 		} // }}}
 		altForExpressionInRange(declaration, rebindable, value?, index?, first) ~ SyntaxError { // {{{
-			this.commit()
-
 			let operand = this.tryPrefixedOperand(ExpressionMode::Default)
 
 			if operand.ok {
@@ -412,8 +408,6 @@ export namespace Parser {
 			}
 		} // }}}
 		altForExpressionOf(declaration, rebindable, key?, value?, first) ~ SyntaxError { // {{{
-			this.commit()
-
 			const expression = this.reqExpression(ExpressionMode::Default)
 
 			let until, while
@@ -468,6 +462,8 @@ export namespace Parser {
 				return this.yep(AST.ArrayExpression([], first, this.yes()))
 			}
 
+			const mark = this.mark()
+
 			let operand = this.tryPrefixedOperand(ExpressionMode::Default)
 
 			if operand.ok && (this.match(Token::LEFT_ANGLE, Token::DOT_DOT) == Token::LEFT_ANGLE || @token == Token::DOT_DOT) {
@@ -521,19 +517,15 @@ export namespace Parser {
 				}
 			}
 			else {
-				let expression
-				if operand.ok {
-					expression = this.reqOperation(ExpressionMode::Default, operand)
-				}
-				else {
-					this.NL_0M()
+				this.rollback(mark)
 
-					if this.test(Token::RIGHT_SQUARE) {
-						return this.yep(AST.ArrayExpression([], first, this.yes()))
-					}
+				this.NL_0M()
 
-					expression = this.reqExpression(null, MacroTerminator::Array)
+				if this.test(Token::RIGHT_SQUARE) {
+					return this.yep(AST.ArrayExpression([], first, this.yes()))
 				}
+
+				const expression = this.reqExpression(null, MacroTerminator::Array)
 
 				if this.match(Token::RIGHT_SQUARE, Token::FOR, Token::NEWLINE) == Token::RIGHT_SQUARE {
 					return this.yep(AST.ArrayExpression([expression], first, this.yes()))
@@ -648,22 +640,20 @@ export namespace Parser {
 
 			return this.yep(AST.AwaitExpression(null, false, operand, first, operand))
 		} // }}}
-		reqBinaryOperand(mode, operand = null) ~ SyntaxError { // {{{
-			if operand == null {
-				const mark = this.mark()
+		reqBinaryOperand(mode) ~ SyntaxError { // {{{
+			const mark = this.mark()
 
-				let expression
-				if (expression = this.tryFunctionExpression(mode)).ok {
-					return expression
-				}
-				else if this.rollback(mark) && (expression = this.trySwitchExpression(mode)).ok {
-					return expression
-				}
-
-				this.rollback(mark)
+			let expression
+			if (expression = this.tryFunctionExpression(mode)).ok {
+				return expression
+			}
+			else if this.rollback(mark) && (expression = this.trySwitchExpression(mode)).ok {
+				return expression
 			}
 
-			operand = this.reqPrefixedOperand(mode, operand)
+			this.rollback(mark)
+
+			const operand = this.reqPrefixedOperand(mode)
 
 			let operator
 			switch this.matchM(M.TYPE_OPERATOR) {
@@ -2322,7 +2312,9 @@ export namespace Parser {
 				rebindable = false
 			}
 
-			let identifier1, identifier2
+			let identifier1 = NO
+			let identifier2 = NO
+			let destructuring = NO
 
 			if this.test(Token::COLON) {
 				this.commit()
@@ -2330,7 +2322,9 @@ export namespace Parser {
 				identifier2 = this.reqIdentifier()
 			}
 			else {
-				identifier1 = this.reqIdentifier()
+				if !(destructuring = this.tryDestructuring()).ok {
+					identifier1 = this.reqIdentifier()
+				}
 
 				if this.test(Token::COMMA) {
 					this.commit()
@@ -2341,11 +2335,30 @@ export namespace Parser {
 
 			this.NL_0M()
 
-			if identifier2? {
+			if destructuring.ok {
 				if this.match(Token::IN, Token::OF) == Token::IN {
+					this.commit()
+
+					return this.altForExpressionIn(declaration, rebindable, destructuring, identifier2, this.reqExpression(ExpressionMode::Default), first)
+				}
+				else if @token == Token::OF {
+					this.commit()
+
+					return this.altForExpressionOf(declaration, rebindable, destructuring, identifier2, first)
+				}
+				else {
+					this.throw(['in', 'of'])
+				}
+			}
+			else if identifier2.ok {
+				if this.match(Token::IN, Token::OF) == Token::IN {
+					this.commit()
+
 					return this.altForExpressionInRange(declaration, rebindable, identifier1, identifier2, first)
 				}
 				else if @token == Token::OF {
+					this.commit()
+
 					return this.altForExpressionOf(declaration, rebindable, identifier1, identifier2, first)
 				}
 				else {
@@ -2354,12 +2367,18 @@ export namespace Parser {
 			}
 			else {
 				if this.match(Token::FROM, Token::IN, Token::OF) == Token::FROM {
+					this.commit()
+
 					return this.altForExpressionFrom(declaration, rebindable, identifier1, first)
 				}
 				else if @token == Token::IN {
+					this.commit()
+
 					return this.altForExpressionInRange(declaration, rebindable, identifier1, identifier2, first)
 				}
 				else if @token == Token::OF {
+					this.commit()
+
 					return this.altForExpressionOf(declaration, rebindable, identifier1, identifier2, first)
 				}
 				else {
@@ -3533,12 +3552,30 @@ export namespace Parser {
 				this.throw()
 			}
 		} // }}}
-		reqOperation(mode, operand = null) ~ SyntaxError { // {{{
-			operand = this.reqBinaryOperand(mode, operand)
+		reqOperation(mode) ~ SyntaxError { // {{{
+			let mark = this.mark()
+
+			let operand, operator
+
+			if (operand = this.tryDestructuring()).ok {
+				this.NL_0M()
+
+				if (operator = this.tryAssignementOperator()).ok {
+					const values = [operand.value, AST.BinaryExpression(operator)]
+
+					this.NL_0M()
+
+					values.push(this.reqBinaryOperand(mode).value)
+
+					return this.yep(AST.reorderExpression(values))
+				}
+			}
+
+			this.rollback(mark)
+
+			operand = this.reqBinaryOperand(mode)
 
 			const values = [operand.value]
-
-			let mark, operator
 
 			while true {
 				mark = this.mark()
@@ -3822,67 +3859,62 @@ export namespace Parser {
 
 			return this.reqPostfixedOperand(mode, this.yep(AST.UnaryExpression(operator, operand, operand, operator)))
 		} // }}}
-		reqPrefixedOperand(mode, operand = null) ~ SyntaxError { // {{{
-			if operand == null {
-				switch this.matchM(M.PREFIX_OPERATOR) {
-					Token::DOT_DOT_DOT => {
-						const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::Spread, this.yes()))
-						const operand = this.reqPrefixedOperand(mode)
+		reqPrefixedOperand(mode) ~ SyntaxError { // {{{
+			switch this.matchM(M.PREFIX_OPERATOR) {
+				Token::DOT_DOT_DOT => {
+					const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::Spread, this.yes()))
+					const operand = this.reqPrefixedOperand(mode)
+
+					return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
+				}
+				Token::EXCLAMATION => {
+					const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::Negation, this.yes()))
+					const operand = this.reqPrefixedOperand(mode)
+
+					return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
+				}
+				Token::MINUS => {
+					const first = this.yes()
+					const operand = this.reqPrefixedOperand(mode)
+
+					if operand.value.kind == NodeKind::NumericExpression {
+						operand.value.value = -operand.value.value
+
+						return this.relocate(operand, first, null)
+					}
+					else {
+						const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::Negative, first))
 
 						return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
-					}
-					Token::EXCLAMATION => {
-						const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::Negation, this.yes()))
-						const operand = this.reqPrefixedOperand(mode)
-
-						return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
-					}
-					Token::MINUS => {
-						const first = this.yes()
-						const operand = this.reqPrefixedOperand(mode)
-
-						if operand.value.kind == NodeKind::NumericExpression {
-							operand.value.value = -operand.value.value
-
-							return this.relocate(operand, first, null)
-						}
-						else {
-							const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::Negative, first))
-
-							return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
-						}
-					}
-					Token::MINUS_MINUS => {
-						const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::DecrementPrefix, this.yes()))
-						const operand = this.reqPrefixedOperand(mode)
-
-						return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
-					}
-					Token::PLUS_PLUS => {
-						const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::IncrementPrefix, this.yes()))
-						const operand = this.reqPrefixedOperand(mode)
-
-						return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
-					}
-					Token::QUESTION => {
-						const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::Existential, this.yes()))
-						const operand = this.reqPrefixedOperand(mode)
-
-						return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
-					}
-					Token::TILDE => {
-						const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::BitwiseNot, this.yes()))
-						const operand = this.reqPrefixedOperand(mode)
-
-						return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
-					}
-					=> {
-						return this.reqPostfixedOperand(mode)
 					}
 				}
-			}
-			else {
-				return this.reqPostfixedOperand(mode, operand)
+				Token::MINUS_MINUS => {
+					const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::DecrementPrefix, this.yes()))
+					const operand = this.reqPrefixedOperand(mode)
+
+					return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
+				}
+				Token::PLUS_PLUS => {
+					const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::IncrementPrefix, this.yes()))
+					const operand = this.reqPrefixedOperand(mode)
+
+					return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
+				}
+				Token::QUESTION => {
+					const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::Existential, this.yes()))
+					const operand = this.reqPrefixedOperand(mode)
+
+					return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
+				}
+				Token::TILDE => {
+					const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::BitwiseNot, this.yes()))
+					const operand = this.reqPrefixedOperand(mode)
+
+					return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
+				}
+				=> {
+					return this.reqPostfixedOperand(mode)
+				}
 			}
 		} // }}}
 		reqRequireStatement(first) ~ SyntaxError { // {{{
@@ -5228,6 +5260,58 @@ export namespace Parser {
 
 			return object
 		} // }}}
+		tryAssignementOperator() ~ SyntaxError { // {{{
+			switch this.matchM(M.ASSIGNEMENT_OPERATOR) {
+				Token::AMPERSAND_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseAnd, this.yes()))
+				}
+				Token::ASTERISK_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Multiplication, this.yes()))
+				}
+				Token::CARET_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseXor, this.yes()))
+				}
+				Token::EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Equality, this.yes()))
+				}
+				Token::EXCLAMATION_QUESTION_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::NonExistential, this.yes()))
+				}
+				Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseLeftShift, this.yes()))
+				}
+				Token::MINUS_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Subtraction, this.yes()))
+				}
+				Token::PERCENT_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Modulo, this.yes()))
+				}
+				Token::PIPE_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseOr, this.yes()))
+				}
+				Token::PLUS_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Addition, this.yes()))
+				}
+				Token::QUESTION_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Existential, this.yes()))
+				}
+				Token::QUESTION_QUESTION_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::NullCoalescing, this.yes()))
+				}
+				Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseRightShift, this.yes()))
+				}
+				Token::SLASH_DOT_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Quotient, this.yes()))
+				}
+				Token::SLASH_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Division, this.yes()))
+				}
+				=> {
+					return NO
+				}
+			}
+		} // }}}
 		tryAssignementStatement() ~ SyntaxError { // {{{
 			let identifier = NO
 
@@ -5504,6 +5588,20 @@ export namespace Parser {
 			else {
 				return NO
 			}
+		} // }}}
+		tryDestructuring() ~ SyntaxError { // {{{
+			if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
+				try {
+					return this.reqDestructuringObject(this.yes())
+				}
+			}
+			else if @token == Token::LEFT_SQUARE {
+				try {
+					return this.reqDestructuringArray(this.yes())
+				}
+			}
+
+			return NO
 		} // }}}
 		tryDestructuringArray(first) ~ SyntaxError { // {{{
 			try {
@@ -5799,12 +5897,12 @@ export namespace Parser {
 			}
 		} // }}}
 		tryPrefixedOperand(mode) ~ SyntaxError { // {{{
-			const value = this.tryOperand(mode)
-			if !value.ok {
+			const operand = this.tryOperand(mode)
+			if !operand.ok {
 				return NO
 			}
 
-			return this.reqPrefixedOperand(mode, value)
+			return this.reqPostfixedOperand(mode, operand)
 		} // }}}
 		trySwitchExpression(mode) ~ SyntaxError { // {{{
 			unless this.test(Token::SWITCH) {

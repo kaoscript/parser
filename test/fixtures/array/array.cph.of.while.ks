@@ -4,4 +4,4 @@ likes = {
 	duncan: 'murbella'
 }
 
-spicyHeroes = [hero for hero, like of likes while foo(hero, like) when like == 'spice']
+spicyHeroes = [hero for like, hero of likes while foo(hero, like) when like == 'spice']

@@ -4,6 +4,6 @@ likes = {
 	duncan: 'murbella'
 }
 
-for key, value of likes when isFremen(key) {
+for value, key of likes when isFremen(key) {
 	console.log(`\(key) likes \(value)`)
 }

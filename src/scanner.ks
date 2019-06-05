@@ -174,6 +174,110 @@ const regex = {
 
 namespace M {
 	export {
+		func ASSIGNEMENT_OPERATOR(that, index) { // {{{
+			let c = that.skip(index)
+
+			if c == -1 {
+				return Token::EOF
+			}
+			else if c == 37 { // %
+				if that.charAt(1) == 61 {
+					that.next(2)
+
+					return Token::PERCENT_EQUALS
+				}
+			}
+			else if c == 38 { // &
+				if that.charAt(1) == 61 {
+					that.next(2)
+
+					return Token::AMPERSAND_EQUALS
+				}
+			}
+			else if c == 42 { // *
+				if that.charAt(1) == 61 {
+					that.next(2)
+
+					return Token::ASTERISK_EQUALS
+				}
+			}
+			else if c == 43 { // +
+				if that.charAt(1) == 61 {
+					that.next(2)
+
+					return Token::PLUS_EQUALS
+				}
+			}
+			else if c == 45 { // -
+				if that.charAt(1) == 61 {
+					that.next(2)
+
+					return Token::MINUS_EQUALS
+				}
+			}
+			else if c == 47 { // /
+				c = that.charAt(1)
+
+				if c == 46 {
+					if that.charAt(2) == 61 {
+						that.next(3)
+
+						return Token::SLASH_DOT_EQUALS
+					}
+				}
+				else if c == 61 {
+					that.next(2)
+
+					return Token::SLASH_EQUALS
+				}
+			}
+			else if c == 60 { // <
+				if that.charAt(1) == 60 {
+					if that.charAt(2) == 61 {
+						that.next(3)
+
+						return Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS
+					}
+				}
+			}
+			else if c == 61 { // =
+				c = that.charAt(1)
+
+				if c != 61 && c != 62 {
+					that.next(1)
+
+					return Token::EQUALS
+				}
+			}
+			else if c == 62 { // >
+				if that.charAt(1) == 62 {
+					if that.charAt(2) == 61 {
+						that.next(3)
+
+						return Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
+					}
+				}
+			}
+			else if c == 63 { // ?
+				c = that.charAt(1)
+
+				if c == 61 {
+					that.next(2)
+
+					return Token::QUESTION_EQUALS
+				}
+				else if c == 63 {
+					if that.charAt(2) == 61 {
+						that.next(3)
+
+						return Token::QUESTION_QUESTION_EQUALS
+					}
+				}
+			}
+
+			return Token::INVALID
+		} // }}}
+
 		func BINARY_OPERATOR(that, index) { // {{{
 			let c = that.skip(index)
 

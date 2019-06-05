@@ -1,0 +1,133 @@
+{
+  "kind": 67,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 50,
+      "condition": {
+        "kind": 10,
+        "operator": {
+          "kind": 3,
+          "assignment": 9,
+          "start": {
+            "line": 1,
+            "column": 15
+          },
+          "end": {
+            "line": 1,
+            "column": 17
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 21
+        },
+        "left": {
+          "kind": 71,
+          "elements": [
+            {
+              "kind": 11,
+              "name": {
+                "kind": 48,
+                "name": "bar",
+                "start": {
+                  "line": 1,
+                  "column": 5
+                },
+                "end": {
+                  "line": 1,
+                  "column": 8
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 8
+              }
+            },
+            {
+              "kind": 11,
+              "name": {
+                "kind": 48,
+                "name": "baz",
+                "start": {
+                  "line": 1,
+                  "column": 10
+                },
+                "end": {
+                  "line": 1,
+                  "column": 13
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 10
+              },
+              "end": {
+                "line": 1,
+                "column": 13
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 4
+          },
+          "end": {
+            "line": 1,
+            "column": 14
+          }
+        },
+        "right": {
+          "kind": 48,
+          "name": "foo",
+          "start": {
+            "line": 1,
+            "column": 18
+          },
+          "end": {
+            "line": 1,
+            "column": 21
+          }
+        }
+      },
+      "whenTrue": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 1,
+          "column": 22
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 2
+  }
+}

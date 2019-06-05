@@ -1,0 +1,113 @@
+{
+  "kind": 67,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 43,
+      "expression": {
+        "kind": 48,
+        "name": "foo",
+        "start": {
+          "line": 1,
+          "column": 25
+        },
+        "end": {
+          "line": 1,
+          "column": 28
+        }
+      },
+      "desc": false,
+      "declaration": true,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      },
+      "rebindable": false,
+      "value": {
+        "kind": 71,
+        "elements": [
+          {
+            "kind": 11,
+            "name": {
+              "kind": 48,
+              "name": "bar",
+              "start": {
+                "line": 1,
+                "column": 12
+              },
+              "end": {
+                "line": 1,
+                "column": 15
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 15
+            }
+          },
+          {
+            "kind": 11,
+            "name": {
+              "kind": 48,
+              "name": "baz",
+              "start": {
+                "line": 1,
+                "column": 17
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 17
+            },
+            "end": {
+              "line": 1,
+              "column": 20
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 11
+        },
+        "end": {
+          "line": 1,
+          "column": 21
+        }
+      },
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 1,
+          "column": 29
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "attributes": []
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 2
+  }
+}

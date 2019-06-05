@@ -726,10 +726,10 @@ namespace AST {
 				node.rebindable = rebindable
 			}
 
-			if value != null {
+			if value.ok {
 				node.value = value.value
 			}
-			if index != null {
+			if index.ok {
 				node.index = index.value
 			}
 
@@ -771,7 +771,7 @@ namespace AST {
 				node.rebindable = rebindable
 			}
 
-			if index != null {
+			if index.ok {
 				node.index = index.value
 			}
 
@@ -805,7 +805,7 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForOfStatement(declaration: Boolean, rebindable: Boolean, key?, value?, expression, until?, while?, when?, first, last) { // {{{
+		func ForOfStatement(declaration: Boolean, rebindable: Boolean, value?, key?, expression, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForOfStatement
 				expression: expression.value
@@ -816,11 +816,11 @@ namespace AST {
 				node.rebindable = rebindable
 			}
 
-			if key != null {
-				node.key = key.value
-			}
-			if value != null {
+			if value.ok {
 				node.value = value.value
+			}
+			if key.ok {
+				node.key = key.value
 			}
 
 			if until != null {

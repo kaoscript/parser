@@ -7,6 +7,6 @@ likes = {
 	duncan: 'murbella'
 }
 
-for let key, value of likes {
+for let value, key of likes {
 	console.log(`\(key) likes \(value)`)
 }
