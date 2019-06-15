@@ -2,10 +2,10 @@ require('kaoscript/register')
 
 var fs = require('fs');
 var klaw = require('klaw-sync');
-var parse = require('.')().parse;
+var parse = require('..')().parse;
 var path = require('path');
 
-var files = klaw(path.join(__dirname, 'test', 'fixtures'), {
+var files = klaw(path.join(__dirname, '..', 'test', 'fixtures'), {
 	nodir: true,
 	traverseAll: true,
 	filter: function(item) {

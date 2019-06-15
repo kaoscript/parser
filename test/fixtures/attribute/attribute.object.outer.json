@@ -4,6 +4,7 @@
   "body": [
     {
       "kind": 108,
+      "attributes": [],
       "rebindable": false,
       "variables": [
         {
@@ -34,9 +35,35 @@
       "await": false,
       "init": {
         "kind": 72,
+        "attributes": [],
         "properties": [
           {
             "kind": 73,
+            "attributes": [
+              {
+                "kind": 6,
+                "declaration": {
+                  "kind": 48,
+                  "name": "foo",
+                  "start": {
+                    "line": 2,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 7
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 8
+                }
+              }
+            ],
             "name": {
               "kind": 48,
               "name": "bar",
@@ -83,32 +110,7 @@
             "end": {
               "line": 4,
               "column": 3
-            },
-            "attributes": [
-              {
-                "kind": 6,
-                "declaration": {
-                  "kind": 48,
-                  "name": "foo",
-                  "start": {
-                    "line": 2,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 7
-                  }
-                },
-                "start": {
-                  "line": 2,
-                  "column": 2
-                },
-                "end": {
-                  "line": 2,
-                  "column": 8
-                }
-              }
-            ]
+            }
           }
         ],
         "start": {
@@ -127,8 +129,7 @@
       "end": {
         "line": 5,
         "column": 2
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

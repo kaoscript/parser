@@ -4,6 +4,31 @@
   "body": [
     {
       "kind": 46,
+      "attributes": [
+        {
+          "kind": 6,
+          "declaration": {
+            "kind": 48,
+            "name": "test",
+            "start": {
+              "line": 1,
+              "column": 3
+            },
+            "end": {
+              "line": 1,
+              "column": 7
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "name": {
         "kind": 48,
         "name": "foo",
@@ -39,71 +64,10 @@
           "line": 3,
           "column": 2
         }
-      },
-      "attributes": [
-        {
-          "kind": 6,
-          "declaration": {
-            "kind": 48,
-            "name": "test",
-            "start": {
-              "line": 1,
-              "column": 3
-            },
-            "end": {
-              "line": 1,
-              "column": 7
-            }
-          },
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 1,
-            "column": 8
-          }
-        }
-      ]
+      }
     },
     {
       "kind": 46,
-      "name": {
-        "kind": 48,
-        "name": "darwin_only",
-        "start": {
-          "line": 6,
-          "column": 6
-        },
-        "end": {
-          "line": 6,
-          "column": 17
-        }
-      },
-      "start": {
-        "line": 5,
-        "column": 1
-      },
-      "end": {
-        "line": 7,
-        "column": 2
-      },
-      "parameters": [],
-      "modifiers": [],
-      "throws": [],
-      "body": {
-        "kind": 12,
-        "attributes": [],
-        "statements": [],
-        "start": {
-          "line": 6,
-          "column": 20
-        },
-        "end": {
-          "line": 7,
-          "column": 2
-        }
-      },
       "attributes": [
         {
           "kind": 6,
@@ -176,28 +140,25 @@
             "column": 29
           }
         }
-      ]
-    },
-    {
-      "kind": 46,
+      ],
       "name": {
         "kind": 48,
-        "name": "linux_only",
+        "name": "darwin_only",
         "start": {
-          "line": 10,
+          "line": 6,
           "column": 6
         },
         "end": {
-          "line": 10,
-          "column": 16
+          "line": 6,
+          "column": 17
         }
       },
       "start": {
-        "line": 9,
+        "line": 5,
         "column": 1
       },
       "end": {
-        "line": 11,
+        "line": 7,
         "column": 2
       },
       "parameters": [],
@@ -208,14 +169,17 @@
         "attributes": [],
         "statements": [],
         "start": {
-          "line": 10,
-          "column": 19
+          "line": 6,
+          "column": 20
         },
         "end": {
-          "line": 11,
+          "line": 7,
           "column": 2
         }
-      },
+      }
+    },
+    {
+      "kind": 46,
       "attributes": [
         {
           "kind": 6,
@@ -288,28 +252,25 @@
             "column": 26
           }
         }
-      ]
-    },
-    {
-      "kind": 46,
+      ],
       "name": {
         "kind": 48,
-        "name": "needs_foo_or_bar",
+        "name": "linux_only",
         "start": {
-          "line": 14,
+          "line": 10,
           "column": 6
         },
         "end": {
-          "line": 14,
-          "column": 22
+          "line": 10,
+          "column": 16
         }
       },
       "start": {
-        "line": 13,
+        "line": 9,
         "column": 1
       },
       "end": {
-        "line": 15,
+        "line": 11,
         "column": 2
       },
       "parameters": [],
@@ -320,14 +281,17 @@
         "attributes": [],
         "statements": [],
         "start": {
-          "line": 14,
-          "column": 25
+          "line": 10,
+          "column": 19
         },
         "end": {
-          "line": 15,
+          "line": 11,
           "column": 2
         }
-      },
+      }
+    },
+    {
+      "kind": 46,
       "attributes": [
         {
           "kind": 6,
@@ -414,28 +378,25 @@
             "column": 22
           }
         }
-      ]
-    },
-    {
-      "kind": 46,
+      ],
       "name": {
         "kind": 48,
-        "name": "on_unix",
+        "name": "needs_foo_or_bar",
         "start": {
-          "line": 18,
+          "line": 14,
           "column": 6
         },
         "end": {
-          "line": 18,
-          "column": 13
+          "line": 14,
+          "column": 22
         }
       },
       "start": {
-        "line": 17,
+        "line": 13,
         "column": 1
       },
       "end": {
-        "line": 19,
+        "line": 15,
         "column": 2
       },
       "parameters": [],
@@ -446,14 +407,17 @@
         "attributes": [],
         "statements": [],
         "start": {
-          "line": 18,
-          "column": 16
+          "line": 14,
+          "column": 25
         },
         "end": {
-          "line": 19,
+          "line": 15,
           "column": 2
         }
-      },
+      }
+    },
+    {
+      "kind": 46,
       "attributes": [
         {
           "kind": 6,
@@ -528,28 +492,25 @@
             "column": 18
           }
         }
-      ]
-    },
-    {
-      "kind": 46,
+      ],
       "name": {
         "kind": 48,
-        "name": "needs_not_foo",
+        "name": "on_unix",
         "start": {
-          "line": 22,
+          "line": 18,
           "column": 6
         },
         "end": {
-          "line": 22,
-          "column": 19
+          "line": 18,
+          "column": 13
         }
       },
       "start": {
-        "line": 21,
+        "line": 17,
         "column": 1
       },
       "end": {
-        "line": 23,
+        "line": 19,
         "column": 2
       },
       "parameters": [],
@@ -560,14 +521,17 @@
         "attributes": [],
         "statements": [],
         "start": {
-          "line": 22,
-          "column": 22
+          "line": 18,
+          "column": 16
         },
         "end": {
-          "line": 23,
+          "line": 19,
           "column": 2
         }
-      },
+      }
+    },
+    {
+      "kind": 46,
       "attributes": [
         {
           "kind": 6,
@@ -642,7 +606,43 @@
             "column": 17
           }
         }
-      ]
+      ],
+      "name": {
+        "kind": 48,
+        "name": "needs_not_foo",
+        "start": {
+          "line": 22,
+          "column": 6
+        },
+        "end": {
+          "line": 22,
+          "column": 19
+        }
+      },
+      "start": {
+        "line": 21,
+        "column": 1
+      },
+      "end": {
+        "line": 23,
+        "column": 2
+      },
+      "parameters": [],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 22,
+          "column": 22
+        },
+        "end": {
+          "line": 23,
+          "column": 2
+        }
+      }
     }
   ],
   "start": {

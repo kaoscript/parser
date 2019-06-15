@@ -4,6 +4,31 @@
   "body": [
     {
       "kind": 46,
+      "attributes": [
+        {
+          "kind": 6,
+          "declaration": {
+            "kind": 48,
+            "name": "test",
+            "start": {
+              "line": 1,
+              "column": 3
+            },
+            "end": {
+              "line": 1,
+              "column": 7
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "name": {
         "kind": 48,
         "name": "foo",
@@ -39,32 +64,7 @@
           "line": 3,
           "column": 2
         }
-      },
-      "attributes": [
-        {
-          "kind": 6,
-          "declaration": {
-            "kind": 48,
-            "name": "test",
-            "start": {
-              "line": 1,
-              "column": 3
-            },
-            "end": {
-              "line": 1,
-              "column": 7
-            }
-          },
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 1,
-            "column": 8
-          }
-        }
-      ]
+      }
     }
   ],
   "start": {

@@ -12,6 +12,9 @@ else
 	./node_modules/@zokugun/istanbul.cover/src/cli.js "$(g)"
 endif
 
+patch:
+	node ./scripts/patch.js
+
 clean:
 	find -L . -type f \( -name "*.ksb" -o -name "*.ksh" -o -name "*.ksm" \) -exec rm {} \;
 

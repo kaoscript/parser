@@ -4,6 +4,7 @@
   "body": [
     {
       "kind": 50,
+      "attributes": [],
       "condition": {
         "kind": 48,
         "name": "foo",
@@ -88,6 +89,7 @@
       },
       "whenFalse": {
         "kind": 50,
+        "attributes": [],
         "condition": {
           "kind": 48,
           "name": "bar",
@@ -232,8 +234,7 @@
             "column": 2
           }
         }
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

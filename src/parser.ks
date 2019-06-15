@@ -574,19 +574,6 @@ export namespace Parser {
 
 			return this.yep(AST.AttributeDeclaration(declaration, first, last))
 		} // }}}
-		reqAttributeBlock(first) ~ SyntaxError { // {{{
-			const declaration = this.reqAttributeMember()
-
-			unless this.test(Token::RIGHT_SQUARE) {
-				this.throw(']')
-			}
-
-			const last = this.yes()
-
-			this.reqNL_EOF_1M()
-
-			return this.yep(AST.AttributeDeclaration(declaration, first, last))
-		} // }}}
 		reqAttributeIdentifier() ~ SyntaxError { // {{{
 			if @scanner.test(Token::ATTRIBUTE_IDENTIFIER) {
 				return this.yep(AST.Identifier(@scanner.value(), this.yes()))
@@ -594,15 +581,6 @@ export namespace Parser {
 			else {
 				this.throw('Identifier')
 			}
-		} // }}}
-		reqAttributeList(first) ~ SyntaxError { // {{{
-			const attributes = [this.reqAttribute(first)]
-
-			while this.test(Token::HASH_LEFT_SQUARE) {
-				attributes.push(this.reqAttribute(this.yes()))
-			}
-
-			return this.yep(attributes)
 		} // }}}
 		reqAttributeMember() ~ SyntaxError { // {{{
 			const identifier = this.reqAttributeIdentifier()
@@ -687,14 +665,15 @@ export namespace Parser {
 			const attributes = []
 			const statements = []
 
-			let statement, attrs
+			let attrs = []
+			let statement
 			while this.match(Token::RIGHT_CURLY, Token::HASH_EXCLAMATION_LEFT_SQUARE, Token::HASH_LEFT_SQUARE) != Token::EOF && @token != Token::RIGHT_CURLY {
-				if @token == Token::HASH_EXCLAMATION_LEFT_SQUARE {
-					attributes.push(this.reqAttributeBlock(this.yes()))
+				/* if @token == Token::HASH_EXCLAMATION_LEFT_SQUARE {
+					attributes.push(this.reqInnerAttribute(this.yes()))
 				}
 				else {
 					if @token == Token::HASH_LEFT_SQUARE {
-						attrs = this.reqAttributeList(this.yes())
+						attrs = this.reqOuterAttributes(this.yes())
 					}
 					else {
 						attrs = null
@@ -702,14 +681,39 @@ export namespace Parser {
 
 					statements.push(statement = this.reqStatement())
 
-					if attrs == null {
+					/* if attrs == null {
 						statement.value.attributes = []
 					}
 					else {
 						statement.value.attributes = [attr.value for attr in attrs.value]
 						statement.value.start = statement.start = statement.value.attributes[0].start
+					} */
+					if attrs != null {
+						const attributes = statement.value.attributes
+
+						for const attr in attrs.value {
+							attributes.push(attr.value)
+						}
+
+						statement.value.start = statement.value.attributes[0].start
 					}
+				} */
+				if this.stackInnerAttributes(attributes) {
+					continue
 				}
+
+				this.stackOuterAttributes(attrs)
+
+				statement = this.reqStatement()
+
+				if attrs.length > 0 {
+					statement.value.attributes.unshift(...attrs)
+					statement.value.start = statement.value.attributes[0].start
+
+					attrs = []
+				}
+
+				statements.push(statement)
 
 				this.NL_0M()
 			}
@@ -768,7 +772,7 @@ export namespace Parser {
 
 			return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
 		} // }}}
-		reqClassField(attributes?, modifiers, name, type?, first) ~ SyntaxError { // {{{
+		reqClassField(attributes, modifiers, name, type?, first) ~ SyntaxError { // {{{
 			let defaultValue
 			if this.test(Token::EQUALS) {
 				this.commit()
@@ -780,7 +784,7 @@ export namespace Parser {
 
 			return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first, defaultValue ?? type ?? name))
 		} // }}}
-		reqClassMember(attributes?, modifiers, first?) ~ SyntaxError { // {{{
+		reqClassMember(attributes, modifiers, first?) ~ SyntaxError { // {{{
 			let name
 			if this.test(Token::ASYNC) {
 				let async = this.reqIdentifier()
@@ -802,7 +806,7 @@ export namespace Parser {
 
 			return this.reqClassMemberBody(attributes, modifiers, name, first ?? name)
 		} // }}}
-		reqClassMemberBody(attributes?, modifiers, name, first) ~ SyntaxError { // {{{
+		reqClassMemberBody(attributes, modifiers, name, first) ~ SyntaxError { // {{{
 			if this.match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
 				this.commit()
 
@@ -832,9 +836,13 @@ export namespace Parser {
 		reqClassMemberList(members) ~ SyntaxError { // {{{
 			let first = null
 
-			let attributes = null
+			/* let attributes = null
 			if this.test(Token::HASH_LEFT_SQUARE) {
-				attributes = this.reqAttributeList(first = this.yes())
+				attributes = this.reqOuterAttributes(first = this.yes())
+			} */
+			const attributes = this.stackOuterAttributes([])
+			if attributes.length != 0 {
+				first = attributes[0]
 			}
 
 			const mark1 = this.mark()
@@ -883,15 +891,15 @@ export namespace Parser {
 			if this.test(Token::ABSTRACT) {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Abstract, this.yes())))
 
-				first ??= modifiers[0]
-
 				if this.test(Token::LEFT_CURLY) {
 					this.commit().NL_0M()
 
+					first = null
+
 					let attrs
 					while this.until(Token::RIGHT_CURLY) {
-						if this.test(Token::HASH_LEFT_SQUARE) {
-							attrs = this.reqAttributeList(first = this.yes())
+						/* if this.test(Token::HASH_LEFT_SQUARE) {
+							attrs = this.reqOuterAttributes(first = this.yes())
 
 							if attributes != null {
 								attrs.value = [].concat(attributes.value, attrs.value)
@@ -900,6 +908,12 @@ export namespace Parser {
 						else {
 							attrs = attributes
 							first = null
+						} */
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
 						}
 
 						members.push(this.reqClassAbstractMethod(attrs, modifiers, first))
@@ -914,6 +928,8 @@ export namespace Parser {
 					this.reqNL_1M()
 				}
 				else {
+					first ??= modifiers[0]
+
 					const member = this.tryClassAbstractMethod(attributes, modifiers, first)
 
 					if member.ok {
@@ -940,10 +956,12 @@ export namespace Parser {
 				if first != null && this.test(Token::LEFT_CURLY) {
 					this.commit().NL_0M()
 
+					first = null
+
 					let attrs
 					while this.until(Token::RIGHT_CURLY) {
-						if this.test(Token::HASH_LEFT_SQUARE) {
-							attrs = this.reqAttributeList(first = this.yes())
+						/* if this.test(Token::HASH_LEFT_SQUARE) {
+							attrs = this.reqOuterAttributes(first = this.yes())
 
 							if attributes != null {
 								attrs.value = [].concat(attributes.value, attrs.value)
@@ -952,6 +970,12 @@ export namespace Parser {
 						else {
 							attrs = attributes
 							first = null
+						} */
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
 						}
 
 						members.push(this.reqClassMember(attrs, modifiers, first))
@@ -986,7 +1010,7 @@ export namespace Parser {
 				}
 			}
 		} // }}}
-		reqClassMethod(attributes?, modifiers, name, round?, first) ~ SyntaxError { // {{{
+		reqClassMethod(attributes, modifiers, name, round?, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList(round)
 
 			if this.test(Token::NEWLINE) {
@@ -1026,7 +1050,7 @@ export namespace Parser {
 
 			return this.yep(parameters, top, this.yes())
 		} // }}}
-		reqClassProperty(attributes?, modifiers, name, type?, first) ~ SyntaxError { // {{{
+		reqClassProperty(attributes, modifiers, name, type?, first) ~ SyntaxError { // {{{
 			let defaultValue, accessor, mutator
 			if this.test(Token::NEWLINE) {
 				this.commit().NL_0M()
@@ -1192,9 +1216,14 @@ export namespace Parser {
 
 			this.commit().NL_0M()
 
+			const attributes = []
 			const members = []
 
 			while this.until(Token::RIGHT_CURLY) {
+				if this.stackInnerAttributes(attributes) {
+					continue
+				}
+
 				this.reqClassMemberList(members)
 			}
 
@@ -1202,7 +1231,7 @@ export namespace Parser {
 				this.throw('}')
 			}
 
-			return this.yep(AST.ClassDeclaration(name, version, extends, modifiers, members, first, this.yes()))
+			return this.yep(AST.ClassDeclaration(attributes, name, version, extends, modifiers, members, first, this.yes()))
 		} // }}}
 		reqComputedPropertyName(first) ~ SyntaxError { // {{{
 			const expression = this.reqExpression(ExpressionMode::Default)
@@ -1839,7 +1868,7 @@ export namespace Parser {
 				return this.yep(AST.UnlessStatement(condition, expression, expression, condition))
 			}
 			else {
-				return expression
+				return this.yep(AST.ExpressionStatement(expression))
 			}
 		} // }}}
 		reqExternClassDeclaration(first, modifiers = []) ~ SyntaxError { // {{{
@@ -1870,16 +1899,16 @@ export namespace Parser {
 					this.throw('}')
 				}
 
-				return this.yep(AST.ClassDeclaration(name, null, extends, modifiers, members, first, this.yes()))
+				return this.yep(AST.ClassDeclaration([], name, null, extends, modifiers, members, first, this.yes()))
 			}
 			else {
-				return this.yep(AST.ClassDeclaration(name, null, extends, modifiers, [], first, extends ?? generic ?? name))
+				return this.yep(AST.ClassDeclaration([], name, null, extends, modifiers, [], first, extends ?? generic ?? name))
 			}
 		} // }}}
 		reqExternClassField(modifiers, name, type, first) ~ SyntaxError { // {{{
 			this.reqNL_1M()
 
-			return this.yep(AST.FieldDeclaration(null, modifiers, name, type, null, first, type ?? name))
+			return this.yep(AST.FieldDeclaration([], modifiers, name, type, null, first, type ?? name))
 		} // }}}
 		reqExternClassMember(modifiers, first?) ~ SyntaxError { // {{{
 			const name = this.reqIdentifier()
@@ -1987,7 +2016,7 @@ export namespace Parser {
 
 			this.reqNL_1M()
 
-			return this.yep(AST.MethodDeclaration(null, modifiers, name, parameters, type, null, null, first, type ?? parameters))
+			return this.yep(AST.MethodDeclaration([], modifiers, name, parameters, type, null, null, first, type ?? parameters))
 		} // }}}
 		reqExternDeclarator(ns = false) ~ SyntaxError { // {{{
 			switch this.matchM(M.EXTERN_STATEMENT) {
@@ -2202,10 +2231,10 @@ export namespace Parser {
 					this.throw('}')
 				}
 
-				return this.yep(AST.NamespaceDeclaration(modifiers, name, statements, first, this.yes()))
+				return this.yep(AST.NamespaceDeclaration([], modifiers, name, statements, first, this.yes()))
 			}
 			else {
-				return this.yep(AST.NamespaceDeclaration(modifiers, name, [], first, name))
+				return this.yep(AST.NamespaceDeclaration([], modifiers, name, [], first, name))
 			}
 		} // }}}
 		reqExternOrRequireStatement(first) ~ SyntaxError { // {{{
@@ -2579,10 +2608,7 @@ export namespace Parser {
 		reqImplementMemberList(members) ~ SyntaxError { // {{{
 			let first = null
 
-			let attributes = null
-			if this.test(Token::HASH_LEFT_SQUARE) {
-				attributes = this.reqAttributeList(first = this.yes())
-			}
+			const attributes = this.stackOuterAttributes([])
 
 			let mark = this.mark()
 
@@ -2619,19 +2645,20 @@ export namespace Parser {
 			}
 
 			if this.test(Token::LEFT_CURLY) {
-				if first == null {
+				/* if first == null {
 					first = this.yes()
 				}
 				else {
 					this.commit()
-				}
+				} */
+				this.commit()
 
 				this.NL_0M()
 
 				let attrs
 				until this.test(Token::RIGHT_CURLY) {
-					if this.test(Token::HASH_LEFT_SQUARE) {
-						attrs = this.reqAttributeList(first = this.yes())
+					/* if this.test(Token::HASH_LEFT_SQUARE) {
+						attrs = this.reqOuterAttributes(first = this.yes())
 
 						if attributes != null {
 							attrs.value = [].concat(attributes.value, attrs.value)
@@ -2640,6 +2667,12 @@ export namespace Parser {
 					else {
 						attrs = attributes
 						first = null
+					} */
+					attrs = this.stackOuterAttributes([])
+
+					if attrs.length > 0 {
+						first = attrs[0]
+						attrs.unshift(...attributes)
 					}
 
 					members.push(this.reqClassMember(attrs, modifiers, first))
@@ -2681,9 +2714,14 @@ export namespace Parser {
 
 			this.commit().NL_0M()
 
+			const attributes = []
 			const members = []
 
 			until this.test(Token::RIGHT_CURLY) {
+				if this.stackInnerAttributes(attributes) {
+					continue
+				}
+
 				this.reqImplementMemberList(members)
 			}
 
@@ -2691,7 +2729,7 @@ export namespace Parser {
 				this.throw('}')
 			}
 
-			return this.yep(AST.ImplementDeclaration(variable, members, first, this.yes()))
+			return this.yep(AST.ImplementDeclaration(attributes, variable, members, first, this.yes()))
 		} // }}}
 		reqImportDeclarator() ~ SyntaxError { // {{{
 			const source = this.reqString()
@@ -2952,6 +2990,19 @@ export namespace Parser {
 				return this.yep(AST.IncludeAgainDeclaration(files, first, last))
 			}
 		} // }}}
+		/* reqInnerAttribute(first) ~ SyntaxError { // {{{
+			const declaration = this.reqAttributeMember()
+
+			unless this.test(Token::RIGHT_SQUARE) {
+				this.throw(']')
+			}
+
+			const last = this.yes()
+
+			this.reqNL_EOF_1M()
+
+			return this.yep(AST.AttributeDeclaration(declaration, first, last))
+		} // }}} */
 		reqLetStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
 			const variable = this.reqTypedVariable()
 
@@ -3289,14 +3340,15 @@ export namespace Parser {
 			const attributes = []
 			const body = []
 
-			let statement, attrs
+			let attrs = []
+			let statement
 			until @scanner.isEOF() {
-				if this.test(Token::HASH_EXCLAMATION_LEFT_SQUARE) {
-					attributes.push(this.reqAttributeBlock(this.yes()))
+				/* if this.test(Token::HASH_EXCLAMATION_LEFT_SQUARE) {
+					attributes.push(this.reqInnerAttribute(this.yes()))
 				}
 				else {
 					if this.test(Token::HASH_LEFT_SQUARE) {
-						attrs = this.reqAttributeList(this.yes())
+						attrs = this.reqOuterAttributes(this.yes())
 					}
 					else {
 						attrs = null
@@ -3335,16 +3387,70 @@ export namespace Parser {
 						}
 					}
 
-					if attrs == null {
+					/* if attrs == null {
 						statement.attributes = []
 					}
 					else {
 						statement.attributes = [attr.value for attr in attrs.value]
 						statement.start = statement.attributes[0].start
+					} */
+					if attrs != null {
+						for const attr in attrs.value {
+							statement.attributes.push(attr.value)
+						}
+
+						statement.start = statement.attributes[0].start
 					}
 
 					body.push(statement)
+				} */
+				if this.stackInnerAttributes(attributes) {
+					continue
 				}
+
+				this.stackOuterAttributes(attrs)
+
+				switch this.matchM(M.MODULE_STATEMENT) {
+					Token::DISCLOSE => {
+						statement = this.reqDiscloseStatement(this.yes()).value
+					}
+					Token::EXPORT => {
+						statement = this.reqExportStatement(this.yes()).value
+					}
+					Token::EXTERN => {
+						statement = this.reqExternStatement(this.yes()).value
+					}
+					Token::EXTERN_REQUIRE => {
+						statement = this.reqExternOrRequireStatement(this.yes()).value
+					}
+					Token::INCLUDE => {
+						statement = this.reqIncludeStatement(this.yes()).value
+					}
+					Token::INCLUDE_AGAIN => {
+						statement = this.reqIncludeAgainStatement(this.yes()).value
+					}
+					Token::REQUIRE => {
+						statement = this.reqRequireStatement(this.yes()).value
+					}
+					Token::REQUIRE_EXTERN => {
+						statement = this.reqRequireOrExternStatement(this.yes()).value
+					}
+					Token::REQUIRE_IMPORT => {
+						statement = this.reqRequireOrImportStatement(this.yes()).value
+					}
+					=> {
+						statement = this.reqStatement().value
+					}
+				}
+
+				if attrs.length > 0 {
+					statement.attributes.unshift(...attrs)
+					statement.start = statement.attributes[0].start
+
+					attrs = []
+				}
+
+				body.push(statement)
 
 				this.NL_0M()
 			}
@@ -3376,16 +3482,66 @@ export namespace Parser {
 
 			this.NL_0M()
 
+			const attributes = []
 			const statements = []
 
-			let attrs, statement
+			let attrs = []
+			let statement
 			until this.test(Token::RIGHT_CURLY) {
-				if this.test(Token::HASH_LEFT_SQUARE) {
-					attrs = this.reqAttributeList(this.yes())
+				/* if this.test(Token::HASH_EXCLAMATION_LEFT_SQUARE) {
+					attributes.push(this.reqInnerAttribute(this.yes()))
 				}
 				else {
-					attrs = null
+					if this.test(Token::HASH_LEFT_SQUARE) {
+						attrs = this.reqOuterAttributes(this.yes())
+					}
+					else {
+						attrs = null
+					}
+
+					if this.matchM(M.MODULE_STATEMENT) == Token::EXPORT {
+						statement = this.reqExportStatement(this.yes())
+					}
+					else if @token == Token::EXTERN {
+						statement = this.reqExternStatement(this.yes())
+					}
+					else if @token == Token::IMPORT {
+						statement = this.reqImportStatement(this.yes())
+					}
+					else if @token == Token::INCLUDE {
+						statement = this.reqIncludeStatement(this.yes())
+					}
+					else if @token == Token::INCLUDE_AGAIN {
+						statement = this.reqIncludeAgainStatement(this.yes())
+					}
+					else {
+						statement = this.reqStatement()
+					}
+
+					/* if attrs == null {
+						statement.value.attributes = []
+					}
+					else {
+						statement.value.attributes = [attr.value for attr in attrs.value]
+						statement.value.start = statement.value.attributes[0].start
+					} */
+					if attrs != null {
+						const attributes = statement.value.attributes
+
+						for const attr in attrs.value {
+							attributes.push(attr.value)
+						}
+
+						statement.value.start = statement.value.attributes[0].start
+					}
+
+					statements.push(statement)
+				} */
+				if this.stackInnerAttributes(attributes) {
+					continue
 				}
+
+				this.stackOuterAttributes(attrs)
 
 				if this.matchM(M.MODULE_STATEMENT) == Token::EXPORT {
 					statement = this.reqExportStatement(this.yes())
@@ -3406,12 +3562,11 @@ export namespace Parser {
 					statement = this.reqStatement()
 				}
 
-				if attrs == null {
-					statement.value.attributes = []
-				}
-				else {
-					statement.value.attributes = [attr.value for attr in attrs.value]
+				if attrs.length > 0 {
+					statement.value.attributes.unshift(...attrs)
 					statement.value.start = statement.value.attributes[0].start
+
+					attrs = []
 				}
 
 				statements.push(statement)
@@ -3421,7 +3576,7 @@ export namespace Parser {
 				this.throw('}')
 			}
 
-			return this.yep(AST.NamespaceDeclaration([], name, statements, first, this.yes()))
+			return this.yep(AST.NamespaceDeclaration(attributes, [], name, statements, first, this.yes()))
 		} // }}}
 		reqNumber() ~ SyntaxError { // {{{
 			if (value = this.tryNumber()).ok {
@@ -3454,9 +3609,34 @@ export namespace Parser {
 		reqObject(first) ~ SyntaxError { // {{{
 			this.NL_0M()
 
+			const attributes = []
 			const properties = []
 
 			until this.test(Token::RIGHT_CURLY) {
+				/* if this.test(Token::HASH_EXCLAMATION_LEFT_SQUARE) {
+					attributes.push(this.reqInnerAttribute(this.yes()))
+				}
+				else {
+					properties.push(this.reqObjectItem())
+
+					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
+						this.commit().NL_0M()
+					}
+					else if @token == Token::NEWLINE {
+						this.commit().NL_0M()
+
+						if this.test(Token::COMMA) {
+							this.commit().NL_0M()
+						}
+					}
+					else {
+						break
+					}
+				} */
+				if this.stackInnerAttributes(attributes) {
+					continue
+				}
+
 				properties.push(this.reqObjectItem())
 
 				if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
@@ -3478,14 +3658,20 @@ export namespace Parser {
 				this.throw('}')
 			}
 
-			return this.yep(AST.ObjectExpression(properties, first, this.yes()))
+			return this.yep(AST.ObjectExpression(attributes, properties, first, this.yes()))
 		} // }}}
 		reqObjectItem() ~ SyntaxError { // {{{
-			let attributes, first
-			if this.test(Token::HASH_LEFT_SQUARE) {
-				attributes = this.reqAttributeList(this.yes())
+			/* let attributes, first */
+			/* if this.test(Token::HASH_LEFT_SQUARE) {
+				attributes = this.reqOuterAttributes(this.yes())
 
 				first = attributes.value[0]
+			} */
+			let first
+
+			const attributes = this.stackOuterAttributes([])
+			if attributes.length > 0 {
+				first = attributes[0]
 			}
 
 			if this.test(Token::ASYNC) {
@@ -3616,6 +3802,15 @@ export namespace Parser {
 				return this.yep(AST.reorderExpression(values))
 			}
 		} // }}}
+		/* reqOuterAttributes(first) ~ SyntaxError { // {{{
+			const attributes = [this.reqAttribute(first)]
+
+			while this.test(Token::HASH_LEFT_SQUARE) {
+				attributes.push(this.reqAttribute(this.yes()))
+			}
+
+			return this.yep(attributes)
+		} // }}} */
 		reqParameter(parameters, mode) ~ SyntaxError { // {{{
 			const modifiers = []
 
@@ -5260,6 +5455,37 @@ export namespace Parser {
 
 			return object
 		} // }}}
+		stackInnerAttributes(attributes) ~ SyntaxError { // {{{
+			if this.test(Token::HASH_EXCLAMATION_LEFT_SQUARE) {
+				do {
+					const first = this.yes()
+					const declaration = this.reqAttributeMember()
+
+					unless this.test(Token::RIGHT_SQUARE) {
+						this.throw(']')
+					}
+
+					attributes.push(AST.AttributeDeclaration(declaration, first, this.yes()))
+
+					this.reqNL_EOF_1M()
+				}
+				while this.test(Token::HASH_EXCLAMATION_LEFT_SQUARE)
+
+				return true
+			}
+			else {
+				return false
+			}
+		} // }}}
+		stackOuterAttributes(attributes) ~ SyntaxError { // {{{
+			while this.test(Token::HASH_LEFT_SQUARE) {
+				attributes.push(this.reqAttribute(this.yes()).value)
+
+				this.NL_0M()
+			}
+
+			return attributes
+		} // }}}
 		tryAssignementOperator() ~ SyntaxError { // {{{
 			switch this.matchM(M.ASSIGNEMENT_OPERATOR) {
 				Token::AMPERSAND_EQUALS => {
@@ -5400,7 +5626,7 @@ export namespace Parser {
 				statement = this.yep(AST.UnlessExpression(condition, statement, statement, condition))
 			}
 
-			return statement
+			return this.yep(AST.ExpressionStatement(statement))
 		} // }}}
 		tryBinaryOperator() ~ SyntaxError { // {{{
 			switch this.matchM(M.BINARY_OPERATOR) {
@@ -5764,7 +5990,7 @@ export namespace Parser {
 
 			const body = this.reqMacroBody()
 
-			return this.yep(AST.MacroDeclaration(name, parameters, body, first, body))
+			return this.yep(AST.MacroDeclaration([], name, parameters, body, first, body))
 		} // }}}
 		tryNameIST() ~ SyntaxError { // {{{
 			if this.match(Token::IDENTIFIER, Token::STRING, Token::TEMPLATE_BEGIN) == Token::IDENTIFIER {

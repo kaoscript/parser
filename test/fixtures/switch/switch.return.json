@@ -4,6 +4,7 @@
   "body": [
     {
       "kind": 46,
+      "attributes": [],
       "name": {
         "kind": 48,
         "name": "foo",
@@ -82,6 +83,7 @@
         "statements": [
           {
             "kind": 93,
+            "attributes": [],
             "expression": {
               "kind": 48,
               "name": "x",
@@ -137,6 +139,7 @@
                 "kind": 86,
                 "body": {
                   "kind": 82,
+                  "attributes": [],
                   "value": {
                     "kind": 48,
                     "name": "y",
@@ -186,6 +189,7 @@
                 "kind": 86,
                 "body": {
                   "kind": 82,
+                  "attributes": [],
                   "value": {
                     "kind": 10,
                     "operator": {
@@ -260,8 +264,7 @@
             "end": {
               "line": 6,
               "column": 3
-            },
-            "attributes": []
+            }
           }
         ],
         "start": {
@@ -272,8 +275,7 @@
           "line": 7,
           "column": 2
         }
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

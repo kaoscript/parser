@@ -4,11 +4,13 @@
   "body": [
     {
       "kind": 34,
+      "attributes": [],
       "declarations": [
         {
           "kind": 35,
           "declaration": {
             "kind": 17,
+            "attributes": [],
             "name": {
               "kind": 48,
               "name": "Color",
@@ -105,6 +107,7 @@
                   "statements": [
                     {
                       "kind": 50,
+                      "attributes": [],
                       "condition": {
                         "kind": 103,
                         "operator": {
@@ -170,6 +173,7 @@
                         "statements": [
                           {
                             "kind": 108,
+                            "attributes": [],
                             "rebindable": false,
                             "variables": [
                               {
@@ -240,11 +244,11 @@
                             "end": {
                               "line": 4,
                               "column": 28
-                            },
-                            "attributes": []
+                            }
                           },
                           {
                             "kind": 108,
+                            "attributes": [],
                             "rebindable": false,
                             "variables": [
                               {
@@ -315,11 +319,11 @@
                             "end": {
                               "line": 5,
                               "column": 29
-                            },
-                            "attributes": []
+                            }
                           },
                           {
                             "kind": 108,
+                            "attributes": [],
                             "rebindable": true,
                             "variables": [
                               {
@@ -353,11 +357,11 @@
                             "end": {
                               "line": 7,
                               "column": 13
-                            },
-                            "attributes": []
+                            }
                           },
                           {
                             "kind": 44,
+                            "attributes": [],
                             "expression": {
                               "kind": 64,
                               "object": {
@@ -550,6 +554,7 @@
                                   "arguments": [
                                     {
                                       "kind": 63,
+                                      "attributes": [],
                                       "elements": [
                                         {
                                           "kind": 2,
@@ -736,6 +741,7 @@
                                   "arguments": [
                                     {
                                       "kind": 63,
+                                      "attributes": [],
                                       "elements": [
                                         {
                                           "kind": 2,
@@ -1128,11 +1134,11 @@
                                 "line": 21,
                                 "column": 5
                               }
-                            },
-                            "attributes": []
+                            }
                           },
                           {
                             "kind": 63,
+                            "attributes": [],
                             "elements": [
                               {
                                 "kind": 2,
@@ -1351,8 +1357,7 @@
                             "end": {
                               "line": 30,
                               "column": 5
-                            },
-                            "attributes": []
+                            }
                           }
                         ],
                         "start": {
@@ -1378,6 +1383,7 @@
                         "statements": [
                           {
                             "kind": 63,
+                            "attributes": [],
                             "elements": [
                               {
                                 "kind": 2,
@@ -1438,8 +1444,7 @@
                             "end": {
                               "line": 33,
                               "column": 44
-                            },
-                            "attributes": []
+                            }
                           }
                         ],
                         "start": {
@@ -1450,8 +1455,7 @@
                           "line": 34,
                           "column": 4
                         }
-                      },
-                      "attributes": []
+                      }
                     }
                   ],
                   "start": {
@@ -1474,6 +1478,7 @@
               },
               {
                 "kind": 65,
+                "attributes": [],
                 "modifiers": [],
                 "name": {
                   "kind": 48,
@@ -1541,6 +1546,7 @@
                   "statements": [
                     {
                       "kind": 98,
+                      "attributes": [],
                       "value": {
                         "kind": 25,
                         "class": {
@@ -1585,8 +1591,7 @@
                       "end": {
                         "line": 38,
                         "column": 37
-                      },
-                      "attributes": []
+                      }
                     }
                   ],
                   "start": {
@@ -1601,6 +1606,7 @@
               },
               {
                 "kind": 65,
+                "attributes": [],
                 "modifiers": [],
                 "name": {
                   "kind": 48,
@@ -1692,6 +1698,7 @@
                   "statements": [
                     {
                       "kind": 98,
+                      "attributes": [],
                       "value": {
                         "kind": 25,
                         "class": {
@@ -1736,8 +1743,7 @@
                       "end": {
                         "line": 42,
                         "column": 37
-                      },
-                      "attributes": []
+                      }
                     }
                   ],
                   "start": {
@@ -1777,8 +1783,7 @@
       "end": {
         "line": 44,
         "column": 2
-      },
-      "attributes": []
+      }
     },
     {
       "kind": 15,
@@ -1822,9 +1827,11 @@
       "arguments": [
         {
           "kind": 72,
+          "attributes": [],
           "properties": [
             {
               "kind": 73,
+              "attributes": [],
               "name": {
                 "kind": 48,
                 "name": "name",
@@ -1860,6 +1867,7 @@
             },
             {
               "kind": 73,
+              "attributes": [],
               "name": {
                 "kind": 48,
                 "name": "alias",
@@ -1908,6 +1916,7 @@
             },
             {
               "kind": 73,
+              "attributes": [],
               "name": {
                 "kind": 48,
                 "name": "components",
@@ -1922,9 +1931,11 @@
               },
               "value": {
                 "kind": 72,
+                "attributes": [],
                 "properties": [
                   {
                     "kind": 73,
+                    "attributes": [],
                     "name": {
                       "kind": 48,
                       "name": "red",
@@ -1939,9 +1950,11 @@
                     },
                     "value": {
                       "kind": 72,
+                      "attributes": [],
                       "properties": [
                         {
                           "kind": 73,
+                          "attributes": [],
                           "name": {
                             "kind": 48,
                             "name": "max",
@@ -1996,6 +2009,7 @@
                   },
                   {
                     "kind": 73,
+                    "attributes": [],
                     "name": {
                       "kind": 48,
                       "name": "green",
@@ -2010,9 +2024,11 @@
                     },
                     "value": {
                       "kind": 72,
+                      "attributes": [],
                       "properties": [
                         {
                           "kind": 73,
+                          "attributes": [],
                           "name": {
                             "kind": 48,
                             "name": "max",
@@ -2067,6 +2083,7 @@
                   },
                   {
                     "kind": 73,
+                    "attributes": [],
                     "name": {
                       "kind": 48,
                       "name": "blue",
@@ -2081,9 +2098,11 @@
                     },
                     "value": {
                       "kind": 72,
+                      "attributes": [],
                       "properties": [
                         {
                           "kind": 73,
+                          "attributes": [],
                           "name": {
                             "kind": 48,
                             "name": "max",

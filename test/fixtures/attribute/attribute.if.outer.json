@@ -1,0 +1,125 @@
+{
+  "kind": 67,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 50,
+      "attributes": [
+        {
+          "kind": 6,
+          "declaration": {
+            "kind": 48,
+            "name": "foo",
+            "start": {
+              "line": 1,
+              "column": 3
+            },
+            "end": {
+              "line": 1,
+              "column": 6
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 7
+          }
+        }
+      ],
+      "condition": {
+        "kind": 48,
+        "name": "test",
+        "start": {
+          "line": 2,
+          "column": 4
+        },
+        "end": {
+          "line": 2,
+          "column": 8
+        }
+      },
+      "whenTrue": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 2,
+          "column": 9
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      },
+      "whenFalse": {
+        "kind": 50,
+        "attributes": [],
+        "condition": {
+          "kind": 48,
+          "name": "ytest",
+          "start": {
+            "line": 4,
+            "column": 9
+          },
+          "end": {
+            "line": 4,
+            "column": 14
+          }
+        },
+        "whenTrue": {
+          "kind": 12,
+          "attributes": [],
+          "statements": [],
+          "start": {
+            "line": 4,
+            "column": 15
+          },
+          "end": {
+            "line": 5,
+            "column": 2
+          }
+        },
+        "start": {
+          "line": 4,
+          "column": 6
+        },
+        "end": {
+          "line": 7,
+          "column": 2
+        },
+        "whenFalse": {
+          "kind": 12,
+          "attributes": [],
+          "statements": [],
+          "start": {
+            "line": 6,
+            "column": 6
+          },
+          "end": {
+            "line": 7,
+            "column": 2
+          }
+        }
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 2
+  }
+}

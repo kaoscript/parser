@@ -412,7 +412,7 @@ namespace AST {
 		func Block(attributes, statements, first, last) { // {{{
 			return location({
 				kind: NodeKind::Block
-				attributes: [attribute.value for attribute in attributes]
+				attributes: attributes
 				statements: [statement.value for statement in statements]
 			}, first, last)
 		} // }}}
@@ -420,6 +420,7 @@ namespace AST {
 		func BreakStatement(first) { // {{{
 			return location({
 				kind: NodeKind::BreakStatement
+				attributes: []
 			}, first)
 		} // }}}
 
@@ -469,9 +470,10 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ClassDeclaration(name, version?, extends?, modifiers, members, first, last) { // {{{
+		func ClassDeclaration(attributes, name, version?, extends?, modifiers, members, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ClassDeclaration
+				attributes
 				name: name.value
 				modifiers: [modifier.value for modifier in modifiers]
 				members: [member.value for member in members]
@@ -519,6 +521,7 @@ namespace AST {
 		func ContinueStatement(first) { // {{{
 			return location({
 				kind: NodeKind::ContinueStatement
+				attributes: []
 			}, first)
 		} // }}}
 
@@ -542,6 +545,7 @@ namespace AST {
 		func DestroyStatement(variable, first, last) { // {{{
 			return location({
 				kind: NodeKind::DestroyStatement
+				attributes: []
 				variable: variable.value
 			}, first, last)
 		} // }}}
@@ -549,6 +553,7 @@ namespace AST {
 		func DiscloseDeclaration(name, members, first, last) { // {{{
 			return location({
 				kind: NodeKind::DiscloseDeclaration
+				attributes: []
 				name: name.value
 				members: [member.value for member in members]
 			}, first, last)
@@ -557,6 +562,7 @@ namespace AST {
 		func DoUntilStatement(condition, body, first, last) { // {{{
 			return location({
 				kind: NodeKind::DoUntilStatement
+				attributes: []
 				condition: condition.value
 				body: body.value
 			}, first, last)
@@ -565,6 +571,7 @@ namespace AST {
 		func DoWhileStatement(condition, body, first, last) { // {{{
 			return location({
 				kind: NodeKind::DoWhileStatement
+				attributes: []
 				condition: condition.value
 				body: body.value
 			}, first, last)
@@ -581,6 +588,7 @@ namespace AST {
 		func EnumDeclaration(name, type?, members, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::EnumDeclaration
+				attributes: []
 				name: name.value
 				members: members
 			}, first, last)
@@ -610,6 +618,7 @@ namespace AST {
 		func ExportDeclaration(declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExportDeclaration
+				attributes: []
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -644,9 +653,16 @@ namespace AST {
 			}, local, end)
 		} // }}}
 
+		func ExpressionStatement(expression) { // {{{
+			expression.value.attributes = []
+
+			return expression.value
+		} // }}}
+
 		func ExternDeclaration(declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExternDeclaration
+				attributes: []
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -654,20 +670,19 @@ namespace AST {
 		func ExternOrRequireDeclaration(declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExternOrRequireDeclaration
+				attributes: []
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
 
-		func FieldDeclaration(attributes?, modifiers, name, type?, defaultValue?, first, last) { // {{{
+		func FieldDeclaration(attributes, modifiers, name, type?, defaultValue?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::FieldDeclaration
+				attributes
 				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 			}, first, last)
 
-			if attributes != null {
-				node.attributes = [attribute.value for attribute in attributes.value]
-			}
 			if type != null {
 				node.type = type.value
 			}
@@ -681,6 +696,7 @@ namespace AST {
 		func ForFromStatement(declaration: Boolean, rebindable: Boolean, variable, from, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForFromStatement
+				attributes: []
 				variable: variable.value
 				from: from.value
 				declaration: declaration
@@ -717,6 +733,7 @@ namespace AST {
 		func ForInStatement(declaration: Boolean, rebindable: Boolean, value?, index?, expression, desc?, from?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForInStatement
+				attributes: []
 				expression: expression.value
 				desc: desc != null
 				declaration: declaration
@@ -763,6 +780,7 @@ namespace AST {
 		func ForRangeStatement(declaration: Boolean, rebindable: Boolean, value, index?, from?, then?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForRangeStatement
+				attributes: []
 				value: value.value
 				declaration: declaration
 			}, first, last)
@@ -808,6 +826,7 @@ namespace AST {
 		func ForOfStatement(declaration: Boolean, rebindable: Boolean, value?, key?, expression, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForOfStatement
+				attributes: []
 				expression: expression.value
 				declaration: declaration
 			}, first, last)
@@ -840,6 +859,7 @@ namespace AST {
 		func FunctionDeclaration(name, parameters?, modifiers?, type?, throws?, body?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::FunctionDeclaration
+				attributes: []
 				name: name.value
 			}, first, last)
 
@@ -920,6 +940,7 @@ namespace AST {
 		func IfStatement(condition, whenTrue, whenFalse?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::IfStatement
+				attributes: []
 				condition: condition.value
 				whenTrue: whenTrue.value
 			}, first, last)
@@ -931,9 +952,10 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ImplementDeclaration(variable, properties, first, last) { // {{{
+		func ImplementDeclaration(attributes, variable, properties, first, last) { // {{{
 			return location({
 				kind: NodeKind::ImplementDeclaration
+				attributes
 				variable: variable.value
 				properties: [property.value for property in properties]
 			}, first, last)
@@ -951,6 +973,7 @@ namespace AST {
 		func ImportDeclaration(declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ImportDeclaration
+				attributes: []
 				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
 		} // }}}
@@ -1000,6 +1023,7 @@ namespace AST {
 		func IncludeAgainDeclaration(files, first, last) { // {{{
 			return location({
 				kind: NodeKind::IncludeAgainDeclaration
+				attributes: []
 				files: files
 			}, first, last)
 		} // }}}
@@ -1007,6 +1031,7 @@ namespace AST {
 		func IncludeDeclaration(files, first, last) { // {{{
 			return location({
 				kind: NodeKind::IncludeDeclaration
+				attributes: []
 				files: files
 			}, first, last)
 		} // }}}
@@ -1040,10 +1065,10 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func MacroDeclaration(attributes = [], name, parameters, body, first, last) { // {{{
+		func MacroDeclaration(attributes, name, parameters, body, first, last) { // {{{
 			return location({
 				kind: NodeKind::MacroDeclaration
-				attributes: attributes
+				attributes
 				name: name.value
 				parameters: [parameter.value for parameter in parameters.value]
 				body: body.value
@@ -1053,6 +1078,7 @@ namespace AST {
 		func MacroExpression(elements, multilines, first, last) { // {{{
 			return location({
 				kind: NodeKind::MacroExpression
+				attributes: []
 				elements: [element.value for element in elements]
 				multilines: multilines
 			}, first, last)
@@ -1124,17 +1150,15 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func MethodDeclaration(attributes?, modifiers, name, parameters, type?, throws?, body?, first, last) { // {{{
+		func MethodDeclaration(attributes, modifiers, name, parameters, type?, throws?, body?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::MethodDeclaration
+				attributes
 				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 				parameters: [parameter.value for parameter in parameters.value]
 			}, first, last)
 
-			if attributes != null {
-				node.attributes = [attribute.value for attribute in attributes.value]
-			}
 			if type != null {
 				node.type = type.value
 			}
@@ -1162,7 +1186,7 @@ namespace AST {
 		func Module(attributes, body, parser: Parser) { // {{{
 			return location({
 				kind: NodeKind::Module
-				attributes: [attribute.value for attribute in attributes]
+				attributes
 				body: body,
 				start: {
 					line: 1
@@ -1195,9 +1219,10 @@ namespace AST {
 			}, first)
 		} // }}}
 
-		func NamespaceDeclaration(modifiers, name, statements, first, last) { // {{{
+		func NamespaceDeclaration(attributes, modifiers, name, statements, first, last) { // {{{
 			return location({
 				kind: NodeKind::NamespaceDeclaration
+				attributes
 				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 				statements: [statement.value for statement in statements]
@@ -1218,9 +1243,10 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func ObjectExpression(properties, first, last) { // {{{
+		func ObjectExpression(attributes, properties, first, last) { // {{{
 			return location({
 				kind: NodeKind::ObjectExpression
+				attributes
 				properties: [property.value for property in properties]
 			}, first, last)
 		} // }}}
@@ -1240,18 +1266,13 @@ namespace AST {
 			}, name, value)
 		} // }}}
 
-		func ObjectMember(attributes?, name, value, first, last) { // {{{
-			const node = location({
+		func ObjectMember(attributes, name, value, first, last) { // {{{
+			return location({
 				kind: NodeKind::ObjectMember
+				attributes
 				name: name.value
 				value: value.value
 			}, first, last)
-
-			if attributes != null {
-				node.attributes = [attribute.value for attribute in attributes.value]
-			}
-
-			return node
 		} // }}}
 
 		func ObjectReference(properties, first, last) { // {{{
@@ -1288,16 +1309,14 @@ namespace AST {
 			return node
 		} // }}}
 
-		func PropertyDeclaration(attributes?, modifiers, name, type?, defaultValue?, accessor?, mutator?, first, last) { // {{{
+		func PropertyDeclaration(attributes, modifiers, name, type?, defaultValue?, accessor?, mutator?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::PropertyDeclaration
+				attributes
 				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 			}, first, last)
 
-			if attributes != null {
-				node.attributes = [attribute.value for attribute in attributes.value]
-			}
 			if type != null {
 				node.type = type.value
 			}
@@ -1352,6 +1371,7 @@ namespace AST {
 		func RequireDeclaration(declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::RequireDeclaration
+				attributes: []
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -1359,6 +1379,7 @@ namespace AST {
 		func RequireOrExternDeclaration(declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::RequireOrExternDeclaration
+				attributes: []
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -1366,6 +1387,7 @@ namespace AST {
 		func RequireOrImportDeclaration(declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::RequireOrImportDeclaration
+				attributes: []
 				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
 		} // }}}
@@ -1383,12 +1405,14 @@ namespace AST {
 		func ReturnStatement(first) { // {{{
 			return location({
 				kind: NodeKind::ReturnStatement
+				attributes: []
 			}, first, first)
 		} // }}}
 
 		func ReturnStatement(value, first, last) { // {{{
 			return location({
 				kind: NodeKind::ReturnStatement
+				attributes: []
 				value: value.value
 			}, first, last)
 		} // }}}
@@ -1413,17 +1437,12 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func ShorthandProperty(attributes?, name, first, last) { // {{{
-			const node = location({
+		func ShorthandProperty(attributes, name, first, last) { // {{{
+			return location({
 				kind: NodeKind::ShorthandProperty
+				attributes
 				name: name.value
 			}, first, last)
-
-			if attributes != null {
-				node.attributes = [attribute.value for attribute in attributes.value]
-			}
-
-			return node
 		} // }}}
 
 		func SwitchClause(conditions?, bindings?, filter?, body, first, last) { // {{{
@@ -1485,6 +1504,7 @@ namespace AST {
 		func SwitchExpression(expression, clauses, first, last) { // {{{
 			return location({
 				kind: NodeKind::SwitchExpression
+				attributes: []
 				expression: expression.value
 				clauses: [clause for clause in clauses.value]
 			}, first, last)
@@ -1493,6 +1513,7 @@ namespace AST {
 		func SwitchStatement(expression, clauses, first, last) { // {{{
 			return location({
 				kind: NodeKind::SwitchStatement
+				attributes: []
 				expression: expression.value
 				clauses: [clause for clause in clauses.value]
 			}, first, last)
@@ -1531,12 +1552,14 @@ namespace AST {
 		func ThrowStatement(first) { // {{{
 			return location({
 				kind: NodeKind::ThrowStatement
+				attributes: []
 			}, first)
 		} // }}}
 
 		func ThrowStatement(value, first, last) { // {{{
 			return location({
 				kind: NodeKind::ThrowStatement
+				attributes: []
 				value: value.value
 			}, first, last)
 		} // }}}
@@ -1544,6 +1567,7 @@ namespace AST {
 		func TryStatement(body, catchClauses, catchClause?, finalizer?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::TryStatement
+				attributes: []
 				body: body.value
 				catchClauses: [clause.value for clause in catchClauses]
 			}, first, last)
@@ -1591,6 +1615,7 @@ namespace AST {
 		func TypeAliasDeclaration(name, type, first, last) { // {{{
 			return location({
 				kind: NodeKind::TypeAliasDeclaration
+				attributes: []
 				name: name.value
 				type: type.value
 			}, first, last)
@@ -1628,6 +1653,7 @@ namespace AST {
 		func UnlessStatement(condition, whenFalse, first, last) { // {{{
 			return location({
 				kind: NodeKind::UnlessStatement
+				attributes: []
 				condition: condition.value
 				whenFalse: whenFalse.value
 			}, first, last)
@@ -1636,6 +1662,7 @@ namespace AST {
 		func UntilStatement(condition, body, first, last) { // {{{
 			return location({
 				kind: NodeKind::UntilStatement
+				attributes: []
 				condition: condition.value
 				body: body.value
 			}, first, last)
@@ -1644,6 +1671,7 @@ namespace AST {
 		func VariableDeclaration(variables, rebindable, first, last) { // {{{
 			return location({
 				kind: NodeKind::VariableDeclaration
+				attributes: []
 				rebindable: rebindable
 				variables: [variable.value for variable in variables]
 			}, first, last)
@@ -1652,6 +1680,7 @@ namespace AST {
 		func VariableDeclaration(variables, rebindable, equals, isAwait, expression, first, last) { // {{{
 			return location({
 				kind: NodeKind::VariableDeclaration
+				attributes: []
 				rebindable: rebindable
 				variables: [variable.value for variable in variables]
 				autotype: equals.value
@@ -1692,6 +1721,7 @@ namespace AST {
 		func WhileStatement(condition, body, first, last) { // {{{
 			return location({
 				kind: NodeKind::WhileStatement
+				attributes: []
 				condition: condition.value
 				body: body.value
 			}, first, last)
