@@ -1,0 +1,1 @@
+import 'module1'(path.join(__dirname, 'foobar.txt'))

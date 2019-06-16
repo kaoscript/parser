@@ -136,7 +136,7 @@
           "arguments": [
             {
               "kind": 52,
-              "imported": {
+              "name": {
                 "kind": 48,
                 "name": "foo1",
                 "start": {
@@ -148,7 +148,7 @@
                   "column": 22
                 }
               },
-              "local": {
+              "value": {
                 "kind": 48,
                 "name": "foo",
                 "start": {
@@ -167,12 +167,12 @@
               },
               "end": {
                 "line": 4,
-                "column": 27
+                "column": 22
               }
             },
             {
               "kind": 52,
-              "imported": {
+              "name": {
                 "kind": 48,
                 "name": "foo2",
                 "start": {
@@ -184,7 +184,7 @@
                   "column": 33
                 }
               },
-              "local": {
+              "value": {
                 "kind": 48,
                 "name": "bar",
                 "start": {
@@ -203,7 +203,7 @@
               },
               "end": {
                 "line": 4,
-                "column": 38
+                "column": 33
               }
             }
           ]

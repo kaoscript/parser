@@ -961,13 +961,19 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func ImportArgument(seep?, imported, local = null) { // {{{
-			return location({
+		func ImportArgument(seep?, name?, value) { // {{{
+			const node = location({
 				kind: NodeKind::ImportArgument
-				imported: imported.value
-				local: local.value
+				name: null
+				value: value.value
 				seeped: seep != null
-			}, seep ?? imported, local ?? imported)
+			}, seep ?? name ?? value, name ?? value)
+
+			if name != null {
+				node.name = name.value
+			}
+
+			return node
 		} // }}}
 
 		func ImportDeclaration(declarations, first, last) { // {{{
