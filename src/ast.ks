@@ -961,13 +961,13 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func ImportArgument(seep?, name?, value) { // {{{
+		func ImportArgument(require?, name?, value) { // {{{
 			const node = location({
 				kind: NodeKind::ImportArgument
 				name: null
 				value: value.value
-				seeped: seep != null
-			}, seep ?? name ?? value, name ?? value)
+				required: require != null
+			}, require ?? name ?? value, name ?? value)
 
 			if name != null {
 				node.name = name.value

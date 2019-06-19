@@ -2668,23 +2668,23 @@ export namespace Parser {
 
 				arguments = []
 
-				let argument, seep
+				let argument, require
 				while this.until(Token::RIGHT_ROUND) {
 					argument = this.reqExpression(ExpressionMode::Default)
 
 					if argument.value.kind == NodeKind::Identifier {
-						if argument.value.name == 'seep' && !this.test(Token::COLON, Token::COMMA, Token::RIGHT_ROUND) {
-							seep = argument
+						if argument.value.name == 'require' && !this.test(Token::COLON, Token::COMMA, Token::RIGHT_ROUND) {
+							require = argument
 
 							argument = this.reqIdentifier()
 
 							if this.test(Token::COLON) {
 								this.commit()
 
-								arguments.push(AST.ImportArgument(seep, argument, this.reqIdentifier()))
+								arguments.push(AST.ImportArgument(require, argument, this.reqIdentifier()))
 							}
 							else {
-								arguments.push(AST.ImportArgument(seep, null, argument))
+								arguments.push(AST.ImportArgument(require, null, argument))
 							}
 						}
 						else {
