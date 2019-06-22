@@ -735,8 +735,8 @@ export namespace Parser {
 		} // }}}
 		reqClassAbstractMethodBody(attributes?, modifiers, name, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList()
-			const type = this.reqFunctionReturns()
-			const throws = this.reqFunctionThrows()
+			const type = this.tryFunctionReturns()
+			const throws = this.tryFunctionThrows()
 
 			this.reqNL_1M()
 
@@ -957,20 +957,14 @@ export namespace Parser {
 		reqClassMethod(attributes, modifiers, name, round?, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList(round)
 
-			if this.test(Token::NEWLINE) {
-				this.commit().NL_0M()
+			const type = this.tryFunctionReturns()
+			const throws = this.tryFunctionThrows()
+			const body = this.tryFunctionBody()
 
-				return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, null, null, null, first, parameters))
-			}
-			else {
-				const type = this.reqFunctionReturns()
-				const throws = this.reqFunctionThrows()
-				const body = this.reqFunctionBody()
+			this.reqNL_1M()
 
-				this.reqNL_1M()
+			return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
 
-				return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body))
-			}
 		} // }}}
 		reqClassMethodParameterList(top = NO) ~ SyntaxError { // {{{
 			if !top.ok {
@@ -1956,7 +1950,7 @@ export namespace Parser {
 		} // }}}
 		reqExternClassMethod(modifiers, name, round, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList(round)
-			const type = this.reqFunctionReturns()
+			const type = this.tryFunctionReturns()
 
 			this.reqNL_1M()
 
@@ -2144,15 +2138,15 @@ export namespace Parser {
 
 			if this.test(Token::LEFT_ROUND) {
 				const parameters = this.reqFunctionParameterList()
-				const type = this.reqFunctionReturns()
-				const throws = this.reqFunctionThrows()
+				const type = this.tryFunctionReturns()
+				const throws = this.tryFunctionThrows()
 
 				return this.yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, null, first, throws ?? type ?? parameters))
 			}
 			else {
 				const position = this.yep()
-				const type = this.reqFunctionReturns()
-				const throws = this.reqFunctionThrows()
+				const type = this.tryFunctionReturns()
+				const throws = this.tryFunctionThrows()
 
 				return this.yep(AST.FunctionDeclaration(name, null, modifiers, type, throws, null, first, throws ?? type ?? name))
 			}
@@ -2261,7 +2255,7 @@ export namespace Parser {
 			}
 			else if @token == Token::LEFT_ROUND {
 				const parameters = this.reqFunctionParameterList()
-				const type = this.reqFunctionReturns()
+				const type = this.tryFunctionReturns()
 
 				return this.yep(AST.FunctionDeclaration(name, parameters, [], type, null, null, name, type ?? parameters))
 			}
@@ -2372,6 +2366,8 @@ export namespace Parser {
 			return statement
 		} // }}}
 		reqFunctionBody() ~ SyntaxError { // {{{
+			this.NL_0M()
+
 			if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) == Token::LEFT_CURLY {
 				return this.reqBlock(this.yes())
 			}
@@ -2404,45 +2400,14 @@ export namespace Parser {
 
 			return this.yep(parameters, first, this.yes())
 		} // }}}
-		reqFunctionReturns() ~ SyntaxError { // {{{
-			if this.test(Token::COLON) {
-				this.commit()
-
-				return this.reqTypeVar()
-			}
-			else {
-				return null
-			}
-		} // }}}
 		reqFunctionStatement(first, modifiers = []) ~ SyntaxError { // {{{
 			const name = this.reqIdentifier()
 			const parameters = this.reqFunctionParameterList()
-			const type = this.reqFunctionReturns()
-			const throws = this.reqFunctionThrows()
-
-			this.NL_0M()
-
+			const type = this.tryFunctionReturns()
+			const throws = this.tryFunctionThrows()
 			const body = this.reqFunctionBody()
 
 			return this.yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, body, first, body))
-		} // }}}
-		reqFunctionThrows() ~ SyntaxError { // {{{
-			if this.test(Token::TILDE) {
-				this.commit()
-
-				const exceptions = [this.reqIdentifier()]
-
-				while this.test(Token::COMMA) {
-					this.commit()
-
-					exceptions.push(this.reqIdentifier())
-				}
-
-				return this.yep(exceptions)
-			}
-			else {
-				return null
-			}
 		} // }}}
 		reqIdentifier() ~ SyntaxError { // {{{
 			if @scanner.test(Token::IDENTIFIER) {
@@ -3467,8 +3432,8 @@ export namespace Parser {
 				if name.ok {
 					const modifiers = [this.yep(AST.Modifier(ModifierKind::Async, async))]
 					const parameters = this.reqFunctionParameterList()
-					const type = this.reqFunctionReturns()
-					const throws = this.reqFunctionThrows()
+					const type = this.tryFunctionReturns()
+					const throws = this.tryFunctionThrows()
 					const body = this.reqFunctionBody()
 
 					return this.yep(AST.ObjectMember(attributes, name, this.yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, parameters, body)), first ?? async ?? name, body))
@@ -3504,8 +3469,8 @@ export namespace Parser {
 			}
 			else if this.test(Token::LEFT_ROUND) {
 				const parameters = this.reqFunctionParameterList()
-				const type = this.reqFunctionReturns()
-				const throws = this.reqFunctionThrows()
+				const type = this.tryFunctionReturns()
+				const throws = this.tryFunctionThrows()
 				const body = this.reqFunctionBody()
 
 				return this.yep(AST.ObjectMember(attributes, name, this.yep(AST.FunctionExpression(parameters, null, type, throws, body, parameters, body)), first ?? name, body))
@@ -4758,8 +4723,8 @@ export namespace Parser {
 				if this.test(Token::LEFT_ROUND) {
 					const modifiers = [this.yep(AST.Modifier(ModifierKind::Async, async))]
 					const parameters = this.reqFunctionParameterList()
-					const type = this.reqFunctionReturns()
-					const throws = this.reqFunctionThrows()
+					const type = this.tryFunctionReturns()
+					const throws = this.tryFunctionThrows()
 
 					return this.yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, async, throws ?? type ?? parameters))
 				}
@@ -4772,8 +4737,8 @@ export namespace Parser {
 
 				if this.test(Token::LEFT_ROUND) {
 					const parameters = this.reqFunctionParameterList()
-					const type = this.reqFunctionReturns()
-					const throws = this.reqFunctionThrows()
+					const type = this.tryFunctionReturns()
+					const throws = this.tryFunctionThrows()
 
 					return this.yep(AST.FunctionExpression(parameters, null, type, throws, null, first, throws ?? type ?? parameters))
 				}
@@ -4783,8 +4748,8 @@ export namespace Parser {
 			}
 			else if @token == Token::LEFT_ROUND {
 				const parameters = this.reqFunctionParameterList()
-				const type = this.reqFunctionReturns()
-				const throws = this.reqFunctionThrows()
+				const type = this.tryFunctionReturns()
+				const throws = this.tryFunctionThrows()
 
 				return this.yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
 			}
@@ -4868,8 +4833,8 @@ export namespace Parser {
 						if this.test(Token::LEFT_ROUND) {
 							const modifiers = [this.yep(AST.Modifier(ModifierKind::Async, async))]
 							const parameters = this.reqFunctionParameterList()
-							const type = this.reqFunctionReturns()
-							const throws = this.reqFunctionThrows()
+							const type = this.tryFunctionReturns()
+							const throws = this.tryFunctionThrows()
 
 							const objectType = this.yep(AST.FunctionExpression(parameters, modifiers, type, null, null, parameters, type ?? parameters))
 
@@ -4889,8 +4854,8 @@ export namespace Parser {
 
 						if this.test(Token::LEFT_ROUND) {
 							const parameters = this.reqFunctionParameterList()
-							const type = this.reqFunctionReturns()
-							const throws = this.reqFunctionThrows()
+							const type = this.tryFunctionReturns()
+							const throws = this.tryFunctionThrows()
 
 							const objectType = this.yep(AST.FunctionExpression(parameters, null, type, null, null, parameters, type ?? parameters))
 
@@ -5002,7 +4967,7 @@ export namespace Parser {
 			}
 			else {
 				const parameters = this.reqFunctionParameterList()
-				type = this.reqFunctionReturns()
+				type = this.tryFunctionReturns()
 
 				type = this.yep(AST.FunctionExpression(parameters, null, type, null, null, parameters, type ?? parameters))
 			}
@@ -5636,6 +5601,20 @@ export namespace Parser {
 				return NO
 			}
 		} // }}}
+		tryFunctionBody() ~ SyntaxError { // {{{
+			const mark = this.mark()
+
+			this.NL_0M()
+
+			if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) {
+				return this.reqFunctionBody()
+			}
+			else {
+				this.rollback(mark)
+
+				return null
+			}
+		} // }}}
 		tryFunctionExpression(mode) ~ SyntaxError { // {{{
 			if mode & ExpressionMode::NoAnonymousFunction != 0 {
 				return NO
@@ -5649,7 +5628,7 @@ export namespace Parser {
 					this.commit()
 
 					const parameters = this.reqFunctionParameterList()
-					const type = this.reqFunctionReturns()
+					const type = this.tryFunctionReturns()
 					const body = this.reqFunctionBody()
 
 					return this.yep(AST.FunctionExpression(parameters, modifiers, type, null, body, first, body))
@@ -5660,7 +5639,7 @@ export namespace Parser {
 						return NO
 					}
 
-					const type = this.reqFunctionReturns()
+					const type = this.tryFunctionReturns()
 					const body = this.reqFunctionBody()
 
 					return this.yep(AST.LambdaExpression(parameters, modifiers, type, body, first, body))
@@ -5674,14 +5653,14 @@ export namespace Parser {
 					return NO
 				}
 
-				const type = this.reqFunctionReturns()
+				const type = this.tryFunctionReturns()
 				const body = this.reqFunctionBody()
 
 				return this.yep(AST.FunctionExpression(parameters, null, type, null, body, first, body))
 			}
 			else if @token == Token::LEFT_ROUND {
 				const parameters = this.tryFunctionParameterList()
-				const type = this.reqFunctionReturns()
+				const type = this.tryFunctionReturns()
 
 				if !parameters.ok || !this.test(Token::EQUALS_RIGHT_ANGLE) {
 					return NO
@@ -5745,6 +5724,46 @@ export namespace Parser {
 			}
 
 			return this.yep(parameters, first, this.yes())
+		} // }}}
+		tryFunctionReturns() ~ SyntaxError { // {{{
+			const mark = this.mark()
+
+			this.NL_0M()
+
+			if this.test(Token::COLON) {
+				this.commit()
+
+				return this.reqTypeVar()
+			}
+			else {
+				this.rollback(mark)
+
+				return null
+			}
+		} // }}}
+		tryFunctionThrows() ~ SyntaxError { // {{{
+			const mark = this.mark()
+
+			this.NL_0M()
+
+			if this.test(Token::TILDE) {
+				this.commit()
+
+				const exceptions = [this.reqIdentifier()]
+
+				while this.test(Token::COMMA) {
+					this.commit()
+
+					exceptions.push(this.reqIdentifier())
+				}
+
+				return this.yep(exceptions)
+			}
+			else {
+				this.rollback(mark)
+
+				return null
+			}
 		} // }}}
 		tryIdentifier() ~ SyntaxError { // {{{
 			if @scanner.test(Token::IDENTIFIER) {
