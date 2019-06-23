@@ -3444,7 +3444,7 @@ export namespace Parser {
 			}
 
 			let name
-			if this.match(Token::IDENTIFIER, Token::LEFT_SQUARE, Token::STRING, Token::TEMPLATE_BEGIN) == Token::IDENTIFIER {
+			if this.match(Token::AT, Token::IDENTIFIER, Token::LEFT_SQUARE, Token::STRING, Token::TEMPLATE_BEGIN) == Token::IDENTIFIER {
 				name = this.reqIdentifier()
 			}
 			else if @token == Token::LEFT_SQUARE {
@@ -3455,6 +3455,11 @@ export namespace Parser {
 			}
 			else if @token == Token::TEMPLATE_BEGIN {
 				name = this.reqTemplateExpression(this.yes())
+			}
+			else if @token == Token::AT {
+				name = this.reqThisExpression(this.yes())
+
+				return this.yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
 			}
 			else {
 				this.throw(['Identifier', 'String', 'Template', 'Computed Property Name'])
