@@ -31,11 +31,13 @@ export namespace Parser {
 		COMPUTED
 		DEFAULT
 		RECURSION
+		THIS_ALIAS
 		TYPE
 
 		Declaration	= COMPUTED | DEFAULT | RECURSION | TYPE
 		Expression	= COMPUTED | DEFAULT | RECURSION
-		Parameter	= DEFAULT | RECURSION | TYPE
+		Function	= DEFAULT | RECURSION | TYPE
+		Method		= DEFAULT | RECURSION | TYPE | THIS_ALIAS
 	}
 
 	#[flags]
@@ -1304,7 +1306,12 @@ export namespace Parser {
 			if this.test(Token::DOT_DOT_DOT) {
 				modifiers.push(AST.Modifier(ModifierKind::Rest, first = this.yes()))
 
-				if this.test(Token::IDENTIFIER) {
+				if mode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+					modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+
+					name = this.reqIdentifier()
+				}
+				else if this.test(Token::IDENTIFIER) {
 					name = this.yep(AST.Identifier(@scanner.value(), this.yes()))
 				}
 			}
@@ -1313,6 +1320,11 @@ export namespace Parser {
 			}
 			else if mode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_SQUARE) {
 				name = this.reqDestructuringArray(this.yes(), mode)
+			}
+			else if mode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+				modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+
+				name = this.reqIdentifier()
 			}
 			else if this.test(Token::IDENTIFIER) {
 				name = this.yep(AST.Identifier(@scanner.value(), this.yes()))
@@ -1375,11 +1387,20 @@ export namespace Parser {
 			if this.test(Token::DOT_DOT_DOT) {
 				modifiers.push(AST.Modifier(ModifierKind::Rest, first = this.yes()))
 
+				if mode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+					modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+				}
+
 				name = this.reqIdentifier()
 			}
 			else {
 				if mode & DestructuringMode::COMPUTED != 0 && this.test(Token::LEFT_SQUARE) {
 					const square = this.yes()
+
+					if mode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+						modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+					}
+
 					name = this.reqIdentifier()
 
 					unless this.test(Token::RIGHT_SQUARE) {
@@ -1391,6 +1412,10 @@ export namespace Parser {
 					this.relocate(name, square, this.yes())
 				}
 				else {
+					if mode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+						modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+					}
+
 					name = this.reqIdentifier()
 				}
 
@@ -1404,6 +1429,10 @@ export namespace Parser {
 						alias = this.reqDestructuringArray(this.yes(), mode)
 					}
 					else {
+						if mode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+							modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+						}
+
 						alias = this.reqIdentifier()
 					}
 				}
@@ -3583,12 +3612,14 @@ export namespace Parser {
 					this.throw()
 				}
 
+				const destructuringMode = mode & ParameterMode::Function != 0 ? DestructuringMode::Function : DestructuringMode::Method
+
 				let name
 				if @token == Token::LEFT_CURLY {
-					name = this.reqDestructuringObject(this.yes(), DestructuringMode::Parameter)
+					name = this.reqDestructuringObject(this.yes(), destructuringMode)
 				}
 				else {
-					name = this.reqDestructuringArray(this.yes(), DestructuringMode::Parameter)
+					name = this.reqDestructuringArray(this.yes(), destructuringMode)
 				}
 
 				if this.match(Token::COLON, Token::EQUALS) == Token::COLON {
