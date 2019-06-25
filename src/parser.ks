@@ -25,6 +25,20 @@ export namespace Parser {
 	}
 
 	#[flags]
+	enum DestructuringMode {
+		Nil
+
+		COMPUTED
+		DEFAULT
+		RECURSION
+		TYPE
+
+		Declaration	= COMPUTED | DEFAULT | RECURSION | TYPE
+		Expression	= COMPUTED | DEFAULT | RECURSION
+		Parameter	= DEFAULT | RECURSION | TYPE
+	}
+
+	#[flags]
 	enum ExpressionMode {
 		Default
 		NoAnonymousFunction
@@ -35,6 +49,8 @@ export namespace Parser {
 
 	#[flags]
 	enum MacroTerminator {
+		Nil
+
 		COMMA
 		NEWLINE
 		RIGHT_CURLY
@@ -48,7 +64,7 @@ export namespace Parser {
 	}
 
 	enum ParameterMode {
-		Function = 1
+		Function
 		Macro
 		Method
 	}
@@ -231,34 +247,6 @@ export namespace Parser {
 				else {
 					this.throw(']')
 				}
-			}
-		} // }}}
-		altDestructuringObjectItem(name) ~ SyntaxError { // {{{
-			if this.match(Token::EQUALS, Token::COLON) == Token::EQUALS {
-				this.commit()
-
-				const defaultValue = this.reqExpression(ExpressionMode::Default)
-
-				return this.yep(AST.BindingElement(name, null, null, defaultValue, name, defaultValue))
-			}
-			else if @token == Token::COLON {
-				this.commit()
-
-				const alias = this.reqVariableIdentifier()
-
-				if this.test(Token::EQUALS) {
-					this.commit()
-
-					const defaultValue = this.reqExpression(ExpressionMode::Default)
-
-					return this.yep(AST.BindingElement(alias, name, null, defaultValue, name, defaultValue))
-				}
-				else {
-					return this.yep(AST.BindingElement(alias, name, null, null, name, alias))
-				}
-			}
-			else {
-				return this.yep(AST.BindingElement(name, null, null, null, name, name))
 			}
 		} // }}}
 		altForExpressionFrom(declaration, rebindable, variable, first) ~ SyntaxError { // {{{
@@ -1276,22 +1264,27 @@ export namespace Parser {
 				return this.yep(AST.CreateExpression(class, this.yep([]), first, last))
 			}
 		} // }}}
-		reqDestructuringArray(first) ~ SyntaxError { // {{{
+		reqDestructuringArray(first, mode = DestructuringMode::Nil) ~ SyntaxError { // {{{
 			this.NL_0M()
 
 			const elements = []
 
 			while true {
-				elements.push(this.reqDestructuringArrayItem())
+				elements.push(this.reqDestructuringArrayItem(mode))
 
-				if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA || @token == Token::NEWLINE {
+				if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
 					this.commit().NL_0M()
+
+					continue
+				}
+				else if @token == Token::NEWLINE {
+					this.commit().NL_0M()
+
+					if this.test(Token::RIGHT_SQUARE) {
+						break
+					}
 				}
 				else {
-					break
-				}
-
-				if this.test(Token::RIGHT_SQUARE) {
 					break
 				}
 			}
@@ -1302,57 +1295,57 @@ export namespace Parser {
 
 			return this.yep(AST.ArrayBinding(elements, first, this.yes()))
 		} // }}}
-		reqDestructuringArrayItem() ~ SyntaxError { // {{{
-			let spread, name, defaultValue
+		reqDestructuringArrayItem(mode) ~ SyntaxError { // {{{
+			const modifiers = []
+			let first
+			let name = null
+			let type = null
 
 			if this.test(Token::DOT_DOT_DOT) {
-				spread = this.yes()
+				modifiers.push(AST.Modifier(ModifierKind::Rest, first = this.yes()))
 
 				if this.test(Token::IDENTIFIER) {
 					name = this.yep(AST.Identifier(@scanner.value(), this.yes()))
-
-					if this.test(Token::EQUALS) {
-						this.commit()
-
-						defaultValue = this.reqExpression(ExpressionMode::Default)
-					}
-
-					return this.yep(AST.BindingElement(name, null, spread, defaultValue, spread, defaultValue ?? name))
-				}
-				else {
-					return this.yep(AST.OmittedExpression(true, spread))
 				}
 			}
-			else {
-				if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE, Token::IDENTIFIER) == Token::LEFT_CURLY {
-					name = this.reqDestructuringObject(this.yes())
-				}
-				else if @token == Token::LEFT_SQUARE {
-					name = this.reqDestructuringArray(this.yes())
-				}
-				else if @token == Token::IDENTIFIER {
-					name = this.yep(AST.Identifier(@scanner.value(), this.yes()))
-				}
-				else {
-					return this.yep(AST.OmittedExpression(false, this.yep()))
-				}
+			else if mode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_CURLY) {
+				name = this.reqDestructuringObject(this.yes(), mode)
+			}
+			else if mode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_SQUARE) {
+				name = this.reqDestructuringArray(this.yes(), mode)
+			}
+			else if this.test(Token::IDENTIFIER) {
+				name = this.yep(AST.Identifier(@scanner.value(), this.yes()))
+			}
 
-				if this.test(Token::EQUALS) {
+			if mode & DestructuringMode::TYPE != 0 && this.test(Token::COLON) {
+				this.commit()
+
+				type = this.reqTypeVar()
+			}
+
+			if name != null {
+				let defaultValue = null
+
+				if mode & DestructuringMode::DEFAULT != 0 && this.test(Token::EQUALS) {
 					this.commit()
 
 					defaultValue = this.reqExpression(ExpressionMode::Default)
 				}
 
-				return this.yep(AST.BindingElement(name, null, spread, defaultValue, name, defaultValue ?? name))
+				return this.yep(AST.ArrayBindingElement(modifiers, name, type, defaultValue, first ?? name, defaultValue ?? type ?? name))
+			}
+			else {
+				return this.yep(AST.ArrayBindingElement(modifiers, null, type, null, first ?? type ?? this.yep(), type ?? first ?? this.yep()))
 			}
 		} // }}}
-		reqDestructuringObject(first) ~ SyntaxError { // {{{
+		reqDestructuringObject(first, mode = DestructuringMode::Nil) ~ SyntaxError { // {{{
 			this.NL_0M()
 
 			const elements = []
 
 			while true {
-				elements.push(this.reqDestructuringObjectItem())
+				elements.push(this.reqDestructuringObjectItem(mode))
 
 				if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA || @token == Token::NEWLINE {
 					this.commit().NL_0M()
@@ -1372,37 +1365,57 @@ export namespace Parser {
 
 			return this.yep(AST.ObjectBinding(elements, first, this.yes()))
 		} // }}}
-		reqDestructuringObjectItem() ~ SyntaxError { // {{{
-			if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE, Token::IDENTIFIER) == Token::LEFT_CURLY {
-				return this.yep(AST.BindingElement(this.reqDestructuringObject(this.yes())))
-			}
-			else if @token == Token::LEFT_SQUARE {
-				const square = this.yes()
+		reqDestructuringObjectItem(mode) ~ SyntaxError { // {{{
+			let first
+			const modifiers = []
+			let name = null
+			let alias = null
+			let defaultValue = null
 
-				if this.test(Token::IDENTIFIER) {
-					const identifier = this.yep(AST.Identifier(@scanner.value(), this.yes()))
+			if this.test(Token::DOT_DOT_DOT) {
+				modifiers.push(AST.Modifier(ModifierKind::Rest, first = this.yes()))
 
-					if this.test(Token::RIGHT_SQUARE) {
-						identifier.value.computed = true
-
-						this.relocate(identifier, square, this.yes())
-
-						return this.altDestructuringObjectItem(identifier)
-					}
-					else {
-						return this.yep(AST.BindingElement(this.reqDestructuringArray(square, identifier)))
-					}
-				}
-				else {
-					return this.yep(AST.BindingElement(this.reqDestructuringArray(square)))
-				}
-			}
-			else if @token == Token::IDENTIFIER {
-				return this.altDestructuringObjectItem(this.yep(AST.Identifier(@scanner.value(), this.yes())))
+				name = this.reqIdentifier()
 			}
 			else {
-				this.throw(['Identifier', '{', '['])
+				if mode & DestructuringMode::COMPUTED != 0 && this.test(Token::LEFT_SQUARE) {
+					const square = this.yes()
+					name = this.reqIdentifier()
+
+					unless this.test(Token::RIGHT_SQUARE) {
+						this.throw(']')
+					}
+
+					name.value.computed = true
+
+					this.relocate(name, square, this.yes())
+				}
+				else {
+					name = this.reqIdentifier()
+				}
+
+				if this.test(Token::COLON) {
+					this.commit()
+
+					if mode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_CURLY) {
+						alias = this.reqDestructuringObject(this.yes(), mode)
+					}
+					else if mode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_SQUARE) {
+						alias = this.reqDestructuringArray(this.yes(), mode)
+					}
+					else {
+						alias = this.reqIdentifier()
+					}
+				}
 			}
+
+			if mode & DestructuringMode::DEFAULT != 0 && this.test(Token::EQUALS) {
+				this.commit()
+
+				defaultValue = this.reqExpression(ExpressionMode::Default)
+			}
+
+			return this.yep(AST.ObjectBindingElement(modifiers, name, alias, defaultValue, first ?? name, defaultValue ?? alias ?? name))
 		} // }}}
 		reqDiscloseStatement(first) ~ SyntaxError { // {{{
 			const name = this.reqIdentifier()
@@ -2251,7 +2264,7 @@ export namespace Parser {
 
 				const type = this.reqTypeVar()
 
-				return this.yep(AST.VariableDeclarator(name, type))
+				return this.yep(AST.VariableDeclarator(name, type, name, type))
 			}
 			else if @token == Token::LEFT_ROUND {
 				const parameters = this.reqFunctionParameterList()
@@ -2260,7 +2273,7 @@ export namespace Parser {
 				return this.yep(AST.FunctionDeclaration(name, parameters, [], type, null, null, name, type ?? parameters))
 			}
 			else {
-				return this.yep(AST.VariableDeclarator(name))
+				return this.yep(AST.VariableDeclarator(name, null, name, name))
 			}
 		} // }}}
 		reqForExpression(first) ~ SyntaxError { // {{{
@@ -3565,6 +3578,56 @@ export namespace Parser {
 		reqParameter(parameters, mode) ~ SyntaxError { // {{{
 			const modifiers = []
 
+			if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY || @token == Token::LEFT_SQUARE {
+				if mode == ParameterMode::Macro {
+					this.throw()
+				}
+
+				let name
+				if @token == Token::LEFT_CURLY {
+					name = this.reqDestructuringObject(this.yes(), DestructuringMode::Parameter)
+				}
+				else {
+					name = this.reqDestructuringArray(this.yes(), DestructuringMode::Parameter)
+				}
+
+				if this.match(Token::COLON, Token::EQUALS) == Token::COLON {
+					this.commit()
+
+					const type = this.reqTypeVar()
+
+					if this.test(Token::EQUALS) {
+						this.commit()
+
+						const defaultValue = this.reqExpression(ExpressionMode::Default)
+
+						parameters.push(this.yep(AST.Parameter(name, type, modifiers, defaultValue, name, defaultValue)))
+					}
+					else {
+						parameters.push(this.yep(AST.Parameter(name, type, modifiers, null, name, type)))
+					}
+				}
+				else if @token == Token::EQUALS {
+					this.commit()
+
+					const defaultValue = this.reqExpression(ExpressionMode::Default)
+
+					parameters.push(this.yep(AST.Parameter(name, null, modifiers, defaultValue, name, defaultValue)))
+				}
+				else {
+					parameters.push(this.yep(AST.Parameter(name, null, modifiers, null, name, name)))
+				}
+
+				if this.test(Token::COMMA) {
+					this.commit()
+
+					return true
+				}
+				else {
+					return false
+				}
+			}
+
 			if this.test(Token::DOT_DOT_DOT) {
 				const first = this.yes()
 
@@ -3643,7 +3706,7 @@ export namespace Parser {
 			else {
 				let first = modifiers.length == 0 ? null : modifiers[0]
 
-				if this.match(Token::COLON, Token::COMMA, Token::IDENTIFIER, Token::RIGHT_ROUND) == Token::COLON {
+				if this.match(Token::COLON, Token::COMMA, Token::IDENTIFIER) == Token::COLON {
 					if first == null {
 						first = this.yes()
 					}
@@ -3683,7 +3746,7 @@ export namespace Parser {
 						return false
 					}
 				}
-				else if @token == Token::RIGHT_ROUND {
+				else if this.test(Token::RIGHT_ROUND) {
 					first = this.yep(@scanner.position())
 					first.end = first.start
 
@@ -4191,84 +4254,10 @@ export namespace Parser {
 		reqSwitchBindingValue() ~ SyntaxError { // {{{
 			switch this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
 				Token::LEFT_CURLY => {
-					const first = this.yes()
-
-					const elements = []
-
-					if !this.test(Token::RIGHT_CURLY) {
-						let alias, name
-
-						while true {
-							alias = this.reqIdentifier()
-
-							unless this.test(Token::COLON) {
-								this.throw(':')
-							}
-
-							this.commit()
-
-							name = this.reqIdentifier()
-
-							elements.push(this.yep(AST.BindingElement(name, alias, null, null, alias, name)))
-
-							if this.test(Token::COMMA) {
-								this.commit()
-							}
-							else {
-								break
-							}
-						}
-					}
-
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					return this.yep(AST.ObjectBinding(elements, first, this.yes()))
+					return this.reqDestructuringObject(this.yes())
 				}
 				Token::LEFT_SQUARE => {
-					const first = this.yes()
-
-					const elements = []
-
-					until this.test(Token::RIGHT_SQUARE) {
-						if this.test(Token::COMMA) {
-							elements.push(this.yep(AST.OmittedExpression(false, this.yep())))
-						}
-						else if this.test(Token::DOT_DOT_DOT) {
-							const first = this.yes()
-
-							if this.test(Token::COMMA) || this.test(Token::RIGHT_SQUARE) {
-								elements.push(this.yep(AST.OmittedExpression(true, first)))
-							}
-							else {
-								const name = this.reqIdentifier()
-
-								elements.push(this.yep(AST.BindingElement(name, null, true, null, first, name)))
-
-								if this.test(Token::COMMA) {
-									this.commit()
-								}
-							}
-						}
-						else {
-							elements.push(this.yep(AST.BindingElement(this.reqIdentifier())))
-						}
-
-						if this.test(Token::COMMA) {
-							this.commit()
-
-							if this.test(Token::RIGHT_SQUARE) {
-								elements.push(this.yep(AST.OmittedExpression(false, this.yep())))
-							}
-						}
-					}
-
-					unless this.test(Token::RIGHT_SQUARE) {
-						this.throw(']')
-					}
-
-					return this.yep(AST.ArrayBinding(elements, first, this.yes()))
+					return this.reqDestructuringArray(this.yes())
 				}
 				=> {
 					const name = this.reqIdentifier()
@@ -4513,10 +4502,12 @@ export namespace Parser {
 
 					until this.test(Token::RIGHT_SQUARE) {
 						if this.test(Token::COMMA) {
-							values.push(this.yep(AST.OmittedExpression(false, this.yep())))
+							values.push(this.yep(AST.OmittedExpression([], this.yep())))
 						}
 						else if this.test(Token::DOT_DOT_DOT) {
-							values.push(this.yep(AST.OmittedExpression(true, this.yes())))
+							modifier = AST.Modifier(ModifierKind::Rest, this.yes())
+
+							values.push(this.yep(AST.OmittedExpression([modifier], modifier)))
 						}
 						else {
 							values.push(this.reqSwitchConditionValue())
@@ -4526,7 +4517,7 @@ export namespace Parser {
 							this.commit()
 
 							if this.test(Token::RIGHT_SQUARE) {
-								values.push(this.yep(AST.OmittedExpression(false, this.yep())))
+								values.push(this.yep(AST.OmittedExpression([], this.yep())))
 							}
 						}
 						else {
@@ -4905,7 +4896,37 @@ export namespace Parser {
 				return this.yep(AST.ObjectReference(properties, first, this.yes()))
 			}
 			else if @token == Token::LEFT_SQUARE {
-				return this.reqTypeArray()
+				const first = this.yes()
+				const elements = []
+
+				this.NL_0M()
+
+				while this.until(Token::RIGHT_SQUARE) {
+					if this.test(Token::COMMA) {
+						elements.push(AST.OmittedReference(this.yep()))
+
+						this.commit().NL_0M()
+					}
+					else {
+						elements.push(this.reqTypeVar(isMultiLines))
+
+						if this.test(Token::COMMA) {
+							this.commit().NL_0M()
+						}
+						else if this.test(Token::NEWLINE) {
+							this.commit().NL_0M()
+						}
+						else {
+							break
+						}
+					}
+				}
+
+				unless this.test(Token::RIGHT_SQUARE) {
+					this.throw(']')
+				}
+
+				return this.yep(AST.ArrayReference(elements, first, this.yes()))
 			}
 			else {
 				const type = this.reqTypeEntity()
@@ -4985,30 +5006,27 @@ export namespace Parser {
 
 			return this.yep(AST.ObjectMemberReference(identifier, type))
 		} // }}}
-		reqTypedIdentifier() ~ SyntaxError { // {{{
-			const identifier = this.reqIdentifier()
+		reqTypedVariable() ~ SyntaxError { // {{{
+			let name = null
+			let type = null
+
+			if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
+				name = this.reqDestructuringObject(this.yes(), DestructuringMode::Declaration)
+			}
+			else if @token == Token::LEFT_SQUARE {
+				name = this.reqDestructuringArray(this.yes(), DestructuringMode::Declaration)
+			}
+			else {
+				name = this.reqIdentifier()
+			}
 
 			if this.test(Token::COLON) {
 				this.commit()
 
-				const type = this.reqTypeVar()
+				type = this.reqTypeVar()
+			}
 
-				return this.yep(AST.VariableDeclarator(identifier, type))
-			}
-			else {
-				return this.yep(AST.VariableDeclarator(identifier))
-			}
-		} // }}}
-		reqTypedVariable() ~ SyntaxError { // {{{
-			if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
-				return this.yep(AST.VariableDeclarator(this.reqDestructuringObject(this.yes())))
-			}
-			else if @token == Token::LEFT_SQUARE {
-				return this.yep(AST.VariableDeclarator(this.reqDestructuringArray(this.yes())))
-			}
-			else {
-				return this.reqTypedIdentifier()
-			}
+			return this.yep(AST.VariableDeclarator(name, type, name, type ?? name))
 		} // }}}
 		reqUnaryOperand(mode, value = null) ~ SyntaxError { // {{{
 			if value == null {
@@ -5160,10 +5178,10 @@ export namespace Parser {
 				return this.yep(AST.Identifier(@scanner.value(), this.yes()))
 			}
 			else if @token == Token::LEFT_CURLY {
-				return this.reqDestructuringObject(this.yes())
+				return this.reqDestructuringObject(this.yes(), DestructuringMode::Expression)
 			}
 			else if @token == Token::LEFT_SQUARE {
-				return this.reqDestructuringArray(this.yes())
+				return this.reqDestructuringArray(this.yes(), DestructuringMode::Expression)
 			}
 			else {
 				this.throw(['Identifier', '{', '['])
@@ -5569,12 +5587,12 @@ export namespace Parser {
 		tryDestructuring() ~ SyntaxError { // {{{
 			if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
 				try {
-					return this.reqDestructuringObject(this.yes())
+					return this.reqDestructuringObject(this.yes(), DestructuringMode::Expression)
 				}
 			}
 			else if @token == Token::LEFT_SQUARE {
 				try {
-					return this.reqDestructuringArray(this.yes())
+					return this.reqDestructuringArray(this.yes(), DestructuringMode::Expression)
 				}
 			}
 
@@ -5582,7 +5600,7 @@ export namespace Parser {
 		} // }}}
 		tryDestructuringArray(first) ~ SyntaxError { // {{{
 			try {
-				return this.reqDestructuringArray(first)
+				return this.reqDestructuringArray(first, DestructuringMode::Expression)
 			}
 			catch {
 				return NO
@@ -5590,7 +5608,7 @@ export namespace Parser {
 		} // }}}
 		tryDestructuringObject(first) ~ SyntaxError { // {{{
 			try {
-				return this.reqDestructuringObject(first)
+				return this.reqDestructuringObject(first, DestructuringMode::Expression)
 			}
 			catch {
 				return NO

@@ -10,52 +10,66 @@
         {
           "kind": 109,
           "name": {
-            "kind": 71,
+            "kind": 2,
             "elements": [
               {
                 "kind": 11,
-                "name": {
-                  "kind": 48,
-                  "name": "x",
-                  "start": {
-                    "line": 1,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 7
-                  }
-                },
+                "modifiers": [],
                 "start": {
                   "line": 1,
                   "column": 6
                 },
                 "end": {
                   "line": 1,
-                  "column": 7
+                  "column": 6
                 }
               },
               {
                 "kind": 11,
+                "modifiers": [],
+                "start": {
+                  "line": 1,
+                  "column": 8
+                },
+                "end": {
+                  "line": 1,
+                  "column": 9
+                },
                 "name": {
                   "kind": 48,
                   "name": "y",
                   "start": {
                     "line": 1,
-                    "column": 9
+                    "column": 8
                   },
                   "end": {
                     "line": 1,
-                    "column": 10
+                    "column": 9
                   }
-                },
+                }
+              },
+              {
+                "kind": 11,
+                "modifiers": [],
                 "start": {
                   "line": 1,
-                  "column": 9
+                  "column": 11
                 },
                 "end": {
                   "line": 1,
-                  "column": 10
+                  "column": 12
+                },
+                "name": {
+                  "kind": 48,
+                  "name": "z",
+                  "start": {
+                    "line": 1,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 12
+                  }
                 }
               }
             ],
@@ -65,7 +79,7 @@
             },
             "end": {
               "line": 1,
-              "column": 11
+              "column": 13
             }
           },
           "start": {
@@ -74,7 +88,7 @@
           },
           "end": {
             "line": 1,
-            "column": 11
+            "column": 13
           }
         }
       ],
@@ -87,25 +101,25 @@
         },
         "callee": {
           "kind": 48,
-          "name": "foo",
+          "name": "foobar",
           "start": {
             "line": 1,
-            "column": 14
+            "column": 16
           },
           "end": {
             "line": 1,
-            "column": 17
+            "column": 22
           }
         },
         "arguments": [],
         "nullable": false,
         "start": {
           "line": 1,
-          "column": 14
+          "column": 16
         },
         "end": {
           "line": 1,
-          "column": 19
+          "column": 24
         }
       },
       "start": {
@@ -114,7 +128,7 @@
       },
       "end": {
         "line": 1,
-        "column": 19
+        "column": 24
       }
     }
   ],
@@ -124,6 +138,6 @@
   },
   "end": {
     "line": 1,
-    "column": 19
+    "column": 24
   }
 }

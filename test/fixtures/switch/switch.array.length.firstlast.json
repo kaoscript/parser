@@ -190,6 +190,15 @@
               "elements": [
                 {
                   "kind": 11,
+                  "modifiers": [],
+                  "start": {
+                    "line": 4,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 13
+                  },
                   "name": {
                     "kind": 48,
                     "name": "first",
@@ -201,18 +210,23 @@
                       "line": 4,
                       "column": 13
                     }
-                  },
-                  "start": {
-                    "line": 4,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 4,
-                    "column": 13
                   }
                 },
                 {
-                  "kind": 74,
+                  "kind": 11,
+                  "modifiers": [
+                    {
+                      "kind": 8,
+                      "start": {
+                        "line": 4,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 18
+                      }
+                    }
+                  ],
                   "start": {
                     "line": 4,
                     "column": 15
@@ -220,8 +234,7 @@
                   "end": {
                     "line": 4,
                     "column": 18
-                  },
-                  "spread": true
+                  }
                 }
               ],
               "start": {
@@ -317,7 +330,20 @@
               "kind": 2,
               "elements": [
                 {
-                  "kind": 74,
+                  "kind": 11,
+                  "modifiers": [
+                    {
+                      "kind": 8,
+                      "start": {
+                        "line": 5,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 11
+                      }
+                    }
+                  ],
                   "start": {
                     "line": 5,
                     "column": 8
@@ -325,11 +351,19 @@
                   "end": {
                     "line": 5,
                     "column": 11
-                  },
-                  "spread": true
+                  }
                 },
                 {
                   "kind": 11,
+                  "modifiers": [],
+                  "start": {
+                    "line": 5,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 17
+                  },
                   "name": {
                     "kind": 48,
                     "name": "last",
@@ -341,14 +375,6 @@
                       "line": 5,
                       "column": 17
                     }
-                  },
-                  "start": {
-                    "line": 5,
-                    "column": 13
-                  },
-                  "end": {
-                    "line": 5,
-                    "column": 17
                   }
                 }
               ],

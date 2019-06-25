@@ -1,0 +1,1 @@
+[x, y]: [Number, Number] = foo()

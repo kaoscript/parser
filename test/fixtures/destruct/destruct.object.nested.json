@@ -179,6 +179,27 @@
               {
                 "kind": 11,
                 "name": {
+                  "kind": 48,
+                  "name": "bar",
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 9
+                  }
+                },
+                "modifiers": [],
+                "start": {
+                  "line": 3,
+                  "column": 6
+                },
+                "end": {
+                  "line": 3,
+                  "column": 26
+                },
+                "alias": {
                   "kind": 71,
                   "elements": [
                     {
@@ -195,6 +216,7 @@
                           "column": 15
                         }
                       },
+                      "modifiers": [],
                       "start": {
                         "line": 3,
                         "column": 13
@@ -208,16 +230,17 @@
                       "kind": 11,
                       "name": {
                         "kind": 48,
-                        "name": "qux",
+                        "name": "n2",
                         "start": {
                           "line": 3,
-                          "column": 21
+                          "column": 17
                         },
                         "end": {
                           "line": 3,
-                          "column": 24
+                          "column": 19
                         }
                       },
+                      "modifiers": [],
                       "start": {
                         "line": 3,
                         "column": 17
@@ -228,14 +251,14 @@
                       },
                       "alias": {
                         "kind": 48,
-                        "name": "n2",
+                        "name": "qux",
                         "start": {
                           "line": 3,
-                          "column": 17
+                          "column": 21
                         },
                         "end": {
                           "line": 3,
-                          "column": 19
+                          "column": 24
                         }
                       }
                     }
@@ -247,26 +270,6 @@
                   "end": {
                     "line": 3,
                     "column": 26
-                  }
-                },
-                "start": {
-                  "line": 3,
-                  "column": 6
-                },
-                "end": {
-                  "line": 3,
-                  "column": 26
-                },
-                "alias": {
-                  "kind": 48,
-                  "name": "bar",
-                  "start": {
-                    "line": 3,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 9
                   }
                 }
               }
@@ -322,14 +325,14 @@
         "kind": 64,
         "object": {
           "kind": 48,
-          "name": "consoloe",
+          "name": "console",
           "start": {
             "line": 5,
             "column": 1
           },
           "end": {
             "line": 5,
-            "column": 9
+            "column": 8
           }
         },
         "property": {
@@ -337,11 +340,11 @@
           "name": "log",
           "start": {
             "line": 5,
-            "column": 10
+            "column": 9
           },
           "end": {
             "line": 5,
-            "column": 13
+            "column": 12
           }
         },
         "computed": false,
@@ -352,7 +355,7 @@
         },
         "end": {
           "line": 5,
-          "column": 13
+          "column": 12
         }
       },
       "arguments": [
@@ -361,11 +364,11 @@
           "name": "n1",
           "start": {
             "line": 5,
-            "column": 14
+            "column": 13
           },
           "end": {
             "line": 5,
-            "column": 16
+            "column": 15
           }
         },
         {
@@ -373,11 +376,11 @@
           "name": "qux",
           "start": {
             "line": 5,
-            "column": 18
+            "column": 17
           },
           "end": {
             "line": 5,
-            "column": 21
+            "column": 20
           }
         }
       ],
@@ -388,7 +391,7 @@
       },
       "end": {
         "line": 5,
-        "column": 22
+        "column": 21
       },
       "attributes": []
     }
@@ -399,6 +402,6 @@
   },
   "end": {
     "line": 5,
-    "column": 22
+    "column": 21
   }
 }

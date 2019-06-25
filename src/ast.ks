@@ -242,6 +242,27 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
+		func ArrayBindingElement(modifiers, name?, type?, defaultValue?, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::BindingElement
+				modifiers
+			}, first, last)
+
+			if name? {
+				node.name = name.value
+			}
+
+			if type? {
+				node.type = type.value
+			}
+
+			if defaultValue? {
+				node.defaultValue = defaultValue.value
+			}
+
+			return node
+		} // }}}
+
 		func ArrayComprehension(expression, loop, first, last) { // {{{
 			return location({
 				kind: NodeKind::ArrayComprehension
@@ -313,6 +334,17 @@ namespace AST {
 			return node
 		} // }}}
 
+		func ArrayReference(elements, first, last) { // {{{
+			return location({
+				kind: NodeKind::TypeReference
+				typeName: {
+					kind: NodeKind::Identifier
+					name: 'array'
+				},
+				elements: [element.value for element in elements]
+			}, first, last)
+		} // }}}
+
 		func AssignmentOperator(operator: AssignmentOperatorKind, first) { // {{{
 			return location({
 				kind: BinaryOperatorKind::Assignment
@@ -379,34 +411,6 @@ namespace AST {
 			return location({
 				kind: operator
 			}, first)
-		} // }}}
-
-		func BindingElement(name) { // {{{
-			return location({
-				kind: NodeKind::BindingElement
-				name: name.value
-			}, name)
-		} // }}}
-
-		func BindingElement(name, alias?, spread?, defaultValue?, first, last) { // {{{
-			const node = location({
-				kind: NodeKind::BindingElement
-				name: name.value
-			}, first, last)
-
-			if alias? {
-				node.alias = alias.value
-			}
-
-			if spread? {
-				node.spread = true
-			}
-
-			if defaultValue? {
-				node.defaultValue = defaultValue.value
-			}
-
-			return node
 		} // }}}
 
 		func Block(attributes, statements, first, last) { // {{{
@@ -1249,6 +1253,24 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
+		func ObjectBindingElement(modifiers, name, alias?, defaultValue?, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::BindingElement
+				name: name.value
+				modifiers
+			}, first, last)
+
+			if alias? {
+				node.alias = alias.value
+			}
+
+			if defaultValue? {
+				node.defaultValue = defaultValue.value
+			}
+
+			return node
+		} // }}}
+
 		func ObjectExpression(attributes, properties, first, last) { // {{{
 			return location({
 				kind: NodeKind::ObjectExpression
@@ -1300,20 +1322,14 @@ namespace AST {
 			}, name, type)
 		} // }}}
 
-		func OmittedExpression(spread, first) { // {{{
+		func OmittedExpression(modifiers, first) { // {{{
 			const node = location({
 				kind: NodeKind::OmittedExpression
-			}, first)
-
-			if spread {
-				node.spread = true
-			}
-			else {
-				node.end = node.start
-			}
+				modifiers
+			}, first, first)
 
 			return node
-		} // }}}
+		}
 
 		func PropertyDeclaration(attributes, modifiers, name, type?, defaultValue?, accessor?, mutator?, first, last) { // {{{
 			const node = location({
@@ -1695,19 +1711,17 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func VariableDeclarator(name) { // {{{
-			return location({
+		func VariableDeclarator(name, type?, first, last) { // {{{
+			const node = location({
 				kind: NodeKind::VariableDeclarator
 				name: name.value
-			}, name)
-		} // }}}
+			}, first, last)
 
-		func VariableDeclarator(name, type) { // {{{
-			return location({
-				kind: NodeKind::VariableDeclarator
-				name: name.value
-				type: type.value
-			}, name, type)
+			if type != null {
+				node.type = type.value
+			}
+
+			return node
 		} // }}}
 
 		func VariableDeclarator(name, type?, sealed, first, last) { // {{{
