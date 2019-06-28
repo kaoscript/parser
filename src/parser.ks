@@ -3778,15 +3778,14 @@ export namespace Parser {
 					}
 				}
 				else if this.test(Token::RIGHT_ROUND) {
-					first = this.yep(@scanner.position())
-					first.end = first.start
+					if first == null {
+						first = this.yep()
+						first.end = first.start
+					}
 
 					parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
 
 					return false
-				}
-				else if modifiers.length != 0 {
-					parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
 				}
 				else {
 					this.throw()
