@@ -445,7 +445,7 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForRangeStatement(declaration, rebindable, value, index, from, then, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? then ?? from))
+			return this.yep(AST.ForRangeStatement(declaration, rebindable, value, index, from, then, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? then ?? from:Any))
 		} // }}}
 		reqArray(first) ~ SyntaxError { // {{{
 			if this.test(Token::RIGHT_SQUARE) {
@@ -703,7 +703,7 @@ export namespace Parser {
 
 			return this.yep(AST.CatchClause(binding, type, body, first, body))
 		} // }}}
-		reqClassAbstractMethod(attributes?, modifiers, first?) ~ SyntaxError { // {{{
+		reqClassAbstractMethod(attributes, modifiers, first?) ~ SyntaxError { // {{{
 			let name
 			if this.test(Token::ASYNC) {
 				let async = this.reqIdentifier()
@@ -723,7 +723,7 @@ export namespace Parser {
 
 			return this.reqClassAbstractMethodBody(attributes, modifiers, name, first ?? name)
 		} // }}}
-		reqClassAbstractMethodBody(attributes?, modifiers, name, first) ~ SyntaxError { // {{{
+		reqClassAbstractMethodBody(attributes, modifiers, name, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList()
 			const type = this.tryFunctionReturns()
 			const throws = this.tryFunctionThrows()
@@ -1216,45 +1216,32 @@ export namespace Parser {
 			return this.yep(AST.ContinueStatement(first))
 		} // }}}
 		reqCreateExpression(first) ~ SyntaxError { // {{{
-			let class, last
-			if this.match(Token::IDENTIFIER, Token::LEFT_ROUND, Token::AT) == Token::IDENTIFIER {
-				class = this.reqIdentifier()
-
-				while this.test(Token::DOT) {
-					this.commit()
-
-					property = this.reqIdentifier()
-
-					class = this.yep(AST.MemberExpression(class, property, false, false))
-				}
-
-				if this.match(Token::LEFT_ANGLE, Token::LEFT_SQUARE) == Token::LEFT_ANGLE {
-					let generic = this.reqTypeGeneric(this.yes())
-
-					class = this.yep(AST.TypeReference(class, generic, null, class, generic))
-				}
-				else if @token == Token::LEFT_SQUARE {
-					reference = false
-
-					class = this.reqVariableName(class)
-				}
-			}
-			else if @token == Token::LEFT_ROUND {
+			if this.test(Token::LEFT_ROUND) {
 				this.commit()
 
-				class = this.reqExpression(ExpressionMode::Default)
+				const class = this.reqExpression(ExpressionMode::Default)
 
 				unless this.test(Token::RIGHT_ROUND) {
 					this.throw(')')
 				}
 
-				last = this.yes()
+				this.commit()
+
+				unless this.test(Token::LEFT_ROUND) {
+					this.throw('(')
+				}
+
+				this.commit()
+
+				return this.yep(AST.CreateExpression(class, this.reqExpression0CNList(), first, this.yes()))
 			}
-			else if @token == Token::AT {
-				class = this.reqThisExpression(this.yes())
-			}
-			else {
-				this.throw(['Identifier', '('])
+
+			let class = this.reqVariableName()
+
+			if this.match(Token::LEFT_ANGLE, Token::LEFT_SQUARE) == Token::LEFT_ANGLE {
+				const generic = this.reqTypeGeneric(this.yes())
+
+				class = this.yep(AST.TypeReference(class, generic, null, class, generic))
 			}
 
 			if this.test(Token::LEFT_ROUND) {
@@ -1263,7 +1250,7 @@ export namespace Parser {
 				return this.yep(AST.CreateExpression(class, this.reqExpression0CNList(), first, this.yes()))
 			}
 			else {
-				return this.yep(AST.CreateExpression(class, this.yep([]), first, last))
+				return this.yep(AST.CreateExpression(class, this.yep([]), first, class))
 			}
 		} // }}}
 		reqDestructuringArray(first, mode = DestructuringMode::Nil) ~ SyntaxError { // {{{
