@@ -8,6 +8,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  **/
 #![error(ignore(Error))]
+#![rules(non-exhaustive)]
 
 import '@kaoscript/ast'
 
@@ -758,6 +759,21 @@ export namespace Parser {
 				}
 				else {
 					name = async
+				}
+			}
+			else if this.test(Token::AT) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+				const name = this.reqNameIST()
+
+				if this.test(Token::COLON) {
+					this.commit()
+
+					const type = this.reqTypeVar()
+
+					return this.reqClassField(attributes, [...modifiers, modifier], name, type, first ?? modifier)
+				}
+				else {
+					return this.reqClassField(attributes, [...modifiers, modifier], name, null, first ?? modifier)
 				}
 			}
 			else {
@@ -2403,7 +2419,37 @@ export namespace Parser {
 			else if @token == Token::EQUALS_RIGHT_ANGLE {
 				this.commit().NL_0M()
 
-				return this.reqExpression(ExpressionMode::Default)
+				const expression = this.reqExpression(ExpressionMode::Default)
+
+				if this.match(Token::IF, Token::UNLESS) == Token::IF {
+					this.commit()
+
+					const condition = this.reqExpression(ExpressionMode::Default)
+
+					if this.match(Token::ELSE, Token::NEWLINE) == Token::ELSE {
+						this.commit()
+
+						const whenFalse = this.reqExpression(ExpressionMode::Default)
+
+						return this.yep(AST.ReturnStatement(this.yep(AST.IfExpression(condition, expression, whenFalse, expression, whenFalse)), expression, whenFalse))
+					}
+					else if @token == Token::NEWLINE || @token == Token::EOF {
+						return this.yep(AST.IfStatement(condition, this.yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
+					}
+					else {
+						this.throw()
+					}
+				}
+				else if @token == Token::UNLESS {
+					this.commit()
+
+					const condition = this.reqExpression(ExpressionMode::Default)
+
+					return this.yep(AST.UnlessStatement(condition, this.yep(AST.ReturnStatement(expression, expression, expression)), expression, condition))
+				}
+				else {
+					return expression
+				}
 			}
 			else {
 				this.throw(['{', '=>'])
@@ -5570,6 +5616,21 @@ export namespace Parser {
 				}
 				else {
 					name = async
+				}
+			}
+			else if this.test(Token::AT) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+				const name = this.reqNameIST()
+
+				if this.test(Token::COLON) {
+					this.commit()
+
+					const type = this.reqTypeVar()
+
+					return this.reqClassField(attributes, [...modifiers, modifier], name, type, first ?? modifier)
+				}
+				else {
+					return this.reqClassField(attributes, [...modifiers, modifier], name, null, first ?? modifier)
 				}
 			}
 			else {
