@@ -1,0 +1,433 @@
+{
+  "kind": 67,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 46,
+      "attributes": [],
+      "name": {
+        "kind": 48,
+        "name": "foo",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
+      },
+      "parameters": [
+        {
+          "kind": 75,
+          "modifiers": [
+            {
+              "kind": 8,
+              "start": {
+                "line": 1,
+                "column": 11
+              },
+              "end": {
+                "line": 1,
+                "column": 12
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 23
+          },
+          "name": {
+            "kind": 48,
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 11
+            }
+          },
+          "defaultValue": {
+            "kind": 61,
+            "value": "foobar",
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 1,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 1,
+          "column": 25
+        },
+        "end": {
+          "line": 2,
+          "column": 2
+        }
+      }
+    },
+    {
+      "kind": 46,
+      "attributes": [],
+      "name": {
+        "kind": 48,
+        "name": "bar",
+        "start": {
+          "line": 4,
+          "column": 6
+        },
+        "end": {
+          "line": 4,
+          "column": 9
+        }
+      },
+      "start": {
+        "line": 4,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      },
+      "parameters": [
+        {
+          "kind": 75,
+          "modifiers": [
+            {
+              "kind": 8,
+              "start": {
+                "line": 4,
+                "column": 11
+              },
+              "end": {
+                "line": 4,
+                "column": 12
+              }
+            }
+          ],
+          "start": {
+            "line": 4,
+            "column": 10
+          },
+          "end": {
+            "line": 4,
+            "column": 24
+          },
+          "name": {
+            "kind": 48,
+            "name": "x",
+            "start": {
+              "line": 4,
+              "column": 10
+            },
+            "end": {
+              "line": 4,
+              "column": 11
+            }
+          },
+          "type": {
+            "kind": 102,
+            "typeName": {
+              "kind": 48,
+              "name": "any"
+            },
+            "nullable": true,
+            "start": {
+              "line": 4,
+              "column": 12
+            },
+            "end": {
+              "line": 4,
+              "column": 13
+            }
+          },
+          "defaultValue": {
+            "kind": 61,
+            "value": "foobar",
+            "start": {
+              "line": 4,
+              "column": 16
+            },
+            "end": {
+              "line": 4,
+              "column": 24
+            }
+          }
+        }
+      ],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 4,
+          "column": 26
+        },
+        "end": {
+          "line": 5,
+          "column": 2
+        }
+      }
+    },
+    {
+      "kind": 46,
+      "attributes": [],
+      "name": {
+        "kind": 48,
+        "name": "baz",
+        "start": {
+          "line": 7,
+          "column": 6
+        },
+        "end": {
+          "line": 7,
+          "column": 9
+        }
+      },
+      "start": {
+        "line": 7,
+        "column": 1
+      },
+      "end": {
+        "line": 8,
+        "column": 2
+      },
+      "parameters": [
+        {
+          "kind": 75,
+          "modifiers": [
+            {
+              "kind": 8,
+              "start": {
+                "line": 7,
+                "column": 11
+              },
+              "end": {
+                "line": 7,
+                "column": 12
+              }
+            }
+          ],
+          "start": {
+            "line": 7,
+            "column": 10
+          },
+          "end": {
+            "line": 7,
+            "column": 31
+          },
+          "name": {
+            "kind": 48,
+            "name": "x",
+            "start": {
+              "line": 7,
+              "column": 10
+            },
+            "end": {
+              "line": 7,
+              "column": 11
+            }
+          },
+          "type": {
+            "kind": 102,
+            "typeName": {
+              "kind": 48,
+              "name": "String",
+              "start": {
+                "line": 7,
+                "column": 14
+              },
+              "end": {
+                "line": 7,
+                "column": 20
+              }
+            },
+            "start": {
+              "line": 7,
+              "column": 14
+            },
+            "end": {
+              "line": 7,
+              "column": 20
+            }
+          },
+          "defaultValue": {
+            "kind": 61,
+            "value": "foobar",
+            "start": {
+              "line": 7,
+              "column": 23
+            },
+            "end": {
+              "line": 7,
+              "column": 31
+            }
+          }
+        }
+      ],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 7,
+          "column": 33
+        },
+        "end": {
+          "line": 8,
+          "column": 2
+        }
+      }
+    },
+    {
+      "kind": 46,
+      "attributes": [],
+      "name": {
+        "kind": 48,
+        "name": "qux",
+        "start": {
+          "line": 10,
+          "column": 6
+        },
+        "end": {
+          "line": 10,
+          "column": 9
+        }
+      },
+      "start": {
+        "line": 10,
+        "column": 1
+      },
+      "end": {
+        "line": 11,
+        "column": 2
+      },
+      "parameters": [
+        {
+          "kind": 75,
+          "modifiers": [
+            {
+              "kind": 8,
+              "start": {
+                "line": 10,
+                "column": 11
+              },
+              "end": {
+                "line": 10,
+                "column": 12
+              }
+            }
+          ],
+          "start": {
+            "line": 10,
+            "column": 10
+          },
+          "end": {
+            "line": 10,
+            "column": 32
+          },
+          "name": {
+            "kind": 48,
+            "name": "x",
+            "start": {
+              "line": 10,
+              "column": 10
+            },
+            "end": {
+              "line": 10,
+              "column": 11
+            }
+          },
+          "type": {
+            "kind": 102,
+            "typeName": {
+              "kind": 48,
+              "name": "String",
+              "start": {
+                "line": 10,
+                "column": 14
+              },
+              "end": {
+                "line": 10,
+                "column": 20
+              }
+            },
+            "start": {
+              "line": 10,
+              "column": 14
+            },
+            "end": {
+              "line": 10,
+              "column": 21
+            },
+            "nullable": true
+          },
+          "defaultValue": {
+            "kind": 61,
+            "value": "foobar",
+            "start": {
+              "line": 10,
+              "column": 24
+            },
+            "end": {
+              "line": 10,
+              "column": 32
+            }
+          }
+        }
+      ],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 10,
+          "column": 34
+        },
+        "end": {
+          "line": 11,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 11,
+    "column": 2
+  }
+}

@@ -3826,6 +3826,10 @@ export namespace Parser {
 		reqParameterIdendifier(modifiers, first?) ~ SyntaxError { // {{{
 			const identifier = this.reqIdentifier()
 
+			if this.test(Token::EXCLAMATION) {
+				modifiers.push(AST.Modifier(ModifierKind::Required, this.yes()))
+			}
+
 			if this.match(Token::COLON, Token::EQUALS, Token::QUESTION) == Token::COLON {
 				this.commit()
 

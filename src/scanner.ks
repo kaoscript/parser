@@ -1945,6 +1945,14 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	`\(Token::EXCLAMATION)`(that, c) { // {{{
+		if c == 33 {
+			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} // }}}
 	`\(Token::EXTENDS)`(that, c) { // {{{
 		if	c == 101 &&
 			that.charAt(1) == 120 &&
