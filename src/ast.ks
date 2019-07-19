@@ -734,7 +734,7 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForInStatement(declaration: Boolean, rebindable: Boolean, value?, index?, expression, desc?, from?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
+		func ForInStatement(declaration: Boolean, rebindable: Boolean, value, index, expression, desc?, from?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForInStatement
 				attributes: []
@@ -781,7 +781,7 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForRangeStatement(declaration: Boolean, rebindable: Boolean, value, index?, from?, then?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
+		func ForRangeStatement(declaration: Boolean, rebindable: Boolean, value, index, from?, then?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForRangeStatement
 				attributes: []

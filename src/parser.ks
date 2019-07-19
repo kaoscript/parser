@@ -8,7 +8,6 @@
  * http://www.opensource.org/licenses/mit-license.php
  **/
 #![error(ignore(Error))]
-#![rules(non-exhaustive)]
 
 import '@kaoscript/ast'
 
@@ -300,7 +299,7 @@ export namespace Parser {
 
 			return this.yep(AST.ForFromStatement(declaration, rebindable, variable, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from))
 		} // }}}
-		altForExpressionIn(declaration, rebindable, value?, index?, expression, first) ~ SyntaxError { // {{{
+		altForExpressionIn(declaration, rebindable, value, index, expression, first) ~ SyntaxError { // {{{
 			let desc = null
 			if this.test(Token::DESC) {
 				desc = this.yes()
@@ -355,7 +354,7 @@ export namespace Parser {
 
 			return this.yep(AST.ForInStatement(declaration, rebindable, value, index, expression, desc, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from ?? desc ?? expression))
 		} // }}}
-		altForExpressionInRange(declaration, rebindable, value?, index?, first) ~ SyntaxError { // {{{
+		altForExpressionInRange(declaration, rebindable, value, index, first) ~ SyntaxError { // {{{
 			let operand = this.tryPrefixedOperand(ExpressionMode::Default)
 
 			if operand.ok {
@@ -424,7 +423,7 @@ export namespace Parser {
 
 			return this.yep(AST.ForOfStatement(declaration, rebindable, key, value, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
 		} // }}}
-		altForExpressionRange(declaration, rebindable, value, index?, from?, then?, til?, to?, by?, first) ~ SyntaxError { // {{{
+		altForExpressionRange(declaration, rebindable, value, index, from?, then?, til?, to?, by?, first) ~ SyntaxError { // {{{
 			let until, while
 			if this.match(Token::UNTIL, Token::WHILE) == Token::UNTIL {
 				this.commit()
@@ -1791,6 +1790,7 @@ export namespace Parser {
 				}
 			}
 
+			#[rules(non-exhaustive)]
 			return this.reqOperation(mode)
 		} // }}}
 		reqExpression0CNList() ~ SyntaxError { // {{{
@@ -1902,18 +1902,14 @@ export namespace Parser {
 				const type = this.reqTypeVar()
 
 				if this.test(Token::LEFT_CURLY) {
-					this.commit()
-
-					return this.reqExternClassProperty(modifiers, name, type, first ?? name)
+					this.throw()
 				}
 				else {
 					return this.reqExternClassField(modifiers, name, type, first ?? name)
 				}
 			}
 			else if @token == Token::LEFT_CURLY {
-				this.commit()
-
-				return this.reqExternClassProperty(modifiers, name, null, first ?? name)
+				this.throw()
 			}
 			else if @token == Token::LEFT_ROUND {
 				return this.reqExternClassMethod(modifiers, name, this.yes(), first ?? name)
@@ -5578,7 +5574,7 @@ export namespace Parser {
 				}
 			}
 		} // }}}
-		tryClassAbstractMethod(attributes?, modifiers, first?) ~ SyntaxError { // {{{
+		tryClassAbstractMethod(attributes, modifiers, first?) ~ SyntaxError { // {{{
 			let name
 			if this.test(Token::ASYNC) {
 				let first = this.reqIdentifier()
@@ -5602,7 +5598,7 @@ export namespace Parser {
 
 			return this.reqClassAbstractMethodBody(attributes, modifiers, name, first ?? name)
 		} // }}}
-		tryClassMember(attributes?, modifiers, first?) ~ SyntaxError { // {{{
+		tryClassMember(attributes, modifiers, first?) ~ SyntaxError { // {{{
 			let name
 			if this.test(Token::ASYNC) {
 				let async = this.reqIdentifier()
@@ -5901,7 +5897,7 @@ export namespace Parser {
 				return this.reqString()
 			}
 			else if @token == Token::TEMPLATE_BEGIN {
-				return this.reqTemplateExpression()
+				return this.reqTemplateExpression(this.yes())
 			}
 			else {
 				return NO
