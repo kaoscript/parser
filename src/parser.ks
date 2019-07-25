@@ -1790,7 +1790,6 @@ export namespace Parser {
 				}
 			}
 
-			#[rules(non-exhaustive)]
 			return this.reqOperation(mode)
 		} // }}}
 		reqExpression0CNList() ~ SyntaxError { // {{{
