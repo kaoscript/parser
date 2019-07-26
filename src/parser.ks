@@ -1397,7 +1397,7 @@ export namespace Parser {
 			}
 			else {
 				if mode & DestructuringMode::COMPUTED != 0 && this.test(Token::LEFT_SQUARE) {
-					const square = this.yes()
+					const first = this.yes()
 
 					if mode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
 						modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
@@ -1409,9 +1409,7 @@ export namespace Parser {
 						this.throw(']')
 					}
 
-					name.value.computed = true
-
-					this.relocate(name, square, this.yes())
+					modifiers.push(AST.Modifier(ModifierKind::Computed, first, this.yes()))
 				}
 				else {
 					if mode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
@@ -2703,38 +2701,45 @@ export namespace Parser {
 
 				arguments = []
 
-				let argument, require
+				let name, attributes
 				while this.until(Token::RIGHT_ROUND) {
-					argument = this.reqExpression(ExpressionMode::Default)
+					name = this.reqExpression(ExpressionMode::Default)
+					attributes = []
 
-					if argument.value.kind == NodeKind::Identifier {
-						if argument.value.name == 'require' && !this.test(Token::COLON, Token::COMMA, Token::RIGHT_ROUND) {
-							require = argument
+					if name.value.kind == NodeKind::Identifier {
+						if name.value.name == 'require' && !this.test(Token::COLON, Token::COMMA, Token::RIGHT_ROUND) {
+							const first = name
 
-							argument = this.reqIdentifier()
+							attributes.push(AST.Modifier(ModifierKind::Required, name))
+
+							name = this.reqIdentifier()
 
 							if this.test(Token::COLON) {
 								this.commit()
 
-								arguments.push(AST.ImportArgument(require, argument, this.reqIdentifier()))
+								const value = this.reqIdentifier()
+
+								arguments.push(AST.ImportArgument(attributes, name, value, first, value))
 							}
 							else {
-								arguments.push(AST.ImportArgument(require, null, argument))
+								arguments.push(AST.ImportArgument(attributes, null, name, first, name))
 							}
 						}
 						else {
 							if this.test(Token::COLON) {
 								this.commit()
 
-								arguments.push(AST.ImportArgument(null, argument, this.reqExpression(ExpressionMode::Default)))
+								const value = this.reqExpression(ExpressionMode::Default)
+
+								arguments.push(AST.ImportArgument(attributes, name, value, name, value))
 							}
 							else {
-								arguments.push(AST.ImportArgument(null, null, argument))
+								arguments.push(AST.ImportArgument(attributes, null, name, name, name))
 							}
 						}
 					}
 					else {
-						arguments.push(AST.ImportArgument(null, null, argument))
+						arguments.push(AST.ImportArgument(attributes, null, name, name, name))
 					}
 
 					if this.test(Token::COMMA) {

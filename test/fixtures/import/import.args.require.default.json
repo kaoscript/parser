@@ -32,7 +32,19 @@
           "arguments": [
             {
               "kind": 52,
-              "name": null,
+              "attributes": [
+                {
+                  "kind": 9,
+                  "start": {
+                    "line": 1,
+                    "column": 18
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 25
+                  }
+                }
+              ],
               "value": {
                 "kind": 48,
                 "name": "Foobar",
@@ -45,7 +57,6 @@
                   "column": 32
                 }
               },
-              "required": true,
               "start": {
                 "line": 1,
                 "column": 18
