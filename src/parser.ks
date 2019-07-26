@@ -2701,16 +2701,16 @@ export namespace Parser {
 
 				arguments = []
 
-				let name, attributes
+				let name, modifiers
 				while this.until(Token::RIGHT_ROUND) {
 					name = this.reqExpression(ExpressionMode::Default)
-					attributes = []
+					modifiers = []
 
 					if name.value.kind == NodeKind::Identifier {
 						if name.value.name == 'require' && !this.test(Token::COLON, Token::COMMA, Token::RIGHT_ROUND) {
 							const first = name
 
-							attributes.push(AST.Modifier(ModifierKind::Required, name))
+							modifiers.push(AST.Modifier(ModifierKind::Required, name))
 
 							name = this.reqIdentifier()
 
@@ -2719,10 +2719,10 @@ export namespace Parser {
 
 								const value = this.reqIdentifier()
 
-								arguments.push(AST.ImportArgument(attributes, name, value, first, value))
+								arguments.push(AST.ImportArgument(modifiers, name, value, first, value))
 							}
 							else {
-								arguments.push(AST.ImportArgument(attributes, null, name, first, name))
+								arguments.push(AST.ImportArgument(modifiers, null, name, first, name))
 							}
 						}
 						else {
@@ -2731,15 +2731,15 @@ export namespace Parser {
 
 								const value = this.reqExpression(ExpressionMode::Default)
 
-								arguments.push(AST.ImportArgument(attributes, name, value, name, value))
+								arguments.push(AST.ImportArgument(modifiers, name, value, name, value))
 							}
 							else {
-								arguments.push(AST.ImportArgument(attributes, null, name, name, name))
+								arguments.push(AST.ImportArgument(modifiers, null, name, name, name))
 							}
 						}
 					}
 					else {
-						arguments.push(AST.ImportArgument(attributes, null, name, name, name))
+						arguments.push(AST.ImportArgument(modifiers, null, name, name, name))
 					}
 
 					if this.test(Token::COMMA) {

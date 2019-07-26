@@ -965,18 +965,18 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func ImportArgument(attributes, name?, value, first, last) { // {{{
+		func ImportArgument(modifiers, name?, value, first, last) { // {{{
 			if name == null {
 				return location({
 					kind: NodeKind::ImportArgument
-					attributes
+					modifiers
 					value: value.value
 				}, first, last)
 			}
 			else {
 				return location({
 					kind: NodeKind::ImportArgument
-					attributes
+					modifiers
 					name: name.value
 					value: value.value
 				}, first, last)
