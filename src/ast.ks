@@ -1332,7 +1332,13 @@ namespace AST {
 			}, first, first)
 
 			return node
-		}
+		} // }}}
+
+		func OmittedReference(first) { // {{{
+			return location({
+				kind: NodeKind::TypeReference
+			}, first, first)
+		} // }}}
 
 		func PropertyDeclaration(attributes, modifiers, name, type?, defaultValue?, accessor?, mutator?, first, last) { // {{{
 			const node = location({
@@ -1511,12 +1517,36 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
+		func SwitchConditionRangeFI(from, til) { // {{{
+			return location({
+				kind: NodeKind::SwitchConditionRange
+				from: from.value
+				til: til.value
+			}, from, til)
+		} // }}}
+
 		func SwitchConditionRangeFO(from, to) { // {{{
 			return location({
 				kind: NodeKind::SwitchConditionRange
 				from: from.value
 				to: to.value
 			}, from, to)
+		} // }}}
+
+		func SwitchConditionRangeTI(then, til) { // {{{
+			return location({
+				kind: NodeKind::SwitchConditionRange
+				then: then.value
+				til: til.value
+			}, then, til)
+		} // }}}
+
+		func SwitchConditionRangeTO(then, to) { // {{{
+			return location({
+				kind: NodeKind::SwitchConditionRange
+				then: then.value
+				to: to.value
+			}, then, to)
 		} // }}}
 
 		func SwitchConditionType(type, first, last) { // {{{
