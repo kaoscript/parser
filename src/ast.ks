@@ -619,10 +619,10 @@ namespace AST {
 			}, name, value)
 		} // }}}
 
-		func ExportDeclaration(declarations, first, last) { // {{{
+		func ExportDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExportDeclaration
-				attributes: []
+				attributes
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -663,18 +663,18 @@ namespace AST {
 			return expression.value
 		} // }}}
 
-		func ExternDeclaration(declarations, first, last) { // {{{
+		func ExternDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExternDeclaration
-				attributes: []
+				attributes
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
 
-		func ExternOrRequireDeclaration(declarations, first, last) { // {{{
+		func ExternOrRequireDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExternOrRequireDeclaration
-				attributes: []
+				attributes
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -983,17 +983,18 @@ namespace AST {
 			}
 		} // }}}
 
-		func ImportDeclaration(declarations, first, last) { // {{{
+		func ImportDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ImportDeclaration
-				attributes: []
+				attributes
 				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
 		} // }}}
 
-		func ImportDeclarator(source, specifiers, arguments?, first, last) { // {{{
+		func ImportDeclarator(attributes, source, specifiers, arguments?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ImportDeclarator
+				attributes
 				source: source.value
 				specifiers: [specifier.value for specifier in specifiers]
 			}, first, last)
@@ -1008,6 +1009,7 @@ namespace AST {
 		func ImportNamespaceSpecifier(local, specifiers?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ImportNamespaceSpecifier
+				attributes: []
 				local: local.value
 			}, first, last)
 
@@ -1021,6 +1023,7 @@ namespace AST {
 		func ImportSpecifier(imported, local, first, last) { // {{{
 			return location({
 				kind: NodeKind::ImportSpecifier
+				attributes: []
 				imported: imported.value
 				local: local.value
 			}, first, last)
@@ -1399,26 +1402,26 @@ namespace AST {
 			}, first)
 		} // }}}
 
-		func RequireDeclaration(declarations, first, last) { // {{{
+		func RequireDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::RequireDeclaration
-				attributes: []
+				attributes
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
 
-		func RequireOrExternDeclaration(declarations, first, last) { // {{{
+		func RequireOrExternDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::RequireOrExternDeclaration
-				attributes: []
+				attributes
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
 
-		func RequireOrImportDeclaration(declarations, first, last) { // {{{
+		func RequireOrImportDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::RequireOrImportDeclaration
-				attributes: []
+				attributes
 				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
 		} // }}}

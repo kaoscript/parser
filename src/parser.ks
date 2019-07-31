@@ -1741,14 +1741,37 @@ export namespace Parser {
 			}
 		} // }}}
 		reqExportStatement(first) ~ SyntaxError { // {{{
+			const attributes = []
 			const declarations = []
 
 			let last
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().NL_0M()
 
+				let attrs = []
+				let declarator
+
 				until this.test(Token::RIGHT_CURLY) {
-					declarations.push(this.reqExportDeclarator())
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
+
+					this.stackOuterAttributes(attrs)
+
+					declarator = this.reqExportDeclarator()
+
+					if attrs.length > 0 {
+						if declarator.value.kind != NodeKind::ExportDeclarationSpecifier {
+							this.throw()
+						}
+
+						declarator.value.declaration.attributes.unshift(...attrs)
+						declarator.value.start = declarator.value.declaration.start = attrs[0].start
+
+						attrs = []
+					}
+
+					declarations.push(declarator)
 
 					this.reqNL_1M()
 				}
@@ -1773,7 +1796,7 @@ export namespace Parser {
 
 			this.reqNL_EOF_1M()
 
-			return this.yep(AST.ExportDeclaration(declarations, first, last))
+			return this.yep(AST.ExportDeclaration(attributes, declarations, first, last))
 		} // }}}
 		reqExpression(mode?, terminator = null) ~ SyntaxError { // {{{
 			if mode == null {
@@ -2214,14 +2237,33 @@ export namespace Parser {
 			}
 		} // }}}
 		reqExternOrRequireStatement(first) ~ SyntaxError { // {{{
+			const attributes = []
 			const declarations = []
 
 			let last
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().NL_0M()
 
+				let attrs = []
+				let declarator
+
 				until this.test(Token::RIGHT_CURLY) {
-					declarations.push(this.reqExternDeclarator())
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
+
+					this.stackOuterAttributes(attrs)
+
+					declarator = this.reqExternDeclarator()
+
+					if attrs.length > 0 {
+						declarator.value.attributes.unshift(...attrs)
+						declarator.value.start = declarator.value.attributes[0].start
+
+						attrs = []
+					}
+
+					declarations.push(declarator)
 
 					this.reqNL_1M()
 				}
@@ -2246,17 +2288,36 @@ export namespace Parser {
 
 			this.reqNL_EOF_1M()
 
-			return this.yep(AST.ExternOrRequireDeclaration(declarations, first, last))
+			return this.yep(AST.ExternOrRequireDeclaration(attributes, declarations, first, last))
 		} // }}}
 		reqExternStatement(first) ~ SyntaxError { // {{{
+			const attributes = []
 			const declarations = []
 
 			let last
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().NL_0M()
 
+				let attrs = []
+				let declarator
+
 				until this.test(Token::RIGHT_CURLY) {
-					declarations.push(this.reqExternDeclarator())
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
+
+					this.stackOuterAttributes(attrs)
+
+					declarator = this.reqExternDeclarator()
+
+					if attrs.length > 0 {
+						declarator.value.attributes.unshift(...attrs)
+						declarator.value.start = declarator.value.attributes[0].start
+
+						attrs = []
+					}
+
+					declarations.push(declarator)
 
 					this.reqNL_1M()
 				}
@@ -2281,7 +2342,7 @@ export namespace Parser {
 
 			this.reqNL_EOF_1M()
 
-			return this.yep(AST.ExternDeclaration(declarations, first, last))
+			return this.yep(AST.ExternDeclaration(attributes, declarations, first, last))
 		} // }}}
 		reqExternVariableDeclarator(name) ~ SyntaxError { // {{{
 			if this.match(Token::COLON, Token::LEFT_ROUND) == Token::COLON {
@@ -2757,14 +2818,16 @@ export namespace Parser {
 				this.commit()
 			}
 
+			const attributes = []
 			const specifiers = []
+
 			if this.match(Token::EQUALS_RIGHT_ANGLE, Token::FOR, Token::LEFT_CURLY) == Token::EQUALS_RIGHT_ANGLE {
 				this.commit()
 
 				last = this.reqIdentifier()
 
 				if this.test(Token::LEFT_CURLY) {
-					specifiers.push(this.yep(AST.ImportNamespaceSpecifier(last, this.reqImportSpecifiers([]), last, this.yes())))
+					specifiers.push(this.yep(AST.ImportNamespaceSpecifier(last, this.reqImportSpecifiers(attributes, []), last, this.yes())))
 				}
 				else {
 					specifiers.push(this.yep(AST.ImportNamespaceSpecifier(last, null, last, last)))
@@ -2797,18 +2860,27 @@ export namespace Parser {
 				}
 			}
 			else if @token == Token::LEFT_CURLY {
-				this.reqImportSpecifiers(specifiers)
+				this.reqImportSpecifiers(attributes, specifiers)
 
 				last = this.yes()
 			}
 
-			return this.yep(AST.ImportDeclarator(source, specifiers, arguments, source, last))
+			return this.yep(AST.ImportDeclarator(attributes, source, specifiers, arguments, source, last))
 		} // }}}
-		reqImportSpecifiers(specifiers) ~ SyntaxError { // {{{
+		reqImportSpecifiers(attributes, specifiers) ~ SyntaxError { // {{{
 			this.commit().reqNL_1M()
 
 			let first, imported, local
+			let attrs = []
+			let specifier
+
 			until this.test(Token::RIGHT_CURLY) {
+				if this.stackInnerAttributes(attributes) {
+					continue
+				}
+
+				this.stackOuterAttributes(attrs)
+
 				if this.match(Token::ASTERISK) == Token::ASTERISK {
 					first = this.yes()
 
@@ -2820,7 +2892,7 @@ export namespace Parser {
 
 					local = this.reqIdentifier()
 
-					specifiers.push(this.yep(AST.ImportNamespaceSpecifier(local, null, first, local)))
+					specifier = this.yep(AST.ImportNamespaceSpecifier(local, null, first, local))
 				}
 				else {
 					imported = this.reqExternDeclarator()
@@ -2830,12 +2902,21 @@ export namespace Parser {
 
 						local = this.reqIdentifier()
 
-						specifiers.push(this.yep(AST.ImportSpecifier(imported, local, imported, local)))
+						specifier = this.yep(AST.ImportSpecifier(imported, local, imported, local))
 					}
 					else {
-						specifiers.push(this.yep(AST.ImportSpecifier(imported, this.yep(imported.value.name), imported, imported)))
+						specifier = this.yep(AST.ImportSpecifier(imported, this.yep(imported.value.name), imported, imported))
 					}
 				}
+
+				if attrs.length > 0 {
+					specifier.value.attributes.unshift(...attrs)
+					specifier.value.start = specifier.value.attributes[0].start
+
+					attrs = []
+				}
+
+				specifiers.push(specifier)
 
 				if this.test(Token::NEWLINE) {
 					this.commit().NL_0M()
@@ -2854,14 +2935,33 @@ export namespace Parser {
 		reqImportStatement(first) ~ SyntaxError { // {{{
 			this.NL_0M()
 
+			const attributes = []
 			const declarations = []
 
 			let last
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().reqNL_1M()
 
+				let attrs = []
+				let declarator
+
 				until this.test(Token::RIGHT_CURLY) {
-					declarations.push(this.reqImportDeclarator())
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
+
+					this.stackOuterAttributes(attrs)
+
+					declarator = this.reqImportDeclarator()
+
+					if attrs.length > 0 {
+						declarator.value.attributes.unshift(...attrs)
+						declarator.value.start = declarator.value.attributes[0].start
+
+						attrs = []
+					}
+
+					declarations.push(declarator)
 
 					if this.test(Token::NEWLINE) {
 						this.commit().NL_0M()
@@ -2881,7 +2981,7 @@ export namespace Parser {
 				declarations.push(last = this.reqImportDeclarator())
 			}
 
-			return this.yep(AST.ImportDeclaration(declarations, first, last))
+			return this.yep(AST.ImportDeclaration(attributes, declarations, first, last))
 		} // }}}
 		reqIncludeStatement(first) ~ SyntaxError { // {{{
 			if this.test(Token::LEFT_CURLY) {
@@ -3994,14 +4094,33 @@ export namespace Parser {
 			}
 		} // }}}
 		reqRequireStatement(first) ~ SyntaxError { // {{{
+			const attributes = []
 			const declarations = []
 
 			let last
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().NL_0M()
 
+				let attrs = []
+				let declarator
+
 				until this.test(Token::RIGHT_CURLY) {
-					declarations.push(this.reqExternDeclarator())
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
+
+					this.stackOuterAttributes(attrs)
+
+					declarator = this.reqExternDeclarator()
+
+					if attrs.length > 0 {
+						declarator.value.attributes.unshift(...attrs)
+						declarator.value.start = declarator.value.attributes[0].start
+
+						attrs = []
+					}
+
+					declarations.push(declarator)
 
 					this.reqNL_1M()
 				}
@@ -4026,17 +4145,36 @@ export namespace Parser {
 
 			this.reqNL_EOF_1M()
 
-			return this.yep(AST.RequireDeclaration(declarations, first, last))
+			return this.yep(AST.RequireDeclaration(attributes, declarations, first, last))
 		} // }}}
 		reqRequireOrExternStatement(first) ~ SyntaxError { // {{{
+			const attributes = []
 			const declarations = []
 
 			let last
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().NL_0M()
 
+				let attrs = []
+				let declarator
+
 				until this.test(Token::RIGHT_CURLY) {
-					declarations.push(this.reqExternDeclarator())
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
+
+					this.stackOuterAttributes(attrs)
+
+					declarator = this.reqExternDeclarator()
+
+					if attrs.length > 0 {
+						declarator.value.attributes.unshift(...attrs)
+						declarator.value.start = declarator.value.attributes[0].start
+
+						attrs = []
+					}
+
+					declarations.push(declarator)
 
 					this.reqNL_1M()
 				}
@@ -4061,17 +4199,36 @@ export namespace Parser {
 
 			this.reqNL_EOF_1M()
 
-			return this.yep(AST.RequireOrExternDeclaration(declarations, first, last))
+			return this.yep(AST.RequireOrExternDeclaration(attributes, declarations, first, last))
 		} // }}}
 		reqRequireOrImportStatement(first) ~ SyntaxError { // {{{
+			const attributes = []
 			const declarations = []
 
 			let last
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().reqNL_1M()
 
+				let attrs = []
+				let declarator
+
 				until this.test(Token::RIGHT_CURLY) {
-					declarations.push(this.reqImportDeclarator())
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
+
+					this.stackOuterAttributes(attrs)
+
+					declarator = this.reqImportDeclarator()
+
+					if attrs.length > 0 {
+						declarator.value.attributes.unshift(...attrs)
+						declarator.value.start = declarator.value.attributes[0].start
+
+						attrs = []
+					}
+
+					declarations.push(declarator)
 
 					if this.test(Token::NEWLINE) {
 						this.commit().NL_0M()
@@ -4093,7 +4250,7 @@ export namespace Parser {
 
 			this.reqNL_EOF_1M()
 
-			return this.yep(AST.RequireOrImportDeclaration(declarations, first, last))
+			return this.yep(AST.RequireOrImportDeclaration(attributes, declarations, first, last))
 		} // }}}
 		reqReturnStatement(first) ~ SyntaxError { // {{{
 			if this.match(Token::IF, Token::UNLESS, Token::NEWLINE) == Token::IF {
