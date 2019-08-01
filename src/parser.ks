@@ -875,6 +875,9 @@ export namespace Parser {
 							first = attrs[0]
 							attrs.unshift(...attributes)
 						}
+						else {
+							attrs = attributes
+						}
 
 						members.push(this.reqClassAbstractMethod(attrs, modifiers, first))
 					}
@@ -883,9 +886,7 @@ export namespace Parser {
 						this.throw('}')
 					}
 
-					this.commit()
-
-					this.reqNL_1M()
+					this.commit().reqNL_1M()
 				}
 				else {
 					first ??= modifiers[0]
@@ -913,7 +914,7 @@ export namespace Parser {
 					first = modifiers[0]
 				}
 
-				if first != null && this.test(Token::LEFT_CURLY) {
+				if modifiers.length != 0 && this.test(Token::LEFT_CURLY) {
 					this.commit().NL_0M()
 
 					first = null
@@ -926,6 +927,9 @@ export namespace Parser {
 							first = attrs[0]
 							attrs.unshift(...attributes)
 						}
+						else {
+							attrs = attributes
+						}
 
 						members.push(this.reqClassMember(attrs, modifiers, first))
 					}
@@ -934,9 +938,7 @@ export namespace Parser {
 						this.throw('}')
 					}
 
-					this.commit()
-
-					this.reqNL_1M()
+					this.commit().reqNL_1M()
 				}
 				else {
 					const member = this.tryClassMember(attributes, modifiers, first)
@@ -1892,9 +1894,14 @@ export namespace Parser {
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().NL_0M()
 
+				const attributes = []
 				const members = []
 
 				until this.test(Token::RIGHT_CURLY) {
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
+
 					this.reqExternClassMemberList(members)
 				}
 
@@ -1902,18 +1909,18 @@ export namespace Parser {
 					this.throw('}')
 				}
 
-				return this.yep(AST.ClassDeclaration([], name, null, extends, modifiers, members, first, this.yes()))
+				return this.yep(AST.ClassDeclaration(attributes, name, null, extends, modifiers, members, first, this.yes()))
 			}
 			else {
 				return this.yep(AST.ClassDeclaration([], name, null, extends, modifiers, [], first, extends ?? generic ?? name))
 			}
 		} // }}}
-		reqExternClassField(modifiers, name, type, first) ~ SyntaxError { // {{{
+		reqExternClassField(attributes, modifiers, name, type, first) ~ SyntaxError { // {{{
 			this.reqNL_1M()
 
-			return this.yep(AST.FieldDeclaration([], modifiers, name, type, null, first, type ?? name))
+			return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, null, first, type ?? name))
 		} // }}}
-		reqExternClassMember(modifiers, first?) ~ SyntaxError { // {{{
+		reqExternClassMember(attributes, modifiers, first?) ~ SyntaxError { // {{{
 			const name = this.reqIdentifier()
 
 			if this.match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
@@ -1925,21 +1932,26 @@ export namespace Parser {
 					this.throw()
 				}
 				else {
-					return this.reqExternClassField(modifiers, name, type, first ?? name)
+					return this.reqExternClassField(attributes, modifiers, name, type, first ?? name)
 				}
 			}
 			else if @token == Token::LEFT_CURLY {
 				this.throw()
 			}
 			else if @token == Token::LEFT_ROUND {
-				return this.reqExternClassMethod(modifiers, name, this.yes(), first ?? name)
+				return this.reqExternClassMethod(attributes, modifiers, name, this.yes(), first ?? name)
 			}
 			else {
-				return this.reqExternClassField(modifiers, name, null, first ?? name)
+				return this.reqExternClassField(attributes, modifiers, name, null, first ?? name)
 			}
 		} // }}}
 		reqExternClassMemberList(members) ~ SyntaxError { // {{{
 			let first = null
+
+			const attributes = this.stackOuterAttributes([])
+			if attributes.length != 0 {
+				first = attributes[0]
+			}
 
 			const modifiers = []
 			if this.match( Token::PRIVATE, Token::PROTECTED, Token::PUBLIC) == Token::PRIVATE {
@@ -1960,8 +1972,21 @@ export namespace Parser {
 				if this.test(Token::LEFT_CURLY) {
 					this.commit().NL_0M()
 
-					until this.test(Token::RIGHT_CURLY) {
-						members.push(this.reqClassAbstractMethod(null, modifiers, first))
+					first = null
+
+					let attrs
+					while this.until(Token::RIGHT_CURLY) {
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
+						}
+						else {
+							attrs = attributes
+						}
+
+						members.push(this.reqClassAbstractMethod(attrs, modifiers, first))
 					}
 
 					unless this.test(Token::RIGHT_CURLY) {
@@ -1971,7 +1996,7 @@ export namespace Parser {
 					this.commit().reqNL_1M()
 				}
 				else {
-					members.push(this.reqClassAbstractMethod(null, modifiers, first))
+					members.push(this.reqClassAbstractMethod(attributes, modifiers, first))
 				}
 			}
 			else {
@@ -1982,40 +2007,44 @@ export namespace Parser {
 					first = modifiers[0]
 				}
 
-				if this.test(Token::LEFT_CURLY) {
-					if first == null {
-						first = this.yes()
-					}
-					else {
-						this.commit()
-					}
+				if modifiers.length != 0 && this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
 
-					this.NL_0M()
+					first = null
 
-					until this.test(Token::RIGHT_CURLY) {
-						members.push(this.reqExternClassMember(modifiers, first))
+					let attrs
+					while this.until(Token::RIGHT_CURLY) {
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
+						}
+						else {
+							attrs = attributes
+						}
+
+						members.push(this.reqExternClassMember(attrs, modifiers, first))
 					}
 
 					unless this.test(Token::RIGHT_CURLY) {
 						this.throw('}')
 					}
 
-					this.commit()
-
-					this.reqNL_1M()
+					this.commit().reqNL_1M()
 				}
 				else {
-					members.push(this.reqExternClassMember(modifiers, first))
+					members.push(this.reqExternClassMember(attributes, modifiers, first))
 				}
 			}
 		} // }}}
-		reqExternClassMethod(modifiers, name, round, first) ~ SyntaxError { // {{{
+		reqExternClassMethod(attributes, modifiers, name, round, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList(round)
 			const type = this.tryFunctionReturns()
 
 			this.reqNL_1M()
 
-			return this.yep(AST.MethodDeclaration([], modifiers, name, parameters, type, null, null, first, type ?? parameters))
+			return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, null, null, first, type ?? parameters))
 		} // }}}
 		reqExternDeclarator(ns = false) ~ SyntaxError { // {{{
 			switch this.matchM(M.EXTERN_STATEMENT) {
@@ -2218,19 +2247,38 @@ export namespace Parser {
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().NL_0M()
 
+				const attributes = []
 				const statements = []
 
+				let attrs = []
+				let statement
+
 				until this.test(Token::RIGHT_CURLY) {
-					statements.push(this.reqExternDeclarator(true))
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
+
+					this.stackOuterAttributes(attrs)
+
+					statement = this.reqExternDeclarator(true)
 
 					this.reqNL_1M()
+
+					if attrs.length > 0 {
+						statement.value.attributes.unshift(...attrs)
+						statement.value.start = statement.value.attributes[0].start
+
+						attrs = []
+					}
+
+					statements.push(statement)
 				}
 
 				unless this.test(Token::RIGHT_CURLY) {
 					this.throw('}')
 				}
 
-				return this.yep(AST.NamespaceDeclaration([], modifiers, name, statements, first, this.yes()))
+				return this.yep(AST.NamespaceDeclaration(attributes, modifiers, name, statements, first, this.yes()))
 			}
 			else {
 				return this.yep(AST.NamespaceDeclaration([], modifiers, name, [], first, name))
@@ -3486,6 +3534,7 @@ export namespace Parser {
 
 			let attrs = []
 			let statement
+
 			until this.test(Token::RIGHT_CURLY) {
 				if this.stackInnerAttributes(attributes) {
 					continue
