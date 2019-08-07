@@ -1,7 +1,7 @@
 {
 	"name": "@kaoscript/parser",
 	"description": "Parse kaoscript files and generate an abstract syntax tree",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"author": {
 		"name": "Baptiste Augrain",
 		"email": "daiyam@zokugun.org"
@@ -21,7 +21,9 @@
 		}
 	],
 	"files": [
-		"src"
+		"src/ast.ks",
+		"src/parser.ks",
+		"src/scanner.ks"
 	],
 	"main": "src/parser.ks",
 	"dependencies": {

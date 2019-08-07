@@ -1,6 +1,6 @@
 /**
  * parser.ks
- * Version 0.6.0
+ * Version 0.7.0
  * May 23rd, 2017
  *
  * Copyright (c) 2017 Baptiste Augrain
