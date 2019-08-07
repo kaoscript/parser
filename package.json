@@ -1,7 +1,7 @@
 {
 	"name": "@kaoscript/parser",
 	"description": "Parse kaoscript files and generate an abstract syntax tree",
-	"version": "0.8.0",
+	"version": "0.6.0",
 	"author": {
 		"name": "Baptiste Augrain",
 		"email": "daiyam@zokugun.org"
@@ -25,8 +25,8 @@
 	],
 	"main": "src/parser.ks",
 	"dependencies": {
-		"@kaoscript/ast": "github:kaoscript/ast",
-		"@kaoscript/runtime": "^0.6.0"
+		"@kaoscript/ast": "^0.8.0",
+		"@kaoscript/runtime": "^0.6.1"
 	},
 	"devDependencies": {
 		"@kaoscript/coverage-istanbul": "github:kaoscript/coverage-istanbul",
@@ -34,7 +34,7 @@
 		"@zokugun/istanbul.cover.cmd.mocha": "^0.4.0",
 		"@zokugun/istanbul.reporter.minimap": "^0.5.0",
 		"chai": "^4.2.0",
-		"coveralls": "^3.0.5",
+		"coveralls": "^3.0.6",
 		"istanbul": "^0.4.5",
 		"kaoscript": "github:kaoscript/kaoscript",
 		"klaw-sync": "^6.0.0",
