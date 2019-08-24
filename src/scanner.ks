@@ -2587,7 +2587,7 @@ class Scanner {
 		line: @line
 		column: @column
 	}) // }}}
-	match(...tokens: Array<Token>) { // {{{
+	match(...tokens: Token) { // {{{
 		if @eof {
 			return Token::EOF
 		}
