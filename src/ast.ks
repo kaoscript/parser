@@ -1735,14 +1735,13 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func VariableDeclaration(variables, rebindable, equals, isAwait, expression, first, last) { // {{{
+		func VariableDeclaration(variables, rebindable, equals, expression, first, last) { // {{{
 			return location({
 				kind: NodeKind::VariableDeclaration
 				attributes: []
 				rebindable: rebindable
 				variables: [variable.value for variable in variables]
 				autotype: equals.value
-				await: isAwait
 				init: expression.value
 			}, first, last)
 		} // }}}

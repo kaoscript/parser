@@ -1208,9 +1208,11 @@ export namespace Parser {
 
 				this.commit()
 
-				const operand = this.reqPrefixedOperand(mode)
+				let operand = this.reqPrefixedOperand(mode)
 
-				return this.yep(AST.VariableDeclaration(variables, false, equals, true, operand, first, operand))
+				operand = this.yep(AST.AwaitExpression(variables, false, operand, variable, operand))
+
+				return this.yep(AST.VariableDeclaration(variables, false, equals, operand, first, operand))
 			}
 			else {
 				const equals = this.reqVariableEquals()
@@ -1218,14 +1220,18 @@ export namespace Parser {
 				if this.test(Token::AWAIT) {
 					this.commit()
 
-					const operand = this.reqPrefixedOperand(mode)
+					const variables = [variable]
 
-					return this.yep(AST.VariableDeclaration([variable], false, equals, true, operand, first, operand))
+					let operand = this.reqPrefixedOperand(mode)
+
+					operand = this.yep(AST.AwaitExpression(variables, false, operand, variable, operand))
+
+					return this.yep(AST.VariableDeclaration(variables, false, equals, operand, first, operand))
 				}
 				else {
 					const expression = this.reqExpression(mode)
 
-					return this.yep(AST.VariableDeclaration([variable], false, equals, false, expression, first, expression))
+					return this.yep(AST.VariableDeclaration([variable], false, equals, expression, first, expression))
 				}
 			}
 		} // }}}
@@ -2625,7 +2631,7 @@ export namespace Parser {
 
 						const operand = this.reqPrefixedOperand(ExpressionMode::Default)
 
-						condition = this.yep(AST.VariableDeclaration(variables, mutable, equals, true, operand, first, operand))
+						condition = this.yep(AST.VariableDeclaration(variables, mutable, equals, operand, first, operand))
 					}
 					else {
 						const equals = this.reqVariableEquals()
@@ -2635,12 +2641,12 @@ export namespace Parser {
 
 							const operand = this.reqPrefixedOperand(ExpressionMode::Default)
 
-							condition = this.yep(AST.VariableDeclaration([variable], mutable, equals, true, operand, first, operand))
+							condition = this.yep(AST.VariableDeclaration([variable], mutable, equals, operand, first, operand))
 						}
 						else {
 							const expression = this.reqExpression(ExpressionMode::Default)
 
-							condition = this.yep(AST.VariableDeclaration([variable], mutable, equals, false, expression, first, expression))
+							condition = this.yep(AST.VariableDeclaration([variable], mutable, equals, expression, first, expression))
 						}
 					}
 				}
@@ -3135,9 +3141,11 @@ export namespace Parser {
 
 					this.commit()
 
-					const operand = this.reqPrefixedOperand(mode)
+					let operand = this.reqPrefixedOperand(mode)
 
-					return this.yep(AST.VariableDeclaration(variables, true, equals, true, operand, first, operand))
+					operand = this.yep(AST.AwaitExpression(variables, false, operand, variable, operand))
+
+					return this.yep(AST.VariableDeclaration(variables, true, equals, operand, first, operand))
 				}
 				else {
 					return this.yep(AST.VariableDeclaration(variables, true, first, variables[variables.length - 1]))
@@ -3152,9 +3160,13 @@ export namespace Parser {
 					if this.test(Token::AWAIT) {
 						this.commit()
 
-						const operand = this.reqPrefixedOperand(mode)
+						const variables = [variable]
 
-						return this.yep(AST.VariableDeclaration([variable], true, equals, true, operand, first, operand))
+						let operand = this.reqPrefixedOperand(mode)
+
+						operand = this.yep(AST.AwaitExpression(variables, false, operand, variable, operand))
+
+						return this.yep(AST.VariableDeclaration(variables, true, equals, operand, first, operand))
 					}
 					else {
 						let init = this.reqExpression(mode)
@@ -3182,7 +3194,7 @@ export namespace Parser {
 							init = this.yep(AST.UnlessExpression(condition, init, init, condition))
 						}
 
-						return this.yep(AST.VariableDeclaration([variable], true, equals, false, init, first, init))
+						return this.yep(AST.VariableDeclaration([variable], true, equals, init, first, init))
 					}
 				}
 				else {
