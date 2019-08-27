@@ -1,16 +1,16 @@
 {
-  "kind": 67,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 108,
+      "kind": 110,
       "attributes": [],
       "rebindable": true,
       "variables": [
         {
-          "kind": 109,
+          "kind": 111,
           "name": {
-            "kind": 48,
+            "kind": 49,
             "name": "x",
             "start": {
               "line": 1,
@@ -33,7 +33,7 @@
       ],
       "autotype": false,
       "init": {
-        "kind": 70,
+        "kind": 72,
         "value": 5,
         "start": {
           "line": 1,
@@ -54,14 +54,14 @@
       }
     },
     {
-      "kind": 108,
+      "kind": 110,
       "attributes": [],
       "rebindable": true,
       "variables": [
         {
-          "kind": 109,
+          "kind": 111,
           "name": {
-            "kind": 48,
+            "kind": 49,
             "name": "y",
             "start": {
               "line": 3,
@@ -84,12 +84,12 @@
       ],
       "autotype": false,
       "init": {
-        "kind": 49,
+        "kind": 50,
         "condition": {
           "kind": 21,
           "values": [
             {
-              "kind": 48,
+              "kind": 49,
               "name": "x",
               "start": {
                 "line": 3,
@@ -112,7 +112,7 @@
               }
             },
             {
-              "kind": 70,
+              "kind": 72,
               "value": 5,
               "start": {
                 "line": 3,
@@ -134,7 +134,7 @@
           }
         },
         "whenTrue": {
-          "kind": 70,
+          "kind": 72,
           "value": 10,
           "start": {
             "line": 3,

@@ -15,6 +15,7 @@ enum Token {
 	AWAIT
 	BINARY_NUMBER
 	BREAK
+	BUT
 	BY
 	CARET
 	CARET_AT_LEFT_ROUND
@@ -1771,6 +1772,18 @@ const recognize = {
 			that.isBoundary(5)
 		{
 			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} // }}}
+	`\(Token::BUT)`(that, c) { // {{{
+		if	c == 98 &&
+			that.charAt(1) == 117 &&
+			that.charAt(2) == 116 &&
+			that.isBoundary(3)
+		{
+			return that.next(3)
 		}
 		else {
 			return false

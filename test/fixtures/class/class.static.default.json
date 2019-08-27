@@ -1,12 +1,12 @@
 {
-  "kind": 67,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
       "kind": 17,
       "attributes": [],
       "name": {
-        "kind": 48,
+        "kind": 49,
         "name": "Shape",
         "start": {
           "line": 1,
@@ -20,7 +20,7 @@
       "modifiers": [],
       "members": [
         {
-          "kind": 41,
+          "kind": 42,
           "attributes": [],
           "modifiers": [
             {
@@ -36,7 +36,7 @@
             }
           ],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "name": "_color",
             "start": {
               "line": 3,
@@ -56,9 +56,9 @@
             "column": 22
           },
           "type": {
-            "kind": 102,
+            "kind": 104,
             "typeName": {
-              "kind": 48,
+              "kind": 49,
               "name": "string",
               "start": {
                 "line": 3,
@@ -79,7 +79,7 @@
             }
           },
           "defaultValue": {
-            "kind": 61,
+            "kind": 63,
             "value": "",
             "start": {
               "line": 3,
@@ -92,7 +92,7 @@
           }
         },
         {
-          "kind": 41,
+          "kind": 42,
           "attributes": [],
           "modifiers": [
             {
@@ -108,7 +108,7 @@
             }
           ],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "name": "_type",
             "start": {
               "line": 4,
@@ -128,9 +128,9 @@
             "column": 21
           },
           "type": {
-            "kind": 102,
+            "kind": 104,
             "typeName": {
-              "kind": 48,
+              "kind": 49,
               "name": "string",
               "start": {
                 "line": 4,
@@ -151,7 +151,7 @@
             }
           },
           "defaultValue": {
-            "kind": 61,
+            "kind": 63,
             "value": "",
             "start": {
               "line": 4,
@@ -164,7 +164,7 @@
           }
         },
         {
-          "kind": 65,
+          "kind": 67,
           "attributes": [],
           "modifiers": [
             {
@@ -180,7 +180,7 @@
             }
           ],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "name": "makeRectangle",
             "start": {
               "line": 8,
@@ -193,7 +193,7 @@
           },
           "parameters": [
             {
-              "kind": 75,
+              "kind": 77,
               "modifiers": [],
               "start": {
                 "line": 8,
@@ -204,7 +204,7 @@
                 "column": 30
               },
               "name": {
-                "kind": 48,
+                "kind": 49,
                 "name": "color",
                 "start": {
                   "line": 8,
@@ -216,9 +216,9 @@
                 }
               },
               "type": {
-                "kind": 102,
+                "kind": 104,
                 "typeName": {
-                  "kind": 48,
+                  "kind": 49,
                   "name": "string",
                   "start": {
                     "line": 8,
@@ -249,9 +249,9 @@
             "column": 71
           },
           "type": {
-            "kind": 102,
+            "kind": 104,
             "typeName": {
-              "kind": 48,
+              "kind": 49,
               "name": "Shape",
               "start": {
                 "line": 8,
@@ -275,7 +275,7 @@
           "body": {
             "kind": 25,
             "class": {
-              "kind": 48,
+              "kind": 49,
               "name": "Shape",
               "start": {
                 "line": 8,
@@ -288,7 +288,7 @@
             },
             "arguments": [
               {
-                "kind": 61,
+                "kind": 63,
                 "value": "rectangle",
                 "start": {
                   "line": 8,
@@ -300,7 +300,7 @@
                 }
               },
               {
-                "kind": 48,
+                "kind": 49,
                 "name": "color",
                 "start": {
                   "line": 8,
@@ -323,11 +323,11 @@
           }
         },
         {
-          "kind": 65,
+          "kind": 67,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "name": "constructor",
             "start": {
               "line": 11,
@@ -340,7 +340,7 @@
           },
           "parameters": [
             {
-              "kind": 75,
+              "kind": 77,
               "modifiers": [
                 {
                   "kind": 14,
@@ -363,7 +363,7 @@
                 "column": 19
               },
               "name": {
-                "kind": 48,
+                "kind": 49,
                 "name": "type",
                 "start": {
                   "line": 11,
@@ -376,7 +376,7 @@
               }
             },
             {
-              "kind": 75,
+              "kind": 77,
               "modifiers": [
                 {
                   "kind": 14,
@@ -399,7 +399,7 @@
                 "column": 27
               },
               "name": {
-                "kind": 48,
+                "kind": 49,
                 "name": "color",
                 "start": {
                   "line": 11,
@@ -433,14 +433,14 @@
       }
     },
     {
-      "kind": 108,
+      "kind": 110,
       "attributes": [],
       "rebindable": true,
       "variables": [
         {
-          "kind": 109,
+          "kind": 111,
           "name": {
-            "kind": 48,
+            "kind": 49,
             "name": "r",
             "start": {
               "line": 14,
@@ -468,9 +468,9 @@
           "kind": 3
         },
         "callee": {
-          "kind": 64,
+          "kind": 66,
           "object": {
-            "kind": 48,
+            "kind": 49,
             "name": "Shape",
             "start": {
               "line": 14,
@@ -482,7 +482,7 @@
             }
           },
           "property": {
-            "kind": 48,
+            "kind": 49,
             "name": "makeRectangle",
             "start": {
               "line": 14,
@@ -506,7 +506,7 @@
         },
         "arguments": [
           {
-            "kind": 61,
+            "kind": 63,
             "value": "black",
             "start": {
               "line": 14,
@@ -543,16 +543,16 @@
         "kind": 3
       },
       "callee": {
-        "kind": 64,
+        "kind": 66,
         "object": {
-          "kind": 64,
+          "kind": 66,
           "object": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 48,
+              "kind": 49,
               "name": "expect",
               "start": {
                 "line": 16,
@@ -565,9 +565,9 @@
             },
             "arguments": [
               {
-                "kind": 64,
+                "kind": 66,
                 "object": {
-                  "kind": 48,
+                  "kind": 49,
                   "name": "r",
                   "start": {
                     "line": 16,
@@ -579,7 +579,7 @@
                   }
                 },
                 "property": {
-                  "kind": 48,
+                  "kind": 49,
                   "name": "type",
                   "start": {
                     "line": 16,
@@ -613,7 +613,7 @@
             }
           },
           "property": {
-            "kind": 48,
+            "kind": 49,
             "name": "to",
             "start": {
               "line": 16,
@@ -636,7 +636,7 @@
           }
         },
         "property": {
-          "kind": 48,
+          "kind": 49,
           "name": "equal",
           "start": {
             "line": 16,
@@ -660,7 +660,7 @@
       },
       "arguments": [
         {
-          "kind": 61,
+          "kind": 63,
           "value": "rectangle",
           "start": {
             "line": 16,
@@ -689,16 +689,16 @@
         "kind": 3
       },
       "callee": {
-        "kind": 64,
+        "kind": 66,
         "object": {
-          "kind": 64,
+          "kind": 66,
           "object": {
             "kind": 14,
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 48,
+              "kind": 49,
               "name": "expect",
               "start": {
                 "line": 17,
@@ -711,9 +711,9 @@
             },
             "arguments": [
               {
-                "kind": 64,
+                "kind": 66,
                 "object": {
-                  "kind": 48,
+                  "kind": 49,
                   "name": "r",
                   "start": {
                     "line": 17,
@@ -725,7 +725,7 @@
                   }
                 },
                 "property": {
-                  "kind": 48,
+                  "kind": 49,
                   "name": "color",
                   "start": {
                     "line": 17,
@@ -759,7 +759,7 @@
             }
           },
           "property": {
-            "kind": 48,
+            "kind": 49,
             "name": "to",
             "start": {
               "line": 17,
@@ -782,7 +782,7 @@
           }
         },
         "property": {
-          "kind": 48,
+          "kind": 49,
           "name": "equal",
           "start": {
             "line": 17,
@@ -806,7 +806,7 @@
       },
       "arguments": [
         {
-          "kind": 61,
+          "kind": 63,
           "value": "black",
           "start": {
             "line": 17,

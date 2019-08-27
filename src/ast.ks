@@ -634,6 +634,13 @@ namespace AST {
 			}, declaration)
 		} // }}}
 
+		func ExportExclusionSpecifier(exclusions, first, last) { // {{{
+			return location({
+				kind: NodeKind::ExportExclusionSpecifier
+				exclusions: [exclusion.value for exclusion in exclusions]
+			}, first, last)
+		} // }}}
+
 		func ExportNamedSpecifier(local, exported) { // {{{
 			return location({
 				kind: NodeKind::ExportNamedSpecifier
@@ -1004,6 +1011,14 @@ namespace AST {
 			}
 
 			return node
+		} // }}}
+
+		func ImportExclusionSpecifier(exclusions, first, last) { // {{{
+			return location({
+				kind: NodeKind::ImportExclusionSpecifier
+				attributes: []
+				exclusions: [exclusion.value for exclusion in exclusions]
+			}, first, last)
 		} // }}}
 
 		func ImportNamespaceSpecifier(local, specifiers?, first, last) { // {{{

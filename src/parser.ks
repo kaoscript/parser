@@ -1753,7 +1753,50 @@ export namespace Parser {
 			const declarations = []
 
 			let last
-			if this.test(Token::LEFT_CURLY) {
+			if this.match(Token::ASTERISK, Token::LEFT_CURLY) == Token::ASTERISK {
+				const first = this.yes()
+
+				if this.test(Token::BUT) {
+					this.commit()
+
+					const exclusions = []
+
+					if this.test(Token::LEFT_CURLY) {
+						this.commit().NL_0M()
+
+						until this.test(Token::RIGHT_CURLY) {
+							exclusions.push(this.reqIdentifier())
+
+							this.reqNL_1M()
+						}
+
+						unless this.test(Token::RIGHT_CURLY) {
+							this.throw('}')
+						}
+
+						last = this.yes()
+					}
+					else {
+						exclusions.push(this.reqIdentifier())
+
+						while this.test(Token::COMMA) {
+							this.commit()
+
+							exclusions.push(this.reqIdentifier())
+						}
+
+						last = exclusions[exclusions.length - 1]
+					}
+
+					declarations.push(this.yep(AST.ExportExclusionSpecifier(exclusions, first, last)))
+				}
+				else {
+					last = this.yep()
+
+					declarations.push(this.yep(AST.ExportExclusionSpecifier([], first, last)))
+				}
+			}
+			else if @token == Token::LEFT_CURLY {
 				this.commit().NL_0M()
 
 				let attrs = []
@@ -2875,7 +2918,41 @@ export namespace Parser {
 			const attributes = []
 			const specifiers = []
 
-			if this.match(Token::EQUALS_RIGHT_ANGLE, Token::FOR, Token::LEFT_CURLY) == Token::EQUALS_RIGHT_ANGLE {
+			if this.match(Token::BUT, Token::EQUALS_RIGHT_ANGLE, Token::FOR, Token::LEFT_CURLY) == Token::BUT {
+				const first = this.yes()
+
+				const exclusions = []
+
+				if this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
+
+					until this.test(Token::RIGHT_CURLY) {
+						exclusions.push(this.reqIdentifier())
+
+						this.reqNL_1M()
+					}
+
+					unless this.test(Token::RIGHT_CURLY) {
+						this.throw('}')
+					}
+
+					last = this.yes()
+				}
+				else {
+					exclusions.push(this.reqIdentifier())
+
+					while this.test(Token::COMMA) {
+						this.commit()
+
+						exclusions.push(this.reqIdentifier())
+					}
+
+					last = exclusions[exclusions.length - 1]
+				}
+
+				specifiers.push(this.yep(AST.ImportExclusionSpecifier(exclusions, first, last)))
+			}
+			else if @token == Token::EQUALS_RIGHT_ANGLE {
 				this.commit()
 
 				last = this.reqIdentifier()

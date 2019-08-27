@@ -1,14 +1,14 @@
 {
-  "kind": 67,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 46,
+      "kind": 47,
       "attributes": [
         {
           "kind": 6,
           "declaration": {
-            "kind": 48,
+            "kind": 49,
             "name": "test",
             "start": {
               "line": 1,
@@ -30,7 +30,7 @@
         }
       ],
       "name": {
-        "kind": 48,
+        "kind": 49,
         "name": "foo",
         "start": {
           "line": 2,
@@ -67,14 +67,14 @@
       }
     },
     {
-      "kind": 46,
+      "kind": 47,
       "attributes": [
         {
           "kind": 6,
           "declaration": {
             "kind": 7,
             "name": {
-              "kind": 48,
+              "kind": 49,
               "name": "cfg",
               "start": {
                 "line": 5,
@@ -89,7 +89,7 @@
               {
                 "kind": 8,
                 "name": {
-                  "kind": 48,
+                  "kind": 49,
                   "name": "target_os",
                   "start": {
                     "line": 5,
@@ -101,7 +101,7 @@
                   }
                 },
                 "value": {
-                  "kind": 61,
+                  "kind": 63,
                   "value": "darwin",
                   "start": {
                     "line": 5,
@@ -142,7 +142,7 @@
         }
       ],
       "name": {
-        "kind": 48,
+        "kind": 49,
         "name": "darwin_only",
         "start": {
           "line": 6,
@@ -179,14 +179,14 @@
       }
     },
     {
-      "kind": 46,
+      "kind": 47,
       "attributes": [
         {
           "kind": 6,
           "declaration": {
             "kind": 7,
             "name": {
-              "kind": 48,
+              "kind": 49,
               "name": "cfg",
               "start": {
                 "line": 9,
@@ -201,7 +201,7 @@
               {
                 "kind": 8,
                 "name": {
-                  "kind": 48,
+                  "kind": 49,
                   "name": "target_os",
                   "start": {
                     "line": 9,
@@ -213,7 +213,7 @@
                   }
                 },
                 "value": {
-                  "kind": 61,
+                  "kind": 63,
                   "value": "linux",
                   "start": {
                     "line": 9,
@@ -254,7 +254,7 @@
         }
       ],
       "name": {
-        "kind": 48,
+        "kind": 49,
         "name": "linux_only",
         "start": {
           "line": 10,
@@ -291,14 +291,14 @@
       }
     },
     {
-      "kind": 46,
+      "kind": 47,
       "attributes": [
         {
           "kind": 6,
           "declaration": {
             "kind": 7,
             "name": {
-              "kind": 48,
+              "kind": 49,
               "name": "cfg",
               "start": {
                 "line": 13,
@@ -313,7 +313,7 @@
               {
                 "kind": 7,
                 "name": {
-                  "kind": 48,
+                  "kind": 49,
                   "name": "any",
                   "start": {
                     "line": 13,
@@ -326,7 +326,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 48,
+                    "kind": 49,
                     "name": "foo",
                     "start": {
                       "line": 13,
@@ -338,7 +338,7 @@
                     }
                   },
                   {
-                    "kind": 48,
+                    "kind": 49,
                     "name": "bar",
                     "start": {
                       "line": 13,
@@ -380,7 +380,7 @@
         }
       ],
       "name": {
-        "kind": 48,
+        "kind": 49,
         "name": "needs_foo_or_bar",
         "start": {
           "line": 14,
@@ -417,14 +417,14 @@
       }
     },
     {
-      "kind": 46,
+      "kind": 47,
       "attributes": [
         {
           "kind": 6,
           "declaration": {
             "kind": 7,
             "name": {
-              "kind": 48,
+              "kind": 49,
               "name": "cfg",
               "start": {
                 "line": 17,
@@ -439,7 +439,7 @@
               {
                 "kind": 7,
                 "name": {
-                  "kind": 48,
+                  "kind": 49,
                   "name": "all",
                   "start": {
                     "line": 17,
@@ -452,7 +452,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 48,
+                    "kind": 49,
                     "name": "unix",
                     "start": {
                       "line": 17,
@@ -494,7 +494,7 @@
         }
       ],
       "name": {
-        "kind": 48,
+        "kind": 49,
         "name": "on_unix",
         "start": {
           "line": 18,
@@ -531,14 +531,14 @@
       }
     },
     {
-      "kind": 46,
+      "kind": 47,
       "attributes": [
         {
           "kind": 6,
           "declaration": {
             "kind": 7,
             "name": {
-              "kind": 48,
+              "kind": 49,
               "name": "cfg",
               "start": {
                 "line": 21,
@@ -553,7 +553,7 @@
               {
                 "kind": 7,
                 "name": {
-                  "kind": 48,
+                  "kind": 49,
                   "name": "not",
                   "start": {
                     "line": 21,
@@ -566,7 +566,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 48,
+                    "kind": 49,
                     "name": "foo",
                     "start": {
                       "line": 21,
@@ -608,7 +608,7 @@
         }
       ],
       "name": {
-        "kind": 48,
+        "kind": 49,
         "name": "needs_not_foo",
         "start": {
           "line": 22,
