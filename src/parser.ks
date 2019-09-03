@@ -4157,6 +4157,12 @@ export namespace Parser {
 
 			let operator
 			switch this.matchM(M.POSTFIX_OPERATOR) {
+				Token::EXCLAMATION_EXCLAMATION => {
+					operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::ForcedTypeCasting, this.yes()))
+				}
+				Token::EXCLAMATION_QUESTION => {
+					operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::NullableTypeCasting, this.yes()))
+				}
 				Token::MINUS_MINUS => {
 					operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::DecrementPostfix, this.yes()))
 				}
@@ -5174,6 +5180,137 @@ export namespace Parser {
 		reqTypeVar(isMultiLines = false) ~ SyntaxError { // {{{
 			this.NL_0M() if isMultiLines
 
+			const type = this.reqTypeReference(isMultiLines)
+
+			let mark = this.mark()
+
+			if isMultiLines {
+				const types = [type]
+
+				this.NL_0M()
+
+				if this.match(Token::PIPE, Token::AMPERSAND) == Token::PIPE {
+					do {
+						this.commit()
+
+						if this.test(Token::PIPE) {
+							this.commit()
+						}
+
+						this.NL_0M()
+
+						types.push(this.reqTypeReference(true))
+
+						mark = this.mark()
+
+						this.NL_0M()
+					}
+					while this.test(Token::PIPE)
+
+					this.rollback(mark)
+
+					if types.length == 1 {
+						return types[0]
+					}
+					else {
+						return this.yep(AST.UnionType(types, type, types[types.length - 1]))
+					}
+				}
+				else if @token == Token::AMPERSAND {
+					do {
+						this.commit()
+
+						if this.test(Token::AMPERSAND) {
+							this.commit()
+						}
+
+						this.NL_0M()
+
+						types.push(this.reqTypeReference(true))
+
+						mark = this.mark()
+
+						this.NL_0M()
+					}
+					while this.test(Token::AMPERSAND)
+
+					this.rollback(mark)
+
+					if types.length == 1 {
+						return types[0]
+					}
+					else {
+						return this.yep(AST.FusionType(types, type, types[types.length - 1]))
+					}
+				}
+				else {
+					this.rollback(mark)
+				}
+			}
+			else {
+				if this.match(Token::PIPE_PIPE, Token::PIPE, Token::AMPERSAND_AMPERSAND, Token::AMPERSAND) == Token::PIPE {
+					this.commit()
+
+					if this.test(Token::NEWLINE) {
+						this.rollback(mark)
+
+						return type
+					}
+
+					const types = [type]
+
+					do {
+						this.commit()
+
+						types.push(this.reqTypeReference(false))
+					}
+					while this.test(Token::PIPE)
+
+					return this.yep(AST.UnionType(types, type, types[types.length - 1]))
+				}
+				else if @token == Token::AMPERSAND {
+					this.commit()
+
+					if this.test(Token::NEWLINE) {
+						this.rollback(mark)
+
+						return type
+					}
+
+					const types = [type]
+
+					do {
+						this.commit()
+
+						types.push(this.reqTypeReference(false))
+					}
+					while this.test(Token::AMPERSAND)
+
+					return this.yep(AST.FusionType(types, type, types[types.length - 1]))
+				}
+			}
+
+			return type
+		} // }}}
+		reqTypeObjectMember() ~ SyntaxError { // {{{
+			const identifier = this.reqIdentifier()
+
+			let type
+			if this.test(Token::COLON) {
+				this.commit()
+
+				type = this.reqTypeVar()
+			}
+			else {
+				const parameters = this.reqFunctionParameterList()
+				type = this.tryFunctionReturns()
+
+				type = this.yep(AST.FunctionExpression(parameters, null, type, null, null, parameters, type ?? parameters))
+			}
+
+			return this.yep(AST.ObjectMemberReference(identifier, type))
+		} // }}}
+		reqTypeReference(isMultiLines: Boolean) ~ SyntaxError { // {{{
 			if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
 				const first = this.yes()
 				const properties = []
@@ -5291,82 +5428,8 @@ export namespace Parser {
 				return this.yep(AST.ArrayReference(elements, first, this.yes()))
 			}
 			else {
-				const type = this.reqTypeEntity()
-
-				let mark = this.mark()
-
-				if isMultiLines {
-					const types = [type]
-
-					this.NL_0M()
-
-					while this.test(Token::PIPE) {
-						this.commit()
-
-						if this.test(Token::PIPE) {
-							this.commit()
-						}
-
-						this.NL_0M()
-
-						types.push(this.reqTypeEntity())
-
-						mark = this.mark()
-
-						this.NL_0M()
-					}
-
-					this.rollback(mark)
-
-					if types.length == 1 {
-						return types[0]
-					}
-					else {
-						return this.yep(AST.UnionType(types, type, types[types.length - 1]))
-					}
-				}
-				else if this.match(Token::PIPE_PIPE, Token::PIPE) == Token::PIPE {
-					this.commit()
-
-					if this.test(Token::NEWLINE) {
-						this.rollback(mark)
-
-						return type
-					}
-
-					const types = [type]
-
-					do {
-						this.commit()
-
-						types.push(this.reqTypeEntity())
-					}
-					while this.test(Token::PIPE)
-
-					return this.yep(AST.UnionType(types, type, types[types.length - 1]))
-				}
-				else {
-					return type
-				}
+				return this.reqTypeEntity()
 			}
-		} // }}}
-		reqTypeObjectMember() ~ SyntaxError { // {{{
-			const identifier = this.reqIdentifier()
-
-			let type
-			if this.test(Token::COLON) {
-				this.commit()
-
-				type = this.reqTypeVar()
-			}
-			else {
-				const parameters = this.reqFunctionParameterList()
-				type = this.tryFunctionReturns()
-
-				type = this.yep(AST.FunctionExpression(parameters, null, type, null, null, parameters, type ?? parameters))
-			}
-
-			return this.yep(AST.ObjectMemberReference(identifier, type))
 		} // }}}
 		reqTypedVariable() ~ SyntaxError { // {{{
 			let name = null

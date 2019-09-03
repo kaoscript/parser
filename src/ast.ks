@@ -934,6 +934,13 @@ namespace AST {
 			return node
 		} // }}}
 
+		func FusionType(types, first, last) { // {{{
+			return location({
+				kind: NodeKind::FusionType
+				types: [type.value for type in types]
+			}, first, last)
+		} // }}}
+
 		func IfExpression(condition, whenTrue, whenFalse?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::IfExpression

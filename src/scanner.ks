@@ -49,7 +49,9 @@ enum Token {
 	EQUALS_RIGHT_ANGLE
 	EXCLAMATION
 	EXCLAMATION_EQUALS
+	EXCLAMATION_EXCLAMATION
 	EXCLAMATION_LEFT_ROUND
+	EXCLAMATION_QUESTION
 	EXCLAMATION_QUESTION_EQUALS
 	EXPORT
 	EXTENDS
@@ -1196,6 +1198,18 @@ namespace M {
 			if p == 9 || p == 32 {
 				return Token::INVALID
 			}
+			else if c == 33 { // !
+				if (c = that.charAt(1)) == 33 {
+					that.next(2)
+
+					return Token::EXCLAMATION_EXCLAMATION
+				}
+				else if c == 63 {
+					that.next(2)
+
+					return Token::EXCLAMATION_QUESTION
+				}
+			}
 			else if c == 43 { // +
 				if that.charAt(1) == 43 {
 					that.next(2)
@@ -1694,6 +1708,22 @@ const recognize = {
 			that.isBoundary(8)
 		{
 			return that.next(8)
+		}
+		else {
+			return false
+		}
+	} // }}}
+	`\(Token::AMPERSAND)`(that, c) { // {{{
+		if c == 38 && that.charAt(1) != 61 {
+			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} // }}}
+	`\(Token::AMPERSAND_AMPERSAND)`(that, c) { // {{{
+		if c == 38 && that.charAt(1) == 38 {
+			return that.next(2)
 		}
 		else {
 			return false
