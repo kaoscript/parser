@@ -2622,7 +2622,7 @@ class Scanner {
 
 		return c == 9 || c == 10 || c == 13 || c == 32 || !((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == 95 || c == 36)
 	} // }}}
-	isEOF() => @eof
+	isEOF(): Boolean => @eof
 	line() => @line
 	mark() => ({ // {{{
 		eof: @eof
@@ -2630,7 +2630,7 @@ class Scanner {
 		line: @line
 		column: @column
 	}) // }}}
-	match(...tokens: Token) { // {{{
+	match(...tokens: Token): Token { // {{{
 		if @eof {
 			return Token::EOF
 		}
@@ -2650,7 +2650,7 @@ class Scanner {
 			return Token::INVALID
 		}
 	} // }}}
-	matchM(matcher: Function) { // {{{
+	matchM(matcher: Function): Token { // {{{
 		if @eof {
 			return Token::EOF
 		}
@@ -2681,7 +2681,7 @@ class Scanner {
 			column: @nextColumn
 		}
 	}) // }}}
-	rollback(mark) { // {{{
+	rollback(mark): Boolean { // {{{
 		@eof = mark.eof
 		@index = mark.index
 		@line = mark.line
@@ -3058,7 +3058,7 @@ class Scanner {
 		column: @column
 	}) // }}}
 	substringAt(d) => @data.substr(@index + d)
-	test(token: Token) { // {{{
+	test(token: Token): Boolean { // {{{
 		if @eof {
 			return false
 		}
@@ -3073,7 +3073,7 @@ class Scanner {
 			}
 		}
 	} // }}}
-	testNS(token: Token) { // {{{
+	testNS(token: Token): Boolean { // {{{
 		if @eof {
 			return false
 		}

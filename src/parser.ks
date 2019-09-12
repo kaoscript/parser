@@ -91,14 +91,14 @@ export namespace Parser {
 		constructor(data: String) ~ SyntaxError { // {{{
 			@scanner = new Scanner(data)
 		} // }}}
-		commit()  { // {{{
+		commit() { // {{{
 			@token = @scanner.commit()
 
 			return this
 		} // }}}
-		mark() =>  @scanner.mark()
-		match(...tokens) => @token = @scanner.match(...tokens)
-		matchM(matcher: Function) => @token = @scanner.matchM(matcher)
+		mark() => @scanner.mark()
+		match(...tokens): Token => @token = @scanner.match(...tokens)
+		matchM(matcher: Function): Token => @token = @scanner.matchM(matcher)
 		position() => @scanner.position()
 		relocate(node, first?, last?) { // {{{
 			if first != null {
@@ -111,7 +111,7 @@ export namespace Parser {
 
 			return node
 		} // }}}
-		rollback(mark) { // {{{
+		rollback(mark): Boolean { // {{{
 			@token = mark.token
 
 			return @scanner.rollback(mark)
@@ -124,7 +124,7 @@ export namespace Parser {
 				@token = Token::INVALID
 			}
 		} // }}}
-		test(token) { // {{{
+		test(token): Boolean { // {{{
 			if @scanner.test(token) {
 				@token = token
 
@@ -134,8 +134,8 @@ export namespace Parser {
 				return false
 			}
 		} // }}}
-		test(...tokens) => tokens.indexOf(this.match(...tokens)) != -1
-		testNS(token) { // {{{
+		test(...tokens): Boolean => tokens.indexOf(this.match(...tokens)) != -1
+		testNS(token): Boolean { // {{{
 			if @scanner.testNS(token) {
 				@token = token
 
@@ -154,7 +154,7 @@ export namespace Parser {
 		throw(expecteds: Array) ~ SyntaxError { // {{{
 			throw new SyntaxError(`Expecting "\(expecteds.slice(0, expecteds.length - 1).join('", "'))" or "\(expecteds[expecteds.length - 1])" but got \(@scanner.toQuote()) at line \(@scanner.line()) and column \(@scanner.column())`)
 		} // }}}
-		until(token) => !@scanner.test(token) && !@scanner.isEOF()
+		until(token): Boolean => !@scanner.test(token) && !@scanner.isEOF()
 		value() => @scanner.value(@token)
 		yep() { // {{{
 			const position = @scanner.position()
@@ -6075,7 +6075,7 @@ export namespace Parser {
 
 			this.NL_0M()
 
-			if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) {
+			if this.test(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) {
 				return this.reqFunctionBody()
 			}
 			else {

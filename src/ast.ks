@@ -108,7 +108,7 @@ namespace AST {
 		let precedence
 		for i from 1 til operations.length by 2 {
 			if operations[i].kind == NodeKind::ConditionalExpression {
-				if precedences[CONDITIONAL_PRECEDENCE] {
+				if precedences[CONDITIONAL_PRECEDENCE]? {
 					++precedences[CONDITIONAL_PRECEDENCE]
 				}
 				else {
@@ -122,7 +122,7 @@ namespace AST {
 			else {
 				precedence = $precedence[operations[i].operator.kind]
 
-				if precedences[precedence] {
+				if precedences[precedence]? {
 					++precedences[precedence]
 				}
 				else {
@@ -141,7 +141,7 @@ namespace AST {
 		for precedence in precedenceList {
 			count = precedences[precedence]
 
-			for k from 1 til operations.length by 2 while count {
+			for k from 1 til operations.length by 2 while count > 0 {
 				if operations[k].kind == NodeKind::ConditionalExpression {
 					if precedence == CONDITIONAL_PRECEDENCE {
 						--count
@@ -375,7 +375,7 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func AwaitExpression(variables?, autotype, operand, first, last) { // {{{
+		func AwaitExpression(variables?, autotype: Boolean, operand, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::AwaitExpression
 				operation: operand.value
