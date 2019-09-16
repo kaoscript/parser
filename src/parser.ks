@@ -355,7 +355,7 @@ export namespace Parser {
 			return this.yep(AST.ForInStatement(declaration, rebindable, value, index, expression, desc, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from ?? desc ?? expression))
 		} // }}}
 		altForExpressionInRange(declaration, rebindable, value, index, first) ~ SyntaxError { // {{{
-			let operand = this.tryPrefixedOperand(ExpressionMode::Default)
+			let operand = this.tryRangeOperand(ExpressionMode::Default)
 
 			if operand.ok {
 				if this.match(Token::LEFT_ANGLE, Token::DOT_DOT) == Token::LEFT_ANGLE || @token == Token::DOT_DOT {
@@ -454,7 +454,7 @@ export namespace Parser {
 
 			const mark = this.mark()
 
-			let operand = this.tryPrefixedOperand(ExpressionMode::Default)
+			let operand = this.tryRangeOperand(ExpressionMode::Default)
 
 			if operand.ok && (this.match(Token::LEFT_ANGLE, Token::DOT_DOT) == Token::LEFT_ANGLE || @token == Token::DOT_DOT) {
 				const then = @token == Token::LEFT_ANGLE
@@ -612,7 +612,10 @@ export namespace Parser {
 			const mark = this.mark()
 
 			let expression
-			if (expression = this.tryFunctionExpression(mode)).ok {
+			if (expression = this.tryAwaitExpression(mode)).ok {
+				return expression
+			}
+			else if this.rollback(mark) && (expression = this.tryFunctionExpression(mode)).ok {
 				return expression
 			}
 			else if this.rollback(mark) && (expression = this.trySwitchExpression(mode)).ok {
@@ -1216,23 +1219,9 @@ export namespace Parser {
 			}
 			else {
 				const equals = this.reqVariableEquals()
+				const expression = this.reqExpression(mode)
 
-				if this.test(Token::AWAIT) {
-					this.commit()
-
-					const variables = [variable]
-
-					let operand = this.reqPrefixedOperand(mode)
-
-					operand = this.yep(AST.AwaitExpression(variables, false, operand, variable, operand))
-
-					return this.yep(AST.VariableDeclaration(variables, false, equals, operand, first, operand))
-				}
-				else {
-					const expression = this.reqExpression(mode)
-
-					return this.yep(AST.VariableDeclaration([variable], false, equals, expression, first, expression))
-				}
+				return this.yep(AST.VariableDeclaration([variable], false, equals, expression, first, expression))
 			}
 		} // }}}
 		reqContinueStatement(first) { // {{{
@@ -2678,19 +2667,9 @@ export namespace Parser {
 					}
 					else {
 						const equals = this.reqVariableEquals()
+						const expression = this.reqExpression(ExpressionMode::Default)
 
-						if this.test(Token::AWAIT) {
-							this.commit()
-
-							const operand = this.reqPrefixedOperand(ExpressionMode::Default)
-
-							condition = this.yep(AST.VariableDeclaration([variable], mutable, equals, operand, first, operand))
-						}
-						else {
-							const expression = this.reqExpression(ExpressionMode::Default)
-
-							condition = this.yep(AST.VariableDeclaration([variable], mutable, equals, expression, first, expression))
-						}
+						condition = this.yep(AST.VariableDeclaration([variable], mutable, equals, expression, first, expression))
 					}
 				}
 				else {
@@ -3234,45 +3213,32 @@ export namespace Parser {
 				if equals.ok {
 					this.NL_0M()
 
-					if this.test(Token::AWAIT) {
-						this.commit()
+					let init = this.reqExpression(mode)
 
-						const variables = [variable]
+					if this.match(Token::IF, Token::UNLESS) == Token::IF {
+						const first = this.yes()
+						const condition = this.reqExpression(ExpressionMode::Default)
 
-						let operand = this.reqPrefixedOperand(mode)
-
-						operand = this.yep(AST.AwaitExpression(variables, false, operand, variable, operand))
-
-						return this.yep(AST.VariableDeclaration(variables, true, equals, operand, first, operand))
-					}
-					else {
-						let init = this.reqExpression(mode)
-
-						if this.match(Token::IF, Token::UNLESS) == Token::IF {
-							const first = this.yes()
-							const condition = this.reqExpression(ExpressionMode::Default)
-
-							if this.test(Token::ELSE) {
-								this.commit()
-
-								const whenFalse = this.reqExpression(ExpressionMode::Default)
-
-								init = this.yep(AST.IfExpression(condition, init, whenFalse, init, whenFalse))
-							}
-							else {
-								init = this.yep(AST.IfExpression(condition, init, null, init, condition))
-							}
-						}
-						else if @token == Token::UNLESS {
+						if this.test(Token::ELSE) {
 							this.commit()
 
-							const condition = this.reqExpression(ExpressionMode::Default)
+							const whenFalse = this.reqExpression(ExpressionMode::Default)
 
-							init = this.yep(AST.UnlessExpression(condition, init, init, condition))
+							init = this.yep(AST.IfExpression(condition, init, whenFalse, init, whenFalse))
 						}
-
-						return this.yep(AST.VariableDeclaration([variable], true, equals, init, first, init))
+						else {
+							init = this.yep(AST.IfExpression(condition, init, null, init, condition))
+						}
 					}
+					else if @token == Token::UNLESS {
+						this.commit()
+
+						const condition = this.reqExpression(ExpressionMode::Default)
+
+						init = this.yep(AST.UnlessExpression(condition, init, init, condition))
+					}
+
+					return this.yep(AST.VariableDeclaration([variable], true, equals, init, first, init))
 				}
 				else {
 					return this.yep(AST.VariableDeclaration([variable], true, first, variable))
@@ -5822,6 +5788,18 @@ export namespace Parser {
 
 			return this.yep(AST.ExpressionStatement(statement))
 		} // }}}
+		tryAwaitExpression(mode) ~ SyntaxError { // {{{
+			unless this.test(Token::AWAIT) {
+				return NO
+			}
+
+			try {
+				return this.reqAwaitExpression(this.yes())
+			}
+			catch {
+				return NO
+			}
+		} // }}}
 		tryBinaryOperator() ~ SyntaxError { // {{{
 			switch this.matchM(M.BINARY_OPERATOR) {
 				Token::AMPERSAND => {
@@ -6346,9 +6324,6 @@ export namespace Parser {
 			if this.matchM(M.OPERAND) == Token::AT {
 				return this.reqThisExpression(this.yes())
 			}
-			else if @token == Token::AWAIT {
-				return this.reqAwaitExpression(this.yes())
-			}
 			else if @token == Token::IDENTIFIER {
 				return this.yep(AST.Identifier(@scanner.value(), this.yes()))
 			}
@@ -6385,7 +6360,7 @@ export namespace Parser {
 				return false
 			}
 		} // }}}
-		tryPrefixedOperand(mode) ~ SyntaxError { // {{{
+		tryRangeOperand(mode) ~ SyntaxError { // {{{
 			const operand = this.tryOperand(mode)
 			if !operand.ok {
 				return NO

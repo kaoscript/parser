@@ -1041,14 +1041,6 @@ namespace M {
 
 				return Token::TEMPLATE_BEGIN
 			}
-			else if c == 97 { // a
-				if that.scanIdentifier(true) == 'wait' {
-					return Token::AWAIT
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
 			else if c == 110 { // n
 				if that.scanIdentifier(true) == 'ew' {
 					return Token::NEW
@@ -1057,7 +1049,7 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			else if c >= 98 && c <= 122 { // a-z
+			else if c >= 97 && c <= 122 { // a-z
 				that.scanIdentifier(false)
 
 				return Token::IDENTIFIER
