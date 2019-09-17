@@ -1644,6 +1644,20 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
+		func TryExpression(modifiers, operand, defaultValue?, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::TryExpression
+				modifiers
+				argument: operand.value
+			}, first, last)
+
+			if defaultValue != null {
+				node.defaultValue = defaultValue.value
+			}
+
+			return node
+		} // }}}
+
 		func TryStatement(body, catchClauses, catchClause?, finalizer?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::TryStatement

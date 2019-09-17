@@ -1,0 +1,202 @@
+{
+  "kind": 70,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 17,
+      "attributes": [],
+      "name": {
+        "kind": 50,
+        "name": "Foobar",
+        "start": {
+          "line": 1,
+          "column": 13
+        },
+        "end": {
+          "line": 1,
+          "column": 19
+        }
+      },
+      "modifiers": [
+        {
+          "kind": 8,
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 6
+          }
+        }
+      ],
+      "members": [
+        {
+          "kind": 68,
+          "attributes": [],
+          "modifiers": [],
+          "name": {
+            "kind": 50,
+            "name": "foobar",
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 8
+            }
+          },
+          "parameters": [
+            {
+              "kind": 78,
+              "modifiers": [],
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 18
+              },
+              "name": {
+                "kind": 50,
+                "name": "x",
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 10
+                }
+              },
+              "type": {
+                "kind": 106,
+                "typeName": {
+                  "kind": 50,
+                  "name": "Number",
+                  "start": {
+                    "line": 2,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 18
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 12
+                },
+                "end": {
+                  "line": 2,
+                  "column": 18
+                }
+              }
+            }
+          ],
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 3
+          },
+          "type": {
+            "kind": 106,
+            "typeName": {
+              "kind": 50,
+              "name": "String",
+              "start": {
+                "line": 2,
+                "column": 21
+              },
+              "end": {
+                "line": 2,
+                "column": 27
+              }
+            },
+            "start": {
+              "line": 2,
+              "column": 21
+            },
+            "end": {
+              "line": 2,
+              "column": 27
+            }
+          },
+          "throws": [],
+          "body": {
+            "kind": 12,
+            "attributes": [],
+            "statements": [
+              {
+                "kind": 85,
+                "attributes": [],
+                "value": {
+                  "kind": 99,
+                  "elements": [
+                    {
+                      "kind": 50,
+                      "name": "x",
+                      "start": {
+                        "line": 3,
+                        "column": 13
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 14
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 3,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 16
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 3
+                },
+                "end": {
+                  "line": 3,
+                  "column": 16
+                }
+              }
+            ],
+            "start": {
+              "line": 2,
+              "column": 28
+            },
+            "end": {
+              "line": 4,
+              "column": 3
+            }
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 2
+  }
+}

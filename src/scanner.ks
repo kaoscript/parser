@@ -57,6 +57,7 @@ enum Token {
 	EXTENDS
 	EXTERN
 	EXTERN_REQUIRE
+	FINAL
 	FINALLY
 	FOR
 	FROM
@@ -96,6 +97,7 @@ enum Token {
 	OF
 	ON
 	OVERRIDE
+	OVERWRITE
 	PERCENT
 	PERCENT_EQUALS
 	PIPE
@@ -143,6 +145,7 @@ enum Token {
 	THROW
 	TIL
 	TILDE
+	TILDE_TILDE
 	TO
 	TRY
 	TYPE
@@ -575,9 +578,14 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// func
+			// final, func
 			else if c == 102 {
-				if that.scanIdentifier(true) == 'unc' {
+				const identifier = that.scanIdentifier(true)
+
+				if identifier == 'inal' {
+					return Token::FINAL
+				}
+				else if identifier == 'unc' {
 					return Token::FUNC
 				}
 				else {
@@ -1407,10 +1415,20 @@ namespace M {
 					return Token::ENUM
 				}
 			}
-			// for, func
+			// final, for, func
 			else if c == 102
 			{
-				if	that.charAt(1) == 111 &&
+				if that.charAt(1) == 105 &&
+					that.charAt(2) == 110 &&
+					that.charAt(3) == 97 &&
+					that.charAt(4) == 108 &&
+					that.isBoundary(5)
+				{
+					that.next(5)
+
+					return Token::FINAL
+				}
+				else if that.charAt(1) == 111 &&
 					that.charAt(2) == 114 &&
 					that.isBoundary(3)
 				{
@@ -2004,6 +2022,20 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	`\(Token::FINAL)`(that, c) { // {{{
+		if	c == 102 &&
+			that.charAt(1) == 105 &&
+			that.charAt(2) == 110 &&
+			that.charAt(3) == 97 &&
+			that.charAt(4) == 108 &&
+			that.isBoundary(5)
+		{
+			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} // }}}
 	`\(Token::FINALLY)`(that, c) { // {{{
 		if	c == 102 &&
 			that.charAt(1) == 105 &&
@@ -2246,6 +2278,24 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	`\(Token::OVERWRITE)`(that, c) { // {{{
+		if	c == 111 &&
+			that.charAt(1) == 118 &&
+			that.charAt(2) == 101 &&
+			that.charAt(3) == 114 &&
+			that.charAt(4) == 119 &&
+			that.charAt(5) == 114 &&
+			that.charAt(6) == 105 &&
+			that.charAt(7) == 116 &&
+			that.charAt(8) == 101 &&
+			that.isBoundary(9)
+		{
+			return that.next(9)
+		}
+		else {
+			return false
+		}
+	} // }}}
 	`\(Token::PIPE)`(that, c) { // {{{
 		if c == 124 && that.charAt(1) != 61 {
 			return that.next(1)
@@ -2474,12 +2524,32 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	`\(Token::TILDE_TILDE)`(that, c) { // {{{
+		if c == 126 && that.charAt(1) == 126 {
+			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} // }}}
 	`\(Token::TO)`(that, c) { // {{{
 		if	c == 116 &&
 			that.charAt(1) == 111 &&
 			that.isBoundary(2)
 		{
 			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} // }}}
+	`\(Token::TRY)`(that, c) { // {{{
+		if	c == 116 &&
+			that.charAt(1) == 114 &&
+			that.charAt(2) == 121 &&
+			that.isBoundary(3)
+		{
+			return that.next(3)
 		}
 		else {
 			return false

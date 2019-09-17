@@ -621,6 +621,9 @@ export namespace Parser {
 			else if this.rollback(mark) && (expression = this.trySwitchExpression(mode)).ok {
 				return expression
 			}
+			else if this.rollback(mark) && (expression = this.tryTryExpression(mode)).ok {
+				return expression
+			}
 
 			this.rollback(mark)
 
@@ -860,6 +863,10 @@ export namespace Parser {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, this.yes())))
 			}
 
+			if this.test(Token::FINAL) {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Final, this.yes())))
+			}
+
 			const mark2 = this.mark()
 
 			if this.test(Token::ABSTRACT) {
@@ -909,7 +916,13 @@ export namespace Parser {
 				}
 			}
 			else {
-				if this.test(Token::STATIC) {
+				if this.match(Token::OVERRIDE, Token::OVERWRITE, Token::STATIC) == Token::OVERRIDE {
+					modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
+				}
+				else if @token == Token::OVERWRITE {
+					modifiers.push(this.yep(AST.Modifier(ModifierKind::Overwrite, this.yes())))
+				}
+				else if @token == Token::STATIC {
 					modifiers.push(this.yep(AST.Modifier(ModifierKind::Static, this.yes())))
 				}
 
@@ -1588,6 +1601,31 @@ export namespace Parser {
 				Token::ENUM => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqEnumStatement(this.yes())))
 				}
+				Token::FINAL => {
+					const first = this.yes()
+					const modifiers = [this.yep(AST.Modifier(ModifierKind::Final, first))]
+
+					if this.test(Token::CLASS) {
+						this.commit()
+
+						return this.yep(AST.ExportDeclarationSpecifier(this.reqClassStatement(first, modifiers)))
+					}
+					else if this.test(Token::ABSTRACT) {
+						modifiers.push(this.yep(AST.Modifier(ModifierKind::Abstract, this.yes())))
+
+						if this.test(Token::CLASS) {
+							this.commit()
+
+							return this.yep(AST.ExportDeclarationSpecifier(this.reqClassStatement(first, modifiers)))
+						}
+						else {
+							this.throw('class')
+						}
+					}
+					else {
+						this.throw('class')
+					}
+				}
 				Token::FUNC => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqFunctionStatement(this.yes())))
 				}
@@ -2137,6 +2175,31 @@ export namespace Parser {
 				}
 				Token::ENUM => {
 					return this.reqExternEnumDeclaration(this.yes())
+				}
+				Token::FINAL => {
+					const first = this.yes()
+					const modifiers = [this.yep(AST.Modifier(ModifierKind::Final, first))]
+
+					if this.test(Token::CLASS) {
+						this.commit()
+
+						return this.reqExternClassDeclaration(first, modifiers)
+					}
+					else if this.test(Token::ABSTRACT) {
+						modifiers.push(this.yep(AST.Modifier(ModifierKind::Abstract, this.yes())))
+
+						if this.test(Token::CLASS) {
+							this.commit()
+
+							return this.reqExternClassDeclaration(first, modifiers)
+						}
+						else {
+							this.throw('class')
+						}
+					}
+					else {
+						this.throw('class')
+					}
 				}
 				Token::FUNC => {
 					const first = this.yes()
@@ -2728,27 +2791,27 @@ export namespace Parser {
 
 			const modifiers = []
 
-			if this.test(Token::OVERRIDE) {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
-			}
-
 			if this.match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC) == Token::PRIVATE {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
-
-				mark = this.mark() if modifiers.length > 1
 			}
 			else if @token == Token::PROTECTED {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Protected, this.yes())))
-
-				mark = this.mark() if modifiers.length > 1
 			}
 			else if @token == Token::PUBLIC {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, this.yes())))
+			}
+
+			if this.match(Token::OVERRIDE, Token::OVERWRITE, Token::STATIC) == Token::OVERRIDE {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
 
 				mark = this.mark() if modifiers.length > 1
 			}
+			else if @token == Token::OVERWRITE {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Overwrite, this.yes())))
 
-			if this.test(Token::STATIC) {
+				mark = this.mark() if modifiers.length > 1
+			}
+			else if @token == Token::STATIC {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Static, this.yes())))
 
 				mark = this.mark() if modifiers.length > 1
@@ -4472,6 +4535,31 @@ export namespace Parser {
 				Token::ENUM => {
 					statement = this.reqEnumStatement(this.yes())
 				}
+				Token::FINAL => {
+					const first = this.yes()
+					const modifiers = [this.yep(AST.Modifier(ModifierKind::Final, first))]
+
+					if this.test(Token::CLASS) {
+						this.commit()
+
+						statement = this.reqClassStatement(first, modifiers)
+					}
+					else if this.test(Token::ABSTRACT) {
+						modifiers.push(this.yep(AST.Modifier(ModifierKind::Abstract, this.yes())))
+
+						if this.test(Token::CLASS) {
+							this.commit()
+
+							statement = this.reqClassStatement(first, modifiers)
+						}
+						else {
+							this.throw('class')
+						}
+					}
+					else {
+						statement = NO
+					}
+				}
 				Token::FOR => {
 					statement = this.reqForStatement(this.yes())
 				}
@@ -4995,12 +5083,35 @@ export namespace Parser {
 
 			return this.yep(AST.CatchClause(binding, null, body, first, body))
 		} // }}}
+		reqTryExpression(first) ~ SyntaxError { // {{{
+			const modifiers = []
+			if this.testNS(Token::EXCLAMATION) {
+				modifiers.push(AST.Modifier(ModifierKind::Disabled, this.yes()))
+			}
+
+			const operand = this.reqPrefixedOperand(ExpressionMode::Default)
+
+			let default = null
+
+			if this.test(Token::TILDE_TILDE) {
+				this.commit()
+
+				default = this.reqPrefixedOperand(ExpressionMode::Default)
+			}
+
+			return this.yep(AST.TryExpression(modifiers, operand, default, first, default ?? operand))
+		} // }}}
 		reqTryStatement(first) ~ SyntaxError { // {{{
 			this.NL_0M()
 
-			const body = this.reqBlock()
+			const body = this.tryBlock()
+
+			unless body.ok {
+				return NO
+			}
 
 			let last = body
+
 			let mark = this.mark()
 
 			const catchClauses = []
@@ -5918,6 +6029,14 @@ export namespace Parser {
 				}
 			}
 		} // }}}
+		tryBlock() ~ SyntaxError { // {{{
+			try {
+				return this.reqBlock()
+			}
+			catch {
+				return NO
+			}
+		} // }}}
 		tryClassAbstractMethod(attributes, modifiers, first?) ~ SyntaxError { // {{{
 			let name
 			if this.test(Token::ASYNC) {
@@ -6379,6 +6498,18 @@ export namespace Parser {
 			const clauses = this.reqSwitchCaseList()
 
 			return this.yep(AST.SwitchExpression(expression, clauses, first, clauses))
+		} // }}}
+		tryTryExpression(mode) ~ SyntaxError { // {{{
+			unless this.test(Token::TRY) {
+				return NO
+			}
+
+			try {
+				return this.reqTryExpression(this.yes())
+			}
+			catch {
+				return NO
+			}
 		} // }}}
 		tryTypeStatement(first) ~ SyntaxError { // {{{
 			const name = this.tryIdentifier()
