@@ -2700,11 +2700,13 @@ export namespace Parser {
 		reqIfStatement(first) ~ SyntaxError { // {{{
 			let condition
 			if this.test(Token::LET, Token::CONST) {
+				const token = @token
+
 				const mark = this.mark()
 				const first = this.yes()
 
 				const modifiers = []
-				if @token == Token::CONST {
+				if token == Token::CONST {
 					modifiers.push(AST.Modifier(ModifierKind::Immutable, first))
 				}
 
