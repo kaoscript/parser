@@ -337,6 +337,7 @@ namespace AST {
 		func ArrayReference(elements, first, last) { // {{{
 			return location({
 				kind: NodeKind::TypeReference
+				modifiers: []
 				typeName: {
 					kind: NodeKind::Identifier
 					name: 'array'
@@ -526,6 +527,7 @@ namespace AST {
 		func CurryExpression(scope, callee, arguments, first, last) { // {{{
 			return location({
 				kind: NodeKind::CurryExpression
+				modifiers: []
 				scope: scope
 				callee: callee.value
 				arguments: [argument.value for argument in arguments.value]
@@ -1301,6 +1303,7 @@ namespace AST {
 		func ObjectReference(properties, first, last) { // {{{
 			return location({
 				kind: NodeKind::TypeReference
+				modifiers: []
 				typeName: {
 					kind: NodeKind::Identifier
 					name: 'object'
@@ -1329,6 +1332,7 @@ namespace AST {
 		func OmittedReference(first) { // {{{
 			return location({
 				kind: NodeKind::TypeReference
+				modifiers: []
 			}, first, first)
 		} // }}}
 
@@ -1646,6 +1650,7 @@ namespace AST {
 		func TypeReference(name) { // {{{
 			return location({
 				kind: NodeKind::TypeReference
+				modifiers: []
 				typeName: name.value
 			}, name)
 		} // }}}
