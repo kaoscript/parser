@@ -68,11 +68,12 @@
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "bar",
@@ -95,7 +96,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 22
+      },
       "init": {
         "kind": 64,
         "value": "I'm bar!",
@@ -107,14 +115,6 @@
           "line": 3,
           "column": 22
         }
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 22
       }
     },
     {

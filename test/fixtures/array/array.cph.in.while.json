@@ -130,6 +130,7 @@
         "loop": {
           "kind": 44,
           "attributes": [],
+          "modifiers": [],
           "expression": {
             "kind": 50,
             "name": "heroes",
@@ -142,8 +143,6 @@
               "column": 45
             }
           },
-          "desc": false,
-          "declaration": false,
           "start": {
             "line": 3,
             "column": 20
@@ -202,6 +201,7 @@
           },
           "while": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
@@ -243,7 +243,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 3,
               "column": 66

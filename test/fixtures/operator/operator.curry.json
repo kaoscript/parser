@@ -167,11 +167,12 @@
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "bar",
@@ -194,7 +195,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 25
+      },
       "init": {
         "kind": 26,
         "scope": {
@@ -234,23 +242,17 @@
           "line": 5,
           "column": 25
         }
-      },
-      "start": {
-        "line": 5,
-        "column": 1
-      },
-      "end": {
-        "line": 5,
-        "column": 25
       }
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 50,
           "name": "console",
@@ -275,8 +277,6 @@
             "column": 12
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 7,
           "column": 1
@@ -289,6 +289,7 @@
       "arguments": [
         {
           "kind": 14,
+          "modifiers": [],
           "scope": {
             "kind": 3
           },
@@ -318,7 +319,6 @@
               }
             }
           ],
-          "nullable": false,
           "start": {
             "line": 7,
             "column": 13
@@ -329,7 +329,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 7,
         "column": 1

@@ -7,11 +7,12 @@
       "attributes": [],
       "condition": {
         "kind": 112,
+        "modifiers": [],
         "attributes": [],
-        "rebindable": true,
         "variables": [
           {
             "kind": 113,
+            "modifiers": [],
             "name": {
               "kind": 50,
               "name": "x",
@@ -34,6 +35,7 @@
             },
             "type": {
               "kind": 106,
+              "modifiers": [],
               "typeName": {
                 "kind": 50,
                 "name": "String",
@@ -57,9 +59,17 @@
             }
           }
         ],
-        "autotype": false,
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 28
+        },
         "init": {
           "kind": 14,
+          "modifiers": [],
           "scope": {
             "kind": 3
           },
@@ -76,7 +86,6 @@
             }
           },
           "arguments": [],
-          "nullable": false,
           "start": {
             "line": 1,
             "column": 20
@@ -85,14 +94,6 @@
             "line": 1,
             "column": 28
           }
-        },
-        "start": {
-          "line": 1,
-          "column": 4
-        },
-        "end": {
-          "line": 1,
-          "column": 28
         }
       },
       "whenTrue": {
@@ -101,11 +102,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -130,8 +133,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 2,
                 "column": 2
@@ -155,7 +156,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 2,
               "column": 2

@@ -8,6 +8,7 @@
       "declarations": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "foo",
@@ -82,11 +83,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -111,8 +114,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 4,
                 "column": 2
@@ -136,7 +137,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 4,
               "column": 2
@@ -205,11 +205,13 @@
       },
       "whenTrue": {
         "kind": 14,
+        "modifiers": [],
         "scope": {
           "kind": 3
         },
         "callee": {
           "kind": 67,
+          "modifiers": [],
           "object": {
             "kind": 50,
             "name": "console",
@@ -234,8 +236,6 @@
               "column": 12
             }
           },
-          "computed": false,
-          "nullable": false,
           "start": {
             "line": 7,
             "column": 1
@@ -259,7 +259,6 @@
             }
           }
         ],
-        "nullable": false,
         "start": {
           "line": 7,
           "column": 1

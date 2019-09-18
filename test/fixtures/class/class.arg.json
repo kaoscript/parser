@@ -24,7 +24,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 12,
+              "kind": 14,
               "start": {
                 "line": 2,
                 "column": 2
@@ -57,6 +57,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "string",
@@ -123,6 +124,7 @@
             "statements": [
               {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
@@ -152,7 +154,6 @@
                     }
                   }
                 ],
-                "nullable": false,
                 "start": {
                   "line": 7,
                   "column": 3
@@ -195,7 +196,7 @@
               "kind": 78,
               "modifiers": [
                 {
-                  "kind": 21,
+                  "kind": 22,
                   "start": {
                     "line": 10,
                     "column": 14
@@ -280,6 +281,7 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "string",
@@ -313,6 +315,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "string",
@@ -366,6 +369,7 @@
                   "operands": [
                     {
                       "kind": 67,
+                      "modifiers": [],
                       "object": {
                         "kind": 50,
                         "name": "this",
@@ -390,8 +394,6 @@
                           "column": 23
                         }
                       },
-                      "computed": false,
-                      "nullable": false,
                       "start": {
                         "line": 13,
                         "column": 10
@@ -471,11 +473,12 @@
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "hello",
@@ -498,7 +501,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 17,
+        "column": 1
+      },
+      "end": {
+        "line": 17,
+        "column": 42
+      },
       "init": {
         "kind": 25,
         "class": {
@@ -535,27 +545,23 @@
           "line": 17,
           "column": 42
         }
-      },
-      "start": {
-        "line": 17,
-        "column": 1
-      },
-      "end": {
-        "line": 17,
-        "column": 42
       }
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 67,
+          "modifiers": [],
           "object": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
@@ -574,11 +580,13 @@
             "arguments": [
               {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
                   "kind": 67,
+                  "modifiers": [],
                   "object": {
                     "kind": 50,
                     "name": "hello",
@@ -603,8 +611,6 @@
                       "column": 19
                     }
                   },
-                  "computed": false,
-                  "nullable": false,
                   "start": {
                     "line": 19,
                     "column": 8
@@ -628,7 +634,6 @@
                     }
                   }
                 ],
-                "nullable": false,
                 "start": {
                   "line": 19,
                   "column": 8
@@ -639,7 +644,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 19,
               "column": 1
@@ -661,8 +665,6 @@
               "column": 37
             }
           },
-          "computed": false,
-          "nullable": false,
           "start": {
             "line": 19,
             "column": 1
@@ -684,8 +686,6 @@
             "column": 43
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 19,
           "column": 1
@@ -709,7 +709,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 19,
         "column": 1

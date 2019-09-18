@@ -4,11 +4,12 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "foobar",
@@ -31,7 +32,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 12,
+        "column": 2
+      },
       "init": {
         "kind": 75,
         "attributes": [],
@@ -79,6 +87,7 @@
                   },
                   "type": {
                     "kind": 106,
+                    "modifiers": [],
                     "typeName": {
                       "kind": 50,
                       "name": "string",
@@ -227,6 +236,7 @@
                   },
                   "type": {
                     "kind": 106,
+                    "modifiers": [],
                     "typeName": {
                       "kind": 50,
                       "name": "string",
@@ -387,6 +397,7 @@
                   },
                   "type": {
                     "kind": 106,
+                    "modifiers": [],
                     "typeName": {
                       "kind": 50,
                       "name": "String",
@@ -421,6 +432,7 @@
               "modifiers": [],
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "String",
@@ -445,25 +457,31 @@
               "throws": [],
               "body": {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
                   "kind": 67,
+                  "modifiers": [],
                   "object": {
                     "kind": 14,
+                    "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
                       "kind": 67,
+                      "modifiers": [],
                       "object": {
                         "kind": 14,
+                        "modifiers": [],
                         "scope": {
                           "kind": 3
                         },
                         "callee": {
                           "kind": 67,
+                          "modifiers": [],
                           "object": {
                             "kind": 50,
                             "name": "value",
@@ -488,8 +506,6 @@
                               "column": 47
                             }
                           },
-                          "computed": false,
-                          "nullable": false,
                           "start": {
                             "line": 8,
                             "column": 36
@@ -513,7 +529,6 @@
                             }
                           }
                         ],
-                        "nullable": false,
                         "start": {
                           "line": 8,
                           "column": 36
@@ -535,8 +550,6 @@
                           "column": 59
                         }
                       },
-                      "computed": false,
-                      "nullable": false,
                       "start": {
                         "line": 8,
                         "column": 36
@@ -547,7 +560,6 @@
                       }
                     },
                     "arguments": [],
-                    "nullable": false,
                     "start": {
                       "line": 8,
                       "column": 36
@@ -569,8 +581,6 @@
                       "column": 66
                     }
                   },
-                  "computed": false,
-                  "nullable": false,
                   "start": {
                     "line": 8,
                     "column": 36
@@ -594,7 +604,6 @@
                     }
                   }
                 ],
-                "nullable": false,
                 "start": {
                   "line": 8,
                   "column": 36
@@ -657,6 +666,7 @@
                   },
                   "type": {
                     "kind": 106,
+                    "modifiers": [],
                     "typeName": {
                       "kind": 50,
                       "name": "Array",
@@ -691,6 +701,7 @@
               "modifiers": [],
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Array",
@@ -715,18 +726,22 @@
               "throws": [],
               "body": {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
                   "kind": 67,
+                  "modifiers": [],
                   "object": {
                     "kind": 14,
+                    "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
                       "kind": 67,
+                      "modifiers": [],
                       "object": {
                         "kind": 50,
                         "name": "value",
@@ -751,8 +766,6 @@
                           "column": 45
                         }
                       },
-                      "computed": false,
-                      "nullable": false,
                       "start": {
                         "line": 9,
                         "column": 34
@@ -763,7 +776,6 @@
                       }
                     },
                     "arguments": [],
-                    "nullable": false,
                     "start": {
                       "line": 9,
                       "column": 34
@@ -785,8 +797,6 @@
                       "column": 55
                     }
                   },
-                  "computed": false,
-                  "nullable": false,
                   "start": {
                     "line": 9,
                     "column": 34
@@ -797,7 +807,6 @@
                   }
                 },
                 "arguments": [],
-                "nullable": false,
                 "start": {
                   "line": 9,
                   "column": 34
@@ -860,6 +869,7 @@
                   },
                   "type": {
                     "kind": 106,
+                    "modifiers": [],
                     "typeName": {
                       "kind": 50,
                       "name": "String",
@@ -906,6 +916,7 @@
               ],
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "String",
@@ -930,25 +941,31 @@
               "throws": [],
               "body": {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
                   "kind": 67,
+                  "modifiers": [],
                   "object": {
                     "kind": 14,
+                    "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
                       "kind": 67,
+                      "modifiers": [],
                       "object": {
                         "kind": 14,
+                        "modifiers": [],
                         "scope": {
                           "kind": 3
                         },
                         "callee": {
                           "kind": 67,
+                          "modifiers": [],
                           "object": {
                             "kind": 50,
                             "name": "value",
@@ -973,8 +990,6 @@
                               "column": 58
                             }
                           },
-                          "computed": false,
-                          "nullable": false,
                           "start": {
                             "line": 10,
                             "column": 47
@@ -998,7 +1013,6 @@
                             }
                           }
                         ],
-                        "nullable": false,
                         "start": {
                           "line": 10,
                           "column": 47
@@ -1020,8 +1034,6 @@
                           "column": 70
                         }
                       },
-                      "computed": false,
-                      "nullable": false,
                       "start": {
                         "line": 10,
                         "column": 47
@@ -1032,7 +1044,6 @@
                       }
                     },
                     "arguments": [],
-                    "nullable": false,
                     "start": {
                       "line": 10,
                       "column": 47
@@ -1054,8 +1065,6 @@
                       "column": 77
                     }
                   },
-                  "computed": false,
-                  "nullable": false,
                   "start": {
                     "line": 10,
                     "column": 47
@@ -1079,7 +1088,6 @@
                     }
                   }
                 ],
-                "nullable": false,
                 "start": {
                   "line": 10,
                   "column": 47
@@ -1142,6 +1150,7 @@
                   },
                   "type": {
                     "kind": 106,
+                    "modifiers": [],
                     "typeName": {
                       "kind": 50,
                       "name": "Array",
@@ -1188,6 +1197,7 @@
               ],
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Array",
@@ -1212,18 +1222,22 @@
               "throws": [],
               "body": {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
                   "kind": 67,
+                  "modifiers": [],
                   "object": {
                     "kind": 14,
+                    "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
                       "kind": 67,
+                      "modifiers": [],
                       "object": {
                         "kind": 50,
                         "name": "value",
@@ -1248,8 +1262,6 @@
                           "column": 56
                         }
                       },
-                      "computed": false,
-                      "nullable": false,
                       "start": {
                         "line": 11,
                         "column": 45
@@ -1260,7 +1272,6 @@
                       }
                     },
                     "arguments": [],
-                    "nullable": false,
                     "start": {
                       "line": 11,
                       "column": 45
@@ -1282,8 +1293,6 @@
                       "column": 66
                     }
                   },
-                  "computed": false,
-                  "nullable": false,
                   "start": {
                     "line": 11,
                     "column": 45
@@ -1294,7 +1303,6 @@
                   }
                 },
                 "arguments": [],
-                "nullable": false,
                 "start": {
                   "line": 11,
                   "column": 45
@@ -1323,14 +1331,6 @@
           "line": 12,
           "column": 2
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 12,
-        "column": 2
       }
     }
   ],

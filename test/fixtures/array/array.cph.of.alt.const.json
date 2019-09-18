@@ -203,6 +203,30 @@
         "loop": {
           "kind": 45,
           "attributes": [],
+          "modifiers": [
+            {
+              "kind": 6,
+              "start": {
+                "line": 7,
+                "column": 19
+              },
+              "end": {
+                "line": 7,
+                "column": 24
+              }
+            },
+            {
+              "kind": 10,
+              "start": {
+                "line": 7,
+                "column": 19
+              },
+              "end": {
+                "line": 7,
+                "column": 24
+              }
+            }
+          ],
           "expression": {
             "kind": 50,
             "name": "likes",
@@ -215,7 +239,6 @@
               "column": 39
             }
           },
-          "declaration": true,
           "start": {
             "line": 7,
             "column": 15
@@ -224,7 +247,6 @@
             "line": 7,
             "column": 39
           },
-          "rebindable": false,
           "key": {
             "kind": 50,
             "name": "name",

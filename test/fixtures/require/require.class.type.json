@@ -56,6 +56,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "String",
@@ -122,6 +123,7 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Space",
@@ -187,6 +189,7 @@
                   },
                   "type": {
                     "kind": 106,
+                    "modifiers": [],
                     "typeName": {
                       "kind": 50,
                       "name": "Space",
@@ -220,6 +223,7 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Color",
@@ -284,7 +288,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 12,
+              "kind": 14,
               "start": {
                 "line": 13,
                 "column": 2
@@ -317,6 +321,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Number",
@@ -366,6 +371,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Number",
@@ -390,6 +396,7 @@
           "throws": [],
           "body": {
             "kind": 67,
+            "modifiers": [],
             "object": {
               "kind": 50,
               "name": "this",
@@ -414,8 +421,6 @@
                 "column": 30
               }
             },
-            "computed": false,
-            "nullable": false,
             "start": {
               "line": 15,
               "column": 20
@@ -447,7 +452,7 @@
               "kind": 78,
               "modifiers": [
                 {
-                  "kind": 21,
+                  "kind": 22,
                   "start": {
                     "line": 17,
                     "column": 7

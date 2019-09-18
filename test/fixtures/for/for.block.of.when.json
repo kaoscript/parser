@@ -163,6 +163,7 @@
     {
       "kind": 45,
       "attributes": [],
+      "modifiers": [],
       "expression": {
         "kind": 50,
         "name": "likes",
@@ -175,7 +176,6 @@
           "column": 24
         }
       },
-      "declaration": false,
       "start": {
         "line": 7,
         "column": 1
@@ -210,6 +210,7 @@
       },
       "when": {
         "kind": 14,
+        "modifiers": [],
         "scope": {
           "kind": 3
         },
@@ -239,7 +240,6 @@
             }
           }
         ],
-        "nullable": false,
         "start": {
           "line": 7,
           "column": 25
@@ -255,11 +255,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -284,8 +286,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 8,
                 "column": 2
@@ -346,7 +346,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 8,
               "column": 2

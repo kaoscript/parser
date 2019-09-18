@@ -24,7 +24,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 12,
+              "kind": 14,
               "start": {
                 "line": 2,
                 "column": 2
@@ -57,6 +57,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "string",
@@ -96,7 +97,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 12,
+              "kind": 14,
               "start": {
                 "line": 2,
                 "column": 2
@@ -129,6 +130,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "string",
@@ -168,7 +170,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 20,
+              "kind": 21,
               "start": {
                 "line": 7,
                 "column": 2
@@ -217,6 +219,7 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "string",
@@ -250,6 +253,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Shape",
@@ -343,7 +347,7 @@
               "kind": 78,
               "modifiers": [
                 {
-                  "kind": 21,
+                  "kind": 22,
                   "start": {
                     "line": 11,
                     "column": 14
@@ -379,7 +383,7 @@
               "kind": 78,
               "modifiers": [
                 {
-                  "kind": 21,
+                  "kind": 22,
                   "start": {
                     "line": 11,
                     "column": 21
@@ -434,11 +438,12 @@
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "r",
@@ -461,14 +466,23 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 14,
+        "column": 1
+      },
+      "end": {
+        "line": 14,
+        "column": 37
+      },
       "init": {
         "kind": 14,
+        "modifiers": [],
         "scope": {
           "kind": 3
         },
         "callee": {
           "kind": 67,
+          "modifiers": [],
           "object": {
             "kind": 50,
             "name": "Shape",
@@ -493,8 +507,6 @@
               "column": 28
             }
           },
-          "computed": false,
-          "nullable": false,
           "start": {
             "line": 14,
             "column": 9
@@ -518,7 +530,6 @@
             }
           }
         ],
-        "nullable": false,
         "start": {
           "line": 14,
           "column": 9
@@ -527,27 +538,23 @@
           "line": 14,
           "column": 37
         }
-      },
-      "start": {
-        "line": 14,
-        "column": 1
-      },
-      "end": {
-        "line": 14,
-        "column": 37
       }
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 67,
+          "modifiers": [],
           "object": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
@@ -566,6 +573,7 @@
             "arguments": [
               {
                 "kind": 67,
+                "modifiers": [],
                 "object": {
                   "kind": 50,
                   "name": "r",
@@ -590,8 +598,6 @@
                     "column": 14
                   }
                 },
-                "computed": false,
-                "nullable": false,
                 "start": {
                   "line": 16,
                   "column": 8
@@ -602,7 +608,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 16,
               "column": 1
@@ -624,8 +629,6 @@
               "column": 18
             }
           },
-          "computed": false,
-          "nullable": false,
           "start": {
             "line": 16,
             "column": 1
@@ -647,8 +650,6 @@
             "column": 24
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 16,
           "column": 1
@@ -672,7 +673,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 16,
         "column": 1
@@ -685,15 +685,19 @@
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 67,
+          "modifiers": [],
           "object": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
@@ -712,6 +716,7 @@
             "arguments": [
               {
                 "kind": 67,
+                "modifiers": [],
                 "object": {
                   "kind": 50,
                   "name": "r",
@@ -736,8 +741,6 @@
                     "column": 15
                   }
                 },
-                "computed": false,
-                "nullable": false,
                 "start": {
                   "line": 17,
                   "column": 8
@@ -748,7 +751,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 17,
               "column": 1
@@ -770,8 +772,6 @@
               "column": 19
             }
           },
-          "computed": false,
-          "nullable": false,
           "start": {
             "line": 17,
             "column": 1
@@ -793,8 +793,6 @@
             "column": 25
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 17,
           "column": 1
@@ -818,7 +816,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 17,
         "column": 1

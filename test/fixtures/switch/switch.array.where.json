@@ -4,11 +4,12 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "somePoint",
@@ -31,7 +32,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 23
+      },
       "init": {
         "kind": 4,
         "values": [
@@ -68,14 +76,6 @@
           "line": 1,
           "column": 23
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 23
       }
     },
     {
@@ -98,11 +98,13 @@
           "kind": 89,
           "body": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -127,8 +129,6 @@
                   "column": 56
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 4,
                 "column": 45
@@ -152,7 +152,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 4,
               "column": 45
@@ -357,11 +356,13 @@
           "kind": 89,
           "body": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -386,8 +387,6 @@
                   "column": 48
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 5,
                 "column": 37
@@ -411,7 +410,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 5,
               "column": 37
@@ -546,11 +544,13 @@
           "kind": 89,
           "body": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -575,8 +575,6 @@
                   "column": 48
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 6,
                 "column": 37
@@ -600,7 +598,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 6,
               "column": 37
@@ -735,11 +732,13 @@
           "kind": 89,
           "body": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -764,8 +763,6 @@
                   "column": 65
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 7,
                 "column": 54
@@ -789,7 +786,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 7,
               "column": 54
@@ -1040,11 +1036,13 @@
           "kind": 89,
           "body": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -1069,8 +1067,6 @@
                   "column": 39
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 8,
                 "column": 28
@@ -1094,7 +1090,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 8,
               "column": 28
@@ -1181,11 +1176,13 @@
           "kind": 89,
           "body": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -1210,8 +1207,6 @@
                   "column": 30
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 9,
                 "column": 19
@@ -1235,7 +1230,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 9,
               "column": 19

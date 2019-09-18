@@ -4,11 +4,12 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "view",
@@ -31,6 +32,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "UIView",
@@ -83,11 +85,13 @@
           "kind": 89,
           "body": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -112,8 +116,6 @@
                   "column": 38
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 4,
                 "column": 27
@@ -137,7 +139,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 4,
               "column": 27
@@ -160,6 +161,7 @@
               "kind": 94,
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "UIImageView",
@@ -197,11 +199,13 @@
           "kind": 89,
           "body": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -226,8 +230,6 @@
                   "column": 51
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 5,
                 "column": 40
@@ -251,7 +253,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 5,
               "column": 40
@@ -274,6 +275,7 @@
               "kind": 94,
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "UILabel",
@@ -322,6 +324,7 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "UILabel",
@@ -362,11 +365,12 @@
             "statements": [
               {
                 "kind": 112,
+                "modifiers": [],
                 "attributes": [],
-                "rebindable": true,
                 "variables": [
                   {
                     "kind": 113,
+                    "modifiers": [],
                     "name": {
                       "kind": 50,
                       "name": "sectionCount",
@@ -389,14 +393,23 @@
                     }
                   }
                 ],
-                "autotype": false,
+                "start": {
+                  "line": 7,
+                  "column": 7
+                },
+                "end": {
+                  "line": 7,
+                  "column": 49
+                },
                 "init": {
                   "kind": 14,
+                  "modifiers": [],
                   "scope": {
                     "kind": 3
                   },
                   "callee": {
                     "kind": 67,
+                    "modifiers": [],
                     "object": {
                       "kind": 50,
                       "name": "tblv",
@@ -421,8 +434,6 @@
                         "column": 47
                       }
                     },
-                    "computed": false,
-                    "nullable": false,
                     "start": {
                       "line": 7,
                       "column": 26
@@ -433,7 +444,6 @@
                     }
                   },
                   "arguments": [],
-                  "nullable": false,
                   "start": {
                     "line": 7,
                     "column": 26
@@ -442,23 +452,17 @@
                     "line": 7,
                     "column": 49
                   }
-                },
-                "start": {
-                  "line": 7,
-                  "column": 7
-                },
-                "end": {
-                  "line": 7,
-                  "column": 49
                 }
               },
               {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
                   "kind": 67,
+                  "modifiers": [],
                   "object": {
                     "kind": 50,
                     "name": "console",
@@ -483,8 +487,6 @@
                       "column": 18
                     }
                   },
-                  "computed": false,
-                  "nullable": false,
                   "start": {
                     "line": 8,
                     "column": 7
@@ -508,7 +510,6 @@
                     }
                   }
                 ],
-                "nullable": false,
                 "start": {
                   "line": 8,
                   "column": 7
@@ -542,6 +543,7 @@
               "kind": 94,
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "UITableView",
@@ -590,6 +592,7 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "UITableView",
@@ -626,11 +629,13 @@
           "kind": 89,
           "body": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -655,8 +660,6 @@
                   "column": 27
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 10,
                 "column": 16
@@ -680,7 +683,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 10,
               "column": 16

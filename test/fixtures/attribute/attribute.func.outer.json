@@ -58,6 +58,7 @@
         "statements": [
           {
             "kind": 112,
+            "modifiers": [],
             "attributes": [
               {
                 "kind": 6,
@@ -83,10 +84,10 @@
                 }
               }
             ],
-            "rebindable": true,
             "variables": [
               {
                 "kind": 113,
+                "modifiers": [],
                 "name": {
                   "kind": 50,
                   "name": "bar",
@@ -109,7 +110,14 @@
                 }
               }
             ],
-            "autotype": false,
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 14
+            },
             "init": {
               "kind": 73,
               "value": 42,
@@ -121,14 +129,6 @@
                 "line": 4,
                 "column": 14
               }
-            },
-            "start": {
-              "line": 3,
-              "column": 2
-            },
-            "end": {
-              "line": 4,
-              "column": 14
             }
           }
         ],

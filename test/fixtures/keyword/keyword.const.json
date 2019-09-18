@@ -4,11 +4,12 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "const",
@@ -31,7 +32,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 15
+      },
       "init": {
         "kind": 73,
         "value": 42,
@@ -43,23 +51,17 @@
           "line": 1,
           "column": 15
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 15
       }
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 50,
           "name": "console",
@@ -84,8 +86,6 @@
             "column": 12
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 3,
           "column": 1
@@ -143,7 +143,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 3,
         "column": 1

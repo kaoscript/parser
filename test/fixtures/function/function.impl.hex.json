@@ -54,6 +54,7 @@
             "types": [
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "string",
@@ -77,6 +78,7 @@
               },
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "number",
@@ -113,6 +115,7 @@
       "modifiers": [],
       "type": {
         "kind": 106,
+        "modifiers": [],
         "typeName": {
           "kind": 50,
           "name": "int",
@@ -144,25 +147,31 @@
             "attributes": [],
             "value": {
               "kind": 14,
+              "modifiers": [],
               "scope": {
                 "kind": 3
               },
               "callee": {
                 "kind": 67,
+                "modifiers": [],
                 "object": {
                   "kind": 14,
+                  "modifiers": [],
                   "scope": {
                     "kind": 3
                   },
                   "callee": {
                     "kind": 67,
+                    "modifiers": [],
                     "object": {
                       "kind": 14,
+                      "modifiers": [],
                       "scope": {
                         "kind": 3
                       },
                       "callee": {
                         "kind": 67,
+                        "modifiers": [],
                         "object": {
                           "kind": 50,
                           "name": "Float",
@@ -187,8 +196,6 @@
                             "column": 20
                           }
                         },
-                        "computed": false,
-                        "nullable": false,
                         "start": {
                           "line": 2,
                           "column": 9
@@ -212,7 +219,6 @@
                           }
                         }
                       ],
-                      "nullable": false,
                       "start": {
                         "line": 2,
                         "column": 9
@@ -234,8 +240,6 @@
                         "column": 29
                       }
                     },
-                    "computed": false,
-                    "nullable": false,
                     "start": {
                       "line": 2,
                       "column": 9
@@ -271,7 +275,6 @@
                       }
                     }
                   ],
-                  "nullable": false,
                   "start": {
                     "line": 2,
                     "column": 9
@@ -293,8 +296,6 @@
                     "column": 43
                   }
                 },
-                "computed": false,
-                "nullable": false,
                 "start": {
                   "line": 2,
                   "column": 9
@@ -305,7 +306,6 @@
                 }
               },
               "arguments": [],
-              "nullable": false,
               "start": {
                 "line": 2,
                 "column": 9
@@ -337,11 +337,13 @@
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 50,
           "name": "console",
@@ -366,8 +368,6 @@
             "column": 12
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 5,
           "column": 1
@@ -380,6 +380,7 @@
       "arguments": [
         {
           "kind": 14,
+          "modifiers": [],
           "scope": {
             "kind": 3
           },
@@ -409,7 +410,6 @@
               }
             }
           ],
-          "nullable": false,
           "start": {
             "line": 5,
             "column": 13
@@ -420,7 +420,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 5,
         "column": 1

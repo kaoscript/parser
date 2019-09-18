@@ -41,7 +41,7 @@
               "attributes": [],
               "modifiers": [
                 {
-                  "kind": 12,
+                  "kind": 14,
                   "start": {
                     "line": 3,
                     "column": 3
@@ -74,6 +74,7 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "String",
@@ -117,7 +118,7 @@
                   "kind": 78,
                   "modifiers": [
                     {
-                      "kind": 21,
+                      "kind": 22,
                       "start": {
                         "line": 6,
                         "column": 15
@@ -194,11 +195,24 @@
     },
     {
       "kind": 112,
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 10,
+            "column": 1
+          },
+          "end": {
+            "line": 10,
+            "column": 6
+          }
+        }
+      ],
       "attributes": [],
-      "rebindable": false,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "x",
@@ -221,11 +235,19 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 10,
+        "column": 1
+      },
+      "end": {
+        "line": 10,
+        "column": 27
+      },
       "init": {
         "kind": 25,
         "class": {
           "kind": 67,
+          "modifiers": [],
           "object": {
             "kind": 50,
             "name": "qux",
@@ -250,8 +272,6 @@
               "column": 25
             }
           },
-          "computed": false,
-          "nullable": false,
           "start": {
             "line": 10,
             "column": 15
@@ -270,14 +290,6 @@
           "line": 10,
           "column": 27
         }
-      },
-      "start": {
-        "line": 10,
-        "column": 1
-      },
-      "end": {
-        "line": 10,
-        "column": 27
       }
     }
   ],

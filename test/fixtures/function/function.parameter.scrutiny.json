@@ -8,6 +8,7 @@
       "declarations": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "console",
@@ -88,11 +89,23 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [
+              {
+                "kind": 11,
+                "start": {
+                  "line": 3,
+                  "column": 14
+                },
+                "end": {
+                  "line": 3,
+                  "column": 15
+                }
+              }
+            ],
             "typeName": {
               "kind": 50,
               "name": "any"
             },
-            "nullable": true,
             "start": {
               "line": 3,
               "column": 14
@@ -112,11 +125,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -141,8 +156,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 4,
                 "column": 2
@@ -166,7 +179,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 4,
               "column": 2
@@ -257,11 +269,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -286,8 +300,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 8,
                 "column": 2
@@ -311,7 +323,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 8,
               "column": 2
@@ -382,6 +393,19 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [
+              {
+                "kind": 11,
+                "start": {
+                  "line": 11,
+                  "column": 22
+                },
+                "end": {
+                  "line": 11,
+                  "column": 23
+                }
+              }
+            ],
             "typeName": {
               "kind": 50,
               "name": "String",
@@ -401,8 +425,7 @@
             "end": {
               "line": 11,
               "column": 23
-            },
-            "nullable": true
+            }
           }
         }
       ],
@@ -414,11 +437,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -443,8 +468,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 12,
                 "column": 2
@@ -468,7 +491,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 12,
               "column": 2
@@ -539,6 +561,19 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [
+              {
+                "kind": 11,
+                "start": {
+                  "line": 15,
+                  "column": 22
+                },
+                "end": {
+                  "line": 15,
+                  "column": 23
+                }
+              }
+            ],
             "typeName": {
               "kind": 50,
               "name": "String",
@@ -558,8 +593,7 @@
             "end": {
               "line": 15,
               "column": 23
-            },
-            "nullable": true
+            }
           },
           "defaultValue": {
             "kind": 50,
@@ -583,11 +617,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -612,8 +648,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 16,
                 "column": 2
@@ -637,7 +671,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 16,
               "column": 2

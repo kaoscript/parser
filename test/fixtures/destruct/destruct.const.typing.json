@@ -4,11 +4,24 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 6
+          }
+        }
+      ],
       "attributes": [],
-      "rebindable": false,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 2,
             "elements": [
@@ -87,6 +100,7 @@
             "elements": [
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Number",
@@ -110,6 +124,7 @@
               },
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Number",
@@ -143,9 +158,17 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 39
+      },
       "init": {
         "kind": 14,
+        "modifiers": [],
         "scope": {
           "kind": 3
         },
@@ -162,7 +185,6 @@
           }
         },
         "arguments": [],
-        "nullable": false,
         "start": {
           "line": 1,
           "column": 34
@@ -171,23 +193,28 @@
           "line": 1,
           "column": 39
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 39
       }
     },
     {
       "kind": 112,
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 6
+          }
+        }
+      ],
       "attributes": [],
-      "rebindable": false,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 2,
             "elements": [
@@ -259,6 +286,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Array",
@@ -271,9 +299,18 @@
                 "column": 20
               }
             },
+            "start": {
+              "line": 3,
+              "column": 15
+            },
+            "end": {
+              "line": 3,
+              "column": 28
+            },
             "typeParameters": [
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Number",
@@ -295,21 +332,21 @@
                   "column": 27
                 }
               }
-            ],
-            "start": {
-              "line": 3,
-              "column": 15
-            },
-            "end": {
-              "line": 3,
-              "column": 28
-            }
+            ]
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 36
+      },
       "init": {
         "kind": 14,
+        "modifiers": [],
         "scope": {
           "kind": 3
         },
@@ -326,7 +363,6 @@
           }
         },
         "arguments": [],
-        "nullable": false,
         "start": {
           "line": 3,
           "column": 31
@@ -335,23 +371,28 @@
           "line": 3,
           "column": 36
         }
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 36
       }
     },
     {
       "kind": 112,
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 5,
+            "column": 1
+          },
+          "end": {
+            "line": 5,
+            "column": 6
+          }
+        }
+      ],
       "attributes": [],
-      "rebindable": false,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 74,
             "elements": [
@@ -444,6 +485,7 @@
                 },
                 "type": {
                   "kind": 106,
+                  "modifiers": [],
                   "typeName": {
                     "kind": 50,
                     "name": "Number",
@@ -490,6 +532,7 @@
                 },
                 "type": {
                   "kind": 106,
+                  "modifiers": [],
                   "typeName": {
                     "kind": 50,
                     "name": "Number",
@@ -532,9 +575,17 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 45
+      },
       "init": {
         "kind": 14,
+        "modifiers": [],
         "scope": {
           "kind": 3
         },
@@ -551,7 +602,6 @@
           }
         },
         "arguments": [],
-        "nullable": false,
         "start": {
           "line": 5,
           "column": 40
@@ -560,23 +610,28 @@
           "line": 5,
           "column": 45
         }
-      },
-      "start": {
-        "line": 5,
-        "column": 1
-      },
-      "end": {
-        "line": 5,
-        "column": 45
       }
     },
     {
       "kind": 112,
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 7,
+            "column": 1
+          },
+          "end": {
+            "line": 7,
+            "column": 6
+          }
+        }
+      ],
       "attributes": [],
-      "rebindable": false,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 74,
             "elements": [
@@ -648,6 +703,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Object",
@@ -660,9 +716,18 @@
                 "column": 21
               }
             },
+            "start": {
+              "line": 7,
+              "column": 15
+            },
+            "end": {
+              "line": 7,
+              "column": 29
+            },
             "typeParameters": [
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Number",
@@ -684,21 +749,21 @@
                   "column": 28
                 }
               }
-            ],
-            "start": {
-              "line": 7,
-              "column": 15
-            },
-            "end": {
-              "line": 7,
-              "column": 29
-            }
+            ]
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 7,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 37
+      },
       "init": {
         "kind": 14,
+        "modifiers": [],
         "scope": {
           "kind": 3
         },
@@ -715,7 +780,6 @@
           }
         },
         "arguments": [],
-        "nullable": false,
         "start": {
           "line": 7,
           "column": 32
@@ -724,14 +788,6 @@
           "line": 7,
           "column": 37
         }
-      },
-      "start": {
-        "line": 7,
-        "column": 1
-      },
-      "end": {
-        "line": 7,
-        "column": 37
       }
     }
   ],

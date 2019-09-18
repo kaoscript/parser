@@ -203,6 +203,7 @@
                 },
                 "type": {
                   "kind": 106,
+                  "modifiers": [],
                   "typeName": {
                     "kind": 50,
                     "name": "Number",
@@ -262,6 +263,7 @@
                 },
                 "type": {
                   "kind": 106,
+                  "modifiers": [],
                   "typeName": {
                     "kind": 50,
                     "name": "Number",
@@ -321,6 +323,7 @@
                 },
                 "type": {
                   "kind": 106,
+                  "modifiers": [],
                   "typeName": {
                     "kind": 50,
                     "name": "Number",
@@ -560,6 +563,7 @@
             "elements": [
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Number",
@@ -583,6 +587,7 @@
               },
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Number",
@@ -606,6 +611,7 @@
               },
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Number",
@@ -825,6 +831,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Array",
@@ -837,9 +844,18 @@
                 "column": 38
               }
             },
+            "start": {
+              "line": 13,
+              "column": 33
+            },
+            "end": {
+              "line": 13,
+              "column": 46
+            },
             "typeParameters": [
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Number",
@@ -861,15 +877,7 @@
                   "column": 45
                 }
               }
-            ],
-            "start": {
-              "line": 13,
-              "column": 33
-            },
-            "end": {
-              "line": 13,
-              "column": 46
-            }
+            ]
           },
           "defaultValue": {
             "kind": 4,
@@ -991,7 +999,7 @@
                 "kind": 11,
                 "modifiers": [
                   {
-                    "kind": 17,
+                    "kind": 18,
                     "start": {
                       "line": 17,
                       "column": 17
@@ -1129,7 +1137,7 @@
                 "kind": 11,
                 "modifiers": [
                   {
-                    "kind": 17,
+                    "kind": 18,
                     "start": {
                       "line": 21,
                       "column": 16
@@ -1426,11 +1434,24 @@
     },
     {
       "kind": 112,
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 29,
+            "column": 1
+          },
+          "end": {
+            "line": 29,
+            "column": 6
+          }
+        }
+      ],
       "attributes": [],
-      "rebindable": false,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "foo",
@@ -1453,7 +1474,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 29,
+        "column": 1
+      },
+      "end": {
+        "line": 29,
+        "column": 49
+      },
       "init": {
         "kind": 63,
         "modifiers": [],
@@ -1662,14 +1690,6 @@
           "line": 29,
           "column": 49
         }
-      },
-      "start": {
-        "line": 29,
-        "column": 1
-      },
-      "end": {
-        "line": 29,
-        "column": 49
       }
     }
   ],

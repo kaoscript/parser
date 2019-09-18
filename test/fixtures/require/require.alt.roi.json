@@ -27,6 +27,7 @@
               "attributes": [],
               "imported": {
                 "kind": 113,
+                "modifiers": [],
                 "name": {
                   "kind": 50,
                   "name": "Array",
@@ -204,11 +205,13 @@
                   "values": [
                     {
                       "kind": 14,
+                      "modifiers": [],
                       "scope": {
                         "kind": 3
                       },
                       "callee": {
                         "kind": 67,
+                        "modifiers": [],
                         "object": {
                           "kind": 50,
                           "name": "this",
@@ -233,8 +236,6 @@
                             "column": 22
                           }
                         },
-                        "computed": false,
-                        "nullable": false,
                         "start": {
                           "line": 5,
                           "column": 10
@@ -270,7 +271,6 @@
                           }
                         }
                       ],
-                      "nullable": false,
                       "start": {
                         "line": 5,
                         "column": 10
@@ -354,7 +354,7 @@
               "kind": 78,
               "modifiers": [
                 {
-                  "kind": 17,
+                  "kind": 18,
                   "arity": {
                     "min": 0,
                     "max": "Infinity"
@@ -412,6 +412,7 @@
                   "values": [
                     {
                       "kind": 67,
+                      "modifiers": [],
                       "object": {
                         "kind": 50,
                         "name": "args",
@@ -436,8 +437,6 @@
                           "column": 17
                         }
                       },
-                      "computed": false,
-                      "nullable": false,
                       "start": {
                         "line": 8,
                         "column": 6
@@ -502,11 +501,13 @@
                         },
                         "argument": {
                           "kind": 14,
+                          "modifiers": [],
                           "scope": {
                             "kind": 3
                           },
                           "callee": {
                             "kind": 67,
+                            "modifiers": [],
                             "object": {
                               "kind": 50,
                               "name": "this",
@@ -531,8 +532,6 @@
                                 "column": 21
                               }
                             },
-                            "computed": false,
-                            "nullable": false,
                             "start": {
                               "line": 9,
                               "column": 8
@@ -545,6 +544,19 @@
                           "arguments": [
                             {
                               "kind": 67,
+                              "modifiers": [
+                                {
+                                  "kind": 5,
+                                  "start": {
+                                    "line": 9,
+                                    "column": 26
+                                  },
+                                  "end": {
+                                    "line": 9,
+                                    "column": 27
+                                  }
+                                }
+                              ],
                               "object": {
                                 "kind": 50,
                                 "name": "args",
@@ -569,8 +581,6 @@
                                   "column": 28
                                 }
                               },
-                              "computed": true,
-                              "nullable": false,
                               "start": {
                                 "line": 9,
                                 "column": 22
@@ -581,7 +591,6 @@
                               }
                             }
                           ],
-                          "nullable": false,
                           "start": {
                             "line": 9,
                             "column": 8
@@ -606,11 +615,13 @@
                         "statements": [
                           {
                             "kind": 14,
+                            "modifiers": [],
                             "scope": {
                               "kind": 3
                             },
                             "callee": {
                               "kind": 67,
+                              "modifiers": [],
                               "object": {
                                 "kind": 50,
                                 "name": "this",
@@ -635,8 +646,6 @@
                                   "column": 14
                                 }
                               },
-                              "computed": false,
-                              "nullable": false,
                               "start": {
                                 "line": 10,
                                 "column": 5
@@ -649,6 +658,19 @@
                             "arguments": [
                               {
                                 "kind": 67,
+                                "modifiers": [
+                                  {
+                                    "kind": 5,
+                                    "start": {
+                                      "line": 10,
+                                      "column": 19
+                                    },
+                                    "end": {
+                                      "line": 10,
+                                      "column": 20
+                                    }
+                                  }
+                                ],
                                 "object": {
                                   "kind": 50,
                                   "name": "args",
@@ -673,8 +695,6 @@
                                     "column": 21
                                   }
                                 },
-                                "computed": true,
-                                "nullable": false,
                                 "start": {
                                   "line": 10,
                                   "column": 15
@@ -685,7 +705,6 @@
                                 }
                               }
                             ],
-                            "nullable": false,
                             "start": {
                               "line": 10,
                               "column": 5
@@ -740,6 +759,7 @@
                     {
                       "kind": 44,
                       "attributes": [],
+                      "modifiers": [],
                       "expression": {
                         "kind": 50,
                         "name": "args",
@@ -752,8 +772,6 @@
                           "column": 20
                         }
                       },
-                      "desc": false,
-                      "declaration": false,
                       "start": {
                         "line": 14,
                         "column": 4
@@ -796,11 +814,13 @@
                               },
                               "argument": {
                                 "kind": 14,
+                                "modifiers": [],
                                 "scope": {
                                   "kind": 3
                                 },
                                 "callee": {
                                   "kind": 67,
+                                  "modifiers": [],
                                   "object": {
                                     "kind": 50,
                                     "name": "this",
@@ -825,8 +845,6 @@
                                       "column": 22
                                     }
                                   },
-                                  "computed": false,
-                                  "nullable": false,
                                   "start": {
                                     "line": 15,
                                     "column": 9
@@ -850,7 +868,6 @@
                                     }
                                   }
                                 ],
-                                "nullable": false,
                                 "start": {
                                   "line": 15,
                                   "column": 9
@@ -875,11 +892,13 @@
                               "statements": [
                                 {
                                   "kind": 14,
+                                  "modifiers": [],
                                   "scope": {
                                     "kind": 3
                                   },
                                   "callee": {
                                     "kind": 67,
+                                    "modifiers": [],
                                     "object": {
                                       "kind": 50,
                                       "name": "this",
@@ -904,8 +923,6 @@
                                         "column": 15
                                       }
                                     },
-                                    "computed": false,
-                                    "nullable": false,
                                     "start": {
                                       "line": 16,
                                       "column": 6
@@ -929,7 +946,6 @@
                                       }
                                     }
                                   ],
-                                  "nullable": false,
                                   "start": {
                                     "line": 16,
                                     "column": 6

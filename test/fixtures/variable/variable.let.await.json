@@ -4,11 +4,12 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "a",
@@ -32,6 +33,7 @@
         },
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "b",
@@ -54,11 +56,20 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 23
+      },
       "init": {
         "kind": 9,
+        "modifiers": [],
         "operation": {
           "kind": 14,
+          "modifiers": [],
           "scope": {
             "kind": 3
           },
@@ -75,7 +86,6 @@
             }
           },
           "arguments": [],
-          "nullable": false,
           "start": {
             "line": 1,
             "column": 18
@@ -96,6 +106,7 @@
         "variables": [
           {
             "kind": 113,
+            "modifiers": [],
             "name": {
               "kind": 50,
               "name": "a",
@@ -119,6 +130,7 @@
           },
           {
             "kind": 113,
+            "modifiers": [],
             "name": {
               "kind": 50,
               "name": "b",
@@ -141,14 +153,6 @@
             }
           }
         ]
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 23
       }
     }
   ],

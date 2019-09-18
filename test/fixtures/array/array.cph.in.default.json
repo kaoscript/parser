@@ -130,6 +130,30 @@
         "loop": {
           "kind": 44,
           "attributes": [],
+          "modifiers": [
+            {
+              "kind": 6,
+              "start": {
+                "line": 3,
+                "column": 24
+              },
+              "end": {
+                "line": 3,
+                "column": 29
+              }
+            },
+            {
+              "kind": 10,
+              "start": {
+                "line": 3,
+                "column": 24
+              },
+              "end": {
+                "line": 3,
+                "column": 29
+              }
+            }
+          ],
           "expression": {
             "kind": 50,
             "name": "heroes",
@@ -142,8 +166,6 @@
               "column": 51
             }
           },
-          "desc": false,
-          "declaration": true,
           "start": {
             "line": 3,
             "column": 20
@@ -152,7 +174,6 @@
             "line": 3,
             "column": 51
           },
-          "rebindable": false,
           "value": {
             "kind": 50,
             "name": "hero",

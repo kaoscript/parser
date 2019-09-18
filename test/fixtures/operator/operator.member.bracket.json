@@ -4,11 +4,12 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "m",
@@ -31,7 +32,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 14
+      },
       "init": {
         "kind": 64,
         "value": "qux",
@@ -43,23 +51,16 @@
           "line": 1,
           "column": 14
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 14
       }
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "qux",
@@ -82,14 +83,46 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 2,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 20
+      },
       "init": {
         "kind": 14,
+        "modifiers": [],
         "scope": {
           "kind": 3
         },
         "callee": {
           "kind": 67,
+          "modifiers": [
+            {
+              "kind": 11,
+              "start": {
+                "line": 2,
+                "column": 14
+              },
+              "end": {
+                "line": 2,
+                "column": 16
+              }
+            },
+            {
+              "kind": 5,
+              "start": {
+                "line": 2,
+                "column": 14
+              },
+              "end": {
+                "line": 2,
+                "column": 16
+              }
+            }
+          ],
           "object": {
             "kind": 50,
             "name": "foo",
@@ -114,8 +147,6 @@
               "column": 17
             }
           },
-          "computed": true,
-          "nullable": true,
           "start": {
             "line": 2,
             "column": 11
@@ -126,7 +157,6 @@
           }
         },
         "arguments": [],
-        "nullable": false,
         "start": {
           "line": 2,
           "column": 11
@@ -135,14 +165,6 @@
           "line": 2,
           "column": 20
         }
-      },
-      "start": {
-        "line": 2,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 20
       }
     }
   ],

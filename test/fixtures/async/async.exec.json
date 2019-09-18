@@ -27,6 +27,7 @@
               "attributes": [],
               "imported": {
                 "kind": 113,
+                "modifiers": [],
                 "name": {
                   "kind": 50,
                   "name": "exec",
@@ -91,11 +92,12 @@
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "stdout",
@@ -119,6 +121,7 @@
         },
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "stderr",
@@ -141,11 +144,20 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 37
+      },
       "init": {
         "kind": 9,
+        "modifiers": [],
         "operation": {
           "kind": 14,
+          "modifiers": [],
           "scope": {
             "kind": 3
           },
@@ -175,7 +187,6 @@
               }
             }
           ],
-          "nullable": false,
           "start": {
             "line": 3,
             "column": 28
@@ -196,6 +207,7 @@
         "variables": [
           {
             "kind": 113,
+            "modifiers": [],
             "name": {
               "kind": 50,
               "name": "stdout",
@@ -219,6 +231,7 @@
           },
           {
             "kind": 113,
+            "modifiers": [],
             "name": {
               "kind": 50,
               "name": "stderr",
@@ -241,14 +254,6 @@
             }
           }
         ]
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 37
       }
     }
   ],

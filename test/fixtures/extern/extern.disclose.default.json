@@ -23,7 +23,7 @@
           },
           "modifiers": [
             {
-              "kind": 18,
+              "kind": 19,
               "start": {
                 "line": 1,
                 "column": 8
@@ -91,7 +91,7 @@
               "kind": 78,
               "modifiers": [
                 {
-                  "kind": 17,
+                  "kind": 18,
                   "arity": {
                     "min": 0,
                     "max": "Infinity"
@@ -126,6 +126,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Array",
@@ -138,9 +139,18 @@
                 "column": 19
               }
             },
+            "start": {
+              "line": 4,
+              "column": 14
+            },
+            "end": {
+              "line": 4,
+              "column": 27
+            },
             "typeParameters": [
               {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "String",
@@ -162,15 +172,7 @@
                   "column": 26
                 }
               }
-            ],
-            "start": {
-              "line": 4,
-              "column": 14
-            },
-            "end": {
-              "line": 4,
-              "column": 27
-            }
+            ]
           },
           "throws": []
         },
@@ -195,7 +197,7 @@
               "kind": 78,
               "modifiers": [
                 {
-                  "kind": 17,
+                  "kind": 18,
                   "arity": {
                     "min": 0,
                     "max": "Infinity"
@@ -230,6 +232,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "String",
@@ -280,6 +283,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "String",

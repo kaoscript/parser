@@ -4,11 +4,12 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "foo",
@@ -31,7 +32,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      },
       "init": {
         "kind": 75,
         "attributes": [],
@@ -92,6 +100,7 @@
                   },
                   "type": {
                     "kind": 106,
+                    "modifiers": [],
                     "typeName": {
                       "kind": 50,
                       "name": "String",
@@ -182,14 +191,6 @@
           "line": 5,
           "column": 2
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 5,
-        "column": 2
       }
     }
   ],

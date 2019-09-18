@@ -4,11 +4,13 @@
   "body": [
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 50,
           "name": "console",
@@ -33,8 +35,6 @@
             "column": 12
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 1,
           "column": 1
@@ -49,11 +49,13 @@
           "kind": 98,
           "tag": {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "foo",
@@ -78,8 +80,6 @@
                   "column": 20
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 1,
                 "column": 13
@@ -90,7 +90,6 @@
               }
             },
             "arguments": [],
-            "nullable": false,
             "start": {
               "line": 1,
               "column": 13
@@ -171,7 +170,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 1,
         "column": 1

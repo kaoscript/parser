@@ -71,11 +71,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -100,8 +102,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 2,
                 "column": 2
@@ -125,7 +125,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 2,
               "column": 2
@@ -196,6 +195,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "any",
@@ -239,11 +239,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -268,8 +270,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 6,
                 "column": 2
@@ -293,7 +293,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 6,
               "column": 2
@@ -364,6 +363,19 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [
+              {
+                "kind": 11,
+                "start": {
+                  "line": 9,
+                  "column": 19
+                },
+                "end": {
+                  "line": 9,
+                  "column": 20
+                }
+              }
+            ],
             "typeName": {
               "kind": 50,
               "name": "any",
@@ -383,8 +395,7 @@
             "end": {
               "line": 9,
               "column": 20
-            },
-            "nullable": true
+            }
           },
           "defaultValue": {
             "kind": 73,
@@ -408,11 +419,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -437,8 +450,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 10,
                 "column": 2
@@ -462,7 +473,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 10,
               "column": 2
@@ -533,6 +543,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "int",
@@ -576,11 +587,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -605,8 +618,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 14,
                 "column": 2
@@ -630,7 +641,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 14,
               "column": 2
@@ -701,6 +711,19 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [
+              {
+                "kind": 11,
+                "start": {
+                  "line": 17,
+                  "column": 20
+                },
+                "end": {
+                  "line": 17,
+                  "column": 21
+                }
+              }
+            ],
             "typeName": {
               "kind": 50,
               "name": "int",
@@ -720,8 +743,7 @@
             "end": {
               "line": 17,
               "column": 21
-            },
-            "nullable": true
+            }
           },
           "defaultValue": {
             "kind": 73,
@@ -745,11 +767,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -774,8 +798,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 18,
                 "column": 2
@@ -799,7 +821,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 18,
               "column": 2
@@ -870,11 +891,23 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [
+              {
+                "kind": 11,
+                "start": {
+                  "line": 21,
+                  "column": 16
+                },
+                "end": {
+                  "line": 21,
+                  "column": 17
+                }
+              }
+            ],
             "typeName": {
               "kind": 50,
               "name": "any"
             },
-            "nullable": true,
             "start": {
               "line": 21,
               "column": 16
@@ -906,11 +939,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -935,8 +970,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 22,
                 "column": 2
@@ -960,7 +993,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 22,
               "column": 2

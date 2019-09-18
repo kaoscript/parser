@@ -4,11 +4,24 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 6
+          }
+        }
+      ],
       "attributes": [],
-      "rebindable": false,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "await",
@@ -31,7 +44,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 17
+      },
       "init": {
         "kind": 73,
         "value": 42,
@@ -43,23 +63,17 @@
           "line": 1,
           "column": 17
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 17
       }
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 50,
           "name": "console",
@@ -84,8 +98,6 @@
             "column": 12
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 3,
           "column": 1
@@ -143,7 +155,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 3,
         "column": 1

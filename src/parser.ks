@@ -251,7 +251,7 @@ export namespace Parser {
 				}
 			}
 		} // }}}
-		altForExpressionFrom(declaration, rebindable, variable, first) ~ SyntaxError { // {{{
+		altForExpressionFrom(modifiers, variable, first) ~ SyntaxError { // {{{
 			const from = this.reqExpression(ExpressionMode::Default)
 
 			let til, to
@@ -297,12 +297,14 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForFromStatement(declaration, rebindable, variable, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from))
+			return this.yep(AST.ForFromStatement(modifiers, variable, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from))
 		} // }}}
-		altForExpressionIn(declaration, rebindable, value, index, expression, first) ~ SyntaxError { // {{{
+		altForExpressionIn(modifiers, value, index, expression, first) ~ SyntaxError { // {{{
 			let desc = null
 			if this.test(Token::DESC) {
 				desc = this.yes()
+
+				modifiers.push(AST.Modifier(ModifierKind::Descending, desc))
 			}
 
 			this.NL_0M()
@@ -352,9 +354,9 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForInStatement(declaration, rebindable, value, index, expression, desc, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from ?? desc ?? expression))
+			return this.yep(AST.ForInStatement(modifiers, value, index, expression, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from ?? desc ?? expression))
 		} // }}}
-		altForExpressionInRange(declaration, rebindable, value, index, first) ~ SyntaxError { // {{{
+		altForExpressionInRange(modifiers, value, index, first) ~ SyntaxError { // {{{
 			let operand = this.tryRangeOperand(ExpressionMode::Default)
 
 			if operand.ok {
@@ -387,17 +389,17 @@ export namespace Parser {
 						byOperand = this.reqPrefixedOperand(ExpressionMode::Default)
 					}
 
-					return this.altForExpressionRange(declaration, rebindable, value, index, then ? null : operand, then ? operand : null, til ? toOperand : null, til ? null : toOperand, byOperand, first)
+					return this.altForExpressionRange(modifiers, value, index, then ? null : operand, then ? operand : null, til ? toOperand : null, til ? null : toOperand, byOperand, first)
 				}
 				else {
-					return this.altForExpressionIn(declaration, rebindable, value, index, operand, first)
+					return this.altForExpressionIn(modifiers, value, index, operand, first)
 				}
 			}
 			else {
-				return this.altForExpressionIn(declaration, rebindable, value, index, this.reqExpression(ExpressionMode::Default), first)
+				return this.altForExpressionIn(modifiers, value, index, this.reqExpression(ExpressionMode::Default), first)
 			}
 		} // }}}
-		altForExpressionOf(declaration, rebindable, key?, value?, first) ~ SyntaxError { // {{{
+		altForExpressionOf(modifiers, key?, value?, first) ~ SyntaxError { // {{{
 			const expression = this.reqExpression(ExpressionMode::Default)
 
 			let until, while
@@ -421,9 +423,9 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForOfStatement(declaration, rebindable, key, value, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
+			return this.yep(AST.ForOfStatement(modifiers, key, value, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
 		} // }}}
-		altForExpressionRange(declaration, rebindable, value, index, from?, then?, til?, to?, by?, first) ~ SyntaxError { // {{{
+		altForExpressionRange(modifiers, value, index, from?, then?, til?, to?, by?, first) ~ SyntaxError { // {{{
 			let until, while
 			if this.match(Token::UNTIL, Token::WHILE) == Token::UNTIL {
 				this.commit()
@@ -445,7 +447,7 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForRangeStatement(declaration, rebindable, value, index, from, then, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? then ?? from:Any))
+			return this.yep(AST.ForRangeStatement(modifiers, value, index, from, then, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? then ?? from:Any))
 		} // }}}
 		reqArray(first) ~ SyntaxError { // {{{
 			if this.test(Token::RIGHT_SQUARE) {
@@ -606,7 +608,7 @@ export namespace Parser {
 		reqAwaitExpression(first) ~ SyntaxError { // {{{
 			const operand = this.reqPrefixedOperand(ExpressionMode::Default)
 
-			return this.yep(AST.AwaitExpression(null, false, operand, first, operand))
+			return this.yep(AST.AwaitExpression([], null, operand, first, operand))
 		} // }}}
 		reqBinaryOperand(mode) ~ SyntaxError { // {{{
 			const mark = this.mark()
@@ -1165,7 +1167,7 @@ export namespace Parser {
 
 						property = this.reqIdentifier()
 
-						extends = this.yep(AST.MemberExpression(extends, property, false, false))
+						extends = this.yep(AST.MemberExpression([], extends, property))
 					}
 					while this.testNS(Token::DOT)
 				}
@@ -1205,6 +1207,7 @@ export namespace Parser {
 		} // }}}
 		reqConstStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
 			const variable = this.reqTypedVariable()
+			const modifiers = [AST.Modifier(ModifierKind::Immutable, first)]
 
 			if this.test(Token::COMMA) {
 				const variables = [variable]
@@ -1216,7 +1219,7 @@ export namespace Parser {
 				}
 				while this.test(Token::COMMA)
 
-				const equals = this.reqVariableEquals()
+				this.reqVariableEquals(modifiers)
 
 				unless this.test(Token::AWAIT) {
 					this.throw('await')
@@ -1226,15 +1229,16 @@ export namespace Parser {
 
 				let operand = this.reqPrefixedOperand(mode)
 
-				operand = this.yep(AST.AwaitExpression(variables, false, operand, variable, operand))
+				operand = this.yep(AST.AwaitExpression([], variables, operand, variable, operand))
 
-				return this.yep(AST.VariableDeclaration(variables, false, equals, operand, first, operand))
+				return this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
 			}
 			else {
-				const equals = this.reqVariableEquals()
+				this.reqVariableEquals(modifiers)
+
 				const expression = this.reqExpression(mode)
 
-				return this.yep(AST.VariableDeclaration([variable], false, equals, expression, first, expression))
+				return this.yep(AST.VariableDeclaration(modifiers, [variable], expression, first, expression))
 			}
 		} // }}}
 		reqContinueStatement(first) { // {{{
@@ -1266,7 +1270,7 @@ export namespace Parser {
 			if this.match(Token::LEFT_ANGLE, Token::LEFT_SQUARE) == Token::LEFT_ANGLE {
 				const generic = this.reqTypeGeneric(this.yes())
 
-				class = this.yep(AST.TypeReference(class, generic, null, class, generic))
+				class = this.yep(AST.TypeReference([], class, generic, class, generic))
 			}
 
 			if this.test(Token::LEFT_ROUND) {
@@ -1692,7 +1696,7 @@ export namespace Parser {
 					else {
 						identifier = this.reqIdentifier()
 
-						value = this.yep(AST.MemberExpression(value, identifier, false, false))
+						value = this.yep(AST.MemberExpression([], value, identifier))
 					}
 				}
 				while this.testNS(Token::DOT)
@@ -2161,16 +2165,17 @@ export namespace Parser {
 				Token::CONST where ns => {
 					const first = this.yes()
 					const name = this.reqIdentifier()
+					const modifiers = [AST.Modifier(ModifierKind::Immutable, first)]
 
 					if this.test(Token::COLON) {
 						this.commit()
 
 						const type = this.reqTypeVar()
 
-						return this.yep(AST.VariableDeclarator(name, type, true, first, type))
+						return this.yep(AST.VariableDeclarator(modifiers, name, type, first, type))
 					}
 					else {
-						return this.yep(AST.VariableDeclarator(name, null, true, first, name))
+						return this.yep(AST.VariableDeclarator(modifiers, name, null, first, name))
 					}
 				}
 				Token::ENUM => {
@@ -2233,16 +2238,17 @@ export namespace Parser {
 					}
 					else if @token == Token::IDENTIFIER {
 						const name = this.reqIdentifier()
+						const modifiers = [sealed.value]
 
 						if this.test(Token::COLON) {
 							this.commit()
 
 							const type = this.reqTypeVar()
 
-							return this.yep(AST.VariableDeclarator(name, type, true, sealed, type))
+							return this.yep(AST.VariableDeclarator(modifiers, name, type, sealed, type))
 						}
 						else {
-							return this.yep(AST.VariableDeclarator(name, null, true, sealed, name))
+							return this.yep(AST.VariableDeclarator(modifiers, name, null, sealed, name))
 						}
 					}
 					else if @token == Token::NAMESPACE {
@@ -2263,10 +2269,10 @@ export namespace Parser {
 
 						const type = this.reqTypeVar()
 
-						return this.yep(AST.VariableDeclarator(name, type, false, first, type))
+						return this.yep(AST.VariableDeclarator([], name, type, first, type))
 					}
 					else {
-						return this.yep(AST.VariableDeclarator(name, null, false, first, name))
+						return this.yep(AST.VariableDeclarator([], name, null, first, name))
 					}
 				}
 				=> {
@@ -2499,7 +2505,7 @@ export namespace Parser {
 
 				const type = this.reqTypeVar()
 
-				return this.yep(AST.VariableDeclarator(name, type, name, type))
+				return this.yep(AST.VariableDeclarator([], name, type, name, type))
 			}
 			else if @token == Token::LEFT_ROUND {
 				const parameters = this.reqFunctionParameterList()
@@ -2508,23 +2514,19 @@ export namespace Parser {
 				return this.yep(AST.FunctionDeclaration(name, parameters, [], type, null, null, name, type ?? parameters))
 			}
 			else {
-				return this.yep(AST.VariableDeclarator(name, null, name, name))
+				return this.yep(AST.VariableDeclarator([], name, null, name, name))
 			}
 		} // }}}
 		reqForExpression(first) ~ SyntaxError { // {{{
-			let declaration = false
-			let rebindable = true
+			const modifiers = []
 
 			if this.test(Token::LET) {
-				this.commit()
-
-				declaration = true
+				modifiers.push(AST.Modifier(ModifierKind::Declarative, this.yes()))
 			}
 			else if this.test(Token::CONST) {
-				this.commit()
+				const position = this.yes()
 
-				declaration = true
-				rebindable = false
+				modifiers.push(AST.Modifier(ModifierKind::Declarative, position), AST.Modifier(ModifierKind::Immutable, position))
 			}
 
 			let identifier1 = NO
@@ -2554,12 +2556,12 @@ export namespace Parser {
 				if this.match(Token::IN, Token::OF) == Token::IN {
 					this.commit()
 
-					return this.altForExpressionIn(declaration, rebindable, destructuring, identifier2, this.reqExpression(ExpressionMode::Default), first)
+					return this.altForExpressionIn(modifiers, destructuring, identifier2, this.reqExpression(ExpressionMode::Default), first)
 				}
 				else if @token == Token::OF {
 					this.commit()
 
-					return this.altForExpressionOf(declaration, rebindable, destructuring, identifier2, first)
+					return this.altForExpressionOf(modifiers, destructuring, identifier2, first)
 				}
 				else {
 					this.throw(['in', 'of'])
@@ -2569,12 +2571,12 @@ export namespace Parser {
 				if this.match(Token::IN, Token::OF) == Token::IN {
 					this.commit()
 
-					return this.altForExpressionInRange(declaration, rebindable, identifier1, identifier2, first)
+					return this.altForExpressionInRange(modifiers, identifier1, identifier2, first)
 				}
 				else if @token == Token::OF {
 					this.commit()
 
-					return this.altForExpressionOf(declaration, rebindable, identifier1, identifier2, first)
+					return this.altForExpressionOf(modifiers, identifier1, identifier2, first)
 				}
 				else {
 					this.throw(['in', 'of'])
@@ -2584,17 +2586,17 @@ export namespace Parser {
 				if this.match(Token::FROM, Token::IN, Token::OF) == Token::FROM {
 					this.commit()
 
-					return this.altForExpressionFrom(declaration, rebindable, identifier1, first)
+					return this.altForExpressionFrom(modifiers, identifier1, first)
 				}
 				else if @token == Token::IN {
 					this.commit()
 
-					return this.altForExpressionInRange(declaration, rebindable, identifier1, identifier2, first)
+					return this.altForExpressionInRange(modifiers, identifier1, identifier2, first)
 				}
 				else if @token == Token::OF {
 					this.commit()
 
-					return this.altForExpressionOf(declaration, rebindable, identifier1, identifier2, first)
+					return this.altForExpressionOf(modifiers, identifier1, identifier2, first)
 				}
 				else {
 					this.throw(['from', 'in', 'of'])
@@ -2699,9 +2701,12 @@ export namespace Parser {
 			let condition
 			if this.test(Token::LET, Token::CONST) {
 				const mark = this.mark()
-				const mutable = @token == Token::LET
-
 				const first = this.yes()
+
+				const modifiers = []
+				if @token == Token::CONST {
+					modifiers.push(AST.Modifier(ModifierKind::Immutable, first))
+				}
 
 				if this.test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
 					const variable = this.reqTypedVariable()
@@ -2716,7 +2721,7 @@ export namespace Parser {
 						}
 						while this.test(Token::COMMA)
 
-						const equals = this.reqVariableEquals()
+						this.reqVariableEquals(modifiers)
 
 						unless this.test(Token::AWAIT) {
 							this.throw('await')
@@ -2726,13 +2731,14 @@ export namespace Parser {
 
 						const operand = this.reqPrefixedOperand(ExpressionMode::Default)
 
-						condition = this.yep(AST.VariableDeclaration(variables, mutable, equals, operand, first, operand))
+						condition = this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
 					}
 					else {
-						const equals = this.reqVariableEquals()
+						this.reqVariableEquals(modifiers)
+
 						const expression = this.reqExpression(ExpressionMode::Default)
 
-						condition = this.yep(AST.VariableDeclaration([variable], mutable, equals, expression, first, expression))
+						condition = this.yep(AST.VariableDeclaration(modifiers, [variable], expression, first, expression))
 					}
 				}
 				else {
@@ -3238,6 +3244,7 @@ export namespace Parser {
 		} // }}}
 		reqLetStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
 			const variable = this.reqTypedVariable()
+			const modifiers = []
 
 			if this.test(Token::COMMA) {
 				const variables = [variable]
@@ -3249,9 +3256,7 @@ export namespace Parser {
 				}
 				while this.test(Token::COMMA)
 
-				const equals = this.tryVariableEquals()
-
-				if equals.ok {
+				if this.tryVariableEquals(modifiers).ok {
 					this.NL_0M()
 
 					unless this.test(Token::AWAIT) {
@@ -3262,18 +3267,16 @@ export namespace Parser {
 
 					let operand = this.reqPrefixedOperand(mode)
 
-					operand = this.yep(AST.AwaitExpression(variables, false, operand, variable, operand))
+					operand = this.yep(AST.AwaitExpression([], variables, operand, variable, operand))
 
-					return this.yep(AST.VariableDeclaration(variables, true, equals, operand, first, operand))
+					return this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
 				}
 				else {
-					return this.yep(AST.VariableDeclaration(variables, true, first, variables[variables.length - 1]))
+					return this.yep(AST.VariableDeclaration(modifiers, variables, null, first, variables[variables.length - 1]))
 				}
 			}
 			else {
-				const equals = this.tryVariableEquals()
-
-				if equals.ok {
+				if this.tryVariableEquals(modifiers).ok {
 					this.NL_0M()
 
 					let init = this.reqExpression(mode)
@@ -3301,10 +3304,10 @@ export namespace Parser {
 						init = this.yep(AST.UnlessExpression(condition, init, init, condition))
 					}
 
-					return this.yep(AST.VariableDeclaration([variable], true, equals, init, first, init))
+					return this.yep(AST.VariableDeclaration(modifiers, [variable], init, first, init))
 				}
 				else {
-					return this.yep(AST.VariableDeclaration([variable], true, first, variable))
+					return this.yep(AST.VariableDeclaration(modifiers, [variable], null, first, variable))
 				}
 			}
 		} // }}}
@@ -3492,7 +3495,7 @@ export namespace Parser {
 					this.throw('}')
 				}
 
-				return this.yep(AST.MacroExpression(elements, true, first, this.yes()))
+				return this.yep(AST.MacroExpression(elements, first, this.yes()))
 			}
 			else {
 				if !first.ok {
@@ -3501,7 +3504,7 @@ export namespace Parser {
 
 				this.reqMacroElements(elements, terminator)
 
-				return this.yep(AST.MacroExpression(elements, false, first, elements[elements.length - 1]))
+				return this.yep(AST.MacroExpression(elements, first, elements[elements.length - 1]))
 			}
 		} // }}}
 		reqMacroParameterList() ~ SyntaxError { // {{{
@@ -4444,7 +4447,11 @@ export namespace Parser {
 				return this.yep(AST.UnlessStatement(condition, this.yep(AST.ReturnStatement(first)), first, condition))
 			}
 			else {
-				const expression = this.reqExpression(ExpressionMode::Default)
+				const expression = this.tryExpression(ExpressionMode::Default)
+
+				unless expression.ok {
+					return NO
+				}
 
 				if this.match(Token::IF, Token::UNLESS, Token::NEWLINE) == Token::IF {
 					this.commit()
@@ -5211,7 +5218,7 @@ export namespace Parser {
 
 					property = this.reqIdentifier()
 
-					name = this.yep(AST.MemberExpression(name, property, false, false))
+					name = this.yep(AST.MemberExpression([], name, property))
 				}
 				while this.testNS(Token::DOT)
 			}
@@ -5222,11 +5229,15 @@ export namespace Parser {
 				generic = last = this.reqTypeGeneric(this.yes())
 			}
 
+			const modifiers =[]
+
 			if nullable == null && this.testNS(Token::QUESTION) {
-				nullable = last = this.yes(true)
+				last = this.yes()
+
+				modifiers.push(AST.Modifier(ModifierKind::Nullable, last))
 			}
 
-			return this.yep(AST.TypeReference(name, generic, nullable, name, last))
+			return this.yep(AST.TypeReference(modifiers, name, generic, name, last))
 		} // }}}
 		reqTypeGeneric(first) ~ SyntaxError { // {{{
 			const entities = [this.reqTypeEntity()]
@@ -5528,7 +5539,7 @@ export namespace Parser {
 				type = this.reqTypeVar()
 			}
 
-			return this.yep(AST.VariableDeclarator(name, type, name, type ?? name))
+			return this.yep(AST.VariableDeclarator([], name, type, name, type ?? name))
 		} // }}}
 		reqUnaryOperand(mode, value = null) ~ SyntaxError { // {{{
 			if value == null {
@@ -5542,14 +5553,14 @@ export namespace Parser {
 					Token::ASTERISK_ASTERISK_LEFT_ROUND => {
 						this.commit()
 
-						value = this.yep(AST.CallExpression(AST.Scope(ScopeKind::Null), value, this.reqExpression0CNList(), false, value, this.yes()))
+						value = this.yep(AST.CallExpression([], AST.Scope(ScopeKind::Null), value, this.reqExpression0CNList(), value, this.yes()))
 					}
 					Token::ASTERISK_DOLLAR_LEFT_ROUND => {
 						this.commit()
 
 						const arguments = this.reqExpression0CNList()
 
-						value = this.yep(AST.CallExpression(AST.Scope(ScopeKind::Argument, arguments.value.shift()), value, arguments, false, value, this.yes()))
+						value = this.yep(AST.CallExpression([], AST.Scope(ScopeKind::Argument, arguments.value.shift()), value, arguments, value, this.yes()))
 					}
 					Token::CARET_AT_LEFT_ROUND => {
 						this.commit()
@@ -5585,7 +5596,7 @@ export namespace Parser {
 					Token::DOT => {
 						this.commit()
 
-						value = this.yep(AST.MemberExpression(value, this.reqIdentifier(), false, false))
+						value = this.yep(AST.MemberExpression([], value, this.reqIdentifier()))
 					}
 					Token::EXCLAMATION_LEFT_ROUND => {
 						this.commit()
@@ -5593,7 +5604,7 @@ export namespace Parser {
 						value = this.yep(AST.CallMacroExpression(value, this.reqExpression0CNList(), value, this.yes()))
 					}
 					Token::LEFT_SQUARE => {
-						this.commit()
+						const modifiers = [AST.Modifier(ModifierKind::Computed, this.yes())]
 
 						expression = this.reqExpression(ExpressionMode::Default)
 
@@ -5601,12 +5612,12 @@ export namespace Parser {
 							this.throw(']')
 						}
 
-						value = this.yep(AST.MemberExpression(value, expression, true, false, value, this.yes()))
+						value = this.yep(AST.MemberExpression(modifiers, value, expression, value, this.yes()))
 					}
 					Token::LEFT_ROUND => {
 						this.commit()
 
-						value = this.yep(AST.CallExpression(value, this.reqExpression0CNList(), value, this.yes()))
+						value = this.yep(AST.CallExpression([], value, this.reqExpression0CNList(), value, this.yes()))
 					}
 					Token::NEWLINE => {
 						mark = this.mark()
@@ -5616,7 +5627,7 @@ export namespace Parser {
 						if this.test(Token::DOT) {
 							this.commit()
 
-							value = this.yep(AST.MemberExpression(value, this.reqIdentifier(), false, false))
+							value = this.yep(AST.MemberExpression([], value, this.reqIdentifier()))
 						}
 						else {
 							this.rollback(mark)
@@ -5625,19 +5636,20 @@ export namespace Parser {
 						}
 					}
 					Token::QUESTION_DOT => {
-						this.commit()
+						const modifiers = [AST.Modifier(ModifierKind::Nullable, this.yes())]
 
 						expression = this.reqIdentifier()
 
-						value = this.yep(AST.MemberExpression(value, expression, false, true, value, expression))
+						value = this.yep(AST.MemberExpression(modifiers, value, expression, value, expression))
 					}
 					Token::QUESTION_LEFT_ROUND => {
-						this.commit()
+						const modifiers = [AST.Modifier(ModifierKind::Nullable, this.yes())]
 
-						value = this.yep(AST.CallExpression(AST.Scope(ScopeKind::This), value, this.reqExpression0CNList(), true, value, this.yes()))
+						value = this.yep(AST.CallExpression(modifiers, AST.Scope(ScopeKind::This), value, this.reqExpression0CNList(), value, this.yes()))
 					}
 					Token::QUESTION_LEFT_SQUARE => {
-						this.commit()
+						const position = this.yes()
+						const modifiers = [AST.Modifier(ModifierKind::Nullable, position), AST.Modifier(ModifierKind::Computed, position)]
 
 						expression = this.reqExpression(ExpressionMode::Default)
 
@@ -5645,7 +5657,7 @@ export namespace Parser {
 							this.throw(']')
 						}
 
-						value = this.yep(AST.MemberExpression(value, expression, true, true, value, this.yes()))
+						value = this.yep(AST.MemberExpression(modifiers, value, expression, value, this.yes()))
 					}
 					Token::TEMPLATE_BEGIN => {
 						value = this.yep(AST.TaggedTemplateExpression(value, this.reqTemplateExpression(this.yes()), value, this.yes()))
@@ -5664,12 +5676,14 @@ export namespace Parser {
 
 			return this.yep(AST.UnlessStatement(condition, whenFalse, first, whenFalse))
 		} // }}}
-		reqVariableEquals() ~ SyntaxError { // {{{
+		reqVariableEquals(modifiers) ~ SyntaxError { // {{{
 			if this.match(Token::EQUALS, Token::COLON_EQUALS) == Token::EQUALS {
-				return this.yes(false)
+				return this.yes()
 			}
 			else if @token == Token::COLON_EQUALS {
-				return this.yes(true)
+				modifiers.push(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
+
+				return this.yep()
 			}
 			else {
 				this.throw(['=', ':='])
@@ -5706,10 +5720,10 @@ export namespace Parser {
 
 					property = this.reqIdentifier()
 
-					object = this.yep(AST.MemberExpression(object, property, false, false))
+					object = this.yep(AST.MemberExpression([], object, property))
 				}
 				else if @token == Token::LEFT_SQUARE {
-					this.commit()
+					const modifiers = [AST.Modifier(ModifierKind::Computed, this.yes())]
 
 					property = this.reqExpression(ExpressionMode::Default)
 
@@ -5717,7 +5731,7 @@ export namespace Parser {
 						this.throw(']')
 					}
 
-					object = this.yep(AST.MemberExpression(object, property, true, false, object, this.yes()))
+					object = this.yep(AST.MemberExpression(modifiers, object, property, object, this.yes()))
 				}
 				else {
 					break
@@ -5853,7 +5867,7 @@ export namespace Parser {
 
 					const operand = this.reqPrefixedOperand(ExpressionMode::Default)
 
-					statement = this.yep(AST.AwaitExpression(variables, false, operand, identifier, operand))
+					statement = this.yep(AST.AwaitExpression([], variables, operand, identifier, operand))
 				}
 				else {
 					this.throw('=')
@@ -6151,9 +6165,9 @@ export namespace Parser {
 				return NO
 			}
 		} // }}}
-		tryExpression() ~ SyntaxError { // {{{
+		tryExpression(mode = ExpressionMode::Default) ~ SyntaxError { // {{{
 			try {
-				return this.reqExpression(ExpressionMode::Default)
+				return this.reqExpression(mode)
 			}
 			catch {
 				return NO
@@ -6542,12 +6556,14 @@ export namespace Parser {
 
 			return this.yep(AST.UntilStatement(condition, body, first, body))
 		} // }}}
-		tryVariableEquals() ~ SyntaxError { // {{{
+		tryVariableEquals(modifiers) ~ SyntaxError { // {{{
 			if this.match(Token::EQUALS, Token::COLON_EQUALS) == Token::EQUALS {
-				return this.yes(false)
+				return this.yes()
 			}
 			else if @token == Token::COLON_EQUALS {
-				return this.yes(true)
+				modifiers.push(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
+
+				return this.yep()
 			}
 			else {
 				return NO

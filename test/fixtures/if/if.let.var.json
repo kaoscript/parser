@@ -41,6 +41,7 @@
         },
         "right": {
           "kind": 14,
+          "modifiers": [],
           "scope": {
             "kind": 3
           },
@@ -57,7 +58,6 @@
             }
           },
           "arguments": [],
-          "nullable": false,
           "start": {
             "line": 1,
             "column": 10
@@ -74,11 +74,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -103,8 +105,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 2,
                 "column": 2
@@ -128,7 +128,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 2,
               "column": 2

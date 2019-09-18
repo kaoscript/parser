@@ -208,11 +208,12 @@
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "x",
@@ -235,12 +236,19 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 10,
+        "column": 1
+      },
+      "end": {
+        "line": 10,
+        "column": 26
+      },
       "init": {
         "kind": 103,
         "modifiers": [
           {
-            "kind": 7,
+            "kind": 8,
             "start": {
               "line": 10,
               "column": 12
@@ -253,6 +261,7 @@
         ],
         "argument": {
           "kind": 14,
+          "modifiers": [],
           "scope": {
             "kind": 3
           },
@@ -282,7 +291,6 @@
               }
             }
           ],
-          "nullable": false,
           "start": {
             "line": 10,
             "column": 14
@@ -300,14 +308,6 @@
           "line": 10,
           "column": 26
         }
-      },
-      "start": {
-        "line": 10,
-        "column": 1
-      },
-      "end": {
-        "line": 10,
-        "column": 26
       }
     }
   ],

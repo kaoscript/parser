@@ -11,7 +11,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 18,
+              "kind": 19,
               "start": {
                 "line": 1,
                 "column": 8
@@ -37,6 +37,19 @@
           "statements": [
             {
               "kind": 113,
+              "modifiers": [
+                {
+                  "kind": 10,
+                  "start": {
+                    "line": 2,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 7
+                  }
+                }
+              ],
               "name": {
                 "kind": 50,
                 "name": "PI",
@@ -49,7 +62,6 @@
                   "column": 10
                 }
               },
-              "sealed": true,
               "start": {
                 "line": 2,
                 "column": 2
@@ -60,6 +72,7 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Number",
@@ -131,6 +144,7 @@
                   },
                   "type": {
                     "kind": 106,
+                    "modifiers": [],
                     "typeName": {
                       "kind": 50,
                       "name": "Number",
@@ -157,6 +171,7 @@
               "modifiers": [],
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Number",

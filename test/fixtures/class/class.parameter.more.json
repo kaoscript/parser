@@ -138,11 +138,23 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [
+                  {
+                    "kind": 11,
+                    "start": {
+                      "line": 5,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 8
+                    }
+                  }
+                ],
                 "typeName": {
                   "kind": 50,
                   "name": "any"
                 },
-                "nullable": true,
                 "start": {
                   "line": 5,
                   "column": 7
@@ -190,11 +202,23 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [
+                  {
+                    "kind": 11,
+                    "start": {
+                      "line": 5,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 13
+                    }
+                  }
+                ],
                 "typeName": {
                   "kind": 50,
                   "name": "any"
                 },
-                "nullable": true,
                 "start": {
                   "line": 5,
                   "column": 12
@@ -271,11 +295,23 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [
+                  {
+                    "kind": 11,
+                    "start": {
+                      "line": 8,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 8
+                    }
+                  }
+                ],
                 "typeName": {
                   "kind": 50,
                   "name": "any"
                 },
-                "nullable": true,
                 "start": {
                   "line": 8,
                   "column": 7
@@ -299,6 +335,19 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [
+                  {
+                    "kind": 11,
+                    "start": {
+                      "line": 8,
+                      "column": 14
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 15
+                    }
+                  }
+                ],
                 "typeName": {
                   "kind": 50,
                   "name": "any",
@@ -318,8 +367,7 @@
                 "end": {
                   "line": 8,
                   "column": 15
-                },
-                "nullable": true
+                }
               }
             },
             {
@@ -347,11 +395,23 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [
+                  {
+                    "kind": 11,
+                    "start": {
+                      "line": 8,
+                      "column": 18
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 19
+                    }
+                  }
+                ],
                 "typeName": {
                   "kind": 50,
                   "name": "any"
                 },
-                "nullable": true,
                 "start": {
                   "line": 8,
                   "column": 18
@@ -407,7 +467,7 @@
               "kind": 78,
               "modifiers": [
                 {
-                  "kind": 17,
+                  "kind": 18,
                   "arity": {
                     "min": 0,
                     "max": 3
@@ -488,7 +548,7 @@
               "kind": 78,
               "modifiers": [
                 {
-                  "kind": 17,
+                  "kind": 18,
                   "arity": {
                     "min": 1,
                     "max": 3

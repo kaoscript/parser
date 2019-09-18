@@ -59,6 +59,7 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
@@ -75,7 +76,6 @@
               }
             },
             "arguments": [],
-            "nullable": false,
             "start": {
               "line": 2,
               "column": 2
@@ -107,11 +107,24 @@
     },
     {
       "kind": 112,
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 6,
+            "column": 1
+          },
+          "end": {
+            "line": 6,
+            "column": 6
+          }
+        }
+      ],
       "attributes": [],
-      "rebindable": false,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "price",
@@ -134,7 +147,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 6,
+        "column": 1
+      },
+      "end": {
+        "line": 6,
+        "column": 17
+      },
       "init": {
         "kind": 73,
         "value": 42,
@@ -146,14 +166,6 @@
           "line": 6,
           "column": 17
         }
-      },
-      "start": {
-        "line": 6,
-        "column": 1
-      },
-      "end": {
-        "line": 6,
-        "column": 17
       }
     }
   ],

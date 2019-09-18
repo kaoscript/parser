@@ -24,7 +24,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 14,
+              "kind": 16,
               "start": {
                 "line": 2,
                 "column": 2
@@ -57,6 +57,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Number",
@@ -106,7 +107,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 14,
+              "kind": 16,
               "start": {
                 "line": 2,
                 "column": 2
@@ -139,6 +140,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Number",
@@ -175,11 +177,13 @@
             "kind": 71,
             "body": {
               "kind": 14,
+              "modifiers": [],
               "scope": {
                 "kind": 3
               },
               "callee": {
                 "kind": 67,
+                "modifiers": [],
                 "object": {
                   "kind": 50,
                   "name": "Math",
@@ -204,8 +208,6 @@
                     "column": 19
                   }
                 },
-                "computed": false,
-                "nullable": false,
                 "start": {
                   "line": 6,
                   "column": 11
@@ -229,7 +231,6 @@
                   }
                 }
               ],
-              "nullable": false,
               "start": {
                 "line": 6,
                 "column": 11
@@ -254,7 +255,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 14,
+              "kind": 16,
               "start": {
                 "line": 2,
                 "column": 2
@@ -287,6 +288,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Number",

@@ -8,6 +8,7 @@
       "declarations": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "foo",
@@ -41,11 +42,12 @@
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "tt",
@@ -68,7 +70,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 30
+      },
       "init": {
         "kind": 107,
         "operator": {
@@ -84,6 +93,7 @@
         },
         "argument": {
           "kind": 67,
+          "modifiers": [],
           "object": {
             "kind": 10,
             "operator": {
@@ -120,6 +130,7 @@
             },
             "right": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "foo",
@@ -144,8 +155,6 @@
                   "column": 25
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 3,
                 "column": 18
@@ -168,8 +177,6 @@
               "column": 30
             }
           },
-          "computed": false,
-          "nullable": false,
           "start": {
             "line": 3,
             "column": 11
@@ -187,14 +194,6 @@
           "line": 3,
           "column": 30
         }
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 30
       }
     }
   ],

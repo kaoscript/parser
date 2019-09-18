@@ -8,6 +8,7 @@
       "declarations": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "console",
@@ -58,11 +59,24 @@
       "statements": [
         {
           "kind": 112,
+          "modifiers": [
+            {
+              "kind": 10,
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 7
+              }
+            }
+          ],
           "attributes": [],
-          "rebindable": false,
           "variables": [
             {
               "kind": 113,
+              "modifiers": [],
               "name": {
                 "kind": 50,
                 "name": "PI",
@@ -85,7 +99,14 @@
               }
             }
           ],
-          "autotype": false,
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 17
+          },
           "init": {
             "kind": 73,
             "value": 3.14,
@@ -97,23 +118,28 @@
               "line": 4,
               "column": 17
             }
-          },
-          "start": {
-            "line": 4,
-            "column": 2
-          },
-          "end": {
-            "line": 4,
-            "column": 17
           }
         },
         {
           "kind": 112,
+          "modifiers": [
+            {
+              "kind": 10,
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 7
+              }
+            }
+          ],
           "attributes": [],
-          "rebindable": false,
           "variables": [
             {
               "kind": 113,
+              "modifiers": [],
               "name": {
                 "kind": 50,
                 "name": "name",
@@ -136,7 +162,14 @@
               }
             }
           ],
-          "autotype": false,
+          "start": {
+            "line": 5,
+            "column": 2
+          },
+          "end": {
+            "line": 5,
+            "column": 21
+          },
           "init": {
             "kind": 64,
             "value": "john",
@@ -148,14 +181,6 @@
               "line": 5,
               "column": 21
             }
-          },
-          "start": {
-            "line": 5,
-            "column": 2
-          },
-          "end": {
-            "line": 5,
-            "column": 21
           }
         }
       ],
@@ -170,11 +195,13 @@
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 50,
           "name": "console",
@@ -199,8 +226,6 @@
             "column": 12
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 8,
           "column": 1
@@ -213,6 +238,7 @@
       "arguments": [
         {
           "kind": 67,
+          "modifiers": [],
           "object": {
             "kind": 50,
             "name": "Float",
@@ -237,8 +263,6 @@
               "column": 21
             }
           },
-          "computed": false,
-          "nullable": false,
           "start": {
             "line": 8,
             "column": 13
@@ -249,7 +273,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 8,
         "column": 1
@@ -262,11 +285,13 @@
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 50,
           "name": "console",
@@ -291,8 +316,6 @@
             "column": 12
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 9,
           "column": 1
@@ -308,6 +331,7 @@
           "elements": [
             {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "Float",
@@ -332,8 +356,6 @@
                   "column": 26
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 9,
                 "column": 16
@@ -354,7 +376,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 9,
         "column": 1

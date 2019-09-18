@@ -4,11 +4,12 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "decimal",
@@ -31,6 +32,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "number",
@@ -54,7 +56,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 24
+      },
       "init": {
         "kind": 73,
         "value": 6,
@@ -66,23 +75,16 @@
           "line": 1,
           "column": 24
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 24
       }
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "hex",
@@ -105,6 +107,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "number",
@@ -128,7 +131,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 2,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 25
+      },
       "init": {
         "kind": 73,
         "value": 61453,
@@ -140,23 +150,16 @@
           "line": 2,
           "column": 25
         }
-      },
-      "start": {
-        "line": 2,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 25
       }
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "binary",
@@ -179,6 +182,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "number",
@@ -202,7 +206,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 28
+      },
       "init": {
         "kind": 73,
         "value": 10,
@@ -214,23 +225,16 @@
           "line": 3,
           "column": 28
         }
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 28
       }
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "octal",
@@ -253,6 +257,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "number",
@@ -276,7 +281,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 4,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 26
+      },
       "init": {
         "kind": 73,
         "value": 484,
@@ -288,23 +300,16 @@
           "line": 4,
           "column": 26
         }
-      },
-      "start": {
-        "line": 4,
-        "column": 1
-      },
-      "end": {
-        "line": 4,
-        "column": 26
       }
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "pi",
@@ -327,6 +332,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "number",
@@ -350,7 +356,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 6,
+        "column": 1
+      },
+      "end": {
+        "line": 6,
+        "column": 22
+      },
       "init": {
         "kind": 73,
         "value": 3.14,
@@ -362,14 +375,6 @@
           "line": 6,
           "column": 22
         }
-      },
-      "start": {
-        "line": 6,
-        "column": 1
-      },
-      "end": {
-        "line": 6,
-        "column": 22
       }
     }
   ],

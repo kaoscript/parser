@@ -8,6 +8,7 @@
       "declarations": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "console",
@@ -73,7 +74,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 12,
+              "kind": 14,
               "start": {
                 "line": 4,
                 "column": 2
@@ -106,6 +107,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "string",
@@ -172,6 +174,7 @@
             "statements": [
               {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
@@ -201,7 +204,6 @@
                     }
                   }
                 ],
-                "nullable": false,
                 "start": {
                   "line": 9,
                   "column": 3
@@ -244,7 +246,7 @@
               "kind": 78,
               "modifiers": [
                 {
-                  "kind": 21,
+                  "kind": 22,
                   "start": {
                     "line": 12,
                     "column": 14
@@ -351,6 +353,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "String",
@@ -549,11 +552,12 @@
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "hello",
@@ -576,7 +580,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 21,
+        "column": 1
+      },
+      "end": {
+        "line": 21,
+        "column": 42
+      },
       "init": {
         "kind": 25,
         "class": {
@@ -613,23 +624,17 @@
           "line": 21,
           "column": 42
         }
-      },
-      "start": {
-        "line": 21,
-        "column": 1
-      },
-      "end": {
-        "line": 21,
-        "column": 42
       }
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
         "kind": 67,
+        "modifiers": [],
         "object": {
           "kind": 50,
           "name": "console",
@@ -654,8 +659,6 @@
             "column": 12
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 23,
           "column": 1
@@ -668,11 +671,13 @@
       "arguments": [
         {
           "kind": 14,
+          "modifiers": [],
           "scope": {
             "kind": 3
           },
           "callee": {
             "kind": 67,
+            "modifiers": [],
             "object": {
               "kind": 50,
               "name": "hello",
@@ -697,8 +702,6 @@
                 "column": 24
               }
             },
-            "computed": false,
-            "nullable": false,
             "start": {
               "line": 23,
               "column": 13
@@ -722,7 +725,6 @@
               }
             }
           ],
-          "nullable": false,
           "start": {
             "line": 23,
             "column": 13
@@ -733,7 +735,6 @@
           }
         }
       ],
-      "nullable": false,
       "start": {
         "line": 23,
         "column": 1

@@ -4,11 +4,12 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "x",
@@ -31,7 +32,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 9,
+        "column": 1
+      },
+      "end": {
+        "line": 9,
+        "column": 10
+      },
       "init": {
         "kind": 73,
         "value": 5,
@@ -43,14 +51,6 @@
           "line": 9,
           "column": 10
         }
-      },
-      "start": {
-        "line": 9,
-        "column": 1
-      },
-      "end": {
-        "line": 9,
-        "column": 10
       }
     }
   ],

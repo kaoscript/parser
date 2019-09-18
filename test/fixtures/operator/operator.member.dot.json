@@ -4,11 +4,12 @@
   "body": [
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "qux",
@@ -31,14 +32,35 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 21
+      },
       "init": {
         "kind": 14,
+        "modifiers": [],
         "scope": {
           "kind": 3
         },
         "callee": {
           "kind": 67,
+          "modifiers": [
+            {
+              "kind": 11,
+              "start": {
+                "line": 1,
+                "column": 14
+              },
+              "end": {
+                "line": 1,
+                "column": 16
+              }
+            }
+          ],
           "object": {
             "kind": 50,
             "name": "foo",
@@ -63,8 +85,6 @@
               "column": 19
             }
           },
-          "computed": false,
-          "nullable": true,
           "start": {
             "line": 1,
             "column": 11
@@ -75,7 +95,6 @@
           }
         },
         "arguments": [],
-        "nullable": false,
         "start": {
           "line": 1,
           "column": 11
@@ -84,14 +103,6 @@
           "line": 1,
           "column": 21
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 21
       }
     }
   ],

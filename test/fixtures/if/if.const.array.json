@@ -7,11 +7,12 @@
       "attributes": [],
       "condition": {
         "kind": 112,
+        "modifiers": [],
         "attributes": [],
-        "rebindable": false,
         "variables": [
           {
             "kind": 113,
+            "modifiers": [],
             "name": {
               "kind": 2,
               "elements": [
@@ -107,9 +108,17 @@
             }
           }
         ],
-        "autotype": false,
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 30
+        },
         "init": {
           "kind": 14,
+          "modifiers": [],
           "scope": {
             "kind": 3
           },
@@ -126,7 +135,6 @@
             }
           },
           "arguments": [],
-          "nullable": false,
           "start": {
             "line": 1,
             "column": 22
@@ -135,14 +143,6 @@
             "line": 1,
             "column": 30
           }
-        },
-        "start": {
-          "line": 1,
-          "column": 4
-        },
-        "end": {
-          "line": 1,
-          "column": 30
         }
       },
       "whenTrue": {

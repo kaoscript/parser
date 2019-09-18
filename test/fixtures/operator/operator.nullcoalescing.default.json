@@ -8,6 +8,7 @@
       "declarations": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "foo",
@@ -31,6 +32,7 @@
         },
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "bar",
@@ -64,11 +66,12 @@
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "tt",
@@ -91,7 +94,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 20
+      },
       "init": {
         "kind": 10,
         "operator": {
@@ -137,14 +147,6 @@
             "column": 20
           }
         }
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 20
       }
     }
   ],

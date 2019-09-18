@@ -22,6 +22,7 @@
         "types": [
           {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "number",
@@ -45,6 +46,7 @@
           },
           {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "string",
@@ -87,11 +89,12 @@
     },
     {
       "kind": 112,
+      "modifiers": [],
       "attributes": [],
-      "rebindable": true,
       "variables": [
         {
           "kind": 113,
+          "modifiers": [],
           "name": {
             "kind": 50,
             "name": "x",
@@ -114,6 +117,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "T",
@@ -137,7 +141,14 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 13
+      },
       "init": {
         "kind": 73,
         "value": 0,
@@ -149,14 +160,6 @@
           "line": 3,
           "column": 13
         }
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 13
       }
     }
   ],

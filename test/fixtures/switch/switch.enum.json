@@ -284,6 +284,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "ANSIColor",
@@ -331,6 +332,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "ANSIColor",
@@ -357,6 +359,7 @@
       "modifiers": [],
       "type": {
         "kind": 106,
+        "modifiers": [],
         "typeName": {
           "kind": 50,
           "name": "String",
@@ -385,11 +388,12 @@
         "statements": [
           {
             "kind": 112,
+            "modifiers": [],
             "attributes": [],
-            "rebindable": true,
             "variables": [
               {
                 "kind": 113,
+                "modifiers": [],
                 "name": {
                   "kind": 50,
                   "name": "fg_code",
@@ -412,7 +416,14 @@
                 }
               }
             ],
-            "autotype": false,
+            "start": {
+              "line": 14,
+              "column": 2
+            },
+            "end": {
+              "line": 24,
+              "column": 3
+            },
             "init": {
               "kind": 95,
               "attributes": [],
@@ -780,23 +791,16 @@
                 "line": 24,
                 "column": 3
               }
-            },
-            "start": {
-              "line": 14,
-              "column": 2
-            },
-            "end": {
-              "line": 24,
-              "column": 3
             }
           },
           {
             "kind": 112,
+            "modifiers": [],
             "attributes": [],
-            "rebindable": true,
             "variables": [
               {
                 "kind": 113,
+                "modifiers": [],
                 "name": {
                   "kind": 50,
                   "name": "bg_code",
@@ -819,7 +823,14 @@
                 }
               }
             ],
-            "autotype": false,
+            "start": {
+              "line": 26,
+              "column": 2
+            },
+            "end": {
+              "line": 36,
+              "column": 3
+            },
             "init": {
               "kind": 95,
               "attributes": [],
@@ -1187,14 +1198,6 @@
                 "line": 36,
                 "column": 3
               }
-            },
-            "start": {
-              "line": 26,
-              "column": 2
-            },
-            "end": {
-              "line": 36,
-              "column": 3
             }
           },
           {

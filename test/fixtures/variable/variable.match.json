@@ -41,11 +41,13 @@
         },
         "right": {
           "kind": 14,
+          "modifiers": [],
           "scope": {
             "kind": 3
           },
           "callee": {
             "kind": 67,
+            "modifiers": [],
             "object": {
               "kind": 81,
               "value": "/^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/",
@@ -70,8 +72,6 @@
                 "column": 76
               }
             },
-            "computed": false,
-            "nullable": false,
             "start": {
               "line": 2,
               "column": 13
@@ -95,7 +95,6 @@
               }
             }
           ],
-          "nullable": false,
           "start": {
             "line": 2,
             "column": 13
@@ -112,11 +111,13 @@
         "statements": [
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -141,8 +142,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 3,
                 "column": 2
@@ -167,11 +166,13 @@
               },
               {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
                   "kind": 67,
+                  "modifiers": [],
                   "object": {
                     "kind": 50,
                     "name": "Integer",
@@ -196,8 +197,6 @@
                       "column": 34
                     }
                   },
-                  "computed": false,
-                  "nullable": false,
                   "start": {
                     "line": 3,
                     "column": 21
@@ -210,6 +209,19 @@
                 "arguments": [
                   {
                     "kind": 67,
+                    "modifiers": [
+                      {
+                        "kind": 5,
+                        "start": {
+                          "line": 3,
+                          "column": 40
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 41
+                        }
+                      }
+                    ],
                     "object": {
                       "kind": 50,
                       "name": "match",
@@ -234,8 +246,6 @@
                         "column": 42
                       }
                     },
-                    "computed": true,
-                    "nullable": false,
                     "start": {
                       "line": 3,
                       "column": 35
@@ -258,7 +268,6 @@
                     }
                   }
                 ],
-                "nullable": false,
                 "start": {
                   "line": 3,
                   "column": 21
@@ -269,7 +278,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 3,
               "column": 2
@@ -282,11 +290,13 @@
           },
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -311,8 +321,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 4,
                 "column": 2
@@ -337,11 +345,13 @@
               },
               {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
                   "kind": 67,
+                  "modifiers": [],
                   "object": {
                     "kind": 50,
                     "name": "Integer",
@@ -366,8 +376,6 @@
                       "column": 36
                     }
                   },
-                  "computed": false,
-                  "nullable": false,
                   "start": {
                     "line": 4,
                     "column": 23
@@ -380,6 +388,19 @@
                 "arguments": [
                   {
                     "kind": 67,
+                    "modifiers": [
+                      {
+                        "kind": 5,
+                        "start": {
+                          "line": 4,
+                          "column": 42
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 43
+                        }
+                      }
+                    ],
                     "object": {
                       "kind": 50,
                       "name": "match",
@@ -404,8 +425,6 @@
                         "column": 44
                       }
                     },
-                    "computed": true,
-                    "nullable": false,
                     "start": {
                       "line": 4,
                       "column": 37
@@ -428,7 +447,6 @@
                     }
                   }
                 ],
-                "nullable": false,
                 "start": {
                   "line": 4,
                   "column": 23
@@ -439,7 +457,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 4,
               "column": 2
@@ -452,11 +469,13 @@
           },
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -481,8 +500,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 5,
                 "column": 2
@@ -507,11 +524,13 @@
               },
               {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
                   "kind": 67,
+                  "modifiers": [],
                   "object": {
                     "kind": 50,
                     "name": "Integer",
@@ -536,8 +555,6 @@
                       "column": 35
                     }
                   },
-                  "computed": false,
-                  "nullable": false,
                   "start": {
                     "line": 5,
                     "column": 22
@@ -550,6 +567,19 @@
                 "arguments": [
                   {
                     "kind": 67,
+                    "modifiers": [
+                      {
+                        "kind": 5,
+                        "start": {
+                          "line": 5,
+                          "column": 41
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 42
+                        }
+                      }
+                    ],
                     "object": {
                       "kind": 50,
                       "name": "match",
@@ -574,8 +604,6 @@
                         "column": 43
                       }
                     },
-                    "computed": true,
-                    "nullable": false,
                     "start": {
                       "line": 5,
                       "column": 36
@@ -598,7 +626,6 @@
                     }
                   }
                 ],
-                "nullable": false,
                 "start": {
                   "line": 5,
                   "column": 22
@@ -609,7 +636,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 5,
               "column": 2
@@ -622,11 +648,13 @@
           },
           {
             "kind": 14,
+            "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
               "kind": 67,
+              "modifiers": [],
               "object": {
                 "kind": 50,
                 "name": "console",
@@ -651,8 +679,6 @@
                   "column": 13
                 }
               },
-              "computed": false,
-              "nullable": false,
               "start": {
                 "line": 6,
                 "column": 2
@@ -677,11 +703,13 @@
               },
               {
                 "kind": 14,
+                "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
                   "kind": 67,
+                  "modifiers": [],
                   "object": {
                     "kind": 50,
                     "name": "$caster",
@@ -706,8 +734,6 @@
                       "column": 36
                     }
                   },
-                  "computed": false,
-                  "nullable": false,
                   "start": {
                     "line": 6,
                     "column": 23
@@ -741,11 +767,13 @@
                     },
                     "left": {
                       "kind": 14,
+                      "modifiers": [],
                       "scope": {
                         "kind": 3
                       },
                       "callee": {
                         "kind": 67,
+                        "modifiers": [],
                         "object": {
                           "kind": 50,
                           "name": "Integer",
@@ -770,8 +798,6 @@
                             "column": 50
                           }
                         },
-                        "computed": false,
-                        "nullable": false,
                         "start": {
                           "line": 6,
                           "column": 37
@@ -784,6 +810,19 @@
                       "arguments": [
                         {
                           "kind": 67,
+                          "modifiers": [
+                            {
+                              "kind": 5,
+                              "start": {
+                                "line": 6,
+                                "column": 56
+                              },
+                              "end": {
+                                "line": 6,
+                                "column": 57
+                              }
+                            }
+                          ],
                           "object": {
                             "kind": 50,
                             "name": "match",
@@ -808,8 +847,6 @@
                               "column": 58
                             }
                           },
-                          "computed": true,
-                          "nullable": false,
                           "start": {
                             "line": 6,
                             "column": 51
@@ -832,7 +869,6 @@
                           }
                         }
                       ],
-                      "nullable": false,
                       "start": {
                         "line": 6,
                         "column": 37
@@ -856,7 +892,6 @@
                     }
                   }
                 ],
-                "nullable": false,
                 "start": {
                   "line": 6,
                   "column": 23
@@ -867,7 +902,6 @@
                 }
               }
             ],
-            "nullable": false,
             "start": {
               "line": 6,
               "column": 2

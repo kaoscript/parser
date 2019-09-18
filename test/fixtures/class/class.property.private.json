@@ -24,7 +24,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 12,
+              "kind": 14,
               "start": {
                 "line": 2,
                 "column": 2
@@ -57,6 +57,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Number",
@@ -84,7 +85,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 14,
+              "kind": 16,
               "start": {
                 "line": 3,
                 "column": 2
@@ -117,6 +118,7 @@
           },
           "type": {
             "kind": 106,
+            "modifiers": [],
             "typeName": {
               "kind": 50,
               "name": "Number",
@@ -149,6 +151,7 @@
                   "attributes": [],
                   "value": {
                     "kind": 67,
+                    "modifiers": [],
                     "object": {
                       "kind": 50,
                       "name": "this",
@@ -173,8 +176,6 @@
                         "column": 18
                       }
                     },
-                    "computed": false,
-                    "nullable": false,
                     "start": {
                       "line": 5,
                       "column": 11
@@ -234,6 +235,7 @@
                   },
                   "left": {
                     "kind": 67,
+                    "modifiers": [],
                     "object": {
                       "kind": 50,
                       "name": "this",
@@ -258,8 +260,6 @@
                         "column": 11
                       }
                     },
-                    "computed": false,
-                    "nullable": false,
                     "start": {
                       "line": 8,
                       "column": 4
@@ -271,11 +271,13 @@
                   },
                   "right": {
                     "kind": 14,
+                    "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
                       "kind": 67,
+                      "modifiers": [],
                       "object": {
                         "kind": 50,
                         "name": "Math",
@@ -300,8 +302,6 @@
                           "column": 22
                         }
                       },
-                      "computed": false,
-                      "nullable": false,
                       "start": {
                         "line": 8,
                         "column": 14
@@ -325,7 +325,6 @@
                         }
                       }
                     ],
-                    "nullable": false,
                     "start": {
                       "line": 8,
                       "column": 14

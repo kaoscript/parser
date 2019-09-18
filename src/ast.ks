@@ -375,17 +375,15 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func AwaitExpression(variables?, autotype: Boolean, operand, first, last) { // {{{
+		func AwaitExpression(modifiers, variables?, operand, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::AwaitExpression
+				modifiers
 				operation: operand.value
 			}, first, last)
 
 			if variables != null {
 				node.variables = [variable.value for variable in variables]
-			}
-			if autotype {
-				node.autotype = true
 			}
 
 			return node
@@ -428,25 +426,13 @@ namespace AST {
 			}, first)
 		} // }}}
 
-		func CallExpression(callee, arguments, first, last) { // {{{
+		func CallExpression(modifiers, scope = { kind: ScopeKind::This }, callee, arguments, first, last) { // {{{
 			return location({
 				kind: NodeKind::CallExpression
-				scope: {
-					kind: ScopeKind::This
-				}
+				modifiers
+				scope
 				callee: callee.value
 				arguments: [argument.value for argument in arguments.value]
-				nullable: false
-			}, first, last)
-		} // }}}
-
-		func CallExpression(scope, callee, arguments, nullable: Boolean, first, last) { // {{{
-			return location({
-				kind: NodeKind::CallExpression
-				scope: scope
-				callee: callee.value
-				arguments: [argument.value for argument in arguments.value]
-				nullable: nullable
 			}, first, last)
 		} // }}}
 
@@ -704,18 +690,14 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForFromStatement(declaration: Boolean, rebindable: Boolean, variable, from, til?, to?, by?, until?, while?, when?, first, last) { // {{{
+		func ForFromStatement(modifiers, variable, from, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForFromStatement
+				modifiers
 				attributes: []
 				variable: variable.value
 				from: from.value
-				declaration: declaration
 			}, first, last)
-
-			if declaration {
-				node.rebindable = rebindable
-			}
 
 			if til != null {
 				node.til = til.value
@@ -741,18 +723,13 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForInStatement(declaration: Boolean, rebindable: Boolean, value, index, expression, desc?, from?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
+		func ForInStatement(modifiers, value, index, expression, from?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForInStatement
 				attributes: []
+				modifiers
 				expression: expression.value
-				desc: desc != null
-				declaration: declaration
 			}, first, last)
-
-			if declaration {
-				node.rebindable = rebindable
-			}
 
 			if value.ok {
 				node.value = value.value
@@ -788,17 +765,13 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForRangeStatement(declaration: Boolean, rebindable: Boolean, value, index, from?, then?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
+		func ForRangeStatement(modifiers, value, index, from?, then?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForRangeStatement
 				attributes: []
+				modifiers
 				value: value.value
-				declaration: declaration
 			}, first, last)
-
-			if declaration {
-				node.rebindable = rebindable
-			}
 
 			if index.ok {
 				node.index = index.value
@@ -834,17 +807,13 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForOfStatement(declaration: Boolean, rebindable: Boolean, value?, key?, expression, until?, while?, when?, first, last) { // {{{
+		func ForOfStatement(modifiers, value?, key?, expression, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForOfStatement
 				attributes: []
+				modifiers
 				expression: expression.value
-				declaration: declaration
 			}, first, last)
-
-			if declaration {
-				node.rebindable = rebindable
-			}
 
 			if value.ok {
 				node.value = value.value
@@ -1113,12 +1082,11 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func MacroExpression(elements, multilines, first, last) { // {{{
+		func MacroExpression(elements, first, last) { // {{{
 			return location({
 				kind: NodeKind::MacroExpression
 				attributes: []
 				elements: [element.value for element in elements]
-				multilines: multilines
 			}, first, last)
 		} // }}}
 
@@ -1178,13 +1146,12 @@ namespace AST {
 			}
 		} // }}}
 
-		func MemberExpression(object, property, computed, nullable, first = object, last = property) { // {{{
+		func MemberExpression(modifiers, object, property, first = object, last = property) { // {{{
 			return location({
 				kind: NodeKind::MemberExpression
+				modifiers
 				object: object.value
 				property: property.value
-				computed: computed
-				nullable: nullable
 			}, first, last)
 		} // }}}
 
@@ -1249,11 +1216,11 @@ namespace AST {
 		func Nullable(first) { // {{{
 			return location({
 				kind: NodeKind::TypeReference
+				modifiers: [Modifier(ModifierKind::Nullable, first)]
 				typeName: {
 					kind: NodeKind::Identifier
 					name: 'any'
 				}
-				nullable: true
 			}, first)
 		} // }}}
 
@@ -1683,24 +1650,15 @@ namespace AST {
 			}, name)
 		} // }}}
 
-		func TypeReference(name, parameters?, nullable?, first, last) { // {{{
-			let node
-			if parameters == null {
-				node = location({
-					kind: NodeKind::TypeReference
-					typeName: name.value
-				}, first, last)
-			}
-			else {
-				node = location({
-					kind: NodeKind::TypeReference
-					typeName: name.value
-					typeParameters: [parameter.value for parameter in parameters.value]
-				}, first, last)
-			}
+		func TypeReference(modifiers, name, parameters?, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::TypeReference
+				modifiers
+				typeName: name.value
+			}, first, last)
 
-			if nullable?.ok {
-				node.nullable = true
+			if parameters != null {
+				node.typeParameters = [parameter.value for parameter in parameters.value]
 			}
 
 			return node
@@ -1762,44 +1720,26 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func VariableDeclaration(variables, rebindable, first, last) { // {{{
-			return location({
-				kind: NodeKind::VariableDeclaration
-				attributes: []
-				rebindable: rebindable
-				variables: [variable.value for variable in variables]
-			}, first, last)
-		} // }}}
-
-		func VariableDeclaration(variables, rebindable, equals, expression, first, last) { // {{{
-			return location({
-				kind: NodeKind::VariableDeclaration
-				attributes: []
-				rebindable: rebindable
-				variables: [variable.value for variable in variables]
-				autotype: equals.value
-				init: expression.value
-			}, first, last)
-		} // }}}
-
-		func VariableDeclarator(name, type?, first, last) { // {{{
+		func VariableDeclaration(modifiers, variables, expression?, first, last) { // {{{
 			const node = location({
-				kind: NodeKind::VariableDeclarator
-				name: name.value
+				kind: NodeKind::VariableDeclaration
+				modifiers
+				attributes: []
+				variables: [variable.value for variable in variables]
 			}, first, last)
 
-			if type != null {
-				node.type = type.value
+			if expression != null {
+				node.init = expression.value
 			}
 
 			return node
 		} // }}}
 
-		func VariableDeclarator(name, type?, sealed, first, last) { // {{{
+		func VariableDeclarator(modifiers, name, type?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::VariableDeclarator
+				modifiers
 				name: name.value
-				sealed: sealed
 			}, first, last)
 
 			if type != null {

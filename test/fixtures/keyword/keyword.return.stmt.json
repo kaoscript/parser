@@ -1,15 +1,29 @@
 {
-  "kind": 64,
+  "kind": 70,
   "attributes": [],
   "body": [
     {
-      "kind": 105,
-      "rebindable": false,
+      "kind": 112,
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 6
+          }
+        }
+      ],
+      "attributes": [],
       "variables": [
         {
-          "kind": 106,
+          "kind": 113,
+          "modifiers": [],
           "name": {
-            "kind": 45,
+            "kind": 50,
             "name": "return",
             "start": {
               "line": 1,
@@ -30,9 +44,16 @@
           }
         }
       ],
-      "autotype": false,
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 17
+      },
       "init": {
-        "kind": 68,
+        "kind": 73,
         "value": 0,
         "start": {
           "line": 1,
@@ -42,26 +63,19 @@
           "line": 1,
           "column": 17
         }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 17
-      },
-      "attributes": []
+      }
     },
     {
       "kind": 14,
+      "modifiers": [],
       "scope": {
         "kind": 3
       },
       "callee": {
-        "kind": 61,
+        "kind": 67,
+        "modifiers": [],
         "object": {
-          "kind": 45,
+          "kind": 50,
           "name": "return",
           "start": {
             "line": 3,
@@ -73,7 +87,7 @@
           }
         },
         "property": {
-          "kind": 45,
+          "kind": 50,
           "name": "toString",
           "start": {
             "line": 3,
@@ -84,8 +98,6 @@
             "column": 16
           }
         },
-        "computed": false,
-        "nullable": false,
         "start": {
           "line": 3,
           "column": 1
@@ -96,7 +108,6 @@
         }
       },
       "arguments": [],
-      "nullable": false,
       "start": {
         "line": 3,
         "column": 1

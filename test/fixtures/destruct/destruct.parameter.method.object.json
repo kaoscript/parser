@@ -329,6 +329,7 @@
                     },
                     "type": {
                       "kind": 106,
+                      "modifiers": [],
                       "typeName": {
                         "kind": 50,
                         "name": "Number",
@@ -375,6 +376,7 @@
                     },
                     "type": {
                       "kind": 106,
+                      "modifiers": [],
                       "typeName": {
                         "kind": 50,
                         "name": "Number",
@@ -421,6 +423,7 @@
                     },
                     "type": {
                       "kind": 106,
+                      "modifiers": [],
                       "typeName": {
                         "kind": 50,
                         "name": "Number",
@@ -686,6 +689,7 @@
               },
               "type": {
                 "kind": 106,
+                "modifiers": [],
                 "typeName": {
                   "kind": 50,
                   "name": "Object",
@@ -698,9 +702,18 @@
                     "column": 44
                   }
                 },
+                "start": {
+                  "line": 10,
+                  "column": 38
+                },
+                "end": {
+                  "line": 10,
+                  "column": 52
+                },
                 "typeParameters": [
                   {
                     "kind": 106,
+                    "modifiers": [],
                     "typeName": {
                       "kind": 50,
                       "name": "Number",
@@ -722,15 +735,7 @@
                       "column": 51
                     }
                   }
-                ],
-                "start": {
-                  "line": 10,
-                  "column": 38
-                },
-                "end": {
-                  "line": 10,
-                  "column": 52
-                }
+                ]
               },
               "defaultValue": {
                 "kind": 75,
@@ -865,7 +870,7 @@
                     },
                     "modifiers": [
                       {
-                        "kind": 17,
+                        "kind": 18,
                         "start": {
                           "line": 14,
                           "column": 13
@@ -1228,7 +1233,7 @@
                     },
                     "modifiers": [
                       {
-                        "kind": 21,
+                        "kind": 22,
                         "start": {
                           "line": 22,
                           "column": 7
@@ -1290,7 +1295,7 @@
                           },
                           "modifiers": [
                             {
-                              "kind": 21,
+                              "kind": 22,
                               "start": {
                                 "line": 22,
                                 "column": 15
@@ -1352,7 +1357,7 @@
                                 },
                                 "modifiers": [
                                   {
-                                    "kind": 21,
+                                    "kind": 22,
                                     "start": {
                                       "line": 22,
                                       "column": 23
