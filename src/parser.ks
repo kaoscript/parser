@@ -918,11 +918,8 @@ export namespace Parser {
 				}
 			}
 			else {
-				if this.match(Token::OVERRIDE, Token::OVERWRITE, Token::STATIC) == Token::OVERRIDE {
+				if this.match(Token::OVERRIDE, Token::STATIC) == Token::OVERRIDE {
 					modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
-				}
-				else if @token == Token::OVERWRITE {
-					modifiers.push(this.yep(AST.Modifier(ModifierKind::Overwrite, this.yes())))
 				}
 				else if @token == Token::STATIC {
 					modifiers.push(this.yep(AST.Modifier(ModifierKind::Static, this.yes())))
