@@ -2386,9 +2386,7 @@ const recognize = {
 	} // }}}
 	`\(Token::RIGHT_ANGLE)`(that, c) { // {{{
 		if c == 62 {
-			c = that.charAt(1)
-
-			return c == 61 || c == 62 ? false : that.next(1)
+			return that.next(1)
 		}
 		else {
 			return false

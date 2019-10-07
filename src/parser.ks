@@ -6584,7 +6584,61 @@ export namespace Parser {
 			return this.reqVariableName(object)
 		} // }}}}
 		tryWhileStatement(first) ~ SyntaxError { // {{{
-			const condition = this.tryExpression()
+			let condition
+
+			if this.test(Token::LET, Token::CONST) {
+				const token = @token
+
+				const mark = this.mark()
+				const first = this.yes()
+
+				const modifiers = []
+				if token == Token::CONST {
+					modifiers.push(AST.Modifier(ModifierKind::Immutable, first))
+				}
+
+				if this.test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+					const variable = this.reqTypedVariable()
+
+					if this.test(Token::COMMA) {
+						const variables = [variable]
+
+						do {
+							this.commit()
+
+							variables.push(this.reqTypedVariable())
+						}
+						while this.test(Token::COMMA)
+
+						this.reqVariableEquals(modifiers)
+
+						unless this.test(Token::AWAIT) {
+							this.throw('await')
+						}
+
+						this.commit()
+
+						const operand = this.reqPrefixedOperand(ExpressionMode::Default)
+
+						condition = this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
+					}
+					else {
+						this.reqVariableEquals(modifiers)
+
+						const expression = this.reqExpression(ExpressionMode::Default)
+
+						condition = this.yep(AST.VariableDeclaration(modifiers, [variable], expression, first, expression))
+					}
+				}
+				else {
+					this.rollback(mark)
+
+					condition = this.tryExpression()
+				}
+			}
+			else {
+				condition = this.tryExpression()
+			}
 
 			unless condition.ok {
 				return NO
