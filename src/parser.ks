@@ -145,13 +145,13 @@ export namespace Parser {
 				return false
 			}
 		} // }}}
-		throw() ~ SyntaxError { // {{{
+		throw(): Never ~ SyntaxError { // {{{
 			throw new SyntaxError(`Unexpected \(@scanner.toQuote()) at line \(@scanner.line()) and column \(@scanner.column())`)
 		} // }}}
-		throw(expected: String) ~ SyntaxError { // {{{
+		throw(expected: String): Never ~ SyntaxError { // {{{
 			throw new SyntaxError(`Expecting "\(expected)" but got \(@scanner.toQuote()) at line \(@scanner.line()) and column \(@scanner.column())`)
 		} // }}}
-		throw(expecteds: Array) ~ SyntaxError { // {{{
+		throw(expecteds: Array): Never ~ SyntaxError { // {{{
 			throw new SyntaxError(`Expecting "\(expecteds.slice(0, expecteds.length - 1).join('", "'))" or "\(expecteds[expecteds.length - 1])" but got \(@scanner.toQuote()) at line \(@scanner.line()) and column \(@scanner.column())`)
 		} // }}}
 		until(token): Boolean => !@scanner.test(token) && !@scanner.isEOF()

@@ -27,10 +27,10 @@
 	],
 	"main": "src/parser.ks",
 	"dependencies": {
-		"@kaoscript/ast": "github:kaoscript/ast",
-		"@kaoscript/runtime": "^0.6.1"
+		"@kaoscript/ast": "github:kaoscript/ast"
 	},
 	"devDependencies": {
+		"@kaoscript/chai": "github:kaoscript/testing-chai",
 		"@kaoscript/coverage-istanbul": "^0.2.1",
 		"@zokugun/istanbul.cover": "^0.5.0",
 		"@zokugun/istanbul.cover.cmd.mocha": "^0.4.0",
@@ -38,7 +38,7 @@
 		"chai": "^4.2.0",
 		"coveralls": "^3.0.6",
 		"istanbul": "^0.4.5",
-		"kaoscript": "^0.9.3",
+		"kaoscript": "github:kaoscript/kaoscript",
 		"klaw-sync": "^6.0.0",
 		"mocha": "^5.2.0"
 	},

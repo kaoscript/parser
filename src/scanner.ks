@@ -178,9 +178,10 @@ const regex = {
 	template: /^(?:[^`\\]|\\\\|\\(?!\())+/
 }
 
+#[rules(no-param-assert)]
 namespace M {
 	export {
-		func ASSIGNEMENT_OPERATOR(that, index) { // {{{
+		func ASSIGNEMENT_OPERATOR(that: Scanner, index: Number) { // {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -284,7 +285,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func BINARY_OPERATOR(that, index) { // {{{
+		func BINARY_OPERATOR(that: Scanner, index: Number) { // {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -535,7 +536,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func EXPORT_STATEMENT(that, index) { // {{{
+		func EXPORT_STATEMENT(that: Scanner, index: Number) { // {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -648,7 +649,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func EXTERN_STATEMENT(that, index) { // {{{
+		func EXTERN_STATEMENT(that: Scanner, index: Number) { // {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -735,7 +736,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func MACRO(that, index) { // {{{
+		func MACRO(that: Scanner, index: Number) { // {{{
 			let c = that._data.charCodeAt(++index)
 			if c == 13 && that.charAt(1) == 10 {
 				that.nextLine(2)
@@ -795,7 +796,7 @@ namespace M {
 			}
 		} // }}}
 
-		func MODULE_STATEMENT(that, index) { // {{{
+		func MODULE_STATEMENT(that: Scanner, index: Number) { // {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -939,7 +940,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func NUMBER(that, index) { // {{{
+		func NUMBER(that: Scanner, index: Number) { // {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -987,7 +988,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func OPERAND(that, index) { // {{{
+		func OPERAND(that: Scanner, index: Number) { // {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -1071,7 +1072,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func OPERAND_JUNCTION(that, index) { // {{{
+		func OPERAND_JUNCTION(that: Scanner, index: Number) { // {{{
 			let c = that._data.charCodeAt(index + 1)
 
 			let p = that._data.charCodeAt(index)
@@ -1191,7 +1192,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func POSTFIX_OPERATOR(that, index) { // {{{
+		func POSTFIX_OPERATOR(that: Scanner, index: Number) { // {{{
 			let p = that._data.charCodeAt(index)
 			let c = that._data.charCodeAt(index + 1)
 
@@ -1235,7 +1236,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func PREFIX_OPERATOR(that, index) { // {{{
+		func PREFIX_OPERATOR(that: Scanner, index: Number) { // {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -1296,7 +1297,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func STATEMENT(that, index) { // {{{
+		func STATEMENT(that: Scanner, index: Number) { // {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -1634,7 +1635,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func TEMPLATE(that, index) { // {{{
+		func TEMPLATE(that: Scanner, index: Number) { // {{{
 			let c = that._data.charCodeAt(++index)
 
 			if c == 92 && that._data.charCodeAt(index + 1) == 40 {
@@ -1654,7 +1655,7 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
-		func TYPE_OPERATOR(that, index) { // {{{
+		func TYPE_OPERATOR(that: Scanner, index: Number) { // {{{
 			let c = that.skip(index)
 			if c == -1 {
 				return Token::EOF
@@ -1705,8 +1706,9 @@ namespace M {
 	}
 }
 
+#[rules(no-param-assert)]
 const recognize = {
-	`\(Token::ABSTRACT)`(that, c) { // {{{
+	`\(Token::ABSTRACT)`(that: Scanner, c: Number) { // {{{
 		if	c == 97 &&
 			that.charAt(1) == 98 &&
 			that.charAt(2) == 115 &&
@@ -1723,7 +1725,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::AMPERSAND)`(that, c) { // {{{
+	`\(Token::AMPERSAND)`(that: Scanner, c: Number) { // {{{
 		if c == 38 && that.charAt(1) != 61 {
 			return that.next(1)
 		}
@@ -1731,7 +1733,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::AMPERSAND_AMPERSAND)`(that, c) { // {{{
+	`\(Token::AMPERSAND_AMPERSAND)`(that: Scanner, c: Number) { // {{{
 		if c == 38 && that.charAt(1) == 38 {
 			return that.next(2)
 		}
@@ -1739,7 +1741,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::ASTERISK)`(that, c) { // {{{
+	`\(Token::ASTERISK)`(that: Scanner, c: Number) { // {{{
 		if c == 42 && (c = that.charAt(1)) != 42 && c != 36 && c != 61 {
 			return that.next(1)
 		}
@@ -1747,7 +1749,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::AS)`(that, c) { // {{{
+	`\(Token::AS)`(that: Scanner, c: Number) { // {{{
 		if	c == 97 &&
 			that.charAt(1) == 115 &&
 			that.isBoundary(2)
@@ -1758,7 +1760,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::ASYNC)`(that, c) { // {{{
+	`\(Token::ASYNC)`(that: Scanner, c: Number) { // {{{
 		if	c == 97 &&
 			that.charAt(1) == 115 &&
 			that.charAt(2) == 121 &&
@@ -1772,7 +1774,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::AT)`(that, c) { // {{{
+	`\(Token::AT)`(that: Scanner, c: Number) { // {{{
 		if c == 64 {
 			return that.next(1)
 		}
@@ -1780,7 +1782,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::ATTRIBUTE_IDENTIFIER)`(that, c) { // {{{
+	`\(Token::ATTRIBUTE_IDENTIFIER)`(that: Scanner, c: Number) { // {{{
 		if c == 36 || c == 95 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
 			let index = that._index - 1
 
@@ -1803,7 +1805,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::AWAIT)`(that, c) { // {{{
+	`\(Token::AWAIT)`(that: Scanner, c: Number) { // {{{
 		if	c == 97 &&
 			that.charAt(1) == 119 &&
 			that.charAt(2) == 97 &&
@@ -1817,7 +1819,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::BUT)`(that, c) { // {{{
+	`\(Token::BUT)`(that: Scanner, c: Number) { // {{{
 		if	c == 98 &&
 			that.charAt(1) == 117 &&
 			that.charAt(2) == 116 &&
@@ -1829,7 +1831,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::BY)`(that, c) { // {{{
+	`\(Token::BY)`(that: Scanner, c: Number) { // {{{
 		if	c == 98 &&
 			that.charAt(1) == 121 &&
 			that.isBoundary(2)
@@ -1840,7 +1842,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::CATCH)`(that, c) { // {{{
+	`\(Token::CATCH)`(that: Scanner, c: Number) { // {{{
 		if	c == 99 &&
 			that.charAt(1) == 97 &&
 			that.charAt(2) == 116 &&
@@ -1854,7 +1856,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::COLON)`(that, c) { // {{{
+	`\(Token::COLON)`(that: Scanner, c: Number) { // {{{
 		if c == 58 {
 			c = that.charAt(1)
 
@@ -1864,7 +1866,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::COLON_EQUALS)`(that, c) { // {{{
+	`\(Token::COLON_EQUALS)`(that: Scanner, c: Number) { // {{{
 		if c == 58 && that.charAt(1) == 61 {
 			return that.next(2)
 		}
@@ -1872,7 +1874,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::COMMA)`(that, c) { // {{{
+	`\(Token::COMMA)`(that: Scanner, c: Number) { // {{{
 		if c == 44 {
 			return that.next(1)
 		}
@@ -1880,7 +1882,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::CONST)`(that, c) { // {{{
+	`\(Token::CONST)`(that: Scanner, c: Number) { // {{{
 		if	c == 99 &&
 			that.charAt(1) == 111 &&
 			that.charAt(2) == 110 &&
@@ -1894,7 +1896,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::CLASS)`(that, c) { // {{{
+	`\(Token::CLASS)`(that: Scanner, c: Number) { // {{{
 		if	c == 99 &&
 			that.charAt(1) == 108 &&
 			that.charAt(2) == 97 &&
@@ -1908,7 +1910,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::CLASS_VERSION)`(that, c) { // {{{
+	`\(Token::CLASS_VERSION)`(that: Scanner, c: Number) { // {{{
 		if match ?= regex.class_version.exec(that.substringAt(0)) {
 			return that.next(match[0].length)
 		}
@@ -1916,7 +1918,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::DESC)`(that, c) { // {{{
+	`\(Token::DESC)`(that: Scanner, c: Number) { // {{{
 		if	c == 100 &&
 			that.charAt(1) == 101 &&
 			that.charAt(2) == 115 &&
@@ -1929,7 +1931,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::DOT)`(that, c) { // {{{
+	`\(Token::DOT)`(that: Scanner, c: Number) { // {{{
 		if c == 46 && that.charAt(1) != 46 {
 			return that.next(1)
 		}
@@ -1937,7 +1939,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::DOT_DOT)`(that, c) { // {{{
+	`\(Token::DOT_DOT)`(that: Scanner, c: Number) { // {{{
 		if c == 46 && that.charAt(1) == 46 && that.charAt(2) != 46 {
 			return that.next(2)
 		}
@@ -1945,7 +1947,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::DOT_DOT_DOT)`(that, c) { // {{{
+	`\(Token::DOT_DOT_DOT)`(that: Scanner, c: Number) { // {{{
 		if c == 46 && that.charAt(1) == 46 && that.charAt(2) == 46 {
 			return that.next(3)
 		}
@@ -1953,7 +1955,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::ELSE)`(that, c) { // {{{
+	`\(Token::ELSE)`(that: Scanner, c: Number) { // {{{
 		if	c == 101 &&
 			that.charAt(1) == 108 &&
 			that.charAt(2) == 115 &&
@@ -1966,7 +1968,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::ELSE_IF)`(that, c) { // {{{
+	`\(Token::ELSE_IF)`(that: Scanner, c: Number) { // {{{
 		if	c == 101 &&
 			that.charAt(1) == 108 &&
 			that.charAt(2) == 115 &&
@@ -1982,7 +1984,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::EQUALS)`(that, c) { // {{{
+	`\(Token::EQUALS)`(that: Scanner, c: Number) { // {{{
 		if c == 61 && (c = that.charAt(1)) != 61 && c != 62 {
 			return that.next(1)
 		}
@@ -1990,7 +1992,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::EQUALS_RIGHT_ANGLE)`(that, c) { // {{{
+	`\(Token::EQUALS_RIGHT_ANGLE)`(that: Scanner, c: Number) { // {{{
 		if c == 61 && that.charAt(1) == 62{
 			return that.next(2)
 		}
@@ -1998,7 +2000,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::EXCLAMATION)`(that, c) { // {{{
+	`\(Token::EXCLAMATION)`(that: Scanner, c: Number) { // {{{
 		if c == 33 {
 			return that.next(1)
 		}
@@ -2006,7 +2008,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::EXTENDS)`(that, c) { // {{{
+	`\(Token::EXTENDS)`(that: Scanner, c: Number) { // {{{
 		if	c == 101 &&
 			that.charAt(1) == 120 &&
 			that.charAt(2) == 116 &&
@@ -2022,7 +2024,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::FINAL)`(that, c) { // {{{
+	`\(Token::FINAL)`(that: Scanner, c: Number) { // {{{
 		if	c == 102 &&
 			that.charAt(1) == 105 &&
 			that.charAt(2) == 110 &&
@@ -2036,7 +2038,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::FINALLY)`(that, c) { // {{{
+	`\(Token::FINALLY)`(that: Scanner, c: Number) { // {{{
 		if	c == 102 &&
 			that.charAt(1) == 105 &&
 			that.charAt(2) == 110 &&
@@ -2052,7 +2054,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::FOR)`(that, c) { // {{{
+	`\(Token::FOR)`(that: Scanner, c: Number) { // {{{
 		if	c == 102 &&
 			that.charAt(1) == 111 &&
 			that.charAt(2) == 114 &&
@@ -2064,7 +2066,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::FROM)`(that, c) { // {{{
+	`\(Token::FROM)`(that: Scanner, c: Number) { // {{{
 		if	c == 102 &&
 			that.charAt(1) == 114 &&
 			that.charAt(2) == 111 &&
@@ -2077,7 +2079,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::FUNC)`(that, c) { // {{{
+	`\(Token::FUNC)`(that: Scanner, c: Number) { // {{{
 		if	c == 102 &&
 			that.charAt(1) == 117 &&
 			that.charAt(2) == 110 &&
@@ -2090,7 +2092,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::GET)`(that, c) { // {{{
+	`\(Token::GET)`(that: Scanner, c: Number) { // {{{
 		if	c == 103 &&
 			that.charAt(1) == 101 &&
 			that.charAt(2) == 116 &&
@@ -2102,7 +2104,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::HASH_EXCLAMATION_LEFT_SQUARE)`(that, c) { // {{{
+	`\(Token::HASH_EXCLAMATION_LEFT_SQUARE)`(that: Scanner, c: Number) { // {{{
 		if c == 35 && that.charAt(1) == 33 && that.charAt(2) == 91 {
 			return that.next(3)
 		}
@@ -2110,7 +2112,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::HASH_LEFT_SQUARE)`(that, c) { // {{{
+	`\(Token::HASH_LEFT_SQUARE)`(that: Scanner, c: Number) { // {{{
 		if c == 35 && that.charAt(1) == 91 {
 			return that.next(2)
 		}
@@ -2118,7 +2120,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::IDENTIFIER)`(that, c) { // {{{
+	`\(Token::IDENTIFIER)`(that: Scanner, c: Number) { // {{{
 		if c == 36 || c == 95 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
 			that.scanIdentifier(false)
 
@@ -2128,7 +2130,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::IF)`(that, c) { // {{{
+	`\(Token::IF)`(that: Scanner, c: Number) { // {{{
 		if	c == 105 &&
 			that.charAt(1) == 102 &&
 			that.isBoundary(2)
@@ -2139,7 +2141,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::IN)`(that, c) { // {{{
+	`\(Token::IN)`(that: Scanner, c: Number) { // {{{
 		if	c == 105 &&
 			that.charAt(1) == 110 &&
 			that.isBoundary(2)
@@ -2150,7 +2152,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::IS)`(that, c) { // {{{
+	`\(Token::IS)`(that: Scanner, c: Number) { // {{{
 		if	c == 105 &&
 			that.charAt(1) == 115 &&
 			that.isBoundary(2)
@@ -2161,7 +2163,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::LEFT_ANGLE)`(that, c) { // {{{
+	`\(Token::LEFT_ANGLE)`(that: Scanner, c: Number) { // {{{
 		if c == 60 {
 			c = that.charAt(1)
 
@@ -2171,7 +2173,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::LEFT_CURLY)`(that, c) { // {{{
+	`\(Token::LEFT_CURLY)`(that: Scanner, c: Number) { // {{{
 		if c == 123 {
 			return that.next(1)
 		}
@@ -2179,7 +2181,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::LEFT_ROUND)`(that, c) { // {{{
+	`\(Token::LEFT_ROUND)`(that: Scanner, c: Number) { // {{{
 		if c == 40 {
 			return that.next(1)
 		}
@@ -2187,7 +2189,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::LEFT_SQUARE)`(that, c) { // {{{
+	`\(Token::LEFT_SQUARE)`(that: Scanner, c: Number) { // {{{
 		if c == 91 {
 			return that.next(1)
 		}
@@ -2195,7 +2197,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::LET)`(that, c) { // {{{
+	`\(Token::LET)`(that: Scanner, c: Number) { // {{{
 		if	c == 108 &&
 			that.charAt(1) == 101 &&
 			that.charAt(2) == 116 &&
@@ -2207,7 +2209,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::MACRO)`(that, c) { // {{{
+	`\(Token::MACRO)`(that: Scanner, c: Number) { // {{{
 		if	c == 109 &&
 			that.charAt(1) == 97 &&
 			that.charAt(2) == 99 &&
@@ -2221,7 +2223,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::MINUS)`(that, c) { // {{{
+	`\(Token::MINUS)`(that: Scanner, c: Number) { // {{{
 		if c == 45 && (c = that.charAt(1)) != 61 {
 			return that.next(1)
 		}
@@ -2229,7 +2231,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::NEWLINE)`(that, c) { // {{{
+	`\(Token::NEWLINE)`(that: Scanner, c: Number) { // {{{
 		if c == 13 && that.charAt(1) == 10 {
 			return that.nextLine(2)
 		}
@@ -2239,7 +2241,7 @@ const recognize = {
 
 		return false
 	} // }}}
-	`\(Token::OF)`(that, c) { // {{{
+	`\(Token::OF)`(that: Scanner, c: Number) { // {{{
 		if	c == 111 &&
 			that.charAt(1) == 102 &&
 			that.isBoundary(2)
@@ -2250,7 +2252,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::ON)`(that, c) { // {{{
+	`\(Token::ON)`(that: Scanner, c: Number) { // {{{
 		if	c == 111 &&
 			that.charAt(1) == 110 &&
 			that.isBoundary(2)
@@ -2261,7 +2263,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::OVERRIDE)`(that, c) { // {{{
+	`\(Token::OVERRIDE)`(that: Scanner, c: Number) { // {{{
 		if	c == 111 &&
 			that.charAt(1) == 118 &&
 			that.charAt(2) == 101 &&
@@ -2278,7 +2280,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::OVERWRITE)`(that, c) { // {{{
+	`\(Token::OVERWRITE)`(that: Scanner, c: Number) { // {{{
 		if	c == 111 &&
 			that.charAt(1) == 118 &&
 			that.charAt(2) == 101 &&
@@ -2296,7 +2298,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::PIPE)`(that, c) { // {{{
+	`\(Token::PIPE)`(that: Scanner, c: Number) { // {{{
 		if c == 124 && that.charAt(1) != 61 {
 			return that.next(1)
 		}
@@ -2304,7 +2306,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::PIPE_PIPE)`(that, c) { // {{{
+	`\(Token::PIPE_PIPE)`(that: Scanner, c: Number) { // {{{
 		if c == 124 && that.charAt(1) == 124 {
 			return that.next(2)
 		}
@@ -2312,7 +2314,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::PRIVATE)`(that, c) { // {{{
+	`\(Token::PRIVATE)`(that: Scanner, c: Number) { // {{{
 		if	c == 112 &&
 			that.charAt(1) == 114 &&
 			that.charAt(2) == 105 &&
@@ -2328,7 +2330,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::PROTECTED)`(that, c) { // {{{
+	`\(Token::PROTECTED)`(that: Scanner, c: Number) { // {{{
 		if	c == 112 &&
 			that.charAt(1) == 114 &&
 			that.charAt(2) == 111 &&
@@ -2346,7 +2348,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::PUBLIC)`(that, c) { // {{{
+	`\(Token::PUBLIC)`(that: Scanner, c: Number) { // {{{
 		if	c == 112 &&
 			that.charAt(1) == 117 &&
 			that.charAt(2) == 98 &&
@@ -2361,7 +2363,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::QUESTION)`(that, c) { // {{{
+	`\(Token::QUESTION)`(that: Scanner, c: Number) { // {{{
 		if c == 63 {
 			return (c = that.charAt(1)) == 40 || c == 46 || c == 61 || c == 63 || c == 91 ? false : that.next(1)
 		}
@@ -2369,7 +2371,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::RETURN)`(that, c) { // {{{
+	`\(Token::RETURN)`(that: Scanner, c: Number) { // {{{
 		if	c == 114 &&
 			that.charAt(1) == 101 &&
 			that.charAt(2) == 116 &&
@@ -2384,7 +2386,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::RIGHT_ANGLE)`(that, c) { // {{{
+	`\(Token::RIGHT_ANGLE)`(that: Scanner, c: Number) { // {{{
 		if c == 62 {
 			return that.next(1)
 		}
@@ -2392,7 +2394,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::RIGHT_CURLY)`(that, c) { // {{{
+	`\(Token::RIGHT_CURLY)`(that: Scanner, c: Number) { // {{{
 		if c == 125 {
 			return that.next(1)
 		}
@@ -2400,7 +2402,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::RIGHT_ROUND)`(that, c) { // {{{
+	`\(Token::RIGHT_ROUND)`(that: Scanner, c: Number) { // {{{
 		if c == 41 {
 			return that.next(1)
 		}
@@ -2408,7 +2410,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::RIGHT_SQUARE)`(that, c) { // {{{
+	`\(Token::RIGHT_SQUARE)`(that: Scanner, c: Number) { // {{{
 		if c == 93 {
 			return that.next(1)
 		}
@@ -2416,7 +2418,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::SET)`(that, c) { // {{{
+	`\(Token::SET)`(that: Scanner, c: Number) { // {{{
 		if	c == 115 &&
 			that.charAt(1) == 101 &&
 			that.charAt(2) == 116 &&
@@ -2428,7 +2430,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::STATIC)`(that, c) { // {{{
+	`\(Token::STATIC)`(that: Scanner, c: Number) { // {{{
 		if	c == 115 &&
 			that.charAt(1) == 116 &&
 			that.charAt(2) == 97 &&
@@ -2443,7 +2445,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::STRING)`(that, c) { // {{{
+	`\(Token::STRING)`(that: Scanner, c: Number) { // {{{
 		if c == 34 {
 			if match ?= regex.double_quote.exec(that.substringAt(1)) {
 				return that.next(match[0].length + 1)
@@ -2457,7 +2459,7 @@ const recognize = {
 
 		return false
 	} // }}}
-	`\(Token::SWITCH)`(that, c) { // {{{
+	`\(Token::SWITCH)`(that: Scanner, c: Number) { // {{{
 		if	c == 115 &&
 			that.charAt(1) == 119 &&
 			that.charAt(2) == 105 &&
@@ -2472,7 +2474,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::TEMPLATE_BEGIN)`(that, c) { // {{{
+	`\(Token::TEMPLATE_BEGIN)`(that: Scanner, c: Number) { // {{{
 		if c == 96 {
 			return that.next(1)
 		}
@@ -2480,7 +2482,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::TEMPLATE_END)`(that, c) { // {{{
+	`\(Token::TEMPLATE_END)`(that: Scanner, c: Number) { // {{{
 		if c == 96 {
 			return that.next(1)
 		}
@@ -2488,7 +2490,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::THROW)`(that, c) { // {{{
+	`\(Token::THROW)`(that: Scanner, c: Number) { // {{{
 		if	c == 116 &&
 			that.charAt(1) == 104 &&
 			that.charAt(2) == 114 &&
@@ -2502,7 +2504,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::TIL)`(that, c) { // {{{
+	`\(Token::TIL)`(that: Scanner, c: Number) { // {{{
 		if	c == 116 &&
 			that.charAt(1) == 105 &&
 			that.charAt(2) == 108 &&
@@ -2514,7 +2516,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::TILDE)`(that, c) { // {{{
+	`\(Token::TILDE)`(that: Scanner, c: Number) { // {{{
 		if c == 126 {
 			return that.next(1)
 		}
@@ -2522,7 +2524,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::TILDE_TILDE)`(that, c) { // {{{
+	`\(Token::TILDE_TILDE)`(that: Scanner, c: Number) { // {{{
 		if c == 126 && that.charAt(1) == 126 {
 			return that.next(2)
 		}
@@ -2530,7 +2532,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::TO)`(that, c) { // {{{
+	`\(Token::TO)`(that: Scanner, c: Number) { // {{{
 		if	c == 116 &&
 			that.charAt(1) == 111 &&
 			that.isBoundary(2)
@@ -2541,7 +2543,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::TRY)`(that, c) { // {{{
+	`\(Token::TRY)`(that: Scanner, c: Number) { // {{{
 		if	c == 116 &&
 			that.charAt(1) == 114 &&
 			that.charAt(2) == 121 &&
@@ -2553,7 +2555,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::UNLESS)`(that, c) { // {{{
+	`\(Token::UNLESS)`(that: Scanner, c: Number) { // {{{
 		if	c == 117 &&
 			that.charAt(1) == 110 &&
 			that.charAt(2) == 108 &&
@@ -2568,7 +2570,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::UNTIL)`(that, c) { // {{{
+	`\(Token::UNTIL)`(that: Scanner, c: Number) { // {{{
 		if	c == 117 &&
 			that.charAt(1) == 110 &&
 			that.charAt(2) == 116 &&
@@ -2582,7 +2584,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::WHEN)`(that, c) { // {{{
+	`\(Token::WHEN)`(that: Scanner, c: Number) { // {{{
 		if	c == 119 &&
 			that.charAt(1) == 104 &&
 			that.charAt(2) == 101 &&
@@ -2595,7 +2597,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::WHERE)`(that, c) { // {{{
+	`\(Token::WHERE)`(that: Scanner, c: Number) { // {{{
 		if	c == 119 &&
 			that.charAt(1) == 104 &&
 			that.charAt(2) == 101 &&
@@ -2609,7 +2611,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::WHILE)`(that, c) { // {{{
+	`\(Token::WHILE)`(that: Scanner, c: Number) { // {{{
 		if	c == 119 &&
 			that.charAt(1) == 104 &&
 			that.charAt(2) == 105 &&
@@ -2623,7 +2625,7 @@ const recognize = {
 			return false
 		}
 	} // }}}
-	`\(Token::WITH)`(that, c) { // {{{
+	`\(Token::WITH)`(that: Scanner, c: Number) { // {{{
 		if	c == 119 &&
 			that.charAt(1) == 105 &&
 			that.charAt(2) == 116 &&
