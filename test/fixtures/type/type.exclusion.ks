@@ -1,0 +1,1 @@
+type Instance = Object ^ Array ^ Enum ^ Function ^ Namespace

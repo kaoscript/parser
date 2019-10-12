@@ -1,16 +1,16 @@
 {
-  "kind": 70,
+  "kind": 71,
   "attributes": [],
   "body": [
     {
-      "kind": 40,
+      "kind": 41,
       "attributes": [],
       "declarations": [
         {
-          "kind": 113,
+          "kind": 114,
           "modifiers": [],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "console",
             "start": {
               "line": 1,
@@ -30,17 +30,17 @@
             "column": 2
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "object"
             },
             "properties": [
               {
-                "kind": 76,
+                "kind": 77,
                 "name": {
-                  "kind": 50,
+                  "kind": 51,
                   "name": "log",
                   "start": {
                     "line": 2,
@@ -52,10 +52,10 @@
                   }
                 },
                 "type": {
-                  "kind": 48,
+                  "kind": 49,
                   "parameters": [
                     {
-                      "kind": 78,
+                      "kind": 79,
                       "modifiers": [
                         {
                           "kind": 18,
@@ -82,7 +82,7 @@
                         "column": 13
                       },
                       "name": {
-                        "kind": 50,
+                        "kind": 51,
                         "name": "args",
                         "start": {
                           "line": 2,
@@ -140,7 +140,7 @@
       "kind": 17,
       "attributes": [],
       "name": {
-        "kind": 50,
+        "kind": 51,
         "name": "Shape",
         "start": {
           "line": 5,
@@ -154,7 +154,7 @@
       "modifiers": [],
       "members": [
         {
-          "kind": 42,
+          "kind": 43,
           "attributes": [],
           "modifiers": [
             {
@@ -170,7 +170,7 @@
             }
           ],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "_color",
             "start": {
               "line": 7,
@@ -190,10 +190,10 @@
             "column": 22
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "string",
               "start": {
                 "line": 7,
@@ -214,7 +214,7 @@
             }
           },
           "defaultValue": {
-            "kind": 64,
+            "kind": 65,
             "value": "",
             "start": {
               "line": 7,
@@ -227,7 +227,7 @@
           }
         },
         {
-          "kind": 68,
+          "kind": 69,
           "attributes": [],
           "modifiers": [
             {
@@ -243,7 +243,7 @@
             }
           ],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "makeBlue",
             "start": {
               "line": 10,
@@ -264,10 +264,10 @@
             "column": 3
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "Shape",
               "start": {
                 "line": 10,
@@ -293,12 +293,12 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 85,
+                "kind": 86,
                 "attributes": [],
                 "value": {
                   "kind": 25,
                   "class": {
-                    "kind": 50,
+                    "kind": 51,
                     "name": "Shape",
                     "start": {
                       "line": 11,
@@ -311,7 +311,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 64,
+                      "kind": 65,
                       "value": "blue",
                       "start": {
                         "line": 11,
@@ -353,11 +353,11 @@
           }
         },
         {
-          "kind": 68,
+          "kind": 69,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "constructor",
             "start": {
               "line": 14,
@@ -370,7 +370,7 @@
           },
           "parameters": [
             {
-              "kind": 78,
+              "kind": 79,
               "modifiers": [
                 {
                   "kind": 22,
@@ -393,7 +393,7 @@
                 "column": 20
               },
               "name": {
-                "kind": 50,
+                "kind": 51,
                 "name": "color",
                 "start": {
                   "line": 14,
@@ -417,11 +417,11 @@
           "throws": []
         },
         {
-          "kind": 68,
+          "kind": 69,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "draw",
             "start": {
               "line": 16,
@@ -442,10 +442,10 @@
             "column": 3
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "string",
               "start": {
                 "line": 16,
@@ -471,13 +471,13 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 85,
+                "kind": 86,
                 "attributes": [],
                 "value": {
-                  "kind": 99,
+                  "kind": 100,
                   "elements": [
                     {
-                      "kind": 64,
+                      "kind": 65,
                       "value": "I'm drawing a ",
                       "start": {
                         "line": 17,
@@ -489,9 +489,9 @@
                       }
                     },
                     {
-                      "kind": 100,
+                      "kind": 101,
                       "name": {
-                        "kind": 50,
+                        "kind": 51,
                         "name": "color",
                         "start": {
                           "line": 17,
@@ -512,7 +512,7 @@
                       }
                     },
                     {
-                      "kind": 64,
+                      "kind": 65,
                       "value": " rectangle.",
                       "start": {
                         "line": 17,
@@ -564,10 +564,10 @@
       }
     },
     {
-      "kind": 53,
+      "kind": 54,
       "attributes": [],
       "variable": {
-        "kind": 50,
+        "kind": 51,
         "name": "Shape",
         "start": {
           "line": 21,
@@ -580,7 +580,7 @@
       },
       "properties": [
         {
-          "kind": 42,
+          "kind": 43,
           "attributes": [],
           "modifiers": [
             {
@@ -596,7 +596,7 @@
             }
           ],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "_name",
             "start": {
               "line": 22,
@@ -616,10 +616,10 @@
             "column": 34
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "string",
               "start": {
                 "line": 22,
@@ -640,7 +640,7 @@
             }
           },
           "defaultValue": {
-            "kind": 64,
+            "kind": 65,
             "value": "circle",
             "start": {
               "line": 22,
@@ -653,11 +653,11 @@
           }
         },
         {
-          "kind": 68,
+          "kind": 69,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "name",
             "start": {
               "line": 24,
@@ -679,9 +679,9 @@
           },
           "throws": [],
           "body": {
-            "kind": 100,
+            "kind": 101,
             "name": {
-              "kind": 50,
+              "kind": 51,
               "name": "name",
               "start": {
                 "line": 24,
@@ -703,11 +703,11 @@
           }
         },
         {
-          "kind": 68,
+          "kind": 69,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "name",
             "start": {
               "line": 25,
@@ -720,7 +720,7 @@
           },
           "parameters": [
             {
-              "kind": 78,
+              "kind": 79,
               "modifiers": [
                 {
                   "kind": 22,
@@ -743,7 +743,7 @@
                 "column": 12
               },
               "name": {
-                "kind": 50,
+                "kind": 51,
                 "name": "name",
                 "start": {
                   "line": 25,
@@ -766,7 +766,7 @@
           },
           "throws": [],
           "body": {
-            "kind": 50,
+            "kind": 51,
             "name": "this",
             "start": {
               "line": 25,
@@ -779,7 +779,7 @@
           }
         },
         {
-          "kind": 68,
+          "kind": 69,
           "attributes": [],
           "modifiers": [
             {
@@ -795,7 +795,7 @@
             }
           ],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "draw",
             "start": {
               "line": 27,
@@ -816,10 +816,10 @@
             "column": 3
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "string",
               "start": {
                 "line": 27,
@@ -845,13 +845,13 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 85,
+                "kind": 86,
                 "attributes": [],
                 "value": {
-                  "kind": 99,
+                  "kind": 100,
                   "elements": [
                     {
-                      "kind": 64,
+                      "kind": 65,
                       "value": "I'm drawing a ",
                       "start": {
                         "line": 28,
@@ -863,9 +863,9 @@
                       }
                     },
                     {
-                      "kind": 100,
+                      "kind": 101,
                       "name": {
-                        "kind": 50,
+                        "kind": 51,
                         "name": "color",
                         "start": {
                           "line": 28,
@@ -886,7 +886,7 @@
                       }
                     },
                     {
-                      "kind": 64,
+                      "kind": 65,
                       "value": " ",
                       "start": {
                         "line": 28,
@@ -898,9 +898,9 @@
                       }
                     },
                     {
-                      "kind": 100,
+                      "kind": 101,
                       "name": {
-                        "kind": 50,
+                        "kind": 51,
                         "name": "name",
                         "start": {
                           "line": 28,
@@ -921,7 +921,7 @@
                       }
                     },
                     {
-                      "kind": 64,
+                      "kind": 65,
                       "value": ".",
                       "start": {
                         "line": 28,
@@ -973,15 +973,15 @@
       }
     },
     {
-      "kind": 112,
+      "kind": 113,
       "modifiers": [],
       "attributes": [],
       "variables": [
         {
-          "kind": 113,
+          "kind": 114,
           "modifiers": [],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "shape",
             "start": {
               "line": 32,
@@ -1017,10 +1017,10 @@
           "kind": 3
         },
         "callee": {
-          "kind": 67,
+          "kind": 68,
           "modifiers": [],
           "object": {
-            "kind": 50,
+            "kind": 51,
             "name": "Shape",
             "start": {
               "line": 32,
@@ -1032,7 +1032,7 @@
             }
           },
           "property": {
-            "kind": 50,
+            "kind": 51,
             "name": "makeRed",
             "start": {
               "line": 32,
@@ -1070,10 +1070,10 @@
         "kind": 3
       },
       "callee": {
-        "kind": 67,
+        "kind": 68,
         "modifiers": [],
         "object": {
-          "kind": 50,
+          "kind": 51,
           "name": "console",
           "start": {
             "line": 34,
@@ -1085,7 +1085,7 @@
           }
         },
         "property": {
-          "kind": 50,
+          "kind": 51,
           "name": "log",
           "start": {
             "line": 34,
@@ -1113,10 +1113,10 @@
             "kind": 3
           },
           "callee": {
-            "kind": 67,
+            "kind": 68,
             "modifiers": [],
             "object": {
-              "kind": 50,
+              "kind": 51,
               "name": "shape",
               "start": {
                 "line": 34,
@@ -1128,7 +1128,7 @@
               }
             },
             "property": {
-              "kind": 50,
+              "kind": 51,
               "name": "draw",
               "start": {
                 "line": 34,

@@ -995,8 +995,8 @@ namespace M {
 				return Token::EOF
 			}
 			else if c == 34 { // "
-				if match ?= regex.double_quote.exec(that.substringAt(1)) {
-					that.next(match[0].length + 1)
+				if const match = regex.double_quote.exec(that.substringAt(1)) {
+					that.next(match[0].length!! + 1)
 
 					return Token::STRING
 				}
@@ -1008,7 +1008,7 @@ namespace M {
 			}
 			else if c == 39 { // '
 				if match ?= regex.single_quote.exec(that.substringAt(1)) {
-					that.next(match[0].length + 1)
+					that.next(match[0].length!! + 1)
 
 					return Token::STRING
 				}
@@ -1020,7 +1020,7 @@ namespace M {
 			}
 			else if c == 47 { // /
 				if match ?= regex.regex.exec(that.substringAt(1)) {
-					that.next(match[0].length + 1)
+					that.next(match[0].length!! + 1)
 
 					return Token::REGEXP
 				}
@@ -1842,6 +1842,22 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	`\(Token::CARET)`(that: Scanner, c: Number) { // {{{
+		if c == 94 && that.charAt(1) != 61 {
+			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} // }}}
+	`\(Token::CARET_CARET)`(that: Scanner, c: Number) { // {{{
+		if c == 94 && that.charAt(1) == 94 {
+			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} // }}}
 	`\(Token::CATCH)`(that: Scanner, c: Number) { // {{{
 		if	c == 99 &&
 			that.charAt(1) == 97 &&
@@ -2448,12 +2464,12 @@ const recognize = {
 	`\(Token::STRING)`(that: Scanner, c: Number) { // {{{
 		if c == 34 {
 			if match ?= regex.double_quote.exec(that.substringAt(1)) {
-				return that.next(match[0].length + 1)
+				return that.next(match[0].length!! + 1)
 			}
 		}
 		else if c == 39 { // '
 			if match ?= regex.single_quote.exec(that.substringAt(1)) {
-				return that.next(match[0].length + 1)
+				return that.next(match[0].length!! + 1)
 			}
 		}
 

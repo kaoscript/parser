@@ -1,12 +1,12 @@
 {
-  "kind": 70,
+  "kind": 71,
   "attributes": [],
   "body": [
     {
-      "kind": 47,
+      "kind": 48,
       "attributes": [],
       "name": {
-        "kind": 50,
+        "kind": 51,
         "name": "foo",
         "start": {
           "line": 1,
@@ -27,7 +27,7 @@
       },
       "parameters": [
         {
-          "kind": 78,
+          "kind": 79,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -38,7 +38,7 @@
             "column": 27
           },
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "bar",
             "start": {
               "line": 1,
@@ -50,10 +50,10 @@
             }
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "string",
               "start": {
                 "line": 1,
@@ -75,7 +75,7 @@
           }
         },
         {
-          "kind": 78,
+          "kind": 79,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -86,7 +86,7 @@
             "column": 37
           },
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "qux",
             "start": {
               "line": 1,
@@ -98,10 +98,10 @@
             }
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "int",
               "start": {
                 "line": 1,
@@ -137,10 +137,10 @@
         }
       ],
       "type": {
-        "kind": 106,
+        "kind": 107,
         "modifiers": [],
         "typeName": {
-          "kind": 50,
+          "kind": 51,
           "name": "string",
           "start": {
             "line": 1,
@@ -166,10 +166,10 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 85,
+            "kind": 86,
             "attributes": [],
             "value": {
-              "kind": 79,
+              "kind": 80,
               "operator": {
                 "kind": 1,
                 "start": {
@@ -191,7 +191,7 @@
               },
               "operands": [
                 {
-                  "kind": 50,
+                  "kind": 51,
                   "name": "bar",
                   "start": {
                     "line": 2,
@@ -203,7 +203,7 @@
                   }
                 },
                 {
-                  "kind": 64,
+                  "kind": 65,
                   "value": "+",
                   "start": {
                     "line": 2,
@@ -215,7 +215,7 @@
                   }
                 },
                 {
-                  "kind": 50,
+                  "kind": 51,
                   "name": "qux",
                   "start": {
                     "line": 2,
@@ -249,10 +249,10 @@
       }
     },
     {
-      "kind": 47,
+      "kind": 48,
       "attributes": [],
       "name": {
-        "kind": 50,
+        "kind": 51,
         "name": "bar",
         "start": {
           "line": 5,
@@ -273,7 +273,7 @@
       },
       "parameters": [
         {
-          "kind": 78,
+          "kind": 79,
           "modifiers": [],
           "start": {
             "line": 5,
@@ -284,7 +284,7 @@
             "column": 18
           },
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "callback",
             "start": {
               "line": 5,
@@ -304,15 +304,15 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 112,
+            "kind": 113,
             "modifiers": [],
             "attributes": [],
             "variables": [
               {
-                "kind": 113,
+                "kind": 114,
                 "modifiers": [],
                 "name": {
-                  "kind": 50,
+                  "kind": 51,
                   "name": "text",
                   "start": {
                     "line": 6,
@@ -351,7 +351,7 @@
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 50,
+                  "kind": 51,
                   "name": "foo",
                   "start": {
                     "line": 6,
@@ -364,7 +364,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 64,
+                    "kind": 65,
                     "value": "foobar",
                     "start": {
                       "line": 6,
@@ -376,7 +376,7 @@
                     }
                   },
                   {
-                    "kind": 73,
+                    "kind": 74,
                     "value": 42,
                     "start": {
                       "line": 6,
@@ -414,7 +414,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 50,
+              "kind": 51,
               "name": "callback",
               "start": {
                 "line": 8,
@@ -427,7 +427,7 @@
             },
             "arguments": [
               {
-                "kind": 50,
+                "kind": 51,
                 "name": "null",
                 "start": {
                   "line": 8,
@@ -439,7 +439,7 @@
                 }
               },
               {
-                "kind": 50,
+                "kind": 51,
                 "name": "text",
                 "start": {
                   "line": 8,

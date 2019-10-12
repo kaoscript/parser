@@ -5276,7 +5276,7 @@ export namespace Parser {
 
 				this.NL_0M()
 
-				if this.match(Token::PIPE, Token::AMPERSAND) == Token::PIPE {
+				if this.match(Token::PIPE, Token::AMPERSAND, Token::CARET) == Token::PIPE {
 					do {
 						this.commit()
 
@@ -5330,12 +5330,39 @@ export namespace Parser {
 						return this.yep(AST.FusionType(types, type, types[types.length - 1]))
 					}
 				}
+				else if @token == Token::CARET {
+					do {
+						this.commit()
+
+						if this.test(Token::CARET) {
+							this.commit()
+						}
+
+						this.NL_0M()
+
+						types.push(this.reqTypeReference(true))
+
+						mark = this.mark()
+
+						this.NL_0M()
+					}
+					while this.test(Token::CARET)
+
+					this.rollback(mark)
+
+					if types.length == 1 {
+						return types[0]
+					}
+					else {
+						return this.yep(AST.ExclusionType(types, type, types[types.length - 1]))
+					}
+				}
 				else {
 					this.rollback(mark)
 				}
 			}
 			else {
-				if this.match(Token::PIPE_PIPE, Token::PIPE, Token::AMPERSAND_AMPERSAND, Token::AMPERSAND) == Token::PIPE {
+				if this.match(Token::PIPE_PIPE, Token::PIPE, Token::AMPERSAND_AMPERSAND, Token::AMPERSAND, Token::CARET_CARET, Token::CARET) == Token::PIPE {
 					this.commit()
 
 					if this.test(Token::NEWLINE) {
@@ -5374,6 +5401,26 @@ export namespace Parser {
 					while this.test(Token::AMPERSAND)
 
 					return this.yep(AST.FusionType(types, type, types[types.length - 1]))
+				}
+				else if @token == Token::CARET {
+					this.commit()
+
+					if this.test(Token::NEWLINE) {
+						this.rollback(mark)
+
+						return type
+					}
+
+					const types = [type]
+
+					do {
+						this.commit()
+
+						types.push(this.reqTypeReference(false))
+					}
+					while this.test(Token::CARET)
+
+					return this.yep(AST.ExclusionType(types, type, types[types.length - 1]))
 				}
 			}
 

@@ -607,6 +607,13 @@ namespace AST {
 			}, name, value)
 		} // }}}
 
+		func ExclusionType(types, first, last) { // {{{
+			return location({
+				kind: NodeKind::ExclusionType
+				types: [type.value for type in types]
+			}, first, last)
+		} // }}}
+
 		func ExportDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExportDeclaration

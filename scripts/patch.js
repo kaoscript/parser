@@ -44,7 +44,7 @@ function prepare(file) {
 			data = parse(data);
 
 			data = JSON.stringify(data, function(key, value) {
-				if(value == Infinity) {
+				if(value === Infinity) {
 					return 'Infinity';
 				}
 				return value;

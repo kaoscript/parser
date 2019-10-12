@@ -1,12 +1,12 @@
 {
-  "kind": 70,
+  "kind": 71,
   "attributes": [],
   "body": [
     {
       "kind": 17,
       "attributes": [],
       "name": {
-        "kind": 50,
+        "kind": 51,
         "name": "Shape",
         "start": {
           "line": 1,
@@ -20,7 +20,7 @@
       "modifiers": [],
       "members": [
         {
-          "kind": 42,
+          "kind": 43,
           "attributes": [],
           "modifiers": [
             {
@@ -36,7 +36,7 @@
             }
           ],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "_color",
             "start": {
               "line": 3,
@@ -56,10 +56,10 @@
             "column": 22
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "string",
               "start": {
                 "line": 3,
@@ -80,7 +80,7 @@
             }
           },
           "defaultValue": {
-            "kind": 64,
+            "kind": 65,
             "value": "",
             "start": {
               "line": 3,
@@ -93,7 +93,7 @@
           }
         },
         {
-          "kind": 42,
+          "kind": 43,
           "attributes": [],
           "modifiers": [
             {
@@ -109,7 +109,7 @@
             }
           ],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "_type",
             "start": {
               "line": 4,
@@ -129,10 +129,10 @@
             "column": 21
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "string",
               "start": {
                 "line": 4,
@@ -153,7 +153,7 @@
             }
           },
           "defaultValue": {
-            "kind": 64,
+            "kind": 65,
             "value": "",
             "start": {
               "line": 4,
@@ -166,7 +166,7 @@
           }
         },
         {
-          "kind": 68,
+          "kind": 69,
           "attributes": [],
           "modifiers": [
             {
@@ -182,7 +182,7 @@
             }
           ],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "makeRectangle",
             "start": {
               "line": 8,
@@ -195,7 +195,7 @@
           },
           "parameters": [
             {
-              "kind": 78,
+              "kind": 79,
               "modifiers": [],
               "start": {
                 "line": 8,
@@ -206,7 +206,7 @@
                 "column": 30
               },
               "name": {
-                "kind": 50,
+                "kind": 51,
                 "name": "color",
                 "start": {
                   "line": 8,
@@ -218,10 +218,10 @@
                 }
               },
               "type": {
-                "kind": 106,
+                "kind": 107,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 50,
+                  "kind": 51,
                   "name": "string",
                   "start": {
                     "line": 8,
@@ -252,10 +252,10 @@
             "column": 71
           },
           "type": {
-            "kind": 106,
+            "kind": 107,
             "modifiers": [],
             "typeName": {
-              "kind": 50,
+              "kind": 51,
               "name": "Shape",
               "start": {
                 "line": 8,
@@ -279,7 +279,7 @@
           "body": {
             "kind": 25,
             "class": {
-              "kind": 50,
+              "kind": 51,
               "name": "Shape",
               "start": {
                 "line": 8,
@@ -292,7 +292,7 @@
             },
             "arguments": [
               {
-                "kind": 64,
+                "kind": 65,
                 "value": "rectangle",
                 "start": {
                   "line": 8,
@@ -304,7 +304,7 @@
                 }
               },
               {
-                "kind": 50,
+                "kind": 51,
                 "name": "color",
                 "start": {
                   "line": 8,
@@ -327,11 +327,11 @@
           }
         },
         {
-          "kind": 68,
+          "kind": 69,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "constructor",
             "start": {
               "line": 11,
@@ -344,7 +344,7 @@
           },
           "parameters": [
             {
-              "kind": 78,
+              "kind": 79,
               "modifiers": [
                 {
                   "kind": 22,
@@ -367,7 +367,7 @@
                 "column": 19
               },
               "name": {
-                "kind": 50,
+                "kind": 51,
                 "name": "type",
                 "start": {
                   "line": 11,
@@ -380,7 +380,7 @@
               }
             },
             {
-              "kind": 78,
+              "kind": 79,
               "modifiers": [
                 {
                   "kind": 22,
@@ -403,7 +403,7 @@
                 "column": 27
               },
               "name": {
-                "kind": 50,
+                "kind": 51,
                 "name": "color",
                 "start": {
                   "line": 11,
@@ -437,15 +437,15 @@
       }
     },
     {
-      "kind": 112,
+      "kind": 113,
       "modifiers": [],
       "attributes": [],
       "variables": [
         {
-          "kind": 113,
+          "kind": 114,
           "modifiers": [],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "r",
             "start": {
               "line": 14,
@@ -481,10 +481,10 @@
           "kind": 3
         },
         "callee": {
-          "kind": 67,
+          "kind": 68,
           "modifiers": [],
           "object": {
-            "kind": 50,
+            "kind": 51,
             "name": "Shape",
             "start": {
               "line": 14,
@@ -496,7 +496,7 @@
             }
           },
           "property": {
-            "kind": 50,
+            "kind": 51,
             "name": "makeRectangle",
             "start": {
               "line": 14,
@@ -518,7 +518,7 @@
         },
         "arguments": [
           {
-            "kind": 64,
+            "kind": 65,
             "value": "black",
             "start": {
               "line": 14,
@@ -547,10 +547,10 @@
         "kind": 3
       },
       "callee": {
-        "kind": 67,
+        "kind": 68,
         "modifiers": [],
         "object": {
-          "kind": 67,
+          "kind": 68,
           "modifiers": [],
           "object": {
             "kind": 14,
@@ -559,7 +559,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 50,
+              "kind": 51,
               "name": "expect",
               "start": {
                 "line": 16,
@@ -572,10 +572,10 @@
             },
             "arguments": [
               {
-                "kind": 67,
+                "kind": 68,
                 "modifiers": [],
                 "object": {
-                  "kind": 50,
+                  "kind": 51,
                   "name": "r",
                   "start": {
                     "line": 16,
@@ -587,7 +587,7 @@
                   }
                 },
                 "property": {
-                  "kind": 50,
+                  "kind": 51,
                   "name": "type",
                   "start": {
                     "line": 16,
@@ -618,7 +618,7 @@
             }
           },
           "property": {
-            "kind": 50,
+            "kind": 51,
             "name": "to",
             "start": {
               "line": 16,
@@ -639,7 +639,7 @@
           }
         },
         "property": {
-          "kind": 50,
+          "kind": 51,
           "name": "equal",
           "start": {
             "line": 16,
@@ -661,7 +661,7 @@
       },
       "arguments": [
         {
-          "kind": 64,
+          "kind": 65,
           "value": "rectangle",
           "start": {
             "line": 16,
@@ -690,10 +690,10 @@
         "kind": 3
       },
       "callee": {
-        "kind": 67,
+        "kind": 68,
         "modifiers": [],
         "object": {
-          "kind": 67,
+          "kind": 68,
           "modifiers": [],
           "object": {
             "kind": 14,
@@ -702,7 +702,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 50,
+              "kind": 51,
               "name": "expect",
               "start": {
                 "line": 17,
@@ -715,10 +715,10 @@
             },
             "arguments": [
               {
-                "kind": 67,
+                "kind": 68,
                 "modifiers": [],
                 "object": {
-                  "kind": 50,
+                  "kind": 51,
                   "name": "r",
                   "start": {
                     "line": 17,
@@ -730,7 +730,7 @@
                   }
                 },
                 "property": {
-                  "kind": 50,
+                  "kind": 51,
                   "name": "color",
                   "start": {
                     "line": 17,
@@ -761,7 +761,7 @@
             }
           },
           "property": {
-            "kind": 50,
+            "kind": 51,
             "name": "to",
             "start": {
               "line": 17,
@@ -782,7 +782,7 @@
           }
         },
         "property": {
-          "kind": 50,
+          "kind": 51,
           "name": "equal",
           "start": {
             "line": 17,
@@ -804,7 +804,7 @@
       },
       "arguments": [
         {
-          "kind": 64,
+          "kind": 65,
           "value": "black",
           "start": {
             "line": 17,

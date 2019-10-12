@@ -1,17 +1,17 @@
 {
-  "kind": 70,
+  "kind": 71,
   "attributes": [],
   "body": [
     {
-      "kind": 112,
+      "kind": 113,
       "modifiers": [],
       "attributes": [],
       "variables": [
         {
-          "kind": 113,
+          "kind": 114,
           "modifiers": [],
           "name": {
-            "kind": 50,
+            "kind": 51,
             "name": "foo",
             "start": {
               "line": 1,
@@ -51,7 +51,7 @@
           "column": 56
         },
         "condition": {
-          "kind": 50,
+          "kind": 51,
           "name": "lang",
           "start": {
             "line": 1,
@@ -63,7 +63,7 @@
           }
         },
         "whenTrue": {
-          "kind": 86,
+          "kind": 87,
           "expressions": [
             {
               "kind": 10,
@@ -88,7 +88,7 @@
                 "column": 34
               },
               "left": {
-                "kind": 50,
+                "kind": 51,
                 "name": "bar",
                 "start": {
                   "line": 1,
@@ -100,7 +100,7 @@
                 }
               },
               "right": {
-                "kind": 64,
+                "kind": 65,
                 "value": "goodbye",
                 "start": {
                   "line": 1,
@@ -113,7 +113,7 @@
               }
             },
             {
-              "kind": 64,
+              "kind": 65,
               "value": "hello",
               "start": {
                 "line": 1,
@@ -135,7 +135,7 @@
           }
         },
         "whenFalse": {
-          "kind": 64,
+          "kind": 65,
           "value": "bonjour",
           "start": {
             "line": 1,
