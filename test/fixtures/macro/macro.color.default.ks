@@ -8,11 +8,11 @@ class Color {
 			for name, component in data.components {
 				field = `_\(name)`
 
-				fields.push(macro private #i(field): #i(component.type))
+				fields.push(macro private #w(field): #w(component.type))
 
 				methods.push(macro {
-					#i(name)() => this.getField(#(name))
-					#i(name)(value) => this.setField(#(name), value)
+					#w(name)() => this.getField(#(name))
+					#w(name)(value) => this.setField(#(name), value)
 				})
 
 				data.components[name].field = field
@@ -22,8 +22,8 @@ class Color {
 				Color.registerSpace(#(data))
 
 				impl Color {
-					#b(fields)
-					#b(methods)
+					#s(fields)
+					#s(methods)
 				}
 			}
 		}

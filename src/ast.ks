@@ -1134,12 +1134,7 @@ namespace AST {
 			switch value {
 				'a' => {
 					return location({
-						kind: ReificationKind::Arguments
-					}, first)
-				}
-				'b' => {
-					return location({
-						kind: ReificationKind::Block
+						kind: ReificationKind::Argument
 					}, first)
 				}
 				'e' => {
@@ -1147,9 +1142,19 @@ namespace AST {
 						kind: ReificationKind::Expression
 					}, first)
 				}
-				'i' => {
+				'j' => {
 					return location({
-						kind: ReificationKind::Identifier
+						kind: ReificationKind::Join
+					}, first)
+				}
+				's' => {
+					return location({
+						kind: ReificationKind::Statement
+					}, first)
+				}
+				'w' => {
+					return location({
+						kind: ReificationKind::Write
 					}, first)
 				}
 			}

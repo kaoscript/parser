@@ -3367,7 +3367,7 @@ export namespace Parser {
 							const last = this.yes()
 							const mark = this.mark()
 
-							if identifier.length == 1 && (identifier == 'a' || identifier == 'b' || identifier == 'e' || identifier == 'i') && this.test(Token::LEFT_ROUND) {
+							if identifier.length == 1 && (identifier == 'a' || identifier == 'e' || identifier == 's' || identifier == 'w') && this.test(Token::LEFT_ROUND) {
 								const reification = AST.MacroReification(identifier, last)
 
 								this.commit()
@@ -3379,6 +3379,37 @@ export namespace Parser {
 								}
 
 								elements.push(this.yep(AST.MacroElementExpression(expression, reification, first, this.yes())))
+							}
+							else if identifier.length == 1 && identifier == 'j' {
+								const reification = AST.MacroReification(identifier, last)
+
+								this.commit()
+
+								unless this.test(Token::LEFT_ROUND) {
+									this.throw('(')
+								}
+
+								this.commit()
+
+								const expression = this.reqExpression(ExpressionMode::Default)
+
+								unless this.test(Token::COMMA) {
+									this.throw(',')
+								}
+
+								this.commit()
+
+								const separator = this.reqExpression(ExpressionMode::Default)
+
+								unless this.test(Token::RIGHT_ROUND) {
+									this.throw(')')
+								}
+
+								const ast = AST.MacroElementExpression(expression, reification, first, this.yes())
+
+								ast.separator = separator.value
+
+								elements.push(this.yep(ast))
 							}
 							else {
 								this.rollback(mark)
