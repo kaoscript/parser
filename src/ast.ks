@@ -732,7 +732,7 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForInStatement(modifiers, value, index, expression, from?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
+		func ForInStatement(modifiers, value, type, index, expression, from?, til?, to?, by?, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForInStatement
 				attributes: []
@@ -742,6 +742,9 @@ namespace AST {
 
 			if value.ok {
 				node.value = value.value
+			}
+			if type.ok {
+				node.type = type.value
 			}
 			if index.ok {
 				node.index = index.value
@@ -816,7 +819,7 @@ namespace AST {
 			return node
 		} // }}}
 
-		func ForOfStatement(modifiers, value?, key?, expression, until?, while?, when?, first, last) { // {{{
+		func ForOfStatement(modifiers, value, type, key, expression, until?, while?, when?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ForOfStatement
 				attributes: []
@@ -826,6 +829,9 @@ namespace AST {
 
 			if value.ok {
 				node.value = value.value
+			}
+			if type.ok {
+				node.type = type.value
 			}
 			if key.ok {
 				node.key = key.value

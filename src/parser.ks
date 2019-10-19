@@ -299,7 +299,7 @@ export namespace Parser {
 
 			return this.yep(AST.ForFromStatement(modifiers, variable, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from))
 		} // }}}
-		altForExpressionIn(modifiers, value, index, expression, first) ~ SyntaxError { // {{{
+		altForExpressionIn(modifiers, value, type, index, expression, first) ~ SyntaxError { // {{{
 			let desc = null
 			if this.test(Token::DESC) {
 				desc = this.yes()
@@ -354,9 +354,9 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForInStatement(modifiers, value, index, expression, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from ?? desc ?? expression))
+			return this.yep(AST.ForInStatement(modifiers, value, type, index, expression, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from ?? desc ?? expression))
 		} // }}}
-		altForExpressionInRange(modifiers, value, index, first) ~ SyntaxError { // {{{
+		altForExpressionInRange(modifiers, value, type, index, first) ~ SyntaxError { // {{{
 			let operand = this.tryRangeOperand(ExpressionMode::Default)
 
 			if operand.ok {
@@ -392,14 +392,14 @@ export namespace Parser {
 					return this.altForExpressionRange(modifiers, value, index, then ? null : operand, then ? operand : null, til ? toOperand : null, til ? null : toOperand, byOperand, first)
 				}
 				else {
-					return this.altForExpressionIn(modifiers, value, index, operand, first)
+					return this.altForExpressionIn(modifiers, value, type, index, operand, first)
 				}
 			}
 			else {
-				return this.altForExpressionIn(modifiers, value, index, this.reqExpression(ExpressionMode::Default), first)
+				return this.altForExpressionIn(modifiers, value, type, index, this.reqExpression(ExpressionMode::Default), first)
 			}
 		} // }}}
-		altForExpressionOf(modifiers, key?, value?, first) ~ SyntaxError { // {{{
+		altForExpressionOf(modifiers, value, type, key, first) ~ SyntaxError { // {{{
 			const expression = this.reqExpression(ExpressionMode::Default)
 
 			let until, while
@@ -423,7 +423,7 @@ export namespace Parser {
 				whenExp = this.relocate(this.reqExpression(ExpressionMode::Default), first, null)
 			}
 
-			return this.yep(AST.ForOfStatement(modifiers, key, value, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
+			return this.yep(AST.ForOfStatement(modifiers, value, type, key, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
 		} // }}}
 		altForExpressionRange(modifiers, value, index, from?, then?, til?, to?, by?, first) ~ SyntaxError { // {{{
 			let until, while
@@ -2538,6 +2538,7 @@ export namespace Parser {
 			}
 
 			let identifier1 = NO
+			let type1 = NO
 			let identifier2 = NO
 			let destructuring = NO
 
@@ -2546,6 +2547,12 @@ export namespace Parser {
 			}
 			else if !(destructuring = this.tryDestructuring()).ok {
 				identifier1 = this.reqIdentifier()
+
+				if this.test(Token::COLON) {
+					this.commit()
+
+					type1 = this.reqTypeVar()
+				}
 			}
 
 			if this.test(Token::COMMA) {
@@ -2560,12 +2567,12 @@ export namespace Parser {
 				if this.match(Token::IN, Token::OF) == Token::IN {
 					this.commit()
 
-					return this.altForExpressionIn(modifiers, destructuring, identifier2, this.reqExpression(ExpressionMode::Default), first)
+					return this.altForExpressionIn(modifiers, destructuring, type1, identifier2, this.reqExpression(ExpressionMode::Default), first)
 				}
 				else if @token == Token::OF {
 					this.commit()
 
-					return this.altForExpressionOf(modifiers, destructuring, identifier2, first)
+					return this.altForExpressionOf(modifiers, destructuring, type1, identifier2, first)
 				}
 				else {
 					this.throw(['in', 'of'])
@@ -2575,12 +2582,12 @@ export namespace Parser {
 				if this.match(Token::IN, Token::OF) == Token::IN {
 					this.commit()
 
-					return this.altForExpressionInRange(modifiers, identifier1, identifier2, first)
+					return this.altForExpressionInRange(modifiers, identifier1, type1, identifier2, first)
 				}
 				else if @token == Token::OF {
 					this.commit()
 
-					return this.altForExpressionOf(modifiers, identifier1, identifier2, first)
+					return this.altForExpressionOf(modifiers, identifier1, type1, identifier2, first)
 				}
 				else {
 					this.throw(['in', 'of'])
@@ -2595,12 +2602,12 @@ export namespace Parser {
 				else if @token == Token::IN {
 					this.commit()
 
-					return this.altForExpressionInRange(modifiers, identifier1, identifier2, first)
+					return this.altForExpressionInRange(modifiers, identifier1, type1, identifier2, first)
 				}
 				else if @token == Token::OF {
 					this.commit()
 
-					return this.altForExpressionOf(modifiers, identifier1, identifier2, first)
+					return this.altForExpressionOf(modifiers, identifier1, type1, identifier2, first)
 				}
 				else {
 					this.throw(['from', 'in', 'of'])
