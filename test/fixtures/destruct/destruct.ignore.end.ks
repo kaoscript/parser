@@ -1,1 +1,1 @@
-let [x, y,] = foobar()
+let [x, y, _] = foobar()

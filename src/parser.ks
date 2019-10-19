@@ -1312,7 +1312,7 @@ export namespace Parser {
 		} // }}}
 		reqDestructuringArrayItem(mode) ~ SyntaxError { // {{{
 			const modifiers = []
-			let first
+			let first = null
 			let name = null
 			let type = null
 
@@ -1341,6 +1341,17 @@ export namespace Parser {
 			}
 			else if this.test(Token::IDENTIFIER) {
 				name = this.yep(AST.Identifier(@scanner.value(), this.yes()))
+			}
+			else if this.test(Token::UNDERSCORE) {
+				first = this.yes()
+			}
+			else {
+				if mode & DestructuringMode::RECURSION != 0 {
+					this.throw(['...', '_', '[', '{', 'Identifier'])
+				}
+				else {
+					this.throw(['...', '_', 'Identifier'])
+				}
 			}
 
 			if mode & DestructuringMode::TYPE != 0 && this.test(Token::COLON) {
@@ -2530,21 +2541,17 @@ export namespace Parser {
 			let identifier2 = NO
 			let destructuring = NO
 
-			if this.test(Token::COLON) {
+			if this.test(Token::UNDERSCORE) {
+				this.commit()
+			}
+			else if !(destructuring = this.tryDestructuring()).ok {
+				identifier1 = this.reqIdentifier()
+			}
+
+			if this.test(Token::COMMA) {
 				this.commit()
 
 				identifier2 = this.reqIdentifier()
-			}
-			else {
-				if !(destructuring = this.tryDestructuring()).ok {
-					identifier1 = this.reqIdentifier()
-				}
-
-				if this.test(Token::COMMA) {
-					this.commit()
-
-					identifier2 = this.reqIdentifier()
-				}
 			}
 
 			this.NL_0M()
@@ -4067,62 +4074,60 @@ export namespace Parser {
 					return false
 				}
 			}
-			else {
-				let first = modifiers.length == 0 ? null : modifiers[0]
+			else if this.test(Token::UNDERSCORE) {
+				const first = this.yes()
 
-				if this.match(Token::COLON, Token::COMMA, Token::IDENTIFIER) == Token::COLON {
-					if first == null {
-						first = this.yes()
-					}
-					else {
-						this.commit()
-					}
+				if this.test(Token::EXCLAMATION) {
+					modifiers.push(AST.Modifier(ModifierKind::Required, this.yes()))
+				}
+
+				if this.test(Token::COLON) {
+					this.commit()
 
 					const type = this.reqTypeVar()
 
 					parameters.push(this.yep(AST.Parameter(null, type, modifiers, null, first, type)))
-
-					if this.test(Token::COMMA) {
-						this.commit()
-					}
-					else {
-						return false
-					}
 				}
-				else if @token == Token::COMMA {
-					if first == null {
-						first = this.yes()
-						first.end = first.start
-					}
-					else {
-						this.commit()
-					}
+				else if this.test(Token::QUESTION) {
+					const type = this.yep(AST.Nullable(this.yes()))
 
-					parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
-				}
-				else if @token == Token::IDENTIFIER {
-					parameters.push(this.reqParameterIdendifier(modifiers, first))
-
-					if this.test(Token::COMMA) {
-						this.commit()
-					}
-					else {
-						return false
-					}
-				}
-				else if this.test(Token::RIGHT_ROUND) {
-					if first == null {
-						first = this.yep()
-						first.end = first.start
-					}
-
-					parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
-
-					return false
+					parameters.push(this.yep(AST.Parameter(null, type, modifiers, null, first, type)))
 				}
 				else {
-					this.throw()
+					parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
 				}
+
+				if this.test(Token::COMMA) {
+					this.commit()
+				}
+				else {
+					return false
+				}
+			}
+			else if this.test(Token::IDENTIFIER) {
+				const first = modifiers.length == 0 ? null : modifiers[0]
+
+				parameters.push(this.reqParameterIdendifier(modifiers, first))
+
+				if this.test(Token::COMMA) {
+					this.commit()
+				}
+				else {
+					return false
+				}
+			}
+			else if modifiers.length != 0 {
+				parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, modifiers[0], modifiers[0])))
+
+				if this.test(Token::COMMA) {
+					this.commit()
+				}
+				else {
+					return false
+				}
+			}
+			else {
+				this.throw()
 			}
 
 			return true
@@ -4769,61 +4774,17 @@ export namespace Parser {
 
 			let conditions, bindings, filter, body, first
 			until this.test(Token::RIGHT_CURLY) {
-				conditions = bindings = filter = null
+				first = conditions = bindings = filter = null
 
-				switch this.match(Token::WITH, Token::WHERE, Token::EQUALS_RIGHT_ANGLE) {
-					Token::EQUALS_RIGHT_ANGLE => {
+				if this.test(Token::EQUALS_RIGHT_ANGLE) {
+					first = this.yes()
+					body = this.reqSwitchCaseExpression()
+				}
+				else {
+					if this.test(Token::UNDERSCORE) {
 						first = this.yes()
-						body = this.reqSwitchCaseExpression()
 					}
-					Token::WHERE => {
-						first = this.yes()
-
-						filter = this.reqExpression(ExpressionMode::NoAnonymousFunction)
-
-						this.NL_0M()
-
-						unless this.test(Token::EQUALS_RIGHT_ANGLE) {
-							this.throw('=>')
-						}
-
-						this.commit()
-
-						body = this.reqSwitchCaseExpression()
-					}
-					Token::WITH => {
-						first = this.yes()
-						bindings = this.reqSwitchBinding()
-
-						this.NL_0M()
-
-						switch this.match(Token::WHERE, Token::EQUALS_RIGHT_ANGLE) {
-							Token::EQUALS_RIGHT_ANGLE => {
-								this.commit()
-
-								body = this.reqSwitchCaseExpression()
-							}
-							Token::WHERE => {
-								this.commit()
-
-								filter = this.reqExpression(ExpressionMode::NoAnonymousFunction)
-
-								this.NL_0M()
-
-								unless this.test(Token::EQUALS_RIGHT_ANGLE) {
-									this.throw('=>')
-								}
-
-								this.commit()
-
-								body = this.reqSwitchCaseExpression()
-							}
-							=> {
-								this.throw(['where', '=>'])
-							}
-						}
-					}
-					=> {
+					else if !(this.test(Token::WITH) || this.test(Token::WHERE)) {
 						first = this.reqSwitchCondition()
 
 						conditions = [first]
@@ -4835,66 +4796,41 @@ export namespace Parser {
 						}
 
 						this.NL_0M()
-
-						switch this.match(Token::WITH, Token::WHERE, Token::EQUALS_RIGHT_ANGLE) {
-							Token::EQUALS_RIGHT_ANGLE => {
-								this.commit()
-
-								body = this.reqSwitchCaseExpression()
-							}
-							Token::WHERE => {
-								this.commit()
-
-								filter = this.reqExpression(ExpressionMode::NoAnonymousFunction)
-
-								this.NL_0M()
-
-								unless this.test(Token::EQUALS_RIGHT_ANGLE) {
-									this.throw('=>')
-								}
-
-								this.commit()
-
-								body = this.reqSwitchCaseExpression()
-							}
-							Token::WITH => {
-								this.commit()
-
-								bindings = this.reqSwitchBinding()
-
-								this.NL_0M()
-
-								switch this.match(Token::WHERE, Token::EQUALS_RIGHT_ANGLE) {
-									Token::EQUALS_RIGHT_ANGLE => {
-										this.commit()
-
-										body = this.reqSwitchCaseExpression()
-									}
-									Token::WHERE => {
-										this.commit()
-
-										filter = this.reqExpression(ExpressionMode::NoAnonymousFunction)
-
-										this.NL_0M()
-
-										unless this.test(Token::EQUALS_RIGHT_ANGLE) {
-											this.throw('=>')
-										}
-
-										this.commit()
-
-										body = this.reqSwitchCaseExpression()
-									}
-									=> {
-										this.throw(['where', '=>'])
-									}
-								}
-							}
-							=> {
-								this.throw(['where', 'with', '=>'])
-							}
-						}
 					}
+
+					if this.test(Token::WITH) {
+						if first == null {
+							first = this.yes()
+						}
+						else {
+							this.commit()
+						}
+
+						bindings = this.reqSwitchBinding()
+
+						this.NL_0M()
+					}
+
+					if this.test(Token::WHERE) {
+						if first == null {
+							first = this.yes()
+						}
+						else {
+							this.commit()
+						}
+
+						filter = this.reqExpression(ExpressionMode::NoAnonymousFunction)
+
+						this.NL_0M()
+					}
+
+					unless this.test(Token::EQUALS_RIGHT_ANGLE) {
+						this.throw('=>')
+					}
+
+					this.commit()
+
+					body = this.reqSwitchCaseExpression()
 				}
 
 				this.reqNL_1M()
@@ -4960,8 +4896,8 @@ export namespace Parser {
 					const values = []
 
 					until this.test(Token::RIGHT_SQUARE) {
-						if this.test(Token::COMMA) {
-							values.push(this.yep(AST.OmittedExpression([], this.yep())))
+						if this.test(Token::UNDERSCORE) {
+							values.push(this.yep(AST.OmittedExpression([], this.yes())))
 						}
 						else if this.test(Token::DOT_DOT_DOT) {
 							modifier = AST.Modifier(ModifierKind::Rest, this.yes())

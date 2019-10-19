@@ -4,4 +4,4 @@ likes = {
 	duncan: 'murbella'
 }
 
-names = [name for const :name of likes]
+names = [name for const _, name of likes]

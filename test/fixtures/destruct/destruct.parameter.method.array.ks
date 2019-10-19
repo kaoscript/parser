@@ -19,7 +19,7 @@ class Foobar {
 
 	}
 
-	foo([, y, ...]) {
+	foo([_, y, ...]) {
 
 	}
 

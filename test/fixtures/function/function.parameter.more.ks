@@ -1,10 +1,10 @@
-func foo(,x) {
+func foo(_, x) {
 }
 
-func bar(x?,, z?) {
+func bar(x?, _, z?) {
 }
 
-func baz(x?, :any?, z?) {
+func baz(x?, _?, z?) {
 }
 
 func qux(...{,3}items) {

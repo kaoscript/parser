@@ -149,6 +149,7 @@ enum Token {
 	TO
 	TRY
 	TYPE
+	UNDERSCORE
 	UNLESS
 	UNTIL
 	WHEN
@@ -542,6 +543,12 @@ namespace M {
 			if c == -1 {
 				return Token::EOF
 			}
+			// _
+			else if c == 95 && !that.isBoundary(1) {
+				that.scanIdentifier(false)
+
+				return Token::IDENTIFIER
+			}
 			// abstract
 			else if c == 97 {
 				const identifier = that.scanIdentifier(true)
@@ -640,7 +647,7 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			else if c == 36 || c == 95 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
+			else if c == 36 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
 				that.scanIdentifier(false)
 
 				return Token::IDENTIFIER
@@ -654,6 +661,12 @@ namespace M {
 
 			if c == -1 {
 				return Token::EOF
+			}
+			// _
+			else if c == 95 && !that.isBoundary(1) {
+				that.scanIdentifier(false)
+
+				return Token::IDENTIFIER
 			}
 			// abstract, async
 			else if	c == 97 {
@@ -727,7 +740,7 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			else if c == 36 || c == 95 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
+			else if c == 36 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
 				that.scanIdentifier(false)
 
 				return Token::IDENTIFIER
@@ -1040,7 +1053,7 @@ namespace M {
 
 				return Token::LEFT_SQUARE
 			}
-			else if c == 95 { // _
+			else if c == 95 && !that.isBoundary(1) { // _
 				that.scanIdentifier(false)
 
 				return Token::IDENTIFIER
@@ -1783,14 +1796,14 @@ const recognize = {
 		}
 	} // }}}
 	`\(Token::ATTRIBUTE_IDENTIFIER)`(that: Scanner, c: Number) { // {{{
-		if c == 36 || c == 95 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
+		if (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
 			let index = that._index - 1
 
 			let c
 			while ++index < that._length &&
 			(
-				(c = that._data.charCodeAt(index)) == 36 ||
-				c == 45 || c == 46 ||
+				(c = that._data.charCodeAt(index)) == 45 ||
+				c == 46 ||
 				(c >= 48 && c <= 57) ||
 				(c >= 65 && c <= 90) ||
 				c == 95 ||
@@ -2137,7 +2150,12 @@ const recognize = {
 		}
 	} // }}}
 	`\(Token::IDENTIFIER)`(that: Scanner, c: Number) { // {{{
-		if c == 36 || c == 95 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
+		if c == 36 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
+			that.scanIdentifier(false)
+
+			return true
+		}
+		else if c == 95 && !that.isBoundary(1) {
 			that.scanIdentifier(false)
 
 			return true
@@ -2571,6 +2589,14 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	`\(Token::UNDERSCORE)`(that: Scanner, c: Number) { // {{{
+		if c == 95 {
+			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} // }}}
 	`\(Token::UNLESS)`(that: Scanner, c: Number) { // {{{
 		if	c == 117 &&
 			that.charAt(1) == 110 &&
@@ -2770,7 +2796,7 @@ class Scanner {
 	scanIdentifier(substr) { // {{{
 		let index = @index - 1
 
-		let c
+		let c = @data.charCodeAt(index)
 		while ++index < @length &&
 		(
 			(c = @data.charCodeAt(index)) == 36 ||

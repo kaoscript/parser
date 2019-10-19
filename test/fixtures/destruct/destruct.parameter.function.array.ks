@@ -18,7 +18,7 @@ func foo([x, y, ...z]) {
 
 }
 
-func foo([, y, ...]) {
+func foo([_, y, ...]) {
 
 }
 

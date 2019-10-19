@@ -1,16 +1,16 @@
 class Foo {
-	foo(,x) {
+	foo(_, x) {
 	}
-	
-	bar(x?,, z?) {
+
+	bar(x?, _, z?) {
 	}
-	
-	baz(x?, :any?, z?) {
+
+	baz(x?, _?, z?) {
 	}
-	
+
 	qux(...{,3}items) {
 	}
-	
+
 	quux(...{1,3}items, x) {
 	}
 }

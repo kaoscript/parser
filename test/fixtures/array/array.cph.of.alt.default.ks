@@ -4,4 +4,4 @@ likes = {
 	duncan: 'murbella'
 }
 
-names = [name for :name of likes]
+names = [name for _, name of likes]

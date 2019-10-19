@@ -1,12 +1,12 @@
-func foo(x, _, y) {
+func foo(x,, y) {
 	console.log(x, y)
 }
 
-func bar(_, x, y) {
+func bar(, x, y) {
 	console.log(x, y)
 }
 
-func baz(x, y, _) {
+func baz(x, y,) {
 	console.log(x, y)
 }
 
