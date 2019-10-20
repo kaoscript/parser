@@ -4081,6 +4081,18 @@ export namespace Parser {
 					return false
 				}
 			}
+			else if this.test(Token::IDENTIFIER) {
+				const first = modifiers.length == 0 ? null : modifiers[0]
+
+				parameters.push(this.reqParameterIdendifier(modifiers, first))
+
+				if this.test(Token::COMMA) {
+					this.commit()
+				}
+				else {
+					return false
+				}
+			}
 			else if this.test(Token::UNDERSCORE) {
 				const first = this.yes()
 
@@ -4103,18 +4115,6 @@ export namespace Parser {
 				else {
 					parameters.push(this.yep(AST.Parameter(null, null, modifiers, null, first, first)))
 				}
-
-				if this.test(Token::COMMA) {
-					this.commit()
-				}
-				else {
-					return false
-				}
-			}
-			else if this.test(Token::IDENTIFIER) {
-				const first = modifiers.length == 0 ? null : modifiers[0]
-
-				parameters.push(this.reqParameterIdendifier(modifiers, first))
 
 				if this.test(Token::COMMA) {
 					this.commit()
@@ -6315,7 +6315,12 @@ export namespace Parser {
 			const parameters = []
 
 			unless this.test(Token::RIGHT_ROUND) {
-				while this.tryParameter(parameters, ParameterMode::Function) {
+				try {
+					while this.reqParameter(parameters, ParameterMode::Function) {
+					}
+				}
+				catch {
+					return NO
 				}
 
 				unless this.test(Token::RIGHT_ROUND) {
@@ -6503,14 +6508,6 @@ export namespace Parser {
 			}
 			else {
 				return this.tryNumber()
-			}
-		} // }}}
-		tryParameter(parameters, mode) { // {{{
-			try {
-				return this.reqParameter(parameters, mode)
-			}
-			catch {
-				return false
 			}
 		} // }}}
 		tryRangeOperand(mode) ~ SyntaxError { // {{{
