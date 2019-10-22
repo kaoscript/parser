@@ -2912,18 +2912,26 @@ export namespace Parser {
 		} // }}}
 		reqImportDeclarator() ~ SyntaxError { // {{{
 			const source = this.reqString()
+			const modifiers = []
+			let arguments = null
 			let last = source
 
-			let arguments = null
 			if this.test(Token::LEFT_ROUND) {
 				this.commit()
 
 				arguments = []
 
-				let name, modifiers
+				if this.test(Token::DOT_DOT_DOT) {
+					modifiers.push(AST.Modifier(ModifierKind::Autofill, this.yes()))
+
+					if this.test(Token::COMMA) {
+						this.commit()
+					}
+				}
+
 				while this.until(Token::RIGHT_ROUND) {
-					name = this.reqExpression(ExpressionMode::Default)
-					modifiers = []
+					let name = this.reqExpression(ExpressionMode::Default)
+					const modifiers = []
 
 					if name.value.kind == NodeKind::Identifier {
 						if name.value.name == 'require' && !this.test(Token::COLON, Token::COMMA, Token::RIGHT_ROUND) {
@@ -3057,7 +3065,7 @@ export namespace Parser {
 				last = this.yes()
 			}
 
-			return this.yep(AST.ImportDeclarator(attributes, source, specifiers, arguments, source, last))
+			return this.yep(AST.ImportDeclarator(attributes, modifiers, source, specifiers, arguments, source, last))
 		} // }}}
 		reqImportSpecifiers(attributes, specifiers) ~ SyntaxError { // {{{
 			this.commit().reqNL_1M()
@@ -5412,8 +5420,9 @@ export namespace Parser {
 			else {
 				const parameters = this.reqFunctionParameterList()
 				type = this.tryFunctionReturns()
+				const throws = this.tryFunctionThrows()
 
-				type = this.yep(AST.FunctionExpression(parameters, null, type, null, null, parameters, type ?? parameters))
+				type = this.yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
 			}
 
 			return this.yep(AST.ObjectMemberReference(identifier, type))
@@ -5445,7 +5454,7 @@ export namespace Parser {
 							const type = this.tryFunctionReturns()
 							const throws = this.tryFunctionThrows()
 
-							const objectType = this.yep(AST.FunctionExpression(parameters, modifiers, type, null, null, parameters, type ?? parameters))
+							const objectType = this.yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
 
 							properties.push(this.yep(AST.ObjectMemberReference(identifier, objectType)))
 						}
@@ -5466,7 +5475,7 @@ export namespace Parser {
 							const type = this.tryFunctionReturns()
 							const throws = this.tryFunctionThrows()
 
-							const objectType = this.yep(AST.FunctionExpression(parameters, null, type, null, null, parameters, type ?? parameters))
+							const objectType = this.yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
 
 							properties.push(this.yep(AST.ObjectMemberReference(identifier, objectType)))
 						}
@@ -6229,9 +6238,10 @@ export namespace Parser {
 
 					const parameters = this.reqFunctionParameterList()
 					const type = this.tryFunctionReturns()
+					const throws = this.tryFunctionThrows()
 					const body = this.reqFunctionBody()
 
-					return this.yep(AST.FunctionExpression(parameters, modifiers, type, null, body, first, body))
+					return this.yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, first, body))
 				}
 				else {
 					const parameters = this.tryFunctionParameterList()
@@ -6240,9 +6250,10 @@ export namespace Parser {
 					}
 
 					const type = this.tryFunctionReturns()
+					const throws = this.tryFunctionThrows()
 					const body = this.reqFunctionBody()
 
-					return this.yep(AST.LambdaExpression(parameters, modifiers, type, body, first, body))
+					return this.yep(AST.LambdaExpression(parameters, modifiers, type, throws, body, first, body))
 				}
 			}
 			else if @token == Token::FUNC {
@@ -6254,13 +6265,15 @@ export namespace Parser {
 				}
 
 				const type = this.tryFunctionReturns()
+				const throws = this.tryFunctionThrows()
 				const body = this.reqFunctionBody()
 
-				return this.yep(AST.FunctionExpression(parameters, null, type, null, body, first, body))
+				return this.yep(AST.FunctionExpression(parameters, null, type, throws, body, first, body))
 			}
 			else if @token == Token::LEFT_ROUND {
 				const parameters = this.tryFunctionParameterList()
 				const type = this.tryFunctionReturns()
+				const throws = this.tryFunctionThrows()
 
 				if !parameters.ok || !this.test(Token::EQUALS_RIGHT_ANGLE) {
 					return NO
@@ -6271,12 +6284,12 @@ export namespace Parser {
 				if this.test(Token::LEFT_CURLY) {
 					const body = this.reqBlock()
 
-					return this.yep(AST.LambdaExpression(parameters, null, type, body, parameters, body))
+					return this.yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body))
 				}
 				else {
 					const body = this.reqExpression(mode | ExpressionMode::NoObject)
 
-					return this.yep(AST.LambdaExpression(parameters, null, type, body, parameters, body))
+					return this.yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body))
 				}
 			}
 			else if @token == Token::IDENTIFIER {
@@ -6293,12 +6306,12 @@ export namespace Parser {
 				if this.test(Token::LEFT_CURLY) {
 					const body = this.reqBlock()
 
-					return this.yep(AST.LambdaExpression(parameters, null, null, body, parameters, body))
+					return this.yep(AST.LambdaExpression(parameters, null, null, null, body, parameters, body))
 				}
 				else {
 					const body = this.reqExpression(mode | ExpressionMode::NoObject)
 
-					return this.yep(AST.LambdaExpression(parameters, null, null, body, parameters, body))
+					return this.yep(AST.LambdaExpression(parameters, null, null, null, body, parameters, body))
 				}
 			}
 			else {

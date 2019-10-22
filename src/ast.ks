@@ -989,10 +989,11 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func ImportDeclarator(attributes, source, specifiers, arguments?, first, last) { // {{{
+		func ImportDeclarator(attributes, modifiers, source, specifiers, arguments?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ImportDeclarator
 				attributes
+				modifiers
 				source: source.value
 				specifiers: [specifier.value for specifier in specifiers]
 			}, first, last)
@@ -1058,7 +1059,7 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func LambdaExpression(parameters, modifiers?, type?, body, first, last) { // {{{
+		func LambdaExpression(parameters, modifiers?, type?, throws?, body, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::LambdaExpression
 				modifiers: []
@@ -1075,6 +1076,13 @@ namespace AST {
 
 			if type != null {
 				node.type = type.value
+			}
+
+			if throws == null {
+				node.throws = []
+			}
+			else {
+				node.throws = [throw.value for throw in throws.value]
 			}
 
 			return node

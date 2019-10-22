@@ -1,0 +1,169 @@
+{
+  "kind": 71,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 48,
+      "attributes": [],
+      "name": {
+        "kind": 51,
+        "name": "foobar",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 12
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      },
+      "parameters": [],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 86,
+            "attributes": [],
+            "value": {
+              "kind": 64,
+              "modifiers": [],
+              "parameters": [
+                {
+                  "kind": 79,
+                  "modifiers": [],
+                  "start": {
+                    "line": 2,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 11
+                  },
+                  "name": {
+                    "kind": 51,
+                    "name": "x",
+                    "start": {
+                      "line": 2,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 11
+                    }
+                  }
+                }
+              ],
+              "body": {
+                "kind": 12,
+                "attributes": [],
+                "statements": [
+                  {
+                    "kind": 102,
+                    "attributes": [],
+                    "value": {
+                      "kind": 25,
+                      "class": {
+                        "kind": 51,
+                        "name": "Error",
+                        "start": {
+                          "line": 3,
+                          "column": 13
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 18
+                        }
+                      },
+                      "arguments": [],
+                      "start": {
+                        "line": 3,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 20
+                      }
+                    },
+                    "start": {
+                      "line": 3,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 20
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 2,
+                  "column": 24
+                },
+                "end": {
+                  "line": 4,
+                  "column": 3
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 4,
+                "column": 3
+              },
+              "throws": [
+                {
+                  "kind": 51,
+                  "name": "Error",
+                  "start": {
+                    "line": 2,
+                    "column": 15
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 20
+                  }
+                }
+              ]
+            },
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 3
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 15
+        },
+        "end": {
+          "line": 5,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 2
+  }
+}
