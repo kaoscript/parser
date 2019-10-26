@@ -57,6 +57,7 @@ enum Token {
 	EXTENDS
 	EXTERN
 	EXTERN_REQUIRE
+	FALLTHROUGH
 	FINAL
 	FINALLY
 	FOR
@@ -75,6 +76,7 @@ enum Token {
 	IN
 	INCLUDE
 	INCLUDE_AGAIN
+	INTERNAL
 	IS
 	IS_NOT
 	LEFT_ANGLE
@@ -1429,7 +1431,7 @@ namespace M {
 					return Token::ENUM
 				}
 			}
-			// final, for, func
+			// fallthrough, final, for, func
 			else if c == 102
 			{
 				if that.charAt(1) == 105 &&
@@ -1458,6 +1460,22 @@ namespace M {
 					that.next(4)
 
 					return Token::FUNC
+				}
+				else if that.charAt(1) == 97 &&
+					that.charAt(2) == 108 &&
+					that.charAt(3) == 108 &&
+					that.charAt(4) == 116 &&
+					that.charAt(5) == 104 &&
+					that.charAt(6) == 114 &&
+					that.charAt(7) == 111 &&
+					that.charAt(8) == 117 &&
+					that.charAt(9) == 103 &&
+					that.charAt(10) == 104 &&
+					that.isBoundary(11)
+				{
+					that.next(11)
+
+					return Token::FALLTHROUGH
 				}
 			}
 			// if, impl, import
@@ -2181,6 +2199,23 @@ const recognize = {
 			that.isBoundary(2)
 		{
 			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} // }}}
+	`\(Token::INTERNAL)`(that: Scanner, c: Number) { // {{{
+		if	c == 105 &&
+			that.charAt(1) == 110 &&
+			that.charAt(2) == 116 &&
+			that.charAt(3) == 101 &&
+			that.charAt(4) == 114 &&
+			that.charAt(5) == 110 &&
+			that.charAt(6) == 97 &&
+			that.charAt(7) == 108 &&
+			that.isBoundary(8)
+		{
+			return that.next(8)
 		}
 		else {
 			return false

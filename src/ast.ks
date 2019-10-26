@@ -681,6 +681,13 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
+		func FallthroughStatement(first) { // {{{
+			return location({
+				kind: NodeKind::FallthroughStatement
+				attributes: []
+			}, first)
+		} // }}}
+
 		func FieldDeclaration(attributes, modifiers, name, type?, defaultValue?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::FieldDeclaration

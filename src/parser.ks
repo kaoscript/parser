@@ -449,6 +449,22 @@ export namespace Parser {
 
 			return this.yep(AST.ForRangeStatement(modifiers, value, index, from, then, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? then ?? from:Any))
 		} // }}}
+		reqAccessModifiers(modifiers) ~ SyntaxError { // {{{
+			if this.match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC, Token::INTERNAL) == Token::PRIVATE {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
+			}
+			else if @token == Token::PROTECTED {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Protected, this.yes())))
+			}
+			else if @token == Token::PUBLIC {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, this.yes())))
+			}
+			else if @token == Token::INTERNAL {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Internal, this.yes())))
+			}
+
+			return modifiers
+		} // }}}
 		reqArray(first) ~ SyntaxError { // {{{
 			if this.test(Token::RIGHT_SQUARE) {
 				return this.yep(AST.ArrayExpression([], first, this.yes()))
@@ -854,7 +870,7 @@ export namespace Parser {
 				first = null
 			}
 
-			const modifiers = []
+			/* const modifiers = []
 			if this.match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC) == Token::PRIVATE {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
 			}
@@ -863,7 +879,8 @@ export namespace Parser {
 			}
 			else if @token == Token::PUBLIC {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, this.yes())))
-			}
+			} */
+			const modifiers = this.reqAccessModifiers([])
 
 			if this.test(Token::FINAL) {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Final, this.yes())))
@@ -2003,7 +2020,7 @@ export namespace Parser {
 				return this.yep(AST.ClassDeclaration([], name, null, extends, modifiers, [], first, extends ?? generic ?? name))
 			}
 		} // }}}
-		reqExternClassField(attributes, modifiers, name, type, first) ~ SyntaxError { // {{{
+		reqExternClassField(attributes, modifiers, name, type?, first) ~ SyntaxError { // {{{
 			this.reqNL_1M()
 
 			return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, null, first, type ?? name))
@@ -2041,7 +2058,7 @@ export namespace Parser {
 				first = attributes[0]
 			}
 
-			const modifiers = []
+			/* const modifiers = []
 			if this.match( Token::PRIVATE, Token::PROTECTED, Token::PUBLIC) == Token::PRIVATE {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
 			}
@@ -2050,7 +2067,8 @@ export namespace Parser {
 			}
 			else if @token == Token::PUBLIC {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, this.yes())))
-			}
+			} */
+			const modifiers = this.reqAccessModifiers([])
 
 			if this.test(Token::ABSTRACT) {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Abstract, this.yes())))
@@ -2525,6 +2543,9 @@ export namespace Parser {
 				return this.yep(AST.VariableDeclarator([], name, null, name, name))
 			}
 		} // }}}
+		reqFallthroughStatement(first) { // {{{
+			return this.yep(AST.FallthroughStatement(first))
+		} // }}}
 		reqForExpression(first) ~ SyntaxError { // {{{
 			const modifiers = []
 
@@ -2808,7 +2829,7 @@ export namespace Parser {
 
 			let mark = this.mark()
 
-			const modifiers = []
+			/* const modifiers = []
 
 			if this.match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC) == Token::PRIVATE {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
@@ -2818,7 +2839,8 @@ export namespace Parser {
 			}
 			else if @token == Token::PUBLIC {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, this.yes())))
-			}
+			} */
+			const modifiers = this.reqAccessModifiers([])
 
 			if this.match(Token::OVERRIDE, Token::OVERWRITE, Token::STATIC) == Token::OVERRIDE {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
@@ -4591,6 +4613,9 @@ export namespace Parser {
 				}
 				Token::ENUM => {
 					statement = this.reqEnumStatement(this.yes())
+				}
+				Token::FALLTHROUGH => {
+					statement = this.reqFallthroughStatement(this.yes())
 				}
 				Token::FINAL => {
 					const first = this.yes()
