@@ -870,16 +870,6 @@ export namespace Parser {
 				first = null
 			}
 
-			/* const modifiers = []
-			if this.match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC) == Token::PRIVATE {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
-			}
-			else if @token == Token::PROTECTED {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Protected, this.yes())))
-			}
-			else if @token == Token::PUBLIC {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, this.yes())))
-			} */
 			const modifiers = this.reqAccessModifiers([])
 
 			if this.test(Token::FINAL) {
@@ -2058,16 +2048,6 @@ export namespace Parser {
 				first = attributes[0]
 			}
 
-			/* const modifiers = []
-			if this.match( Token::PRIVATE, Token::PROTECTED, Token::PUBLIC) == Token::PRIVATE {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
-			}
-			else if @token == Token::PROTECTED {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Protected, this.yes())))
-			}
-			else if @token == Token::PUBLIC {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, this.yes())))
-			} */
 			const modifiers = this.reqAccessModifiers([])
 
 			if this.test(Token::ABSTRACT) {
@@ -2829,17 +2809,6 @@ export namespace Parser {
 
 			let mark = this.mark()
 
-			/* const modifiers = []
-
-			if this.match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC) == Token::PRIVATE {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
-			}
-			else if @token == Token::PROTECTED {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Protected, this.yes())))
-			}
-			else if @token == Token::PUBLIC {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, this.yes())))
-			} */
 			const modifiers = this.reqAccessModifiers([])
 
 			if this.match(Token::OVERRIDE, Token::OVERWRITE, Token::STATIC) == Token::OVERRIDE {
