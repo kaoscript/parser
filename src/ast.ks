@@ -195,6 +195,19 @@ namespace AST {
 								operator = ComparisonExpression([left, operator.operator, operations[k + 1]])
 							}
 						}
+						else if left.kind == NodeKind::BinaryExpression && operator.operator.kind == BinaryOperatorKind::Assignment && left.operator.kind == BinaryOperatorKind::Assignment && operator.operator.assignment == left.operator.assignment {
+							operator.left = left.right
+							operator.right = operations[k + 1]
+
+							operator.start = operator.left.start
+							operator.end = operator.right.end
+
+							left.right = operator
+
+							left.end = left.right.end
+
+							operator = left
+						}
 						else {
 							operator.left = left
 							operator.right = operations[k + 1]
