@@ -8,6 +8,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  **/
 #![error(ignore(Error))]
+#![rules(ignore-misfit)]
 
 import '@kaoscript/ast'
 
