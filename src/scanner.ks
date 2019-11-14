@@ -1011,7 +1011,7 @@ namespace M {
 			}
 			else if c == 34 { // "
 				if const match = regex.double_quote.exec(that.substringAt(1)) {
-					that.next(match[0].length!! + 1)
+					that.next(match[0].length + 1)
 
 					return Token::STRING
 				}
@@ -1023,7 +1023,7 @@ namespace M {
 			}
 			else if c == 39 { // '
 				if match ?= regex.single_quote.exec(that.substringAt(1)) {
-					that.next(match[0].length!! + 1)
+					that.next(match[0].length + 1)
 
 					return Token::STRING
 				}
@@ -1035,7 +1035,7 @@ namespace M {
 			}
 			else if c == 47 { // /
 				if match ?= regex.regex.exec(that.substringAt(1)) {
-					that.next(match[0].length!! + 1)
+					that.next(match[0].length + 1)
 
 					return Token::REGEXP
 				}
@@ -2517,12 +2517,12 @@ const recognize = {
 	`\(Token::STRING)`(that: Scanner, c: Number) { // {{{
 		if c == 34 {
 			if match ?= regex.double_quote.exec(that.substringAt(1)) {
-				return that.next(match[0].length!! + 1)
+				return that.next(match[0].length + 1)
 			}
 		}
 		else if c == 39 { // '
 			if match ?= regex.single_quote.exec(that.substringAt(1)) {
-				return that.next(match[0].length!! + 1)
+				return that.next(match[0].length + 1)
 			}
 		}
 
@@ -2797,13 +2797,13 @@ class Scanner {
 			return matcher(this, @index - 1)
 		}
 	} // }}}
-	next(length) { // {{{
+	next(length: Number) { // {{{
 		@nextIndex = @index + length
 		@nextColumn = @column + length
 
 		return true
 	} // }}}
-	nextLine(length) { // {{{
+	nextLine(length: Number) { // {{{
 		@nextIndex = @index + length
 		@nextColumn = 1
 		@nextLine = @line + 1
