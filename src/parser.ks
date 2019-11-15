@@ -13,14 +13,9 @@
 import '@kaoscript/ast'
 
 export namespace Parser {
-	extern {
-		console
-		parseFloat
-		parseInt
-		sealed class SyntaxError
-	}
-
 	include {
+		'./util'
+
 		'./ast'
 		'./scanner'
 	}
@@ -1691,6 +1686,9 @@ export namespace Parser {
 						this.throw('class')
 					}
 				}
+				Token::STRUCT => {
+					return this.yep(AST.ExportDeclarationSpecifier(this.reqStructStatement(this.yes())))
+				}
 				Token::TYPE => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqTypeStatement(this.yes(), this.reqIdentifier())))
 				}
@@ -1921,7 +1919,23 @@ export namespace Parser {
 				const expressions = []
 
 				while true {
-					expressions.push(this.reqExpression(null, MacroTerminator::List))
+					const expression = this.reqExpression(null, MacroTerminator::List)
+
+					if expression.value.kind == NodeKind::Identifier {
+						if this.test(Token::COLON) {
+							this.commit()
+
+							const value = this.reqExpression(null, MacroTerminator::List)
+
+							expressions.push(this.yep(AST.NamedArgument(expression, value)))
+						}
+						else {
+							expressions.push(expression)
+						}
+					}
+					else {
+						expressions.push(expression)
+					}
 
 					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA || @token == Token::NEWLINE {
 						this.commit().NL_0M()
@@ -3750,6 +3764,14 @@ export namespace Parser {
 				this.throw('Number')
 			}
 		} // }}}
+		reqNumeralIdentifier() ~ SyntaxError { // {{{
+			if this.test(Token::IDENTIFIER, Token::NUMERAL) {
+				return this.yep(AST.Identifier(@scanner.value(), this.yes()))
+			}
+			else {
+				this.throw('Identifier')
+			}
+		} // }}}
 		reqNL_1M() ~ SyntaxError { // {{{
 			if this.test(Token::NEWLINE) {
 				this.commit()
@@ -4669,6 +4691,9 @@ export namespace Parser {
 						statement = NO
 					}
 				}
+				Token::STRUCT => {
+					statement = this.reqStructStatement(this.yes())
+				}
 				Token::SWITCH => {
 					statement = this.reqSwitchStatement(this.yes())
 				}
@@ -4713,6 +4738,152 @@ export namespace Parser {
 			else {
 				this.throw('String')
 			}
+		} // }}}
+		reqStructStatement(first) ~ SyntaxError { // {{{
+			const name = this.reqIdentifier()
+
+			const attributes = []
+			const modifiers = []
+			let elements = []
+
+			if this.match(Token::LEFT_CURLY, Token::LEFT_ROUND, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
+				const first = this.yes()
+
+				this.NL_0M()
+
+				modifiers.push(AST.Modifier(ModifierKind::Object, first))
+
+				this.stackInnerAttributes(attributes)
+
+				until this.test(Token::RIGHT_CURLY) {
+					const name = this.reqIdentifier()
+
+					let type = null
+					if this.test(Token::COLON) {
+						this.commit()
+
+						type = this.reqTypeVar()
+					}
+
+					let defaultValue = null
+					if this.test(Token::EQUALS) {
+						this.commit()
+
+						defaultValue = this.reqExpression(ExpressionMode::Default)
+					}
+
+					elements.push(AST.StructField(name, type, defaultValue, name, defaultValue ?? type ?? name))
+
+					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
+						this.commit().NL_0M()
+					}
+					else if @token == Token::NEWLINE {
+						this.commit().NL_0M()
+
+						if this.test(Token::COMMA) {
+							this.commit().NL_0M()
+						}
+					}
+					else {
+						break
+					}
+				}
+
+				unless this.test(Token::RIGHT_CURLY) {
+					this.throw('}')
+				}
+			}
+			else if @token == Token::LEFT_ROUND {
+				const first = this.yes()
+
+				this.NL_0M()
+
+				modifiers.push(AST.Modifier(ModifierKind::Array, first))
+
+				this.stackInnerAttributes(attributes)
+
+				until this.test(Token::RIGHT_ROUND) {
+					const type = this.reqTypeVar()
+
+					if this.test(Token::EQUALS) {
+						this.commit()
+
+						const defaultValue = this.reqExpression(ExpressionMode::Default)
+
+						elements.push(AST.StructField(null, type, defaultValue, type, defaultValue))
+					}
+					else {
+						elements.push(AST.StructField(null, type, null, type, type))
+					}
+
+					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
+						this.commit().NL_0M()
+					}
+					else if @token == Token::NEWLINE {
+						this.commit().NL_0M()
+
+						if this.test(Token::COMMA) {
+							this.commit().NL_0M()
+						}
+					}
+					else {
+						break
+					}
+				}
+
+				unless this.test(Token::RIGHT_ROUND) {
+					this.throw(')')
+				}
+			}
+			else if @token == Token::LEFT_SQUARE {
+				const first = this.yes()
+
+				this.NL_0M()
+
+				modifiers.push(AST.Modifier(ModifierKind::Array, first), AST.Modifier(ModifierKind::Named, first))
+
+				this.stackInnerAttributes(attributes)
+
+				until this.test(Token::RIGHT_SQUARE) {
+					const name = this.reqIdentifier()
+
+					let type = null
+					if this.test(Token::COLON) {
+						this.commit()
+
+						type = this.reqTypeVar()
+					}
+
+					let defaultValue = null
+					if this.test(Token::EQUALS) {
+						this.commit()
+
+						defaultValue = this.reqExpression(ExpressionMode::Default)
+					}
+
+					elements.push(AST.StructField(name, type, defaultValue, name, defaultValue ?? type ?? name))
+
+					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
+						this.commit().NL_0M()
+					}
+					else if @token == Token::NEWLINE {
+						this.commit().NL_0M()
+
+						if this.test(Token::COMMA) {
+							this.commit().NL_0M()
+						}
+					}
+					else {
+						break
+					}
+				}
+
+				unless this.test(Token::RIGHT_SQUARE) {
+					this.throw(']')
+				}
+			}
+
+			return this.yep(AST.StructDeclaration(attributes, modifiers, name, elements, first, this.yes()))
 		} // }}}
 		reqSwitchBinding() ~ SyntaxError { // {{{
 			const bindings = [this.reqSwitchBindingValue()]
@@ -5620,7 +5791,7 @@ export namespace Parser {
 					Token::DOT => {
 						this.commit()
 
-						value = this.yep(AST.MemberExpression([], value, this.reqIdentifier()))
+						value = this.yep(AST.MemberExpression([], value, this.reqNumeralIdentifier()))
 					}
 					Token::EXCLAMATION_LEFT_ROUND => {
 						this.commit()

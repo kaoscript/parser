@@ -1272,6 +1272,15 @@ namespace AST {
 			}, first)
 		} // }}}
 
+		func NamedArgument(name, value) { // {{{
+			return location({
+				kind: NodeKind::NamedArgument
+				modifiers: []
+				name: name.value
+				value: value.value
+			}, name, value)
+		} // }}}
+
 		func NamespaceDeclaration(attributes, modifiers, name, statements, first, last) { // {{{
 			return location({
 				kind: NodeKind::NamespaceDeclaration
@@ -1516,6 +1525,36 @@ namespace AST {
 				attributes
 				name: name.value
 			}, first, last)
+		} // }}}
+
+		func StructDeclaration(attributes, modifiers, name, fields, first, last) { // {{{
+			return node = location({
+				kind: NodeKind::StructDeclaration
+				attributes
+				modifiers
+				name: name.value
+				fields
+			}, first, last)
+		} // }}}
+
+		func StructField(name?, type?, defaultValue?, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::StructField
+			}, first, last)
+
+			if name? {
+				node.name = name.value
+			}
+
+			if type? {
+				node.type = type.value
+			}
+
+			if defaultValue? {
+				node.defaultValue = defaultValue.value
+			}
+
+			return node
 		} // }}}
 
 		func SwitchClause(conditions?, bindings?, filter?, body, first, last) { // {{{

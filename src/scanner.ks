@@ -95,6 +95,7 @@ enum Token {
 	NAMESPACE
 	NEW
 	NEWLINE
+	NUMERAL
 	OCTAL_NUMBER
 	OF
 	ON
@@ -139,6 +140,7 @@ enum Token {
 	SLASH_EQUALS
 	STATIC
 	STRING
+	STRUCT
 	SWITCH
 	TEMPLATE_BEGIN
 	TEMPLATE_ELEMENT
@@ -165,7 +167,7 @@ const overhauls = {
 	`\(Token::STRING)`(data) => data.slice(1, -1).replace(/(^|[^\\])\\('|")/g, '$1$2')
 }
 
-const regex = {
+const regex: Dictionary<RegExp> = {
 	binary_number: /^0b[_0-1]+[a-zA-Z]*/
 	class_version: /^\d+(\.\d+(\.\d+)?)?/
 	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?(?:[eE][-+]?[_0-9]+)?(?:[a-zA-Z]*)/
@@ -1568,7 +1570,7 @@ namespace M {
 					return Token::RETURN
 				}
 			}
-			// sealed, switch
+			// sealed, struct, switch
 			else if c == 115
 			{
 				if	that.charAt(1) == 101 &&
@@ -1581,6 +1583,17 @@ namespace M {
 					that.next(6)
 
 					return Token::SEALED
+				}
+				else if that.charAt(1) == 116 &&
+					that.charAt(2) == 114 &&
+					that.charAt(3) == 117 &&
+					that.charAt(4) == 99 &&
+					that.charAt(5) == 116 &&
+					that.isBoundary(6)
+				{
+					that.next(6)
+
+					return Token::STRUCT
 				}
 				else if that.charAt(1) == 119 &&
 					that.charAt(2) == 105 &&
@@ -2306,6 +2319,21 @@ const recognize = {
 		}
 		else if c == 10 || c == 13 {
 			return that.nextLine(1)
+		}
+
+		return false
+	} // }}}
+	`\(Token::NUMERAL)`(that: Scanner, c: Number) { // {{{
+		if 48 <= c <= 57 {
+			let i = 1
+
+			while 48 <= that.charAt(i) <= 57 {
+				++i
+			}
+
+			if that.isBoundary(i) {
+				return that.next(i)
+			}
 		}
 
 		return false
