@@ -5,6 +5,7 @@ extern {
 	func parseInt(...): Number
 
 	sealed class RegExp
+	sealed class String
 	sealed class SyntaxError
 }
 
@@ -21,4 +22,11 @@ disclose RegExp {
 	exec(str: String, index: Number = 0): RegExpExecArray?
 	test(str: String): Boolean
 	toString(): String
+}
+
+disclose String {
+	length: Number
+	charCodeAt(index: Number): Number
+	substr(start: Number, length: Number = -1): String
+	substring(indexStart: Number, indexEnd: Number = -1): String
 }

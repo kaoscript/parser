@@ -2760,7 +2760,7 @@ class Scanner {
 	constructor(@data) { // {{{
 		@length = @data.length
 	} // }}}
-	charAt(d) => @data.charCodeAt(@index + d)
+	charAt(d: Number) => @data.charCodeAt(@index + d)
 	char() => @eof ? 'EOF' : @data[@index]
 	column() => @column
 	commit() { // {{{
@@ -2784,7 +2784,7 @@ class Scanner {
 
 		return Token::EOF
 	} // }}}
-	isBoundary(d) { // {{{
+	isBoundary(d: Number) { // {{{
 		const c = @data.charCodeAt(@index + d)
 
 		return c == 9 || c == 10 || c == 13 || c == 32 || !((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == 95 || c == 36)
@@ -2883,7 +2883,7 @@ class Scanner {
 	skip() { // {{{
 		this.skip(@index  - 1)
 	} // }}}
-	private skip(index) { // {{{
+	private skip(index: Number) { // {{{
 		let c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
@@ -3117,7 +3117,7 @@ class Scanner {
 
 		return -1
 	} // }}}
-	skipNewLine(index = @index - 1) { // {{{
+	skipNewLine(index: Number = @index - 1) { // {{{
 		let c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
@@ -3224,7 +3224,7 @@ class Scanner {
 		line: @line
 		column: @column
 	}) // }}}
-	substringAt(d) => @data.substr(@index + d)
+	substringAt(d: Number) => @data.substr(@index + d)
 	test(token: Token): Boolean { // {{{
 		if @eof {
 			return false
