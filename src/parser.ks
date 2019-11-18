@@ -4740,7 +4740,11 @@ export namespace Parser {
 			}
 		} // }}}
 		reqStructStatement(first) ~ SyntaxError { // {{{
-			const name = this.reqIdentifier()
+			const name = this.tryIdentifier()
+
+			unless name.ok {
+				return NO
+			}
 
 			const attributes = []
 			const modifiers = []
