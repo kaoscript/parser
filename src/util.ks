@@ -27,6 +27,7 @@ disclose RegExp {
 disclose String {
 	length: Number
 	charCodeAt(index: Number): Number
+	replace(pattern: RegExp | String, replacement: Function | String): String
 	substr(start: Number, length: Number = -1): String
 	substring(indexStart: Number, indexEnd: Number = -1): String
 }

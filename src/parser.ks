@@ -8,7 +8,6 @@
  * http://www.opensource.org/licenses/mit-license.php
  **/
 #![error(ignore(Error))]
-#![rules(ignore-misfit)]
 
 import '@kaoscript/ast'
 
@@ -73,9 +72,14 @@ export namespace Parser {
 		MacroExpression
 	}
 
-	const NO = {
-		ok: false
+	struct Event {
+		ok: Boolean
+		value?			= null
+		start?			= null
+		end?			= null
 	}
+
+	const NO = Event(ok: false)
 
 	class Parser {
 		private {
@@ -152,54 +156,54 @@ export namespace Parser {
 		} // }}}
 		until(token): Boolean => !@scanner.test(token) && !@scanner.isEOF()
 		value() => @scanner.value(@token)
-		yep() { // {{{
+		yep(): Event { // {{{
 			const position = @scanner.position()
 
-			return {
+			return Event(
 				ok: true
 				start: position.start
 				end: position.end
-			}
+			)
 		} // }}}
-		yep(value) { // {{{
-			return {
+		yep(value): Event { // {{{
+			return Event(
 				ok: true
 				value: value
 				start: value.start
 				end: value.end
-			}
+			)
 		} // }}}
-		yep(value, first, last) { // {{{
-			return {
+		yep(value, first, last): Event { // {{{
+			return Event(
 				ok: true
 				value: value
 				start: first.start
 				end: last.end
-			}
+			)
 		} // }}}
-		yes() { // {{{
+		yes(): Event { // {{{
 			const position = @scanner.position()
 
 			this.commit()
 
-			return {
+			return Event(
 				ok: true
 				start: position.start
 				end: position.end
-			}
+			)
 		} // }}}
-		yes(value) { // {{{
+		yes(value): Event { // {{{
 			const start = value.start ?? @scanner.startPosition()
 			const end = value.end ?? @scanner.endPosition()
 
 			this.commit()
 
-			return {
+			return Event(
 				ok: true
 				value: value
 				start: start
 				end: end
-			}
+			)
 		} // }}}
 		NL_0M() ~ SyntaxError { // {{{
 			this.skipNewLine()
@@ -3346,7 +3350,7 @@ export namespace Parser {
 
 			const addLiteral = () => {
 				if literal != null {
-					elements.push(this.yep(AST.MacroElementLiteral(literal, first, last)))
+					elements.push(this.yep(AST.MacroElementLiteral(literal, first!?, last!?)))
 
 					literal = null
 				}
@@ -3531,7 +3535,7 @@ export namespace Parser {
 			}
 
 			if literal != null {
-				elements.push(this.yep(AST.MacroElementLiteral(literal, first, last)))
+				elements.push(this.yep(AST.MacroElementLiteral(literal, first!?, last!?)))
 			}
 		} // }}}
 		reqMacroExpression(first, terminator = MacroTerminator::NEWLINE) ~ SyntaxError { // {{{
@@ -5026,7 +5030,7 @@ export namespace Parser {
 
 				this.reqNL_1M()
 
-				clauses.push(AST.SwitchClause(conditions, bindings, filter, body, first, body))
+				clauses.push(AST.SwitchClause(conditions, bindings, filter, body, first!?, body))
 			}
 
 			unless this.test(Token::RIGHT_CURLY) {
@@ -6658,7 +6662,7 @@ export namespace Parser {
 			else if @token == Token::RADIX_NUMBER {
 				const data = /^(\d+)r(.*)$/.exec(@scanner.value())
 
-				return this.yep(AST.NumericExpression(parseInt(data[2].replace(/\_/g, ''), parseInt(data[1])), this.yes()))
+				return this.yep(AST.NumericExpression(parseInt(data[2]!?.replace(/\_/g, ''), parseInt(data[1])), this.yes()))
 			}
 			else if @token == Token::DECIMAL_NUMBER {
 				return this.yep(AST.NumericExpression(parseFloat(@scanner.value().replace(/\_/g, ''), 10), this.yes()))
@@ -6667,7 +6671,7 @@ export namespace Parser {
 				return NO
 			}
 		} // }}}
-		tryOperand(mode) ~ SyntaxError { // {{{
+		tryOperand(mode): Event ~ SyntaxError { // {{{
 			if this.matchM(M.OPERAND) == Token::AT {
 				return this.reqThisExpression(this.yes())
 			}
