@@ -206,20 +206,24 @@
       },
       "end": {
         "line": 6,
-        "column": 30
+        "column": 26
       },
       "init": {
-        "kind": 25,
-        "class": {
+        "kind": 14,
+        "modifiers": [],
+        "scope": {
+          "kind": 3
+        },
+        "callee": {
           "kind": 52,
           "name": "Pair",
           "start": {
             "line": 6,
-            "column": 16
+            "column": 12
           },
           "end": {
             "line": 6,
-            "column": 20
+            "column": 16
           }
         },
         "arguments": [
@@ -228,11 +232,11 @@
             "value": "x",
             "start": {
               "line": 6,
-              "column": 21
+              "column": 17
             },
             "end": {
               "line": 6,
-              "column": 24
+              "column": 20
             }
           },
           {
@@ -240,11 +244,11 @@
             "value": 0.1,
             "start": {
               "line": 6,
-              "column": 26
+              "column": 22
             },
             "end": {
               "line": 6,
-              "column": 29
+              "column": 25
             }
           }
         ],
@@ -254,7 +258,7 @@
         },
         "end": {
           "line": 6,
-          "column": 30
+          "column": 26
         }
       }
     },
@@ -420,20 +424,24 @@
       },
       "end": {
         "line": 10,
-        "column": 29
+        "column": 25
       },
       "init": {
-        "kind": 25,
-        "class": {
+        "kind": 14,
+        "modifiers": [],
+        "scope": {
+          "kind": 3
+        },
+        "callee": {
           "kind": 52,
           "name": "Pair",
           "start": {
             "line": 10,
-            "column": 17
+            "column": 13
           },
           "end": {
             "line": 10,
-            "column": 21
+            "column": 17
           }
         },
         "arguments": [
@@ -445,11 +453,11 @@
               "name": "y",
               "start": {
                 "line": 10,
-                "column": 22
+                "column": 18
               },
               "end": {
                 "line": 10,
-                "column": 23
+                "column": 19
               }
             },
             "value": {
@@ -457,20 +465,20 @@
               "value": 0.1,
               "start": {
                 "line": 10,
-                "column": 25
+                "column": 21
               },
               "end": {
                 "line": 10,
-                "column": 28
+                "column": 24
               }
             },
             "start": {
               "line": 10,
-              "column": 22
+              "column": 18
             },
             "end": {
               "line": 10,
-              "column": 28
+              "column": 24
             }
           }
         ],
@@ -480,7 +488,7 @@
         },
         "end": {
           "line": 10,
-          "column": 29
+          "column": 25
         }
       }
     },

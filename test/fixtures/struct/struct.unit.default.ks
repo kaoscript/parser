@@ -1,3 +1,3 @@
 struct Unit
 
-let unit = new Unit()
+let unit = Unit()

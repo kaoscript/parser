@@ -147,20 +147,24 @@
       },
       "end": {
         "line": 3,
-        "column": 30
+        "column": 26
       },
       "init": {
-        "kind": 25,
-        "class": {
+        "kind": 14,
+        "modifiers": [],
+        "scope": {
+          "kind": 3
+        },
+        "callee": {
           "kind": 52,
           "name": "Pair",
           "start": {
             "line": 3,
-            "column": 16
+            "column": 12
           },
           "end": {
             "line": 3,
-            "column": 20
+            "column": 16
           }
         },
         "arguments": [
@@ -169,11 +173,11 @@
             "value": "x",
             "start": {
               "line": 3,
-              "column": 21
+              "column": 17
             },
             "end": {
               "line": 3,
-              "column": 24
+              "column": 20
             }
           },
           {
@@ -181,11 +185,11 @@
             "value": 0.1,
             "start": {
               "line": 3,
-              "column": 26
+              "column": 22
             },
             "end": {
               "line": 3,
-              "column": 29
+              "column": 25
             }
           }
         ],
@@ -195,7 +199,7 @@
         },
         "end": {
           "line": 3,
-          "column": 30
+          "column": 26
         }
       }
     },

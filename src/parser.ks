@@ -4768,6 +4768,9 @@ export namespace Parser {
 
 						type = this.reqTypeVar()
 					}
+					else if this.test(Token::QUESTION) {
+						type = this.yep(AST.Nullable(this.yes()))
+					}
 
 					let defaultValue = null
 					if this.test(Token::EQUALS) {
@@ -4856,6 +4859,9 @@ export namespace Parser {
 						this.commit()
 
 						type = this.reqTypeVar()
+					}
+					else if this.test(Token::QUESTION) {
+						type = this.yep(AST.Nullable(this.yes()))
 					}
 
 					let defaultValue = null
