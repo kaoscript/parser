@@ -2285,6 +2285,9 @@ export namespace Parser {
 						this.throw(['class', 'namespace'])
 					}
 				}
+				Token::STRUCT => {
+					return this.reqStructStatement(this.yes())
+				}
 				Token::LET where ns => {
 					const first = this.yes()
 					const name = this.reqIdentifier()

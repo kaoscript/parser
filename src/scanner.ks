@@ -631,12 +631,15 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// sealed
+			// sealed, struct
 			else if c == 115 {
 				const identifier = that.scanIdentifier(true)
 
 				if identifier == 'ealed' {
 					return Token::SEALED
+				}
+				else if identifier == 'truct' {
+					return Token::STRUCT
 				}
 				else {
 					return Token::IDENTIFIER
@@ -735,10 +738,15 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// sealed
+			// sealed, struct
 			else if c == 115 {
-				if that.scanIdentifier(true) == 'ealed' {
+				const identifier = that.scanIdentifier(true)
+
+				if identifier == 'ealed' {
 					return Token::SEALED
+				}
+				else if identifier == 'truct' {
+					return Token::STRUCT
 				}
 				else {
 					return Token::IDENTIFIER
@@ -909,6 +917,7 @@ namespace M {
 					}
 				}
 			}
+			// require, require|extern, require|import
 			else if c == 114
 			{
 				if	that.charAt(1) == 101 &&
