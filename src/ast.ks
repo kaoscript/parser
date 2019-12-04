@@ -1063,20 +1063,28 @@ namespace AST {
 			}, first)
 		} // }}}
 
-		func IncludeAgainDeclaration(files, first, last) { // {{{
+		func IncludeAgainDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::IncludeAgainDeclaration
-				attributes: []
-				files: files
+				attributes
+				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
 		} // }}}
 
-		func IncludeDeclaration(files, first, last) { // {{{
+		func IncludeDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::IncludeDeclaration
-				attributes: []
-				files: files
+				attributes
+				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
+		} // }}}
+
+		func IncludeDeclarator(file) { // {{{
+			return location({
+				kind: NodeKind::IncludeDeclarator
+				attributes: []
+				file: file.value
+			}, file, file)
 		} // }}}
 
 		func LambdaExpression(parameters, modifiers?, type?, throws?, body, first, last) { // {{{

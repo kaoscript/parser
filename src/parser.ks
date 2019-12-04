@@ -3196,17 +3196,48 @@ export namespace Parser {
 
 			return this.yep(AST.ImportDeclaration(attributes, declarations, first, last))
 		} // }}}
+		reqIncludeDeclarator() ~ SyntaxError { // {{{
+			unless this.test(Token::STRING) {
+				this.throw('String')
+			}
+
+			const file = this.yes(this.value())
+
+			return this.yep(AST.IncludeDeclarator(file))
+		} // }}}
 		reqIncludeStatement(first) ~ SyntaxError { // {{{
+			this.NL_0M()
+
+			const attributes = []
+			const declarations = []
+
+			let last
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().reqNL_1M()
 
-				const files = []
+				let attrs = []
+				let declarator
 
 				until this.test(Token::RIGHT_CURLY) {
-					if this.test(Token::STRING) {
-						files.push(this.value())
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
 
-						this.commit().reqNL_1M()
+					this.stackOuterAttributes(attrs)
+
+					declarator = this.reqIncludeDeclarator()
+
+					if attrs.length > 0 {
+						declarator.value.attributes.unshift(...attrs)
+						declarator.value.start = declarator.value.attributes[0].start
+
+						attrs = []
+					}
+
+					declarations.push(declarator)
+
+					if this.test(Token::NEWLINE) {
+						this.commit().NL_0M()
 					}
 					else {
 						break
@@ -3217,36 +3248,47 @@ export namespace Parser {
 					this.throw('}')
 				}
 
-				const last = this.yes()
-
-				this.reqNL_EOF_1M()
-
-				return this.yep(AST.IncludeDeclaration(files, first, last))
+				last = this.yes()
 			}
 			else {
-				unless this.test(Token::STRING) {
-					this.throw('String')
-				}
-
-				const files = [this.value()]
-				const last = this.yes()
-
-				this.reqNL_EOF_1M()
-
-				return this.yep(AST.IncludeDeclaration(files, first, last))
+				declarations.push(last = this.reqIncludeDeclarator())
 			}
+
+			return this.yep(AST.IncludeDeclaration(attributes, declarations, first, last))
 		} // }}}
 		reqIncludeAgainStatement(first) ~ SyntaxError { // {{{
+			this.NL_0M()
+
+			const attributes = []
+			const declarations = []
+
+			let last
 			if this.test(Token::LEFT_CURLY) {
 				this.commit().reqNL_1M()
 
-				const files = []
+				let attrs = []
+				let declarator
 
 				until this.test(Token::RIGHT_CURLY) {
-					if this.test(Token::STRING) {
-						files.push(this.value())
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
 
-						this.commit().reqNL_1M()
+					this.stackOuterAttributes(attrs)
+
+					declarator = this.reqIncludeDeclarator()
+
+					if attrs.length > 0 {
+						declarator.value.attributes.unshift(...attrs)
+						declarator.value.start = declarator.value.attributes[0].start
+
+						attrs = []
+					}
+
+					declarations.push(declarator)
+
+					if this.test(Token::NEWLINE) {
+						this.commit().NL_0M()
 					}
 					else {
 						break
@@ -3257,24 +3299,13 @@ export namespace Parser {
 					this.throw('}')
 				}
 
-				const last = this.yes()
-
-				this.reqNL_EOF_1M()
-
-				return this.yep(AST.IncludeAgainDeclaration(files, first, last))
+				last = this.yes()
 			}
 			else {
-				unless this.test(Token::STRING) {
-					this.throw('String')
-				}
-
-				const files = [this.value()]
-				const last = this.yes()
-
-				this.reqNL_EOF_1M()
-
-				return this.yep(AST.IncludeAgainDeclaration(files, first, last))
+				declarations.push(last = this.reqIncludeDeclarator())
 			}
+
+			return this.yep(AST.IncludeAgainDeclaration(attributes, declarations, first, last))
 		} // }}}
 		reqLetStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
 			const variable = this.reqTypedVariable()

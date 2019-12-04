@@ -1,14 +1,14 @@
 {
-  "kind": 72,
+  "kind": 73,
   "attributes": [],
   "body": [
     {
-      "kind": 117,
+      "kind": 118,
       "modifiers": [],
       "attributes": [],
       "variables": [
         {
-          "kind": 118,
+          "kind": 119,
           "modifiers": [],
           "name": {
             "kind": 52,
@@ -44,7 +44,7 @@
         "kind": 4,
         "values": [
           {
-            "kind": 76,
+            "kind": 77,
             "value": 1,
             "start": {
               "line": 1,
@@ -56,7 +56,7 @@
             }
           },
           {
-            "kind": 76,
+            "kind": 77,
             "value": 1,
             "start": {
               "line": 1,
@@ -79,7 +79,7 @@
       }
     },
     {
-      "kind": 101,
+      "kind": 102,
       "attributes": [],
       "expression": {
         "kind": 52,
@@ -95,7 +95,7 @@
       },
       "clauses": [
         {
-          "kind": 94,
+          "kind": 95,
           "body": {
             "kind": 14,
             "modifiers": [],
@@ -103,7 +103,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 69,
+              "kind": 70,
               "modifiers": [],
               "object": {
                 "kind": 52,
@@ -140,7 +140,7 @@
             },
             "arguments": [
               {
-                "kind": 66,
+                "kind": 67,
                 "value": "(0, 0) is at the origin",
                 "start": {
                   "line": 4,
@@ -171,10 +171,10 @@
           },
           "conditions": [
             {
-              "kind": 95,
+              "kind": 96,
               "values": [
                 {
-                  "kind": 76,
+                  "kind": 77,
                   "value": 0,
                   "start": {
                     "line": 4,
@@ -186,7 +186,7 @@
                   }
                 },
                 {
-                  "kind": 76,
+                  "kind": 77,
                   "value": 0,
                   "start": {
                     "line": 4,
@@ -211,7 +211,7 @@
           "bindings": []
         },
         {
-          "kind": 94,
+          "kind": 95,
           "body": {
             "kind": 14,
             "modifiers": [],
@@ -219,7 +219,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 69,
+              "kind": 70,
               "modifiers": [],
               "object": {
                 "kind": 52,
@@ -256,7 +256,7 @@
             },
             "arguments": [
               {
-                "kind": 66,
+                "kind": 67,
                 "value": "(\\(somePoint[0]), 0) is on the x-axis",
                 "start": {
                   "line": 5,
@@ -287,10 +287,10 @@
           },
           "conditions": [
             {
-              "kind": 95,
+              "kind": 96,
               "values": [
                 {
-                  "kind": 80,
+                  "kind": 81,
                   "modifiers": [],
                   "start": {
                     "line": 5,
@@ -302,7 +302,7 @@
                   }
                 },
                 {
-                  "kind": 76,
+                  "kind": 77,
                   "value": 0,
                   "start": {
                     "line": 5,
@@ -327,7 +327,7 @@
           "bindings": []
         },
         {
-          "kind": 94,
+          "kind": 95,
           "body": {
             "kind": 14,
             "modifiers": [],
@@ -335,7 +335,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 69,
+              "kind": 70,
               "modifiers": [],
               "object": {
                 "kind": 52,
@@ -372,7 +372,7 @@
             },
             "arguments": [
               {
-                "kind": 66,
+                "kind": 67,
                 "value": "(0, \\(somePoint[1])) is on the y-axis",
                 "start": {
                   "line": 6,
@@ -403,10 +403,10 @@
           },
           "conditions": [
             {
-              "kind": 95,
+              "kind": 96,
               "values": [
                 {
-                  "kind": 76,
+                  "kind": 77,
                   "value": 0,
                   "start": {
                     "line": 6,
@@ -418,7 +418,7 @@
                   }
                 },
                 {
-                  "kind": 80,
+                  "kind": 81,
                   "modifiers": [],
                   "start": {
                     "line": 6,
@@ -443,7 +443,7 @@
           "bindings": []
         },
         {
-          "kind": 94,
+          "kind": 95,
           "body": {
             "kind": 14,
             "modifiers": [],
@@ -451,7 +451,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 69,
+              "kind": 70,
               "modifiers": [],
               "object": {
                 "kind": 52,
@@ -488,7 +488,7 @@
             },
             "arguments": [
               {
-                "kind": 66,
+                "kind": 67,
                 "value": "(\\(somePoint[0]), \\(somePoint[1])) is inside the box",
                 "start": {
                   "line": 7,
@@ -519,12 +519,12 @@
           },
           "conditions": [
             {
-              "kind": 95,
+              "kind": 96,
               "values": [
                 {
-                  "kind": 98,
+                  "kind": 99,
                   "from": {
-                    "kind": 76,
+                    "kind": 77,
                     "value": -2,
                     "start": {
                       "line": 7,
@@ -536,7 +536,7 @@
                     }
                   },
                   "to": {
-                    "kind": 76,
+                    "kind": 77,
                     "value": 2,
                     "start": {
                       "line": 7,
@@ -557,9 +557,9 @@
                   }
                 },
                 {
-                  "kind": 98,
+                  "kind": 99,
                   "from": {
-                    "kind": 76,
+                    "kind": 77,
                     "value": -2,
                     "start": {
                       "line": 7,
@@ -571,7 +571,7 @@
                     }
                   },
                   "to": {
-                    "kind": 76,
+                    "kind": 77,
                     "value": 2,
                     "start": {
                       "line": 7,
@@ -605,7 +605,7 @@
           "bindings": []
         },
         {
-          "kind": 94,
+          "kind": 95,
           "body": {
             "kind": 14,
             "modifiers": [],
@@ -613,7 +613,7 @@
               "kind": 3
             },
             "callee": {
-              "kind": 69,
+              "kind": 70,
               "modifiers": [],
               "object": {
                 "kind": 52,
@@ -650,7 +650,7 @@
             },
             "arguments": [
               {
-                "kind": 66,
+                "kind": 67,
                 "value": "(\\(somePoint[0]), \\(somePoint[1])) is outside of the box",
                 "start": {
                   "line": 8,

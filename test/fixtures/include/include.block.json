@@ -1,13 +1,37 @@
 {
-  "kind": 72,
+  "kind": 73,
   "attributes": [],
   "body": [
     {
       "kind": 64,
       "attributes": [],
-      "files": [
-        "./module1",
-        "./module2"
+      "declarations": [
+        {
+          "kind": 65,
+          "attributes": [],
+          "file": "./module1",
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 2,
+            "column": 13
+          }
+        },
+        {
+          "kind": 65,
+          "attributes": [],
+          "file": "./module2",
+          "start": {
+            "line": 3,
+            "column": 2
+          },
+          "end": {
+            "line": 3,
+            "column": 13
+          }
+        }
       ],
       "start": {
         "line": 1,
