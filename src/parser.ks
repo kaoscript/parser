@@ -3252,8 +3252,6 @@ export namespace Parser {
 			}
 			else {
 				declarations.push(last = this.reqIncludeDeclarator())
-
-				this.NL_0M()
 			}
 
 			return this.yep(AST.IncludeDeclaration(attributes, declarations, first, last))
@@ -3767,9 +3765,6 @@ export namespace Parser {
 				else if @token == Token::EXTERN {
 					statement = this.reqExternStatement(this.yes())
 				}
-				else if @token == Token::IMPORT {
-					statement = this.reqImportStatement(this.yes())
-				}
 				else if @token == Token::INCLUDE {
 					statement = this.reqIncludeStatement(this.yes())
 				}
@@ -3788,6 +3783,8 @@ export namespace Parser {
 				}
 
 				statements.push(statement)
+
+				this.NL_0M()
 			}
 
 			unless this.test(Token::RIGHT_CURLY) {
