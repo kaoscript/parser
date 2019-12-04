@@ -4,14 +4,20 @@ extern {
 	func parseFloat(...): Number
 	func parseInt(...): Number
 
+	sealed class Array
 	sealed class RegExp
 	sealed class String
 	sealed class SyntaxError
 }
 
-type RegExpExecArray = Array<String?> & {
-    index: Number
-    input: String
+disclose Array {
+	length: Number
+	indexOf(searchElement, fromIndex: Number = 0): Number
+	push(...elements): Number
+	shift(): Any
+	slice(begin: Number = 0, end: Number = -1)
+	sort(compare: Function = null): Array
+	unshift(...elements): Number
 }
 
 disclose RegExp {
@@ -30,4 +36,9 @@ disclose String {
 	replace(pattern: RegExp | String, replacement: Function | String): String
 	substr(start: Number, length: Number = -1): String
 	substring(indexStart: Number, indexEnd: Number = -1): String
+}
+
+type RegExpExecArray = Array<String?> & {
+    index: Number
+    input: String
 }

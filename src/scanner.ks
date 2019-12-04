@@ -183,7 +183,7 @@ const regex: Dictionary<RegExp> = {
 	template: /^(?:[^`\\]|\\\\|\\(?!\())+/
 }
 
-#[rules(no-param-assert)]
+#[rules(dont-assert-parameter)]
 namespace M {
 	export {
 		func ASSIGNEMENT_OPERATOR(that: Scanner, index: Number) { // {{{
@@ -1759,7 +1759,7 @@ namespace M {
 	}
 }
 
-#[rules(no-param-assert)]
+#[rules(dont-assert-parameter)]
 const recognize = {
 	`\(Token::ABSTRACT)`(that: Scanner, c: Number) { // {{{
 		if	c == 97 &&
