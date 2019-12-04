@@ -1,0 +1,1 @@
+auto a, b = await foo()

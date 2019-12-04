@@ -12,6 +12,7 @@ enum Token {
 	ASYNC
 	AT
 	ATTRIBUTE_IDENTIFIER
+	AUTO
 	AWAIT
 	BINARY_NUMBER
 	BREAK
@@ -28,7 +29,6 @@ enum Token {
 	CLASS_VERSION
 	COLON
 	COLON_COLON
-	COLON_EQUALS
 	COMMA
 	CONST
 	CONTINUE
@@ -79,6 +79,8 @@ enum Token {
 	INTERNAL
 	IS
 	IS_NOT
+	LATEINIT
+	LAZY
 	LEFT_ANGLE
 	LEFT_ANGLE_EQUALS
 	LEFT_ANGLE_LEFT_ANGLE
@@ -1329,7 +1331,7 @@ namespace M {
 			if c == -1 {
 				return Token::EOF
 			}
-			// abstract, async
+			// abstract, async, auto
 			else if	c == 97
 			{
 				if	that.charAt(1) == 98 &&
@@ -1346,14 +1348,23 @@ namespace M {
 					return Token::ABSTRACT
 				}
 				else if that.charAt(1) == 115 &&
-					that.charAt(2) == 121 &&
-					that.charAt(3) == 110 &&
-					that.charAt(4) == 99 &&
-					that.isBoundary(5)
+						that.charAt(2) == 121 &&
+						that.charAt(3) == 110 &&
+						that.charAt(4) == 99 &&
+						that.isBoundary(5)
 				{
 					that.next(5)
 
 					return Token::ASYNC
+				}
+				else if that.charAt(1) == 117 &&
+						that.charAt(2) == 116 &&
+						that.charAt(3) == 111 &&
+						that.isBoundary(4)
+				{
+					that.next(4)
+
+					return Token::AUTO
 				}
 			}
 			// break
@@ -1520,12 +1531,34 @@ namespace M {
 					return Token::IMPORT
 				}
 			}
-			// let
+			// lateinit, lazy, let
 			else if c == 108
 			{
-				if	that.charAt(1) == 101 &&
+				if	that.charAt(1) == 97 &&
 					that.charAt(2) == 116 &&
-					that.isBoundary(3)
+					that.charAt(3) == 101 &&
+					that.charAt(4) == 105 &&
+					that.charAt(5) == 110 &&
+					that.charAt(6) == 105 &&
+					that.charAt(7) == 116 &&
+					that.isBoundary(8)
+				{
+					that.next(8)
+
+					return Token::LATEINIT
+				}
+				else if	that.charAt(1) == 97 &&
+						that.charAt(2) == 122 &&
+						that.charAt(3) == 121 &&
+						that.isBoundary(4)
+				{
+					that.next(4)
+
+					return Token::LAZY
+				}
+				else if	that.charAt(1) == 101 &&
+						that.charAt(2) == 116 &&
+						that.isBoundary(3)
 				{
 					that.next(3)
 
@@ -1858,6 +1891,20 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	`\(Token::AUTO)`(that: Scanner, c: Number) { // {{{
+		if	c == 97 &&
+			that.charAt(1) == 117 &&
+			that.charAt(2) == 116 &&
+			that.charAt(3) == 111 &&
+			that.isBoundary(4)
+		{
+			return that.next(4)
+		}
+		else
+		{
+			return false
+		}
+	} // }}}
 	`\(Token::AWAIT)`(that: Scanner, c: Number) { // {{{
 		if	c == 97 &&
 			that.charAt(1) == 119 &&
@@ -1930,14 +1977,6 @@ const recognize = {
 			c = that.charAt(1)
 
 			return c == 58 || c == 61 ? false : that.next(1)
-		}
-		else {
-			return false
-		}
-	} // }}}
-	`\(Token::COLON_EQUALS)`(that: Scanner, c: Number) { // {{{
-		if c == 58 && that.charAt(1) == 61 {
-			return that.next(2)
 		}
 		else {
 			return false
@@ -2254,6 +2293,36 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	/* `\(Token::LATEINIT)`(that: Scanner, c: Number) { // {{{
+		if	c == 108 &&
+			that.charAt(1) == 97 &&
+			that.charAt(2) == 116 &&
+			that.charAt(3) == 101 &&
+			that.charAt(4) == 105 &&
+			that.charAt(5) == 110 &&
+			that.charAt(6) == 105 &&
+			that.charAt(7) == 116 &&
+			that.isBoundary(8)
+		{
+			return that.next(8)
+		}
+		else {
+			return false
+		}
+	} // }}}
+	`\(Token::LAZY)`(that: Scanner, c: Number) { // {{{
+		if	c == 108 &&
+			that.charAt(1) == 97 &&
+			that.charAt(2) == 122 &&
+			that.charAt(3) == 121 &&
+			that.isBoundary(4)
+		{
+			return that.next(4)
+		}
+		else {
+			return false
+		}
+	} // }}} */
 	`\(Token::LEFT_ANGLE)`(that: Scanner, c: Number) { // {{{
 		if c == 60 {
 			c = that.charAt(1)

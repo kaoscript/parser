@@ -1,0 +1,1 @@
+lateinit let a = 42

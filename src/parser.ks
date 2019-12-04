@@ -621,6 +621,72 @@ export namespace Parser {
 				return identifier
 			}
 		} // }}}
+		reqAutoStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
+			const modifiers = [AST.Modifier(ModifierKind::AutoTyping, first)]
+			const variable = this.reqVariable()
+
+			if this.test(Token::COMMA) {
+				const variables = [variable]
+
+				do {
+					this.commit()
+
+					variables.push(this.reqVariable())
+				}
+				while this.test(Token::COMMA)
+
+				unless this.test(Token::EQUALS) {
+					this.throw('=')
+				}
+
+				this.commit().NL_0M()
+
+				unless this.test(Token::AWAIT) {
+					this.throw('await')
+				}
+
+				this.commit()
+
+				let operand = this.reqPrefixedOperand(mode)
+
+				operand = this.yep(AST.AwaitExpression([], variables, operand, variable, operand))
+
+				return this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
+			}
+			else if this.test(Token::EQUALS) {
+				this.commit().NL_0M()
+
+				let init = this.reqExpression(mode)
+
+				if this.match(Token::IF, Token::UNLESS) == Token::IF {
+					const first = this.yes()
+					const condition = this.reqExpression(ExpressionMode::Default)
+
+					if this.test(Token::ELSE) {
+						this.commit()
+
+						const whenFalse = this.reqExpression(ExpressionMode::Default)
+
+						init = this.yep(AST.IfExpression(condition, init, whenFalse, init, whenFalse))
+					}
+					else {
+						init = this.yep(AST.IfExpression(condition, init, null, init, condition))
+					}
+				}
+				else if @token == Token::UNLESS {
+					this.commit()
+
+					const condition = this.reqExpression(ExpressionMode::Default)
+
+					init = this.yep(AST.UnlessExpression(condition, init, init, condition))
+				}
+
+				return this.yep(AST.VariableDeclaration(modifiers, [variable], init, first, init))
+			}
+			else {
+				this.throw('=')
+			}
+		} // }}}
 		reqAwaitExpression(first) ~ SyntaxError { // {{{
 			const operand = this.reqPrefixedOperand(ExpressionMode::Default)
 
@@ -1223,7 +1289,11 @@ export namespace Parser {
 				}
 				while this.test(Token::COMMA)
 
-				this.reqVariableEquals(modifiers)
+				unless this.test(Token::EQUALS) {
+					this.throw('=')
+				}
+
+				this.commit()
 
 				unless this.test(Token::AWAIT) {
 					this.throw('await')
@@ -1238,7 +1308,11 @@ export namespace Parser {
 				return this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
 			}
 			else {
-				this.reqVariableEquals(modifiers)
+				unless this.test(Token::EQUALS) {
+					this.throw('=')
+				}
+
+				this.commit()
 
 				const expression = this.reqExpression(mode)
 
@@ -1610,6 +1684,9 @@ export namespace Parser {
 					else {
 						return this.reqExportIdentifier(first)
 					}
+				}
+				Token::AUTO => {
+					return this.yep(AST.ExportDeclarationSpecifier(this.reqAutoStatement(this.yes(), ExpressionMode::NoAwait)))
 				}
 				Token::CLASS => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqClassStatement(this.yes())))
@@ -2559,6 +2636,11 @@ export namespace Parser {
 
 				modifiers.push(AST.Modifier(ModifierKind::Declarative, position), AST.Modifier(ModifierKind::Immutable, position))
 			}
+			else if this.test(Token::AUTO) {
+				const position = this.yes()
+
+				modifiers.push(AST.Modifier(ModifierKind::Declarative, position), AST.Modifier(ModifierKind::AutoTyping, position))
+			}
 
 			let identifier1 = NO
 			let type1 = NO
@@ -2733,7 +2815,7 @@ export namespace Parser {
 		} // }}}
 		reqIfStatement(first) ~ SyntaxError { // {{{
 			let condition
-			if this.test(Token::LET, Token::CONST) {
+			if this.test(Token::LET, Token::CONST, Token::AUTO) {
 				const token = @token
 
 				const mark = this.mark()
@@ -2742,6 +2824,9 @@ export namespace Parser {
 				const modifiers = []
 				if token == Token::CONST {
 					modifiers.push(AST.Modifier(ModifierKind::Immutable, first))
+				}
+				else if token == Token::AUTO {
+					modifiers.push(AST.Modifier(ModifierKind::AutoTyping, first))
 				}
 
 				if this.test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
@@ -2757,7 +2842,11 @@ export namespace Parser {
 						}
 						while this.test(Token::COMMA)
 
-						this.reqVariableEquals(modifiers)
+						unless this.test(Token::EQUALS) {
+							this.throw('=')
+						}
+
+						this.commit()
 
 						unless this.test(Token::AWAIT) {
 							this.throw('await')
@@ -2770,7 +2859,11 @@ export namespace Parser {
 						condition = this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
 					}
 					else {
-						this.reqVariableEquals(modifiers)
+						unless this.test(Token::EQUALS) {
+							this.throw('=')
+						}
+
+						this.commit()
 
 						const expression = this.reqExpression(ExpressionMode::Default)
 
@@ -3307,6 +3400,94 @@ export namespace Parser {
 
 			return this.yep(AST.IncludeAgainDeclaration(attributes, declarations, first, last))
 		} // }}}
+		reqLateInitStatement(first) ~ SyntaxError { // {{{
+			const modifiers = [AST.Modifier(ModifierKind::LateInit, first)]
+			const variables = []
+
+			if this.match(Token::AUTO, Token::CONST, Token::LET) == Token::AUTO {
+				modifiers.push(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
+
+				variables.push(last = this.reqVariable())
+
+				while this.test(Token::COMMA) {
+					this.commit()
+
+					variables.push(last = this.reqVariable())
+				}
+
+				return this.yep(AST.VariableDeclaration(modifiers, variables, null, first, last))
+			}
+			else if @token == Token::CONST {
+				modifiers.push(AST.Modifier(ModifierKind::Immutable, this.yes()))
+
+				variables.push(last = this.reqTypedVariable())
+
+				while this.test(Token::COMMA) {
+					this.commit()
+
+					variables.push(last = this.reqTypedVariable())
+				}
+
+				return this.yep(AST.VariableDeclaration(modifiers, variables, null, first, last))
+			}
+			else if @token == Token::LET {
+				this.commit()
+
+				variables.push(last = this.reqTypedVariable())
+
+				while this.test(Token::COMMA) {
+					this.commit()
+
+					variables.push(last = this.reqTypedVariable())
+				}
+
+				return this.yep(AST.VariableDeclaration(modifiers, variables, null, first, last))
+			}
+			else {
+				this.throw(['auto', 'const', 'let'])
+			}
+		} // }}}
+		reqLazyStatement(first) ~ SyntaxError { // {{{
+			const modifiers = [AST.Modifier(ModifierKind::LazyInit, first)]
+			const variables = []
+
+			if this.match(Token::AUTO, Token::CONST, Token::LET) == Token::AUTO {
+				modifiers.push(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
+
+				variables.push(this.reqVariable())
+			}
+			else if @token == Token::CONST {
+				modifiers.push(AST.Modifier(ModifierKind::Immutable, this.yes()))
+
+				variables.push(this.reqTypedVariable())
+			}
+			else if @token == Token::LET {
+				this.commit()
+
+				variables.push(this.reqTypedVariable())
+			}
+			else {
+				this.throw(['auto', 'const', 'let'])
+			}
+
+			let value
+
+			if this.match(Token::EQUALS_RIGHT_ANGLE, Token::EQUALS) == Token::EQUALS {
+				this.commit()
+
+				value = this.reqBlock()
+			}
+			else if @token == Token::EQUALS_RIGHT_ANGLE {
+				this.commit()
+
+				value = this.reqExpression(ExpressionMode::Default)
+			}
+			else {
+				this.throw(['=', '=>'])
+			}
+
+			return this.yep(AST.VariableDeclaration(modifiers, variables, value, first, value))
+		} // }}}
 		reqLetStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
 			const variable = this.reqTypedVariable()
 			const modifiers = []
@@ -3321,8 +3502,8 @@ export namespace Parser {
 				}
 				while this.test(Token::COMMA)
 
-				if this.tryVariableEquals(modifiers).ok {
-					this.NL_0M()
+				if this.test(Token::EQUALS) {
+					this.commit().NL_0M()
 
 					unless this.test(Token::AWAIT) {
 						this.throw('await')
@@ -3341,8 +3522,8 @@ export namespace Parser {
 				}
 			}
 			else {
-				if this.tryVariableEquals(modifiers).ok {
-					this.NL_0M()
+				if this.test(Token::EQUALS) {
+					this.commit().NL_0M()
 
 					let init = this.reqExpression(mode)
 
@@ -4622,6 +4803,9 @@ export namespace Parser {
 						statement = NO
 					}
 				}
+				Token::AUTO => {
+					statement = this.reqAutoStatement(this.yes())
+				}
 				Token::BREAK => {
 					statement = this.reqBreakStatement(this.yes())
 				}
@@ -4685,6 +4869,12 @@ export namespace Parser {
 				}
 				Token::IMPORT => {
 					statement = this.reqImportStatement(this.yes())
+				}
+				Token::LATEINIT => {
+					statement = this.reqLateInitStatement(this.yes())
+				}
+				Token::LAZY => {
+					statement = this.reqLazyStatement(this.yes())
 				}
 				Token::LET => {
 					statement = this.reqLetStatement(this.yes())
@@ -5918,18 +6108,10 @@ export namespace Parser {
 
 			return this.yep(AST.UnlessStatement(condition, whenFalse, first, whenFalse))
 		} // }}}
-		reqVariableEquals(modifiers) ~ SyntaxError { // {{{
-			if this.match(Token::EQUALS, Token::COLON_EQUALS) == Token::EQUALS {
-				return this.yes()
-			}
-			else if @token == Token::COLON_EQUALS {
-				modifiers.push(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
+		reqVariable() ~ SyntaxError { // {{{
+			const name = this.reqIdentifier()
 
-				return this.yep()
-			}
-			else {
-				this.throw(['=', ':='])
-			}
+			return this.yep(AST.VariableDeclarator([], name, null, name, name))
 		} // }}}
 		reqVariableIdentifier() ~ SyntaxError { // {{{
 			if this.match(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::IDENTIFIER {
@@ -6799,19 +6981,6 @@ export namespace Parser {
 
 			return this.yep(AST.UntilStatement(condition, body, first, body))
 		} // }}}
-		tryVariableEquals(modifiers) ~ SyntaxError { // {{{
-			if this.match(Token::EQUALS, Token::COLON_EQUALS) == Token::EQUALS {
-				return this.yes()
-			}
-			else if @token == Token::COLON_EQUALS {
-				modifiers.push(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
-
-				return this.yep()
-			}
-			else {
-				return NO
-			}
-		} // }}}
 		tryVariableName() ~ SyntaxError { // {{{
 			let object
 			if this.test(Token::AT) {
@@ -6830,7 +6999,7 @@ export namespace Parser {
 		tryWhileStatement(first) ~ SyntaxError { // {{{
 			let condition
 
-			if this.test(Token::LET, Token::CONST) {
+			if this.test(Token::LET, Token::CONST, Token::AUTO) {
 				const token = @token
 
 				const mark = this.mark()
@@ -6839,6 +7008,9 @@ export namespace Parser {
 				const modifiers = []
 				if token == Token::CONST {
 					modifiers.push(AST.Modifier(ModifierKind::Immutable, first))
+				}
+				else if token == Token::AUTO {
+					modifiers.push(AST.Modifier(ModifierKind::AutoTyping, first))
 				}
 
 				if this.test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
@@ -6854,7 +7026,11 @@ export namespace Parser {
 						}
 						while this.test(Token::COMMA)
 
-						this.reqVariableEquals(modifiers)
+						unless this.test(Token::EQUALS) {
+							this.throw('=')
+						}
+
+						this.commit()
 
 						unless this.test(Token::AWAIT) {
 							this.throw('await')
@@ -6867,7 +7043,11 @@ export namespace Parser {
 						condition = this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
 					}
 					else {
-						this.reqVariableEquals(modifiers)
+						unless this.test(Token::EQUALS) {
+							this.throw('=')
+						}
+
+						this.commit()
 
 						const expression = this.reqExpression(ExpressionMode::Default)
 
