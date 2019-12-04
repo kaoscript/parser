@@ -3252,6 +3252,8 @@ export namespace Parser {
 			}
 			else {
 				declarations.push(last = this.reqIncludeDeclarator())
+
+				this.NL_0M()
 			}
 
 			return this.yep(AST.IncludeDeclaration(attributes, declarations, first, last))
