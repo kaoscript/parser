@@ -622,8 +622,13 @@ export namespace Parser {
 			}
 		} // }}}
 		reqAutoStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
+			const variable = this.tryVariable()
+
+			unless variable.ok {
+				return NO
+			}
+
 			const modifiers = [AST.Modifier(ModifierKind::AutoTyping, first)]
-			const variable = this.reqVariable()
 
 			if this.test(Token::COMMA) {
 				const variables = [variable]
@@ -6980,6 +6985,16 @@ export namespace Parser {
 			}
 
 			return this.yep(AST.UntilStatement(condition, body, first, body))
+		} // }}}
+		tryVariable() ~ SyntaxError { // {{{
+			const name = this.tryIdentifier()
+
+			if name.ok {
+				return this.yep(AST.VariableDeclarator([], name, null, name, name))
+			}
+			else {
+				return NO
+			}
 		} // }}}
 		tryVariableName() ~ SyntaxError { // {{{
 			let object
