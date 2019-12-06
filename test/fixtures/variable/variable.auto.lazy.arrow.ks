@@ -1,1 +1,0 @@
-lazy auto a => test() ? 42 : 24

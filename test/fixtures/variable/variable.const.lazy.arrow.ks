@@ -1,1 +1,0 @@
-lazy const a => test() ? 42 : 24

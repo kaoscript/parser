@@ -3452,47 +3452,6 @@ export namespace Parser {
 				this.throw(['auto', 'const', 'let'])
 			}
 		} // }}}
-		reqLazyStatement(first) ~ SyntaxError { // {{{
-			const modifiers = [AST.Modifier(ModifierKind::LazyInit, first)]
-			const variables = []
-
-			if this.match(Token::AUTO, Token::CONST, Token::LET) == Token::AUTO {
-				modifiers.push(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
-
-				variables.push(this.reqVariable())
-			}
-			else if @token == Token::CONST {
-				modifiers.push(AST.Modifier(ModifierKind::Immutable, this.yes()))
-
-				variables.push(this.reqTypedVariable())
-			}
-			else if @token == Token::LET {
-				this.commit()
-
-				variables.push(this.reqTypedVariable())
-			}
-			else {
-				this.throw(['auto', 'const', 'let'])
-			}
-
-			let value
-
-			if this.match(Token::EQUALS_RIGHT_ANGLE, Token::EQUALS) == Token::EQUALS {
-				this.commit()
-
-				value = this.reqBlock()
-			}
-			else if @token == Token::EQUALS_RIGHT_ANGLE {
-				this.commit()
-
-				value = this.reqExpression(ExpressionMode::Default)
-			}
-			else {
-				this.throw(['=', '=>'])
-			}
-
-			return this.yep(AST.VariableDeclaration(modifiers, variables, value, first, value))
-		} // }}}
 		reqLetStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
 			const variable = this.reqTypedVariable()
 			const modifiers = []
@@ -4877,9 +4836,6 @@ export namespace Parser {
 				}
 				Token::LATEINIT => {
 					statement = this.reqLateInitStatement(this.yes())
-				}
-				Token::LAZY => {
-					statement = this.reqLazyStatement(this.yes())
 				}
 				Token::LET => {
 					statement = this.reqLetStatement(this.yes())

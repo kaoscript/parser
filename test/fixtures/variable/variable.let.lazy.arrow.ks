@@ -1,1 +1,0 @@
-lazy let a => test() ? 42 : 24
