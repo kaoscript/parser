@@ -1,0 +1,1 @@
+func foobar(): auto => 42

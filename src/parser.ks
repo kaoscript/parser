@@ -820,7 +820,7 @@ export namespace Parser {
 		} // }}}
 		reqClassAbstractMethodBody(attributes, modifiers, name, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList()
-			const type = this.tryFunctionReturns()
+			const type = this.tryMethodReturns(false)
 			const throws = this.tryFunctionThrows()
 
 			this.reqNL_1M()
@@ -1057,7 +1057,7 @@ export namespace Parser {
 		reqClassMethod(attributes, modifiers, name, round?, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList(round)
 
-			const type = this.tryFunctionReturns()
+			const type = this.tryMethodReturns()
 			const throws = this.tryFunctionThrows()
 			const body = this.tryFunctionBody()
 
@@ -2227,7 +2227,7 @@ export namespace Parser {
 		} // }}}
 		reqExternClassMethod(attributes, modifiers, name, round, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList(round)
-			const type = this.tryFunctionReturns()
+			const type = this.tryMethodReturns(false)
 
 			this.reqNL_1M()
 
@@ -2445,14 +2445,14 @@ export namespace Parser {
 
 			if this.test(Token::LEFT_ROUND) {
 				const parameters = this.reqFunctionParameterList()
-				const type = this.tryFunctionReturns()
+				const type = this.tryFunctionReturns(false)
 				const throws = this.tryFunctionThrows()
 
 				return this.yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, null, first, throws ?? type ?? parameters))
 			}
 			else {
 				const position = this.yep()
-				const type = this.tryFunctionReturns()
+				const type = this.tryFunctionReturns(false)
 				const throws = this.tryFunctionThrows()
 
 				return this.yep(AST.FunctionDeclaration(name, null, modifiers, type, throws, null, first, throws ?? type ?? name))
@@ -2619,7 +2619,7 @@ export namespace Parser {
 			}
 			else if @token == Token::LEFT_ROUND {
 				const parameters = this.reqFunctionParameterList()
-				const type = this.tryFunctionReturns()
+				const type = this.tryFunctionReturns(false)
 
 				return this.yep(AST.FunctionDeclaration(name, parameters, [], type, null, null, name, type ?? parameters))
 			}
@@ -5522,7 +5522,7 @@ export namespace Parser {
 				if this.test(Token::LEFT_ROUND) {
 					const modifiers = [this.yep(AST.Modifier(ModifierKind::Async, async))]
 					const parameters = this.reqFunctionParameterList()
-					const type = this.tryFunctionReturns()
+					const type = this.tryFunctionReturns(false)
 					const throws = this.tryFunctionThrows()
 
 					return this.yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, async, throws ?? type ?? parameters))
@@ -5536,7 +5536,7 @@ export namespace Parser {
 
 				if this.test(Token::LEFT_ROUND) {
 					const parameters = this.reqFunctionParameterList()
-					const type = this.tryFunctionReturns()
+					const type = this.tryFunctionReturns(false)
 					const throws = this.tryFunctionThrows()
 
 					return this.yep(AST.FunctionExpression(parameters, null, type, throws, null, first, throws ?? type ?? parameters))
@@ -5547,7 +5547,7 @@ export namespace Parser {
 			}
 			else if @token == Token::LEFT_ROUND {
 				const parameters = this.reqFunctionParameterList()
-				const type = this.tryFunctionReturns()
+				const type = this.tryFunctionReturns(false)
 				const throws = this.tryFunctionThrows()
 
 				return this.yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
@@ -5815,7 +5815,7 @@ export namespace Parser {
 						if this.test(Token::LEFT_ROUND) {
 							const modifiers = [this.yep(AST.Modifier(ModifierKind::Async, async))]
 							const parameters = this.reqFunctionParameterList()
-							const type = this.tryFunctionReturns()
+							const type = this.tryFunctionReturns(false)
 							const throws = this.tryFunctionThrows()
 
 							const objectType = this.yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
@@ -5836,7 +5836,7 @@ export namespace Parser {
 
 						if this.test(Token::LEFT_ROUND) {
 							const parameters = this.reqFunctionParameterList()
-							const type = this.tryFunctionReturns()
+							const type = this.tryFunctionReturns(false)
 							const throws = this.tryFunctionThrows()
 
 							const objectType = this.yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
@@ -6699,7 +6699,7 @@ export namespace Parser {
 
 			return this.yep(parameters, first, this.yes())
 		} // }}}
-		tryFunctionReturns() ~ SyntaxError { // {{{
+		tryFunctionReturns(isAllowingAuto: Boolean = true) ~ SyntaxError { // {{{
 			const mark = this.mark()
 
 			this.NL_0M()
@@ -6707,7 +6707,33 @@ export namespace Parser {
 			if this.test(Token::COLON) {
 				this.commit()
 
-				return this.reqTypeVar()
+				const mark = this.mark()
+
+				if @scanner.test(Token::IDENTIFIER) {
+					const value = @scanner.value()
+
+					if value == 'this' || (!isAllowingAuto && value == 'auto') {
+						throw new SyntaxError(`The return type "\(value)" can't be used at line \(@scanner.line()) and column \(@scanner.column())`)
+					}
+					else if value == 'auto' {
+						const identifier = this.yep(AST.Identifier(@scanner.value(), this.yes()))
+
+						return this.yep(AST.ReturnTypeReference(identifier))
+					}
+					else {
+						this.rollback(mark)
+
+						return this.reqTypeVar()
+					}
+				}
+				else if this.test(Token::AT) {
+					const alias = this.reqThisExpression(this.yes())
+
+					return this.yep(AST.ReturnTypeReference(alias))
+				}
+				else {
+					return this.reqTypeVar()
+				}
 			}
 			else {
 				this.rollback(mark)
@@ -6759,6 +6785,48 @@ export namespace Parser {
 			const body = this.reqMacroBody()
 
 			return this.yep(AST.MacroDeclaration([], name, parameters, body, first, body))
+		} // }}}
+		tryMethodReturns(isAllowingAuto: Boolean = true) ~ SyntaxError { // {{{
+			const mark = this.mark()
+
+			this.NL_0M()
+
+			if this.test(Token::COLON) {
+				this.commit()
+
+				const mark = this.mark()
+
+				if @scanner.test(Token::IDENTIFIER) {
+					const value = @scanner.value()
+
+					if !isAllowingAuto && value == 'auto' {
+						throw new SyntaxError(`The return type "auto" can't be used at line \(@scanner.line()) and column \(@scanner.column())`)
+					}
+					else if value == 'this' || value == 'auto' {
+						const identifier = this.yep(AST.Identifier(@scanner.value(), this.yes()))
+
+						return this.yep(AST.ReturnTypeReference(identifier))
+					}
+					else {
+						this.rollback(mark)
+
+						return this.reqTypeVar()
+					}
+				}
+				else if this.test(Token::AT) {
+					const alias = this.reqThisExpression(this.yes())
+
+					return this.yep(AST.ReturnTypeReference(alias))
+				}
+				else {
+					return this.reqTypeVar()
+				}
+			}
+			else {
+				this.rollback(mark)
+
+				return null
+			}
 		} // }}}
 		tryNameIST() ~ SyntaxError { // {{{
 			if this.match(Token::IDENTIFIER, Token::STRING, Token::TEMPLATE_BEGIN) == Token::IDENTIFIER {

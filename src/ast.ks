@@ -1507,6 +1507,13 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
+		func ReturnTypeReference(value) { // {{{
+			return location({
+				kind: NodeKind::ReturnTypeReference
+				value: value.value
+			}, value)
+		} // }}}
+
 		func Scope(scope: ScopeKind) { // {{{
 			return {
 				kind: scope
