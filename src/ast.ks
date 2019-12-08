@@ -1376,7 +1376,7 @@ namespace AST {
 		} // }}}
 
 		func ObjectMemberReference(name, type) { // {{{
-			return node = location({
+			return location({
 				kind: NodeKind::ObjectMember
 				name: name.value
 				type: type.value
@@ -1542,14 +1542,20 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func StructDeclaration(attributes, modifiers, name, fields, first, last) { // {{{
-			return node = location({
+		func StructDeclaration(attributes, modifiers, name, extends!?, fields, first, last) { // {{{
+			const node = location({
 				kind: NodeKind::StructDeclaration
 				attributes
 				modifiers
 				name: name.value
 				fields
 			}, first, last)
+
+			if extends != null {
+				node.extends = extends.value
+			}
+
+			return node
 		} // }}}
 
 		func StructField(name?, type?, defaultValue?, first, last) { // {{{

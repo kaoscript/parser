@@ -2810,7 +2810,7 @@ export namespace Parser {
 
 			return this.yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, body, first, body))
 		} // }}}
-		reqIdentifier() ~ SyntaxError { // {{{
+		reqIdentifier(): Event ~ SyntaxError { // {{{
 			if @scanner.test(Token::IDENTIFIER) {
 				return this.yep(AST.Identifier(@scanner.value(), this.yes()))
 			}
@@ -4936,9 +4936,17 @@ export namespace Parser {
 
 			const attributes = []
 			const modifiers = []
-			let elements = []
+			const elements = []
+			let extends = null
+			let last = name
 
-			if this.match(Token::LEFT_CURLY, Token::LEFT_ROUND, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
+			if this.test(Token::EXTENDS) {
+				this.commit()
+
+				extends = this.reqIdentifier()
+			}
+
+			if this.test(Token::LEFT_CURLY) {
 				const first = this.yes()
 
 				this.NL_0M()
@@ -4987,8 +4995,10 @@ export namespace Parser {
 				unless this.test(Token::RIGHT_CURLY) {
 					this.throw('}')
 				}
+
+				last = this.yes()
 			}
-			else if @token == Token::LEFT_ROUND {
+			else if extends == null && this.test(Token::LEFT_ROUND) {
 				const first = this.yes()
 
 				this.NL_0M()
@@ -5029,8 +5039,16 @@ export namespace Parser {
 				unless this.test(Token::RIGHT_ROUND) {
 					this.throw(')')
 				}
+
+				last = this.yes()
+
+				if this.test(Token::EXTENDS) {
+					this.commit()
+
+					last = extends = this.reqIdentifier()
+				}
 			}
-			else if @token == Token::LEFT_SQUARE {
+			else if this.test(Token::LEFT_SQUARE) {
 				const first = this.yes()
 
 				this.NL_0M()
@@ -5079,9 +5097,11 @@ export namespace Parser {
 				unless this.test(Token::RIGHT_SQUARE) {
 					this.throw(']')
 				}
+
+				last = this.yes()
 			}
 
-			return this.yep(AST.StructDeclaration(attributes, modifiers, name, elements, first, this.yes()))
+			return this.yep(AST.StructDeclaration(attributes, modifiers, name, extends, elements, first, last))
 		} // }}}
 		reqSwitchBinding() ~ SyntaxError { // {{{
 			const bindings = [this.reqSwitchBindingValue()]
@@ -6725,11 +6745,6 @@ export namespace Parser {
 
 						return this.reqTypeVar()
 					}
-				}
-				else if this.test(Token::AT) {
-					const alias = this.reqThisExpression(this.yes())
-
-					return this.yep(AST.ReturnTypeReference(alias))
 				}
 				else {
 					return this.reqTypeVar()
