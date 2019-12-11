@@ -422,6 +422,14 @@ namespace AST {
 		func BinaryOperator(operator: BinaryOperatorKind, first) { // {{{
 			return location({
 				kind: operator
+				modifiers: []
+			}, first)
+		} // }}}
+
+		func BinaryOperator(modifiers, operator: BinaryOperatorKind, first) { // {{{
+			return location({
+				kind: operator
+				modifiers
 			}, first)
 		} // }}}
 

@@ -5,6 +5,8 @@ enum Token {
 	AMPERSAND_AMPERSAND
 	AMPERSAND_EQUALS
 	AS
+	AS_EXCLAMATION
+	AS_QUESTION
 	ASTERISK
 	ASTERISK_ASTERISK_LEFT_ROUND
 	ASTERISK_DOLLAR_LEFT_ROUND
@@ -1742,12 +1744,22 @@ namespace M {
 			// as
 			else if c == 97
 			{
-				if	that.charAt(1) == 115 &&
-					that.isBoundary(2)
-				{
-					that.next(2)
+				if that.charAt(1) == 115 {
+					if that.charAt(2) == 33 && that.isBoundary(3) {
+						that.next(3)
 
-					return Token::AS
+						return Token::AS_EXCLAMATION
+					}
+					else if that.charAt(2) == 63 && that.isBoundary(3) {
+						that.next(3)
+
+						return Token::AS_QUESTION
+					}
+					else if that.isBoundary(2) {
+						that.next(2)
+
+						return Token::AS
+					}
 				}
 			}
 			// is, is not

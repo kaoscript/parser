@@ -723,6 +723,16 @@ export namespace Parser {
 				Token::AS => {
 					operator = this.yep(AST.BinaryOperator(BinaryOperatorKind::TypeCasting, this.yes()))
 				}
+				Token::AS_EXCLAMATION => {
+					const position = this.yes()
+
+					operator = this.yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Forced, position)], BinaryOperatorKind::TypeCasting, position))
+				}
+				Token::AS_QUESTION => {
+					const position = this.yes()
+
+					operator = this.yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Nullable, position)], BinaryOperatorKind::TypeCasting, position))
+				}
 				Token::IS => {
 					operator = this.yep(AST.BinaryOperator(BinaryOperatorKind::TypeEquality, this.yes()))
 				}
