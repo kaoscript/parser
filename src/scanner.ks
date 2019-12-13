@@ -31,6 +31,8 @@ enum Token {
 	CLASS_VERSION
 	COLON
 	COLON_COLON
+	COLON_EXCLAMATION
+	COLON_QUESTION
 	COMMA
 	CONST
 	CONTINUE
@@ -1155,11 +1157,22 @@ namespace M {
 			}
 			else if c == 58 { // :
 				c = that.charAt(1)
+				const c2 = that.charAt(2)
 
-				if c == 58 && !((c = that.charAt(2)) == 9 || c == 32){
+				if c == 33 && c2 != 9 && c2 != 32 {
+					that.next(2)
+
+					return Token::COLON_EXCLAMATION
+				}
+				else if c == 58 && c2 != 9 && c2 != 32 {
 					that.next(2)
 
 					return Token::COLON_COLON
+				}
+				else if c == 63 && c2 != 9 && c2 != 32 {
+					that.next(2)
+
+					return Token::COLON_QUESTION
 				}
 				else if c != 61 && c != 9 && c != 32 {
 					that.next(1)

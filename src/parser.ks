@@ -6016,6 +6016,24 @@ export namespace Parser {
 
 						value = this.yep(AST.EnumExpression(value, expression))
 					}
+					Token::COLON_EXCLAMATION => {
+						first = this.yes()
+
+						const operator = this.yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Forced, first)], BinaryOperatorKind::TypeCasting, first))
+
+						expression = this.reqIdentifier()
+
+						value = this.yep(AST.BinaryExpression(value, operator, this.yep(AST.TypeReference(expression)), value, expression))
+					}
+					Token::COLON_QUESTION => {
+						first = this.yes()
+
+						const operator = this.yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Nullable, first)], BinaryOperatorKind::TypeCasting, first))
+
+						expression = this.reqIdentifier()
+
+						value = this.yep(AST.BinaryExpression(value, operator, this.yep(AST.TypeReference(expression)), value, expression))
+					}
 					Token::DOT => {
 						this.commit()
 
