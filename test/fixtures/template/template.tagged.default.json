@@ -1,17 +1,17 @@
 {
-  "kind": 73,
+  "kind": 74,
   "attributes": [],
   "body": [
     {
-      "kind": 119,
+      "kind": 120,
       "modifiers": [],
       "attributes": [],
       "variables": [
         {
-          "kind": 120,
+          "kind": 121,
           "modifiers": [],
           "name": {
-            "kind": 52,
+            "kind": 53,
             "name": "person",
             "start": {
               "line": 1,
@@ -41,7 +41,7 @@
         "column": 20
       },
       "init": {
-        "kind": 67,
+        "kind": 68,
         "value": "Mike",
         "start": {
           "line": 1,
@@ -54,15 +54,15 @@
       }
     },
     {
-      "kind": 119,
+      "kind": 120,
       "modifiers": [],
       "attributes": [],
       "variables": [
         {
-          "kind": 120,
+          "kind": 121,
           "modifiers": [],
           "name": {
-            "kind": 52,
+            "kind": 53,
             "name": "age",
             "start": {
               "line": 2,
@@ -92,7 +92,7 @@
         "column": 13
       },
       "init": {
-        "kind": 77,
+        "kind": 78,
         "value": 28,
         "start": {
           "line": 2,
@@ -105,10 +105,10 @@
       }
     },
     {
-      "kind": 49,
+      "kind": 50,
       "attributes": [],
       "name": {
-        "kind": 52,
+        "kind": 53,
         "name": "myTag",
         "start": {
           "line": 4,
@@ -129,7 +129,7 @@
       },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "modifiers": [],
           "start": {
             "line": 4,
@@ -140,7 +140,7 @@
             "column": 19
           },
           "name": {
-            "kind": 52,
+            "kind": 53,
             "name": "strings",
             "start": {
               "line": 4,
@@ -153,7 +153,7 @@
           }
         },
         {
-          "kind": 82,
+          "kind": 83,
           "modifiers": [],
           "start": {
             "line": 4,
@@ -164,7 +164,7 @@
             "column": 30
           },
           "name": {
-            "kind": 52,
+            "kind": 53,
             "name": "personExp",
             "start": {
               "line": 4,
@@ -177,7 +177,7 @@
           }
         },
         {
-          "kind": 82,
+          "kind": 83,
           "modifiers": [],
           "start": {
             "line": 4,
@@ -188,7 +188,7 @@
             "column": 38
           },
           "name": {
-            "kind": 52,
+            "kind": 53,
             "name": "ageExp",
             "start": {
               "line": 4,
@@ -208,7 +208,7 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 119,
+            "kind": 120,
             "modifiers": [
               {
                 "kind": 13,
@@ -225,10 +225,10 @@
             "attributes": [],
             "variables": [
               {
-                "kind": 120,
+                "kind": 121,
                 "modifiers": [],
                 "name": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "str0",
                   "start": {
                     "line": 5,
@@ -258,7 +258,7 @@
               "column": 25
             },
             "init": {
-              "kind": 70,
+              "kind": 71,
               "modifiers": [
                 {
                   "kind": 7,
@@ -273,7 +273,7 @@
                 }
               ],
               "object": {
-                "kind": 52,
+                "kind": 53,
                 "name": "strings",
                 "start": {
                   "line": 5,
@@ -285,7 +285,7 @@
                 }
               },
               "property": {
-                "kind": 77,
+                "kind": 78,
                 "value": 0,
                 "start": {
                   "line": 5,
@@ -307,7 +307,7 @@
             }
           },
           {
-            "kind": 119,
+            "kind": 120,
             "modifiers": [
               {
                 "kind": 13,
@@ -324,10 +324,10 @@
             "attributes": [],
             "variables": [
               {
-                "kind": 120,
+                "kind": 121,
                 "modifiers": [],
                 "name": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "str1",
                   "start": {
                     "line": 6,
@@ -357,7 +357,7 @@
               "column": 25
             },
             "init": {
-              "kind": 70,
+              "kind": 71,
               "modifiers": [
                 {
                   "kind": 7,
@@ -372,7 +372,7 @@
                 }
               ],
               "object": {
-                "kind": 52,
+                "kind": 53,
                 "name": "strings",
                 "start": {
                   "line": 6,
@@ -384,7 +384,7 @@
                 }
               },
               "property": {
-                "kind": 77,
+                "kind": 78,
                 "value": 1,
                 "start": {
                   "line": 6,
@@ -406,15 +406,15 @@
             }
           },
           {
-            "kind": 119,
+            "kind": 120,
             "modifiers": [],
             "attributes": [],
             "variables": [
               {
-                "kind": 120,
+                "kind": 121,
                 "modifiers": [],
                 "name": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "ageStr",
                   "start": {
                     "line": 8,
@@ -445,13 +445,13 @@
             }
           },
           {
-            "kind": 54,
+            "kind": 55,
             "attributes": [],
             "condition": {
               "kind": 21,
               "values": [
                 {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "ageExp",
                   "start": {
                     "line": 9,
@@ -475,7 +475,7 @@
                   }
                 },
                 {
-                  "kind": 77,
+                  "kind": 78,
                   "value": 99,
                   "start": {
                     "line": 9,
@@ -515,7 +515,7 @@
                     }
                   },
                   "left": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "ageStr",
                     "start": {
                       "line": 10,
@@ -527,7 +527,7 @@
                     }
                   },
                   "right": {
-                    "kind": 67,
+                    "kind": 68,
                     "value": "centenarian",
                     "start": {
                       "line": 10,
@@ -585,7 +585,7 @@
                     }
                   },
                   "left": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "ageStr",
                     "start": {
                       "line": 13,
@@ -597,7 +597,7 @@
                     }
                   },
                   "right": {
-                    "kind": 67,
+                    "kind": 68,
                     "value": "youngster",
                     "start": {
                       "line": 13,
@@ -630,13 +630,13 @@
             }
           },
           {
-            "kind": 89,
+            "kind": 90,
             "attributes": [],
             "value": {
-              "kind": 106,
+              "kind": 107,
               "elements": [
                 {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "str0",
                   "start": {
                     "line": 16,
@@ -648,7 +648,7 @@
                   }
                 },
                 {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "personExp",
                   "start": {
                     "line": 16,
@@ -660,7 +660,7 @@
                   }
                 },
                 {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "str1",
                   "start": {
                     "line": 16,
@@ -672,7 +672,7 @@
                   }
                 },
                 {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "ageStr",
                   "start": {
                     "line": 16,
@@ -714,7 +714,7 @@
       }
     },
     {
-      "kind": 119,
+      "kind": 120,
       "modifiers": [
         {
           "kind": 13,
@@ -731,10 +731,10 @@
       "attributes": [],
       "variables": [
         {
-          "kind": 120,
+          "kind": 121,
           "modifiers": [],
           "name": {
-            "kind": 52,
+            "kind": 53,
             "name": "output",
             "start": {
               "line": 19,
@@ -764,9 +764,9 @@
         "column": 53
       },
       "init": {
-        "kind": 105,
+        "kind": 106,
         "tag": {
-          "kind": 52,
+          "kind": 53,
           "name": "myTag",
           "start": {
             "line": 19,
@@ -778,10 +778,10 @@
           }
         },
         "template": {
-          "kind": 106,
+          "kind": 107,
           "elements": [
             {
-              "kind": 67,
+              "kind": 68,
               "value": "That ",
               "start": {
                 "line": 19,
@@ -793,7 +793,7 @@
               }
             },
             {
-              "kind": 52,
+              "kind": 53,
               "name": "person",
               "start": {
                 "line": 19,
@@ -805,7 +805,7 @@
               }
             },
             {
-              "kind": 67,
+              "kind": 68,
               "value": " is a ",
               "start": {
                 "line": 19,
@@ -817,7 +817,7 @@
               }
             },
             {
-              "kind": 52,
+              "kind": 53,
               "name": "age",
               "start": {
                 "line": 19,
@@ -855,10 +855,10 @@
         "kind": 3
       },
       "callee": {
-        "kind": 70,
+        "kind": 71,
         "modifiers": [],
         "object": {
-          "kind": 52,
+          "kind": 53,
           "name": "console",
           "start": {
             "line": 21,
@@ -870,7 +870,7 @@
           }
         },
         "property": {
-          "kind": 52,
+          "kind": 53,
           "name": "log",
           "start": {
             "line": 21,
@@ -914,7 +914,7 @@
             "column": 24
           },
           "left": {
-            "kind": 52,
+            "kind": 53,
             "name": "output",
             "start": {
               "line": 21,
@@ -926,7 +926,7 @@
             }
           },
           "right": {
-            "kind": 77,
+            "kind": 78,
             "value": 12,
             "start": {
               "line": 21,
@@ -956,10 +956,10 @@
         "kind": 3
       },
       "callee": {
-        "kind": 70,
+        "kind": 71,
         "modifiers": [],
         "object": {
-          "kind": 52,
+          "kind": 53,
           "name": "console",
           "start": {
             "line": 23,
@@ -971,7 +971,7 @@
           }
         },
         "property": {
-          "kind": 52,
+          "kind": 53,
           "name": "log",
           "start": {
             "line": 23,
@@ -993,9 +993,9 @@
       },
       "arguments": [
         {
-          "kind": 105,
+          "kind": 106,
           "tag": {
-            "kind": 52,
+            "kind": 53,
             "name": "myTag",
             "start": {
               "line": 23,
@@ -1007,10 +1007,10 @@
             }
           },
           "template": {
-            "kind": 106,
+            "kind": 107,
             "elements": [
               {
-                "kind": 67,
+                "kind": 68,
                 "value": "That ",
                 "start": {
                   "line": 23,
@@ -1022,7 +1022,7 @@
                 }
               },
               {
-                "kind": 52,
+                "kind": 53,
                 "name": "person",
                 "start": {
                   "line": 23,
@@ -1034,7 +1034,7 @@
                 }
               },
               {
-                "kind": 67,
+                "kind": 68,
                 "value": " is a ",
                 "start": {
                   "line": 23,
@@ -1046,7 +1046,7 @@
                 }
               },
               {
-                "kind": 52,
+                "kind": 53,
                 "name": "age",
                 "start": {
                   "line": 23,

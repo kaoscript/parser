@@ -694,6 +694,14 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
+		func ExternOrImportDeclaration(attributes, declarations, first, last) { // {{{
+			return location({
+				kind: NodeKind::ExternOrImportDeclaration
+				attributes
+				declarations: [declaration.value for declaration in declarations]
+			}, first, last)
+		} // }}}
+
 		func ExternOrRequireDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExternOrRequireDeclaration

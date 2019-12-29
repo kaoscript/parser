@@ -60,6 +60,7 @@ enum Token {
 	EXPORT
 	EXTENDS
 	EXTERN
+	EXTERN_IMPORT
 	EXTERN_REQUIRE
 	FALLTHROUGH
 	FINAL
@@ -147,6 +148,7 @@ enum Token {
 	STRING
 	STRUCT
 	SWITCH
+	SYSTEMIC
 	TEMPLATE_BEGIN
 	TEMPLATE_ELEMENT
 	TEMPLATE_END
@@ -743,7 +745,7 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// sealed, struct
+			// sealed, struct, systemic
 			else if c == 115 {
 				const identifier = that.scanIdentifier(true)
 
@@ -752,6 +754,9 @@ namespace M {
 				}
 				else if identifier == 'truct' {
 					return Token::STRUCT
+				}
+				else if identifier == 'ystemic' {
+					return Token::SYSTEMIC
 				}
 				else {
 					return Token::IDENTIFIER
@@ -849,7 +854,7 @@ namespace M {
 					return Token::DISCLOSE
 				}
 			}
-			// export, extern
+			// export, extern, extern|import, extern|require
 			else if c == 101
 			{
 				if	that.charAt(1) == 120 &&
@@ -871,14 +876,26 @@ namespace M {
 				{
 					if	that.charAt(6) == 124
 					{
-						if	that.charAt(7) == 114 &&
-							that.charAt(8) == 101 &&
-							that.charAt(9) == 113 &&
-							that.charAt(10) == 117 &&
-							that.charAt(11) == 105 &&
-							that.charAt(12) == 114 &&
-							that.charAt(13) == 101 &&
-							that.isBoundary(14)
+						if	that.charAt(7) == 105 &&
+							that.charAt(8) == 109 &&
+							that.charAt(9) == 112 &&
+							that.charAt(10) == 111 &&
+							that.charAt(11) == 114 &&
+							that.charAt(12) == 116 &&
+							that.isBoundary(13)
+						{
+							that.next(13)
+
+							return Token::EXTERN_IMPORT
+						}
+						else if	that.charAt(7) == 114 &&
+								that.charAt(8) == 101 &&
+								that.charAt(9) == 113 &&
+								that.charAt(10) == 117 &&
+								that.charAt(11) == 105 &&
+								that.charAt(12) == 114 &&
+								that.charAt(13) == 101 &&
+								that.isBoundary(14)
 						{
 							that.next(14)
 

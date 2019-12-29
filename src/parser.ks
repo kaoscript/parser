@@ -2380,6 +2380,38 @@ export namespace Parser {
 				Token::STRUCT => {
 					return this.reqStructStatement(this.yes())
 				}
+				Token::SYSTEMIC => {
+					const systemic = this.yep(AST.Modifier(ModifierKind::Systemic, this.yes()))
+
+					if this.matchM(M.EXTERN_STATEMENT) == Token::CLASS {
+						this.commit()
+
+						return this.reqExternClassDeclaration(systemic, [systemic])
+					}
+					else if @token == Token::IDENTIFIER {
+						const name = this.reqIdentifier()
+						const modifiers = [systemic.value]
+
+						if this.test(Token::COLON) {
+							this.commit()
+
+							const type = this.reqTypeVar()
+
+							return this.yep(AST.VariableDeclarator(modifiers, name, type, systemic, type))
+						}
+						else {
+							return this.yep(AST.VariableDeclarator(modifiers, name, null, systemic, name))
+						}
+					}
+					else if @token == Token::NAMESPACE {
+						this.commit()
+
+						return this.reqExternNamespaceDeclaration(systemic, [systemic])
+					}
+					else {
+						this.throw(['class', 'namespace'])
+					}
+				}
 				Token::LET where ns => {
 					const first = this.yes()
 					const name = this.reqIdentifier()
@@ -2510,6 +2542,57 @@ export namespace Parser {
 			else {
 				return this.yep(AST.NamespaceDeclaration([], modifiers, name, [], first, name))
 			}
+		} // }}}
+		reqExternOrImportStatement(first) ~ SyntaxError { // {{{
+			const attributes = []
+			const declarations = []
+
+			let last
+			if this.test(Token::LEFT_CURLY) {
+				this.commit().reqNL_1M()
+
+				let attrs = []
+				let declarator
+
+				until this.test(Token::RIGHT_CURLY) {
+					if this.stackInnerAttributes(attributes) {
+						continue
+					}
+
+					this.stackOuterAttributes(attrs)
+
+					declarator = this.reqImportDeclarator()
+
+					if attrs.length > 0 {
+						declarator.value.attributes.unshift(...attrs)
+						declarator.value.start = declarator.value.attributes[0].start
+
+						attrs = []
+					}
+
+					declarations.push(declarator)
+
+					if this.test(Token::NEWLINE) {
+						this.commit().NL_0M()
+					}
+					else {
+						break
+					}
+				}
+
+				unless this.test(Token::RIGHT_CURLY) {
+					this.throw('}')
+				}
+
+				last = this.yes()
+			}
+			else {
+				declarations.push(last = this.reqImportDeclarator())
+			}
+
+			this.reqNL_EOF_1M()
+
+			return this.yep(AST.ExternOrImportDeclaration(attributes, declarations, first, last))
 		} // }}}
 		reqExternOrRequireStatement(first) ~ SyntaxError { // {{{
 			const attributes = []
@@ -3838,6 +3921,9 @@ export namespace Parser {
 					}
 					Token::EXTERN => {
 						statement = this.reqExternStatement(this.yes()).value
+					}
+					Token::EXTERN_IMPORT => {
+						statement = this.reqExternOrImportStatement(this.yes()).value
 					}
 					Token::EXTERN_REQUIRE => {
 						statement = this.reqExternOrRequireStatement(this.yes()).value
