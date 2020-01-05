@@ -2325,6 +2325,23 @@ const recognize = {
 			return false
 		}
 	} // }}}
+	`\(Token::LATEINIT)`(that: Scanner, c: Number) { // {{{
+		if	c == 108 &&
+			that.charAt(1) == 97 &&
+			that.charAt(2) == 116 &&
+			that.charAt(3) == 101 &&
+			that.charAt(4) == 105 &&
+			that.charAt(5) == 110 &&
+			that.charAt(6) == 105 &&
+			that.charAt(7) == 116 &&
+			that.isBoundary(8)
+		{
+			return that.next(8)
+		}
+		else {
+			return false
+		}
+	} // }}}
 	`\(Token::LEFT_ANGLE)`(that: Scanner, c: Number) { // {{{
 		if c == 60 {
 			c = that.charAt(1)

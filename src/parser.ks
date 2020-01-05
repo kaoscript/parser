@@ -850,41 +850,13 @@ export namespace Parser {
 			return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first, defaultValue ?? type ?? name))
 		} // }}}
 		reqClassMember(attributes, modifiers, first?) ~ SyntaxError { // {{{
-			let name
-			if this.test(Token::ASYNC) {
-				let async = this.reqIdentifier()
+			const member = this.tryClassMember(attributes, modifiers, first)
 
-				name = this.tryNameIST()
-
-				if name.ok {
-					modifiers.push(this.yep(AST.Modifier(ModifierKind::Async, async)))
-
-					return this.reqClassMethod(attributes, modifiers, name, null, first ?? async)
-				}
-				else {
-					name = async
-				}
-			}
-			else if this.test(Token::AT) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
-				const name = this.reqNameIST()
-
-				if this.test(Token::COLON) {
-					this.commit()
-
-					const type = this.reqTypeVar()
-
-					return this.reqClassField(attributes, [...modifiers, modifier], name, type, first ?? modifier)
-				}
-				else {
-					return this.reqClassField(attributes, [...modifiers, modifier], name, null, first ?? modifier)
-				}
-			}
-			else {
-				name = this.reqNameIST()
+			unless member.ok {
+				this.throw(['Identifier', 'String', 'Template'])
 			}
 
-			return this.reqClassMemberBody(attributes, modifiers, name, first ?? name)
+			return member
 		} // }}}
 		reqClassMemberBody(attributes, modifiers, name, first) ~ SyntaxError { // {{{
 			if this.match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
@@ -3542,7 +3514,7 @@ export namespace Parser {
 				return this.yep(AST.VariableDeclaration(modifiers, variables, null, first, last))
 			}
 			else {
-				this.throw(['auto', 'const', 'let'])
+				return NO
 			}
 		} // }}}
 		reqLetStatement(first, mode = ExpressionMode::Default) ~ SyntaxError { // {{{
@@ -6595,19 +6567,17 @@ export namespace Parser {
 			return this.reqClassAbstractMethodBody(attributes, modifiers, name, first ?? name)
 		} // }}}
 		tryClassMember(attributes, modifiers, first?) ~ SyntaxError { // {{{
-			let name
-			if this.test(Token::ASYNC) {
-				let async = this.reqIdentifier()
+			const mark = this.mark()
 
-				name = this.tryIdentifier()
+			if this.test(Token::ASYNC) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::Async, this.yes()))
+				const name = this.tryIdentifier()
 
 				if name.ok {
-					modifiers.push(this.yep(AST.Modifier(ModifierKind::Async, async)))
-
-					return this.reqClassMethod(attributes, modifiers, name, null, first ?? async)
+					return this.reqClassMethod(attributes, [...modifiers, modifier], name, null, first ?? modifier)
 				}
 				else {
-					name = async
+					this.rollback(mark)
 				}
 			}
 			else if this.test(Token::AT) {
@@ -6625,12 +6595,167 @@ export namespace Parser {
 					return this.reqClassField(attributes, [...modifiers, modifier], name, null, first ?? modifier)
 				}
 			}
-			else {
-				name = this.tryIdentifier()
+			else if this.test(Token::AUTO) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
 
-				unless name.ok {
-					return NO
+				lateinit const name
+				if this.test(Token::AT) {
+					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
+
+					name = this.reqNameIST()
 				}
+				else {
+					name = this.tryNameIST()
+
+					if name.ok {
+						modifiers = [...modifiers, modifier]
+					}
+					else {
+						this.rollback(mark)
+					}
+				}
+
+				if name.ok {
+					unless this.test(Token::EQUALS) {
+						this.throw('=')
+					}
+
+					this.commit()
+
+					const defaultValue = this.reqExpression(ExpressionMode::Default)
+
+					this.reqNL_1M()
+
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? modifier, defaultValue))
+				}
+			}
+			else if this.test(Token::CONST) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::Immutable, this.yes()))
+
+				lateinit const name
+				if this.test(Token::AT) {
+					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
+
+					name = this.reqNameIST()
+				}
+				else {
+					name = this.tryNameIST()
+
+					if name.ok {
+						modifiers = [...modifiers, modifier]
+					}
+					else {
+						this.rollback(mark)
+					}
+				}
+
+				if name.ok {
+					let type
+					if this.test(Token::COLON) {
+						this.commit()
+
+						type = this.reqTypeVar()
+					}
+
+					unless this.test(Token::EQUALS) {
+						this.throw('=')
+					}
+
+					this.commit()
+
+					const defaultValue = this.reqExpression(ExpressionMode::Default)
+
+					this.reqNL_1M()
+
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? modifier, defaultValue))
+				}
+			}
+			else if this.test(Token::LATEINIT) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::LateInit, this.yes()))
+				const mark2 = this.mark()
+				const modifiers = [...modifiers, modifier]
+
+				let name, type
+				if this.test(Token::AT) {
+					modifiers.push(this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes())))
+
+					name = this.reqNameIST()
+
+					if this.test(Token::COLON) {
+						this.commit()
+
+						type = this.reqTypeVar()
+					}
+				}
+				else if this.test(Token::AUTO) {
+					const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
+
+					if this.test(Token::AT) {
+						modifiers.push(modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes())))
+
+						name = this.reqNameIST()
+					}
+					else {
+						name = this.tryNameIST()
+
+						if name.ok {
+							modifiers.push(modifier)
+						}
+						else {
+							this.rollback(mark2)
+
+							name = this.reqNameIST()
+
+							if this.test(Token::COLON) {
+								this.commit()
+
+								type = this.reqTypeVar()
+							}
+						}
+					}
+				}
+				else if this.test(Token::CONST) {
+					const modifier = this.yep(AST.Modifier(ModifierKind::Immutable, this.yes()))
+
+					if this.test(Token::AT) {
+						modifiers.push(modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes())))
+
+						name = this.reqNameIST()
+					}
+					else {
+						name = this.tryNameIST()
+
+						if name.ok {
+							modifiers.push(modifier)
+						}
+						else {
+							this.rollback(mark2)
+
+							name = this.reqNameIST()
+						}
+					}
+
+					if this.test(Token::COLON) {
+						this.commit()
+
+						type = this.reqTypeVar()
+					}
+				}
+				else {
+					name = this.tryNameIST()
+				}
+
+				if name.ok {
+					this.reqNL_1M()
+
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, null, first ?? modifier, type ?? name))
+				}
+			}
+
+			const name = this.tryNameIST()
+
+			unless name.ok {
+				return NO
 			}
 
 			return this.reqClassMemberBody(attributes, modifiers, name, first ?? name)
