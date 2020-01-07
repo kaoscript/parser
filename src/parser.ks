@@ -449,7 +449,7 @@ export namespace Parser {
 
 			return this.yep(AST.ForRangeStatement(modifiers, value, index, from, then, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? then ?? from:Any))
 		} // }}}
-		reqAccessModifiers(modifiers) ~ SyntaxError { // {{{
+		reqAccessModifiers(modifiers: Array): Array ~ SyntaxError { // {{{
 			if this.match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC, Token::INTERNAL) == Token::PRIVATE {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
 			}
@@ -816,7 +816,7 @@ export namespace Parser {
 				name = this.tryIdentifier()
 
 				if name.ok {
-					modifiers.push(this.yep(AST.Modifier(ModifierKind::Async, async)))
+					modifiers = [...modifiers, this.yep(AST.Modifier(ModifierKind::Async, async))]
 				}
 				else {
 					name = async
@@ -837,18 +837,6 @@ export namespace Parser {
 
 			return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
 		} // }}}
-		reqClassField(attributes, modifiers, name, type?, first) ~ SyntaxError { // {{{
-			let defaultValue
-			if this.test(Token::EQUALS) {
-				this.commit()
-
-				defaultValue = this.reqExpression(ExpressionMode::Default)
-			}
-
-			this.reqNL_1M()
-
-			return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first, defaultValue ?? type ?? name))
-		} // }}}
 		reqClassMember(attributes, modifiers, first?) ~ SyntaxError { // {{{
 			const member = this.tryClassMember(attributes, modifiers, first)
 
@@ -857,33 +845,6 @@ export namespace Parser {
 			}
 
 			return member
-		} // }}}
-		reqClassMemberBody(attributes, modifiers, name, first) ~ SyntaxError { // {{{
-			if this.match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
-				this.commit()
-
-				const type = this.reqTypeVar()
-
-				if this.test(Token::LEFT_CURLY) {
-					this.commit()
-
-					return this.reqClassProperty(attributes, modifiers, name, type, first)
-				}
-				else {
-					return this.reqClassField(attributes, modifiers, name, type, first)
-				}
-			}
-			else if @token == Token::LEFT_CURLY {
-				this.commit()
-
-				return this.reqClassProperty(attributes, modifiers, name, null, first)
-			}
-			else if @token == Token::LEFT_ROUND {
-				return this.reqClassMethod(attributes, modifiers, name, this.yes(), first)
-			}
-			else {
-				return this.reqClassField(attributes, modifiers, name, null, first)
-			}
 		} // }}}
 		reqClassMemberList(members) ~ SyntaxError { // {{{
 			let first = null
@@ -961,9 +922,7 @@ export namespace Parser {
 					this.commit().reqNL_1M()
 				}
 				else {
-					first ??= modifiers[0]
-
-					const member = this.tryClassAbstractMethod(attributes, modifiers, first)
+					const member = this.tryClassAbstractMethod(attributes, modifiers, first ?? modifiers[0])
 
 					if member.ok {
 						members.push(member)
@@ -973,15 +932,56 @@ export namespace Parser {
 
 						modifiers.pop()
 
-						members.push(this.reqClassMember(attributes, modifiers, first))
+						members.push(this.reqClassMember(attributes, modifiers, first ?? modifiers[0]))
+					}
+				}
+			}
+			else if this.test(Token::OVERRIDE) {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
+
+				if this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
+
+					first = null
+
+					let attrs
+					while this.until(Token::RIGHT_CURLY) {
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
+						}
+						else {
+							attrs = attributes
+						}
+
+						members.push(this.reqClassMethod(attrs, modifiers, first))
+					}
+
+					unless this.test(Token::RIGHT_CURLY) {
+						this.throw('}')
+					}
+
+					this.commit().reqNL_1M()
+				}
+				else {
+					const member = this.tryClassMethod(attributes, modifiers, first ?? modifiers[0])
+
+					if member.ok {
+						members.push(member)
+					}
+					else {
+						this.rollback(mark2)
+
+						modifiers.pop()
+
+						members.push(this.reqClassMember(attributes, modifiers, first ?? modifiers[0]))
 					}
 				}
 			}
 			else {
-				if this.match(Token::OVERRIDE, Token::STATIC) == Token::OVERRIDE {
-					modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
-				}
-				else if @token == Token::STATIC {
+				if this.test(Token::STATIC) {
 					modifiers.push(this.yep(AST.Modifier(ModifierKind::Static, this.yes())))
 				}
 
@@ -1035,6 +1035,26 @@ export namespace Parser {
 					}
 				}
 			}
+		} // }}}
+		reqClassMethod(attributes, modifiers, first?) ~ SyntaxError { // {{{
+			let name
+			if this.test(Token::ASYNC) {
+				let async = this.reqIdentifier()
+
+				name = this.tryIdentifier()
+
+				if name.ok {
+					modifiers = [...modifiers, this.yep(AST.Modifier(ModifierKind::Async, async))]
+				}
+				else {
+					name = async
+				}
+			}
+			else {
+				name = this.reqIdentifier()
+			}
+
+			return this.reqClassMethod(attributes, modifiers, name, null, first ?? name)
 		} // }}}
 		reqClassMethod(attributes, modifiers, name, round?, first) ~ SyntaxError { // {{{
 			const parameters = this.reqClassMethodParameterList(round)
@@ -6231,7 +6251,7 @@ export namespace Parser {
 
 			return object
 		} // }}}
-		stackInnerAttributes(attributes) ~ SyntaxError { // {{{
+		stackInnerAttributes(attributes: Array): Boolean ~ SyntaxError { // {{{
 			if this.test(Token::HASH_EXCLAMATION_LEFT_SQUARE) {
 				do {
 					const first = this.yes()
@@ -6253,7 +6273,7 @@ export namespace Parser {
 				return false
 			}
 		} // }}}
-		stackOuterAttributes(attributes) ~ SyntaxError { // {{{
+		stackOuterAttributes(attributes: Array): Array ~ SyntaxError { // {{{
 			while this.test(Token::HASH_LEFT_SQUARE) {
 				attributes.push(this.reqAttribute(this.yes()).value)
 
@@ -6550,7 +6570,7 @@ export namespace Parser {
 				name = this.tryIdentifier()
 
 				if name.ok {
-					modifiers.push(this.yep(AST.Modifier(ModifierKind::Async, first)))
+					modifiers = [...modifiers, this.yep(AST.Modifier(ModifierKind::Async, first))]
 				}
 				else {
 					name = first
@@ -6584,16 +6604,23 @@ export namespace Parser {
 				const modifier = this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
 				const name = this.reqNameIST()
 
+				let type
 				if this.test(Token::COLON) {
 					this.commit()
 
-					const type = this.reqTypeVar()
+					type = this.reqTypeVar()
+				}
 
-					return this.reqClassField(attributes, [...modifiers, modifier], name, type, first ?? modifier)
+				let defaultValue
+				if this.test(Token::EQUALS) {
+					this.commit()
+
+					defaultValue = this.reqExpression(ExpressionMode::Default)
 				}
-				else {
-					return this.reqClassField(attributes, [...modifiers, modifier], name, null, first ?? modifier)
-				}
+
+				this.reqNL_1M()
+
+				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, defaultValue, first ?? modifier, defaultValue ?? type ?? name))
 			}
 			else if this.test(Token::AUTO) {
 				const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
@@ -6616,17 +6643,16 @@ export namespace Parser {
 				}
 
 				if name.ok {
-					unless this.test(Token::EQUALS) {
-						this.throw('=')
+					let defaultValue
+					if this.test(Token::EQUALS) {
+						this.commit()
+
+						defaultValue = this.reqExpression(ExpressionMode::Default)
 					}
-
-					this.commit()
-
-					const defaultValue = this.reqExpression(ExpressionMode::Default)
 
 					this.reqNL_1M()
 
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? modifier, defaultValue))
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? modifier, defaultValue ?? name))
 				}
 			}
 			else if this.test(Token::CONST) {
@@ -6743,6 +6769,17 @@ export namespace Parser {
 				}
 				else {
 					name = this.tryNameIST()
+
+					if name.ok {
+						if this.test(Token::COLON) {
+							this.commit()
+
+							type = this.reqTypeVar()
+						}
+					}
+					else {
+						this.rollback(mark)
+					}
 				}
 
 				if name.ok {
@@ -6758,7 +6795,73 @@ export namespace Parser {
 				return NO
 			}
 
-			return this.reqClassMemberBody(attributes, modifiers, name, first ?? name)
+			if this.match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
+				this.commit()
+
+				const type = this.reqTypeVar()
+
+				if this.test(Token::LEFT_CURLY) {
+					this.commit()
+
+					return this.reqClassProperty(attributes, modifiers, name, type, first ?? name)
+				}
+				else {
+					let defaultValue
+					if this.test(Token::EQUALS) {
+						this.commit()
+
+						defaultValue = this.reqExpression(ExpressionMode::Default)
+					}
+
+					this.reqNL_1M()
+
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? name, defaultValue ?? type ?? name))
+				}
+			}
+			else if @token == Token::LEFT_CURLY {
+				this.commit()
+
+				return this.reqClassProperty(attributes, modifiers, name, null, first ?? name)
+			}
+			else if @token == Token::LEFT_ROUND {
+				return this.reqClassMethod(attributes, modifiers, name, this.yes(), first ?? name)
+			}
+			else {
+				let defaultValue
+				if this.test(Token::EQUALS) {
+					this.commit()
+
+					defaultValue = this.reqExpression(ExpressionMode::Default)
+				}
+
+				this.reqNL_1M()
+
+				return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? name, defaultValue ?? name))
+			}
+		} // }}}
+		tryClassMethod(attributes, modifiers, first?) ~ SyntaxError { // {{{
+			let name
+			if this.test(Token::ASYNC) {
+				let first = this.reqIdentifier()
+
+				name = this.tryIdentifier()
+
+				if name.ok {
+					modifiers = [...modifiers, this.yep(AST.Modifier(ModifierKind::Async, first))]
+				}
+				else {
+					name = first
+				}
+			}
+			else {
+				name = this.tryIdentifier()
+
+				unless name.ok {
+					return NO
+				}
+			}
+
+			return this.reqClassMethod(attributes, modifiers, name, null, first ?? name)
 		} // }}}
 		tryClassStatement(first, modifiers = []) ~ SyntaxError { // {{{
 			const name = this.tryIdentifier()
