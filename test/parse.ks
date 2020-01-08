@@ -56,6 +56,7 @@ describe('parse', func() {
 
 				expect(func() {
 					data = parse(source)
+					// console.log(JSON.stringify(data, (key, value) => value == Infinity ? 'Infinity' : value, 2))
 				}).to.throw(error)
 
 				expect(data).to.not.exist
