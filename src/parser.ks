@@ -1489,25 +1489,30 @@ export namespace Parser {
 			let name = null
 			let alias = null
 			let defaultValue = null
+			let notThis = true
 
 			if this.test(Token::DOT_DOT_DOT) {
 				modifiers.push(AST.Modifier(ModifierKind::Rest, first = this.yes()))
 
 				if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
-					modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+					name = this.reqThisExpression(this.yes())
+					notThis = false
 				}
-
-				name = this.reqIdentifier()
+				else {
+					name = this.reqIdentifier()
+				}
 			}
 			else {
 				if dMode & DestructuringMode::COMPUTED != 0 && this.test(Token::LEFT_SQUARE) {
 					first = this.yes()
 
 					if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
-						modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+						name = this.reqThisExpression(this.yes())
+						notThis = false
 					}
-
-					name = this.reqIdentifier()
+					else {
+						name = this.reqIdentifier()
+					}
 
 					unless this.test(Token::RIGHT_SQUARE) {
 						this.throw(']')
@@ -1517,13 +1522,15 @@ export namespace Parser {
 				}
 				else {
 					if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
-						modifiers.push(AST.Modifier(ModifierKind::ThisAlias, first = this.yes()))
+						name = this.reqThisExpression(this.yes())
+						notThis = false
 					}
-
-					name = this.reqIdentifier()
+					else {
+						name = this.reqIdentifier()
+					}
 				}
 
-				if this.test(Token::COLON) {
+				if notThis && this.test(Token::COLON) {
 					this.commit()
 
 					if dMode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_CURLY) {
@@ -1532,11 +1539,10 @@ export namespace Parser {
 					else if dMode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_SQUARE) {
 						alias = this.reqDestructuringArray(this.yes(), dMode, fMode)
 					}
+					else if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+						alias = this.reqThisExpression(this.yes())
+					}
 					else {
-						if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
-							modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
-						}
-
 						alias = this.reqIdentifier()
 					}
 				}

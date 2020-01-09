@@ -169,14 +169,14 @@
           "modifiers": [],
           "name": {
             "kind": 53,
-            "name": "constructor",
+            "name": "names",
             "start": {
               "line": 6,
               "column": 2
             },
             "end": {
               "line": 6,
-              "column": 13
+              "column": 7
             }
           },
           "parameters": [
@@ -185,22 +185,22 @@
               "modifiers": [],
               "start": {
                 "line": 6,
-                "column": 14
+                "column": 8
               },
               "end": {
                 "line": 6,
-                "column": 20
+                "column": 14
               },
               "name": {
                 "kind": 53,
                 "name": "values",
                 "start": {
                   "line": 6,
-                  "column": 14
+                  "column": 8
                 },
                 "end": {
                   "line": 6,
-                  "column": 20
+                  "column": 14
                 }
               }
             }
@@ -225,11 +225,11 @@
                   "assignment": 8,
                   "start": {
                     "line": 7,
-                    "column": 12
+                    "column": 20
                   },
                   "end": {
                     "line": 7,
-                    "column": 13
+                    "column": 21
                   }
                 },
                 "left": {
@@ -238,19 +238,8 @@
                     {
                       "kind": 11,
                       "name": {
-                        "kind": 108,
-                        "name": {
-                          "kind": 53,
-                          "name": "x",
-                          "start": {
-                            "line": 7,
-                            "column": 5
-                          },
-                          "end": {
-                            "line": 7,
-                            "column": 6
-                          }
-                        },
+                        "kind": 53,
+                        "name": "x1",
                         "start": {
                           "line": 7,
                           "column": 4
@@ -267,16 +256,13 @@
                       },
                       "end": {
                         "line": 7,
-                        "column": 6
-                      }
-                    },
-                    {
-                      "kind": 11,
-                      "name": {
+                        "column": 10
+                      },
+                      "alias": {
                         "kind": 108,
                         "name": {
                           "kind": 53,
-                          "name": "y",
+                          "name": "x",
                           "start": {
                             "line": 7,
                             "column": 9
@@ -294,15 +280,53 @@
                           "line": 7,
                           "column": 10
                         }
+                      }
+                    },
+                    {
+                      "kind": 11,
+                      "name": {
+                        "kind": 53,
+                        "name": "y2",
+                        "start": {
+                          "line": 7,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 14
+                        }
                       },
                       "modifiers": [],
                       "start": {
                         "line": 7,
-                        "column": 8
+                        "column": 12
                       },
                       "end": {
                         "line": 7,
-                        "column": 10
+                        "column": 18
+                      },
+                      "alias": {
+                        "kind": 108,
+                        "name": {
+                          "kind": 53,
+                          "name": "y",
+                          "start": {
+                            "line": 7,
+                            "column": 17
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 18
+                          }
+                        },
+                        "start": {
+                          "line": 7,
+                          "column": 16
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 18
+                        }
                       }
                     }
                   ],
@@ -312,7 +336,7 @@
                   },
                   "end": {
                     "line": 7,
-                    "column": 11
+                    "column": 19
                   }
                 },
                 "right": {
@@ -320,11 +344,11 @@
                   "name": "values",
                   "start": {
                     "line": 7,
-                    "column": 14
+                    "column": 22
                   },
                   "end": {
                     "line": 7,
-                    "column": 20
+                    "column": 28
                   }
                 },
                 "start": {
@@ -333,14 +357,14 @@
                 },
                 "end": {
                   "line": 7,
-                  "column": 20
+                  "column": 28
                 },
                 "attributes": []
               }
             ],
             "start": {
               "line": 6,
-              "column": 22
+              "column": 16
             },
             "end": {
               "line": 8,
