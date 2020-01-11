@@ -7,14 +7,14 @@
       "attributes": [],
       "name": {
         "kind": 53,
-        "name": "Foobar",
+        "name": "Greetings",
         "start": {
           "line": 1,
           "column": 7
         },
         "end": {
           "line": 1,
-          "column": 13
+          "column": 16
         }
       },
       "modifiers": [],
@@ -33,18 +33,29 @@
                 "line": 2,
                 "column": 9
               }
+            },
+            {
+              "kind": 31,
+              "start": {
+                "line": 3,
+                "column": 3
+              },
+              "end": {
+                "line": 3,
+                "column": 4
+              }
             }
           ],
           "name": {
             "kind": 53,
-            "name": "_x",
+            "name": "message",
             "start": {
               "line": 3,
-              "column": 3
+              "column": 4
             },
             "end": {
               "line": 3,
-              "column": 5
+              "column": 11
             }
           },
           "start": {
@@ -53,30 +64,30 @@
           },
           "end": {
             "line": 3,
-            "column": 13
+            "column": 19
           },
           "type": {
             "kind": 114,
             "modifiers": [],
             "typeName": {
               "kind": 53,
-              "name": "Number",
+              "name": "String",
               "start": {
                 "line": 3,
-                "column": 7
+                "column": 13
               },
               "end": {
                 "line": 3,
-                "column": 13
+                "column": 19
               }
             },
             "start": {
               "line": 3,
-              "column": 7
+              "column": 13
             },
             "end": {
               "line": 3,
-              "column": 13
+              "column": 19
             }
           }
         },
@@ -106,29 +117,66 @@
               },
               "end": {
                 "line": 5,
-                "column": 16
+                "column": 29
               },
               "name": {
-                "kind": 108,
-                "name": {
-                  "kind": 53,
-                  "name": "x",
-                  "start": {
-                    "line": 5,
-                    "column": 15
-                  },
-                  "end": {
-                    "line": 5,
-                    "column": 16
+                "kind": 79,
+                "elements": [
+                  {
+                    "kind": 11,
+                    "name": {
+                      "kind": 53,
+                      "name": "msg",
+                      "start": {
+                        "line": 5,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 18
+                      }
+                    },
+                    "modifiers": [],
+                    "start": {
+                      "line": 5,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 28
+                    },
+                    "alias": {
+                      "kind": 108,
+                      "name": {
+                        "kind": 53,
+                        "name": "message",
+                        "start": {
+                          "line": 5,
+                          "column": 21
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 28
+                        }
+                      },
+                      "start": {
+                        "line": 5,
+                        "column": 20
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 28
+                      }
+                    }
                   }
-                },
+                ],
                 "start": {
                   "line": 5,
                   "column": 14
                 },
                 "end": {
                   "line": 5,
-                  "column": 16
+                  "column": 29
                 }
               }
             }
@@ -139,85 +187,9 @@
           },
           "end": {
             "line": 5,
-            "column": 17
+            "column": 30
           },
           "throws": []
-        },
-        {
-          "kind": 72,
-          "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 53,
-            "name": "export",
-            "start": {
-              "line": 6,
-              "column": 2
-            },
-            "end": {
-              "line": 6,
-              "column": 8
-            }
-          },
-          "parameters": [],
-          "start": {
-            "line": 6,
-            "column": 2
-          },
-          "end": {
-            "line": 8,
-            "column": 3
-          },
-          "throws": [],
-          "body": {
-            "kind": 80,
-            "attributes": [],
-            "properties": [
-              {
-                "kind": 93,
-                "attributes": [],
-                "name": {
-                  "kind": 108,
-                  "name": {
-                    "kind": 53,
-                    "name": "x",
-                    "start": {
-                      "line": 7,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 7,
-                      "column": 5
-                    }
-                  },
-                  "start": {
-                    "line": 7,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 7,
-                    "column": 5
-                  }
-                },
-                "start": {
-                  "line": 7,
-                  "column": 3
-                },
-                "end": {
-                  "line": 7,
-                  "column": 5
-                }
-              }
-            ],
-            "start": {
-              "line": 6,
-              "column": 14
-            },
-            "end": {
-              "line": 8,
-              "column": 3
-            }
-          }
         }
       ],
       "start": {
@@ -225,7 +197,7 @@
         "column": 1
       },
       "end": {
-        "line": 9,
+        "line": 6,
         "column": 2
       }
     }
@@ -235,7 +207,7 @@
     "column": 1
   },
   "end": {
-    "line": 9,
+    "line": 6,
     "column": 2
   }
 }

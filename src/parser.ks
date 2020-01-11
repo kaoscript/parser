@@ -1397,14 +1397,14 @@ export namespace Parser {
 			let first = null
 			let name = null
 			let type = null
+			let notThis = true
 
 			if this.test(Token::DOT_DOT_DOT) {
 				modifiers.push(AST.Modifier(ModifierKind::Rest, first = this.yes()))
 
 				if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
-					modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
-
-					name = this.reqIdentifier()
+					name = this.reqThisExpression(this.yes())
+					notThis = false
 				}
 				else if this.test(Token::IDENTIFIER) {
 					name = this.yep(AST.Identifier(@scanner.value(), this.yes()))
@@ -1417,9 +1417,8 @@ export namespace Parser {
 				name = this.reqDestructuringArray(this.yes(), dMode, fMode)
 			}
 			else if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
-				modifiers.push(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
-
-				name = this.reqIdentifier()
+				name = this.reqThisExpression(this.yes())
+				notThis = false
 			}
 			else if this.test(Token::IDENTIFIER) {
 				name = this.yep(AST.Identifier(@scanner.value(), this.yes()))
@@ -1436,7 +1435,7 @@ export namespace Parser {
 				}
 			}
 
-			if dMode & DestructuringMode::TYPE != 0 && this.test(Token::COLON) {
+			if notThis && dMode & DestructuringMode::TYPE != 0 && this.test(Token::COLON) {
 				this.commit()
 
 				type = this.reqTypeVar()
@@ -4341,28 +4340,18 @@ export namespace Parser {
 			}
 
 			if this.test(Token::AT) {
-				let first
-
 				if fMode == FunctionMode::Macro {
-					modifiers.push(AST.Modifier(ModifierKind::AutoEvaluate, first = this.yes()))
+					const first = this.yes()
+
+					modifiers.push(AST.Modifier(ModifierKind::AutoEvaluate, first))
+
+					parameters.push(this.reqParameterIdendifier(modifiers, first, fMode))
 				}
 				else if fMode == FunctionMode::Method && pMode & DestructuringMode::THIS_ALIAS != 0 {
-					modifiers.push(AST.Modifier(ModifierKind::ThisAlias, first = this.yes()))
+					parameters.push(this.reqParameterThis(modifiers, this.yes(), fMode))
 				}
 				else {
 					this.throw()
-				}
-
-				parameters.push(this.reqParameterIdendifier(modifiers, first, fMode))
-
-				if fMode == FunctionMode::Method && this.test(Token::LEFT_ROUND) {
-					let first = this.yes()
-
-					unless this.test(Token::RIGHT_ROUND) {
-						this.throw(')')
-					}
-
-					modifiers.push(AST.Modifier(ModifierKind::SetterAlias, first, this.yes()))
 				}
 
 				if this.test(Token::COMMA) {
@@ -4476,6 +4465,20 @@ export namespace Parser {
 			}
 			else {
 				return this.yep(AST.Parameter(identifier, null, modifiers, null, first ?? identifier, identifier))
+			}
+		} // }}}
+		reqParameterThis(modifiers, first, fMode: FunctionMode): Event ~ SyntaxError { // {{{
+			const name = this.reqThisExpression(first)
+
+			if this.test(Token::EQUALS) {
+				this.commit()
+
+				const defaultValue = this.reqExpression(ExpressionMode::Default, fMode)
+
+				return this.yep(AST.Parameter(name, null, modifiers, defaultValue, first ?? name, defaultValue))
+			}
+			else {
+				return this.yep(AST.Parameter(name, null, modifiers, null, first ?? name, name))
 			}
 		} // }}}
 		reqParenthesis(first: Event, fMode: FunctionMode): Event ~ SyntaxError { // {{{

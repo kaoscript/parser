@@ -482,19 +482,7 @@
                 "parameters": [
                   {
                     "kind": 83,
-                    "modifiers": [
-                      {
-                        "kind": 31,
-                        "start": {
-                          "line": 14,
-                          "column": 12
-                        },
-                        "end": {
-                          "line": 14,
-                          "column": 13
-                        }
-                      }
-                    ],
+                    "modifiers": [],
                     "start": {
                       "line": 14,
                       "column": 12
@@ -504,11 +492,22 @@
                       "column": 14
                     },
                     "name": {
-                      "kind": 53,
-                      "name": "a",
+                      "kind": 108,
+                      "name": {
+                        "kind": 53,
+                        "name": "a",
+                        "start": {
+                          "line": 14,
+                          "column": 13
+                        },
+                        "end": {
+                          "line": 14,
+                          "column": 14
+                        }
+                      },
                       "start": {
                         "line": 14,
-                        "column": 13
+                        "column": 12
                       },
                       "end": {
                         "line": 14,
