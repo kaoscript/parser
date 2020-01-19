@@ -6894,10 +6894,48 @@ export namespace Parser {
 					this.rollback(mark)
 				}
 			}
+			else if this.test(Token::AT) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+				const name = this.reqNameIST(FunctionMode::Function)
+
+				let type
+				if this.test(Token::COLON) {
+					this.commit()
+
+					type = this.reqTypeVar()
+				}
+
+				let defaultValue
+				if this.test(Token::EQUALS) {
+					this.commit()
+
+					defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+				}
+
+				this.reqNL_1M()
+
+				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, defaultValue, first ?? modifier, defaultValue ?? type ?? name))
+			}
 			else if this.test(Token::AUTO) {
 				const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
 
-				const name = this.tryNameIST(FunctionMode::Function)
+				lateinit const name
+				if this.test(Token::AT) {
+					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
+
+					name = this.reqNameIST(FunctionMode::Function)
+				}
+				else {
+					name = this.tryNameIST(FunctionMode::Function)
+
+					if name.ok {
+						modifiers = [...modifiers, modifier]
+					}
+					else {
+						this.rollback(mark)
+					}
+				}
+
 				if name.ok {
 					unless this.test(Token::EQUALS) {
 						this.throw('=')
@@ -6909,18 +6947,30 @@ export namespace Parser {
 
 					this.reqNL_1M()
 
-					return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, null, defaultValue, first ?? modifier, defaultValue ?? name))
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? modifier, defaultValue ?? name))
 				}
-
-				this.rollback(mark)
 			}
 			else if this.test(Token::CONST) {
 				const modifier = this.yep(AST.Modifier(ModifierKind::Immutable, this.yes()))
 
-				const name = this.tryNameIST(FunctionMode::Function)
-				if name.ok {
-					modifiers = [...modifiers, modifier]
+				lateinit const name
+				if this.test(Token::AT) {
+					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
 
+					name = this.reqNameIST(FunctionMode::Function)
+				}
+				else {
+					name = this.tryNameIST(FunctionMode::Function)
+
+					if name.ok {
+						modifiers = [...modifiers, modifier]
+					}
+					else {
+						this.rollback(mark)
+					}
+				}
+
+				if name.ok {
 					let type
 					if this.test(Token::COLON) {
 						this.commit()
@@ -6940,8 +6990,6 @@ export namespace Parser {
 
 					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? modifier, defaultValue))
 				}
-
-				this.rollback(mark)
 			}
 			else if this.test(Token::LATEINIT) {
 				const modifier = this.yep(AST.Modifier(ModifierKind::LateInit, this.yes()))
@@ -6950,12 +6998,22 @@ export namespace Parser {
 				if this.test(Token::CONST) {
 					const modifier = this.yep(AST.Modifier(ModifierKind::Immutable, this.yes()))
 
-					const name = this.tryNameIST(FunctionMode::Function)
+					lateinit const name
+					if this.test(Token::AT) {
+						modifiers.push(modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes())))
+
+						name = this.reqNameIST(FunctionMode::Function)
+					}
+					else {
+						name = this.tryNameIST(FunctionMode::Function)
+
+						if name.ok {
+							modifiers.push(modifier)
+						}
+					}
 
 					if name.ok {
-						modifiers.push(modifier)
-
-						let type
+						let type = null
 						if this.test(Token::COLON) {
 							this.commit()
 
