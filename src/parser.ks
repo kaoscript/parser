@@ -830,6 +830,137 @@ export namespace Parser {
 
 			return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
 		} // }}}
+		reqClassLateInitMember(attributes, modifiers, first?): Event ~ SyntaxError { // {{{
+			const mark = this.mark()
+
+			if this.test(Token::ASYNC) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::Async, this.yes()))
+				const name = this.tryIdentifier()
+
+				if name.ok {
+					return this.reqClassMethod(attributes, [...modifiers, modifier], name, null, first ?? modifier)
+				}
+				else {
+					this.rollback(mark)
+				}
+			}
+			else if this.test(Token::AT) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
+				const name = this.reqNameIST(FunctionMode::Function)
+
+				let type
+				if this.test(Token::COLON) {
+					this.commit()
+
+					type = this.reqTypeVar()
+				}
+
+				let defaultValue
+				if this.test(Token::EQUALS) {
+					this.commit()
+
+					defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+				}
+
+				this.reqNL_1M()
+
+				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, defaultValue, first ?? modifier, defaultValue ?? type ?? name))
+			}
+			else if this.test(Token::AUTO) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
+
+				lateinit const name
+				if this.test(Token::AT) {
+					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
+
+					name = this.reqNameIST(FunctionMode::Function)
+				}
+				else {
+					name = this.tryNameIST(FunctionMode::Function)
+
+					if name.ok {
+						modifiers = [...modifiers, modifier]
+					}
+					else {
+						this.rollback(mark)
+					}
+				}
+
+				if name.ok {
+					unless this.test(Token::EQUALS) {
+						this.throw('=')
+					}
+
+					this.commit()
+
+					const defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+
+					this.reqNL_1M()
+
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? modifier, defaultValue ?? name))
+				}
+			}
+			else if this.test(Token::CONST) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::Immutable, this.yes()))
+
+				lateinit const name
+				if this.test(Token::AT) {
+					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
+
+					name = this.reqNameIST(FunctionMode::Function)
+				}
+				else {
+					name = this.tryNameIST(FunctionMode::Function)
+
+					if name.ok {
+						modifiers = [...modifiers, modifier]
+					}
+					else {
+						this.rollback(mark)
+					}
+				}
+
+				if name.ok {
+					let type
+					if this.test(Token::COLON) {
+						this.commit()
+
+						type = this.reqTypeVar()
+					}
+
+					let defaultValue
+					if this.test(Token::EQUALS) {
+						this.commit()
+
+						defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					}
+
+					this.reqNL_1M()
+
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? modifier, defaultValue ?? type ?? name))
+				}
+			}
+
+			const name = this.reqNameIST(FunctionMode::Function)
+
+			let type
+			if this.test(Token::COLON) {
+				this.commit()
+
+				type = this.reqTypeVar()
+			}
+
+			let defaultValue
+			if this.test(Token::EQUALS) {
+				this.commit()
+
+				defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+			}
+
+			this.reqNL_1M()
+
+			return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? name, defaultValue ?? type ?? name))
+		} // }}}
 		reqClassMember(attributes, modifiers, first?): Event ~ SyntaxError { // {{{
 			const member = this.tryClassMember(attributes, modifiers, first)
 
@@ -926,6 +1057,63 @@ export namespace Parser {
 						modifiers.pop()
 
 						members.push(this.reqClassMember(attributes, modifiers, first ?? modifiers[0]))
+					}
+				}
+			}
+			else if this.test(Token::LATEINIT) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::LateInit, this.yes()))
+
+				if this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
+
+					const modifiers = [...modifiers, modifier]
+
+					first = null
+
+					let attrs
+					while this.until(Token::RIGHT_CURLY) {
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
+						}
+						else {
+							attrs = attributes
+						}
+
+						members.push(this.reqClassLateInitMember(attrs, modifiers, first))
+					}
+
+					unless this.test(Token::RIGHT_CURLY) {
+						this.throw('}')
+					}
+
+					this.commit().reqNL_1M()
+				}
+				else {
+					this.rollback(mark2)
+
+					if first == null && modifiers.length != 0 {
+						first = modifiers[0]
+					}
+
+					const member = this.tryClassMember(attributes, modifiers, first)
+
+					if member.ok {
+						members.push(member)
+					}
+					else {
+						if modifiers.length == 2 {
+							this.rollback(mark2)
+						}
+						else {
+							this.rollback(mark1)
+						}
+
+						modifiers.pop()
+
+						members.push(this.reqClassMember(attributes, modifiers, first))
 					}
 				}
 			}
