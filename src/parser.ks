@@ -833,18 +833,7 @@ export namespace Parser {
 		reqClassLateInitMember(attributes, modifiers, first?): Event ~ SyntaxError { // {{{
 			const mark = this.mark()
 
-			if this.test(Token::ASYNC) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::Async, this.yes()))
-				const name = this.tryIdentifier()
-
-				if name.ok {
-					return this.reqClassMethod(attributes, [...modifiers, modifier], name, null, first ?? modifier)
-				}
-				else {
-					this.rollback(mark)
-				}
-			}
-			else if this.test(Token::AT) {
+			if this.test(Token::AT) {
 				const modifier = this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
 				const name = this.reqNameIST(FunctionMode::Function)
 
@@ -2022,6 +2011,9 @@ export namespace Parser {
 				Token::STRUCT => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqStructStatement(this.yes())))
 				}
+				Token::TUPLE => {
+					return this.yep(AST.ExportDeclarationSpecifier(this.reqTupleStatement(this.yes())))
+				}
 				Token::TYPE => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqTypeStatement(this.yes(), this.reqIdentifier())))
 				}
@@ -2649,6 +2641,9 @@ export namespace Parser {
 					else {
 						this.throw(['class', 'namespace'])
 					}
+				}
+				Token::TUPLE => {
+					return this.reqTupleStatement(this.yes())
 				}
 				Token::LET where ns => {
 					const first = this.yes()
@@ -5201,6 +5196,9 @@ export namespace Parser {
 				Token::TRY => {
 					statement = this.reqTryStatement(this.yes(), fMode)
 				}
+				Token::TUPLE => {
+					statement = this.reqTupleStatement(this.yes())
+				}
 				Token::TYPE => {
 					statement = this.tryTypeStatement(this.yes())
 				}
@@ -5237,7 +5235,7 @@ export namespace Parser {
 				this.throw('String')
 			}
 		} // }}}
-		reqStructStatement(first: Event): Event ~ SyntaxError { // {{{
+		/* reqStructStatement(first: Event): Event ~ SyntaxError { // {{{
 			const name = this.tryIdentifier()
 
 			unless name.ok {
@@ -5412,6 +5410,77 @@ export namespace Parser {
 			}
 
 			return this.yep(AST.StructDeclaration(attributes, modifiers, name, extends, elements, first, last))
+		} // }}} */
+		reqStructStatement(first: Event): Event ~ SyntaxError { // {{{
+			const name = this.tryIdentifier()
+
+			unless name.ok {
+				return NO
+			}
+
+			const attributes = []
+			const elements = []
+			let extends = null
+			let last = name
+
+			if this.test(Token::EXTENDS) {
+				this.commit()
+
+				extends = this.reqIdentifier()
+			}
+
+			if this.test(Token::LEFT_CURLY) {
+				const first = this.yes()
+
+				this.NL_0M()
+
+				this.stackInnerAttributes(attributes)
+
+				until this.test(Token::RIGHT_CURLY) {
+					const name = this.reqIdentifier()
+
+					let type = null
+					if this.test(Token::COLON) {
+						this.commit()
+
+						type = this.reqTypeVar()
+					}
+					else if this.test(Token::QUESTION) {
+						type = this.yep(AST.Nullable(this.yes()))
+					}
+
+					let defaultValue = null
+					if this.test(Token::EQUALS) {
+						this.commit()
+
+						defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Function)
+					}
+
+					elements.push(AST.StructField(name, type, defaultValue, name, defaultValue ?? type ?? name))
+
+					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
+						this.commit().NL_0M()
+					}
+					else if @token == Token::NEWLINE {
+						this.commit().NL_0M()
+
+						if this.test(Token::COMMA) {
+							this.commit().NL_0M()
+						}
+					}
+					else {
+						break
+					}
+				}
+
+				unless this.test(Token::RIGHT_CURLY) {
+					this.throw('}')
+				}
+
+				last = this.yes()
+			}
+
+			return this.yep(AST.StructDeclaration(attributes, name, extends, elements, first, last))
 		} // }}}
 		reqSwitchBinding(fMode: FunctionMode): Event ~ SyntaxError { // {{{
 			const bindings = [this.reqSwitchBindingValue(fMode)]
@@ -5838,6 +5907,128 @@ export namespace Parser {
 			}
 
 			return this.yep(AST.TryStatement(body, catchClauses, catchClause, finalizer, first, last))
+		} // }}}
+		reqTupleStatement(first: Event): Event ~ SyntaxError { // {{{
+			const name = this.tryIdentifier()
+
+			unless name.ok {
+				return NO
+			}
+
+			const attributes = []
+			const modifiers = []
+			const elements = []
+			let extends = null
+			let last = name
+
+			if this.test(Token::EXTENDS) {
+				this.commit()
+
+				extends = this.reqIdentifier()
+			}
+
+			if extends == null && this.test(Token::LEFT_ROUND) {
+				const first = this.yes()
+
+				this.NL_0M()
+
+				this.stackInnerAttributes(attributes)
+
+				until this.test(Token::RIGHT_ROUND) {
+					const type = this.reqTypeVar()
+
+					if this.test(Token::EQUALS) {
+						this.commit()
+
+						const defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Function)
+
+						elements.push(AST.TupleField(null, type, defaultValue, type, defaultValue))
+					}
+					else {
+						elements.push(AST.TupleField(null, type, null, type, type))
+					}
+
+					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
+						this.commit().NL_0M()
+					}
+					else if @token == Token::NEWLINE {
+						this.commit().NL_0M()
+
+						if this.test(Token::COMMA) {
+							this.commit().NL_0M()
+						}
+					}
+					else {
+						break
+					}
+				}
+
+				unless this.test(Token::RIGHT_ROUND) {
+					this.throw(')')
+				}
+
+				last = this.yes()
+
+				if this.test(Token::EXTENDS) {
+					this.commit()
+
+					last = extends = this.reqIdentifier()
+				}
+			}
+			else if this.test(Token::LEFT_CURLY) {
+				const first = this.yes()
+
+				this.NL_0M()
+
+				modifiers.push(AST.Modifier(ModifierKind::Named, first))
+
+				this.stackInnerAttributes(attributes)
+
+				until this.test(Token::RIGHT_CURLY) {
+					const name = this.reqIdentifier()
+
+					let type = null
+					if this.test(Token::COLON) {
+						this.commit()
+
+						type = this.reqTypeVar()
+					}
+					else if this.test(Token::QUESTION) {
+						type = this.yep(AST.Nullable(this.yes()))
+					}
+
+					let defaultValue = null
+					if this.test(Token::EQUALS) {
+						this.commit()
+
+						defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Function)
+					}
+
+					elements.push(AST.TupleField(name, type, defaultValue, name, defaultValue ?? type ?? name))
+
+					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
+						this.commit().NL_0M()
+					}
+					else if @token == Token::NEWLINE {
+						this.commit().NL_0M()
+
+						if this.test(Token::COMMA) {
+							this.commit().NL_0M()
+						}
+					}
+					else {
+						break
+					}
+				}
+
+				unless this.test(Token::RIGHT_CURLY) {
+					this.throw(']')
+				}
+
+				last = this.yes()
+			}
+
+			return this.yep(AST.TupleDeclaration(attributes, modifiers, name, extends, elements, first, last))
 		} // }}}
 		reqTypeEntity(nullable = null): Event ~ SyntaxError { // {{{
 			const marker = this.mark()

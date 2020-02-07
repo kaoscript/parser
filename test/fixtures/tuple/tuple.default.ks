@@ -1,4 +1,4 @@
-struct Pair(String, Number)
+tuple Pair(String, Number)
 
 let pair = Pair('x', 0.1)
 

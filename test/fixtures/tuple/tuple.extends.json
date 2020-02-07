@@ -3,101 +3,89 @@
   "attributes": [],
   "body": [
     {
-      "kind": 94,
+      "kind": 113,
       "attributes": [],
-      "modifiers": [
+      "modifiers": [],
+      "name": {
+        "kind": 53,
+        "name": "Pair",
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 11
+        }
+      },
+      "fields": [
         {
-          "kind": 2,
+          "kind": 114,
           "start": {
             "line": 1,
             "column": 12
           },
           "end": {
             "line": 1,
-            "column": 13
-          }
-        }
-      ],
-      "name": {
-        "kind": 53,
-        "name": "Pair",
-        "start": {
-          "line": 1,
-          "column": 8
-        },
-        "end": {
-          "line": 1,
-          "column": 12
-        }
-      },
-      "fields": [
-        {
-          "kind": 95,
-          "start": {
-            "line": 1,
-            "column": 13
-          },
-          "end": {
-            "line": 1,
-            "column": 19
+            "column": 18
           },
           "type": {
-            "kind": 114,
+            "kind": 116,
             "modifiers": [],
             "typeName": {
               "kind": 53,
               "name": "String",
               "start": {
                 "line": 1,
-                "column": 13
+                "column": 12
               },
               "end": {
                 "line": 1,
-                "column": 19
+                "column": 18
               }
             },
             "start": {
               "line": 1,
-              "column": 13
+              "column": 12
             },
             "end": {
               "line": 1,
-              "column": 19
+              "column": 18
             }
           }
         },
         {
-          "kind": 95,
+          "kind": 114,
           "start": {
             "line": 1,
-            "column": 21
+            "column": 20
           },
           "end": {
             "line": 1,
-            "column": 27
+            "column": 26
           },
           "type": {
-            "kind": 114,
+            "kind": 116,
             "modifiers": [],
             "typeName": {
               "kind": 53,
               "name": "Number",
               "start": {
                 "line": 1,
-                "column": 21
+                "column": 20
               },
               "end": {
                 "line": 1,
-                "column": 27
+                "column": 26
               }
             },
             "start": {
               "line": 1,
-              "column": 21
+              "column": 20
             },
             "end": {
               "line": 1,
-              "column": 27
+              "column": 26
             }
           }
         }
@@ -108,70 +96,58 @@
       },
       "end": {
         "line": 1,
-        "column": 28
+        "column": 27
       }
     },
     {
-      "kind": 94,
+      "kind": 113,
       "attributes": [],
-      "modifiers": [
+      "modifiers": [],
+      "name": {
+        "kind": 53,
+        "name": "Triple",
+        "start": {
+          "line": 3,
+          "column": 7
+        },
+        "end": {
+          "line": 3,
+          "column": 13
+        }
+      },
+      "fields": [
         {
-          "kind": 2,
+          "kind": 114,
           "start": {
             "line": 3,
             "column": 14
           },
           "end": {
             "line": 3,
-            "column": 15
-          }
-        }
-      ],
-      "name": {
-        "kind": 53,
-        "name": "Triple",
-        "start": {
-          "line": 3,
-          "column": 8
-        },
-        "end": {
-          "line": 3,
-          "column": 14
-        }
-      },
-      "fields": [
-        {
-          "kind": 95,
-          "start": {
-            "line": 3,
-            "column": 15
-          },
-          "end": {
-            "line": 3,
-            "column": 22
+            "column": 21
           },
           "type": {
-            "kind": 114,
+            "kind": 116,
             "modifiers": [],
             "typeName": {
               "kind": 53,
               "name": "Boolean",
               "start": {
                 "line": 3,
-                "column": 15
+                "column": 14
               },
               "end": {
                 "line": 3,
-                "column": 22
+                "column": 21
               }
             },
             "start": {
               "line": 3,
-              "column": 15
+              "column": 14
             },
             "end": {
               "line": 3,
-              "column": 22
+              "column": 21
             }
           }
         }
@@ -182,26 +158,26 @@
       },
       "end": {
         "line": 3,
-        "column": 36
+        "column": 35
       },
       "extends": {
         "kind": 53,
         "name": "Pair",
         "start": {
           "line": 3,
-          "column": 32
+          "column": 31
         },
         "end": {
           "line": 3,
-          "column": 36
+          "column": 35
         }
       }
     },
     {
-      "kind": 120,
+      "kind": 122,
       "modifiers": [
         {
-          "kind": 13,
+          "kind": 12,
           "start": {
             "line": 5,
             "column": 1
@@ -215,7 +191,7 @@
       "attributes": [],
       "variables": [
         {
-          "kind": 121,
+          "kind": 123,
           "modifiers": [],
           "name": {
             "kind": 53,

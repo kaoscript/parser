@@ -159,6 +159,7 @@ enum Token {
 	TILDE_TILDE
 	TO
 	TRY
+	TUPLE
 	TYPE
 	UNDERSCORE
 	UNLESS
@@ -651,9 +652,14 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// type
+			// tuple, type
 			else if c == 116 {
-				if that.scanIdentifier(true) == 'ype' {
+				const identifier = that.scanIdentifier(true)
+
+				if identifier == 'uple' {
+					return Token::TUPLE
+				}
+				else if identifier == 'ype' {
 					return Token::TYPE
 				}
 				else {
@@ -756,6 +762,15 @@ namespace M {
 				}
 				else if identifier == 'ystemic' {
 					return Token::SYSTEMIC
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// tuple
+			else if c == 116 {
+				if that.scanIdentifier(true) == 'uple' {
+					return Token::TUPLE
 				}
 				else {
 					return Token::IDENTIFIER
@@ -1670,7 +1685,7 @@ namespace M {
 					return Token::SWITCH
 				}
 			}
-			// throw
+			// throw, try, tuple, type
 			else if c == 116
 			{
 				if	that.charAt(1) == 104 &&
@@ -1691,6 +1706,16 @@ namespace M {
 
 					return Token::TRY
 				}
+				else if	that.charAt(1) == 117 &&
+					that.charAt(2) == 112 &&
+					that.charAt(3) == 108 &&
+					that.charAt(4) == 101 &&
+					that.isBoundary(5)
+				{
+					that.next(5)
+
+					return Token::TUPLE
+				}
 				else if that.charAt(1) == 121 &&
 					that.charAt(2) == 112 &&
 					that.charAt(3) == 101 &&
@@ -1701,6 +1726,7 @@ namespace M {
 					return Token::TYPE
 				}
 			}
+			// unless, until
 			else if c == 117
 			{
 				if	that.charAt(1) == 110 &&
@@ -1725,6 +1751,7 @@ namespace M {
 					return Token::UNTIL
 				}
 			}
+			// while
 			else if c == 119
 			{
 				if	that.charAt(1) == 104 &&

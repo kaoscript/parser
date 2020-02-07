@@ -5,19 +5,6 @@
     {
       "kind": 94,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 19,
-          "start": {
-            "line": 1,
-            "column": 14
-          },
-          "end": {
-            "line": 1,
-            "column": 15
-          }
-        }
-      ],
       "name": {
         "kind": 53,
         "name": "Point",
@@ -33,14 +20,6 @@
       "fields": [
         {
           "kind": 95,
-          "start": {
-            "line": 2,
-            "column": 5
-          },
-          "end": {
-            "line": 2,
-            "column": 14
-          },
           "name": {
             "kind": 53,
             "name": "x",
@@ -53,8 +32,16 @@
               "column": 6
             }
           },
+          "start": {
+            "line": 2,
+            "column": 5
+          },
+          "end": {
+            "line": 2,
+            "column": 18
+          },
           "type": {
-            "kind": 114,
+            "kind": 116,
             "modifiers": [],
             "typeName": {
               "kind": 53,
@@ -76,18 +63,22 @@
               "line": 2,
               "column": 14
             }
+          },
+          "defaultValue": {
+            "kind": 78,
+            "value": 0,
+            "start": {
+              "line": 2,
+              "column": 17
+            },
+            "end": {
+              "line": 2,
+              "column": 18
+            }
           }
         },
         {
           "kind": 95,
-          "start": {
-            "line": 3,
-            "column": 5
-          },
-          "end": {
-            "line": 3,
-            "column": 14
-          },
           "name": {
             "kind": 53,
             "name": "y",
@@ -100,8 +91,16 @@
               "column": 6
             }
           },
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 18
+          },
           "type": {
-            "kind": 114,
+            "kind": 116,
             "modifiers": [],
             "typeName": {
               "kind": 53,
@@ -122,6 +121,18 @@
             "end": {
               "line": 3,
               "column": 14
+            }
+          },
+          "defaultValue": {
+            "kind": 78,
+            "value": 0,
+            "start": {
+              "line": 3,
+              "column": 17
+            },
+            "end": {
+              "line": 3,
+              "column": 18
             }
           }
         }
@@ -136,79 +147,32 @@
       }
     },
     {
-      "kind": 94,
+      "kind": 122,
+      "modifiers": [],
       "attributes": [],
-      "modifiers": [
+      "variables": [
         {
-          "kind": 19,
-          "start": {
-            "line": 6,
-            "column": 30
-          },
-          "end": {
-            "line": 6,
-            "column": 31
-          }
-        }
-      ],
-      "name": {
-        "kind": 53,
-        "name": "Point3D",
-        "start": {
-          "line": 6,
-          "column": 8
-        },
-        "end": {
-          "line": 6,
-          "column": 15
-        }
-      },
-      "fields": [
-        {
-          "kind": 95,
-          "start": {
-            "line": 7,
-            "column": 2
-          },
-          "end": {
-            "line": 7,
-            "column": 11
-          },
+          "kind": 123,
+          "modifiers": [],
           "name": {
             "kind": 53,
-            "name": "z",
+            "name": "point",
             "start": {
-              "line": 7,
-              "column": 2
-            },
-            "end": {
-              "line": 7,
-              "column": 3
-            }
-          },
-          "type": {
-            "kind": 114,
-            "modifiers": [],
-            "typeName": {
-              "kind": 53,
-              "name": "Number",
-              "start": {
-                "line": 7,
-                "column": 5
-              },
-              "end": {
-                "line": 7,
-                "column": 11
-              }
-            },
-            "start": {
-              "line": 7,
+              "line": 6,
               "column": 5
             },
             "end": {
-              "line": 7,
-              "column": 11
+              "line": 6,
+              "column": 10
             }
+          },
+          "start": {
+            "line": 6,
+            "column": 5
+          },
+          "end": {
+            "line": 6,
+            "column": 10
           }
         }
       ],
@@ -217,59 +181,8 @@
         "column": 1
       },
       "end": {
-        "line": 8,
-        "column": 2
-      },
-      "extends": {
-        "kind": 53,
-        "name": "Point",
-        "start": {
-          "line": 6,
-          "column": 24
-        },
-        "end": {
-          "line": 6,
-          "column": 29
-        }
-      }
-    },
-    {
-      "kind": 120,
-      "modifiers": [],
-      "attributes": [],
-      "variables": [
-        {
-          "kind": 121,
-          "modifiers": [],
-          "name": {
-            "kind": 53,
-            "name": "point",
-            "start": {
-              "line": 10,
-              "column": 5
-            },
-            "end": {
-              "line": 10,
-              "column": 10
-            }
-          },
-          "start": {
-            "line": 10,
-            "column": 5
-          },
-          "end": {
-            "line": 10,
-            "column": 10
-          }
-        }
-      ],
-      "start": {
-        "line": 10,
-        "column": 1
-      },
-      "end": {
-        "line": 10,
-        "column": 35
+        "line": 6,
+        "column": 34
       },
       "init": {
         "kind": 14,
@@ -279,61 +192,97 @@
         },
         "callee": {
           "kind": 53,
-          "name": "Point3D",
+          "name": "Point",
           "start": {
-            "line": 10,
+            "line": 6,
             "column": 13
           },
           "end": {
-            "line": 10,
-            "column": 20
+            "line": 6,
+            "column": 18
           }
         },
         "arguments": [
           {
-            "kind": 78,
-            "value": 0.3,
+            "kind": 76,
+            "modifiers": [],
+            "name": {
+              "kind": 53,
+              "name": "x",
+              "start": {
+                "line": 6,
+                "column": 19
+              },
+              "end": {
+                "line": 6,
+                "column": 20
+              }
+            },
+            "value": {
+              "kind": 78,
+              "value": 0.3,
+              "start": {
+                "line": 6,
+                "column": 22
+              },
+              "end": {
+                "line": 6,
+                "column": 25
+              }
+            },
             "start": {
-              "line": 10,
-              "column": 21
+              "line": 6,
+              "column": 19
             },
             "end": {
-              "line": 10,
-              "column": 24
+              "line": 6,
+              "column": 25
             }
           },
           {
-            "kind": 78,
-            "value": 0.4,
+            "kind": 76,
+            "modifiers": [],
+            "name": {
+              "kind": 53,
+              "name": "y",
+              "start": {
+                "line": 6,
+                "column": 27
+              },
+              "end": {
+                "line": 6,
+                "column": 28
+              }
+            },
+            "value": {
+              "kind": 78,
+              "value": 0.4,
+              "start": {
+                "line": 6,
+                "column": 30
+              },
+              "end": {
+                "line": 6,
+                "column": 33
+              }
+            },
             "start": {
-              "line": 10,
-              "column": 26
+              "line": 6,
+              "column": 27
             },
             "end": {
-              "line": 10,
-              "column": 29
-            }
-          },
-          {
-            "kind": 78,
-            "value": 0.5,
-            "start": {
-              "line": 10,
-              "column": 31
-            },
-            "end": {
-              "line": 10,
-              "column": 34
+              "line": 6,
+              "column": 33
             }
           }
         ],
         "start": {
-          "line": 10,
+          "line": 6,
           "column": 13
         },
         "end": {
-          "line": 10,
-          "column": 35
+          "line": 6,
+          "column": 34
         }
       }
     },
@@ -350,11 +299,11 @@
           "kind": 53,
           "name": "console",
           "start": {
-            "line": 12,
+            "line": 8,
             "column": 1
           },
           "end": {
-            "line": 12,
+            "line": 8,
             "column": 8
           }
         },
@@ -362,20 +311,20 @@
           "kind": 53,
           "name": "log",
           "start": {
-            "line": 12,
+            "line": 8,
             "column": 9
           },
           "end": {
-            "line": 12,
+            "line": 8,
             "column": 12
           }
         },
         "start": {
-          "line": 12,
+          "line": 8,
           "column": 1
         },
         "end": {
-          "line": 12,
+          "line": 8,
           "column": 12
         }
       },
@@ -387,11 +336,11 @@
             "kind": 53,
             "name": "point",
             "start": {
-              "line": 12,
+              "line": 8,
               "column": 13
             },
             "end": {
-              "line": 12,
+              "line": 8,
               "column": 18
             }
           },
@@ -399,20 +348,20 @@
             "kind": 53,
             "name": "x",
             "start": {
-              "line": 12,
+              "line": 8,
               "column": 19
             },
             "end": {
-              "line": 12,
+              "line": 8,
               "column": 20
             }
           },
           "start": {
-            "line": 12,
+            "line": 8,
             "column": 13
           },
           "end": {
-            "line": 12,
+            "line": 8,
             "column": 20
           }
         },
@@ -423,11 +372,11 @@
             "kind": 53,
             "name": "point",
             "start": {
-              "line": 12,
+              "line": 8,
               "column": 22
             },
             "end": {
-              "line": 12,
+              "line": 8,
               "column": 27
             }
           },
@@ -435,67 +384,31 @@
             "kind": 53,
             "name": "y",
             "start": {
-              "line": 12,
+              "line": 8,
               "column": 28
             },
             "end": {
-              "line": 12,
+              "line": 8,
               "column": 29
             }
           },
           "start": {
-            "line": 12,
+            "line": 8,
             "column": 22
           },
           "end": {
-            "line": 12,
+            "line": 8,
             "column": 29
-          }
-        },
-        {
-          "kind": 71,
-          "modifiers": [],
-          "object": {
-            "kind": 53,
-            "name": "point",
-            "start": {
-              "line": 12,
-              "column": 31
-            },
-            "end": {
-              "line": 12,
-              "column": 36
-            }
-          },
-          "property": {
-            "kind": 53,
-            "name": "z",
-            "start": {
-              "line": 12,
-              "column": 37
-            },
-            "end": {
-              "line": 12,
-              "column": 38
-            }
-          },
-          "start": {
-            "line": 12,
-            "column": 31
-          },
-          "end": {
-            "line": 12,
-            "column": 38
           }
         }
       ],
       "start": {
-        "line": 12,
+        "line": 8,
         "column": 1
       },
       "end": {
-        "line": 12,
-        "column": 39
+        "line": 8,
+        "column": 30
       },
       "attributes": []
     }
@@ -505,7 +418,7 @@
     "column": 1
   },
   "end": {
-    "line": 12,
-    "column": 39
+    "line": 8,
+    "column": 30
   }
 }

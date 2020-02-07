@@ -1558,7 +1558,7 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		func StructDeclaration(attributes, modifiers, name, extends!?, fields, first, last) { // {{{
+		/* func StructDeclaration(attributes, modifiers, name, extends!?, fields, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::StructDeclaration
 				attributes
@@ -1572,9 +1572,24 @@ namespace AST {
 			}
 
 			return node
+		} // }}} */
+
+		func StructDeclaration(attributes, name, extends!?, fields, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::StructDeclaration
+				attributes
+				name: name.value
+				fields
+			}, first, last)
+
+			if extends != null {
+				node.extends = extends.value
+			}
+
+			return node
 		} // }}}
 
-		func StructField(name?, type?, defaultValue?, first, last) { // {{{
+		/* func StructField(name?, type?, defaultValue?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::StructField
 			}, first, last)
@@ -1582,6 +1597,23 @@ namespace AST {
 			if name? {
 				node.name = name.value
 			}
+
+			if type? {
+				node.type = type.value
+			}
+
+			if defaultValue? {
+				node.defaultValue = defaultValue.value
+			}
+
+			return node
+		} // }}} */
+
+		func StructField(name, type?, defaultValue?, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::StructField
+				name: name.value
+			}, first, last)
 
 			if type? {
 				node.type = type.value
@@ -1764,6 +1796,42 @@ namespace AST {
 			}
 			if finalizer != null {
 				node.finalizer = finalizer.value
+			}
+
+			return node
+		} // }}}
+
+		func TupleDeclaration(attributes, modifiers, name, extends!?, fields, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::TupleDeclaration
+				attributes
+				modifiers
+				name: name.value
+				fields
+			}, first, last)
+
+			if extends != null {
+				node.extends = extends.value
+			}
+
+			return node
+		} // }}}
+
+		func TupleField(name?, type?, defaultValue?, first, last) { // {{{
+			const node = location({
+				kind: NodeKind::TupleField
+			}, first, last)
+
+			if name? {
+				node.name = name.value
+			}
+
+			if type? {
+				node.type = type.value
+			}
+
+			if defaultValue? {
+				node.defaultValue = defaultValue.value
 			}
 
 			return node

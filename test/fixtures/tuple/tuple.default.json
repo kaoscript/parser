@@ -3,125 +3,89 @@
   "attributes": [],
   "body": [
     {
-      "kind": 94,
+      "kind": 113,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 2,
-          "start": {
-            "line": 1,
-            "column": 12
-          },
-          "end": {
-            "line": 1,
-            "column": 13
-          }
-        }
-      ],
+      "modifiers": [],
       "name": {
         "kind": 53,
         "name": "Pair",
         "start": {
           "line": 1,
-          "column": 8
+          "column": 7
         },
         "end": {
           "line": 1,
-          "column": 12
+          "column": 11
         }
       },
       "fields": [
         {
-          "kind": 95,
+          "kind": 114,
           "start": {
-            "line": 2,
-            "column": 2
+            "line": 1,
+            "column": 12
           },
           "end": {
-            "line": 2,
-            "column": 13
+            "line": 1,
+            "column": 18
           },
           "type": {
-            "kind": 114,
+            "kind": 116,
             "modifiers": [],
             "typeName": {
               "kind": 53,
               "name": "String",
               "start": {
-                "line": 2,
-                "column": 2
+                "line": 1,
+                "column": 12
               },
               "end": {
-                "line": 2,
-                "column": 8
+                "line": 1,
+                "column": 18
               }
             },
             "start": {
-              "line": 2,
-              "column": 2
+              "line": 1,
+              "column": 12
             },
             "end": {
-              "line": 2,
-              "column": 8
-            }
-          },
-          "defaultValue": {
-            "kind": 68,
-            "value": "",
-            "start": {
-              "line": 2,
-              "column": 11
-            },
-            "end": {
-              "line": 2,
-              "column": 13
+              "line": 1,
+              "column": 18
             }
           }
         },
         {
-          "kind": 95,
+          "kind": 114,
           "start": {
-            "line": 3,
-            "column": 2
+            "line": 1,
+            "column": 20
           },
           "end": {
-            "line": 3,
-            "column": 12
+            "line": 1,
+            "column": 26
           },
           "type": {
-            "kind": 114,
+            "kind": 116,
             "modifiers": [],
             "typeName": {
               "kind": 53,
               "name": "Number",
               "start": {
-                "line": 3,
-                "column": 2
+                "line": 1,
+                "column": 20
               },
               "end": {
-                "line": 3,
-                "column": 8
+                "line": 1,
+                "column": 26
               }
             },
             "start": {
-              "line": 3,
-              "column": 2
+              "line": 1,
+              "column": 20
             },
             "end": {
-              "line": 3,
-              "column": 8
-            }
-          },
-          "defaultValue": {
-            "kind": 78,
-            "value": 0,
-            "start": {
-              "line": 3,
-              "column": 11
-            },
-            "end": {
-              "line": 3,
-              "column": 12
+              "line": 1,
+              "column": 26
             }
           }
         }
@@ -131,46 +95,46 @@
         "column": 1
       },
       "end": {
-        "line": 4,
-        "column": 2
+        "line": 1,
+        "column": 27
       }
     },
     {
-      "kind": 120,
+      "kind": 122,
       "modifiers": [],
       "attributes": [],
       "variables": [
         {
-          "kind": 121,
+          "kind": 123,
           "modifiers": [],
           "name": {
             "kind": 53,
             "name": "pair",
             "start": {
-              "line": 6,
+              "line": 3,
               "column": 5
             },
             "end": {
-              "line": 6,
+              "line": 3,
               "column": 9
             }
           },
           "start": {
-            "line": 6,
+            "line": 3,
             "column": 5
           },
           "end": {
-            "line": 6,
+            "line": 3,
             "column": 9
           }
         }
       ],
       "start": {
-        "line": 6,
+        "line": 3,
         "column": 1
       },
       "end": {
-        "line": 6,
+        "line": 3,
         "column": 26
       },
       "init": {
@@ -183,11 +147,11 @@
           "kind": 53,
           "name": "Pair",
           "start": {
-            "line": 6,
+            "line": 3,
             "column": 12
           },
           "end": {
-            "line": 6,
+            "line": 3,
             "column": 16
           }
         },
@@ -196,11 +160,11 @@
             "kind": 68,
             "value": "x",
             "start": {
-              "line": 6,
+              "line": 3,
               "column": 17
             },
             "end": {
-              "line": 6,
+              "line": 3,
               "column": 20
             }
           },
@@ -208,21 +172,21 @@
             "kind": 78,
             "value": 0.1,
             "start": {
-              "line": 6,
+              "line": 3,
               "column": 22
             },
             "end": {
-              "line": 6,
+              "line": 3,
               "column": 25
             }
           }
         ],
         "start": {
-          "line": 6,
+          "line": 3,
           "column": 12
         },
         "end": {
-          "line": 6,
+          "line": 3,
           "column": 26
         }
       }
@@ -240,11 +204,11 @@
           "kind": 53,
           "name": "console",
           "start": {
-            "line": 8,
+            "line": 5,
             "column": 1
           },
           "end": {
-            "line": 8,
+            "line": 5,
             "column": 8
           }
         },
@@ -252,20 +216,20 @@
           "kind": 53,
           "name": "log",
           "start": {
-            "line": 8,
+            "line": 5,
             "column": 9
           },
           "end": {
-            "line": 8,
+            "line": 5,
             "column": 12
           }
         },
         "start": {
-          "line": 8,
+          "line": 5,
           "column": 1
         },
         "end": {
-          "line": 8,
+          "line": 5,
           "column": 12
         }
       },
@@ -277,11 +241,11 @@
             "kind": 53,
             "name": "pair",
             "start": {
-              "line": 8,
+              "line": 5,
               "column": 13
             },
             "end": {
-              "line": 8,
+              "line": 5,
               "column": 17
             }
           },
@@ -289,20 +253,20 @@
             "kind": 53,
             "name": "0",
             "start": {
-              "line": 8,
+              "line": 5,
               "column": 18
             },
             "end": {
-              "line": 8,
+              "line": 5,
               "column": 19
             }
           },
           "start": {
-            "line": 8,
+            "line": 5,
             "column": 13
           },
           "end": {
-            "line": 8,
+            "line": 5,
             "column": 19
           }
         },
@@ -313,11 +277,11 @@
             "kind": 53,
             "name": "pair",
             "start": {
-              "line": 8,
+              "line": 5,
               "column": 21
             },
             "end": {
-              "line": 8,
+              "line": 5,
               "column": 25
             }
           },
@@ -325,30 +289,30 @@
             "kind": 53,
             "name": "1",
             "start": {
-              "line": 8,
+              "line": 5,
               "column": 26
             },
             "end": {
-              "line": 8,
+              "line": 5,
               "column": 27
             }
           },
           "start": {
-            "line": 8,
+            "line": 5,
             "column": 21
           },
           "end": {
-            "line": 8,
+            "line": 5,
             "column": 27
           }
         }
       ],
       "start": {
-        "line": 8,
+        "line": 5,
         "column": 1
       },
       "end": {
-        "line": 8,
+        "line": 5,
         "column": 28
       },
       "attributes": []
@@ -359,7 +323,7 @@
     "column": 1
   },
   "end": {
-    "line": 8,
+    "line": 5,
     "column": 28
   }
 }

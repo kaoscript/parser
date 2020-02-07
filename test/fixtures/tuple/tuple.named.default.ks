@@ -1,7 +1,7 @@
-struct Pair [
+tuple Pair {
 	x: String	= ''
 	y: Number	= 0
-]
+}
 
 let pair = Pair('x', 0.1)
 

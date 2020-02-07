@@ -1,6 +1,6 @@
-struct Pair(String, Number)
+tuple Pair(String, Number)
 
-struct Triple(Boolean) extends Pair
+tuple Triple(Boolean) extends Pair
 
 const triple = Triple('x', 0.1, true)
 

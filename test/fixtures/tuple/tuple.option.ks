@@ -1,4 +1,4 @@
-struct Pair(
+tuple Pair(
 	String	= ''
 	Number	= 0
 )
