@@ -215,8 +215,8 @@ export namespace Parser {
 		altArrayList(expression: Event, first: Event, fMode: FunctionMode): Event ~ SyntaxError { // {{{
 			const values = [expression]
 
-			while this.match(Token::RIGHT_SQUARE, Token::COMMA, Token::NEWLINE) != null {
-				if @token == Token::RIGHT_SQUARE {
+			do {
+				if this.match(Token::RIGHT_SQUARE, Token::COMMA, Token::NEWLINE) == Token::RIGHT_SQUARE {
 					return this.yep(AST.ArrayExpression(values, first, this.yes()))
 				}
 				else if @token == Token::COMMA {
@@ -240,9 +240,12 @@ export namespace Parser {
 					}
 				}
 				else {
-					this.throw(']')
+					break
 				}
 			}
+			while true
+
+			this.throw(']')
 		} // }}}
 		altForExpressionFrom(modifiers, variable: Event, first: Event, fMode: FunctionMode): Event ~ SyntaxError { // {{{
 			const from = this.reqExpression(ExpressionMode::Default, fMode)
@@ -2219,8 +2222,7 @@ export namespace Parser {
 
 			return this.yep(AST.ExportDeclaration(attributes, declarations, first, last))
 		} // }}}
-		/* reqExpression(eMode: ExpressionMode?, fMode: FunctionMode, terminator: MacroTerminator = null): Event ~ SyntaxError { // {{{ */
-		reqExpression(eMode?, fMode: FunctionMode, terminator: MacroTerminator = null): Event ~ SyntaxError { // {{{
+		reqExpression(eMode: ExpressionMode?, fMode: FunctionMode, terminator: MacroTerminator = null): Event ~ SyntaxError { // {{{
 			if eMode == null {
 				if @mode & ParserMode::MacroExpression != 0 &&
 					@scanner.test(Token::IDENTIFIER) &&
@@ -2233,7 +2235,7 @@ export namespace Parser {
 				}
 			}
 
-			return this.reqOperation(eMode!!, fMode)
+			return this.reqOperation(eMode, fMode)
 		} // }}}
 		reqExpression0CNList(fMode: FunctionMode): Event ~ SyntaxError { // {{{
 			this.NL_0M()
@@ -2381,7 +2383,7 @@ export namespace Parser {
 				return this.reqExternClassField(attributes, modifiers, name, null, first ?? name)
 			}
 		} // }}}
-		reqExternClassMemberList(members): Event ~ SyntaxError { // {{{
+		reqExternClassMemberList(members): Void ~ SyntaxError { // {{{
 			let first = null
 
 			const attributes = this.stackOuterAttributes([])
@@ -3248,7 +3250,7 @@ export namespace Parser {
 				return this.yep(AST.IfStatement(condition, whenTrue, null, first, whenTrue))
 			}
 		} // }}}
-		reqImplementMemberList(members): Event ~ SyntaxError { // {{{
+		reqImplementMemberList(members): Void ~ SyntaxError { // {{{
 			let first = null
 
 			const attributes = this.stackOuterAttributes([])
@@ -3821,7 +3823,7 @@ export namespace Parser {
 				}
 			}
 		} // }}}
-		reqMacroElements(elements, terminator: MacroTerminator): Event ~ SyntaxError { // {{{
+		reqMacroElements(elements, terminator: MacroTerminator): Void ~ SyntaxError { // {{{
 			const history = []
 
 			let literal = null
@@ -4257,7 +4259,7 @@ export namespace Parser {
 				this.throw('Identifier')
 			}
 		} // }}}
-		reqNL_1M(): Event ~ SyntaxError { // {{{
+		reqNL_1M(): Void ~ SyntaxError { // {{{
 			if this.test(Token::NEWLINE) {
 				this.commit()
 
@@ -4267,7 +4269,7 @@ export namespace Parser {
 				this.throw('NewLine')
 			}
 		} // }}}
-		reqNL_EOF_1M(): Event ~ SyntaxError { // {{{
+		reqNL_EOF_1M(): Void ~ SyntaxError { // {{{
 			if this.match(Token::NEWLINE) == Token::NEWLINE {
 				this.commit()
 
@@ -5235,182 +5237,6 @@ export namespace Parser {
 				this.throw('String')
 			}
 		} // }}}
-		/* reqStructStatement(first: Event): Event ~ SyntaxError { // {{{
-			const name = this.tryIdentifier()
-
-			unless name.ok {
-				return NO
-			}
-
-			const attributes = []
-			const modifiers = []
-			const elements = []
-			let extends = null
-			let last = name
-
-			if this.test(Token::EXTENDS) {
-				this.commit()
-
-				extends = this.reqIdentifier()
-			}
-
-			if this.test(Token::LEFT_CURLY) {
-				const first = this.yes()
-
-				this.NL_0M()
-
-				modifiers.push(AST.Modifier(ModifierKind::Object, first))
-
-				this.stackInnerAttributes(attributes)
-
-				until this.test(Token::RIGHT_CURLY) {
-					const name = this.reqIdentifier()
-
-					let type = null
-					if this.test(Token::COLON) {
-						this.commit()
-
-						type = this.reqTypeVar()
-					}
-					else if this.test(Token::QUESTION) {
-						type = this.yep(AST.Nullable(this.yes()))
-					}
-
-					let defaultValue = null
-					if this.test(Token::EQUALS) {
-						this.commit()
-
-						defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Function)
-					}
-
-					elements.push(AST.StructField(name, type, defaultValue, name, defaultValue ?? type ?? name))
-
-					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
-						this.commit().NL_0M()
-					}
-					else if @token == Token::NEWLINE {
-						this.commit().NL_0M()
-
-						if this.test(Token::COMMA) {
-							this.commit().NL_0M()
-						}
-					}
-					else {
-						break
-					}
-				}
-
-				unless this.test(Token::RIGHT_CURLY) {
-					this.throw('}')
-				}
-
-				last = this.yes()
-			}
-			else if extends == null && this.test(Token::LEFT_ROUND) {
-				const first = this.yes()
-
-				this.NL_0M()
-
-				modifiers.push(AST.Modifier(ModifierKind::Array, first))
-
-				this.stackInnerAttributes(attributes)
-
-				until this.test(Token::RIGHT_ROUND) {
-					const type = this.reqTypeVar()
-
-					if this.test(Token::EQUALS) {
-						this.commit()
-
-						const defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Function)
-
-						elements.push(AST.StructField(null, type, defaultValue, type, defaultValue))
-					}
-					else {
-						elements.push(AST.StructField(null, type, null, type, type))
-					}
-
-					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
-						this.commit().NL_0M()
-					}
-					else if @token == Token::NEWLINE {
-						this.commit().NL_0M()
-
-						if this.test(Token::COMMA) {
-							this.commit().NL_0M()
-						}
-					}
-					else {
-						break
-					}
-				}
-
-				unless this.test(Token::RIGHT_ROUND) {
-					this.throw(')')
-				}
-
-				last = this.yes()
-
-				if this.test(Token::EXTENDS) {
-					this.commit()
-
-					last = extends = this.reqIdentifier()
-				}
-			}
-			else if this.test(Token::LEFT_SQUARE) {
-				const first = this.yes()
-
-				this.NL_0M()
-
-				modifiers.push(AST.Modifier(ModifierKind::Array, first), AST.Modifier(ModifierKind::Named, first))
-
-				this.stackInnerAttributes(attributes)
-
-				until this.test(Token::RIGHT_SQUARE) {
-					const name = this.reqIdentifier()
-
-					let type = null
-					if this.test(Token::COLON) {
-						this.commit()
-
-						type = this.reqTypeVar()
-					}
-					else if this.test(Token::QUESTION) {
-						type = this.yep(AST.Nullable(this.yes()))
-					}
-
-					let defaultValue = null
-					if this.test(Token::EQUALS) {
-						this.commit()
-
-						defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Function)
-					}
-
-					elements.push(AST.StructField(name, type, defaultValue, name, defaultValue ?? type ?? name))
-
-					if this.match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
-						this.commit().NL_0M()
-					}
-					else if @token == Token::NEWLINE {
-						this.commit().NL_0M()
-
-						if this.test(Token::COMMA) {
-							this.commit().NL_0M()
-						}
-					}
-					else {
-						break
-					}
-				}
-
-				unless this.test(Token::RIGHT_SQUARE) {
-					this.throw(']')
-				}
-
-				last = this.yes()
-			}
-
-			return this.yep(AST.StructDeclaration(attributes, modifiers, name, extends, elements, first, last))
-		} // }}} */
 		reqStructStatement(first: Event): Event ~ SyntaxError { // {{{
 			const name = this.tryIdentifier()
 

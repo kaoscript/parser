@@ -2960,7 +2960,7 @@ class Scanner {
 
 		return true
 	} // }}}
-	/* position(): {start: Position, end: Position} => ({ // {{{
+	position(): {start: Position, end: Position} => ({ // {{{
 		start: Position(
 			line: @line
 			column: @column
@@ -2969,16 +2969,6 @@ class Scanner {
 			line: @nextLine
 			column: @nextColumn
 		)
-	}) // }}} */
-	position() => ({ // {{{
-		start: {
-			line: @line
-			column: @column
-		}
-		end: {
-			line: @nextLine
-			column: @nextColumn
-		}
 	}) // }}}
 	rollback(mark): Boolean { // {{{
 		@eof = mark.eof
@@ -3010,6 +3000,8 @@ class Scanner {
 		}
 		else {
 			this.next(index - @index)
+
+			return null
 		}
 	} // }}}
 	skip(): Void { // {{{

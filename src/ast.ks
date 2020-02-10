@@ -1558,22 +1558,6 @@ namespace AST {
 			}, first, last)
 		} // }}}
 
-		/* func StructDeclaration(attributes, modifiers, name, extends!?, fields, first, last) { // {{{
-			const node = location({
-				kind: NodeKind::StructDeclaration
-				attributes
-				modifiers
-				name: name.value
-				fields
-			}, first, last)
-
-			if extends != null {
-				node.extends = extends.value
-			}
-
-			return node
-		} // }}} */
-
 		func StructDeclaration(attributes, name, extends!?, fields, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::StructDeclaration
@@ -1588,26 +1572,6 @@ namespace AST {
 
 			return node
 		} // }}}
-
-		/* func StructField(name?, type?, defaultValue?, first, last) { // {{{
-			const node = location({
-				kind: NodeKind::StructField
-			}, first, last)
-
-			if name? {
-				node.name = name.value
-			}
-
-			if type? {
-				node.type = type.value
-			}
-
-			if defaultValue? {
-				node.defaultValue = defaultValue.value
-			}
-
-			return node
-		} // }}} */
 
 		func StructField(name, type?, defaultValue?, first, last) { // {{{
 			const node = location({

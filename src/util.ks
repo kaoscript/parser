@@ -5,6 +5,7 @@ extern {
 	func parseInt(...): Number
 
 	sealed class Array
+	sealed namespace Math
 	sealed class RegExp
 	sealed class String
 	sealed class SyntaxError
@@ -19,6 +20,10 @@ disclose Array {
 	slice(begin: Number = 0, end: Number = -1)
 	sort(compare: Function = null): Array
 	unshift(...elements): Number
+}
+
+disclose Math {
+	pow(...): Number
 }
 
 disclose RegExp {
