@@ -3255,67 +3255,259 @@ export namespace Parser {
 
 			const attributes = this.stackOuterAttributes([])
 
-			let mark = this.mark()
+			let mark1 = this.mark()
 
 			const modifiers = this.reqAccessModifiers([])
 
-			if this.match(Token::OVERRIDE, Token::OVERWRITE, Token::STATIC) == Token::OVERRIDE {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
+			const mark2 = this.mark()
 
-				mark = this.mark() if modifiers.length > 1
-			}
-			else if @token == Token::OVERWRITE {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Overwrite, this.yes())))
+			if this.test(Token::LATEINIT) {
+				const modifier = this.yep(AST.Modifier(ModifierKind::LateInit, this.yes()))
 
-				mark = this.mark() if modifiers.length > 1
-			}
-			else if @token == Token::STATIC {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Static, this.yes())))
+				if this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
 
-				mark = this.mark() if modifiers.length > 1
-			}
+					const modifiers = [...modifiers, modifier]
 
-			if modifiers.length != 0 {
-				first = modifiers[0]
-			}
+					first = null
 
-			if this.test(Token::LEFT_CURLY) {
-				this.commit()
+					let attrs
+					while this.until(Token::RIGHT_CURLY) {
+						attrs = this.stackOuterAttributes([])
 
-				this.NL_0M()
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
+						}
+						else {
+							attrs = attributes
+						}
 
-				let attrs
-				until this.test(Token::RIGHT_CURLY) {
-					attrs = this.stackOuterAttributes([])
-
-					if attrs.length > 0 {
-						first = attrs[0]
-						attrs.unshift(...attributes)
+						members.push(this.reqClassLateInitMember(attrs, modifiers, first))
 					}
 
-					members.push(this.reqClassMember(attrs, modifiers, first))
-				}
+					unless this.test(Token::RIGHT_CURLY) {
+						this.throw('}')
+					}
 
-				unless this.test(Token::RIGHT_CURLY) {
-					this.throw('}')
-				}
-
-				this.commit()
-
-				this.reqNL_1M()
-			}
-			else {
-				const member = this.tryClassMember(attributes, modifiers, first)
-
-				if member.ok {
-					members.push(member)
+					this.commit().reqNL_1M()
 				}
 				else {
-					this.rollback(mark)
+					this.rollback(mark2)
 
-					modifiers.pop()
+					if first == null && modifiers.length != 0 {
+						first = modifiers[0]
+					}
 
-					members.push(this.reqClassMember(attributes, modifiers, first))
+					const member = this.tryClassMember(attributes, modifiers, first)
+
+					if member.ok {
+						members.push(member)
+					}
+					else {
+						if modifiers.length == 2 {
+							this.rollback(mark2)
+						}
+						else {
+							this.rollback(mark1)
+						}
+
+						modifiers.pop()
+
+						members.push(this.reqClassMember(attributes, modifiers, first))
+					}
+				}
+			}
+			else if this.test(Token::OVERRIDE) {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
+
+				if this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
+
+					first = null
+
+					let attrs
+					while this.until(Token::RIGHT_CURLY) {
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
+						}
+						else {
+							attrs = attributes
+						}
+
+						members.push(this.reqClassMethod(attrs, modifiers, first))
+					}
+
+					unless this.test(Token::RIGHT_CURLY) {
+						this.throw('}')
+					}
+
+					this.commit().reqNL_1M()
+				}
+				else {
+					const member = this.tryClassMethod(attributes, modifiers, first ?? modifiers[0])
+
+					if member.ok {
+						members.push(member)
+					}
+					else {
+						this.rollback(mark2)
+
+						modifiers.pop()
+
+						members.push(this.reqClassMember(attributes, modifiers, first ?? modifiers[0]))
+					}
+				}
+			}
+			else if this.test(Token::OVERWRITE) {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Overwrite, this.yes())))
+
+				if this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
+
+					first = null
+
+					let attrs
+					while this.until(Token::RIGHT_CURLY) {
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
+						}
+						else {
+							attrs = attributes
+						}
+
+						members.push(this.reqClassMethod(attrs, modifiers, first))
+					}
+
+					unless this.test(Token::RIGHT_CURLY) {
+						this.throw('}')
+					}
+
+					this.commit().reqNL_1M()
+				}
+				else {
+					const member = this.tryClassMethod(attributes, modifiers, first ?? modifiers[0])
+
+					if member.ok {
+						members.push(member)
+					}
+					else {
+						this.rollback(mark2)
+
+						modifiers.pop()
+
+						members.push(this.reqClassMember(attributes, modifiers, first ?? modifiers[0]))
+					}
+				}
+			}
+			else if this.test(Token::STATIC) {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Static, this.yes())))
+
+				if first == null && modifiers.length != 0 {
+					first = modifiers[0]
+				}
+
+				if modifiers.length != 0 && this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
+
+					first = null
+
+					let attrs
+					while this.until(Token::RIGHT_CURLY) {
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
+						}
+						else {
+							attrs = attributes
+						}
+
+						members.push(this.reqClassStaticMember(attrs, modifiers, first))
+					}
+
+					unless this.test(Token::RIGHT_CURLY) {
+						this.throw('}')
+					}
+
+					this.commit().reqNL_1M()
+				}
+				else {
+					const member = this.tryClassStaticMember(attributes, modifiers, first)
+
+					if member.ok {
+						members.push(member)
+					}
+					else {
+						if modifiers.length == 2 {
+							this.rollback(mark2)
+						}
+						else {
+							this.rollback(mark1)
+						}
+
+						modifiers.pop()
+
+						members.push(this.reqClassStaticMember(attributes, modifiers, first))
+					}
+				}
+			}
+			else {
+				if first == null && modifiers.length != 0 {
+					first = modifiers[0]
+				}
+
+				if modifiers.length != 0 && this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
+
+					first = null
+
+					let attrs
+					while this.until(Token::RIGHT_CURLY) {
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							first = attrs[0]
+							attrs.unshift(...attributes)
+						}
+						else {
+							attrs = attributes
+						}
+
+						members.push(this.reqClassMember(attrs, modifiers, first))
+					}
+
+					unless this.test(Token::RIGHT_CURLY) {
+						this.throw('}')
+					}
+
+					this.commit().reqNL_1M()
+				}
+				else {
+					const member = this.tryClassMember(attributes, modifiers, first)
+
+					if member.ok {
+						members.push(member)
+					}
+					else {
+						if modifiers.length == 2 {
+							this.rollback(mark2)
+						}
+						else {
+							this.rollback(mark1)
+						}
+
+						modifiers.pop()
+
+						members.push(this.reqClassMember(attributes, modifiers, first))
+					}
 				}
 			}
 		} // }}}
