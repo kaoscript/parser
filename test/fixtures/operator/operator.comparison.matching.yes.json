@@ -8,7 +8,7 @@
       "condition": {
         "kind": 10,
         "operator": {
-          "kind": 29,
+          "kind": 20,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -19,9 +19,17 @@
             "column": 12
           }
         },
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 48
+        },
         "left": {
           "kind": 53,
-          "name": "value",
+          "name": "color",
           "start": {
             "line": 1,
             "column": 4
@@ -32,18 +40,17 @@
           }
         },
         "right": {
-          "kind": 116,
-          "modifiers": [],
-          "typeName": {
-            "kind": 53,
-            "name": "array",
+          "kind": 84,
+          "operator": {
+            "kind": 16,
+            "modifiers": [],
             "start": {
               "line": 1,
-              "column": 13
+              "column": 31
             },
             "end": {
               "line": 1,
-              "column": 18
+              "column": 32
             }
           },
           "start": {
@@ -52,42 +59,58 @@
           },
           "end": {
             "line": 1,
-            "column": 26
+            "column": 48
           },
-          "typeParameters": [
+          "operands": [
             {
-              "kind": 116,
-              "modifiers": [],
-              "typeName": {
-                "kind": 53,
-                "name": "string",
-                "start": {
-                  "line": 1,
-                  "column": 19
-                },
-                "end": {
-                  "line": 1,
-                  "column": 25
-                }
-              },
+              "kind": 68,
+              "value": "white",
               "start": {
                 "line": 1,
-                "column": 19
+                "column": 13
               },
               "end": {
                 "line": 1,
-                "column": 25
+                "column": 20
+              }
+            },
+            {
+              "kind": 68,
+              "value": "black",
+              "start": {
+                "line": 1,
+                "column": 23
+              },
+              "end": {
+                "line": 1,
+                "column": 30
+              }
+            },
+            {
+              "kind": 68,
+              "value": "gray",
+              "start": {
+                "line": 1,
+                "column": 33
+              },
+              "end": {
+                "line": 1,
+                "column": 39
+              }
+            },
+            {
+              "kind": 68,
+              "value": "grey",
+              "start": {
+                "line": 1,
+                "column": 42
+              },
+              "end": {
+                "line": 1,
+                "column": 48
               }
             }
           ]
-        },
-        "start": {
-          "line": 1,
-          "column": 4
-        },
-        "end": {
-          "line": 1,
-          "column": 26
         }
       },
       "whenTrue": {
@@ -96,7 +119,7 @@
         "statements": [],
         "start": {
           "line": 1,
-          "column": 27
+          "column": 49
         },
         "end": {
           "line": 2,

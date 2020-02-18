@@ -5003,7 +5003,7 @@ export namespace Parser {
 
 					return this.yep(AST.UnaryExpression(operator, operand, operator, operand))
 				}
-				Token::TILDE => {
+				Token::TILDE_TILDE_TILDE => {
 					const operator = this.yep(AST.UnaryOperator(UnaryOperatorKind::BitwiseNot, this.yes()))
 					const operand = this.reqPrefixedOperand(eMode, fMode)
 
@@ -5862,7 +5862,7 @@ export namespace Parser {
 
 			let default = null
 
-			if this.test(Token::TILDE_TILDE) {
+			if this.test(Token::TILDE) {
 				this.commit()
 
 				default = this.reqPrefixedOperand(ExpressionMode::Default, fMode)
@@ -6715,13 +6715,13 @@ export namespace Parser {
 		} // }}}
 		tryAssignementOperator(): Event ~ SyntaxError { // {{{
 			switch this.matchM(M.ASSIGNEMENT_OPERATOR) {
-				Token::AMPERSAND_EQUALS => {
+				Token::AMPERSAND_AMPERSAND_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseAnd, this.yes()))
 				}
 				Token::ASTERISK_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Multiplication, this.yes()))
 				}
-				Token::CARET_EQUALS => {
+				Token::CARET_CARET_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseXor, this.yes()))
 				}
 				Token::EQUALS => {
@@ -6739,7 +6739,7 @@ export namespace Parser {
 				Token::PERCENT_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Modulo, this.yes()))
 				}
-				Token::PIPE_EQUALS => {
+				Token::PIPE_PIPE_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseOr, this.yes()))
 				}
 				Token::PLUS_EQUALS => {
@@ -6870,12 +6870,15 @@ export namespace Parser {
 		tryBinaryOperator(): Event ~ SyntaxError { // {{{
 			switch this.matchM(M.BINARY_OPERATOR) {
 				Token::AMPERSAND => {
-					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseAnd, this.yes()))
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::JunctiveAnd, this.yes()))
 				}
 				Token::AMPERSAND_AMPERSAND => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::And, this.yes()))
 				}
-				Token::AMPERSAND_EQUALS => {
+				Token::AMPERSAND_AMPERSAND_AMPERSAND => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseAnd, this.yes()))
+				}
+				Token::AMPERSAND_AMPERSAND_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseAnd, this.yes()))
 				}
 				Token::ASTERISK => {
@@ -6885,12 +6888,15 @@ export namespace Parser {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Multiplication, this.yes()))
 				}
 				Token::CARET => {
-					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseXor, this.yes()))
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::JunctiveXor, this.yes()))
 				}
 				Token::CARET_CARET => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Xor, this.yes()))
 				}
-				Token::CARET_EQUALS => {
+				Token::CARET_CARET_CARET => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseXor, this.yes()))
+				}
+				Token::CARET_CARET_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseXor, this.yes()))
 				}
 				Token::EQUALS => {
@@ -6902,6 +6908,9 @@ export namespace Parser {
 				Token::EXCLAMATION_EQUALS => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Inequality, this.yes()))
 				}
+				Token::EXCLAMATION_TILDE => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Mismatch, this.yes()))
+				}
 				Token::EXCLAMATION_QUESTION_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::NonExistential, this.yes()))
 				}
@@ -6911,11 +6920,11 @@ export namespace Parser {
 				Token::LEFT_ANGLE_EQUALS => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::LessThanOrEqual, this.yes()))
 				}
-				Token::LEFT_ANGLE_LEFT_ANGLE => {
-					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseLeftShift, this.yes()))
-				}
 				Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseLeftShift, this.yes()))
+				}
+				Token::LEFT_ANGLE_LEFT_ANGLE_LEFT_ANGLE => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseLeftShift, this.yes()))
 				}
 				Token::MINUS => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Subtraction, this.yes()))
@@ -6933,13 +6942,16 @@ export namespace Parser {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Modulo, this.yes()))
 				}
 				Token::PIPE => {
-					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseOr, this.yes()))
-				}
-				Token::PIPE_EQUALS => {
-					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseOr, this.yes()))
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::JunctiveOr, this.yes()))
 				}
 				Token::PIPE_PIPE => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Or, this.yes()))
+				}
+				Token::PIPE_PIPE_EQUALS => {
+					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseOr, this.yes()))
+				}
+				Token::PIPE_PIPE_PIPE => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseOr, this.yes()))
 				}
 				Token::PLUS => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Addition, this.yes()))
@@ -6962,11 +6974,11 @@ export namespace Parser {
 				Token::RIGHT_ANGLE_EQUALS => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::GreaterThanOrEqual, this.yes()))
 				}
-				Token::RIGHT_ANGLE_RIGHT_ANGLE => {
-					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseRightShift, this.yes()))
-				}
 				Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::BitwiseRightShift, this.yes()))
+				}
+				Token::RIGHT_ANGLE_RIGHT_ANGLE_RIGHT_ANGLE => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::BitwiseRightShift, this.yes()))
 				}
 				Token::SLASH => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Division, this.yes()))
@@ -6979,6 +6991,9 @@ export namespace Parser {
 				}
 				Token::SLASH_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Division, this.yes()))
+				}
+				Token::TILDE_TILDE => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Match, this.yes()))
 				}
 				=> {
 					return NO

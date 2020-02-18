@@ -14,9 +14,14 @@ namespace AST {
 		[BinaryOperatorKind::GreaterThan]: true
 		[BinaryOperatorKind::GreaterThanOrEqual]: true
 		[BinaryOperatorKind::Imply]: false
+		[BinaryOperatorKind::JunctiveAnd]: false
+		[BinaryOperatorKind::JunctiveOr]: false
+		[BinaryOperatorKind::JunctiveXor]: false
 		[BinaryOperatorKind::Inequality]: true
 		[BinaryOperatorKind::LessThan]: true
 		[BinaryOperatorKind::LessThanOrEqual]: true
+		[BinaryOperatorKind::Match]: false
+		[BinaryOperatorKind::Mismatch]: false
 		[BinaryOperatorKind::Modulo]: false
 		[BinaryOperatorKind::Multiplication]: false
 		[BinaryOperatorKind::NullCoalescing]: false
@@ -40,6 +45,9 @@ namespace AST {
 		[BinaryOperatorKind::BitwiseXor]: true
 		[BinaryOperatorKind::Division]: true
 		[BinaryOperatorKind::Imply]: true
+		[BinaryOperatorKind::JunctiveAnd]: true
+		[BinaryOperatorKind::JunctiveOr]: true
+		[BinaryOperatorKind::JunctiveXor]: true
 		[BinaryOperatorKind::Modulo]: true
 		[BinaryOperatorKind::Multiplication]: true
 		[BinaryOperatorKind::NullCoalescing]: true
@@ -67,8 +75,13 @@ namespace AST {
 		[BinaryOperatorKind::GreaterThanOrEqual]: 8
 		[BinaryOperatorKind::Imply]: 5
 		[BinaryOperatorKind::Inequality]: 8
+		[BinaryOperatorKind::JunctiveAnd]: 11
+		[BinaryOperatorKind::JunctiveOr]: 9
+		[BinaryOperatorKind::JunctiveXor]: 10
 		[BinaryOperatorKind::LessThan]: 8
 		[BinaryOperatorKind::LessThanOrEqual]: 8
+		[BinaryOperatorKind::Match]: 8
+		[BinaryOperatorKind::Mismatch]: 8
 		[BinaryOperatorKind::Modulo]: 14
 		[BinaryOperatorKind::Multiplication]: 14
 		[BinaryOperatorKind::NullCoalescing]: 15

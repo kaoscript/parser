@@ -3,7 +3,8 @@ enum Token {
 	ABSTRACT
 	AMPERSAND
 	AMPERSAND_AMPERSAND
-	AMPERSAND_EQUALS
+	AMPERSAND_AMPERSAND_AMPERSAND
+	AMPERSAND_AMPERSAND_EQUALS
 	AS
 	AS_EXCLAMATION
 	AS_QUESTION
@@ -23,9 +24,10 @@ enum Token {
 	CARET
 	CARET_AT_LEFT_ROUND
 	CARET_CARET
+	CARET_CARET_CARET
+	CARET_CARET_EQUALS
 	CARET_CARET_LEFT_ROUND
 	CARET_DOLLAR_LEFT_ROUND
-	CARET_EQUALS
 	CATCH
 	CLASS
 	CLASS_VERSION
@@ -57,6 +59,7 @@ enum Token {
 	EXCLAMATION_LEFT_ROUND
 	EXCLAMATION_QUESTION
 	EXCLAMATION_QUESTION_EQUALS
+	EXCLAMATION_TILDE
 	EXPORT
 	EXTENDS
 	EXTERN
@@ -87,8 +90,8 @@ enum Token {
 	LATEINIT
 	LEFT_ANGLE
 	LEFT_ANGLE_EQUALS
-	LEFT_ANGLE_LEFT_ANGLE
 	LEFT_ANGLE_LEFT_ANGLE_EQUALS
+	LEFT_ANGLE_LEFT_ANGLE_LEFT_ANGLE
 	LEFT_CURLY
 	LEFT_ROUND
 	LEFT_SQUARE
@@ -110,8 +113,9 @@ enum Token {
 	PERCENT
 	PERCENT_EQUALS
 	PIPE
-	PIPE_EQUALS
 	PIPE_PIPE
+	PIPE_PIPE_EQUALS
+	PIPE_PIPE_PIPE
 	PLUS
 	PLUS_EQUALS
 	PLUS_PLUS
@@ -133,8 +137,8 @@ enum Token {
 	RETURN
 	RIGHT_ANGLE
 	RIGHT_ANGLE_EQUALS
-	RIGHT_ANGLE_RIGHT_ANGLE
 	RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
+	RIGHT_ANGLE_RIGHT_ANGLE_RIGHT_ANGLE
 	RIGHT_CURLY
 	RIGHT_ROUND
 	RIGHT_SQUARE
@@ -157,6 +161,7 @@ enum Token {
 	TIL
 	TILDE
 	TILDE_TILDE
+	TILDE_TILDE_TILDE
 	TO
 	TRY
 	TUPLE
@@ -207,10 +212,10 @@ namespace M {
 				}
 			}
 			else if c == 38 { // &
-				if that.charAt(1) == 61 {
-					that.next(2)
+				if that.charAt(1) == 38 && that.charAt(2) == 61 {
+					that.next(3)
 
-					return Token::AMPERSAND_EQUALS
+					return Token::AMPERSAND_AMPERSAND_EQUALS
 				}
 			}
 			else if c == 42 { // *
@@ -251,12 +256,10 @@ namespace M {
 				}
 			}
 			else if c == 60 { // <
-				if that.charAt(1) == 60 {
-					if that.charAt(2) == 61 {
-						that.next(3)
+				if that.charAt(1) == 60 && that.charAt(2) == 61 {
+					that.next(3)
 
-						return Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS
-					}
+					return Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS
 				}
 			}
 			else if c == 61 { // =
@@ -269,12 +272,10 @@ namespace M {
 				}
 			}
 			else if c == 62 { // >
-				if that.charAt(1) == 62 {
-					if that.charAt(2) == 61 {
-						that.next(3)
+				if that.charAt(1) == 62 && that.charAt(2) == 61 {
+					that.next(3)
 
-						return Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
-					}
+					return Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
 				}
 			}
 			else if c == 63 { // ?
@@ -291,6 +292,20 @@ namespace M {
 
 						return Token::QUESTION_QUESTION_EQUALS
 					}
+				}
+			}
+			else if c == 94 { // ^
+				if that.charAt(1) == 94 && that.charAt(2) == 61 {
+					that.next(3)
+
+					return Token::CARET_CARET_EQUALS
+				}
+			}
+			else if c == 124 { // |
+				if that.charAt(1) == 124 && that.charAt(2) == 61 {
+					that.next(3)
+
+					return Token::PIPE_PIPE_EQUALS
 				}
 			}
 
@@ -316,6 +331,11 @@ namespace M {
 
 					return Token::EXCLAMATION_QUESTION_EQUALS
 				}
+				else if c == 126 {
+					that.next(2)
+
+					return Token::EXCLAMATION_TILDE
+				}
 			}
 			else if c == 37 { // %
 				if that.charAt(1) == 61 {
@@ -333,14 +353,21 @@ namespace M {
 				c = that.charAt(1)
 
 				if c == 38 {
-					that.next(2)
+					if that.charAt(2) == 38 {
+						that.next(3)
 
-					return Token::AMPERSAND_AMPERSAND
-				}
-				else if c == 61 {
-					that.next(2)
+						return Token::AMPERSAND_AMPERSAND_AMPERSAND
+					}
+					else if that.charAt(2) == 61 {
+						that.next(3)
 
-					return Token::AMPERSAND_EQUALS
+						return Token::AMPERSAND_AMPERSAND_EQUALS
+					}
+					else {
+						that.next(2)
+
+						return Token::AMPERSAND_AMPERSAND
+					}
 				}
 				else {
 					that.next(1)
@@ -423,15 +450,15 @@ namespace M {
 				c = that.charAt(1)
 
 				if c == 60 {
-					if that.charAt(2) == 61 {
+					if that.charAt(2) == 60 {
+						that.next(3)
+
+						return Token::LEFT_ANGLE_LEFT_ANGLE_LEFT_ANGLE
+					}
+					else if that.charAt(2) == 61 {
 						that.next(3)
 
 						return Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS
-					}
-					else {
-						that.next(2)
-
-						return Token::LEFT_ANGLE_LEFT_ANGLE
 					}
 				}
 				else if c == 61 {
@@ -473,10 +500,10 @@ namespace M {
 
 						return Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
 					}
-					else {
-						that.next(2)
+					else if that.charAt(2) == 62 {
+						that.next(3)
 
-						return Token::RIGHT_ANGLE_RIGHT_ANGLE
+						return Token::RIGHT_ANGLE_RIGHT_ANGLE_RIGHT_ANGLE
 					}
 				}
 				else {
@@ -509,15 +536,22 @@ namespace M {
 			else if c == 94 { // ^
 				c = that.charAt(1)
 
-				if c == 61 {
-					that.next(2)
+				if c == 94 {
+					if that.charAt(2) == 61 {
+						that.next(3)
 
-					return Token::CARET_EQUALS
-				}
-				else if c == 94 {
-					that.next(2)
+						return Token::CARET_CARET_EQUALS
+					}
+					else if that.charAt(2) == 94 {
+						that.next(3)
 
-					return Token::CARET_CARET
+						return Token::CARET_CARET_CARET
+					}
+					else {
+						that.next(2)
+
+						return Token::CARET_CARET
+					}
 				}
 				else {
 					that.next(1)
@@ -528,20 +562,34 @@ namespace M {
 			else if c == 124 { // |
 				c = that.charAt(1)
 
-				if c == 61 {
-					that.next(2)
+				if c == 124 {
+					if that.charAt(2) == 61 {
+						that.next(3)
 
-					return Token::PIPE_EQUALS
-				}
-				else if c == 124 {
-					that.next(2)
+						return Token::PIPE_PIPE_EQUALS
+					}
+					else if that.charAt(2) == 124 {
+						that.next(3)
 
-					return Token::PIPE_PIPE
+						return Token::PIPE_PIPE_PIPE
+					}
+					else {
+						that.next(2)
+
+						return Token::PIPE_PIPE
+					}
 				}
 				else {
 					that.next(1)
 
 					return Token::PIPE
+				}
+			}
+			else if c == 126 { // ~
+				if that.charAt(1) == 126 {
+					that.next(2)
+
+					return Token::TILDE_TILDE
 				}
 			}
 
@@ -1360,10 +1408,10 @@ namespace M {
 				}
 			}
 			else if c == 126 { // ~
-				if !((c = that.charAt(1)) == 9 || c == 32) {
-					that.next(1)
+				if that.charAt(1) == 126 && that.charAt(2) == 126 && !((c = that.charAt(3)) == 9 || c == 32) {
+					that.next(3)
 
-					return Token::TILDE
+					return Token::TILDE_TILDE_TILDE
 				}
 			}
 
