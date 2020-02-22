@@ -33,9 +33,9 @@ export namespace Parser {
 		THIS_ALIAS
 		TYPE
 
-		Declaration			= COMPUTED | DEFAULT | RECURSION | TYPE
-		Expression			= COMPUTED | DEFAULT | RECURSION
-		Parameter			= DEFAULT | RECURSION | TYPE
+		Declaration			= COMPUTED + DEFAULT + RECURSION + TYPE
+		Expression			= COMPUTED + DEFAULT + RECURSION
+		Parameter			= DEFAULT + RECURSION + TYPE
 	}
 
 	#[flags]
@@ -63,10 +63,10 @@ export namespace Parser {
 		RIGHT_ROUND
 		RIGHT_SQUARE
 
-		Array				= COMMA | NEWLINE | RIGHT_SQUARE
-		List				= COMMA | NEWLINE | RIGHT_ROUND
-		Object				= COMMA | NEWLINE | RIGHT_CURLY
-		Parenthesis			= NEWLINE | RIGHT_ROUND
+		Array				= COMMA + NEWLINE + RIGHT_SQUARE
+		List				= COMMA + NEWLINE + RIGHT_ROUND
+		Object				= COMMA + NEWLINE + RIGHT_CURLY
+		Parenthesis			= NEWLINE + RIGHT_ROUND
 	}
 
 	#[flags]
@@ -1300,7 +1300,7 @@ export namespace Parser {
 			}
 
 			const parameters = []
-			const pMode = DestructuringMode::Parameter | DestructuringMode::THIS_ALIAS
+			const pMode = DestructuringMode::Parameter ||| DestructuringMode::THIS_ALIAS
 
 			while this.until(Token::RIGHT_ROUND) {
 				while this.reqParameter(parameters, pMode, FunctionMode::Method) {
@@ -1640,7 +1640,7 @@ export namespace Parser {
 			if this.test(Token::DOT_DOT_DOT) {
 				modifiers.push(AST.Modifier(ModifierKind::Rest, first = this.yes()))
 
-				if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+				if dMode ~~ DestructuringMode::THIS_ALIAS && this.test(Token::AT) {
 					name = this.reqThisExpression(this.yes())
 					notThis = false
 				}
@@ -1648,13 +1648,13 @@ export namespace Parser {
 					name = this.yep(AST.Identifier(@scanner.value(), this.yes()))
 				}
 			}
-			else if dMode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_CURLY) {
+			else if dMode ~~ DestructuringMode::RECURSION && this.test(Token::LEFT_CURLY) {
 				name = this.reqDestructuringObject(this.yes(), dMode, fMode)
 			}
-			else if dMode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_SQUARE) {
+			else if dMode ~~ DestructuringMode::RECURSION && this.test(Token::LEFT_SQUARE) {
 				name = this.reqDestructuringArray(this.yes(), dMode, fMode)
 			}
-			else if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+			else if dMode ~~ DestructuringMode::THIS_ALIAS && this.test(Token::AT) {
 				name = this.reqThisExpression(this.yes())
 				notThis = false
 			}
@@ -1665,7 +1665,7 @@ export namespace Parser {
 				first = this.yes()
 			}
 			else {
-				if dMode & DestructuringMode::RECURSION != 0 {
+				if dMode ~~ DestructuringMode::RECURSION {
 					this.throw(['...', '_', '[', '{', 'Identifier'])
 				}
 				else {
@@ -1673,7 +1673,7 @@ export namespace Parser {
 				}
 			}
 
-			if notThis && dMode & DestructuringMode::TYPE != 0 && this.test(Token::COLON) {
+			if notThis && dMode ~~ DestructuringMode::TYPE && this.test(Token::COLON) {
 				this.commit()
 
 				type = this.reqTypeVar()
@@ -1682,7 +1682,7 @@ export namespace Parser {
 			if name != null {
 				let defaultValue = null
 
-				if dMode & DestructuringMode::DEFAULT != 0 && this.test(Token::EQUALS) {
+				if dMode ~~ DestructuringMode::DEFAULT && this.test(Token::EQUALS) {
 					this.commit()
 
 					defaultValue = this.reqExpression(ExpressionMode::Default, fMode)
@@ -1731,7 +1731,7 @@ export namespace Parser {
 			if this.test(Token::DOT_DOT_DOT) {
 				modifiers.push(AST.Modifier(ModifierKind::Rest, first = this.yes()))
 
-				if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+				if dMode ~~ DestructuringMode::THIS_ALIAS && this.test(Token::AT) {
 					name = this.reqThisExpression(this.yes())
 					notThis = false
 				}
@@ -1740,10 +1740,10 @@ export namespace Parser {
 				}
 			}
 			else {
-				if dMode & DestructuringMode::COMPUTED != 0 && this.test(Token::LEFT_SQUARE) {
+				if dMode ~~ DestructuringMode::COMPUTED && this.test(Token::LEFT_SQUARE) {
 					first = this.yes()
 
-					if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+					if dMode ~~ DestructuringMode::THIS_ALIAS && this.test(Token::AT) {
 						name = this.reqThisExpression(this.yes())
 						notThis = false
 					}
@@ -1758,7 +1758,7 @@ export namespace Parser {
 					modifiers.push(AST.Modifier(ModifierKind::Computed, first, this.yes()))
 				}
 				else {
-					if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+					if dMode ~~ DestructuringMode::THIS_ALIAS && this.test(Token::AT) {
 						name = this.reqThisExpression(this.yes())
 						notThis = false
 					}
@@ -1770,13 +1770,13 @@ export namespace Parser {
 				if notThis && this.test(Token::COLON) {
 					this.commit()
 
-					if dMode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_CURLY) {
+					if dMode ~~ DestructuringMode::RECURSION && this.test(Token::LEFT_CURLY) {
 						alias = this.reqDestructuringObject(this.yes(), dMode, fMode)
 					}
-					else if dMode & DestructuringMode::RECURSION != 0 && this.test(Token::LEFT_SQUARE) {
+					else if dMode ~~ DestructuringMode::RECURSION && this.test(Token::LEFT_SQUARE) {
 						alias = this.reqDestructuringArray(this.yes(), dMode, fMode)
 					}
-					else if dMode & DestructuringMode::THIS_ALIAS != 0 && this.test(Token::AT) {
+					else if dMode ~~ DestructuringMode::THIS_ALIAS && this.test(Token::AT) {
 						alias = this.reqThisExpression(this.yes())
 					}
 					else {
@@ -1785,7 +1785,7 @@ export namespace Parser {
 				}
 			}
 
-			if dMode & DestructuringMode::DEFAULT != 0 && this.test(Token::EQUALS) {
+			if dMode ~~ DestructuringMode::DEFAULT && this.test(Token::EQUALS) {
 				this.commit()
 
 				defaultValue = this.reqExpression(ExpressionMode::Default, fMode)
@@ -1976,7 +1976,7 @@ export namespace Parser {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqLetStatement(this.yes(), ExpressionMode::NoAwait, FunctionMode::Function)))
 				}
 				Token::MACRO => {
-					if @mode & ParserMode::MacroExpression == 0 {
+					if @mode !~ ParserMode::MacroExpression {
 						return this.yep(AST.ExportDeclarationSpecifier(this.tryMacroStatement(this.yes())))
 					}
 					else {
@@ -2224,7 +2224,7 @@ export namespace Parser {
 		} // }}}
 		reqExpression(eMode: ExpressionMode?, fMode: FunctionMode, terminator: MacroTerminator = null): Event ~ SyntaxError { // {{{
 			if eMode == null {
-				if @mode & ParserMode::MacroExpression != 0 &&
+				if @mode ~~ ParserMode::MacroExpression &&
 					@scanner.test(Token::IDENTIFIER) &&
 					@scanner.value() == 'macro'
 				{
@@ -4056,7 +4056,7 @@ export namespace Parser {
 			while true {
 				switch this.matchM(M.MACRO) {
 					Token::EOF => {
-						if history.length == 0 && terminator & MacroTerminator::NEWLINE == 0 {
+						if history.length == 0 && terminator !~ MacroTerminator::NEWLINE {
 							this.throw()
 						}
 
@@ -4155,7 +4155,7 @@ export namespace Parser {
 						history.unshift(Token::RIGHT_ROUND)
 					}
 					Token::NEWLINE => {
-						if history.length == 0 && terminator & MacroTerminator::NEWLINE != 0 {
+						if history.length == 0 && terminator ~~ MacroTerminator::NEWLINE {
 							break
 						}
 						else {
@@ -4168,7 +4168,7 @@ export namespace Parser {
 					}
 					Token::RIGHT_CURLY => {
 						if history.length == 0 {
-							if terminator & MacroTerminator::RIGHT_CURLY == 0 {
+							if terminator !~ MacroTerminator::RIGHT_CURLY {
 								addToLiteral()
 							}
 							else {
@@ -4185,7 +4185,7 @@ export namespace Parser {
 					}
 					Token::RIGHT_ROUND => {
 						if history.length == 0 {
-							if terminator & MacroTerminator::RIGHT_ROUND == 0 {
+							if terminator !~ MacroTerminator::RIGHT_ROUND {
 								addToLiteral()
 							}
 							else {
@@ -4264,11 +4264,11 @@ export namespace Parser {
 		} // }}}
 		reqMacroBody(): Event ~ SyntaxError { // {{{
 			if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) == Token::LEFT_CURLY {
-				@mode |= ParserMode::MacroExpression
+				@mode ||= ParserMode::MacroExpression
 
 				const body = this.reqBlock(this.yes(), FunctionMode::Function)
 
-				@mode ^= ParserMode::MacroExpression
+				@mode ^^= ParserMode::MacroExpression
 
 				return body
 			}
@@ -4756,7 +4756,7 @@ export namespace Parser {
 
 					parameters.push(this.reqParameterIdendifier(modifiers, first, fMode))
 				}
-				else if fMode == FunctionMode::Method && pMode & DestructuringMode::THIS_ALIAS != 0 {
+				else if fMode == FunctionMode::Method && pMode ~~ DestructuringMode::THIS_ALIAS {
 					parameters.push(this.reqParameterThis(modifiers, this.yes(), fMode))
 				}
 				else {
@@ -5340,7 +5340,7 @@ export namespace Parser {
 					statement = this.reqLetStatement(this.yes(), ExpressionMode::Default, fMode)
 				}
 				Token::MACRO => {
-					if @mode & ParserMode::MacroExpression == 0 {
+					if @mode !~ ParserMode::MacroExpression {
 						statement = this.tryMacroStatement(this.yes())
 					}
 					else {
@@ -7519,7 +7519,7 @@ export namespace Parser {
 			lateinit const dMode: DestructuringMode
 
 			if fMode == FunctionMode::Method {
-				dMode = DestructuringMode::Expression | DestructuringMode::THIS_ALIAS
+				dMode = DestructuringMode::Expression ||| DestructuringMode::THIS_ALIAS
 			}
 			else {
 				dMode = DestructuringMode::Expression
@@ -7536,7 +7536,7 @@ export namespace Parser {
 			lateinit const dMode: DestructuringMode
 
 			if fMode == FunctionMode::Method {
-				dMode = DestructuringMode::Expression | DestructuringMode::THIS_ALIAS
+				dMode = DestructuringMode::Expression ||| DestructuringMode::THIS_ALIAS
 			}
 			else {
 				dMode = DestructuringMode::Expression
@@ -7580,7 +7580,7 @@ export namespace Parser {
 			}
 		} // }}}
 		tryFunctionExpression(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { // {{{
-			if eMode & ExpressionMode::NoAnonymousFunction != 0 {
+			if eMode ~~ ExpressionMode::NoAnonymousFunction {
 				return NO
 			}
 
@@ -7642,7 +7642,7 @@ export namespace Parser {
 					return this.yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body))
 				}
 				else {
-					const body = this.reqExpression(eMode | ExpressionMode::NoObject, fMode)
+					const body = this.reqExpression(eMode ||| ExpressionMode::NoObject, fMode)
 
 					return this.yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body))
 				}
@@ -7664,7 +7664,7 @@ export namespace Parser {
 					return this.yep(AST.LambdaExpression(parameters, null, null, null, body, parameters, body))
 				}
 				else {
-					const body = this.reqExpression(eMode | ExpressionMode::NoObject, fMode)
+					const body = this.reqExpression(eMode ||| ExpressionMode::NoObject, fMode)
 
 					return this.yep(AST.LambdaExpression(parameters, null, null, null, body, parameters, body))
 				}
