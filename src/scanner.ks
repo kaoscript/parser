@@ -369,11 +369,6 @@ namespace M {
 						return Token::AMPERSAND_AMPERSAND
 					}
 				}
-				else {
-					that.next(1)
-
-					return Token::AMPERSAND
-				}
 			}
 			else if c == 42 { // *
 				if that.charAt(1) == 61 {
@@ -553,11 +548,6 @@ namespace M {
 						return Token::CARET_CARET
 					}
 				}
-				else {
-					that.next(1)
-
-					return Token::CARET
-				}
 			}
 			else if c == 124 { // |
 				c = that.charAt(1)
@@ -578,11 +568,6 @@ namespace M {
 
 						return Token::PIPE_PIPE
 					}
-				}
-				else {
-					that.next(1)
-
-					return Token::PIPE
 				}
 			}
 			else if c == 126 { // ~
@@ -828,6 +813,37 @@ namespace M {
 				that.scanIdentifier(false)
 
 				return Token::IDENTIFIER
+			}
+
+			return Token::INVALID
+		} // }}}
+
+		func JUNCTION_OPERATOR(that: Scanner, index: Number): Token { // {{{
+			let c = that.skip(index)
+
+			if c == -1 {
+				return Token::EOF
+			}
+			else if c == 38 { // &
+				if that.charAt(1) != 38 {
+					that.next(1)
+
+					return Token::AMPERSAND
+				}
+			}
+			else if c == 94 { // ^
+				if that.charAt(1) != 94 {
+					that.next(1)
+
+					return Token::CARET
+				}
+			}
+			else if c == 124 { // |
+				if that.charAt(1) != 124 {
+					that.next(1)
+
+					return Token::PIPE
+				}
 			}
 
 			return Token::INVALID

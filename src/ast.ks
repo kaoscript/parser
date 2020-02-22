@@ -14,9 +14,6 @@ namespace AST {
 		[BinaryOperatorKind::GreaterThan]: true
 		[BinaryOperatorKind::GreaterThanOrEqual]: true
 		[BinaryOperatorKind::Imply]: false
-		[BinaryOperatorKind::JunctiveAnd]: false
-		[BinaryOperatorKind::JunctiveOr]: false
-		[BinaryOperatorKind::JunctiveXor]: false
 		[BinaryOperatorKind::Inequality]: true
 		[BinaryOperatorKind::LessThan]: true
 		[BinaryOperatorKind::LessThanOrEqual]: true
@@ -45,9 +42,6 @@ namespace AST {
 		[BinaryOperatorKind::BitwiseXor]: true
 		[BinaryOperatorKind::Division]: true
 		[BinaryOperatorKind::Imply]: true
-		[BinaryOperatorKind::JunctiveAnd]: true
-		[BinaryOperatorKind::JunctiveOr]: true
-		[BinaryOperatorKind::JunctiveXor]: true
 		[BinaryOperatorKind::Modulo]: true
 		[BinaryOperatorKind::Multiplication]: true
 		[BinaryOperatorKind::NullCoalescing]: true
@@ -75,9 +69,6 @@ namespace AST {
 		[BinaryOperatorKind::GreaterThanOrEqual]: 8
 		[BinaryOperatorKind::Imply]: 5
 		[BinaryOperatorKind::Inequality]: 8
-		[BinaryOperatorKind::JunctiveAnd]: 11
-		[BinaryOperatorKind::JunctiveOr]: 9
-		[BinaryOperatorKind::JunctiveXor]: 10
 		[BinaryOperatorKind::LessThan]: 8
 		[BinaryOperatorKind::LessThanOrEqual]: 8
 		[BinaryOperatorKind::Match]: 8
@@ -1114,6 +1105,14 @@ namespace AST {
 				attributes: []
 				file: file.value
 			}, file, file)
+		} // }}}
+
+		func JunctionExpression(operator, operands) { // {{{
+			return location({
+				kind: NodeKind::JunctionExpression
+				operator: operator.value
+				operands
+			}, operands[0], operands[operands.length - 1])
 		} // }}}
 
 		func LambdaExpression(parameters, modifiers?, type?, throws?, body, first, last) { // {{{

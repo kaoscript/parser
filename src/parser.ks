@@ -4638,6 +4638,9 @@ export namespace Parser {
 
 					values.push(this.reqExpression(ExpressionMode::Default, fMode).value)
 				}
+				else if (operator = this.tryJunctionOperator()).ok {
+					values.push(this.reqJunctionExpression(operator, eMode, fMode, values))
+				}
 				else {
 					this.rollback(mark)
 
@@ -4652,6 +4655,31 @@ export namespace Parser {
 				return this.yep(AST.reorderExpression(values))
 			}
 		} // }}}
+		reqJunctionExpression(operator, eMode, fMode, values) ~ SyntaxError {
+			this.NL_0M()
+
+			const operands = [values.pop(), this.reqBinaryOperand(eMode, fMode).value]
+
+			const kind = operator.value.kind
+
+			while true {
+				const mark = this.mark()
+				const operator = this.tryJunctionOperator()
+
+				if operator.ok && operator.value.kind == kind {
+					this.NL_0M()
+
+					operands.push(this.reqBinaryOperand(eMode, fMode).value)
+				}
+				else {
+					this.rollback(mark)
+
+					break
+				}
+			}
+
+			return AST.JunctionExpression(operator, operands)
+		}
 		reqParameter(parameters: Array<Event>, pMode: DestructuringMode, fMode: FunctionMode): Boolean ~ SyntaxError { // {{{
 			const modifiers = []
 
@@ -6869,9 +6897,9 @@ export namespace Parser {
 		} // }}}
 		tryBinaryOperator(): Event ~ SyntaxError { // {{{
 			switch this.matchM(M.BINARY_OPERATOR) {
-				Token::AMPERSAND => {
+				/* Token::AMPERSAND => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::JunctiveAnd, this.yes()))
-				}
+				} */
 				Token::AMPERSAND_AMPERSAND => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::And, this.yes()))
 				}
@@ -6887,9 +6915,9 @@ export namespace Parser {
 				Token::ASTERISK_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Multiplication, this.yes()))
 				}
-				Token::CARET => {
+				/* Token::CARET => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::JunctiveXor, this.yes()))
-				}
+				} */
 				Token::CARET_CARET => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Xor, this.yes()))
 				}
@@ -6941,9 +6969,9 @@ export namespace Parser {
 				Token::PERCENT_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Modulo, this.yes()))
 				}
-				Token::PIPE => {
+				/* Token::PIPE => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::JunctiveOr, this.yes()))
-				}
+				} */
 				Token::PIPE_PIPE => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Or, this.yes()))
 				}
@@ -7765,6 +7793,22 @@ export namespace Parser {
 			}
 			else {
 				return NO
+			}
+		} // }}}
+		tryJunctionOperator(): Event ~ SyntaxError { // {{{
+			switch this.matchM(M.JUNCTION_OPERATOR) {
+				Token::AMPERSAND => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::And, this.yes()))
+				}
+				Token::CARET => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Xor, this.yes()))
+				}
+				Token::PIPE => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Or, this.yes()))
+				}
+				=> {
+					return NO
+				}
 			}
 		} // }}}
 		tryMacroStatement(first: Event): Event ~ SyntaxError { // {{{

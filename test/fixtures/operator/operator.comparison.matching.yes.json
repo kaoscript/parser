@@ -1,5 +1,5 @@
 {
-  "kind": 74,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
@@ -8,7 +8,7 @@
       "condition": {
         "kind": 10,
         "operator": {
-          "kind": 20,
+          "kind": 17,
           "modifiers": [],
           "start": {
             "line": 1,
@@ -40,30 +40,22 @@
           }
         },
         "right": {
-          "kind": 84,
+          "kind": 67,
           "operator": {
-            "kind": 16,
+            "kind": 22,
             "modifiers": [],
             "start": {
               "line": 1,
-              "column": 31
+              "column": 21
             },
             "end": {
               "line": 1,
-              "column": 32
+              "column": 22
             }
-          },
-          "start": {
-            "line": 1,
-            "column": 13
-          },
-          "end": {
-            "line": 1,
-            "column": 48
           },
           "operands": [
             {
-              "kind": 68,
+              "kind": 69,
               "value": "white",
               "start": {
                 "line": 1,
@@ -75,7 +67,7 @@
               }
             },
             {
-              "kind": 68,
+              "kind": 69,
               "value": "black",
               "start": {
                 "line": 1,
@@ -87,7 +79,7 @@
               }
             },
             {
-              "kind": 68,
+              "kind": 69,
               "value": "gray",
               "start": {
                 "line": 1,
@@ -99,7 +91,7 @@
               }
             },
             {
-              "kind": 68,
+              "kind": 69,
               "value": "grey",
               "start": {
                 "line": 1,
@@ -110,7 +102,15 @@
                 "column": 48
               }
             }
-          ]
+          ],
+          "start": {
+            "line": 1,
+            "column": 13
+          },
+          "end": {
+            "line": 1,
+            "column": 48
+          }
         }
       },
       "whenTrue": {
