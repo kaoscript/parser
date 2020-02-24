@@ -68,6 +68,7 @@ enum Token {
 	FALLTHROUGH
 	FINAL
 	FINALLY
+	FLAGGED
 	FOR
 	FROM
 	FUNC
@@ -170,7 +171,6 @@ enum Token {
 	UNLESS
 	UNTIL
 	WHEN
-	WHERE
 	WHILE
 	WITH
 }
@@ -630,12 +630,15 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// final, func
+			// final, flagged, func
 			else if c == 102 {
 				const identifier = that.scanIdentifier(true)
 
 				if identifier == 'inal' {
 					return Token::FINAL
+				}
+				else if identifier == 'lagged' {
+					return Token::FLAGGED
 				}
 				else if identifier == 'unc' {
 					return Token::FUNC
@@ -746,16 +749,6 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// enum
-			else if c == 101
-			{
-				if that.scanIdentifier(true) == 'num' {
-					return Token::ENUM
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
 			// func
 			else if c == 102 {
 				if that.scanIdentifier(true) == 'unc' {
@@ -783,27 +776,15 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// sealed, struct, systemic
+			// sealed, systemic
 			else if c == 115 {
 				const identifier = that.scanIdentifier(true)
 
 				if identifier == 'ealed' {
 					return Token::SEALED
 				}
-				else if identifier == 'truct' {
-					return Token::STRUCT
-				}
 				else if identifier == 'ystemic' {
 					return Token::SYSTEMIC
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// tuple
-			else if c == 116 {
-				if that.scanIdentifier(true) == 'uple' {
-					return Token::TUPLE
 				}
 				else {
 					return Token::IDENTIFIER
@@ -1434,6 +1415,57 @@ namespace M {
 			return Token::INVALID
 		} // }}}
 
+		func REQUIRE_STATEMENT(that: Scanner, index: Number): Token { // {{{
+			let c = that.skip(index)
+
+			if c == -1 {
+				return Token::EOF
+			}
+			// enum
+			else if c == 101 {
+				if that.scanIdentifier(true) == 'num' {
+					return Token::ENUM
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// flagged
+			else if c == 102 {
+				if that.scanIdentifier(true) == 'lagged' {
+					return Token::FLAGGED
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// struct
+			else if c == 115 {
+				if that.scanIdentifier(true) == 'truct' {
+					return Token::STRUCT
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// tuple
+			else if c == 116 {
+				if that.scanIdentifier(true) == 'uple' {
+					return Token::TUPLE
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			else if c == 36 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
+				that.scanIdentifier(false)
+
+				return Token::IDENTIFIER
+			}
+
+			return Token::INVALID
+		} // }}}
+
 		func STATEMENT(that: Scanner, index: Number): Token { // {{{
 			let c = that.skip(index)
 
@@ -1562,20 +1594,10 @@ namespace M {
 					return Token::ENUM
 				}
 			}
-			// fallthrough, final, for, func
+			// fallthrough, final, flagged, for, func
 			else if c == 102
 			{
-				if that.charAt(1) == 105 &&
-					that.charAt(2) == 110 &&
-					that.charAt(3) == 97 &&
-					that.charAt(4) == 108 &&
-					that.isBoundary(5)
-				{
-					that.next(5)
-
-					return Token::FINAL
-				}
-				else if that.charAt(1) == 111 &&
+				if	that.charAt(1) == 111 &&
 					that.charAt(2) == 114 &&
 					that.isBoundary(3)
 				{
@@ -1591,6 +1613,28 @@ namespace M {
 					that.next(4)
 
 					return Token::FUNC
+				}
+				else if that.charAt(1) == 105 &&
+					that.charAt(2) == 110 &&
+					that.charAt(3) == 97 &&
+					that.charAt(4) == 108 &&
+					that.isBoundary(5)
+				{
+					that.next(5)
+
+					return Token::FINAL
+				}
+				else if that.charAt(1) == 108 &&
+					that.charAt(2) == 97 &&
+					that.charAt(3) == 103 &&
+					that.charAt(4) == 103 &&
+					that.charAt(5) == 101 &&
+					that.charAt(6) == 100 &&
+					that.isBoundary(7)
+				{
+					that.next(7)
+
+					return Token::FLAGGED
 				}
 				else if that.charAt(1) == 97 &&
 					that.charAt(2) == 108 &&
@@ -2208,6 +2252,19 @@ const recognize = {
 			that.isBoundary(7)
 		{
 			return that.next(7)
+		}
+		else {
+			return false
+		}
+	} // }}}
+	`\(Token::ENUM)`(that: Scanner, c: Number): Boolean { // {{{
+		if	c == 101 &&
+			that.charAt(1) == 110 &&
+			that.charAt(2) == 117 &&
+			that.charAt(3) == 109 &&
+			that.isBoundary(4)
+		{
+			return that.next(4)
 		}
 		else {
 			return false
@@ -2883,20 +2940,6 @@ const recognize = {
 			that.isBoundary(4)
 		{
 			return that.next(4)
-		}
-		else {
-			return false
-		}
-	} // }}}
-	`\(Token::WHERE)`(that: Scanner, c: Number): Boolean { // {{{
-		if	c == 119 &&
-			that.charAt(1) == 104 &&
-			that.charAt(2) == 101 &&
-			that.charAt(3) == 114 &&
-			that.charAt(4) == 101 &&
-			that.isBoundary(5)
-		{
-			return that.next(5)
 		}
 		else {
 			return false

@@ -23,6 +23,11 @@ export namespace Parser {
 		'./scanner'
 	}
 
+	struct AmbiguityResult {
+		token: Token?	= null
+		identifier		= null
+	}
+
 	#[flags]
 	enum DestructuringMode {
 		Nil
@@ -45,6 +50,13 @@ export namespace Parser {
 		NoAwait
 		NoObject
 		WithMacro
+	}
+
+	#[flags]
+	enum ExternMode {
+		Default
+		Fallthrough
+		Namespace
 	}
 
 	enum FunctionMode {
@@ -73,6 +85,7 @@ export namespace Parser {
 	enum ParserMode {
 		Default
 		MacroExpression
+		Typing
 	}
 
 	const NO = Event(ok: false)
@@ -445,7 +458,98 @@ export namespace Parser {
 
 			return this.yep(AST.ForRangeStatement(modifiers, value, index, from, then, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? then ?? from:Any))
 		} // }}}
-		reqAccessModifiers(modifiers: Array<Event>): Array ~ SyntaxError { // {{{
+		isAmbiguousIdentifier(result: AmbiguityResult): Boolean ~ SyntaxError { // {{{
+			if this.test(Token::IDENTIFIER) {
+				result.token = null
+				result.identifier = this.yep(AST.Identifier(@scanner.value(), this.yes()))
+
+				return true
+			}
+			else {
+				return false
+			}
+		} // }}}
+		isAmbiguousAccessModifierForEnum(modifiers: Array<Event>, result: AmbiguityResult): Boolean ~ SyntaxError { // {{{
+			lateinit const identifier
+			lateinit const token
+
+			if this.test(Token::PRIVATE, Token::PUBLIC, Token::INTERNAL) {
+				token = @token
+				identifier = AST.Identifier(@scanner.value(), this.yes())
+			}
+			else {
+				return false
+			}
+
+			if this.test(Token::EQUALS, Token::LEFT_ROUND) {
+				result.token = @token
+				result.identifier = this.yep(identifier)
+
+				return true
+			}
+			else {
+				if token == Token::PRIVATE {
+					modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, identifier)))
+				}
+				else if token == Token::PUBLIC {
+					modifiers.push(this.yep(AST.Modifier(ModifierKind::Public, identifier)))
+				}
+				else {
+					modifiers.push(this.yep(AST.Modifier(ModifierKind::Internal, identifier)))
+				}
+
+				result.token = null
+				result.identifier = this.yep(identifier)
+
+				return false
+			}
+		} // }}}
+		isAmbiguousAsyncModifier(modifiers: Array<Event>, result: AmbiguityResult): Boolean ~ SyntaxError { // {{{
+			unless this.test(Token::ASYNC) {
+				return false
+			}
+
+			const identifier = AST.Identifier(@scanner.value(), this.yes())
+
+			if this.test(Token::IDENTIFIER) {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Async, identifier)))
+
+				result.token = @token
+				result.identifier = this.yep(AST.Identifier(@scanner.value(), this.yes()))
+			}
+			else {
+				result.token = null
+				result.identifier = this.yep(identifier)
+			}
+
+			return true
+		} // }}}
+		isAmbiguousStaticModifier(modifiers: Array<Event>, result: AmbiguityResult): Boolean ~ SyntaxError { // {{{
+			lateinit const identifier
+
+			if this.test(Token::STATIC) {
+				identifier = AST.Identifier(@scanner.value(), this.yes())
+			}
+			else {
+				return false
+			}
+
+			if this.test(Token::EQUALS, Token::LEFT_ROUND) {
+				result.token = @token
+				result.identifier = this.yep(identifier)
+
+				return true
+			}
+			else {
+				modifiers.push(this.yep(AST.Modifier(ModifierKind::Static, identifier)))
+
+				result.token = null
+				result.identifier = this.yep(identifier)
+
+				return false
+			}
+		} // }}}
+		reqAccessModifiers(modifiers: Array<Event>): Array<Event> ~ SyntaxError { // {{{
 			if this.match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC, Token::INTERNAL) == Token::PRIVATE {
 				modifiers.push(this.yep(AST.Modifier(ModifierKind::Private, this.yes())))
 			}
@@ -1839,7 +1943,102 @@ export namespace Parser {
 				this.throw(['until', 'while'])
 			}
 		} // }}}
-		reqEnumStatement(first: Event): Event ~ SyntaxError { // {{{
+		reqEnumMember(members: Array): Void ~ SyntaxError { // {{{
+			const attributes = this.stackOuterAttributes([])
+			const modifiers = []
+			const result = AmbiguityResult()
+
+			if this.isAmbiguousAccessModifierForEnum(modifiers, result) {
+				this.submitEnumMember(attributes, modifiers, result.identifier, result.token, members)
+			}
+			else if this.isAmbiguousStaticModifier(modifiers, result) {
+				this.submitEnumMember(attributes, modifiers, result.identifier, result.token, members)
+			}
+			else if this.isAmbiguousAsyncModifier(modifiers, result) {
+				const {identifier, token} = result
+
+				const first = attributes[0] ?? modifiers[0] ?? identifier
+
+				if token == Token::IDENTIFIER {
+					members.push(this.reqEnumMethod(attributes, modifiers, identifier, first).value)
+				}
+				else {
+					this.submitEnumMember(attributes, modifiers, identifier, null, members)
+				}
+			}
+			else if this.isAmbiguousIdentifier(result) {
+				this.submitEnumMember(attributes, modifiers, result.identifier, null, members)
+			}
+			else {
+				const mark = this.mark()
+
+				this.NL_0M()
+
+				if this.test(Token::LEFT_CURLY) {
+					this.commit().NL_0M()
+
+					let attrs
+
+					while this.until(Token::RIGHT_CURLY) {
+						attrs = this.stackOuterAttributes([])
+
+						if attrs.length != 0 {
+							attrs.unshift(...attributes)
+						}
+						else {
+							attrs = attributes
+						}
+
+						members.push(this.reqEnumMethod(attrs, modifiers, attrs[0]).value)
+					}
+
+					unless this.test(Token::RIGHT_CURLY) {
+						this.throw('}')
+					}
+
+					this.commit().reqNL_1M()
+				}
+				else {
+					this.rollback(mark)
+
+					this.submitEnumMember(attributes, [], result.identifier, null, members)
+				}
+			}
+		} // }}}
+		reqEnumMethod(attributes, modifiers, first: Event?): Event ~ SyntaxError { // {{{
+			let name
+			if this.test(Token::ASYNC) {
+				let async = this.reqIdentifier()
+
+				name = this.tryIdentifier()
+
+				if name.ok {
+					modifiers = [...modifiers, this.yep(AST.Modifier(ModifierKind::Async, async))]
+				}
+				else {
+					name = async
+				}
+			}
+			else {
+				name = this.reqIdentifier()
+			}
+
+			return this.reqEnumMethod(attributes, modifiers, name, first ?? name)
+		} // }}}
+		reqEnumMethod(attributes, modifiers, name: Event, first): Event ~ SyntaxError { // {{{
+			const parameters = this.reqFunctionParameterList(FunctionMode::Function)
+
+			const type = this.tryFunctionReturns()
+			const throws = this.tryFunctionThrows()
+
+			const body = @mode ~~ ParserMode::Typing ? null : this.reqFunctionBody(FunctionMode::Method)
+
+			this.reqNL_1M()
+
+			return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
+
+		} // }}}
+		reqEnumStatement(first: Event, modifiers = []): Event ~ SyntaxError { // {{{
 			const name = this.reqIdentifier()
 
 			let type
@@ -1855,41 +2054,23 @@ export namespace Parser {
 				this.commit()
 			}
 
+			this.NL_0M()
+
 			unless this.test(Token::LEFT_CURLY) {
 				this.throw('{')
 			}
 
-			this.commit()
+			this.commit().NL_0M()
 
-			this.NL_0M()
-
+			const attributes = []
 			const members = []
 
-			let identifier
-			until this.test(Token::RIGHT_CURLY) {
-				identifier = this.reqIdentifier()
-
-				if this.test(Token::EQUALS) {
-					this.commit()
-
-					members.push(AST.EnumMember(identifier, this.reqExpression(ExpressionMode::Default, FunctionMode::Function)))
+			while this.until(Token::RIGHT_CURLY) {
+				if this.stackInnerAttributes(attributes) {
+					// do nothing
 				}
 				else {
-					members.push(AST.EnumMember(identifier))
-				}
-
-				if this.test(Token::COMMA) {
-					this.commit().NL_0M()
-				}
-				else if this.test(Token::NEWLINE) {
-					this.commit().NL_0M()
-
-					if this.test(Token::COMMA) {
-						this.commit().NL_0M()
-					}
-				}
-				else {
-					break
+					this.reqEnumMember(members)
 				}
 			}
 
@@ -1897,7 +2078,7 @@ export namespace Parser {
 				this.throw('}')
 			}
 
-			return this.yep(AST.EnumDeclaration(name, type, members, first, this.yes()))
+			return this.yep(AST.EnumDeclaration(attributes, modifiers, name, type, members, first, this.yes()))
 		} // }}}
 		reqExportDeclarator(): Event ~ SyntaxError { // {{{
 			switch this.matchM(M.EXPORT_STATEMENT) {
@@ -1964,6 +2145,20 @@ export namespace Parser {
 					}
 					else {
 						this.throw('class')
+					}
+				}
+				Token::FLAGGED => {
+					const first = this.yes()
+
+					if this.test(Token::ENUM) {
+						this.commit()
+
+						const modifiers = [this.yep(AST.Modifier(ModifierKind::Flagged, first))]
+
+						return this.yep(AST.ExportDeclarationSpecifier(this.reqEnumStatement(first, modifiers)))
+					}
+					else {
+						this.throw('enum')
 					}
 				}
 				Token::FUNC => {
@@ -2475,7 +2670,7 @@ export namespace Parser {
 
 			return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, null, null, first, type ?? parameters))
 		} // }}}
-		reqExternDeclarator(ns: Boolean = false): Event ~ SyntaxError { // {{{
+		reqExternDeclarator(mode: ExternMode): Event ~ SyntaxError { // {{{
 			switch this.matchM(M.EXTERN_STATEMENT) {
 				Token::ABSTRACT => {
 					const abstract = this.yep(AST.Modifier(ModifierKind::Abstract, this.yes()))
@@ -2511,7 +2706,7 @@ export namespace Parser {
 				Token::CLASS => {
 					return this.reqExternClassDeclaration(this.yes(), [])
 				}
-				Token::CONST where ns => {
+				Token::CONST where mode ~~ ExternMode::Namespace => {
 					const first = this.yes()
 					const name = this.reqIdentifier()
 					const modifiers = [AST.Modifier(ModifierKind::Immutable, first)]
@@ -2526,9 +2721,6 @@ export namespace Parser {
 					else {
 						return this.yep(AST.VariableDeclarator(modifiers, name, null, first, name))
 					}
-				}
-				Token::ENUM => {
-					return this.reqExternEnumDeclaration(this.yes())
 				}
 				Token::FINAL => {
 					const first = this.yes()
@@ -2559,11 +2751,11 @@ export namespace Parser {
 					const first = this.yes()
 					return this.reqExternFunctionDeclaration([], first)
 				}
-				Token::IDENTIFIER => {
+				Token::IDENTIFIER where mode !~ ExternMode::Fallthrough => {
 					return this.reqExternVariableDeclarator(this.reqIdentifier())
 				}
 				Token::NAMESPACE => {
-					return this.reqExternNamespaceDeclaration(this.yes(), [])
+					return this.reqExternNamespaceDeclaration(mode, this.yes(), [])
 				}
 				Token::SEALED => {
 					const sealed = this.yep(AST.Modifier(ModifierKind::Sealed, this.yes()))
@@ -2603,14 +2795,11 @@ export namespace Parser {
 					else if @token == Token::NAMESPACE {
 						this.commit()
 
-						return this.reqExternNamespaceDeclaration(sealed, [sealed])
+						return this.reqExternNamespaceDeclaration(mode, sealed, [sealed])
 					}
 					else {
 						this.throw(['class', 'namespace'])
 					}
-				}
-				Token::STRUCT => {
-					return this.reqStructStatement(this.yes())
 				}
 				Token::SYSTEMIC => {
 					const systemic = this.yep(AST.Modifier(ModifierKind::Systemic, this.yes()))
@@ -2638,16 +2827,13 @@ export namespace Parser {
 					else if @token == Token::NAMESPACE {
 						this.commit()
 
-						return this.reqExternNamespaceDeclaration(systemic, [systemic])
+						return this.reqExternNamespaceDeclaration(mode, systemic, [systemic])
 					}
 					else {
 						this.throw(['class', 'namespace'])
 					}
 				}
-				Token::TUPLE => {
-					return this.reqTupleStatement(this.yes())
-				}
-				Token::LET where ns => {
+				Token::LET where mode ~~ ExternMode::Namespace => {
 					const first = this.yes()
 					const name = this.reqIdentifier()
 
@@ -2667,56 +2853,6 @@ export namespace Parser {
 				}
 			}
 		} // }}}
-		reqExternEnumDeclaration(first: Event): Event ~ SyntaxError { // {{{
-			const name = this.reqIdentifier()
-
-			let type
-			if this.test(Token::LEFT_ANGLE) {
-				this.commit()
-
-				type = this.reqTypeEntity(NO)
-
-				unless this.test(Token::RIGHT_ANGLE) {
-					this.throw('>')
-				}
-
-				this.commit()
-			}
-
-			unless this.test(Token::LEFT_CURLY) {
-				this.throw('{')
-			}
-
-			this.commit()
-
-			this.NL_0M()
-
-			const members = []
-
-			until this.test(Token::RIGHT_CURLY) {
-				members.push(AST.EnumMember(this.reqIdentifier()))
-
-				if this.test(Token::COMMA) {
-					this.commit().NL_0M()
-				}
-				else if this.test(Token::NEWLINE) {
-					this.commit().NL_0M()
-
-					if this.test(Token::COMMA) {
-						this.commit().NL_0M()
-					}
-				}
-				else {
-					break
-				}
-			}
-
-			unless this.test(Token::RIGHT_CURLY) {
-				this.throw('}')
-			}
-
-			return this.yep(AST.EnumDeclaration(name, type, members, first, this.yes()))
-		} // }}}
 		reqExternFunctionDeclaration(modifiers, first: Event): Event ~ SyntaxError { // {{{
 			const name = this.reqIdentifier()
 
@@ -2735,7 +2871,7 @@ export namespace Parser {
 				return this.yep(AST.FunctionDeclaration(name, null, modifiers, type, throws, null, first, throws ?? type ?? name))
 			}
 		} // }}}
-		reqExternNamespaceDeclaration(first: Event, modifiers = []): Event ~ SyntaxError { // {{{
+		reqExternNamespaceDeclaration(mode: ExternMode, first: Event, modifiers = []): Event ~ SyntaxError { // {{{
 			const name = this.reqIdentifier()
 
 			if this.test(Token::LEFT_CURLY) {
@@ -2754,7 +2890,7 @@ export namespace Parser {
 
 					this.stackOuterAttributes(attrs)
 
-					statement = this.reqExternDeclarator(true)
+					statement = this.reqExternDeclarator(mode + ExternMode::Namespace)
 
 					this.reqNL_1M()
 
@@ -2847,7 +2983,7 @@ export namespace Parser {
 
 					this.stackOuterAttributes(attrs)
 
-					declarator = this.reqExternDeclarator()
+					declarator = this.reqExternDeclarator(ExternMode::Default)
 
 					if attrs.length > 0 {
 						declarator.value.attributes.unshift(...attrs)
@@ -2868,12 +3004,12 @@ export namespace Parser {
 				last = this.yes()
 			}
 			else {
-				declarations.push(this.reqExternDeclarator())
+				declarations.push(this.reqExternDeclarator(ExternMode::Default))
 
 				while this.test(Token::COMMA) {
 					this.commit()
 
-					declarations.push(this.reqExternDeclarator())
+					declarations.push(this.reqExternDeclarator(ExternMode::Default))
 				}
 
 				last = declarations[declarations.length - 1]
@@ -2901,7 +3037,7 @@ export namespace Parser {
 
 					this.stackOuterAttributes(attrs)
 
-					declarator = this.reqExternDeclarator()
+					declarator = this.reqExternDeclarator(ExternMode::Default)
 
 					if attrs.length > 0 {
 						declarator.value.attributes.unshift(...attrs)
@@ -2922,12 +3058,12 @@ export namespace Parser {
 				last = this.yes()
 			}
 			else {
-				declarations.push(this.reqExternDeclarator())
+				declarations.push(this.reqExternDeclarator(ExternMode::Default))
 
 				while this.test(Token::COMMA) {
 					this.commit()
 
-					declarations.push(this.reqExternDeclarator())
+					declarations.push(this.reqExternDeclarator(ExternMode::Default))
 				}
 
 				last = declarations[declarations.length - 1]
@@ -3669,7 +3805,7 @@ export namespace Parser {
 
 				let imported, local
 				while this.until(Token::NEWLINE) {
-					imported = this.reqExternDeclarator()
+					imported = this.reqExternDeclarator(ExternMode::Default)
 
 					if this.test(Token::EQUALS_RIGHT_ANGLE) {
 						this.commit()
@@ -3726,7 +3862,7 @@ export namespace Parser {
 					specifier = this.yep(AST.ImportNamespaceSpecifier(local, null, first, local))
 				}
 				else {
-					imported = this.reqExternDeclarator()
+					imported = this.reqExternDeclarator(ExternMode::Default)
 
 					if this.test(Token::EQUALS_RIGHT_ANGLE) {
 						this.commit()
@@ -4264,11 +4400,11 @@ export namespace Parser {
 		} // }}}
 		reqMacroBody(): Event ~ SyntaxError { // {{{
 			if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) == Token::LEFT_CURLY {
-				@mode ||= ParserMode::MacroExpression
+				@mode += ParserMode::MacroExpression
 
 				const body = this.reqBlock(this.yes(), FunctionMode::Function)
 
-				@mode ^^= ParserMode::MacroExpression
+				@mode -= ParserMode::MacroExpression
 
 				return body
 			}
@@ -4655,7 +4791,7 @@ export namespace Parser {
 				return this.yep(AST.reorderExpression(values))
 			}
 		} // }}}
-		reqJunctionExpression(operator, eMode, fMode, values) ~ SyntaxError {
+		reqJunctionExpression(operator, eMode, fMode, values) ~ SyntaxError { // {{{
 			this.NL_0M()
 
 			const operands = [values.pop(), this.reqBinaryOperand(eMode, fMode).value]
@@ -4679,7 +4815,7 @@ export namespace Parser {
 			}
 
 			return AST.JunctionExpression(operator, operands)
-		}
+		} // }}}
 		reqParameter(parameters: Array<Event>, pMode: DestructuringMode, fMode: FunctionMode): Boolean ~ SyntaxError { // {{{
 			const modifiers = []
 
@@ -5042,6 +5178,56 @@ export namespace Parser {
 				}
 			}
 		} // }}}
+		reqRequireDeclarator(): Event ~ SyntaxError { // {{{
+			const declarator = this.tryExternDeclarator(ExternMode::Fallthrough)
+			if declarator.ok {
+				return declarator
+			}
+
+			switch this.matchM(M.REQUIRE_STATEMENT) {
+				Token::ENUM => {
+					@mode += ParserMode::Typing
+
+					const declarator = this.reqEnumStatement(this.yes())
+
+					@mode -= ParserMode::Typing
+
+					return declarator
+				}
+				Token::FLAGGED => {
+					const first = this.reqIdentifier()
+
+					if this.test(Token::ENUM) {
+						this.commit()
+
+						const modifiers = [this.yep(AST.Modifier(ModifierKind::Flagged, first))]
+
+						@mode += ParserMode::Typing
+
+						const declarator = this.reqEnumStatement(first, modifiers)
+
+						@mode -= ParserMode::Typing
+
+						return declarator
+					}
+					else {
+						return this.reqExternVariableDeclarator(first)
+					}
+				}
+				Token::IDENTIFIER => {
+					return this.reqExternVariableDeclarator(this.reqIdentifier())
+				}
+				Token::STRUCT => {
+					return this.reqStructStatement(this.yes())
+				}
+				Token::TUPLE => {
+					return this.reqTupleStatement(this.yes())
+				}
+				=> {
+					this.throw()
+				}
+			}
+		} // }}}
 		reqRequireStatement(first: Event): Event ~ SyntaxError { // {{{
 			const attributes = []
 			const declarations = []
@@ -5060,7 +5246,7 @@ export namespace Parser {
 
 					this.stackOuterAttributes(attrs)
 
-					declarator = this.reqExternDeclarator()
+					declarator = this.reqRequireDeclarator()
 
 					if attrs.length > 0 {
 						declarator.value.attributes.unshift(...attrs)
@@ -5081,12 +5267,12 @@ export namespace Parser {
 				last = this.yes()
 			}
 			else {
-				declarations.push(this.reqExternDeclarator())
+				declarations.push(this.reqRequireDeclarator())
 
 				while this.test(Token::COMMA) {
 					this.commit()
 
-					declarations.push(this.reqExternDeclarator())
+					declarations.push(this.reqRequireDeclarator())
 				}
 
 				last = declarations[declarations.length - 1]
@@ -5114,7 +5300,7 @@ export namespace Parser {
 
 					this.stackOuterAttributes(attrs)
 
-					declarator = this.reqExternDeclarator()
+					declarator = this.reqExternDeclarator(ExternMode::Default)
 
 					if attrs.length > 0 {
 						declarator.value.attributes.unshift(...attrs)
@@ -5135,12 +5321,12 @@ export namespace Parser {
 				last = this.yes()
 			}
 			else {
-				declarations.push(this.reqExternDeclarator())
+				declarations.push(this.reqExternDeclarator(ExternMode::Default))
 
 				while this.test(Token::COMMA) {
 					this.commit()
 
-					declarations.push(this.reqExternDeclarator())
+					declarations.push(this.reqExternDeclarator(ExternMode::Default))
 				}
 
 				last = declarations[declarations.length - 1]
@@ -5341,6 +5527,20 @@ export namespace Parser {
 						else {
 							this.throw('class')
 						}
+					}
+					else {
+						statement = NO
+					}
+				}
+				Token::FLAGGED => {
+					const first = this.yes()
+
+					if this.test(Token::ENUM) {
+						this.commit()
+
+						const modifiers = [this.yep(AST.Modifier(ModifierKind::Flagged, first))]
+
+						statement = this.reqEnumStatement(first, modifiers)
 					}
 					else {
 						statement = NO
@@ -5608,7 +5808,7 @@ export namespace Parser {
 					if this.test(Token::UNDERSCORE) {
 						first = this.yes()
 					}
-					else if !(this.test(Token::WITH) || this.test(Token::WHERE)) {
+					else if !this.test(Token::WITH, Token::WHEN) {
 						first = this.reqSwitchCondition(fMode)
 
 						conditions = [first]
@@ -5635,7 +5835,7 @@ export namespace Parser {
 						this.NL_0M()
 					}
 
-					if this.test(Token::WHERE) {
+					if this.test(Token::WHEN) {
 						if first == null {
 							first = this.yes()
 						}
@@ -6741,6 +6941,33 @@ export namespace Parser {
 
 			return attributes
 		} // }}}
+		submitEnumMember(attributes: Array, modifiers: Array, identifier: Event, token: Token?, members: Array): Void ~ SyntaxError { // {{{
+			const first = attributes[0] ?? modifiers[0] ?? identifier
+
+			switch token ?? this.match(Token::EQUALS, Token::LEFT_ROUND)  {
+				Token::EQUALS => {
+					if @mode ~~ ParserMode::Typing {
+						this.throw()
+					}
+
+					this.commit()
+
+					const defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Function)
+
+					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, defaultValue, first, defaultValue))
+
+					this.reqNL_1M()
+				}
+				Token::LEFT_ROUND => {
+					members.push(this.reqEnumMethod(attributes, modifiers, identifier, first).value)
+				}
+				where token == null => {
+					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, null, first, identifier))
+
+					this.reqNL_1M()
+				}
+			}
+		} // }}}
 		tryAssignementOperator(): Event ~ SyntaxError { // {{{
 			switch this.matchM(M.ASSIGNEMENT_OPERATOR) {
 				Token::AMPERSAND_AMPERSAND_EQUALS => {
@@ -6897,9 +7124,6 @@ export namespace Parser {
 		} // }}}
 		tryBinaryOperator(): Event ~ SyntaxError { // {{{
 			switch this.matchM(M.BINARY_OPERATOR) {
-				/* Token::AMPERSAND => {
-					return this.yep(AST.BinaryOperator(BinaryOperatorKind::JunctiveAnd, this.yes()))
-				} */
 				Token::AMPERSAND_AMPERSAND => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::And, this.yes()))
 				}
@@ -6915,9 +7139,6 @@ export namespace Parser {
 				Token::ASTERISK_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Multiplication, this.yes()))
 				}
-				/* Token::CARET => {
-					return this.yep(AST.BinaryOperator(BinaryOperatorKind::JunctiveXor, this.yes()))
-				} */
 				Token::CARET_CARET => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Xor, this.yes()))
 				}
@@ -6969,9 +7190,6 @@ export namespace Parser {
 				Token::PERCENT_EQUALS => {
 					return this.yep(AST.AssignmentOperator(AssignmentOperatorKind::Modulo, this.yes()))
 				}
-				/* Token::PIPE => {
-					return this.yep(AST.BinaryOperator(BinaryOperatorKind::JunctiveOr, this.yes()))
-				} */
 				Token::PIPE_PIPE => {
 					return this.yep(AST.BinaryOperator(BinaryOperatorKind::Or, this.yes()))
 				}
@@ -7577,9 +7795,41 @@ export namespace Parser {
 				return NO
 			}
 		} // }}}
+		tryEnumMethod(attributes, modifiers, first: Event?): Event ~ SyntaxError { // {{{
+			let name
+			if this.test(Token::ASYNC) {
+				let first = this.reqIdentifier()
+
+				name = this.tryIdentifier()
+
+				if name.ok {
+					modifiers = [...modifiers, this.yep(AST.Modifier(ModifierKind::Async, first))]
+				}
+				else {
+					name = first
+				}
+			}
+			else {
+				name = this.tryIdentifier()
+
+				unless name.ok {
+					return NO
+				}
+			}
+
+			return this.reqEnumMethod(attributes, modifiers, name, first ?? name)
+		} // }}}
 		tryExpression(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { // {{{
 			try {
 				return this.reqExpression(eMode, fMode)
+			}
+			catch {
+				return NO
+			}
+		} // }}}
+		tryExternDeclarator(mode: ExternMode): Event ~ SyntaxError { // {{{
+			try {
+				return this.reqExternDeclarator(mode)
 			}
 			catch {
 				return NO

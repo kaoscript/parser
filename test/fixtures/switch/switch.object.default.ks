@@ -8,6 +8,6 @@ switch value {
 	{foo: 1} 							=> console.log('foo: 1')
 	{foo}								=> console.log('has foo')
 	{qux}								=> console.log('has qux')
-				where value.bar() == 0	=> console.log('bar() == 0')
+				when value.bar() == 0	=> console.log('bar() == 0')
 										=> console.log('oops!')
 }

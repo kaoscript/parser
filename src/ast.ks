@@ -602,10 +602,11 @@ namespace AST {
 			}, enum, member)
 		} // }}}
 
-		func EnumDeclaration(name, type?, members, first, last) { // {{{
+		func EnumDeclaration(attributes, modifiers, name, type?, members, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::EnumDeclaration
-				attributes: []
+				attributes
+				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 				members: members
 			}, first, last)
@@ -615,21 +616,6 @@ namespace AST {
 			}
 
 			return node
-		} // }}}
-
-		func EnumMember(name) { // {{{
-			return location({
-				kind: NodeKind::EnumMember
-				name: name.value
-			}, name)
-		} // }}}
-
-		func EnumMember(name, value) { // {{{
-			return location({
-				kind: NodeKind::EnumMember
-				name: name.value
-				value: value.value
-			}, name, value)
 		} // }}}
 
 		func ExclusionType(types, first, last) { // {{{

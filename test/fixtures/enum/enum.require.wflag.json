@@ -1,0 +1,291 @@
+{
+  "kind": 74,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 87,
+      "attributes": [],
+      "declarations": [
+        {
+          "kind": 31,
+          "attributes": [],
+          "modifiers": [
+            {
+              "kind": 11,
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 16
+              }
+            }
+          ],
+          "name": {
+            "kind": 52,
+            "name": "CardSuit",
+            "start": {
+              "line": 1,
+              "column": 22
+            },
+            "end": {
+              "line": 1,
+              "column": 30
+            }
+          },
+          "members": [
+            {
+              "kind": 44,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 52,
+                "name": "Clubs",
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 7
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 7
+              }
+            },
+            {
+              "kind": 44,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 52,
+                "name": "Diamonds",
+                "start": {
+                  "line": 3,
+                  "column": 2
+                },
+                "end": {
+                  "line": 3,
+                  "column": 10
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 2
+              },
+              "end": {
+                "line": 3,
+                "column": 10
+              }
+            },
+            {
+              "kind": 44,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 52,
+                "name": "Hearts",
+                "start": {
+                  "line": 4,
+                  "column": 2
+                },
+                "end": {
+                  "line": 4,
+                  "column": 8
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 8
+              }
+            },
+            {
+              "kind": 44,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 52,
+                "name": "Spades",
+                "start": {
+                  "line": 5,
+                  "column": 2
+                },
+                "end": {
+                  "line": 5,
+                  "column": 8
+                }
+              },
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 8
+              }
+            },
+            {
+              "kind": 72,
+              "attributes": [],
+              "modifiers": [
+                {
+                  "kind": 28,
+                  "start": {
+                    "line": 7,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 8
+                  }
+                }
+              ],
+              "name": {
+                "kind": 52,
+                "name": "fromString",
+                "start": {
+                  "line": 7,
+                  "column": 9
+                },
+                "end": {
+                  "line": 7,
+                  "column": 19
+                }
+              },
+              "parameters": [
+                {
+                  "kind": 83,
+                  "modifiers": [],
+                  "start": {
+                    "line": 7,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 33
+                  },
+                  "name": {
+                    "kind": 52,
+                    "name": "value",
+                    "start": {
+                      "line": 7,
+                      "column": 20
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 25
+                    }
+                  },
+                  "type": {
+                    "kind": 116,
+                    "modifiers": [],
+                    "typeName": {
+                      "kind": 52,
+                      "name": "String",
+                      "start": {
+                        "line": 7,
+                        "column": 27
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 33
+                      }
+                    },
+                    "start": {
+                      "line": 7,
+                      "column": 27
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 33
+                    }
+                  }
+                }
+              ],
+              "start": {
+                "line": 7,
+                "column": 2
+              },
+              "end": {
+                "line": 7,
+                "column": 45
+              },
+              "type": {
+                "kind": 116,
+                "modifiers": [
+                  {
+                    "kind": 18,
+                    "start": {
+                      "line": 7,
+                      "column": 44
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 45
+                    }
+                  }
+                ],
+                "typeName": {
+                  "kind": 52,
+                  "name": "CardSuit",
+                  "start": {
+                    "line": 7,
+                    "column": 36
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 44
+                  }
+                },
+                "start": {
+                  "line": 7,
+                  "column": 36
+                },
+                "end": {
+                  "line": 7,
+                  "column": 45
+                }
+              },
+              "throws": []
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 9
+          },
+          "end": {
+            "line": 8,
+            "column": 2
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 8,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 8,
+    "column": 2
+  }
+}
