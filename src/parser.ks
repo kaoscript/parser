@@ -951,16 +951,16 @@ export namespace Parser {
 					type = this.reqTypeVar()
 				}
 
-				let defaultValue
+				let value
 				if this.test(Token::EQUALS) {
 					this.commit()
 
-					defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 				}
 
 				this.reqNL_1M()
 
-				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, defaultValue, first ?? modifier, defaultValue ?? type ?? name))
+				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, value, first ?? modifier, value ?? type ?? name))
 			}
 			else if this.test(Token::AUTO) {
 				const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
@@ -989,11 +989,11 @@ export namespace Parser {
 
 					this.commit()
 
-					const defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 
 					this.reqNL_1M()
 
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? modifier, defaultValue ?? name))
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? modifier, value ?? name))
 				}
 			}
 			else if this.test(Token::CONST) {
@@ -1024,16 +1024,16 @@ export namespace Parser {
 						type = this.reqTypeVar()
 					}
 
-					let defaultValue
+					let value
 					if this.test(Token::EQUALS) {
 						this.commit()
 
-						defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+						value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 					}
 
 					this.reqNL_1M()
 
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? modifier, defaultValue ?? type ?? name))
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? modifier, value ?? type ?? name))
 				}
 			}
 
@@ -1046,16 +1046,16 @@ export namespace Parser {
 				type = this.reqTypeVar()
 			}
 
-			let defaultValue
+			let value
 			if this.test(Token::EQUALS) {
 				this.commit()
 
-				defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+				value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 			}
 
 			this.reqNL_1M()
 
-			return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? name, defaultValue ?? type ?? name))
+			return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
 		} // }}}
 		reqClassMember(attributes, modifiers, first?): Event ~ SyntaxError { // {{{
 			const member = this.tryClassMember(attributes, modifiers, first)
@@ -2039,7 +2039,10 @@ export namespace Parser {
 
 		} // }}}
 		reqEnumStatement(first: Event, modifiers = []): Event ~ SyntaxError { // {{{
-			const name = this.reqIdentifier()
+			const name = this.tryIdentifier()
+			unless name.ok {
+				return NO
+			}
 
 			let type
 			if this.test(Token::LEFT_ANGLE) {
@@ -6952,9 +6955,9 @@ export namespace Parser {
 
 					this.commit()
 
-					const defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Function)
+					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
-					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, defaultValue, first, defaultValue))
+					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, value, first, value))
 
 					this.reqNL_1M()
 				}
@@ -7303,16 +7306,16 @@ export namespace Parser {
 					type = this.reqTypeVar()
 				}
 
-				let defaultValue
+				let value
 				if this.test(Token::EQUALS) {
 					this.commit()
 
-					defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 				}
 
 				this.reqNL_1M()
 
-				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, defaultValue, first ?? modifier, defaultValue ?? type ?? name))
+				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, value, first ?? modifier, value ?? type ?? name))
 			}
 			else if this.test(Token::AUTO) {
 				const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
@@ -7341,11 +7344,11 @@ export namespace Parser {
 
 					this.commit()
 
-					const defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 
 					this.reqNL_1M()
 
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? modifier, defaultValue ?? name))
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? modifier, value ?? name))
 				}
 			}
 			else if this.test(Token::CONST) {
@@ -7382,11 +7385,11 @@ export namespace Parser {
 
 					this.commit()
 
-					const defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 
 					this.reqNL_1M()
 
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? modifier, defaultValue))
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? modifier, value))
 				}
 			}
 			else if this.test(Token::LATEINIT) {
@@ -7472,16 +7475,16 @@ export namespace Parser {
 					return this.reqClassProperty(attributes, modifiers, name, type, first ?? name)
 				}
 				else {
-					let defaultValue
+					let value
 					if this.test(Token::EQUALS) {
 						this.commit()
 
-						defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+						value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 					}
 
 					this.reqNL_1M()
 
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? name, defaultValue ?? type ?? name))
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
 				}
 			}
 			else if @token == Token::LEFT_CURLY {
@@ -7493,16 +7496,16 @@ export namespace Parser {
 				return this.reqClassMethod(attributes, modifiers, name, this.yes(), first ?? name)
 			}
 			else {
-				let defaultValue
+				let value
 				if this.test(Token::EQUALS) {
 					this.commit()
 
-					defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 				}
 
 				this.reqNL_1M()
 
-				return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? name, defaultValue ?? name))
+				return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? name, value ?? name))
 			}
 		} // }}}
 		tryClassMethod(attributes, modifiers, first: Event?): Event ~ SyntaxError { // {{{
@@ -7563,16 +7566,16 @@ export namespace Parser {
 					type = this.reqTypeVar()
 				}
 
-				let defaultValue
+				let value
 				if this.test(Token::EQUALS) {
 					this.commit()
 
-					defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 				}
 
 				this.reqNL_1M()
 
-				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, defaultValue, first ?? modifier, defaultValue ?? type ?? name))
+				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, value, first ?? modifier, value ?? type ?? name))
 			}
 			else if this.test(Token::AUTO) {
 				const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
@@ -7601,11 +7604,11 @@ export namespace Parser {
 
 					this.commit()
 
-					const defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 
 					this.reqNL_1M()
 
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? modifier, defaultValue ?? name))
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? modifier, value ?? name))
 				}
 			}
 			else if this.test(Token::CONST) {
@@ -7642,11 +7645,11 @@ export namespace Parser {
 
 					this.commit()
 
-					const defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 
 					this.reqNL_1M()
 
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? modifier, defaultValue))
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? modifier, value))
 				}
 			}
 			else if this.test(Token::LATEINIT) {
@@ -7704,16 +7707,16 @@ export namespace Parser {
 					return this.reqClassProperty(attributes, modifiers, name, type, first ?? name)
 				}
 				else {
-					let defaultValue
+					let value
 					if this.test(Token::EQUALS) {
 						this.commit()
 
-						defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+						value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 					}
 
 					this.reqNL_1M()
 
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? name, defaultValue ?? type ?? name))
+					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
 				}
 			}
 			else if @token == Token::LEFT_CURLY {
@@ -7725,16 +7728,16 @@ export namespace Parser {
 				return this.reqClassMethod(attributes, modifiers, name, this.yes(), first ?? name)
 			}
 			else {
-				let defaultValue
+				let value
 				if this.test(Token::EQUALS) {
 					this.commit()
 
-					defaultValue = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
+					value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
 				}
 
 				this.reqNL_1M()
 
-				return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, defaultValue, first ?? name, defaultValue ?? name))
+				return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? name, value ?? name))
 			}
 		} // }}}
 		tryDestroyStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { // {{{

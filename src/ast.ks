@@ -707,7 +707,7 @@ namespace AST {
 			}, first)
 		} // }}}
 
-		func FieldDeclaration(attributes, modifiers, name, type?, defaultValue?, first, last) { // {{{
+		func FieldDeclaration(attributes, modifiers, name, type?, value?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::FieldDeclaration
 				attributes
@@ -718,8 +718,8 @@ namespace AST {
 			if type != null {
 				node.type = type.value
 			}
-			if defaultValue != null {
-				node.defaultValue = defaultValue.value
+			if value != null {
+				node.value = value.value
 			}
 
 			return node
