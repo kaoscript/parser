@@ -2754,7 +2754,7 @@ export namespace Parser {
 					const first = this.yes()
 					return this.reqExternFunctionDeclaration([], first)
 				}
-				Token::IDENTIFIER where mode !~ ExternMode::Fallthrough => {
+				Token::IDENTIFIER where mode !~ ExternMode::Fallthrough || mode ~~ ExternMode::Namespace => {
 					return this.reqExternVariableDeclarator(this.reqIdentifier())
 				}
 				Token::NAMESPACE => {

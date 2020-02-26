@@ -3479,6 +3479,7 @@ class Scanner {
 			return recognize[token](this, @data.charCodeAt(@index))
 		}
 	} // }}}
+	toDebug(): String => `line: \(@line), column: \(@column), token: \(this.toQuote())`
 	toQuote(): String { // {{{
 		if @eof {
 			return '"EOF"'
