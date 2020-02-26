@@ -28,8 +28,7 @@ export namespace Parser {
 		identifier		= null
 	}
 
-	#[flags]
-	enum DestructuringMode {
+	flagged enum DestructuringMode {
 		Nil
 
 		COMPUTED
@@ -43,8 +42,7 @@ export namespace Parser {
 		Parameter			= DEFAULT + RECURSION + TYPE
 	}
 
-	#[flags]
-	enum ExpressionMode {
+	flagged enum ExpressionMode {
 		Default
 		NoAnonymousFunction
 		NoAwait
@@ -52,8 +50,7 @@ export namespace Parser {
 		WithMacro
 	}
 
-	#[flags]
-	enum ExternMode {
+	flagged enum ExternMode {
 		Default
 		Fallthrough
 		Namespace
@@ -65,8 +62,7 @@ export namespace Parser {
 		Method
 	}
 
-	#[flags]
-	enum MacroTerminator {
+	flagged enum MacroTerminator {
 		Nil
 
 		COMMA
@@ -81,8 +77,7 @@ export namespace Parser {
 		Parenthesis			= NEWLINE + RIGHT_ROUND
 	}
 
-	#[flags]
-	enum ParserMode {
+	flagged enum ParserMode {
 		Default
 		MacroExpression
 		Typing
@@ -2709,7 +2704,7 @@ export namespace Parser {
 				Token::CLASS => {
 					return this.reqExternClassDeclaration(this.yes(), [])
 				}
-				Token::CONST where mode ~~ ExternMode::Namespace => {
+				Token::CONST when mode ~~ ExternMode::Namespace => {
 					const first = this.yes()
 					const name = this.reqIdentifier()
 					const modifiers = [AST.Modifier(ModifierKind::Immutable, first)]
@@ -2754,7 +2749,7 @@ export namespace Parser {
 					const first = this.yes()
 					return this.reqExternFunctionDeclaration([], first)
 				}
-				Token::IDENTIFIER where mode !~ ExternMode::Fallthrough || mode ~~ ExternMode::Namespace => {
+				Token::IDENTIFIER when mode !~ ExternMode::Fallthrough || mode ~~ ExternMode::Namespace => {
 					return this.reqExternVariableDeclarator(this.reqIdentifier())
 				}
 				Token::NAMESPACE => {
@@ -2836,7 +2831,7 @@ export namespace Parser {
 						this.throw(['class', 'namespace'])
 					}
 				}
-				Token::LET where mode ~~ ExternMode::Namespace => {
+				Token::LET when mode ~~ ExternMode::Namespace => {
 					const first = this.yes()
 					const name = this.reqIdentifier()
 
@@ -6964,7 +6959,7 @@ export namespace Parser {
 				Token::LEFT_ROUND => {
 					members.push(this.reqEnumMethod(attributes, modifiers, identifier, first).value)
 				}
-				where token == null => {
+				when token == null => {
 					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, null, first, identifier))
 
 					this.reqNL_1M()
