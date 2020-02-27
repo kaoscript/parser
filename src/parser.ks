@@ -5767,10 +5767,7 @@ export namespace Parser {
 					return this.reqBlock(this.yes(), fMode)
 				}
 				Token::RETURN => {
-					const first = this.yes()
-					const expression = this.reqExpression(ExpressionMode::Default, fMode)
-
-					return this.yep(AST.ReturnStatement(expression, first, expression))
+					return this.reqReturnStatement(this.yes(), fMode)
 				}
 				Token::THROW => {
 					const first = this.yes()
