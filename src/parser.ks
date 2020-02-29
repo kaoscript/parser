@@ -1660,44 +1660,6 @@ export namespace Parser {
 		reqContinueStatement(first: Event): Event { // {{{
 			return this.yep(AST.ContinueStatement(first))
 		} // }}}
-		reqCreateExpression(first: Event, fMode: FunctionMode): Event ~ SyntaxError { // {{{
-			if this.test(Token::LEFT_ROUND) {
-				this.commit()
-
-				const class = this.reqExpression(ExpressionMode::Default, fMode)
-
-				unless this.test(Token::RIGHT_ROUND) {
-					this.throw(')')
-				}
-
-				this.commit()
-
-				unless this.test(Token::LEFT_ROUND) {
-					this.throw('(')
-				}
-
-				this.commit()
-
-				return this.yep(AST.CreateExpression(class, this.reqExpression0CNList(fMode), first, this.yes()))
-			}
-
-			let class = this.reqVariableName(NO, fMode)
-
-			if this.match(Token::LEFT_ANGLE, Token::LEFT_SQUARE) == Token::LEFT_ANGLE {
-				const generic = this.reqTypeGeneric(this.yes())
-
-				class = this.yep(AST.TypeReference([], class, generic, class, generic))
-			}
-
-			if this.test(Token::LEFT_ROUND) {
-				this.commit()
-
-				return this.yep(AST.CreateExpression(class, this.reqExpression0CNList(fMode), first, this.yes()))
-			}
-			else {
-				return this.yep(AST.CreateExpression(class, this.yep([]), first, class))
-			}
-		} // }}}
 		reqDestructuringArray(first: Event, dMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { // {{{
 			this.NL_0M()
 
@@ -7732,6 +7694,48 @@ export namespace Parser {
 				return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? name, value ?? name))
 			}
 		} // }}}
+		tryCreateExpression(first: Event, fMode: FunctionMode): Event ~ SyntaxError { // {{{
+			if this.test(Token::LEFT_ROUND) {
+				this.commit()
+
+				const class = this.reqExpression(ExpressionMode::Default, fMode)
+
+				unless this.test(Token::RIGHT_ROUND) {
+					this.throw(')')
+				}
+
+				this.commit()
+
+				unless this.test(Token::LEFT_ROUND) {
+					this.throw('(')
+				}
+
+				this.commit()
+
+				return this.yep(AST.CreateExpression(class, this.reqExpression0CNList(fMode), first, this.yes()))
+			}
+
+			let class = this.tryVariableName(fMode)
+
+			unless class.ok {
+				return NO
+			}
+
+			if this.match(Token::LEFT_ANGLE, Token::LEFT_SQUARE) == Token::LEFT_ANGLE {
+				const generic = this.reqTypeGeneric(this.yes())
+
+				class = this.yep(AST.TypeReference([], class, generic, class, generic))
+			}
+
+			if this.test(Token::LEFT_ROUND) {
+				this.commit()
+
+				return this.yep(AST.CreateExpression(class, this.reqExpression0CNList(fMode), first, this.yes()))
+			}
+			else {
+				return this.yep(AST.CreateExpression(class, this.yep([]), first, class))
+			}
+		} // }}}
 		tryDestroyStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { // {{{
 			const variable = this.tryVariableName(fMode)
 
@@ -8215,7 +8219,15 @@ export namespace Parser {
 				return this.reqArray(this.yes(), fMode)
 			}
 			else if @token == Token::NEW {
-				return this.reqCreateExpression(this.yes(), fMode)
+				const first = AST.Identifier(@scanner.value(), this.yes())
+
+				const operand = this.tryCreateExpression(first, fMode)
+				if operand.ok {
+					return operand
+				}
+				else {
+					return this.yep(first)
+				}
 			}
 			else if @token == Token::REGEXP {
 				return this.yep(AST.RegularExpression(@scanner.value(), this.yes()))
