@@ -811,35 +811,7 @@ export namespace Parser {
 
 			this.rollback(mark)
 
-			const operand = this.reqPrefixedOperand(eMode, fMode)
-
-			let operator
-			switch this.matchM(M.TYPE_OPERATOR) {
-				Token::AS => {
-					operator = this.yep(AST.BinaryOperator(BinaryOperatorKind::TypeCasting, this.yes()))
-				}
-				Token::AS_EXCLAMATION => {
-					const position = this.yes()
-
-					operator = this.yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Forced, position)], BinaryOperatorKind::TypeCasting, position))
-				}
-				Token::AS_QUESTION => {
-					const position = this.yes()
-
-					operator = this.yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Nullable, position)], BinaryOperatorKind::TypeCasting, position))
-				}
-				Token::IS => {
-					operator = this.yep(AST.BinaryOperator(BinaryOperatorKind::TypeEquality, this.yes()))
-				}
-				Token::IS_NOT => {
-					operator = this.yep(AST.BinaryOperator(BinaryOperatorKind::TypeInequality, this.yes()))
-				}
-				=> {
-					return operand
-				}
-			}
-
-			return this.yep(AST.BinaryExpression(operand, operator, this.reqTypeEntity(NO)))
+			return this.reqPrefixedOperand(eMode, fMode)
 		} // }}}
 		reqBlock(first: Event, fMode: FunctionMode): Event ~ SyntaxError { // {{{
 			if !first.ok {
@@ -4021,6 +3993,43 @@ export namespace Parser {
 
 			return this.yep(AST.IncludeAgainDeclaration(attributes, declarations, first, last))
 		} // }}}
+		reqJunctionExpression(operator, eMode, fMode, values, type) ~ SyntaxError { // {{{
+			this.NL_0M()
+
+			const operands = [values.pop()]
+
+			if type {
+				operands.push(this.reqTypeEntity(NO).value)
+			}
+			else {
+				operands.push(this.reqBinaryOperand(eMode, fMode).value)
+			}
+
+			const kind = operator.value.kind
+
+			while true {
+				const mark = this.mark()
+				const operator = this.tryJunctionOperator()
+
+				if operator.ok && operator.value.kind == kind {
+					this.NL_0M()
+
+					if type {
+						operands.push(this.reqTypeEntity(NO).value)
+					}
+					else {
+						operands.push(this.reqBinaryOperand(eMode, fMode).value)
+					}
+				}
+				else {
+					this.rollback(mark)
+
+					break
+				}
+			}
+
+			return AST.JunctionExpression(operator, operands)
+		} // }}}
 		reqLateInitStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { // {{{
 			if this.test(Token::CONST) {
 				const modifiers = [AST.Modifier(ModifierKind::LateInit, first)]
@@ -4709,6 +4718,8 @@ export namespace Parser {
 
 			const values = [operand.value]
 
+			auto type = false
+
 			while true {
 				mark = this.mark()
 
@@ -4720,6 +4731,20 @@ export namespace Parser {
 					this.NL_0M()
 
 					values.push(this.reqBinaryOperand(eMode, fMode).value)
+				}
+				else if !type && (operator = this.tryTypeOperator()).ok {
+					if mark.line != operator.start.line {
+						this.rollback(mark)
+
+						break
+					}
+					else {
+						values.push(AST.BinaryExpression(operator), this.reqTypeEntity(NO).value)
+
+						type = true
+
+						continue
+					}
 				}
 				else if this.test(Token::QUESTION) {
 					values.push(AST.ConditionalExpression(this.yes()))
@@ -4735,46 +4760,25 @@ export namespace Parser {
 					values.push(this.reqExpression(ExpressionMode::Default, fMode).value)
 				}
 				else if (operator = this.tryJunctionOperator()).ok {
-					values.push(this.reqJunctionExpression(operator, eMode, fMode, values))
+					values.push(this.reqJunctionExpression(operator, eMode, fMode, values, type))
 				}
 				else {
 					this.rollback(mark)
 
 					break
+				}
+
+				if type {
+					type = false
 				}
 			}
 
 			if values.length == 1 {
-				return operand
+				return this.yep(values[0])
 			}
 			else {
 				return this.yep(AST.reorderExpression(values))
 			}
-		} // }}}
-		reqJunctionExpression(operator, eMode, fMode, values) ~ SyntaxError { // {{{
-			this.NL_0M()
-
-			const operands = [values.pop(), this.reqBinaryOperand(eMode, fMode).value]
-
-			const kind = operator.value.kind
-
-			while true {
-				const mark = this.mark()
-				const operator = this.tryJunctionOperator()
-
-				if operator.ok && operator.value.kind == kind {
-					this.NL_0M()
-
-					operands.push(this.reqBinaryOperand(eMode, fMode).value)
-				}
-				else {
-					this.rollback(mark)
-
-					break
-				}
-			}
-
-			return AST.JunctionExpression(operator, operands)
 		} // }}}
 		reqParameter(parameters: Array<Event>, pMode: DestructuringMode, fMode: FunctionMode): Boolean ~ SyntaxError { // {{{
 			const modifiers = []
@@ -8272,6 +8276,32 @@ export namespace Parser {
 			}
 			catch {
 				return NO
+			}
+		} // }}}
+		tryTypeOperator(): Event ~ SyntaxError { // {{{
+			switch this.matchM(M.TYPE_OPERATOR) {
+				Token::AS => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::TypeCasting, this.yes()))
+				}
+				Token::AS_EXCLAMATION => {
+					const position = this.yes()
+
+					return this.yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Forced, position)], BinaryOperatorKind::TypeCasting, position))
+				}
+				Token::AS_QUESTION => {
+					const position = this.yes()
+
+					return this.yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Nullable, position)], BinaryOperatorKind::TypeCasting, position))
+				}
+				Token::IS => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::TypeEquality, this.yes()))
+				}
+				Token::IS_NOT => {
+					return this.yep(AST.BinaryOperator(BinaryOperatorKind::TypeInequality, this.yes()))
+				}
+				=> {
+					return NO
+				}
 			}
 		} // }}}
 		tryTypeStatement(first: Event): Event ~ SyntaxError { // {{{
