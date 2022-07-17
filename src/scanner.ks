@@ -3026,7 +3026,7 @@ class Scanner {
 		line: @line
 		column: @column
 	) // }}}
-	match(...tokens: Token): Token { // {{{
+	match(...tokens): Token { // {{{
 		if @eof {
 			return Token::EOF
 		}

@@ -18,4 +18,15 @@ patch:
 clean:
 	node_modules/.bin/kaoscript --clean
 
+cls:
+	printf '\033[2J\033[3J\033[1;1H'
+
+dev: export DEBUG = 1
+dev:
+	@# clear terminal
+	@make cls
+
+	@# tests
+	@# npx kaoscript test/parse.dev.ks "parse "
+
 .PHONY: test coverage

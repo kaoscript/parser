@@ -15,11 +15,11 @@ disclose Array {
 	length: Number
 	indexOf(searchElement, fromIndex: Number = 0): Number
 	pop(): Any?
-	push(...elements): Number
+	push(...elements?): Number
 	shift(): Any
 	slice(begin: Number = 0, end: Number = -1)
 	sort(compare: Function = null): Array
-	unshift(...elements): Number
+	unshift(...elements?): Number
 }
 
 disclose Math {

@@ -50,7 +50,7 @@
 	},
 	"scripts": {
 		"push-coverage": "npm run test-coverage && cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
-		"test": "mocha --colors --check-leaks --require kaoscript/register --reporter spec test/*.ks",
+		"test": "mocha --colors --check-leaks --require kaoscript/register --reporter spec test/*.test.ks",
 		"test-coverage": "node node_modules/@zokugun/istanbul.cover/src/cli.js"
 	},
 	"keywords": [

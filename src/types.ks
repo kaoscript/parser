@@ -12,7 +12,7 @@ struct Position {
 
 struct Event {
 	ok: Boolean
-	value?				= null
-	start?	= null
-	end?		= null
+	value?			= null
+	start?			= null
+	end?			= null
 }

@@ -839,7 +839,7 @@ export namespace Parser {
 				statement = this.reqStatement(fMode)
 
 				if attrs.length > 0 {
-					statement.value.attributes.unshift(...attrs)
+					statement.value.attributes.unshift(...[attr.value for const attr in attrs])
 					statement.value.start = statement.value.attributes[0].start
 
 					attrs = []
@@ -1567,7 +1567,7 @@ export namespace Parser {
 
 			return this.yep(AST.ClassDeclaration(attributes, name, version, extends, modifiers, members, first, this.yes()))
 		} // }}}
-		reqClassStaticMember(attributes, modifiers, first?): Event ~ SyntaxError { // {{{
+		reqClassStaticMember(attributes, modifiers, first: Event?): Event ~ SyntaxError { // {{{
 			const member = this.tryClassStaticMember(attributes, modifiers, first)
 
 			unless member.ok {
@@ -2316,7 +2316,7 @@ export namespace Parser {
 							this.throw()
 						}
 
-						declarator.value.declaration.attributes.unshift(...attrs)
+						declarator.value.declaration.attributes.unshift(...[attr.value for const attr in attrs])
 						declarator.value.start = declarator.value.declaration.start = attrs[0].start
 
 						attrs = []
@@ -2485,7 +2485,7 @@ export namespace Parser {
 
 			return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, null, first, type ?? name))
 		} // }}}
-		reqExternClassMember(attributes, modifiers, first?): Event ~ SyntaxError { // {{{
+		reqExternClassMember(attributes, modifiers, first: Event?): Event ~ SyntaxError { // {{{
 			const name = this.reqIdentifier()
 
 			if this.match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
@@ -2827,7 +2827,7 @@ export namespace Parser {
 					this.reqNL_1M()
 
 					if attrs.length > 0 {
-						statement.value.attributes.unshift(...attrs)
+						statement.value.attributes.unshift(...[attr.value for const attr in attrs])
 						statement.value.start = statement.value.attributes[0].start
 
 						attrs = []
@@ -2867,7 +2867,7 @@ export namespace Parser {
 					declarator = this.reqImportDeclarator()
 
 					if attrs.length > 0 {
-						declarator.value.attributes.unshift(...attrs)
+						declarator.value.attributes.unshift(...[attr.value for const attr in attrs])
 						declarator.value.start = declarator.value.attributes[0].start
 
 						attrs = []
@@ -2918,7 +2918,7 @@ export namespace Parser {
 					declarator = this.reqExternDeclarator(ExternMode::Default)
 
 					if attrs.length > 0 {
-						declarator.value.attributes.unshift(...attrs)
+						declarator.value.attributes.unshift(...[attr.value for const attr in attrs])
 						declarator.value.start = declarator.value.attributes[0].start
 
 						attrs = []
@@ -2972,7 +2972,7 @@ export namespace Parser {
 					declarator = this.reqExternDeclarator(ExternMode::Default)
 
 					if attrs.length > 0 {
-						declarator.value.attributes.unshift(...attrs)
+						declarator.value.attributes.unshift(...[attr.value for const attr in attrs])
 						declarator.value.start = declarator.value.attributes[0].start
 
 						attrs = []
@@ -3809,7 +3809,7 @@ export namespace Parser {
 				}
 
 				if attrs.length > 0 {
-					specifier.value.attributes.unshift(...attrs)
+					specifier.value.attributes.unshift(...[attr.value for const attr in attrs])
 					specifier.value.start = specifier.value.attributes[0].start
 
 					attrs = []
@@ -3854,7 +3854,7 @@ export namespace Parser {
 					declarator = this.reqImportDeclarator()
 
 					if attrs.length > 0 {
-						declarator.value.attributes.unshift(...attrs)
+						declarator.value.attributes.unshift(...[attr.value for const attr in attrs])
 						declarator.value.start = declarator.value.attributes[0].start
 
 						attrs = []
@@ -3914,7 +3914,7 @@ export namespace Parser {
 					declarator = this.reqIncludeDeclarator()
 
 					if attrs.length > 0 {
-						declarator.value.attributes.unshift(...attrs)
+						declarator.value.attributes.unshift(...[attr.value for const attr in attrs])
 						declarator.value.start = declarator.value.attributes[0].start
 
 						attrs = []
@@ -3965,7 +3965,7 @@ export namespace Parser {
 					declarator = this.reqIncludeDeclarator()
 
 					if attrs.length > 0 {
-						declarator.value.attributes.unshift(...attrs)
+						declarator.value.attributes.unshift(...[attr.value for const attr in attrs])
 						declarator.value.start = declarator.value.attributes[0].start
 
 						attrs = []
@@ -4455,7 +4455,7 @@ export namespace Parser {
 				}
 
 				if attrs.length > 0 {
-					statement.attributes.unshift(...attrs)
+					statement.attributes.unshift(...[attr.value for const attr in attrs])
 					statement.start = statement.attributes[0].start
 
 					attrs = []
@@ -4523,7 +4523,7 @@ export namespace Parser {
 				}
 
 				if attrs.length > 0 {
-					statement.value.attributes.unshift(...attrs)
+					statement.value.attributes.unshift(...[attr.value for const attr in attrs])
 					statement.value.start = statement.value.attributes[0].start
 
 					attrs = []
@@ -4774,7 +4774,7 @@ export namespace Parser {
 			}
 
 			if values.length == 1 {
-				return this.yep(values[0])
+				return this.yep(values[0]!?)
 			}
 			else {
 				return this.yep(AST.reorderExpression(values))
@@ -5213,7 +5213,7 @@ export namespace Parser {
 					declarator = this.reqRequireDeclarator()
 
 					if attrs.length > 0 {
-						declarator.value.attributes.unshift(...attrs)
+						declarator.value.attributes.unshift(...[attr.value for const attr in attrs])
 						declarator.value.start = declarator.value.attributes[0].start
 
 						attrs = []
@@ -5267,7 +5267,7 @@ export namespace Parser {
 					declarator = this.reqExternDeclarator(ExternMode::Default)
 
 					if attrs.length > 0 {
-						declarator.value.attributes.unshift(...attrs)
+						declarator.value.attributes.unshift(...[attr.value for const attr in attrs])
 						declarator.value.start = declarator.value.attributes[0].start
 
 						attrs = []
@@ -5321,7 +5321,7 @@ export namespace Parser {
 					declarator = this.reqImportDeclarator()
 
 					if attrs.length > 0 {
-						declarator.value.attributes.unshift(...attrs)
+						declarator.value.attributes.unshift(...[attr.value for const attr in attrs])
 						declarator.value.start = declarator.value.attributes[0].start
 
 						attrs = []
@@ -6881,7 +6881,7 @@ export namespace Parser {
 						this.throw(']')
 					}
 
-					attributes.push(AST.AttributeDeclaration(declaration, first, this.yes()))
+					attributes.push(this.yep(AST.AttributeDeclaration(declaration, first, this.yes())))
 
 					this.reqNL_EOF_1M()
 				}
@@ -6895,7 +6895,7 @@ export namespace Parser {
 		} // }}}
 		stackOuterAttributes(attributes: Array): Array ~ SyntaxError { // {{{
 			while this.test(Token::HASH_LEFT_SQUARE) {
-				attributes.push(this.reqAttribute(this.yes()).value)
+				attributes.push(this.reqAttribute(this.yes()))
 
 				this.NL_0M()
 			}
@@ -7239,7 +7239,7 @@ export namespace Parser {
 
 			return this.reqClassAbstractMethodBody(attributes, modifiers, name, first ?? name)
 		} // }}}
-		tryClassMember(attributes, modifiers, first?): Event ~ SyntaxError { // {{{
+		tryClassMember(attributes, modifiers, first: Event?): Event ~ SyntaxError { // {{{
 			const mark = this.mark()
 
 			if this.test(Token::ASYNC) {
@@ -7499,7 +7499,7 @@ export namespace Parser {
 
 			return this.reqClassStatementBody(name, first, modifiers)
 		} // }}}
-		tryClassStaticMember(attributes, modifiers, first?): Event ~ SyntaxError { // {{{
+		tryClassStaticMember(attributes, modifiers, first: Event?): Event ~ SyntaxError { // {{{
 			const mark = this.mark()
 
 			if this.test(Token::ASYNC) {
@@ -8223,14 +8223,14 @@ export namespace Parser {
 				return this.reqArray(this.yes(), fMode)
 			}
 			else if @token == Token::NEW {
-				const first = AST.Identifier(@scanner.value(), this.yes())
+				const first = this.yep(AST.Identifier(@scanner.value(), this.yes()))
 
 				const operand = this.tryCreateExpression(first, fMode)
 				if operand.ok {
 					return operand
 				}
 				else {
-					return this.yep(first)
+					return first
 				}
 			}
 			else if @token == Token::REGEXP {

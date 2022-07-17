@@ -440,7 +440,7 @@ namespace AST {
 		func Block(attributes, statements, first, last) { // {{{
 			return location({
 				kind: NodeKind::Block
-				attributes: attributes
+				attributes: [attribute.value for attribute in attributes]
 				statements: [statement.value for statement in statements]
 			}, first, last)
 		} // }}}
@@ -489,7 +489,7 @@ namespace AST {
 		func ClassDeclaration(attributes, name, version?, extends?, modifiers, members, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ClassDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				name: name.value
 				modifiers: [modifier.value for modifier in modifiers]
 				members: [member.value for member in members]
@@ -605,7 +605,7 @@ namespace AST {
 		func EnumDeclaration(attributes, modifiers, name, type?, members, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::EnumDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 				members: members
@@ -628,7 +628,7 @@ namespace AST {
 		func ExportDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExportDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -679,7 +679,7 @@ namespace AST {
 		func ExternDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExternDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -687,7 +687,7 @@ namespace AST {
 		func ExternOrImportDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExternOrImportDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
 		} // }}}
@@ -695,7 +695,7 @@ namespace AST {
 		func ExternOrRequireDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ExternOrRequireDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -710,7 +710,7 @@ namespace AST {
 		func FieldDeclaration(attributes, modifiers, name, type?, value?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::FieldDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 			}, first, last)
@@ -983,7 +983,7 @@ namespace AST {
 		func ImplementDeclaration(attributes, variable, properties, first, last) { // {{{
 			return location({
 				kind: NodeKind::ImplementDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				variable: variable.value
 				properties: [property.value for property in properties]
 			}, first, last)
@@ -1010,7 +1010,7 @@ namespace AST {
 		func ImportDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::ImportDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
 		} // }}}
@@ -1018,7 +1018,7 @@ namespace AST {
 		func ImportDeclarator(attributes, modifiers, source, specifiers, arguments?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::ImportDeclarator
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				modifiers
 				source: source.value
 				specifiers: [specifier.value for specifier in specifiers]
@@ -1072,7 +1072,7 @@ namespace AST {
 		func IncludeAgainDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::IncludeAgainDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
 		} // }}}
@@ -1080,7 +1080,7 @@ namespace AST {
 		func IncludeDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::IncludeDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
 		} // }}}
@@ -1140,7 +1140,7 @@ namespace AST {
 		func MacroDeclaration(attributes, name, parameters, body, first, last) { // {{{
 			return location({
 				kind: NodeKind::MacroDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				name: name.value
 				parameters: [parameter.value for parameter in parameters.value]
 				body: body.value
@@ -1228,7 +1228,7 @@ namespace AST {
 		func MethodDeclaration(attributes, modifiers, name, parameters, type?, throws?, body?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::MethodDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 				parameters: [parameter.value for parameter in parameters.value]
@@ -1261,7 +1261,7 @@ namespace AST {
 		func Module(attributes, body, parser: Parser) { // {{{
 			return location({
 				kind: NodeKind::Module
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				body: body,
 				start: {
 					line: 1
@@ -1306,7 +1306,7 @@ namespace AST {
 		func NamespaceDeclaration(attributes, modifiers, name, statements, first, last) { // {{{
 			return location({
 				kind: NodeKind::NamespaceDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 				statements: [statement.value for statement in statements]
@@ -1348,7 +1348,7 @@ namespace AST {
 		func ObjectExpression(attributes, properties, first, last) { // {{{
 			return location({
 				kind: NodeKind::ObjectExpression
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				properties: [property.value for property in properties]
 			}, first, last)
 		} // }}}
@@ -1371,7 +1371,7 @@ namespace AST {
 		func ObjectMember(attributes, name, value, first, last) { // {{{
 			return location({
 				kind: NodeKind::ObjectMember
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				name: name.value
 				value: value.value
 			}, first, last)
@@ -1416,7 +1416,7 @@ namespace AST {
 		func PropertyDeclaration(attributes, modifiers, name, type?, defaultValue?, accessor?, mutator?, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::PropertyDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 			}, first, last)
@@ -1475,7 +1475,7 @@ namespace AST {
 		func RequireDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::RequireDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -1483,7 +1483,7 @@ namespace AST {
 		func RequireOrExternDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::RequireOrExternDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
 		} // }}}
@@ -1491,7 +1491,7 @@ namespace AST {
 		func RequireOrImportDeclaration(attributes, declarations, first, last) { // {{{
 			return location({
 				kind: NodeKind::RequireOrImportDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				declarations: [declaration.value for declaration in declarations]
 			}, first, last)
 		} // }}}
@@ -1551,7 +1551,7 @@ namespace AST {
 		func ShorthandProperty(attributes, name, first, last) { // {{{
 			return location({
 				kind: NodeKind::ShorthandProperty
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				name: name.value
 			}, first, last)
 		} // }}}
@@ -1559,7 +1559,7 @@ namespace AST {
 		func StructDeclaration(attributes, name, extends!?, fields, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::StructDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				name: name.value
 				fields
 			}, first, last)
@@ -1766,7 +1766,7 @@ namespace AST {
 		func TupleDeclaration(attributes, modifiers, name, extends!?, fields, first, last) { // {{{
 			const node = location({
 				kind: NodeKind::TupleDeclaration
-				attributes
+				attributes: [attribute.value for attribute in attributes]
 				modifiers
 				name: name.value
 				fields
