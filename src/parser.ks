@@ -12,8 +12,6 @@
 import '@kaoscript/ast'
 
 export namespace Parser {
-	#![rules(dont-assert-parameter)]
-
 	include {
 		'./util'
 
@@ -8447,7 +8445,6 @@ export namespace Parser {
 		} // }}}
 	}
 
-	#[rules(assert-parameter)]
 	export func parse(data: String) ~ SyntaxError { // {{{
 		const parser = new Parser(data)
 
