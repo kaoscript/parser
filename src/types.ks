@@ -1,3 +1,10 @@
+struct Event {
+	ok: Boolean
+	value?				= null
+	start: Position?	= null
+	end: Position?		= null
+}
+
 struct Marker {
 	eof: Boolean
 	index: Number
@@ -10,9 +17,7 @@ struct Position {
 	column: Number
 }
 
-struct Event {
-	ok: Boolean
-	value?			= null
-	start?			= null
-	end?			= null
+struct Range {
+	start: Position
+	end: Position
 }

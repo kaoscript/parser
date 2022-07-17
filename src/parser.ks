@@ -89,7 +89,7 @@ export namespace Parser {
 		private {
 			_mode: ParserMode	= ParserMode::Default
 			_scanner: Scanner
-			_token
+			_token: Token?
 		}
 		constructor(data: String) ~ SyntaxError { // {{{
 			@scanner = new Scanner(data)
@@ -97,27 +97,25 @@ export namespace Parser {
 		commit(): this { // {{{
 			@token = @scanner.commit()
 		} // }}}
-		mark() => @scanner.mark()
-		match(...tokens): Token => @token = @scanner.match(...tokens)
+		mark(): Marker => @scanner.mark()
+		match(...tokens: Token): Token => @token = @scanner.match(...tokens)
 		matchM(matcher: Function): Token => @token = @scanner.matchM(matcher)
-		position() => @scanner.position()
-		relocate(node, first?, last?) { // {{{
+		position(): Range => @scanner.position()
+		relocate(event: Event, first: Event?, last: Event?): Event { // {{{
 			if first != null {
-				node.start = node.value.start = first.start
+				event.start = event.value.start = first.start
 			}
 
 			if last != null {
-				node.end = node.value.end = last.end
+				event.end = event.value.end = last.end
 			}
 
-			return node
+			return event
 		} // }}}
-		rollback(mark): Boolean { // {{{
-			@token = mark.token
-
+		rollback(mark: Marker): Boolean { // {{{
 			return @scanner.rollback(mark)
 		} // }}}
-		skipNewLine() { // {{{
+		skipNewLine(): Void { // {{{
 			if @scanner.skipNewLine() == -1 {
 				@token = Token::EOF
 			}
@@ -125,7 +123,7 @@ export namespace Parser {
 				@token = Token::INVALID
 			}
 		} // }}}
-		test(token): Boolean { // {{{
+		test(token: Token): Boolean { // {{{
 			if @scanner.test(token) {
 				@token = token
 
@@ -135,7 +133,7 @@ export namespace Parser {
 				return false
 			}
 		} // }}}
-		test(...tokens): Boolean => tokens.indexOf(this.match(...tokens)) != -1
+		test(...tokens: Token): Boolean => tokens.indexOf(this.match(...tokens)) != -1
 		testNS(token): Boolean { // {{{
 			if @scanner.testNS(token) {
 				@token = token
@@ -156,7 +154,7 @@ export namespace Parser {
 			throw new SyntaxError(`Expecting "\(expecteds.slice(0, expecteds.length - 1).join('", "'))" or "\(expecteds[expecteds.length - 1])" but got \(@scanner.toQuote()) at line \(@scanner.line()) and column \(@scanner.column())`)
 		} // }}}
 		until(token): Boolean => !@scanner.test(token) && !@scanner.isEOF()
-		value(): String | Array<String> => @scanner.value(@token)
+		value(): String | Array<String> => @scanner.value(@token!?)
 		yep(): Event { // {{{
 			const position = @scanner.position()
 
@@ -194,8 +192,8 @@ export namespace Parser {
 			)
 		} // }}}
 		yes(value): Event { // {{{
-			const start = value.start ?? @scanner.startPosition()
-			const end = value.end ?? @scanner.endPosition()
+			const start: Position = value.start ?? @scanner.startPosition()
+			const end: Position = value.end ?? @scanner.endPosition()
 
 			this.commit()
 
@@ -466,10 +464,10 @@ export namespace Parser {
 		} // }}}
 		isAmbiguousAccessModifierForEnum(modifiers: Array<Event>, result: AmbiguityResult): Boolean ~ SyntaxError { // {{{
 			lateinit const identifier
-			lateinit const token
+			lateinit const token: Token
 
 			if this.test(Token::PRIVATE, Token::PUBLIC, Token::INTERNAL) {
-				token = @token
+				token = @token!?
 				identifier = AST.Identifier(@scanner.value(), this.yes())
 			}
 			else {
@@ -673,7 +671,7 @@ export namespace Parser {
 
 			this.commit()
 
-			@token = @scanner.skipComments()
+			@scanner.skipComments()
 
 			return this.yep(AST.AttributeDeclaration(declaration, first, last))
 		} // }}}

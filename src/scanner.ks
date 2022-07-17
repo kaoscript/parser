@@ -3026,7 +3026,7 @@ class Scanner {
 		line: @line
 		column: @column
 	) // }}}
-	match(...tokens): Token { // {{{
+	match(...tokens: Token): Token { // {{{
 		if @eof {
 			return Token::EOF
 		}
@@ -3067,7 +3067,7 @@ class Scanner {
 
 		return true
 	} // }}}
-	position(): {start: Position, end: Position} => ({ // {{{
+	position(): Range => Range( // {{{
 		start: Position(
 			line: @line
 			column: @column
@@ -3076,8 +3076,8 @@ class Scanner {
 			line: @nextLine
 			column: @nextColumn
 		)
-	}) // }}}
-	rollback(mark): Boolean { // {{{
+	) // }}}
+	rollback(mark: Marker): Boolean { // {{{
 		@eof = mark.eof
 		@index = mark.index
 		@line = mark.line
@@ -3085,7 +3085,7 @@ class Scanner {
 
 		return true
 	} // }}}
-	scanIdentifier(substr): String? { // {{{
+	scanIdentifier(substr: Boolean): String? { // {{{
 		let index = @index - 1
 
 		let c = @data.charCodeAt(index)

@@ -14,10 +14,11 @@ extern {
 disclose Array {
 	length: Number
 	indexOf(searchElement, fromIndex: Number = 0): Number
+	join(separator: String?): String
 	pop(): Any?
 	push(...elements?): Number
-	shift(): Any
-	slice(begin: Number = 0, end: Number = -1)
+	shift(): Any?
+	slice(begin: Number = 0, end: Number = -1): Array
 	sort(compare: Function = null): Array
 	unshift(...elements?): Number
 }
