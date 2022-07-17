@@ -41,10 +41,10 @@ mocha
 
 		logSuccess(test.title)
 	})
-	.on('fail', (test, error) => {
+	.on('fail', (test, error, ...) => {
 		errors.push({test, error})
 
-		if !error.startsWith('AssertionError:') {
+		if !`\(error)`.startsWith('AssertionError:') {
 			console.error(error.stack)
 		}
 

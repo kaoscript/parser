@@ -75,9 +75,20 @@ func prepare(file) { // {{{
 		else {
 			const data = parse(source)
 
-			const json = fs.readFileSync(path.join(root, name + '.json'), {
-				encoding: 'utf8'
-			})
+			let json = null
+
+			try {
+				json = fs.readFileSync(path.join(root, name + '.json'), {
+					encoding: 'utf8'
+				})
+			}
+			catch ex {
+				if debug {
+					console.log(JSON.stringify(data, escapeJSON, 2))
+				}
+
+				throw ex
+			}
 
 			try {
 				expect(JSON.parse(JSON.stringify(data, escapeJSON), unescapeJSON)).to.eql(JSON.parse(json, unescapeJSON))

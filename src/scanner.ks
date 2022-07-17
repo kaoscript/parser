@@ -3213,11 +3213,11 @@ class Scanner {
 		let c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
-			//console.log(index, c, @line, @column)
+			// console.log(index, c, @line, @column)
 
 			if c == 32 || c == 9 {
 				// skip
-				@column++
+				++@column
 			}
 			else if c == 47 { // /
 				c = @data.charCodeAt(index + 1)
@@ -3237,7 +3237,7 @@ class Scanner {
 						c = @data.charCodeAt(index)
 
 						if c == 10 {
-							line++
+							++line
 							column = 1
 
 							lineIndex = index
@@ -3272,7 +3272,7 @@ class Scanner {
 
 						if c == 32 || c == 9 {
 							// skip
-							column++
+							++column
 						}
 						else {
 							break
@@ -3283,13 +3283,13 @@ class Scanner {
 					c = @data.charCodeAt(index)
 
 					if c == 13 && @data.charCodeAt(index + 1) == 10 {
-						line++
+						++line
 						column = 1
 
 						++index
 					}
 					else if c == 10 || c == 13 {
-						line++
+						++line
 						column = 1
 					}
 					else {
@@ -3311,13 +3311,13 @@ class Scanner {
 					c = @data.charCodeAt(index + 1)
 
 					if c == 13 && @data.charCodeAt(index + 2) == 10 {
-						@line++
+						++@line
 						@column = 1
 
 						index += 2
 					}
 					else if c == 10 || c == 13 {
-						@line++
+						++@line
 						@column = 1
 
 						++index
@@ -3352,7 +3352,7 @@ class Scanner {
 		let c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
-			//console.log(index, c, @line, @column)
+			// console.log(index, c, @line, @column)
 
 			if c == 13 && @data.charCodeAt(index + 1) == 10 {
 				@line++
@@ -3367,6 +3367,65 @@ class Scanner {
 			else if c == 32 || c == 9 {
 				// skip
 				@column++
+			}
+			else if c == 35 { // #
+				const oldIndex = index
+
+				c = @data.charCodeAt(index + 1)
+
+				if c != 32 && c != 9 {
+					@nextIndex = @index = index
+					@nextColumn = @column
+					@nextLine = @line
+
+					return c
+				}
+
+				++index
+
+				// skip spaces
+				while ++index < @length {
+					c = @data.charCodeAt(index)
+
+					if c != 32 && c != 9 {
+						break
+					}
+				}
+
+				if @data.charCodeAt(index + 1) == 123 { // {
+					if @data.charCodeAt(index + 2) != 123 && @data.charCodeAt(index + 3) != 123 {
+						@nextIndex = @index = oldIndex
+						@nextColumn = @column
+						@nextLine = @line
+
+						return 35
+					}
+
+					index += 3
+				}
+				else if @data.charCodeAt(index + 1) == 125 { // }
+					if @data.charCodeAt(index + 2) != 125 && @data.charCodeAt(index + 3) != 125 {
+						@nextIndex = @index = oldIndex
+						@nextColumn = @column
+						@nextLine = @line
+
+						return 35
+					}
+
+					index += 3
+				}
+				else {
+					@nextIndex = @index = oldIndex
+					@nextColumn = @column
+					@nextLine = @line
+
+					return 35
+				}
+
+				while ++index < @length && @data.charCodeAt(index + 1) != 10 {
+				}
+
+				@column += index - oldIndex
 			}
 			else if c == 47 { // /
 				c = @data.charCodeAt(index + 1)
