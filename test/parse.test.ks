@@ -36,7 +36,7 @@ if process.argv[2].endsWith('test/parse.dev.ks') && process.argv.length > 3 {
 	}
 }
 
-func prepare(file) { // {{{
+func prepare(file) { # {{{
 	const root = path.dirname(file)
 	const name = path.basename(file).slice(0, -3)
 
@@ -102,7 +102,7 @@ func prepare(file) { // {{{
 			}
 		}
 	})
-} // }}}
+} # }}}
 
 describe('parse', () => {
 	const files = klaw(path.join(__dirname, 'fixtures'), {

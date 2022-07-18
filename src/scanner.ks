@@ -198,7 +198,7 @@ const regex: Dictionary<RegExp> = {
 
 namespace M {
 	export {
-		func ASSIGNEMENT_OPERATOR(that: Scanner, index: Number): Token { // {{{
+		func ASSIGNEMENT_OPERATOR(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -310,9 +310,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func BINARY_OPERATOR(that: Scanner, index: Number): Token { // {{{
+		func BINARY_OPERATOR(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -579,9 +579,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func EXPORT_STATEMENT(that: Scanner, index: Number): Token { // {{{
+		func EXPORT_STATEMENT(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -709,9 +709,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func EXTERN_STATEMENT(that: Scanner, index: Number): Token { // {{{
+		func EXTERN_STATEMENT(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -797,9 +797,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func JUNCTION_OPERATOR(that: Scanner, index: Number): Token { // {{{
+		func JUNCTION_OPERATOR(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -828,9 +828,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func MACRO(that: Scanner, index: Number): Token { // {{{
+		func MACRO(that: Scanner, index: Number): Token { # {{{
 			let c = that._data.charCodeAt(++index)
 			if c == 13 && that.charAt(1) == 10 {
 				that.nextLine(2)
@@ -888,9 +888,9 @@ namespace M {
 
 				return Token::INVALID
 			}
-		} // }}}
+		} # }}}
 
-		func MODULE_STATEMENT(that: Scanner, index: Number): Token { // {{{
+		func MODULE_STATEMENT(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -1045,9 +1045,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func NUMBER(that: Scanner, index: Number): Token { // {{{
+		func NUMBER(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -1093,9 +1093,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func OPERAND(that: Scanner, index: Number): Token { // {{{
+		func OPERAND(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -1177,9 +1177,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func OPERAND_JUNCTION(that: Scanner, index: Number): Token { // {{{
+		func OPERAND_JUNCTION(that: Scanner, index: Number): Token { # {{{
 			let c = that._data.charCodeAt(index + 1)
 
 			let p = that._data.charCodeAt(index)
@@ -1308,9 +1308,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func POSTFIX_OPERATOR(that: Scanner, index: Number): Token { // {{{
+		func POSTFIX_OPERATOR(that: Scanner, index: Number): Token { # {{{
 			let p = that._data.charCodeAt(index)
 			let c = that._data.charCodeAt(index + 1)
 
@@ -1352,9 +1352,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func PREFIX_OPERATOR(that: Scanner, index: Number): Token { // {{{
+		func PREFIX_OPERATOR(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -1413,9 +1413,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func REQUIRE_STATEMENT(that: Scanner, index: Number): Token { // {{{
+		func REQUIRE_STATEMENT(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -1464,9 +1464,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func STATEMENT(that: Scanner, index: Number): Token { // {{{
+		func STATEMENT(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 
 			if c == -1 {
@@ -1875,9 +1875,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func TEMPLATE(that: Scanner, index: Number): Token { // {{{
+		func TEMPLATE(that: Scanner, index: Number): Token { # {{{
 			let c = that._data.charCodeAt(++index)
 
 			if c == 92 && that._data.charCodeAt(index + 1) == 40 {
@@ -1895,9 +1895,9 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 
-		func TYPE_OPERATOR(that: Scanner, index: Number): Token { // {{{
+		func TYPE_OPERATOR(that: Scanner, index: Number): Token { # {{{
 			let c = that.skip(index)
 			if c == -1 {
 				return Token::EOF
@@ -1954,12 +1954,12 @@ namespace M {
 			}
 
 			return Token::INVALID
-		} // }}}
+		} # }}}
 	}
 }
 
 const recognize = {
-	`\(Token::ABSTRACT)`(that: Scanner, c: Number): Boolean { // {{{
+	`\(Token::ABSTRACT)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 97 &&
 			that.charAt(1) == 98 &&
 			that.charAt(2) == 115 &&
@@ -1975,32 +1975,32 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::AMPERSAND)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::AMPERSAND)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 38 && that.charAt(1) != 61 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::AMPERSAND_AMPERSAND)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::AMPERSAND_AMPERSAND)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 38 && that.charAt(1) == 38 {
 			return that.next(2)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::ASTERISK)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::ASTERISK)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 42 && (c = that.charAt(1)) != 42 && c != 36 && c != 61 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::AS)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::AS)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 97 &&
 			that.charAt(1) == 115 &&
 			that.isBoundary(2)
@@ -2010,8 +2010,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::ASYNC)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::ASYNC)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 97 &&
 			that.charAt(1) == 115 &&
 			that.charAt(2) == 121 &&
@@ -2024,16 +2024,16 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::AT)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::AT)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 64 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::ATTRIBUTE_IDENTIFIER)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::ATTRIBUTE_IDENTIFIER)`(that: Scanner, c: Number): Boolean { # {{{
 		if (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
 			let index = that._index - 1
 
@@ -2055,8 +2055,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::AUTO)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::AUTO)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 97 &&
 			that.charAt(1) == 117 &&
 			that.charAt(2) == 116 &&
@@ -2069,8 +2069,8 @@ const recognize = {
 		{
 			return false
 		}
-	} // }}}
-	`\(Token::AWAIT)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::AWAIT)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 97 &&
 			that.charAt(1) == 119 &&
 			that.charAt(2) == 97 &&
@@ -2083,8 +2083,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::BUT)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::BUT)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 98 &&
 			that.charAt(1) == 117 &&
 			that.charAt(2) == 116 &&
@@ -2095,8 +2095,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::BY)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::BY)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 98 &&
 			that.charAt(1) == 121 &&
 			that.isBoundary(2)
@@ -2106,24 +2106,24 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::CARET)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::CARET)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 94 && that.charAt(1) != 61 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::CARET_CARET)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::CARET_CARET)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 94 && that.charAt(1) == 94 {
 			return that.next(2)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::CATCH)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::CATCH)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 99 &&
 			that.charAt(1) == 97 &&
 			that.charAt(2) == 116 &&
@@ -2136,8 +2136,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::COLON)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::COLON)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 58 {
 			c = that.charAt(1)
 
@@ -2146,16 +2146,16 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::COMMA)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::COMMA)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 44 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::CONST)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::CONST)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 99 &&
 			that.charAt(1) == 111 &&
 			that.charAt(2) == 110 &&
@@ -2168,8 +2168,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::CLASS)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::CLASS)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 99 &&
 			that.charAt(1) == 108 &&
 			that.charAt(2) == 97 &&
@@ -2182,16 +2182,16 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::CLASS_VERSION)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::CLASS_VERSION)`(that: Scanner, c: Number): Boolean { # {{{
 		if match ?= regex.class_version.exec(that.substringAt(0)) {
 			return that.next(match[0].length)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::DESC)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::DESC)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 100 &&
 			that.charAt(1) == 101 &&
 			that.charAt(2) == 115 &&
@@ -2203,32 +2203,32 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::DOT)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::DOT)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 46 && that.charAt(1) != 46 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::DOT_DOT)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::DOT_DOT)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 46 && that.charAt(1) == 46 && that.charAt(2) != 46 {
 			return that.next(2)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::DOT_DOT_DOT)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::DOT_DOT_DOT)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 46 && that.charAt(1) == 46 && that.charAt(2) == 46 {
 			return that.next(3)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::ELSE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::ELSE)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 101 &&
 			that.charAt(1) == 108 &&
 			that.charAt(2) == 115 &&
@@ -2240,8 +2240,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::ELSE_IF)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::ELSE_IF)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 101 &&
 			that.charAt(1) == 108 &&
 			that.charAt(2) == 115 &&
@@ -2256,8 +2256,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::ENUM)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::ENUM)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 101 &&
 			that.charAt(1) == 110 &&
 			that.charAt(2) == 117 &&
@@ -2269,32 +2269,32 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::EQUALS)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::EQUALS)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 61 && (c = that.charAt(1)) != 61 && c != 62 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::EQUALS_RIGHT_ANGLE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::EQUALS_RIGHT_ANGLE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 61 && that.charAt(1) == 62{
 			return that.next(2)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::EXCLAMATION)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::EXCLAMATION)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 33 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::EXTENDS)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::EXTENDS)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 101 &&
 			that.charAt(1) == 120 &&
 			that.charAt(2) == 116 &&
@@ -2309,8 +2309,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::FINAL)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::FINAL)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 102 &&
 			that.charAt(1) == 105 &&
 			that.charAt(2) == 110 &&
@@ -2323,8 +2323,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::FINALLY)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::FINALLY)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 102 &&
 			that.charAt(1) == 105 &&
 			that.charAt(2) == 110 &&
@@ -2339,8 +2339,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::FOR)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::FOR)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 102 &&
 			that.charAt(1) == 111 &&
 			that.charAt(2) == 114 &&
@@ -2351,8 +2351,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::FROM)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::FROM)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 102 &&
 			that.charAt(1) == 114 &&
 			that.charAt(2) == 111 &&
@@ -2364,8 +2364,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::FUNC)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::FUNC)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 102 &&
 			that.charAt(1) == 117 &&
 			that.charAt(2) == 110 &&
@@ -2377,8 +2377,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::GET)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::GET)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 103 &&
 			that.charAt(1) == 101 &&
 			that.charAt(2) == 116 &&
@@ -2389,24 +2389,24 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::HASH_EXCLAMATION_LEFT_SQUARE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::HASH_EXCLAMATION_LEFT_SQUARE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 35 && that.charAt(1) == 33 && that.charAt(2) == 91 {
 			return that.next(3)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::HASH_LEFT_SQUARE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::HASH_LEFT_SQUARE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 35 && that.charAt(1) == 91 {
 			return that.next(2)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::IDENTIFIER)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::IDENTIFIER)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 36 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
 			that.scanIdentifier(false)
 
@@ -2420,8 +2420,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::IF)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::IF)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 105 &&
 			that.charAt(1) == 102 &&
 			that.isBoundary(2)
@@ -2431,8 +2431,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::IN)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::IN)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 105 &&
 			that.charAt(1) == 110 &&
 			that.isBoundary(2)
@@ -2442,8 +2442,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::INTERNAL)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::INTERNAL)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 105 &&
 			that.charAt(1) == 110 &&
 			that.charAt(2) == 116 &&
@@ -2459,8 +2459,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::IS)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::IS)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 105 &&
 			that.charAt(1) == 115 &&
 			that.isBoundary(2)
@@ -2470,8 +2470,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::LATEINIT)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::LATEINIT)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 108 &&
 			that.charAt(1) == 97 &&
 			that.charAt(2) == 116 &&
@@ -2487,8 +2487,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::LEFT_ANGLE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::LEFT_ANGLE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 60 {
 			c = that.charAt(1)
 
@@ -2497,32 +2497,32 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::LEFT_CURLY)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::LEFT_CURLY)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 123 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::LEFT_ROUND)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::LEFT_ROUND)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 40 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::LEFT_SQUARE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::LEFT_SQUARE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 91 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::LET)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::LET)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 108 &&
 			that.charAt(1) == 101 &&
 			that.charAt(2) == 116 &&
@@ -2533,8 +2533,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::MACRO)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::MACRO)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 109 &&
 			that.charAt(1) == 97 &&
 			that.charAt(2) == 99 &&
@@ -2547,16 +2547,16 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::MINUS)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::MINUS)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 45 && (c = that.charAt(1)) != 61 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::NEWLINE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::NEWLINE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 13 && that.charAt(1) == 10 {
 			return that.nextLine(2)
 		}
@@ -2565,8 +2565,8 @@ const recognize = {
 		}
 
 		return false
-	} // }}}
-	`\(Token::NUMERAL)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::NUMERAL)`(that: Scanner, c: Number): Boolean { # {{{
 		if 48 <= c <= 57 {
 			let i = 1
 
@@ -2580,8 +2580,8 @@ const recognize = {
 		}
 
 		return false
-	} // }}}
-	`\(Token::OF)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::OF)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 111 &&
 			that.charAt(1) == 102 &&
 			that.isBoundary(2)
@@ -2591,8 +2591,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::ON)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::ON)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 111 &&
 			that.charAt(1) == 110 &&
 			that.isBoundary(2)
@@ -2602,8 +2602,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::OVERRIDE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::OVERRIDE)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 111 &&
 			that.charAt(1) == 118 &&
 			that.charAt(2) == 101 &&
@@ -2619,8 +2619,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::OVERWRITE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::OVERWRITE)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 111 &&
 			that.charAt(1) == 118 &&
 			that.charAt(2) == 101 &&
@@ -2637,24 +2637,24 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::PIPE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::PIPE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 124 && that.charAt(1) != 61 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::PIPE_PIPE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::PIPE_PIPE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 124 && that.charAt(1) == 124 {
 			return that.next(2)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::PRIVATE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::PRIVATE)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 112 &&
 			that.charAt(1) == 114 &&
 			that.charAt(2) == 105 &&
@@ -2669,8 +2669,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::PROTECTED)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::PROTECTED)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 112 &&
 			that.charAt(1) == 114 &&
 			that.charAt(2) == 111 &&
@@ -2687,8 +2687,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::PUBLIC)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::PUBLIC)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 112 &&
 			that.charAt(1) == 117 &&
 			that.charAt(2) == 98 &&
@@ -2702,16 +2702,16 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::QUESTION)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::QUESTION)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 63 {
 			return (c = that.charAt(1)) == 40 || c == 46 || c == 61 || c == 63 || c == 91 ? false : that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::RETURN)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::RETURN)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 114 &&
 			that.charAt(1) == 101 &&
 			that.charAt(2) == 116 &&
@@ -2725,40 +2725,40 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::RIGHT_ANGLE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::RIGHT_ANGLE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 62 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::RIGHT_CURLY)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::RIGHT_CURLY)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 125 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::RIGHT_ROUND)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::RIGHT_ROUND)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 41 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::RIGHT_SQUARE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::RIGHT_SQUARE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 93 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::SET)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::SET)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 115 &&
 			that.charAt(1) == 101 &&
 			that.charAt(2) == 116 &&
@@ -2769,8 +2769,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::STATIC)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::STATIC)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 115 &&
 			that.charAt(1) == 116 &&
 			that.charAt(2) == 97 &&
@@ -2784,8 +2784,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::STRING)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::STRING)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 34 {
 			if match ?= regex.double_quote.exec(that.substringAt(1)) {
 				return that.next(match[0].length + 1)
@@ -2798,8 +2798,8 @@ const recognize = {
 		}
 
 		return false
-	} // }}}
-	`\(Token::SWITCH)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::SWITCH)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 115 &&
 			that.charAt(1) == 119 &&
 			that.charAt(2) == 105 &&
@@ -2813,24 +2813,24 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::TEMPLATE_BEGIN)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::TEMPLATE_BEGIN)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 96 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::TEMPLATE_END)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::TEMPLATE_END)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 96 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::THROW)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::THROW)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 116 &&
 			that.charAt(1) == 104 &&
 			that.charAt(2) == 114 &&
@@ -2843,8 +2843,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::TIL)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::TIL)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 116 &&
 			that.charAt(1) == 105 &&
 			that.charAt(2) == 108 &&
@@ -2855,24 +2855,24 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::TILDE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::TILDE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 126 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::TILDE_TILDE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::TILDE_TILDE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 126 && that.charAt(1) == 126 {
 			return that.next(2)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::TO)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::TO)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 116 &&
 			that.charAt(1) == 111 &&
 			that.isBoundary(2)
@@ -2882,8 +2882,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::TRY)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::TRY)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 116 &&
 			that.charAt(1) == 114 &&
 			that.charAt(2) == 121 &&
@@ -2894,16 +2894,16 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::UNDERSCORE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::UNDERSCORE)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 95 {
 			return that.next(1)
 		}
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::UNLESS)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::UNLESS)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 117 &&
 			that.charAt(1) == 110 &&
 			that.charAt(2) == 108 &&
@@ -2917,8 +2917,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::UNTIL)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::UNTIL)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 117 &&
 			that.charAt(1) == 110 &&
 			that.charAt(2) == 116 &&
@@ -2931,8 +2931,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::WHEN)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::WHEN)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 119 &&
 			that.charAt(1) == 104 &&
 			that.charAt(2) == 101 &&
@@ -2944,8 +2944,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::WHILE)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::WHILE)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 119 &&
 			that.charAt(1) == 104 &&
 			that.charAt(2) == 105 &&
@@ -2958,8 +2958,8 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
-	`\(Token::WITH)`(that: Scanner, c: Number): Boolean { // {{{
+	} # }}}
+	`\(Token::WITH)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 119 &&
 			that.charAt(1) == 105 &&
 			that.charAt(2) == 116 &&
@@ -2971,7 +2971,7 @@ const recognize = {
 		else {
 			return false
 		}
-	} // }}}
+	} # }}}
 }
 
 class Scanner {
@@ -2986,13 +2986,13 @@ class Scanner {
 		_nextIndex: Number		= 0
 		_nextLine: Number		= 1
 	}
-	constructor(@data) { // {{{
+	constructor(@data) { # {{{
 		@length = @data.length
-	} // }}}
+	} # }}}
 	charAt(d: Number): Number => @data.charCodeAt(@index + d)
 	char(): String => @eof ? 'EOF' : @data[@index]
 	column(): @column
-	commit(): Token? { // {{{
+	commit(): Token? { # {{{
 		if @eof {
 			return null
 		}
@@ -3003,30 +3003,30 @@ class Scanner {
 
 			return Token::INVALID
 		}
-	} // }}}
-	endPosition(): Position => Position( // {{{
+	} # }}}
+	endPosition(): Position => Position( # {{{
 		line: @nextLine
 		column: @nextColumn
-	) // }}}
-	eof(): Token { // {{{
+	) # }}}
+	eof(): Token { # {{{
 		@eof = true
 
 		return Token::EOF
-	} // }}}
-	isBoundary(d: Number): Boolean { // {{{
+	} # }}}
+	isBoundary(d: Number): Boolean { # {{{
 		const c = @data.charCodeAt(@index + d)
 
 		return c == 9 || c == 10 || c == 13 || c == 32 || !((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == 95 || c == 36)
-	} // }}}
+	} # }}}
 	isEOF(): Boolean => @eof
 	line(): @line
-	mark(): Marker => Marker( // {{{
+	mark(): Marker => Marker( # {{{
 		eof: @eof
 		index: @index
 		line: @line
 		column: @column
-	) // }}}
-	match(...tokens: Token): Token { // {{{
+	) # }}}
+	match(...tokens: Token): Token { # {{{
 		if @eof {
 			return Token::EOF
 		}
@@ -3045,29 +3045,29 @@ class Scanner {
 
 			return Token::INVALID
 		}
-	} // }}}
-	matchM(matcher: Function): Token { // {{{
+	} # }}}
+	matchM(matcher: Function): Token { # {{{
 		if @eof {
 			return Token::EOF
 		}
 		else {
 			return matcher(this, @index - 1)
 		}
-	} // }}}
-	next(length: Number): Boolean { // {{{
+	} # }}}
+	next(length: Number): Boolean { # {{{
 		@nextIndex = @index + length
 		@nextColumn = @column + length
 
 		return true
-	} // }}}
-	nextLine(length: Number): Boolean { // {{{
+	} # }}}
+	nextLine(length: Number): Boolean { # {{{
 		@nextIndex = @index + length
 		@nextColumn = 1
 		@nextLine = @line + 1
 
 		return true
-	} // }}}
-	position(): Range => Range( // {{{
+	} # }}}
+	position(): Range => Range( # {{{
 		start: Position(
 			line: @line
 			column: @column
@@ -3076,16 +3076,16 @@ class Scanner {
 			line: @nextLine
 			column: @nextColumn
 		)
-	) // }}}
-	rollback(mark: Marker): Boolean { // {{{
+	) # }}}
+	rollback(mark: Marker): Boolean { # {{{
 		@eof = mark.eof
 		@index = mark.index
 		@line = mark.line
 		@column = mark.column
 
 		return true
-	} // }}}
-	scanIdentifier(substr: Boolean): String? { // {{{
+	} # }}}
+	scanIdentifier(substr: Boolean): String? { # {{{
 		let index = @index - 1
 
 		let c = @data.charCodeAt(index)
@@ -3110,11 +3110,11 @@ class Scanner {
 
 			return null
 		}
-	} // }}}
-	skip(): Void { // {{{
+	} # }}}
+	skip(): Void { # {{{
 		this.skip(@index  - 1)
-	} // }}}
-	private skip(index: Number): Number { // {{{
+	} # }}}
+	private skip(index: Number): Number { # {{{
 		let c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
@@ -3268,8 +3268,8 @@ class Scanner {
 		this.eof()
 
 		return -1
-	} // }}}
-	skipComments(): Number { // {{{
+	} # }}}
+	skipComments(): Number { # {{{
 		let index = @index  - 1
 
 		let c
@@ -3409,8 +3409,8 @@ class Scanner {
 		this.eof()
 
 		return -1
-	} // }}}
-	skipNewLine(index: Number = @index - 1): Number { // {{{
+	} # }}}
+	skipNewLine(index: Number = @index - 1): Number { # {{{
 		let c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
@@ -3574,13 +3574,13 @@ class Scanner {
 		this.eof()
 
 		return -1
-	} // }}}
-	startPosition(): Position => Position( // {{{
+	} # }}}
+	startPosition(): Position => Position( # {{{
 		line: @line
 		column: @column
-	) // }}}
+	) # }}}
 	substringAt(d: Number): String => @data.substr(@index + d)
-	test(token: Token): Boolean { // {{{
+	test(token: Token): Boolean { # {{{
 		if @eof {
 			return false
 		}
@@ -3594,17 +3594,17 @@ class Scanner {
 				return recognize[token](this, c)
 			}
 		}
-	} // }}}
-	testNS(token: Token): Boolean { // {{{
+	} # }}}
+	testNS(token: Token): Boolean { # {{{
 		if @eof {
 			return false
 		}
 		else {
 			return recognize[token](this, @data.charCodeAt(@index))
 		}
-	} // }}}
+	} # }}}
 	toDebug(): String => `line: \(@line), column: \(@column), token: \(this.toQuote())`
-	toQuote(): String { // {{{
+	toQuote(): String { # {{{
 		if @eof {
 			return '"EOF"'
 		}
@@ -3621,14 +3621,14 @@ class Scanner {
 		else {
 			return `"\(@data.substring(@index, @nextIndex))"`
 		}
-	} // }}}
+	} # }}}
 	value(): String => @data.substring(@index, @nextIndex)
-	value(token: Token): String | Array<String> { // {{{
+	value(token: Token): String | Array<String> { # {{{
 		if overhauls[token] is Function {
 			return overhauls[token](@data.substring(@index, @nextIndex))
 		}
 		else {
 			return @data.substring(@index, @nextIndex)
 		}
-	} // }}}
+	} # }}}
 }
