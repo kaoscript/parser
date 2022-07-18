@@ -3118,11 +3118,73 @@ class Scanner {
 		let c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
-			//console.log(index, c, @line, @column)
+			// console.log('sk', index, c, @line, @column)
 
 			if c == 32 || c == 9 {
 				// skip
-				@column++
+				++@column
+			}
+			else if c == 35 { // #
+				const oldIndex = index
+
+				c = @data.charCodeAt(index + 1)
+
+				if c != 32 && c != 9 {
+					@nextIndex = @index = index
+					@nextColumn = @column
+					@nextLine = @line
+
+					return 35
+				}
+
+				++index
+
+				// skip spaces
+				while ++index < @length {
+					c = @data.charCodeAt(index)
+
+					if c != 32 && c != 9 {
+						break
+					}
+				}
+
+				c = @data.charCodeAt(index + 1)
+
+				if c == 123 { // {
+					if @data.charCodeAt(index + 2) != 123 && @data.charCodeAt(index + 3) != 123 {
+						@nextIndex = @index = oldIndex
+						@nextColumn = @column
+						@nextLine = @line
+
+						return 35
+					}
+
+					index += 2
+				}
+				else if c == 125 { // }
+					if @data.charCodeAt(index + 2) != 125 && @data.charCodeAt(index + 3) != 125 {
+						@nextIndex = @index = oldIndex
+						@nextColumn = @column
+						@nextLine = @line
+
+						return 35
+					}
+
+					index += 2
+				}
+				else {
+					@nextIndex = @index = oldIndex
+					@nextColumn = @column
+					@nextLine = @line
+
+					return 35
+				}
+
+				while index + 1 < @length && @data.charCodeAt(index + 1) != 10 {
+					++index
+				}
+
+				@column += index - oldIndex
 			}
 			else if c == 47 { // /
 				c = @data.charCodeAt(index + 1)
@@ -3213,7 +3275,7 @@ class Scanner {
 		let c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
-			// console.log(index, c, @line, @column)
+			// console.log('cm', index, c, @line, @column)
 
 			if c == 32 || c == 9 {
 				// skip
@@ -3352,21 +3414,21 @@ class Scanner {
 		let c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
-			// console.log(index, c, @line, @column)
+			// console.log('nl', index, c, @line, @column)
 
 			if c == 13 && @data.charCodeAt(index + 1) == 10 {
-				@line++
+				++@line
 				@column = 1
 
 				++index
 			}
 			else if c == 10 || c == 13 {
-				@line++
+				++@line
 				@column = 1
 			}
 			else if c == 32 || c == 9 {
 				// skip
-				@column++
+				++@column
 			}
 			else if c == 35 { // #
 				const oldIndex = index
@@ -3378,7 +3440,7 @@ class Scanner {
 					@nextColumn = @column
 					@nextLine = @line
 
-					return c
+					return 35
 				}
 
 				++index
@@ -3392,7 +3454,9 @@ class Scanner {
 					}
 				}
 
-				if @data.charCodeAt(index + 1) == 123 { // {
+				c = @data.charCodeAt(index + 1)
+
+				if c == 123 { // {
 					if @data.charCodeAt(index + 2) != 123 && @data.charCodeAt(index + 3) != 123 {
 						@nextIndex = @index = oldIndex
 						@nextColumn = @column
@@ -3401,9 +3465,9 @@ class Scanner {
 						return 35
 					}
 
-					index += 3
+					index += 2
 				}
-				else if @data.charCodeAt(index + 1) == 125 { // }
+				else if c == 125 { // }
 					if @data.charCodeAt(index + 2) != 125 && @data.charCodeAt(index + 3) != 125 {
 						@nextIndex = @index = oldIndex
 						@nextColumn = @column
@@ -3412,7 +3476,7 @@ class Scanner {
 						return 35
 					}
 
-					index += 3
+					index += 2
 				}
 				else {
 					@nextIndex = @index = oldIndex
@@ -3422,7 +3486,8 @@ class Scanner {
 					return 35
 				}
 
-				while ++index < @length && @data.charCodeAt(index + 1) != 10 {
+				while index + 1 < @length && @data.charCodeAt(index + 1) != 10 {
+					++index
 				}
 
 				@column += index - oldIndex
