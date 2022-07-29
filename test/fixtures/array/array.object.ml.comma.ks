@@ -1,4 +1,4 @@
-let foo = [
+var foo = [
 	{
 		x: 4
 		,

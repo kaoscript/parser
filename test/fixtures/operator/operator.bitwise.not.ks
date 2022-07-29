@@ -1,1 +1,1 @@
-let a = ~~~4
+var dyn a = ~~~4

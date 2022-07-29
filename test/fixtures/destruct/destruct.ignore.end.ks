@@ -1,1 +1,1 @@
-let [x, y, _] = foobar()
+var dyn [x, y, _] = foobar()

@@ -60,9 +60,21 @@ func prepare(file) { # {{{
 		if ?error {
 			let data = null
 
-			expect(() => {
+			try {
 				data = parse(source)
-			}).to.throw(error)
+			}
+			catch ex {
+				try {
+					expect(ex.message).to.equal(error)
+				}
+				catch ex2 {
+					if debug {
+						console.log(ex.message)
+					}
+
+					throw ex2
+				}
+			}
 
 			if ?data && debug {
 				console.log(JSON.stringify(data, escapeJSON, 2))

@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -15,20 +27,20 @@
             "name": "person",
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 11
+              "column": 15
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 11
+            "column": 15
           }
         }
       ],
@@ -38,41 +50,26 @@
       },
       "end": {
         "line": 1,
-        "column": 20
+        "column": 24
       },
       "init": {
         "kind": 68,
         "value": "Mike",
         "start": {
           "line": 1,
-          "column": 14
+          "column": 18
         },
         "end": {
           "line": 1,
-          "column": 20
+          "column": 24
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
-      "attributes": [],
-      "variables": [
+      "modifiers": [
         {
-          "kind": 123,
-          "modifiers": [],
-          "name": {
-            "kind": 52,
-            "name": "age",
-            "start": {
-              "line": 2,
-              "column": 5
-            },
-            "end": {
-              "line": 2,
-              "column": 8
-            }
-          },
+          "kind": 10,
           "start": {
             "line": 2,
             "column": 5
@@ -83,24 +80,51 @@
           }
         }
       ],
+      "attributes": [],
+      "variables": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "name": {
+            "kind": 52,
+            "name": "age",
+            "start": {
+              "line": 2,
+              "column": 9
+            },
+            "end": {
+              "line": 2,
+              "column": 12
+            }
+          },
+          "start": {
+            "line": 2,
+            "column": 9
+          },
+          "end": {
+            "line": 2,
+            "column": 12
+          }
+        }
+      ],
       "start": {
         "line": 2,
         "column": 1
       },
       "end": {
         "line": 2,
-        "column": 13
+        "column": 17
       },
       "init": {
         "kind": 78,
         "value": 28,
         "start": {
           "line": 2,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 2,
-          "column": 13
+          "column": 17
         }
       }
     },
@@ -209,19 +233,7 @@
         "statements": [
           {
             "kind": 122,
-            "modifiers": [
-              {
-                "kind": 13,
-                "start": {
-                  "line": 5,
-                  "column": 2
-                },
-                "end": {
-                  "line": 5,
-                  "column": 7
-                }
-              }
-            ],
+            "modifiers": [],
             "attributes": [],
             "variables": [
               {
@@ -232,20 +244,20 @@
                   "name": "str0",
                   "start": {
                     "line": 5,
-                    "column": 8
+                    "column": 6
                   },
                   "end": {
                     "line": 5,
-                    "column": 12
+                    "column": 10
                   }
                 },
                 "start": {
                   "line": 5,
-                  "column": 8
+                  "column": 6
                 },
                 "end": {
                   "line": 5,
-                  "column": 12
+                  "column": 10
                 }
               }
             ],
@@ -255,7 +267,7 @@
             },
             "end": {
               "line": 5,
-              "column": 25
+              "column": 23
             },
             "init": {
               "kind": 71,
@@ -264,11 +276,11 @@
                   "kind": 6,
                   "start": {
                     "line": 5,
-                    "column": 22
+                    "column": 20
                   },
                   "end": {
                     "line": 5,
-                    "column": 23
+                    "column": 21
                   }
                 }
               ],
@@ -277,11 +289,11 @@
                 "name": "strings",
                 "start": {
                   "line": 5,
-                  "column": 15
+                  "column": 13
                 },
                 "end": {
                   "line": 5,
-                  "column": 22
+                  "column": 20
                 }
               },
               "property": {
@@ -289,119 +301,20 @@
                 "value": 0,
                 "start": {
                   "line": 5,
-                  "column": 23
+                  "column": 21
                 },
                 "end": {
                   "line": 5,
-                  "column": 24
-                }
-              },
-              "start": {
-                "line": 5,
-                "column": 15
-              },
-              "end": {
-                "line": 5,
-                "column": 25
-              }
-            }
-          },
-          {
-            "kind": 122,
-            "modifiers": [
-              {
-                "kind": 13,
-                "start": {
-                  "line": 6,
-                  "column": 2
-                },
-                "end": {
-                  "line": 6,
-                  "column": 7
-                }
-              }
-            ],
-            "attributes": [],
-            "variables": [
-              {
-                "kind": 123,
-                "modifiers": [],
-                "name": {
-                  "kind": 52,
-                  "name": "str1",
-                  "start": {
-                    "line": 6,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 6,
-                    "column": 12
-                  }
-                },
-                "start": {
-                  "line": 6,
-                  "column": 8
-                },
-                "end": {
-                  "line": 6,
-                  "column": 12
-                }
-              }
-            ],
-            "start": {
-              "line": 6,
-              "column": 2
-            },
-            "end": {
-              "line": 6,
-              "column": 25
-            },
-            "init": {
-              "kind": 71,
-              "modifiers": [
-                {
-                  "kind": 6,
-                  "start": {
-                    "line": 6,
-                    "column": 22
-                  },
-                  "end": {
-                    "line": 6,
-                    "column": 23
-                  }
-                }
-              ],
-              "object": {
-                "kind": 52,
-                "name": "strings",
-                "start": {
-                  "line": 6,
-                  "column": 15
-                },
-                "end": {
-                  "line": 6,
                   "column": 22
                 }
               },
-              "property": {
-                "kind": 78,
-                "value": 1,
-                "start": {
-                  "line": 6,
-                  "column": 23
-                },
-                "end": {
-                  "line": 6,
-                  "column": 24
-                }
-              },
               "start": {
-                "line": 6,
-                "column": 15
+                "line": 5,
+                "column": 13
               },
               "end": {
-                "line": 6,
-                "column": 25
+                "line": 5,
+                "column": 23
               }
             }
           },
@@ -415,23 +328,122 @@
                 "modifiers": [],
                 "name": {
                   "kind": 52,
-                  "name": "ageStr",
+                  "name": "str1",
                   "start": {
-                    "line": 8,
+                    "line": 6,
                     "column": 6
                   },
                   "end": {
-                    "line": 8,
-                    "column": 12
+                    "line": 6,
+                    "column": 10
                   }
                 },
+                "start": {
+                  "line": 6,
+                  "column": 6
+                },
+                "end": {
+                  "line": 6,
+                  "column": 10
+                }
+              }
+            ],
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            },
+            "init": {
+              "kind": 71,
+              "modifiers": [
+                {
+                  "kind": 6,
+                  "start": {
+                    "line": 6,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 21
+                  }
+                }
+              ],
+              "object": {
+                "kind": 52,
+                "name": "strings",
+                "start": {
+                  "line": 6,
+                  "column": 13
+                },
+                "end": {
+                  "line": 6,
+                  "column": 20
+                }
+              },
+              "property": {
+                "kind": 78,
+                "value": 1,
+                "start": {
+                  "line": 6,
+                  "column": 21
+                },
+                "end": {
+                  "line": 6,
+                  "column": 22
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 13
+              },
+              "end": {
+                "line": 6,
+                "column": 23
+              }
+            }
+          },
+          {
+            "kind": 122,
+            "modifiers": [
+              {
+                "kind": 10,
                 "start": {
                   "line": 8,
                   "column": 6
                 },
                 "end": {
                   "line": 8,
-                  "column": 12
+                  "column": 9
+                }
+              }
+            ],
+            "attributes": [],
+            "variables": [
+              {
+                "kind": 123,
+                "modifiers": [],
+                "name": {
+                  "kind": 52,
+                  "name": "ageStr",
+                  "start": {
+                    "line": 8,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 16
+                  }
+                },
+                "start": {
+                  "line": 8,
+                  "column": 10
+                },
+                "end": {
+                  "line": 8,
+                  "column": 16
                 }
               }
             ],
@@ -441,7 +453,7 @@
             },
             "end": {
               "line": 8,
-              "column": 12
+              "column": 16
             }
           },
           {
@@ -715,19 +727,7 @@
     },
     {
       "kind": 122,
-      "modifiers": [
-        {
-          "kind": 13,
-          "start": {
-            "line": 19,
-            "column": 1
-          },
-          "end": {
-            "line": 19,
-            "column": 6
-          }
-        }
-      ],
+      "modifiers": [],
       "attributes": [],
       "variables": [
         {
@@ -738,20 +738,20 @@
             "name": "output",
             "start": {
               "line": 19,
-              "column": 7
+              "column": 5
             },
             "end": {
               "line": 19,
-              "column": 13
+              "column": 11
             }
           },
           "start": {
             "line": 19,
-            "column": 7
+            "column": 5
           },
           "end": {
             "line": 19,
-            "column": 13
+            "column": 11
           }
         }
       ],
@@ -761,7 +761,7 @@
       },
       "end": {
         "line": 19,
-        "column": 53
+        "column": 51
       },
       "init": {
         "kind": 106,
@@ -770,11 +770,11 @@
           "name": "myTag",
           "start": {
             "line": 19,
-            "column": 16
+            "column": 14
           },
           "end": {
             "line": 19,
-            "column": 21
+            "column": 19
           }
         },
         "template": {
@@ -785,11 +785,11 @@
               "value": "That ",
               "start": {
                 "line": 19,
-                "column": 22
+                "column": 20
               },
               "end": {
                 "line": 19,
-                "column": 27
+                "column": 25
               }
             },
             {
@@ -797,11 +797,11 @@
               "name": "person",
               "start": {
                 "line": 19,
-                "column": 30
+                "column": 28
               },
               "end": {
                 "line": 19,
-                "column": 36
+                "column": 34
               }
             },
             {
@@ -809,11 +809,11 @@
               "value": " is a ",
               "start": {
                 "line": 19,
-                "column": 38
+                "column": 36
               },
               "end": {
                 "line": 19,
-                "column": 44
+                "column": 42
               }
             },
             {
@@ -821,30 +821,30 @@
               "name": "age",
               "start": {
                 "line": 19,
-                "column": 47
+                "column": 45
               },
               "end": {
                 "line": 19,
-                "column": 50
+                "column": 48
               }
             }
           ],
           "start": {
             "line": 19,
-            "column": 21
+            "column": 19
           },
           "end": {
             "line": 19,
-            "column": 53
+            "column": 51
           }
         },
         "start": {
           "line": 19,
-          "column": 16
+          "column": 14
         },
         "end": {
           "line": 19,
-          "column": 53
+          "column": 51
         }
       }
     },

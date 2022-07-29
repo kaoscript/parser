@@ -1,1 +1,1 @@
-let foo = lang ? (bar = 'goodbye', 'hello') : 'bonjour'
+var dyn foo = lang ? (bar = 'goodbye', 'hello') : 'bonjour'

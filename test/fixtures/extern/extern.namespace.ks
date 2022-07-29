@@ -1,5 +1,5 @@
 extern sealed namespace Math1 {
-	const PI: Number
+	var PI: Number
 	func pow(...): Number
 }
 

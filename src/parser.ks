@@ -81,6 +81,25 @@ export namespace Parser {
 		Typing
 	}
 
+	flagged enum ClassBits {
+		AbstractMethod		 = 1
+		Attribute
+		DynamicVariable
+		FinalMethod
+		FinalVariable
+		LateVariable
+		Method
+		NoAssignment
+		NoBody
+		OverrideMethod
+		OverrideProperty
+		OverwriteMethod
+		OverwriteProperty
+		Property
+		RequiredAssignment
+		Variable
+	}
+
 	const NO = Event(ok: false)
 
 	class Parser {
@@ -99,6 +118,14 @@ export namespace Parser {
 		match(...tokens: Token): Token => @token = @scanner.match(...tokens)
 		matchM(matcher: Function): Token => @token = @scanner.matchM(matcher)
 		position(): Range => @scanner.position()
+		printDebug(prefix: String? = null): Void { # {{{
+			if prefix? {
+				console.log(prefix, @scanner.toDebug())
+			}
+			else {
+				console.log(@scanner.toDebug())
+			}
+		} # }}}
 		relocate(event: Event, first: Event?, last: Event?): Event { # {{{
 			if first != null {
 				event.start = event.value.start = first.start
@@ -131,7 +158,7 @@ export namespace Parser {
 				return false
 			}
 		} # }}}
-		test(...tokens: Token): Boolean => tokens.indexOf(this.match(...tokens)) != -1
+		test(...tokens: Token): Boolean => tokens.indexOf(@match(...tokens)) != -1
 		testNS(token): Boolean { # {{{
 			if @scanner.testNS(token) {
 				@token = token
@@ -203,7 +230,7 @@ export namespace Parser {
 			)
 		} # }}}
 		NL_0M() ~ SyntaxError { # {{{
-			this.skipNewLine()
+			@skipNewLine()
 		} # }}}
 		altArrayComprehension(expression: Event, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			const loop = this.reqForExpression(this.yes(), fMode)
@@ -712,77 +739,6 @@ export namespace Parser {
 				return identifier
 			}
 		} # }}}
-		reqAutoStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			const variable = this.tryVariable()
-
-			unless variable.ok {
-				return NO
-			}
-
-			const modifiers = [AST.Modifier(ModifierKind::AutoTyping, first)]
-
-			if this.test(Token::COMMA) {
-				const variables = [variable]
-
-				do {
-					this.commit()
-
-					variables.push(this.reqVariable())
-				}
-				while this.test(Token::COMMA)
-
-				unless this.test(Token::EQUALS) {
-					this.throw('=')
-				}
-
-				this.commit().NL_0M()
-
-				unless this.test(Token::AWAIT) {
-					this.throw('await')
-				}
-
-				this.commit()
-
-				let operand = this.reqPrefixedOperand(eMode, fMode)
-
-				operand = this.yep(AST.AwaitExpression([], variables, operand, variable, operand))
-
-				return this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
-			}
-			else if this.test(Token::EQUALS) {
-				this.commit().NL_0M()
-
-				let init = this.reqExpression(eMode, fMode)
-
-				if this.match(Token::IF, Token::UNLESS) == Token::IF {
-					const first = this.yes()
-					const condition = this.reqExpression(ExpressionMode::Default, fMode)
-
-					if this.test(Token::ELSE) {
-						this.commit()
-
-						const whenFalse = this.reqExpression(ExpressionMode::Default, fMode)
-
-						init = this.yep(AST.IfExpression(condition, init, whenFalse, init, whenFalse))
-					}
-					else {
-						init = this.yep(AST.IfExpression(condition, init, null, init, condition))
-					}
-				}
-				else if @token == Token::UNLESS {
-					this.commit()
-
-					const condition = this.reqExpression(ExpressionMode::Default, fMode)
-
-					init = this.yep(AST.UnlessExpression(condition, init, init, condition))
-				}
-
-				return this.yep(AST.VariableDeclaration(modifiers, [variable], init, first, init))
-			}
-			else {
-				this.throw('=')
-			}
-		} # }}}
 		reqAwaitExpression(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			const operand = this.reqPrefixedOperand(ExpressionMode::Default, fMode)
 
@@ -871,491 +827,280 @@ export namespace Parser {
 
 			return this.yep(AST.CatchClause(binding, type, body, first, body))
 		} # }}}
-		reqClassAbstractMethod(attributes, modifiers, first?): Event ~ SyntaxError { # {{{
-			let name
-			if this.test(Token::ASYNC) {
-				let async = this.reqIdentifier()
-
-				name = this.tryIdentifier()
-
-				if name.ok {
-					modifiers = [...modifiers, this.yep(AST.Modifier(ModifierKind::Async, async))]
-				}
-				else {
-					name = async
-				}
-			}
-			else {
-				name = this.reqIdentifier()
-			}
-
-			return this.reqClassAbstractMethodBody(attributes, modifiers, name, first ?? name)
-		} # }}}
-		reqClassAbstractMethodBody(attributes, modifiers, name: Event, first): Event ~ SyntaxError { # {{{
-			const parameters = this.reqClassMethodParameterList()
-			const type = this.tryMethodReturns(false)
-			const throws = this.tryFunctionThrows()
-
-			this.reqNL_1M()
-
-			return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
-		} # }}}
-		reqClassLateInitMember(attributes, modifiers, first?): Event ~ SyntaxError { # {{{
-			const mark = this.mark()
-
-			if this.test(Token::AT) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
-				const name = this.reqNameIST(FunctionMode::Function)
-
-				let type
-				if this.test(Token::COLON) {
-					this.commit()
-
-					type = this.reqTypeVar()
-				}
-
-				let value
-				if this.test(Token::EQUALS) {
-					this.commit()
-
-					value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-				}
-
-				this.reqNL_1M()
-
-				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, value, first ?? modifier, value ?? type ?? name))
-			}
-			else if this.test(Token::AUTO) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
-
-				lateinit const name
-				if this.test(Token::AT) {
-					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
-
-					name = this.reqNameIST(FunctionMode::Function)
-				}
-				else {
-					name = this.tryNameIST(FunctionMode::Function)
-
-					if name.ok {
-						modifiers = [...modifiers, modifier]
-					}
-					else {
-						this.rollback(mark)
-					}
-				}
-
-				if name.ok {
-					unless this.test(Token::EQUALS) {
-						this.throw('=')
-					}
-
-					this.commit()
-
-					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-
-					this.reqNL_1M()
-
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? modifier, value ?? name))
-				}
-			}
-			else if this.test(Token::CONST) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::Immutable, this.yes()))
-
-				lateinit const name
-				if this.test(Token::AT) {
-					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
-
-					name = this.reqNameIST(FunctionMode::Function)
-				}
-				else {
-					name = this.tryNameIST(FunctionMode::Function)
-
-					if name.ok {
-						modifiers = [...modifiers, modifier]
-					}
-					else {
-						this.rollback(mark)
-					}
-				}
-
-				if name.ok {
-					let type
-					if this.test(Token::COLON) {
-						this.commit()
-
-						type = this.reqTypeVar()
-					}
-
-					let value
-					if this.test(Token::EQUALS) {
-						this.commit()
-
-						value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-					}
-
-					this.reqNL_1M()
-
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? modifier, value ?? type ?? name))
-				}
-			}
-
-			const name = this.reqNameIST(FunctionMode::Function)
-
-			let type
-			if this.test(Token::COLON) {
-				this.commit()
-
-				type = this.reqTypeVar()
-			}
-
-			let value
-			if this.test(Token::EQUALS) {
-				this.commit()
-
-				value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-			}
-
-			this.reqNL_1M()
-
-			return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
-		} # }}}
-		reqClassMember(attributes, modifiers, first?): Event ~ SyntaxError { # {{{
-			const member = this.tryClassMember(attributes, modifiers, first)
+		reqClassMember(attributes, modifiers, bits: ClassBits, first: Event?): Event ~ SyntaxError { # {{{
+			const member = @tryClassMember(attributes, modifiers, bits, first)
 
 			unless member.ok {
-				this.throw(['Identifier', 'String', 'Template'])
+				@throw(['Identifier', 'String', 'Template'])
 			}
 
 			return member
 		} # }}}
+		reqClassMemberBlock(attributes, modifiers, bits: ClassBits, members: Array<Event>): Void ~ SyntaxError { # {{{
+			@commit().NL_0M()
+
+			let attrs = [...attributes]
+
+			bits += ClassBits::Attribute
+
+			while @until(Token::RIGHT_CURLY) {
+				if @stackInnerAttributes(attrs) {
+					continue
+				}
+
+				members.push(@reqClassMember(attrs, modifiers, bits, null))
+			}
+
+			unless @test(Token::RIGHT_CURLY) {
+				@throw('}')
+			}
+
+			@commit().reqNL_1M()
+		} # }}}
 		reqClassMemberList(members: Array<Event>): Void ~ SyntaxError { # {{{
 			let first = null
 
-			const attributes = this.stackOuterAttributes([])
+			const attributes = @stackOuterAttributes([])
 			if attributes.length != 0 {
 				first = attributes[0]
 			}
 
-			const mark1 = this.mark()
+			const macroMark = @mark()
 
-			if this.test(Token::MACRO) {
-				first = this.yes()
+			if @test(Token::MACRO) {
+				const second = @yes()
 
-				if this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
+				if @test(Token::LEFT_CURLY) {
+					@commit().NL_0M()
 
-					while this.until(Token::RIGHT_CURLY) {
-						members.push(this.reqMacroStatement(attributes))
+					while @until(Token::RIGHT_CURLY) {
+						members.push(@reqMacroStatement(attributes))
 					}
 
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
+					unless @test(Token::RIGHT_CURLY) {
+						@throw('}')
 					}
 
-					this.commit().reqNL_1M()
+					@commit().reqNL_1M()
 
 					return
 				}
-				else if (identifier = this.tryIdentifier()).ok {
-					members.push(this.reqMacroStatement(attributes, identifier, first))
+				else if (identifier = @tryIdentifier()).ok {
+					members.push(@reqMacroStatement(attributes, identifier, first ?? second))
 
 					return
 				}
 
-				this.rollback(mark1)
-				first = null
+				@rollback(macroMark)
 			}
 
-			const modifiers = this.reqAccessModifiers([])
+			const accessMark = @mark()
+			const accessModifier = @tryAccessModifier()
 
-			if this.test(Token::FINAL) {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Final, this.yes())))
+			if accessModifier.ok && @test(Token::LEFT_CURLY) {
+				return @reqClassMemberBlock(
+					attributes
+					[accessModifier]
+					ClassBits::Variable + ClassBits::DynamicVariable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method
+					members
+				)
 			}
 
-			const mark2 = this.mark()
+			if @test(Token::ABSTRACT) {
+				const mark = @mark()
+				const modifier = @yep(AST.Modifier(ModifierKind::Abstract, @yes()))
 
-			if this.test(Token::ABSTRACT) {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Abstract, this.yes())))
-
-				if this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
-
-					first = null
-
-					let attrs
-					while this.until(Token::RIGHT_CURLY) {
-						attrs = this.stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							first = attrs[0]
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(this.reqClassAbstractMethod(attrs, modifiers, first))
+				if @test(Token::LEFT_CURLY) {
+					const modifiers = [modifier]
+					if accessModifier.ok {
+						modifiers.unshift(accessModifier)
 					}
 
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					this.commit().reqNL_1M()
+					return @reqClassMemberBlock(
+						attributes
+						modifiers
+						ClassBits::Method + ClassBits::Property + ClassBits::NoBody
+						members
+					)
 				}
-				else {
-					const member = this.tryClassAbstractMethod(attributes, modifiers, first ?? modifiers[0])
 
-					if member.ok {
-						members.push(member)
+				@rollback(mark)
+			}
+			else if @test(Token::OVERRIDE) {
+				const mark = @mark()
+				const modifier = @yep(AST.Modifier(ModifierKind::Override, @yes()))
+
+				if @test(Token::LEFT_CURLY) {
+					const modifiers = [modifier]
+					if accessModifier.ok {
+						modifiers.unshift(accessModifier)
+					}
+
+					return @reqClassMemberBlock(
+						attributes
+						modifiers
+						ClassBits::Method + ClassBits::Property
+						members
+					)
+				}
+
+				@rollback(mark)
+			}
+
+			const staticMark = @mark()
+			let staticModifier = NO
+
+			if @test(Token::STATIC) {
+				staticModifier = @yep(AST.Modifier(ModifierKind::Static, @yes()))
+
+				if @test(Token::LEFT_CURLY) {
+					const modifiers = [staticModifier]
+					if accessModifier.ok {
+						modifiers.unshift(accessModifier)
+					}
+
+					return @reqClassMemberBlock(
+						attributes
+						modifiers
+						ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod
+						members
+					)
+				}
+			}
+
+			const finalMark = @mark()
+			let finalModifier = NO
+
+			if @test(Token::FINAL) {
+				finalModifier = @yep(AST.Modifier(ModifierKind::Immutable, @yes()))
+
+				if @test(Token::LEFT_CURLY) {
+					const modifiers = [finalModifier]
+					if staticModifier.ok {
+						modifiers.unshift(staticModifier)
+					}
+					if accessModifier.ok {
+						modifiers.unshift(accessModifier)
+					}
+
+					if staticModifier.ok {
+						return @reqClassMemberBlock(
+							attributes
+							modifiers
+							ClassBits::Variable + ClassBits::LateVariable + ClassBits::RequiredAssignment + ClassBits::Property + ClassBits::Method
+							members
+						)
 					}
 					else {
-						this.rollback(mark2)
-
-						modifiers.pop()
-
-						members.push(this.reqClassMember(attributes, modifiers, first ?? modifiers[0]))
+						return @reqClassMemberBlock(
+							attributes
+							modifiers
+							ClassBits::Variable + ClassBits::LateVariable + ClassBits::RequiredAssignment + ClassBits::Property + ClassBits::OverrideProperty + ClassBits::Method + ClassBits::OverrideMethod
+							members
+						)
 					}
+				}
+				else if !staticModifier.ok && @test(Token::OVERRIDE) {
+					const mark = @mark()
+					const modifier = @yep(AST.Modifier(ModifierKind::Override, @yes()))
+
+					if @test(Token::LEFT_CURLY) {
+						const modifiers = [finalModifier, modifier]
+						if accessModifier.ok {
+							modifiers.unshift(accessModifier)
+						}
+
+						return @reqClassMemberBlock(
+							attributes
+							modifiers
+							ClassBits::Method + ClassBits::Property
+							members
+						)
+					}
+
+					@rollback(mark)
 				}
 			}
-			else if this.test(Token::LATEINIT) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::LateInit, this.yes()))
 
-				if this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
+			if @test(Token::LATE) {
+				const lateMark = @mark()
+				const lateModifier = @yep(AST.Modifier(ModifierKind::LateInit, @yes()))
 
-					const modifiers = [...modifiers, modifier]
-
-					first = null
-
-					let attrs
-					while this.until(Token::RIGHT_CURLY) {
-						attrs = this.stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							first = attrs[0]
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(this.reqClassLateInitMember(attrs, modifiers, first))
-					}
-
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					this.commit().reqNL_1M()
+				const modifiers = [lateModifier]
+				if finalModifier.ok {
+					modifiers.unshift(finalModifier)
 				}
-				else {
-					this.rollback(mark2)
-
-					if first == null && modifiers.length != 0 {
-						first = modifiers[0]
-					}
-
-					const member = this.tryClassMember(attributes, modifiers, first)
-
-					if member.ok {
-						members.push(member)
-					}
-					else {
-						if modifiers.length == 2 {
-							this.rollback(mark2)
-						}
-						else {
-							this.rollback(mark1)
-						}
-
-						modifiers.pop()
-
-						members.push(this.reqClassMember(attributes, modifiers, first))
-					}
+				if staticModifier.ok {
+					modifiers.unshift(staticModifier)
 				}
+				if accessModifier.ok {
+					modifiers.unshift(accessModifier)
+				}
+
+				if @test(Token::LEFT_CURLY) {
+					return @reqClassMemberBlock(
+						attributes
+						modifiers
+						finalModifier.ok ? ClassBits::Variable : ClassBits::Variable + ClassBits::FinalVariable + ClassBits::DynamicVariable
+						members
+					)
+				}
+
+				const member = @tryClassMember(
+					attributes
+					modifiers
+					ClassBits::Variable + ClassBits::NoAssignment
+					first ?? modifiers[0]
+				)
+
+				if member.ok {
+					members.push(member)
+
+					return
+				}
+
+				@rollback(lateMark)
 			}
-			else if this.test(Token::OVERRIDE) {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
-
-				if this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
-
-					first = null
-
-					let attrs
-					while this.until(Token::RIGHT_CURLY) {
-						attrs = this.stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							first = attrs[0]
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(this.reqClassMethod(attrs, modifiers, first))
-					}
-
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					this.commit().reqNL_1M()
-				}
-				else {
-					const member = this.tryClassMethod(attributes, modifiers, first ?? modifiers[0])
-
-					if member.ok {
-						members.push(member)
-					}
-					else {
-						this.rollback(mark2)
-
-						modifiers.pop()
-
-						members.push(this.reqClassMember(attributes, modifiers, first ?? modifiers[0]))
-					}
-				}
+			else if @test(Token::OVERRIDE) {
 			}
-			else if this.test(Token::STATIC) {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Static, this.yes())))
 
-				if first == null && modifiers.length != 0 {
-					first = modifiers[0]
+			if accessModifier.ok {
+				const member = @tryClassMember(attributes, [accessModifier], staticModifier, staticMark, finalModifier, finalMark, first ?? accessModifier)
+
+				if member.ok {
+					members.push(member)
+
+					return
 				}
 
-				if modifiers.length != 0 && this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
-
-					first = null
-
-					let attrs
-					while this.until(Token::RIGHT_CURLY) {
-						attrs = this.stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							first = attrs[0]
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(this.reqClassStaticMember(attrs, modifiers, first))
-					}
-
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					this.commit().reqNL_1M()
-				}
-				else {
-					const member = this.tryClassStaticMember(attributes, modifiers, first)
-
-					if member.ok {
-						members.push(member)
-					}
-					else {
-						if modifiers.length == 2 {
-							this.rollback(mark2)
-						}
-						else {
-							this.rollback(mark1)
-						}
-
-						modifiers.pop()
-
-						members.push(this.reqClassStaticMember(attributes, modifiers, first))
-					}
-				}
+				@rollback(accessMark)
 			}
-			else {
-				if first == null && modifiers.length != 0 {
-					first = modifiers[0]
-				}
 
-				if modifiers.length != 0 && this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
+			const member = @tryClassMember(attributes, [], staticModifier, staticMark, finalModifier, finalMark, first)
 
-					first = null
-
-					let attrs
-					while this.until(Token::RIGHT_CURLY) {
-						attrs = this.stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							first = attrs[0]
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(this.reqClassMember(attrs, modifiers, first))
-					}
-
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					this.commit().reqNL_1M()
-				}
-				else {
-					const member = this.tryClassMember(attributes, modifiers, first)
-
-					if member.ok {
-						members.push(member)
-					}
-					else {
-						if modifiers.length == 2 {
-							this.rollback(mark2)
-						}
-						else {
-							this.rollback(mark1)
-						}
-
-						modifiers.pop()
-
-						members.push(this.reqClassMember(attributes, modifiers, first))
-					}
-				}
+			unless member.ok {
+				@throw(['Identifier', 'String', 'Template'])
 			}
+
+			members.push(member)
 		} # }}}
-		reqClassMethod(attributes, modifiers, first: Event?): Event ~ SyntaxError { # {{{
-			let name
-			if this.test(Token::ASYNC) {
-				let async = this.reqIdentifier()
-
-				name = this.tryIdentifier()
-
-				if name.ok {
-					modifiers = [...modifiers, this.yep(AST.Modifier(ModifierKind::Async, async))]
-				}
-				else {
-					name = async
-				}
-			}
-			else {
-				name = this.reqIdentifier()
-			}
-
-			return this.reqClassMethod(attributes, modifiers, name, null, first ?? name)
-		} # }}}
-		reqClassMethod(attributes, modifiers, name: Event, round: Event?, first): Event ~ SyntaxError { # {{{
+		reqClassMethod(attributes, modifiers, bits: ClassBits, name: Event, round: Event?, first: Event?): Event ~ SyntaxError { # {{{
 			const parameters = this.reqClassMethodParameterList(round)
-
-			const type = this.tryMethodReturns()
+			const type = this.tryMethodReturns(bits !~ ClassBits::NoBody)
 			const throws = this.tryFunctionThrows()
-			const body = this.tryFunctionBody(FunctionMode::Method)
 
-			this.reqNL_1M()
+			if bits ~~ ClassBits::NoBody {
+				this.reqNL_1M()
 
-			return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
+				return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
+			}
+			else {
+				const body = this.tryFunctionBody(FunctionMode::Method)
 
+				this.reqNL_1M()
+
+				return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
+			}
 		} # }}}
 		reqClassMethodParameterList(top: Event = NO): Event ~ SyntaxError { # {{{
 			if !top.ok {
@@ -1382,6 +1127,7 @@ export namespace Parser {
 		} # }}}
 		reqClassProperty(attributes, modifiers, name: Event, type: Event?, first: Event): Event ~ SyntaxError { # {{{
 			let defaultValue, accessor, mutator
+
 			if this.test(Token::NEWLINE) {
 				this.commit().NL_0M()
 
@@ -1563,14 +1309,14 @@ export namespace Parser {
 
 			return this.yep(AST.ClassDeclaration(attributes, name, version, extends, modifiers, members, first, this.yes()))
 		} # }}}
-		reqClassStaticMember(attributes, modifiers, first: Event?): Event ~ SyntaxError { # {{{
-			const member = this.tryClassStaticMember(attributes, modifiers, first)
+		reqClassVariable(attributes, modifiers, bits: ClassBits, name: Event?, first: Event?): Event ~ SyntaxError { # {{{
+			const variable = @tryClassVariable(attributes, modifiers, bits, name, null, first)
 
-			unless member.ok {
-				this.throw(['Identifier', 'String', 'Template'])
+			unless variable.ok {
+				@throw(['Identifier', 'String', 'Template'])
 			}
 
-			return member
+			return variable
 		} # }}}
 		reqComputedPropertyName(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			const expression = this.reqExpression(ExpressionMode::Default, fMode)
@@ -1580,50 +1326,6 @@ export namespace Parser {
 			}
 
 			return this.yep(AST.ComputedPropertyName(expression, first, this.yes()))
-		} # }}}
-		reqConstStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			const variable = this.reqTypedVariable(fMode)
-			const modifiers = [AST.Modifier(ModifierKind::Immutable, first)]
-
-			if this.test(Token::COMMA) {
-				const variables = [variable]
-
-				do {
-					this.commit()
-
-					variables.push(this.reqTypedVariable(fMode))
-				}
-				while this.test(Token::COMMA)
-
-				unless this.test(Token::EQUALS) {
-					this.throw('=')
-				}
-
-				this.commit()
-
-				unless this.test(Token::AWAIT) {
-					this.throw('await')
-				}
-
-				this.commit()
-
-				let operand = this.reqPrefixedOperand(eMode, fMode)
-
-				operand = this.yep(AST.AwaitExpression([], variables, operand, variable, operand))
-
-				return this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
-			}
-			else {
-				unless this.test(Token::EQUALS) {
-					this.throw('=')
-				}
-
-				this.commit()
-
-				const expression = this.reqExpression(eMode, fMode)
-
-				return this.yep(AST.VariableDeclaration(modifiers, [variable], expression, first, expression))
-			}
 		} # }}}
 		reqContinueStatement(first: Event): Event { # {{{
 			return this.yep(AST.ContinueStatement(first))
@@ -2038,14 +1740,8 @@ export namespace Parser {
 						return this.reqExportIdentifier(first)
 					}
 				}
-				Token::AUTO => {
-					return this.yep(AST.ExportDeclarationSpecifier(this.reqAutoStatement(this.yes(), ExpressionMode::NoAwait, FunctionMode::Function)))
-				}
 				Token::CLASS => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqClassStatement(this.yes())))
-				}
-				Token::CONST => {
-					return this.yep(AST.ExportDeclarationSpecifier(this.reqConstStatement(this.yes(), ExpressionMode::NoAwait, FunctionMode::Function)))
 				}
 				Token::ENUM => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqEnumStatement(this.yes())))
@@ -2095,9 +1791,6 @@ export namespace Parser {
 				Token::IDENTIFIER => {
 					return this.reqExportIdentifier(this.reqIdentifier())
 				}
-				Token::LET => {
-					return this.yep(AST.ExportDeclarationSpecifier(this.reqLetStatement(this.yes(), ExpressionMode::NoAwait, FunctionMode::Function)))
-				}
 				Token::MACRO => {
 					if @mode !~ ParserMode::MacroExpression {
 						return this.yep(AST.ExportDeclarationSpecifier(this.tryMacroStatement(this.yes())))
@@ -2142,6 +1835,9 @@ export namespace Parser {
 				}
 				Token::TYPE => {
 					return this.yep(AST.ExportDeclarationSpecifier(this.reqTypeStatement(this.yes(), this.reqIdentifier())))
+				}
+				Token::VAR => {
+					return this.yep(AST.ExportDeclarationSpecifier(this.reqVarStatement(this.yes(), ExpressionMode::NoAwait, FunctionMode::Function)))
 				}
 				=> {
 					this.throw()
@@ -2538,7 +2234,12 @@ export namespace Parser {
 							attrs = attributes
 						}
 
-						members.push(this.reqClassAbstractMethod(attrs, modifiers, first))
+						members.push(this.reqClassMember(
+							attrs
+							modifiers
+							ClassBits::Method + ClassBits::NoBody
+							first
+						))
 					}
 
 					unless this.test(Token::RIGHT_CURLY) {
@@ -2548,7 +2249,12 @@ export namespace Parser {
 					this.commit().reqNL_1M()
 				}
 				else {
-					members.push(this.reqClassAbstractMethod(attributes, modifiers, first))
+					members.push(this.reqClassMember(
+						attributes
+						modifiers
+						ClassBits::Method + ClassBits::NoBody
+						first
+					))
 				}
 			}
 			else {
@@ -2599,7 +2305,8 @@ export namespace Parser {
 			return this.yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, null, null, first, type ?? parameters))
 		} # }}}
 		reqExternDeclarator(mode: ExternMode): Event ~ SyntaxError { # {{{
-			switch this.matchM(M.EXTERN_STATEMENT) {
+			const token = this.matchM(M.EXTERN_STATEMENT)
+			switch token {
 				Token::ABSTRACT => {
 					const abstract = this.yep(AST.Modifier(ModifierKind::Abstract, this.yes()))
 
@@ -2633,22 +2340,6 @@ export namespace Parser {
 				}
 				Token::CLASS => {
 					return this.reqExternClassDeclaration(this.yes(), [])
-				}
-				Token::CONST when mode ~~ ExternMode::Namespace => {
-					const first = this.yes()
-					const name = this.reqIdentifier()
-					const modifiers = [AST.Modifier(ModifierKind::Immutable, first)]
-
-					if this.test(Token::COLON) {
-						this.commit()
-
-						const type = this.reqTypeVar()
-
-						return this.yep(AST.VariableDeclarator(modifiers, name, type, first, type))
-					}
-					else {
-						return this.yep(AST.VariableDeclarator(modifiers, name, null, first, name))
-					}
 				}
 				Token::FINAL => {
 					const first = this.yes()
@@ -2761,7 +2452,7 @@ export namespace Parser {
 						this.throw(['class', 'namespace'])
 					}
 				}
-				Token::LET when mode ~~ ExternMode::Namespace => {
+				Token::VAR when mode ~~ ExternMode::Namespace => {
 					const first = this.yes()
 					const name = this.reqIdentifier()
 
@@ -3025,19 +2716,40 @@ export namespace Parser {
 		reqForExpression(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			const modifiers = []
 
-			if this.test(Token::LET) {
-				modifiers.push(AST.Modifier(ModifierKind::Declarative, this.yes()))
-			}
-			else if this.test(Token::CONST) {
-				const position = this.yes()
+			const mark = @mark()
 
-				modifiers.push(AST.Modifier(ModifierKind::Declarative, position), AST.Modifier(ModifierKind::Immutable, position))
-			}
-			else if this.test(Token::AUTO) {
-				const position = this.yes()
+			if @test(Token::VAR) {
+				const mark2 = @mark()
+				const first = @yes()
 
-				modifiers.push(AST.Modifier(ModifierKind::Declarative, position), AST.Modifier(ModifierKind::AutoTyping, position))
+				let modifier
+				if @test(Token::MUT) {
+					modifier = AST.Modifier(ModifierKind::Mutable, @yes())
+				}
+				else {
+					modifier = AST.Modifier(ModifierKind::Immutable, first)
+				}
+
+				if @test(Token::COMMA) {
+					@rollback(mark)
+				}
+				else if @test(Token::FROM, Token::IN, Token::OF) {
+					this.commit()
+
+					if @test(Token::FROM, Token::IN, Token::OF) {
+						modifiers.push(AST.Modifier(ModifierKind::Declarative, first), modifier)
+
+						@rollback(mark2)
+					}
+					else {
+						@rollback(mark)
+					}
+				}
+				else {
+					modifiers.push(AST.Modifier(ModifierKind::Declarative, first), modifier)
+				}
 			}
+
 
 			let identifier1 = NO
 			let type1 = NO
@@ -3212,18 +2924,14 @@ export namespace Parser {
 		} # }}}
 		reqIfStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			let condition
-			if this.test(Token::LET, Token::CONST, Token::AUTO) {
-				const token = @token
 
-				const mark = this.mark()
-				const first = this.yes()
+			if @test(Token::VAR) {
+				const mark = @mark()
+				const first = @yes()
 
 				const modifiers = []
-				if token == Token::CONST {
-					modifiers.push(AST.Modifier(ModifierKind::Immutable, first))
-				}
-				else if token == Token::AUTO {
-					modifiers.push(AST.Modifier(ModifierKind::AutoTyping, first))
+				if @test(Token::MUT) {
+					modifiers.push(AST.Modifier(ModifierKind::Mutable, @yes()))
 				}
 
 				if this.test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
@@ -3317,263 +3025,194 @@ export namespace Parser {
 		reqImplementMemberList(members): Void ~ SyntaxError { # {{{
 			let first = null
 
-			const attributes = this.stackOuterAttributes([])
+			const attributes = @stackOuterAttributes([])
+			if attributes.length != 0 {
+				first = attributes[0]
+			}
 
-			let mark1 = this.mark()
+			const accessMark = @mark()
+			const accessModifier = @tryAccessModifier()
 
-			const modifiers = this.reqAccessModifiers([])
+			if accessModifier.ok && @test(Token::LEFT_CURLY) {
+				return @reqClassMemberBlock(
+					attributes
+					[accessModifier]
+					ClassBits::Variable + ClassBits::DynamicVariable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method
+					members
+				)
+			}
 
-			const mark2 = this.mark()
-
-			if this.test(Token::LATEINIT) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::LateInit, this.yes()))
-
-				if this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
-
-					const modifiers = [...modifiers, modifier]
-
-					first = null
-
-					let attrs
-					while this.until(Token::RIGHT_CURLY) {
-						attrs = this.stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							first = attrs[0]
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(this.reqClassLateInitMember(attrs, modifiers, first))
-					}
-
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					this.commit().reqNL_1M()
+			if @test(Token::OVERRIDE, Token::OVERWRITE) {
+				const mark = @mark()
+				const modifier = @yep(AST.Modifier(@token == Token::OVERRIDE ? ModifierKind::Override : ModifierKind::Overwrite, @yes()))
+				const modifiers = [modifier]
+				if accessModifier.ok {
+					modifiers.unshift(accessModifier)
 				}
-				else {
-					this.rollback(mark2)
 
-					if first == null && modifiers.length != 0 {
-						first = modifiers[0]
+				if @test(Token::LEFT_CURLY) {
+					return @reqClassMemberBlock(
+						attributes
+						modifiers
+						ClassBits::Method + ClassBits::Property
+						members
+					)
+				}
+
+				const member = @tryClassMember(
+					attributes
+					modifiers
+					ClassBits::Method + ClassBits::Property
+					first ?? modifiers[0]
+				)
+
+				if member.ok {
+					members.push(member)
+
+					return
+				}
+
+				@rollback(mark)
+			}
+
+			const staticMark = @mark()
+			let staticModifier = NO
+
+			if @test(Token::STATIC) {
+				staticModifier = @yep(AST.Modifier(ModifierKind::Static, @yes()))
+
+				if @test(Token::LEFT_CURLY) {
+					const modifiers = [staticModifier]
+					if accessModifier.ok {
+						modifiers.unshift(accessModifier)
 					}
 
-					const member = this.tryClassMember(attributes, modifiers, first)
-
-					if member.ok {
-						members.push(member)
-					}
-					else {
-						if modifiers.length == 2 {
-							this.rollback(mark2)
-						}
-						else {
-							this.rollback(mark1)
-						}
-
-						modifiers.pop()
-
-						members.push(this.reqClassMember(attributes, modifiers, first))
-					}
+					return @reqClassMemberBlock(
+						attributes
+						modifiers
+						ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod
+						members
+					)
 				}
 			}
-			else if this.test(Token::OVERRIDE) {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Override, this.yes())))
 
-				if this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
+			const finalMark = @mark()
+			let finalModifier = NO
 
-					first = null
+			if @test(Token::FINAL) {
+				finalModifier = @yep(AST.Modifier(ModifierKind::Immutable, @yes()))
 
-					let attrs
-					while this.until(Token::RIGHT_CURLY) {
-						attrs = this.stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							first = attrs[0]
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(this.reqClassMethod(attrs, modifiers, first))
+				if @test(Token::LEFT_CURLY) {
+					const modifiers = [finalModifier]
+					if staticModifier.ok {
+						modifiers.unshift(staticModifier)
+					}
+					if accessModifier.ok {
+						modifiers.unshift(accessModifier)
 					}
 
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					this.commit().reqNL_1M()
-				}
-				else {
-					const member = this.tryClassMethod(attributes, modifiers, first ?? modifiers[0])
-
-					if member.ok {
-						members.push(member)
+					if staticModifier.ok {
+						return @reqClassMemberBlock(
+							attributes
+							modifiers
+							ClassBits::Variable + ClassBits::LateVariable + ClassBits::RequiredAssignment + ClassBits::Property + ClassBits::Method
+							members
+						)
 					}
 					else {
-						this.rollback(mark2)
-
-						modifiers.pop()
-
-						members.push(this.reqClassMember(attributes, modifiers, first ?? modifiers[0]))
+						return @reqClassMemberBlock(
+							attributes
+							modifiers
+							ClassBits::Variable + ClassBits::LateVariable + ClassBits::RequiredAssignment +
+							ClassBits::Property + ClassBits::OverrideProperty + ClassBits::OverwriteProperty +
+							ClassBits::Method + ClassBits::OverrideMethod + ClassBits::OverwriteMethod
+							members
+						)
 					}
+				}
+				else if !staticModifier.ok && @test(Token::OVERRIDE, Token::OVERWRITE) {
+					const mark = @mark()
+					const modifier = @yep(AST.Modifier(@token == Token::OVERRIDE ? ModifierKind::Override : ModifierKind::Overwrite, @yes()))
+
+					if @test(Token::LEFT_CURLY) {
+						const modifiers = [finalModifier, modifier]
+						if accessModifier.ok {
+							modifiers.unshift(accessModifier)
+						}
+
+						return @reqClassMemberBlock(
+							attributes
+							modifiers
+							ClassBits::Method + ClassBits::Property
+							members
+						)
+					}
+
+					@rollback(mark)
 				}
 			}
-			else if this.test(Token::OVERWRITE) {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Overwrite, this.yes())))
 
-				if this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
+			if @test(Token::LATE) {
+				const lateMark = @mark()
+				const lateModifier = @yep(AST.Modifier(ModifierKind::LateInit, @yes()))
 
-					first = null
-
-					let attrs
-					while this.until(Token::RIGHT_CURLY) {
-						attrs = this.stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							first = attrs[0]
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(this.reqClassMethod(attrs, modifiers, first))
-					}
-
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					this.commit().reqNL_1M()
+				const modifiers = [lateModifier]
+				if finalModifier.ok {
+					modifiers.unshift(finalModifier)
 				}
-				else {
-					const member = this.tryClassMethod(attributes, modifiers, first ?? modifiers[0])
-
-					if member.ok {
-						members.push(member)
-					}
-					else {
-						this.rollback(mark2)
-
-						modifiers.pop()
-
-						members.push(this.reqClassMember(attributes, modifiers, first ?? modifiers[0]))
-					}
+				if staticModifier.ok {
+					modifiers.unshift(staticModifier)
 				}
+				if accessModifier.ok {
+					modifiers.unshift(accessModifier)
+				}
+
+				if @test(Token::LEFT_CURLY) {
+					return @reqClassMemberBlock(
+						attributes
+						modifiers
+						finalModifier.ok ? ClassBits::Variable : ClassBits::Variable + ClassBits::FinalVariable + ClassBits::DynamicVariable
+						members
+					)
+				}
+
+				const member = @tryClassMember(
+					attributes
+					modifiers
+					ClassBits::Variable + ClassBits::NoAssignment
+					first ?? modifiers[0]
+				)
+
+				if member.ok {
+					members.push(member)
+
+					return
+				}
+
+				@rollback(lateMark)
 			}
-			else if this.test(Token::STATIC) {
-				modifiers.push(this.yep(AST.Modifier(ModifierKind::Static, this.yes())))
-
-				if first == null && modifiers.length != 0 {
-					first = modifiers[0]
-				}
-
-				if modifiers.length != 0 && this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
-
-					first = null
-
-					let attrs
-					while this.until(Token::RIGHT_CURLY) {
-						attrs = this.stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							first = attrs[0]
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(this.reqClassStaticMember(attrs, modifiers, first))
-					}
-
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					this.commit().reqNL_1M()
-				}
-				else {
-					const member = this.tryClassStaticMember(attributes, modifiers, first)
-
-					if member.ok {
-						members.push(member)
-					}
-					else {
-						if modifiers.length == 2 {
-							this.rollback(mark2)
-						}
-						else {
-							this.rollback(mark1)
-						}
-
-						modifiers.pop()
-
-						members.push(this.reqClassStaticMember(attributes, modifiers, first))
-					}
-				}
+			else if @test(Token::OVERRIDE) {
 			}
-			else {
-				if first == null && modifiers.length != 0 {
-					first = modifiers[0]
+
+			if accessModifier.ok {
+				const member = @tryClassMember(attributes, [accessModifier], staticModifier, staticMark, finalModifier, finalMark, first ?? accessModifier)
+
+				if member.ok {
+					members.push(member)
+
+					return
 				}
 
-				if modifiers.length != 0 && this.test(Token::LEFT_CURLY) {
-					this.commit().NL_0M()
-
-					first = null
-
-					let attrs
-					while this.until(Token::RIGHT_CURLY) {
-						attrs = this.stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							first = attrs[0]
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(this.reqClassMember(attrs, modifiers, first))
-					}
-
-					unless this.test(Token::RIGHT_CURLY) {
-						this.throw('}')
-					}
-
-					this.commit().reqNL_1M()
-				}
-				else {
-					const member = this.tryClassMember(attributes, modifiers, first)
-
-					if member.ok {
-						members.push(member)
-					}
-					else {
-						if modifiers.length == 2 {
-							this.rollback(mark2)
-						}
-						else {
-							this.rollback(mark1)
-						}
-
-						modifiers.pop()
-
-						members.push(this.reqClassMember(attributes, modifiers, first))
-					}
-				}
+				@rollback(accessMark)
 			}
+
+			const member = @tryClassMember(attributes, [], staticModifier, staticMark, finalModifier, finalMark, first)
+
+			unless member.ok {
+				@throw(['Identifier', 'String', 'Template'])
+			}
+
+			members.push(member)
 		} # }}}
 		reqImplementStatement(first: Event): Event ~ SyntaxError { # {{{
 			const variable = this.reqIdentifier()
@@ -4025,96 +3664,6 @@ export namespace Parser {
 			}
 
 			return AST.JunctionExpression(operator, operands)
-		} # }}}
-		reqLateInitStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			if this.test(Token::CONST) {
-				const modifiers = [AST.Modifier(ModifierKind::LateInit, first)]
-				const variables = []
-
-				modifiers.push(AST.Modifier(ModifierKind::Immutable, this.yes()))
-
-				variables.push(last = this.reqTypedVariable(fMode))
-
-				while this.test(Token::COMMA) {
-					this.commit()
-
-					variables.push(last = this.reqTypedVariable(fMode))
-				}
-
-				return this.yep(AST.VariableDeclaration(modifiers, variables, null, first, last))
-			}
-			else {
-				return NO
-			}
-		} # }}}
-		reqLetStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			const variable = this.reqTypedVariable(fMode)
-			const modifiers = []
-
-			if this.test(Token::COMMA) {
-				const variables = [variable]
-
-				do {
-					this.commit()
-
-					variables.push(this.reqTypedVariable(fMode))
-				}
-				while this.test(Token::COMMA)
-
-				if this.test(Token::EQUALS) {
-					this.commit().NL_0M()
-
-					unless this.test(Token::AWAIT) {
-						this.throw('await')
-					}
-
-					this.commit()
-
-					let operand = this.reqPrefixedOperand(eMode, fMode)
-
-					operand = this.yep(AST.AwaitExpression([], variables, operand, variable, operand))
-
-					return this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
-				}
-				else {
-					return this.yep(AST.VariableDeclaration(modifiers, variables, null, first, variables[variables.length - 1]))
-				}
-			}
-			else {
-				if this.test(Token::EQUALS) {
-					this.commit().NL_0M()
-
-					let init = this.reqExpression(eMode, fMode)
-
-					if this.match(Token::IF, Token::UNLESS) == Token::IF {
-						const first = this.yes()
-						const condition = this.reqExpression(ExpressionMode::Default, fMode)
-
-						if this.test(Token::ELSE) {
-							this.commit()
-
-							const whenFalse = this.reqExpression(ExpressionMode::Default, fMode)
-
-							init = this.yep(AST.IfExpression(condition, init, whenFalse, init, whenFalse))
-						}
-						else {
-							init = this.yep(AST.IfExpression(condition, init, null, init, condition))
-						}
-					}
-					else if @token == Token::UNLESS {
-						this.commit()
-
-						const condition = this.reqExpression(ExpressionMode::Default, fMode)
-
-						init = this.yep(AST.UnlessExpression(condition, init, init, condition))
-					}
-
-					return this.yep(AST.VariableDeclaration(modifiers, [variable], init, first, init))
-				}
-				else {
-					return this.yep(AST.VariableDeclaration(modifiers, [variable], null, first, variable))
-				}
-			}
 		} # }}}
 		reqMacroElements(elements, terminator: MacroTerminator): Void ~ SyntaxError { # {{{
 			const history = []
@@ -5440,17 +4989,11 @@ export namespace Parser {
 						statement = NO
 					}
 				}
-				Token::AUTO => {
-					statement = this.reqAutoStatement(this.yes(), ExpressionMode::Default, fMode)
-				}
 				Token::BREAK => {
 					statement = this.reqBreakStatement(this.yes())
 				}
 				Token::CLASS => {
 					statement = this.tryClassStatement(this.yes())
-				}
-				Token::CONST => {
-					statement = this.reqConstStatement(this.yes(), ExpressionMode::Default, fMode)
 				}
 				Token::CONTINUE => {
 					statement = this.reqContinueStatement(this.yes())
@@ -5521,12 +5064,6 @@ export namespace Parser {
 				Token::IMPORT => {
 					statement = this.reqImportStatement(this.yes())
 				}
-				Token::LATEINIT => {
-					statement = this.reqLateInitStatement(this.yes(), fMode)
-				}
-				Token::LET => {
-					statement = this.reqLetStatement(this.yes(), ExpressionMode::Default, fMode)
-				}
 				Token::MACRO => {
 					if @mode !~ ParserMode::MacroExpression {
 						statement = this.tryMacroStatement(this.yes())
@@ -5589,6 +5126,9 @@ export namespace Parser {
 				}
 				Token::UNTIL => {
 					statement = this.tryUntilStatement(this.yes(), fMode)
+				}
+				Token::VAR => {
+					statement = this.reqVarStatement(this.yes(), ExpressionMode::Default, fMode)
 				}
 				Token::WHILE => {
 					statement = this.tryWhileStatement(this.yes(), fMode)
@@ -6811,6 +6351,102 @@ export namespace Parser {
 
 			return this.yep(AST.UnlessStatement(condition, whenFalse, first, whenFalse))
 		} # }}}
+		reqVarStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			const mark = @mark()
+			const modifiers = []
+
+			let immutable = false
+			let lateinit = false
+
+			if @match(Token::DYN, Token::LATE, Token::MUT) == Token::INVALID {
+				immutable = true
+			}
+			else {
+				let modifier
+
+				if @token == Token::DYN {
+					modifier = AST.Modifier(ModifierKind::Dynamic, @yes())
+				}
+				else if @token == Token::LATE {
+					modifier = AST.Modifier(ModifierKind::LateInit, @yes())
+
+					lateinit = true
+				}
+				else if @token == Token::MUT {
+					modifier = AST.Modifier(ModifierKind::Mutable, @yes())
+				}
+
+				if @test(Token::COLON, Token::EQUALS, Token::NEWLINE) {
+					@rollback(mark)
+				}
+				else {
+					modifiers.push(modifier)
+				}
+			}
+
+			const variables = [@reqTypedVariable(fMode)]
+
+			if @test(Token::COMMA) {
+				do {
+					@commit()
+
+					variables.push(@reqTypedVariable(fMode))
+				}
+				while @test(Token::COMMA)
+			}
+
+			if @test(Token::EQUALS) {
+				@throw([':', ',', 'NewLine']) if lateinit
+
+				@commit().NL_0M()
+
+				let init
+				if variables.length == 1 {
+					init = @reqExpression(eMode, fMode)
+				}
+				else {
+					unless @test(Token::AWAIT) {
+						@throw('await')
+					}
+
+					@commit()
+
+					const operand = @reqPrefixedOperand(eMode, fMode)
+
+					init = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
+				}
+
+				if @match(Token::IF, Token::UNLESS) == Token::IF {
+					const first = @yes()
+					const condition = @reqExpression(ExpressionMode::Default, fMode)
+
+					if @test(Token::ELSE) {
+						@commit()
+
+						const whenFalse = @reqExpression(ExpressionMode::Default, fMode)
+
+						init = @yep(AST.IfExpression(condition, init, whenFalse, init, whenFalse))
+					}
+					else {
+						init = @yep(AST.IfExpression(condition, init, null, init, condition))
+					}
+				}
+				else if @token == Token::UNLESS {
+					@commit()
+
+					const condition = @reqExpression(ExpressionMode::Default, fMode)
+
+					init = @yep(AST.UnlessExpression(condition, init, init, condition))
+				}
+
+				return @yep(AST.VariableDeclaration(modifiers, variables, init, first, init))
+			}
+			else {
+				@throw('=') if immutable
+
+				return @yep(AST.VariableDeclaration(modifiers, variables, null, first, variables[variables.length - 1]))
+			}
+		} # }}}
 		reqVariable(): Event ~ SyntaxError { # {{{
 			const name = this.reqIdentifier()
 
@@ -6924,6 +6560,22 @@ export namespace Parser {
 					this.reqNL_1M()
 				}
 			}
+		} # }}}
+		tryAccessModifier(): Event ~ SyntaxError { # {{{
+			if @match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC, Token::INTERNAL) == Token::PRIVATE {
+				return @yep(AST.Modifier(ModifierKind::Private, @yes()))
+			}
+			else if @token == Token::PROTECTED {
+				return @yep(AST.Modifier(ModifierKind::Protected, @yes()))
+			}
+			else if @token == Token::PUBLIC {
+				return @yep(AST.Modifier(ModifierKind::Public, @yes()))
+			}
+			else if @token == Token::INTERNAL {
+				return @yep(AST.Modifier(ModifierKind::Internal, @yes()))
+			}
+
+			return NO
 		} # }}}
 		tryAssignementOperator(): Event ~ SyntaxError { # {{{
 			switch this.matchM(M.ASSIGNEMENT_OPERATOR) {
@@ -7211,280 +6863,312 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryClassAbstractMethod(attributes, modifiers, first: Event?): Event ~ SyntaxError { # {{{
-			let name
-			if this.test(Token::ASYNC) {
-				let first = this.reqIdentifier()
+		tryClassMember(attributes, modifiers, staticModifier: Event?, staticMark: Marker, finalModifier: Event?, finalMark: Marker, first: Event?) ~ SyntaxError { # {{{
+			if staticModifier.ok {
+				const member = @tryClassMember(
+					attributes
+					[...modifiers, staticModifier]
+					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod
+					first ?? staticModifier
+				)
 
-				name = this.tryIdentifier()
+				if member.ok {
+					return member
+				}
+
+				@rollback(staticMark)
+			}
+			else if finalModifier.ok {
+				const member = @tryClassMember(
+					attributes
+					[...modifiers, finalModifier]
+					ClassBits::Variable + ClassBits::RequiredAssignment + ClassBits::Property + ClassBits::Method
+					first ?? finalModifier
+				)
+
+				if member.ok {
+					return member
+				}
+
+				@rollback(finalMark)
+			}
+
+			return @tryClassMember(
+				attributes
+				[...modifiers]
+				ClassBits::Variable + ClassBits::DynamicVariable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::OverrideMethod + ClassBits::AbstractMethod
+				first
+			)
+		} # }}}
+		tryClassMember(attributes, modifiers, bits: ClassBits, first: Event?): Event ~ SyntaxError { # {{{
+			const mark = @mark()
+
+			if bits ~~ ClassBits::Attribute {
+				const attrs = @stackOuterAttributes([])
+				if attrs.length != 0 {
+					attributes = [...attributes, ...attrs]
+					first ??= attrs[0]
+				}
+			}
+
+			if bits ~~ ClassBits::Method {
+				const mark = @mark()
+
+				if bits ~~ ClassBits::AbstractMethod && @test(Token::ABSTRACT) {
+					const modifier = @yep(AST.Modifier(ModifierKind::Abstract, @yes()))
+
+					const method = @tryClassMethod(
+						attributes
+						[...modifiers, modifier]
+						bits + ClassBits::NoBody
+						first ?? modifier
+					)
+
+					if method.ok {
+						return method
+					}
+
+					@rollback(mark)
+				}
+				else if bits ~~ ClassBits::FinalMethod && @test(Token::FINAL) {
+					const modifier = @yep(AST.Modifier(ModifierKind::Immutable, @yes()))
+					const mark2 = @mark()
+
+					if bits ~~ ClassBits::OverrideMethod && @test(Token::OVERRIDE) {
+						const modifier2 = @yep(AST.Modifier(ModifierKind::Override, @yes()))
+						const method = @tryClassMethod(attributes, [...modifiers, modifier, modifier2], bits, first ?? modifier)
+
+						if method.ok {
+							return method
+						}
+
+						if bits ~~ ClassBits::OverrideProperty {
+							const property = @tryClassProperty(attributes, [...modifiers, modifier, modifier2], bits, first ?? modifier)
+
+							if property.ok {
+								return property
+							}
+						}
+
+						@rollback(mark2)
+					}
+					else if bits ~~ ClassBits::OverwriteMethod && @test(Token::OVERWRITE) {
+						const modifier2 = @yep(AST.Modifier(ModifierKind::Overwrite, @yes()))
+						const method = @tryClassMethod(attributes, [...modifiers, modifier, modifier2], bits, first ?? modifier)
+
+						if method.ok {
+							return method
+						}
+
+						@rollback(mark2)
+					}
+
+					const method = @tryClassMethod(attributes, [...modifiers, modifier], bits, first ?? modifier)
+
+					if method.ok {
+						return method
+					}
+
+					@rollback(mark)
+				}
+				else if bits ~~ ClassBits::OverrideMethod && @test(Token::OVERRIDE) {
+					const modifier = @yep(AST.Modifier(ModifierKind::Override, @yes()))
+
+					const method = @tryClassMethod(attributes, [...modifiers, modifier], bits, first ?? modifier)
+
+					if method.ok {
+						return method
+					}
+
+					if bits ~~ ClassBits::OverrideProperty {
+						const property = @tryClassProperty(attributes, [...modifiers, modifier], bits, first ?? modifier)
+
+						if property.ok {
+							return property
+						}
+					}
+
+					@rollback(mark)
+				}
+				else if bits ~~ ClassBits::OverwriteMethod && @test(Token::OVERWRITE) {
+				}
+
+				const method = @tryClassMethod(attributes, modifiers, bits, first)
+
+				if method.ok {
+					return method
+				}
+
+				@rollback(mark)
+			}
+
+			if bits ~~ ClassBits::Property {
+				const mark = @mark()
+
+				if bits ~~ ClassBits::OverrideProperty && @test(Token::OVERRIDE) {
+					const modifier = @yep(AST.Modifier(ModifierKind::Override, @yes()))
+					const property = @tryClassProperty(attributes, [...modifiers, modifier], bits, first ?? modifier)
+
+					if property.ok {
+						return property
+					}
+
+					@rollback(mark)
+				}
+
+				const property = @tryClassProperty(attributes, modifiers, bits, first)
+
+				if property.ok {
+					return property
+				}
+
+				@rollback(mark)
+			}
+
+			if bits ~~ ClassBits::Variable {
+				const mark = @mark()
+
+				if bits ~~ ClassBits::DynamicVariable && @test(Token::DYN) {
+					const modifier = @yep(AST.Modifier(ModifierKind::Dynamic, @yes()))
+
+					const variable = @tryClassVariable(attributes, [...modifiers, modifier], bits, null, null, first ?? modifier)
+
+					if variable.ok {
+						return variable
+					}
+
+					@rollback(mark)
+				}
+				else if bits ~~ ClassBits::FinalVariable && @test(Token::FINAL) {
+					const modifier = @yep(AST.Modifier(ModifierKind::Immutable, @yes()))
+					const mark2 = @mark()
+
+					if bits ~~ ClassBits::LateVariable && @test(Token::LATE) {
+						const modifier2 = @yep(AST.Modifier(ModifierKind::LateInit, @yes()))
+						const method = @tryClassVariable(
+							attributes
+							[...modifiers, modifier, modifier2]
+							bits - ClassBits::RequiredAssignment
+							null
+							null
+							first ?? modifier
+						)
+
+						if method.ok {
+							return method
+						}
+
+						@rollback(mark2)
+					}
+
+					const variable = @tryClassVariable(
+						attributes
+						[...modifiers, modifier]
+						bits + ClassBits::RequiredAssignment
+						null
+						null
+						first ?? modifier
+					)
+
+					if variable.ok {
+						return variable
+					}
+
+					@rollback(mark)
+				}
+				else if bits ~~ ClassBits::LateVariable && @test(Token::LATE) {
+					const modifier = @yep(AST.Modifier(ModifierKind::LateInit, @yes()))
+					const method = @tryClassVariable(
+						attributes
+						[...modifiers, modifier]
+						bits - ClassBits::RequiredAssignment
+						null
+						null
+						first ?? modifier
+					)
+
+					if method.ok {
+						return method
+					}
+
+					@rollback(mark)
+				}
+
+				const variable = @tryClassVariable(attributes, modifiers, bits, null, null, first)
+
+				if variable.ok {
+					return variable
+				}
+			}
+
+			@rollback(mark)
+
+			return NO
+		} # }}}
+		tryClassMethod(attributes, modifiers, bits: ClassBits, first: Event?): Event ~ SyntaxError { # {{{
+			let name
+			if @test(Token::ASYNC) {
+				let modifier = @reqIdentifier()
+
+				name = @tryIdentifier()
 
 				if name.ok {
-					modifiers = [...modifiers, this.yep(AST.Modifier(ModifierKind::Async, first))]
+					modifiers = [...modifiers, @yep(AST.Modifier(ModifierKind::Async, modifier))]
+					first = modifier
 				}
 				else {
-					name = first
+					name = modifier
 				}
 			}
 			else {
-				name = this.tryIdentifier()
+				name = @tryIdentifier()
 
 				unless name.ok {
 					return NO
 				}
 			}
 
-			return this.reqClassAbstractMethodBody(attributes, modifiers, name, first ?? name)
+			if @test(Token::LEFT_ROUND) {
+				return @reqClassMethod(attributes, modifiers, bits, name, null, first ?? name)
+			}
+
+			return NO
 		} # }}}
-		tryClassMember(attributes, modifiers, first: Event?): Event ~ SyntaxError { # {{{
-			const mark = this.mark()
+		tryClassProperty(attributes, modifiers, bits: ClassBits, first: Event?): Event ~ SyntaxError { # {{{
+			const mark = @mark()
 
-			if this.test(Token::ASYNC) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::Async, this.yes()))
-				const name = this.tryIdentifier()
+			if @test(Token::AT) {
+				const modifier = @yep(AST.Modifier(ModifierKind::ThisAlias, @yes()))
 
-				if name.ok {
-					return this.reqClassMethod(attributes, [...modifiers, modifier], name, null, first ?? modifier)
-				}
-				else {
-					this.rollback(mark)
-				}
-			}
-			else if this.test(Token::AT) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
-				const name = this.reqNameIST(FunctionMode::Function)
-
-				let type
-				if this.test(Token::COLON) {
-					this.commit()
-
-					type = this.reqTypeVar()
-				}
-
-				let value
-				if this.test(Token::EQUALS) {
-					this.commit()
-
-					value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-				}
-
-				this.reqNL_1M()
-
-				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, value, first ?? modifier, value ?? type ?? name))
-			}
-			else if this.test(Token::AUTO) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
-
-				lateinit const name
-				if this.test(Token::AT) {
-					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
-
-					name = this.reqNameIST(FunctionMode::Function)
-				}
-				else {
-					name = this.tryNameIST(FunctionMode::Function)
-
-					if name.ok {
-						modifiers = [...modifiers, modifier]
-					}
-					else {
-						this.rollback(mark)
-					}
-				}
-
-				if name.ok {
-					unless this.test(Token::EQUALS) {
-						this.throw('=')
-					}
-
-					this.commit()
-
-					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-
-					this.reqNL_1M()
-
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? modifier, value ?? name))
-				}
-			}
-			else if this.test(Token::CONST) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::Immutable, this.yes()))
-
-				lateinit const name
-				if this.test(Token::AT) {
-					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
-
-					name = this.reqNameIST(FunctionMode::Function)
-				}
-				else {
-					name = this.tryNameIST(FunctionMode::Function)
-
-					if name.ok {
-						modifiers = [...modifiers, modifier]
-					}
-					else {
-						this.rollback(mark)
-					}
-				}
-
-				if name.ok {
-					let type
-					if this.test(Token::COLON) {
-						this.commit()
-
-						type = this.reqTypeVar()
-					}
-
-					unless this.test(Token::EQUALS) {
-						this.throw('=')
-					}
-
-					this.commit()
-
-					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-
-					this.reqNL_1M()
-
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? modifier, value))
-				}
-			}
-			else if this.test(Token::LATEINIT) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::LateInit, this.yes()))
-				const mark2 = this.mark()
-				const modifiers = [...modifiers, modifier]
-
-				let name, type
-				if this.test(Token::AT) {
-					modifiers.push(this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes())))
-
-					name = this.reqNameIST(FunctionMode::Function)
-
-					if this.test(Token::COLON) {
-						this.commit()
-
-						type = this.reqTypeVar()
-					}
-				}
-				else if this.test(Token::CONST) {
-					const modifier = this.yep(AST.Modifier(ModifierKind::Immutable, this.yes()))
-
-					if this.test(Token::AT) {
-						modifiers.push(modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes())))
-
-						name = this.reqNameIST(FunctionMode::Function)
-					}
-					else {
-						name = this.tryNameIST(FunctionMode::Function)
-
-						if name.ok {
-							modifiers.push(modifier)
-						}
-						else {
-							this.rollback(mark2)
-
-							name = this.reqNameIST(FunctionMode::Function)
-						}
-					}
-
-					if this.test(Token::COLON) {
-						this.commit()
-
-						type = this.reqTypeVar()
-					}
-				}
-				else {
-					name = this.tryNameIST(FunctionMode::Function)
-
-					if name.ok {
-						if this.test(Token::COLON) {
-							this.commit()
-
-							type = this.reqTypeVar()
-						}
-					}
-					else {
-						this.rollback(mark)
-					}
-				}
-
-				if name.ok {
-					this.reqNL_1M()
-
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, null, first ?? modifier, type ?? name))
-				}
+				modifiers = [...modifiers, modifier]
+				first ??= modifier
 			}
 
-			const name = this.tryNameIST(FunctionMode::Function)
+			const name = @tryIdentifier()
 
 			unless name.ok {
+				@rollback(mark)
+
 				return NO
 			}
 
-			if this.match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
-				this.commit()
+			let type = NO
+			if @test(Token::COLON) {
+				@commit()
 
-				const type = this.reqTypeVar()
-
-				if this.test(Token::LEFT_CURLY) {
-					this.commit()
-
-					return this.reqClassProperty(attributes, modifiers, name, type, first ?? name)
-				}
-				else {
-					let value
-					if this.test(Token::EQUALS) {
-						this.commit()
-
-						value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-					}
-
-					this.reqNL_1M()
-
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
-				}
-			}
-			else if @token == Token::LEFT_CURLY {
-				this.commit()
-
-				return this.reqClassProperty(attributes, modifiers, name, null, first ?? name)
-			}
-			else if @token == Token::LEFT_ROUND {
-				return this.reqClassMethod(attributes, modifiers, name, this.yes(), first ?? name)
-			}
-			else {
-				let value
-				if this.test(Token::EQUALS) {
-					this.commit()
-
-					value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-				}
-
-				this.reqNL_1M()
-
-				return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? name, value ?? name))
-			}
-		} # }}}
-		tryClassMethod(attributes, modifiers, first: Event?): Event ~ SyntaxError { # {{{
-			let name
-			if this.test(Token::ASYNC) {
-				let first = this.reqIdentifier()
-
-				name = this.tryIdentifier()
-
-				if name.ok {
-					modifiers = [...modifiers, this.yep(AST.Modifier(ModifierKind::Async, first))]
-				}
-				else {
-					name = first
-				}
-			}
-			else {
-				name = this.tryIdentifier()
-
-				unless name.ok {
-					return NO
-				}
+				type = @reqTypeVar()
 			}
 
-			return this.reqClassMethod(attributes, modifiers, name, null, first ?? name)
+			if @test(Token::LEFT_CURLY) {
+				@commit()
+
+				return @reqClassProperty(attributes, modifiers, name, type, first ?? name)
+			}
+			else if type.ok && bits ~~ ClassBits::Variable {
+				return @tryClassVariable(attributes, modifiers, bits, name, type, first)
+			}
+
+			return NO
 		} # }}}
 		tryClassStatement(first: Event, modifiers = []): Event ~ SyntaxError { # {{{
 			const name = this.tryIdentifier()
@@ -7495,204 +7179,50 @@ export namespace Parser {
 
 			return this.reqClassStatementBody(name, first, modifiers)
 		} # }}}
-		tryClassStaticMember(attributes, modifiers, first: Event?): Event ~ SyntaxError { # {{{
-			const mark = this.mark()
+		tryClassVariable(attributes, modifiers, bits: ClassBits, name: Event?, type: Event?, first: Event?): Event ~ SyntaxError { # {{{
+			const mark = @mark()
 
-			if this.test(Token::ASYNC) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::Async, this.yes()))
-				const name = this.tryIdentifier()
+			if !?name {
+				if @test(Token::AT) {
+					const modifier = @yep(AST.Modifier(ModifierKind::ThisAlias, @yes()))
 
-				if name.ok {
-					return this.reqClassMethod(attributes, [...modifiers, modifier], name, null, first ?? modifier)
-				}
-				else {
-					this.rollback(mark)
-				}
-			}
-			else if this.test(Token::AT) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))
-				const name = this.reqNameIST(FunctionMode::Function)
-
-				let type
-				if this.test(Token::COLON) {
-					this.commit()
-
-					type = this.reqTypeVar()
+					modifiers = [...modifiers, modifier]
+					first ??= modifier
 				}
 
-				let value
-				if this.test(Token::EQUALS) {
-					this.commit()
+				name = @tryIdentifier()
 
-					value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-				}
+				unless name.ok {
+					@rollback(mark)
 
-				this.reqNL_1M()
-
-				return this.yep(AST.FieldDeclaration(attributes, [...modifiers, modifier], name, type, value, first ?? modifier, value ?? type ?? name))
-			}
-			else if this.test(Token::AUTO) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::AutoTyping, this.yes()))
-
-				lateinit const name
-				if this.test(Token::AT) {
-					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
-
-					name = this.reqNameIST(FunctionMode::Function)
-				}
-				else {
-					name = this.tryNameIST(FunctionMode::Function)
-
-					if name.ok {
-						modifiers = [...modifiers, modifier]
-					}
-					else {
-						this.rollback(mark)
-					}
-				}
-
-				if name.ok {
-					unless this.test(Token::EQUALS) {
-						this.throw('=')
-					}
-
-					this.commit()
-
-					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-
-					this.reqNL_1M()
-
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? modifier, value ?? name))
+					return NO
 				}
 			}
-			else if this.test(Token::CONST) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::Immutable, this.yes()))
 
-				lateinit const name
-				if this.test(Token::AT) {
-					modifiers = [...modifiers, modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes()))]
+			if !?type {
+				if @test(Token::COLON) {
+					@commit()
 
-					name = this.reqNameIST(FunctionMode::Function)
-				}
-				else {
-					name = this.tryNameIST(FunctionMode::Function)
-
-					if name.ok {
-						modifiers = [...modifiers, modifier]
-					}
-					else {
-						this.rollback(mark)
-					}
-				}
-
-				if name.ok {
-					let type
-					if this.test(Token::COLON) {
-						this.commit()
-
-						type = this.reqTypeVar()
-					}
-
-					unless this.test(Token::EQUALS) {
-						this.throw('=')
-					}
-
-					this.commit()
-
-					const value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-
-					this.reqNL_1M()
-
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? modifier, value))
+					type = @reqTypeVar()
 				}
 			}
-			else if this.test(Token::LATEINIT) {
-				const modifier = this.yep(AST.Modifier(ModifierKind::LateInit, this.yes()))
-				const modifiers = [...modifiers, modifier]
 
-				if this.test(Token::CONST) {
-					const modifier = this.yep(AST.Modifier(ModifierKind::Immutable, this.yes()))
+			let value
+			if bits ~~ ClassBits::NoAssignment {
+				// do nothing
+			}
+			else if @test(Token::EQUALS) {
+				@commit()
 
-					lateinit const name
-					if this.test(Token::AT) {
-						modifiers.push(modifier, this.yep(AST.Modifier(ModifierKind::ThisAlias, this.yes())))
-
-						name = this.reqNameIST(FunctionMode::Function)
-					}
-					else {
-						name = this.tryNameIST(FunctionMode::Function)
-
-						if name.ok {
-							modifiers.push(modifier)
-						}
-					}
-
-					if name.ok {
-						let type = null
-						if this.test(Token::COLON) {
-							this.commit()
-
-							type = this.reqTypeVar()
-						}
-
-						this.reqNL_1M()
-
-						return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, null, first ?? modifier, type ?? name))
-					}
-				}
-
-				this.rollback(mark)
+				value = @reqExpression(ExpressionMode::Default, FunctionMode::Method)
+			}
+			else if bits ~~ ClassBits::RequiredAssignment {
+				@throw('=')
 			}
 
-			const name = this.tryNameIST(FunctionMode::Function)
+			@reqNL_1M()
 
-			unless name.ok {
-				return NO
-			}
-
-			if this.match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
-				this.commit()
-
-				const type = this.reqTypeVar()
-
-				if this.test(Token::LEFT_CURLY) {
-					this.commit()
-
-					return this.reqClassProperty(attributes, modifiers, name, type, first ?? name)
-				}
-				else {
-					let value
-					if this.test(Token::EQUALS) {
-						this.commit()
-
-						value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-					}
-
-					this.reqNL_1M()
-
-					return this.yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
-				}
-			}
-			else if @token == Token::LEFT_CURLY {
-				this.commit()
-
-				return this.reqClassProperty(attributes, modifiers, name, null, first ?? name)
-			}
-			else if @token == Token::LEFT_ROUND {
-				return this.reqClassMethod(attributes, modifiers, name, this.yes(), first ?? name)
-			}
-			else {
-				let value
-				if this.test(Token::EQUALS) {
-					this.commit()
-
-					value = this.reqExpression(ExpressionMode::Default, FunctionMode::Method)
-				}
-
-				this.reqNL_1M()
-
-				return this.yep(AST.FieldDeclaration(attributes, modifiers, name, null, value, first ?? name, value ?? name))
-			}
+			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
 		} # }}}
 		tryCreateExpression(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if this.test(Token::LEFT_ROUND) {
@@ -8359,69 +7889,64 @@ export namespace Parser {
 		tryWhileStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			let condition
 
-			if this.test(Token::LET, Token::CONST, Token::AUTO) {
-				const token = @token
-
-				const mark = this.mark()
-				const first = this.yes()
+			if @test(Token::VAR) {
+				const mark = @mark()
+				const first = @yes()
 
 				const modifiers = []
-				if token == Token::CONST {
-					modifiers.push(AST.Modifier(ModifierKind::Immutable, first))
-				}
-				else if token == Token::AUTO {
-					modifiers.push(AST.Modifier(ModifierKind::AutoTyping, first))
+				if @test(Token::MUT) {
+					modifiers.push(AST.Modifier(ModifierKind::Mutable, @yes()))
 				}
 
-				if this.test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
-					const variable = this.reqTypedVariable(fMode)
+				if @test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+					const variable = @reqTypedVariable(fMode)
 
-					if this.test(Token::COMMA) {
+					if @test(Token::COMMA) {
 						const variables = [variable]
 
 						do {
-							this.commit()
+							@commit()
 
-							variables.push(this.reqTypedVariable(fMode))
+							variables.push(@reqTypedVariable(fMode))
 						}
-						while this.test(Token::COMMA)
+						while @test(Token::COMMA)
 
-						unless this.test(Token::EQUALS) {
-							this.throw('=')
-						}
-
-						this.commit()
-
-						unless this.test(Token::AWAIT) {
-							this.throw('await')
+						unless @test(Token::EQUALS) {
+							@throw('=')
 						}
 
-						this.commit()
+						@commit()
 
-						const operand = this.reqPrefixedOperand(ExpressionMode::Default, fMode)
+						unless @test(Token::AWAIT) {
+							@throw('await')
+						}
 
-						condition = this.yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
+						@commit()
+
+						const operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+
+						condition = @yep(AST.VariableDeclaration(modifiers, variables, operand, first, operand))
 					}
 					else {
-						unless this.test(Token::EQUALS) {
-							this.throw('=')
+						unless @test(Token::EQUALS) {
+							@throw('=')
 						}
 
-						this.commit()
+						@commit()
 
-						const expression = this.reqExpression(ExpressionMode::Default, fMode)
+						const expression = @reqExpression(ExpressionMode::Default, fMode)
 
-						condition = this.yep(AST.VariableDeclaration(modifiers, [variable], expression, first, expression))
+						condition = @yep(AST.VariableDeclaration(modifiers, [variable], expression, first, expression))
 					}
 				}
 				else {
-					this.rollback(mark)
+					@rollback(mark)
 
-					condition = this.tryExpression(ExpressionMode::Default, fMode)
+					condition = @tryExpression(ExpressionMode::Default, fMode)
 				}
 			}
 			else {
-				condition = this.tryExpression(ExpressionMode::Default, fMode)
+				condition = @tryExpression(ExpressionMode::Default, fMode)
 			}
 
 			unless condition.ok {
@@ -8429,19 +7954,19 @@ export namespace Parser {
 			}
 
 			let body
-			if this.match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) == Token::LEFT_CURLY {
-				body = this.reqBlock(this.yes(), fMode)
+			if @match(Token::LEFT_CURLY, Token::EQUALS_RIGHT_ANGLE) == Token::LEFT_CURLY {
+				body = @reqBlock(@yes(), fMode)
 			}
 			else if @token == Token::EQUALS_RIGHT_ANGLE {
-				this.commit()
+				@commit()
 
-				body = this.reqExpression(ExpressionMode::Default, fMode)
+				body = @reqExpression(ExpressionMode::Default, fMode)
 			}
 			else {
-				this.throw(['{', '=>'])
+				@throw(['{', '=>'])
 			}
 
-			return this.yep(AST.WhileStatement(condition, body, first, body))
+			return @yep(AST.WhileStatement(condition, body, first, body))
 		} # }}}
 	}
 

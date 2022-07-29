@@ -4,24 +4,9 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
-      "attributes": [],
-      "variables": [
+      "modifiers": [
         {
-          "kind": 123,
-          "modifiers": [],
-          "name": {
-            "kind": 52,
-            "name": "key",
-            "start": {
-              "line": 1,
-              "column": 5
-            },
-            "end": {
-              "line": 1,
-              "column": 8
-            }
-          },
+          "kind": 10,
           "start": {
             "line": 1,
             "column": 5
@@ -32,30 +17,69 @@
           }
         }
       ],
+      "attributes": [],
+      "variables": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "name": {
+            "kind": 52,
+            "name": "key",
+            "start": {
+              "line": 1,
+              "column": 9
+            },
+            "end": {
+              "line": 1,
+              "column": 12
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 9
+          },
+          "end": {
+            "line": 1,
+            "column": 12
+          }
+        }
+      ],
       "start": {
         "line": 1,
         "column": 1
       },
       "end": {
         "line": 1,
-        "column": 16
+        "column": 20
       },
       "init": {
         "kind": 68,
         "value": "qux",
         "start": {
           "line": 1,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 1,
-          "column": 16
+          "column": 20
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -71,11 +95,11 @@
                   "name": "key",
                   "start": {
                     "line": 3,
-                    "column": 8
+                    "column": 12
                   },
                   "end": {
                     "line": 3,
-                    "column": 11
+                    "column": 15
                   }
                 },
                 "modifiers": [
@@ -83,52 +107,52 @@
                     "kind": 6,
                     "start": {
                       "line": 3,
-                      "column": 7
+                      "column": 11
                     },
                     "end": {
                       "line": 3,
-                      "column": 12
+                      "column": 16
                     }
                   }
                 ],
                 "start": {
                   "line": 3,
-                  "column": 7
+                  "column": 11
                 },
                 "end": {
                   "line": 3,
-                  "column": 17
+                  "column": 21
                 },
                 "alias": {
                   "kind": 52,
                   "name": "foo",
                   "start": {
                     "line": 3,
-                    "column": 14
+                    "column": 18
                   },
                   "end": {
                     "line": 3,
-                    "column": 17
+                    "column": 21
                   }
                 }
               }
             ],
             "start": {
               "line": 3,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 3,
-              "column": 19
+              "column": 23
             }
           },
           "start": {
             "line": 3,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 3,
-            "column": 19
+            "column": 23
           }
         }
       ],
@@ -138,7 +162,7 @@
       },
       "end": {
         "line": 3,
-        "column": 36
+        "column": 40
       },
       "init": {
         "kind": 80,
@@ -152,11 +176,11 @@
               "name": "qux",
               "start": {
                 "line": 3,
-                "column": 24
+                "column": 28
               },
               "end": {
                 "line": 3,
-                "column": 27
+                "column": 31
               }
             },
             "value": {
@@ -164,30 +188,30 @@
               "value": "bar",
               "start": {
                 "line": 3,
-                "column": 29
+                "column": 33
               },
               "end": {
                 "line": 3,
-                "column": 34
+                "column": 38
               }
             },
             "start": {
               "line": 3,
-              "column": 24
+              "column": 28
             },
             "end": {
               "line": 3,
-              "column": 34
+              "column": 38
             }
           }
         ],
         "start": {
           "line": 3,
-          "column": 22
+          "column": 26
         },
         "end": {
           "line": 3,
-          "column": 36
+          "column": 40
         }
       }
     },

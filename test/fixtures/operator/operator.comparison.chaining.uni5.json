@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -15,20 +27,20 @@
             "name": "foo",
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 8
+              "column": 12
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 8
+            "column": 12
           }
         }
       ],
@@ -38,24 +50,36 @@
       },
       "end": {
         "line": 1,
-        "column": 14
+        "column": 18
       },
       "init": {
         "kind": 78,
         "value": 180,
         "start": {
           "line": 1,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 1,
-          "column": 14
+          "column": 18
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 2,
+            "column": 5
+          },
+          "end": {
+            "line": 2,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -66,20 +90,20 @@
             "name": "bar",
             "start": {
               "line": 2,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 2,
-              "column": 8
+              "column": 12
             }
           },
           "start": {
             "line": 2,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 2,
-            "column": 8
+            "column": 12
           }
         }
       ],
@@ -89,24 +113,36 @@
       },
       "end": {
         "line": 2,
-        "column": 14
+        "column": 18
       },
       "init": {
         "kind": 78,
         "value": 120,
         "start": {
           "line": 2,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 2,
-          "column": 14
+          "column": 18
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -117,20 +153,20 @@
             "name": "qux",
             "start": {
               "line": 3,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 3,
-              "column": 8
+              "column": 12
             }
           },
           "start": {
             "line": 3,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 3,
-            "column": 8
+            "column": 12
           }
         }
       ],
@@ -140,24 +176,36 @@
       },
       "end": {
         "line": 3,
-        "column": 13
+        "column": 17
       },
       "init": {
         "kind": 78,
         "value": 80,
         "start": {
           "line": 3,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 3,
-          "column": 13
+          "column": 17
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 5,
+            "column": 5
+          },
+          "end": {
+            "line": 5,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -168,20 +216,20 @@
             "name": "isIt",
             "start": {
               "line": 5,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 5,
-              "column": 9
+              "column": 13
             }
           },
           "start": {
             "line": 5,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 5,
-            "column": 9
+            "column": 13
           }
         }
       ],
@@ -191,7 +239,7 @@
       },
       "end": {
         "line": 5,
-        "column": 38
+        "column": 42
       },
       "init": {
         "kind": 21,
@@ -201,11 +249,11 @@
             "value": 200,
             "start": {
               "line": 5,
-              "column": 12
+              "column": 16
             },
             "end": {
               "line": 5,
-              "column": 15
+              "column": 19
             }
           },
           {
@@ -213,19 +261,7 @@
             "modifiers": [],
             "start": {
               "line": 5,
-              "column": 16
-            },
-            "end": {
-              "line": 5,
-              "column": 17
-            }
-          },
-          {
-            "kind": 52,
-            "name": "foo",
-            "start": {
-              "line": 5,
-              "column": 18
+              "column": 20
             },
             "end": {
               "line": 5,
@@ -233,23 +269,23 @@
             }
           },
           {
-            "kind": 11,
-            "modifiers": [],
+            "kind": 52,
+            "name": "foo",
             "start": {
               "line": 5,
               "column": 22
             },
             "end": {
               "line": 5,
-              "column": 23
+              "column": 25
             }
           },
           {
-            "kind": 52,
-            "name": "bar",
+            "kind": 11,
+            "modifiers": [],
             "start": {
               "line": 5,
-              "column": 24
+              "column": 26
             },
             "end": {
               "line": 5,
@@ -257,23 +293,23 @@
             }
           },
           {
-            "kind": 11,
-            "modifiers": [],
+            "kind": 52,
+            "name": "bar",
             "start": {
               "line": 5,
               "column": 28
             },
             "end": {
               "line": 5,
-              "column": 29
+              "column": 31
             }
           },
           {
-            "kind": 52,
-            "name": "qux",
+            "kind": 11,
+            "modifiers": [],
             "start": {
               "line": 5,
-              "column": 30
+              "column": 32
             },
             "end": {
               "line": 5,
@@ -281,15 +317,27 @@
             }
           },
           {
-            "kind": 11,
-            "modifiers": [],
+            "kind": 52,
+            "name": "qux",
             "start": {
               "line": 5,
               "column": 34
             },
             "end": {
               "line": 5,
-              "column": 35
+              "column": 37
+            }
+          },
+          {
+            "kind": 11,
+            "modifiers": [],
+            "start": {
+              "line": 5,
+              "column": 38
+            },
+            "end": {
+              "line": 5,
+              "column": 39
             }
           },
           {
@@ -297,21 +345,21 @@
             "value": 60,
             "start": {
               "line": 5,
-              "column": 36
+              "column": 40
             },
             "end": {
               "line": 5,
-              "column": 38
+              "column": 42
             }
           }
         ],
         "start": {
           "line": 5,
-          "column": 12
+          "column": 16
         },
         "end": {
           "line": 5,
-          "column": 38
+          "column": 42
         }
       }
     }
@@ -322,6 +370,6 @@
   },
   "end": {
     "line": 5,
-    "column": 38
+    "column": 42
   }
 }

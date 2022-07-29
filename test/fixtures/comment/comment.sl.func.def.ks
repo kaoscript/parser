@@ -1,7 +1,7 @@
 func foo() { // {{{
 	// foo
-	let foo = 42
+	var foo = 42
 	// bar
-	let bar = 24
+	var bar = 24
 	// qux
 } // }}}

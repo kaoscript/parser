@@ -1,2 +1,2 @@
-let m = 'qux'
-let qux = foo ? [m] : m
+var dyn m = 'qux'
+var dyn qux = foo ? [m] : m

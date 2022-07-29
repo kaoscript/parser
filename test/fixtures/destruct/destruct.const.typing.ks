@@ -1,7 +1,7 @@
-const [x, y]: [Number, Number] = foo()
+var [x, y]: [Number, Number] = foo()
 
-const [x, y]: Array<Number> = foo()
+var [x, y]: Array<Number> = foo()
 
-const {x, y}: {x: Number, y: Number} = foo()
+var {x, y}: {x: Number, y: Number} = foo()
 
-const {x, y}: Object<Number> = foo()
+var {x, y}: Object<Number> = foo()

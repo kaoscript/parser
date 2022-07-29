@@ -1,4 +1,4 @@
-let foobar = {
+var dyn foobar = {
 	foo(name: string) {
 		n = 0
 	}

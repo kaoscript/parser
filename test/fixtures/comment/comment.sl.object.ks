@@ -1,3 +1,3 @@
-let foo = { // {{{
+var foo = { // {{{
 	bar: 'hello'
 } // }}}

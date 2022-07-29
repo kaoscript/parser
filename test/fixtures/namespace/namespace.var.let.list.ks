@@ -1,3 +1,3 @@
 namespace coord {
-	let x, y, z
+	var dyn x, y, z
 }

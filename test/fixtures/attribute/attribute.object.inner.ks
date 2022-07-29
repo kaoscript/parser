@@ -1,4 +1,4 @@
-const foobar = {
+var foobar = {
 	#![error(off)]
 
 	foo() {

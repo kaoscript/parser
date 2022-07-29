@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -15,20 +27,20 @@
             "name": "a",
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 6
+              "column": 10
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 6
+            "column": 10
           }
         }
       ],
@@ -38,24 +50,36 @@
       },
       "end": {
         "line": 1,
-        "column": 16
+        "column": 20
       },
       "init": {
         "kind": 68,
         "value": "HELLO",
         "start": {
           "line": 1,
-          "column": 9
+          "column": 13
         },
         "end": {
           "line": 1,
-          "column": 16
+          "column": 20
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 2,
+            "column": 5
+          },
+          "end": {
+            "line": 2,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -66,20 +90,20 @@
             "name": "c",
             "start": {
               "line": 2,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 2,
-              "column": 6
+              "column": 10
             }
           },
           "start": {
             "line": 2,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 2,
-            "column": 6
+            "column": 10
           }
         }
       ],
@@ -89,7 +113,7 @@
       },
       "end": {
         "line": 2,
-        "column": 30
+        "column": 34
       },
       "init": {
         "kind": 14,
@@ -107,36 +131,24 @@
               "assignment": 8,
               "start": {
                 "line": 2,
-                "column": 12
+                "column": 16
               },
               "end": {
                 "line": 2,
-                "column": 13
+                "column": 17
               }
             },
             "start": {
               "line": 2,
-              "column": 9
+              "column": 13
             },
             "end": {
               "line": 2,
-              "column": 16
+              "column": 20
             },
             "left": {
               "kind": 52,
               "name": "b",
-              "start": {
-                "line": 2,
-                "column": 10
-              },
-              "end": {
-                "line": 2,
-                "column": 11
-              }
-            },
-            "right": {
-              "kind": 52,
-              "name": "a",
               "start": {
                 "line": 2,
                 "column": 14
@@ -145,6 +157,18 @@
                 "line": 2,
                 "column": 15
               }
+            },
+            "right": {
+              "kind": 52,
+              "name": "a",
+              "start": {
+                "line": 2,
+                "column": 18
+              },
+              "end": {
+                "line": 2,
+                "column": 19
+              }
             }
           },
           "property": {
@@ -152,30 +176,30 @@
             "name": "toLowerCase",
             "start": {
               "line": 2,
-              "column": 17
+              "column": 21
             },
             "end": {
               "line": 2,
-              "column": 28
+              "column": 32
             }
           },
           "start": {
             "line": 2,
-            "column": 9
+            "column": 13
           },
           "end": {
             "line": 2,
-            "column": 28
+            "column": 32
           }
         },
         "arguments": [],
         "start": {
           "line": 2,
-          "column": 9
+          "column": 13
         },
         "end": {
           "line": 2,
-          "column": 30
+          "column": 34
         }
       }
     }
@@ -186,6 +210,6 @@
   },
   "end": {
     "line": 2,
-    "column": 30
+    "column": 34
   }
 }

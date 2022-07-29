@@ -7,4 +7,4 @@ namespace qux {
 	}
 }
 
-const x = new qux.Foobar()
+var x = new qux.Foobar()

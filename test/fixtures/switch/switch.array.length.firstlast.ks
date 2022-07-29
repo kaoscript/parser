@@ -1,4 +1,4 @@
-let v = [1, 2, 3]
+var dyn v = [1, 2, 3]
 
 switch v {
 	with [first, ...]	=> console.log(first) // <- 1

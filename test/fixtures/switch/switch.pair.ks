@@ -1,4 +1,4 @@
-let pair = [2, -2]
+var dyn pair = [2, -2]
 
 switch pair {
 	with [x, y]	when x == y			=> console.log("These are twins")

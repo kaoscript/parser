@@ -24,6 +24,8 @@ function prepare(file) {
 		encoding: 'utf8'
 	});
 
+	console.log(name);
+
 	try {
 		var error = fs.readFileSync(path.join(root, name + '.error'), {
 			encoding: 'utf8'

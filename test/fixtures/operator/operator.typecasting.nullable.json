@@ -83,19 +83,7 @@
         "statements": [
           {
             "kind": 122,
-            "modifiers": [
-              {
-                "kind": 13,
-                "start": {
-                  "line": 2,
-                  "column": 2
-                },
-                "end": {
-                  "line": 2,
-                  "column": 7
-                }
-              }
-            ],
+            "modifiers": [],
             "attributes": [],
             "variables": [
               {
@@ -106,20 +94,20 @@
                   "name": "d3",
                   "start": {
                     "line": 2,
-                    "column": 8
+                    "column": 6
                   },
                   "end": {
                     "line": 2,
-                    "column": 10
+                    "column": 8
                   }
                 },
                 "start": {
                   "line": 2,
-                  "column": 8
+                  "column": 6
                 },
                 "end": {
                   "line": 2,
-                  "column": 10
+                  "column": 8
                 }
               }
             ],
@@ -129,7 +117,7 @@
             },
             "end": {
               "line": 2,
-              "column": 26
+              "column": 24
             },
             "init": {
               "kind": 10,
@@ -137,36 +125,44 @@
                 "kind": 25,
                 "modifiers": [
                   {
-                    "kind": 18,
+                    "kind": 20,
                     "start": {
                       "line": 2,
-                      "column": 15
+                      "column": 13
                     },
                     "end": {
                       "line": 2,
-                      "column": 18
+                      "column": 16
                     }
                   }
                 ],
-                "start": {
-                  "line": 2,
-                  "column": 15
-                },
-                "end": {
-                  "line": 2,
-                  "column": 18
-                }
-              },
-              "left": {
-                "kind": 52,
-                "name": "p",
                 "start": {
                   "line": 2,
                   "column": 13
                 },
                 "end": {
                   "line": 2,
-                  "column": 14
+                  "column": 16
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 11
+              },
+              "end": {
+                "line": 2,
+                "column": 24
+              },
+              "left": {
+                "kind": 52,
+                "name": "p",
+                "start": {
+                  "line": 2,
+                  "column": 11
+                },
+                "end": {
+                  "line": 2,
+                  "column": 12
                 }
               },
               "right": {
@@ -177,29 +173,21 @@
                   "name": "Point3D",
                   "start": {
                     "line": 2,
-                    "column": 19
+                    "column": 17
                   },
                   "end": {
                     "line": 2,
-                    "column": 26
+                    "column": 24
                   }
                 },
                 "start": {
                   "line": 2,
-                  "column": 19
+                  "column": 17
                 },
                 "end": {
                   "line": 2,
-                  "column": 26
+                  "column": 24
                 }
-              },
-              "start": {
-                "line": 2,
-                "column": 13
-              },
-              "end": {
-                "line": 2,
-                "column": 26
               }
             }
           }

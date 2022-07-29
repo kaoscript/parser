@@ -1,1 +1,1 @@
-let a : number | string
+var mut a : number | string

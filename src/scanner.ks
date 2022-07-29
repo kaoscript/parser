@@ -36,7 +36,6 @@ enum Token {
 	COLON_EXCLAMATION
 	COLON_QUESTION
 	COMMA
-	CONST
 	CONTINUE
 	DECIMAL_NUMBER
 	DELETE
@@ -46,6 +45,7 @@ enum Token {
 	DOT
 	DOT_DOT
 	DOT_DOT_DOT
+	DYN
 	ELSE
 	ELSE_IF
 	ENUM
@@ -88,6 +88,7 @@ enum Token {
 	INTERNAL
 	IS
 	IS_NOT
+	LATE
 	LATEINIT
 	LEFT_ANGLE
 	LEFT_ANGLE_EQUALS
@@ -96,12 +97,12 @@ enum Token {
 	LEFT_CURLY
 	LEFT_ROUND
 	LEFT_SQUARE
-	LET
 	MACRO
 	MINUS
 	MINUS_EQUALS
 	MINUS_MINUS
 	MINUS_RIGHT_ANGLE
+	MUT
 	NAMESPACE
 	NEW
 	NEWLINE
@@ -170,6 +171,7 @@ enum Token {
 	UNDERSCORE
 	UNLESS
 	UNTIL
+	VAR
 	WHEN
 	WHILE
 	WITH
@@ -607,15 +609,12 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// class, const
+			// class
 			else if c == 99 {
 				const identifier = that.scanIdentifier(true)
 
 				if identifier == 'lass' {
 					return Token::CLASS
-				}
-				else if identifier == 'onst' {
-					return Token::CONST
 				}
 				else {
 					return Token::IDENTIFIER
@@ -642,15 +641,6 @@ namespace M {
 				}
 				else if identifier == 'unc' {
 					return Token::FUNC
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// let
-			else if c == 108 {
-				if that.scanIdentifier(true) == 'et' {
-					return Token::LET
 				}
 				else {
 					return Token::IDENTIFIER
@@ -702,6 +692,15 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
+			// var
+			else if c == 118 {
+				if that.scanIdentifier(true) == 'ar' {
+					return Token::VAR
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
 			else if c == 36 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
 				that.scanIdentifier(false)
 
@@ -736,14 +735,11 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// class, const
+			// class
 			else if c == 99 {
 				const identifier = that.scanIdentifier(true)
 				if identifier == 'lass' {
 					return Token::CLASS
-				}
-				else if identifier == 'onst' {
-					return Token::CONST
 				}
 				else {
 					return Token::IDENTIFIER
@@ -753,15 +749,6 @@ namespace M {
 			else if c == 102 {
 				if that.scanIdentifier(true) == 'unc' {
 					return Token::FUNC
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// let
-			else if c == 108 {
-				if that.scanIdentifier(true) == 'et' {
-					return Token::LET
 				}
 				else {
 					return Token::IDENTIFIER
@@ -785,6 +772,15 @@ namespace M {
 				}
 				else if identifier == 'ystemic' {
 					return Token::SYSTEMIC
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// var
+			else if c == 118 {
+				if that.scanIdentifier(true) == 'ar' {
+					return Token::VAR
 				}
 				else {
 					return Token::IDENTIFIER
@@ -1472,7 +1468,7 @@ namespace M {
 			if c == -1 {
 				return Token::EOF
 			}
-			// abstract, async, auto
+			// abstract, async
 			else if	c == 97
 			{
 				if	that.charAt(1) == 98 &&
@@ -1522,7 +1518,7 @@ namespace M {
 					return Token::BREAK
 				}
 			}
-			// class, const, continue
+			// class, continue
 			else if c == 99
 			{
 				if	that.charAt(1) == 108 &&
@@ -1534,16 +1530,6 @@ namespace M {
 					that.next(5)
 
 					return Token::CLASS
-				}
-				else if	that.charAt(1) == 111 &&
-					that.charAt(2) == 110 &&
-					that.charAt(3) == 115 &&
-					that.charAt(4) == 116 &&
-					that.isBoundary(5)
-				{
-					that.next(5)
-
-					return Token::CONST
 				}
 				else if	that.charAt(1) == 111 &&
 					that.charAt(2) == 110 &&
@@ -1684,7 +1670,7 @@ namespace M {
 					return Token::IMPORT
 				}
 			}
-			// lateinit, let
+			// lateinit
 			else if c == 108
 			{
 				if	that.charAt(1) == 97 &&
@@ -1699,14 +1685,6 @@ namespace M {
 					that.next(8)
 
 					return Token::LATEINIT
-				}
-				else if	that.charAt(1) == 101 &&
-						that.charAt(2) == 116 &&
-						that.isBoundary(3)
-				{
-					that.next(3)
-
-					return Token::LET
 				}
 			}
 			// macro
@@ -1857,6 +1835,18 @@ namespace M {
 					that.next(5)
 
 					return Token::UNTIL
+				}
+			}
+			// var
+			else if c == 118
+			{
+				if	that.charAt(1) == 97 &&
+					that.charAt(2) == 114 &&
+					that.isBoundary(3)
+				{
+					that.next(3)
+
+					return Token::VAR
 				}
 			}
 			// while
@@ -2155,20 +2145,6 @@ const recognize = {
 			return false
 		}
 	} # }}}
-	`\(Token::CONST)`(that: Scanner, c: Number): Boolean { # {{{
-		if	c == 99 &&
-			that.charAt(1) == 111 &&
-			that.charAt(2) == 110 &&
-			that.charAt(3) == 115 &&
-			that.charAt(4) == 116 &&
-			that.isBoundary(5)
-		{
-			return that.next(5)
-		}
-		else {
-			return false
-		}
-	} # }}}
 	`\(Token::CLASS)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 99 &&
 			that.charAt(1) == 108 &&
@@ -2222,6 +2198,18 @@ const recognize = {
 	} # }}}
 	`\(Token::DOT_DOT_DOT)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 46 && that.charAt(1) == 46 && that.charAt(2) == 46 {
+			return that.next(3)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::DYN)`(that: Scanner, c: Number): Boolean { # {{{
+		if	c == 100 &&
+			that.charAt(1) == 121 &&
+			that.charAt(2) == 110 &&
+			that.isBoundary(3)
+		{
 			return that.next(3)
 		}
 		else {
@@ -2471,6 +2459,19 @@ const recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::LATE)`(that: Scanner, c: Number): Boolean { # {{{
+		if	c == 108 &&
+			that.charAt(1) == 97 &&
+			that.charAt(2) == 116 &&
+			that.charAt(3) == 101 &&
+			that.isBoundary(4)
+		{
+			return that.next(4)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::LATEINIT)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 108 &&
 			that.charAt(1) == 97 &&
@@ -2522,18 +2523,6 @@ const recognize = {
 			return false
 		}
 	} # }}}
-	`\(Token::LET)`(that: Scanner, c: Number): Boolean { # {{{
-		if	c == 108 &&
-			that.charAt(1) == 101 &&
-			that.charAt(2) == 116 &&
-			that.isBoundary(3)
-		{
-			return that.next(3)
-		}
-		else {
-			return false
-		}
-	} # }}}
 	`\(Token::MACRO)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 109 &&
 			that.charAt(1) == 97 &&
@@ -2551,6 +2540,18 @@ const recognize = {
 	`\(Token::MINUS)`(that: Scanner, c: Number): Boolean { # {{{
 		if c == 45 && (c = that.charAt(1)) != 61 {
 			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::MUT)`(that: Scanner, c: Number): Boolean { # {{{
+		if	c == 109 &&
+			that.charAt(1) == 117 &&
+			that.charAt(2) == 116 &&
+			that.isBoundary(3)
+		{
+			return that.next(3)
 		}
 		else {
 			return false
@@ -2932,6 +2933,18 @@ const recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::VAR)`(that: Scanner, c: Number): Boolean { # {{{
+		if	c == 118 &&
+			that.charAt(1) == 97 &&
+			that.charAt(2) == 114 &&
+			that.isBoundary(3)
+		{
+			return that.next(3)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::WHEN)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 119 &&
 			that.charAt(1) == 104 &&
@@ -3037,7 +3050,7 @@ class Scanner {
 				return this.eof()
 			}
 
-			for token in tokens {
+			for const token in tokens {
 				if recognize[token](this, c) {
 					return token
 				}
@@ -3582,7 +3595,7 @@ class Scanner {
 	substringAt(d: Number): String => @data.substr(@index + d)
 	test(token: Token): Boolean { # {{{
 		if @eof {
-			return false
+			return Token::EOF == token
 		}
 		else {
 			const c = this.skip(@index - 1)
@@ -3590,9 +3603,8 @@ class Scanner {
 			if c == -1 {
 				return this.eof() == token
 			}
-			else {
-				return recognize[token](this, c)
-			}
+
+			return recognize[token](this, c)
 		}
 	} # }}}
 	testNS(token: Token): Boolean { # {{{

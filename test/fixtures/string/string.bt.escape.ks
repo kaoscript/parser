@@ -1,1 +1,1 @@
-let foobar = `abc\\(xyz)def`
+var dyn foobar = `abc\\(xyz)def`

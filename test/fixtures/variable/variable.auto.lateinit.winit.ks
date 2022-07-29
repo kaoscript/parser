@@ -1,1 +1,0 @@
-lateinit auto a = 42

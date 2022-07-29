@@ -173,19 +173,7 @@
                         "statements": [
                           {
                             "kind": 122,
-                            "modifiers": [
-                              {
-                                "kind": 13,
-                                "start": {
-                                  "line": 4,
-                                  "column": 4
-                                },
-                                "end": {
-                                  "line": 4,
-                                  "column": 9
-                                }
-                              }
-                            ],
+                            "modifiers": [],
                             "attributes": [],
                             "variables": [
                               {
@@ -196,43 +184,43 @@
                                   "name": "fields",
                                   "start": {
                                     "line": 4,
-                                    "column": 10
+                                    "column": 8
                                   },
                                   "end": {
+                                    "line": 4,
+                                    "column": 14
+                                  }
+                                },
+                                "start": {
+                                  "line": 4,
+                                  "column": 8
+                                },
+                                "end": {
+                                  "line": 4,
+                                  "column": 21
+                                },
+                                "type": {
+                                  "kind": 116,
+                                  "modifiers": [],
+                                  "typeName": {
+                                    "kind": 52,
+                                    "name": "Array",
+                                    "start": {
+                                      "line": 4,
+                                      "column": 16
+                                    },
+                                    "end": {
+                                      "line": 4,
+                                      "column": 21
+                                    }
+                                  },
+                                  "start": {
                                     "line": 4,
                                     "column": 16
-                                  }
-                                },
-                                "start": {
-                                  "line": 4,
-                                  "column": 10
-                                },
-                                "end": {
-                                  "line": 4,
-                                  "column": 23
-                                },
-                                "type": {
-                                  "kind": 116,
-                                  "modifiers": [],
-                                  "typeName": {
-                                    "kind": 52,
-                                    "name": "Array",
-                                    "start": {
-                                      "line": 4,
-                                      "column": 18
-                                    },
-                                    "end": {
-                                      "line": 4,
-                                      "column": 23
-                                    }
-                                  },
-                                  "start": {
-                                    "line": 4,
-                                    "column": 18
                                   },
                                   "end": {
                                     "line": 4,
-                                    "column": 23
+                                    "column": 21
                                   }
                                 }
                               }
@@ -243,105 +231,18 @@
                             },
                             "end": {
                               "line": 4,
-                              "column": 28
+                              "column": 26
                             },
                             "init": {
                               "kind": 4,
                               "values": [],
                               "start": {
+                                "line": 4,
+                                "column": 24
+                              },
+                              "end": {
                                 "line": 4,
                                 "column": 26
-                              },
-                              "end": {
-                                "line": 4,
-                                "column": 28
-                              }
-                            }
-                          },
-                          {
-                            "kind": 122,
-                            "modifiers": [
-                              {
-                                "kind": 13,
-                                "start": {
-                                  "line": 5,
-                                  "column": 4
-                                },
-                                "end": {
-                                  "line": 5,
-                                  "column": 9
-                                }
-                              }
-                            ],
-                            "attributes": [],
-                            "variables": [
-                              {
-                                "kind": 123,
-                                "modifiers": [],
-                                "name": {
-                                  "kind": 52,
-                                  "name": "methods",
-                                  "start": {
-                                    "line": 5,
-                                    "column": 10
-                                  },
-                                  "end": {
-                                    "line": 5,
-                                    "column": 17
-                                  }
-                                },
-                                "start": {
-                                  "line": 5,
-                                  "column": 10
-                                },
-                                "end": {
-                                  "line": 5,
-                                  "column": 24
-                                },
-                                "type": {
-                                  "kind": 116,
-                                  "modifiers": [],
-                                  "typeName": {
-                                    "kind": 52,
-                                    "name": "Array",
-                                    "start": {
-                                      "line": 5,
-                                      "column": 19
-                                    },
-                                    "end": {
-                                      "line": 5,
-                                      "column": 24
-                                    }
-                                  },
-                                  "start": {
-                                    "line": 5,
-                                    "column": 19
-                                  },
-                                  "end": {
-                                    "line": 5,
-                                    "column": 24
-                                  }
-                                }
-                              }
-                            ],
-                            "start": {
-                              "line": 5,
-                              "column": 4
-                            },
-                            "end": {
-                              "line": 5,
-                              "column": 29
-                            },
-                            "init": {
-                              "kind": 4,
-                              "values": [],
-                              "start": {
-                                "line": 5,
-                                "column": 27
-                              },
-                              "end": {
-                                "line": 5,
-                                "column": 29
                               }
                             }
                           },
@@ -355,23 +256,110 @@
                                 "modifiers": [],
                                 "name": {
                                   "kind": 52,
-                                  "name": "field",
+                                  "name": "methods",
                                   "start": {
-                                    "line": 7,
+                                    "line": 5,
                                     "column": 8
                                   },
                                   "end": {
-                                    "line": 7,
-                                    "column": 13
+                                    "line": 5,
+                                    "column": 15
                                   }
                                 },
+                                "start": {
+                                  "line": 5,
+                                  "column": 8
+                                },
+                                "end": {
+                                  "line": 5,
+                                  "column": 22
+                                },
+                                "type": {
+                                  "kind": 116,
+                                  "modifiers": [],
+                                  "typeName": {
+                                    "kind": 52,
+                                    "name": "Array",
+                                    "start": {
+                                      "line": 5,
+                                      "column": 17
+                                    },
+                                    "end": {
+                                      "line": 5,
+                                      "column": 22
+                                    }
+                                  },
+                                  "start": {
+                                    "line": 5,
+                                    "column": 17
+                                  },
+                                  "end": {
+                                    "line": 5,
+                                    "column": 22
+                                  }
+                                }
+                              }
+                            ],
+                            "start": {
+                              "line": 5,
+                              "column": 4
+                            },
+                            "end": {
+                              "line": 5,
+                              "column": 27
+                            },
+                            "init": {
+                              "kind": 4,
+                              "values": [],
+                              "start": {
+                                "line": 5,
+                                "column": 25
+                              },
+                              "end": {
+                                "line": 5,
+                                "column": 27
+                              }
+                            }
+                          },
+                          {
+                            "kind": 122,
+                            "modifiers": [
+                              {
+                                "kind": 10,
                                 "start": {
                                   "line": 7,
                                   "column": 8
                                 },
                                 "end": {
                                   "line": 7,
-                                  "column": 13
+                                  "column": 11
+                                }
+                              }
+                            ],
+                            "attributes": [],
+                            "variables": [
+                              {
+                                "kind": 123,
+                                "modifiers": [],
+                                "name": {
+                                  "kind": 52,
+                                  "name": "field",
+                                  "start": {
+                                    "line": 7,
+                                    "column": 12
+                                  },
+                                  "end": {
+                                    "line": 7,
+                                    "column": 17
+                                  }
+                                },
+                                "start": {
+                                  "line": 7,
+                                  "column": 12
+                                },
+                                "end": {
+                                  "line": 7,
+                                  "column": 17
                                 }
                               }
                             ],
@@ -381,7 +369,7 @@
                             },
                             "end": {
                               "line": 7,
-                              "column": 13
+                              "column": 17
                             }
                           },
                           {

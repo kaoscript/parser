@@ -1,4 +1,4 @@
-const foo = {
+var foo = {
 	#[foo]
 	bar() {
 	}

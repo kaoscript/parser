@@ -1,0 +1,1 @@
+var mut a, b = await foo()

@@ -167,24 +167,9 @@
     },
     {
       "kind": 122,
-      "modifiers": [],
-      "attributes": [],
-      "variables": [
+      "modifiers": [
         {
-          "kind": 123,
-          "modifiers": [],
-          "name": {
-            "kind": 52,
-            "name": "bar",
-            "start": {
-              "line": 5,
-              "column": 5
-            },
-            "end": {
-              "line": 5,
-              "column": 8
-            }
-          },
+          "kind": 10,
           "start": {
             "line": 5,
             "column": 5
@@ -195,13 +180,40 @@
           }
         }
       ],
+      "attributes": [],
+      "variables": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "name": {
+            "kind": 52,
+            "name": "bar",
+            "start": {
+              "line": 5,
+              "column": 9
+            },
+            "end": {
+              "line": 5,
+              "column": 12
+            }
+          },
+          "start": {
+            "line": 5,
+            "column": 9
+          },
+          "end": {
+            "line": 5,
+            "column": 12
+          }
+        }
+      ],
       "start": {
         "line": 5,
         "column": 1
       },
       "end": {
         "line": 5,
-        "column": 25
+        "column": 29
       },
       "init": {
         "kind": 26,
@@ -214,11 +226,11 @@
           "name": "foo",
           "start": {
             "line": 5,
-            "column": 11
+            "column": 15
           },
           "end": {
             "line": 5,
-            "column": 14
+            "column": 18
           }
         },
         "arguments": [
@@ -227,21 +239,21 @@
             "value": "Hello",
             "start": {
               "line": 5,
-              "column": 17
+              "column": 21
             },
             "end": {
               "line": 5,
-              "column": 24
+              "column": 28
             }
           }
         ],
         "start": {
           "line": 5,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 5,
-          "column": 25
+          "column": 29
         }
       }
     },

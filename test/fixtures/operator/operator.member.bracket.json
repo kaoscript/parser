@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -15,20 +27,20 @@
             "name": "m",
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 6
+              "column": 10
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 6
+            "column": 10
           }
         }
       ],
@@ -38,41 +50,26 @@
       },
       "end": {
         "line": 1,
-        "column": 14
+        "column": 18
       },
       "init": {
         "kind": 68,
         "value": "qux",
         "start": {
           "line": 1,
-          "column": 9
+          "column": 13
         },
         "end": {
           "line": 1,
-          "column": 14
+          "column": 18
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
-      "attributes": [],
-      "variables": [
+      "modifiers": [
         {
-          "kind": 123,
-          "modifiers": [],
-          "name": {
-            "kind": 52,
-            "name": "qux",
-            "start": {
-              "line": 2,
-              "column": 5
-            },
-            "end": {
-              "line": 2,
-              "column": 8
-            }
-          },
+          "kind": 10,
           "start": {
             "line": 2,
             "column": 5
@@ -83,13 +80,40 @@
           }
         }
       ],
+      "attributes": [],
+      "variables": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "name": {
+            "kind": 52,
+            "name": "qux",
+            "start": {
+              "line": 2,
+              "column": 9
+            },
+            "end": {
+              "line": 2,
+              "column": 12
+            }
+          },
+          "start": {
+            "line": 2,
+            "column": 9
+          },
+          "end": {
+            "line": 2,
+            "column": 12
+          }
+        }
+      ],
       "start": {
         "line": 2,
         "column": 1
       },
       "end": {
         "line": 2,
-        "column": 20
+        "column": 24
       },
       "init": {
         "kind": 14,
@@ -101,25 +125,25 @@
           "kind": 71,
           "modifiers": [
             {
-              "kind": 18,
+              "kind": 20,
               "start": {
                 "line": 2,
-                "column": 14
+                "column": 18
               },
               "end": {
                 "line": 2,
-                "column": 16
+                "column": 20
               }
             },
             {
               "kind": 6,
               "start": {
                 "line": 2,
-                "column": 14
+                "column": 18
               },
               "end": {
                 "line": 2,
-                "column": 16
+                "column": 20
               }
             }
           ],
@@ -128,11 +152,11 @@
             "name": "foo",
             "start": {
               "line": 2,
-              "column": 11
+              "column": 15
             },
             "end": {
               "line": 2,
-              "column": 14
+              "column": 18
             }
           },
           "property": {
@@ -140,30 +164,30 @@
             "name": "m",
             "start": {
               "line": 2,
-              "column": 16
+              "column": 20
             },
             "end": {
               "line": 2,
-              "column": 17
+              "column": 21
             }
           },
           "start": {
             "line": 2,
-            "column": 11
+            "column": 15
           },
           "end": {
             "line": 2,
-            "column": 18
+            "column": 22
           }
         },
         "arguments": [],
         "start": {
           "line": 2,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 2,
-          "column": 20
+          "column": 24
         }
       }
     }
@@ -174,6 +198,6 @@
   },
   "end": {
     "line": 2,
-    "column": 20
+    "column": 24
   }
 }

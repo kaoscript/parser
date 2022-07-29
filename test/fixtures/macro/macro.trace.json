@@ -24,19 +24,7 @@
         "statements": [
           {
             "kind": 122,
-            "modifiers": [
-              {
-                "kind": 13,
-                "start": {
-                  "line": 2,
-                  "column": 2
-                },
-                "end": {
-                  "line": 2,
-                  "column": 7
-                }
-              }
-            ],
+            "modifiers": [],
             "attributes": [],
             "variables": [
               {
@@ -47,20 +35,20 @@
                   "name": "buildTime",
                   "start": {
                     "line": 2,
-                    "column": 8
+                    "column": 6
                   },
                   "end": {
                     "line": 2,
-                    "column": 17
+                    "column": 15
                   }
                 },
                 "start": {
                   "line": 2,
-                  "column": 8
+                  "column": 6
                 },
                 "end": {
                   "line": 2,
-                  "column": 17
+                  "column": 15
                 }
               }
             ],
@@ -70,7 +58,7 @@
             },
             "end": {
               "line": 2,
-              "column": 59
+              "column": 57
             },
             "init": {
               "kind": 14,
@@ -86,11 +74,11 @@
                   "name": "Math",
                   "start": {
                     "line": 2,
-                    "column": 20
+                    "column": 18
                   },
                   "end": {
                     "line": 2,
-                    "column": 24
+                    "column": 22
                   }
                 },
                 "property": {
@@ -98,20 +86,20 @@
                   "name": "floor",
                   "start": {
                     "line": 2,
-                    "column": 25
+                    "column": 23
                   },
                   "end": {
                     "line": 2,
-                    "column": 30
+                    "column": 28
                   }
                 },
                 "start": {
                   "line": 2,
-                  "column": 20
+                  "column": 18
                 },
                 "end": {
                   "line": 2,
-                  "column": 30
+                  "column": 28
                 }
               },
               "arguments": [
@@ -122,20 +110,20 @@
                     "modifiers": [],
                     "start": {
                       "line": 2,
-                      "column": 52
+                      "column": 50
                     },
                     "end": {
                       "line": 2,
-                      "column": 53
+                      "column": 51
                     }
                   },
                   "start": {
                     "line": 2,
-                    "column": 31
+                    "column": 29
                   },
                   "end": {
                     "line": 2,
-                    "column": 58
+                    "column": 56
                   },
                   "left": {
                     "kind": 14,
@@ -160,11 +148,11 @@
                             "name": "Date",
                             "start": {
                               "line": 2,
-                              "column": 31
+                              "column": 29
                             },
                             "end": {
                               "line": 2,
-                              "column": 35
+                              "column": 33
                             }
                           },
                           "property": {
@@ -172,30 +160,30 @@
                             "name": "now",
                             "start": {
                               "line": 2,
-                              "column": 36
+                              "column": 34
                             },
                             "end": {
                               "line": 2,
-                              "column": 39
+                              "column": 37
                             }
                           },
                           "start": {
                             "line": 2,
-                            "column": 31
+                            "column": 29
                           },
                           "end": {
                             "line": 2,
-                            "column": 39
+                            "column": 37
                           }
                         },
                         "arguments": [],
                         "start": {
                           "line": 2,
-                          "column": 31
+                          "column": 29
                         },
                         "end": {
                           "line": 2,
-                          "column": 41
+                          "column": 39
                         }
                       },
                       "property": {
@@ -203,30 +191,30 @@
                         "name": "getTime",
                         "start": {
                           "line": 2,
-                          "column": 42
+                          "column": 40
                         },
                         "end": {
                           "line": 2,
-                          "column": 49
+                          "column": 47
                         }
                       },
                       "start": {
                         "line": 2,
-                        "column": 31
+                        "column": 29
                       },
                       "end": {
                         "line": 2,
-                        "column": 49
+                        "column": 47
                       }
                     },
                     "arguments": [],
                     "start": {
                       "line": 2,
-                      "column": 31
+                      "column": 29
                     },
                     "end": {
                       "line": 2,
-                      "column": 51
+                      "column": 49
                     }
                   },
                   "right": {
@@ -234,22 +222,22 @@
                     "value": 1000,
                     "start": {
                       "line": 2,
-                      "column": 54
+                      "column": 52
                     },
                     "end": {
                       "line": 2,
-                      "column": 58
+                      "column": 56
                     }
                   }
                 }
               ],
               "start": {
                 "line": 2,
-                "column": 20
+                "column": 18
               },
               "end": {
                 "line": 2,
-                "column": 59
+                "column": 57
               }
             }
           },
@@ -259,21 +247,21 @@
             "elements": [
               {
                 "kind": 2,
-                "value": "const runTime = Math.floor(Date.now().getTime() / 1000)",
+                "value": "var runTime = Math.floor(Date.now().getTime() / 1000)",
                 "start": {
                   "line": 5,
                   "column": 3
                 },
                 "end": {
                   "line": 5,
-                  "column": 58
+                  "column": 56
                 }
               },
               {
                 "kind": 3,
                 "start": {
                   "line": 5,
-                  "column": 58
+                  "column": 56
                 },
                 "end": {
                   "line": 6,
@@ -282,14 +270,14 @@
               },
               {
                 "kind": 2,
-                "value": "const age = runTime - ",
+                "value": "var age = runTime - ",
                 "start": {
                   "line": 6,
                   "column": 3
                 },
                 "end": {
                   "line": 6,
-                  "column": 25
+                  "column": 23
                 }
               },
               {
@@ -299,20 +287,20 @@
                   "name": "buildTime",
                   "start": {
                     "line": 6,
-                    "column": 26
+                    "column": 24
                   },
                   "end": {
                     "line": 6,
-                    "column": 35
+                    "column": 33
                   }
                 },
                 "start": {
                   "line": 6,
-                  "column": 25
+                  "column": 23
                 },
                 "end": {
                   "line": 6,
-                  "column": 35
+                  "column": 33
                 },
                 "reification": {
                   "kind": 2
@@ -322,7 +310,7 @@
                 "kind": 3,
                 "start": {
                   "line": 6,
-                  "column": 35
+                  "column": 33
                 },
                 "end": {
                   "line": 7,
@@ -333,7 +321,7 @@
                 "kind": 3,
                 "start": {
                   "line": 7,
-                  "column": 3
+                  "column": 1
                 },
                 "end": {
                   "line": 8,

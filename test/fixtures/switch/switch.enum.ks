@@ -11,7 +11,7 @@ enum ANSIColor {
 }
 
 func color(fg: ANSIColor, bg: ANSIColor): String {
-	let fg_code = switch fg {
+	var dyn fg_code = switch fg {
 		black => 30
 		red => 31
 		green => 32
@@ -22,8 +22,8 @@ func color(fg: ANSIColor, bg: ANSIColor): String {
 		white => 37
 		default => 39
 	}
-	
-	let bg_code = switch bg {
+
+	var dyn bg_code = switch bg {
 		black => 40
 		red => 41
 		green => 42

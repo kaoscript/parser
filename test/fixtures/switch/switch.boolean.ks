@@ -1,6 +1,6 @@
-let boolean = true
+var dyn boolean = true
 
-let binary = switch boolean {
+var dyn binary = switch boolean {
 	false => 0
 	true => 1
 }

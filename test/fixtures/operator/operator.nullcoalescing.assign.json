@@ -66,7 +66,19 @@
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -77,20 +89,20 @@
             "name": "tt",
             "start": {
               "line": 3,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 3,
-              "column": 7
+              "column": 11
             }
           },
           "start": {
             "line": 3,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 3,
-            "column": 7
+            "column": 11
           }
         }
       ],
@@ -100,7 +112,7 @@
       },
       "end": {
         "line": 3,
-        "column": 15
+        "column": 19
       },
       "init": {
         "kind": 14,
@@ -113,21 +125,21 @@
           "name": "foo",
           "start": {
             "line": 3,
-            "column": 10
+            "column": 14
           },
           "end": {
             "line": 3,
-            "column": 13
+            "column": 17
           }
         },
         "arguments": [],
         "start": {
           "line": 3,
-          "column": 10
+          "column": 14
         },
         "end": {
           "line": 3,
-          "column": 15
+          "column": 19
         }
       }
     },

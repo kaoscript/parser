@@ -1,4 +1,4 @@
-let value = {
+var dyn value = {
 	foo: 1,
 	bar() => 2
 }

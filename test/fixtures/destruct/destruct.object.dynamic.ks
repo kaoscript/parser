@@ -1,6 +1,6 @@
-let key = 'qux'
+var dyn key = 'qux'
 
-let { [key]: foo } = { qux: 'bar' }
+var dyn { [key]: foo } = { qux: 'bar' }
 
 console.log(foo)
 // <- 'bar'

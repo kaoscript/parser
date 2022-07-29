@@ -1,1 +1,1 @@
-let foo = lang ? 'hello' : 'bonjour'
+var dyn foo = lang ? 'hello' : 'bonjour'

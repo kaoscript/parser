@@ -209,7 +209,19 @@
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 10,
+            "column": 5
+          },
+          "end": {
+            "line": 10,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -220,20 +232,20 @@
             "name": "point",
             "start": {
               "line": 10,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 10,
-              "column": 10
+              "column": 14
             }
           },
           "start": {
             "line": 10,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 10,
-            "column": 10
+            "column": 14
           }
         }
       ],
@@ -243,7 +255,7 @@
       },
       "end": {
         "line": 10,
-        "column": 35
+        "column": 39
       },
       "init": {
         "kind": 14,
@@ -256,11 +268,11 @@
           "name": "Point3D",
           "start": {
             "line": 10,
-            "column": 13
+            "column": 17
           },
           "end": {
             "line": 10,
-            "column": 20
+            "column": 24
           }
         },
         "arguments": [
@@ -269,11 +281,11 @@
             "value": 0.3,
             "start": {
               "line": 10,
-              "column": 21
+              "column": 25
             },
             "end": {
               "line": 10,
-              "column": 24
+              "column": 28
             }
           },
           {
@@ -281,11 +293,11 @@
             "value": 0.4,
             "start": {
               "line": 10,
-              "column": 26
+              "column": 30
             },
             "end": {
               "line": 10,
-              "column": 29
+              "column": 33
             }
           },
           {
@@ -293,21 +305,21 @@
             "value": 0.5,
             "start": {
               "line": 10,
-              "column": 31
+              "column": 35
             },
             "end": {
               "line": 10,
-              "column": 34
+              "column": 38
             }
           }
         ],
         "start": {
           "line": 10,
-          "column": 13
+          "column": 17
         },
         "end": {
           "line": 10,
-          "column": 35
+          "column": 39
         }
       }
     },

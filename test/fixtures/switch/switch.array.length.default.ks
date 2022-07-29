@@ -1,4 +1,4 @@
-let v = [1, 2, 3, 4, 5]
+var dyn v = [1, 2, 3, 4, 5]
 
 switch v {
 	[]								=> console.log("empty")

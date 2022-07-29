@@ -2,16 +2,16 @@ func f1(foo) {
 	return 42
 }
 
-let f2 = func(foo) {
+var dyn f2 = func(foo) {
 	return 42
 }
 
-let f3 = (foo) => {
+var dyn f3 = (foo) => {
 	return 42
 }
 
-let f4 = (foo) => 42
+var dyn f4 = (foo) => 42
 
-let f5 = func(foo) => 42
+var dyn f5 = func(foo) => 42
 
-let f6 = foo => 42
+var dyn f6 = foo => 42

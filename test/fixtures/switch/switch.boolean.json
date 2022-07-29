@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -15,20 +27,20 @@
             "name": "boolean",
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 12
+              "column": 16
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 12
+            "column": 16
           }
         }
       ],
@@ -38,24 +50,36 @@
       },
       "end": {
         "line": 1,
-        "column": 19
+        "column": 23
       },
       "init": {
         "kind": 52,
         "name": "true",
         "start": {
           "line": 1,
-          "column": 15
+          "column": 19
         },
         "end": {
           "line": 1,
-          "column": 19
+          "column": 23
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -66,20 +90,20 @@
             "name": "binary",
             "start": {
               "line": 3,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 3,
-              "column": 11
+              "column": 15
             }
           },
           "start": {
             "line": 3,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 3,
-            "column": 11
+            "column": 15
           }
         }
       ],
@@ -99,11 +123,11 @@
           "name": "boolean",
           "start": {
             "line": 3,
-            "column": 21
+            "column": 25
           },
           "end": {
             "line": 3,
-            "column": 28
+            "column": 32
           }
         },
         "clauses": [
@@ -186,7 +210,7 @@
         ],
         "start": {
           "line": 3,
-          "column": 14
+          "column": 18
         },
         "end": {
           "line": 6,

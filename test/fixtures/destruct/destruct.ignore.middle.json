@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -18,22 +30,22 @@
                 "modifiers": [],
                 "start": {
                   "line": 1,
-                  "column": 6
+                  "column": 10
                 },
                 "end": {
                   "line": 1,
-                  "column": 7
+                  "column": 11
                 },
                 "name": {
                   "kind": 52,
                   "name": "x",
                   "start": {
                     "line": 1,
-                    "column": 6
+                    "column": 10
                   },
                   "end": {
                     "line": 1,
-                    "column": 7
+                    "column": 11
                   }
                 }
               },
@@ -42,11 +54,11 @@
                 "modifiers": [],
                 "start": {
                   "line": 1,
-                  "column": 9
+                  "column": 13
                 },
                 "end": {
                   "line": 1,
-                  "column": 10
+                  "column": 14
                 }
               },
               {
@@ -54,42 +66,42 @@
                 "modifiers": [],
                 "start": {
                   "line": 1,
-                  "column": 12
+                  "column": 16
                 },
                 "end": {
                   "line": 1,
-                  "column": 13
+                  "column": 17
                 },
                 "name": {
                   "kind": 52,
                   "name": "z",
                   "start": {
                     "line": 1,
-                    "column": 12
+                    "column": 16
                   },
                   "end": {
                     "line": 1,
-                    "column": 13
+                    "column": 17
                   }
                 }
               }
             ],
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 14
+              "column": 18
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 14
+            "column": 18
           }
         }
       ],
@@ -99,7 +111,7 @@
       },
       "end": {
         "line": 1,
-        "column": 25
+        "column": 29
       },
       "init": {
         "kind": 14,
@@ -112,21 +124,21 @@
           "name": "foobar",
           "start": {
             "line": 1,
-            "column": 17
+            "column": 21
           },
           "end": {
             "line": 1,
-            "column": 23
+            "column": 27
           }
         },
         "arguments": [],
         "start": {
           "line": 1,
-          "column": 17
+          "column": 21
         },
         "end": {
           "line": 1,
-          "column": 25
+          "column": 29
         }
       }
     }
@@ -137,6 +149,6 @@
   },
   "end": {
     "line": 1,
-    "column": 25
+    "column": 29
   }
 }

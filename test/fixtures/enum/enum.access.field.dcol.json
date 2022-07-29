@@ -106,7 +106,19 @@
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 7,
+            "column": 5
+          },
+          "end": {
+            "line": 7,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -117,20 +129,20 @@
             "name": "k",
             "start": {
               "line": 7,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 7,
-              "column": 6
+              "column": 10
             }
           },
           "start": {
             "line": 7,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 7,
-            "column": 6
+            "column": 10
           }
         }
       ],
@@ -140,7 +152,7 @@
       },
       "end": {
         "line": 7,
-        "column": 16
+        "column": 20
       },
       "init": {
         "kind": 32,
@@ -149,11 +161,11 @@
           "name": "Kind",
           "start": {
             "line": 7,
-            "column": 9
+            "column": 13
           },
           "end": {
             "line": 7,
-            "column": 13
+            "column": 17
           }
         },
         "member": {
@@ -161,20 +173,20 @@
           "name": "A",
           "start": {
             "line": 7,
-            "column": 15
+            "column": 19
           },
           "end": {
             "line": 7,
-            "column": 16
+            "column": 20
           }
         },
         "start": {
           "line": 7,
-          "column": 9
+          "column": 13
         },
         "end": {
           "line": 7,
-          "column": 16
+          "column": 20
         }
       }
     }
@@ -185,6 +197,6 @@
   },
   "end": {
     "line": 7,
-    "column": 16
+    "column": 20
   }
 }

@@ -3,7 +3,7 @@ extern console
 func min() => ['female', 24]
 
 namespace foo {
-	const [gender, age] = min()
+	var [gender, age] = min()
 }
 
 console.log(foo.age)

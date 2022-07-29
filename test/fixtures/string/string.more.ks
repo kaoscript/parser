@@ -1,4 +1,4 @@
-const $escapes = {
+var $escapes = {
 	'\x00': '\\0'
 	'\b': '\\b'
 	'\t': '\\t'

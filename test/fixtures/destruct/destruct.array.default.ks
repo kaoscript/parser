@@ -1,3 +1,3 @@
-let arr = [1, '', true]
+var dyn arr = [1, '', true]
 
-let [a, b, c] = arr
+var dyn [a, b, c] = arr

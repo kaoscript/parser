@@ -1,3 +1,3 @@
-if const x = foobar() {
+if var x = foobar() {
 
 }

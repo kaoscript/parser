@@ -1,4 +1,4 @@
-let list = [1, 2]
+var dyn list = [1, 2]
 
 list = [...list, 3, 4]
 

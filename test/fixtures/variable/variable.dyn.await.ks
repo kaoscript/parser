@@ -1,0 +1,1 @@
+var dyn a, b = await foo()

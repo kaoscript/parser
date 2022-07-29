@@ -1,6 +1,6 @@
 export func hello() => 'Hello :)'
 
-let bar = 'I\'m bar!'
+var dyn bar = 'I\'m bar!'
 
 export bar
 

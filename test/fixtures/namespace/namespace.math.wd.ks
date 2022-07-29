@@ -1,4 +1,4 @@
 extern sealed namespace Math {
-	const PI: Number
+	var PI: Number
 	func abs(x: Number): Number
 }

@@ -1,3 +1,3 @@
-let class = {}
+var class = {}
 
 class.foo = 42

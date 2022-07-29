@@ -4,24 +4,9 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
-      "attributes": [],
-      "variables": [
+      "modifiers": [
         {
-          "kind": 123,
-          "modifiers": [],
-          "name": {
-            "kind": 52,
-            "name": "foo",
-            "start": {
-              "line": 1,
-              "column": 5
-            },
-            "end": {
-              "line": 1,
-              "column": 8
-            }
-          },
+          "kind": 10,
           "start": {
             "line": 1,
             "column": 5
@@ -32,34 +17,61 @@
           }
         }
       ],
+      "attributes": [],
+      "variables": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "name": {
+            "kind": 52,
+            "name": "foo",
+            "start": {
+              "line": 1,
+              "column": 9
+            },
+            "end": {
+              "line": 1,
+              "column": 12
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 9
+          },
+          "end": {
+            "line": 1,
+            "column": 12
+          }
+        }
+      ],
       "start": {
         "line": 1,
         "column": 1
       },
       "end": {
         "line": 1,
-        "column": 37
+        "column": 41
       },
       "init": {
         "kind": 23,
         "start": {
           "line": 1,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 1,
-          "column": 37
+          "column": 41
         },
         "condition": {
           "kind": 52,
           "name": "lang",
           "start": {
             "line": 1,
-            "column": 11
+            "column": 15
           },
           "end": {
             "line": 1,
-            "column": 15
+            "column": 19
           }
         },
         "whenTrue": {
@@ -67,11 +79,11 @@
           "value": "hello",
           "start": {
             "line": 1,
-            "column": 18
+            "column": 22
           },
           "end": {
             "line": 1,
-            "column": 25
+            "column": 29
           }
         },
         "whenFalse": {
@@ -79,11 +91,11 @@
           "value": "bonjour",
           "start": {
             "line": 1,
-            "column": 28
+            "column": 32
           },
           "end": {
             "line": 1,
-            "column": 37
+            "column": 41
           }
         }
       }
@@ -95,6 +107,6 @@
   },
   "end": {
     "line": 1,
-    "column": 37
+    "column": 41
   }
 }

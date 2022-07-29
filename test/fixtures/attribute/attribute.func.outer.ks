@@ -1,5 +1,5 @@
 #[foo]
 func foo() {
 	#[bar]
-	let bar = 42
+	var bar = 42
 }

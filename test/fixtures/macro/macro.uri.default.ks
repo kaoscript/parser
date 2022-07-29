@@ -2,7 +2,7 @@ class URI {
 	macro register(@scheme: String, @meta: String = 'hier_part [ "?" query ] [ "#" fragment ]') {
 		import '@zokugun/test-import'
 
-		const name = `\(scheme[0].toUpperCase())\(scheme.substr().toLowerCase())URI`
+		var name = `\(scheme[0].toUpperCase())\(scheme.substr().toLowerCase())URI`
 
 		macro {
 			class #w(name) extends URI {

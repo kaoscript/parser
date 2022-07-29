@@ -1,3 +1,3 @@
-if const {x, y, z} = foobar() {
+if var {x, y, z} = foobar() {
 
 }

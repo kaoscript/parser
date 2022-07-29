@@ -407,7 +407,19 @@
         "statements": [
           {
             "kind": 122,
-            "modifiers": [],
+            "modifiers": [
+              {
+                "kind": 10,
+                "start": {
+                  "line": 14,
+                  "column": 6
+                },
+                "end": {
+                  "line": 14,
+                  "column": 9
+                }
+              }
+            ],
             "attributes": [],
             "variables": [
               {
@@ -418,20 +430,20 @@
                   "name": "fg_code",
                   "start": {
                     "line": 14,
-                    "column": 6
+                    "column": 10
                   },
                   "end": {
                     "line": 14,
-                    "column": 13
+                    "column": 17
                   }
                 },
                 "start": {
                   "line": 14,
-                  "column": 6
+                  "column": 10
                 },
                 "end": {
                   "line": 14,
-                  "column": 13
+                  "column": 17
                 }
               }
             ],
@@ -451,11 +463,11 @@
                 "name": "fg",
                 "start": {
                   "line": 14,
-                  "column": 23
+                  "column": 27
                 },
                 "end": {
                   "line": 14,
-                  "column": 25
+                  "column": 29
                 }
               },
               "clauses": [
@@ -804,7 +816,7 @@
               ],
               "start": {
                 "line": 14,
-                "column": 16
+                "column": 20
               },
               "end": {
                 "line": 24,
@@ -814,7 +826,19 @@
           },
           {
             "kind": 122,
-            "modifiers": [],
+            "modifiers": [
+              {
+                "kind": 10,
+                "start": {
+                  "line": 26,
+                  "column": 6
+                },
+                "end": {
+                  "line": 26,
+                  "column": 9
+                }
+              }
+            ],
             "attributes": [],
             "variables": [
               {
@@ -825,20 +849,20 @@
                   "name": "bg_code",
                   "start": {
                     "line": 26,
-                    "column": 6
+                    "column": 10
                   },
                   "end": {
                     "line": 26,
-                    "column": 13
+                    "column": 17
                   }
                 },
                 "start": {
                   "line": 26,
-                  "column": 6
+                  "column": 10
                 },
                 "end": {
                   "line": 26,
-                  "column": 13
+                  "column": 17
                 }
               }
             ],
@@ -858,11 +882,11 @@
                 "name": "bg",
                 "start": {
                   "line": 26,
-                  "column": 23
+                  "column": 27
                 },
                 "end": {
                   "line": 26,
-                  "column": 25
+                  "column": 29
                 }
               },
               "clauses": [
@@ -1211,7 +1235,7 @@
               ],
               "start": {
                 "line": 26,
-                "column": 16
+                "column": 20
               },
               "end": {
                 "line": 36,

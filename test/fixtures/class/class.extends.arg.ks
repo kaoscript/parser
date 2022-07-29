@@ -2,7 +2,7 @@ class Shape {
 	protected {
 		_color: string = ''
 	}
-	
+
 	constructor(@color)
 
 	draw(canvas): string {
@@ -18,6 +18,6 @@ class Rectangle extends Shape {
 	}
 }
 
-let r = new Rectangle('black')
+var r = new Rectangle('black')
 
 expect(r.draw()).to.equal('I\'m drawing a black rectangle.')

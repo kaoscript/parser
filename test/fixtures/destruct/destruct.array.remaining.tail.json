@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -18,22 +30,22 @@
                 "modifiers": [],
                 "start": {
                   "line": 1,
-                  "column": 6
+                  "column": 10
                 },
                 "end": {
                   "line": 1,
-                  "column": 7
+                  "column": 11
                 },
                 "name": {
                   "kind": 52,
                   "name": "x",
                   "start": {
                     "line": 1,
-                    "column": 6
+                    "column": 10
                   },
                   "end": {
                     "line": 1,
-                    "column": 7
+                    "column": 11
                   }
                 }
               },
@@ -42,22 +54,22 @@
                 "modifiers": [],
                 "start": {
                   "line": 1,
-                  "column": 9
+                  "column": 13
                 },
                 "end": {
                   "line": 1,
-                  "column": 10
+                  "column": 14
                 },
                 "name": {
                   "kind": 52,
                   "name": "y",
                   "start": {
                     "line": 1,
-                    "column": 9
+                    "column": 13
                   },
                   "end": {
                     "line": 1,
-                    "column": 10
+                    "column": 14
                   }
                 }
               },
@@ -65,55 +77,55 @@
                 "kind": 11,
                 "modifiers": [
                   {
-                    "kind": 25,
+                    "kind": 27,
                     "start": {
                       "line": 1,
-                      "column": 12
+                      "column": 16
                     },
                     "end": {
                       "line": 1,
-                      "column": 15
+                      "column": 19
                     }
                   }
                 ],
                 "start": {
                   "line": 1,
-                  "column": 12
+                  "column": 16
                 },
                 "end": {
                   "line": 1,
-                  "column": 24
+                  "column": 28
                 },
                 "name": {
                   "kind": 52,
                   "name": "remaining",
                   "start": {
                     "line": 1,
-                    "column": 15
+                    "column": 19
                   },
                   "end": {
                     "line": 1,
-                    "column": 24
+                    "column": 28
                   }
                 }
               }
             ],
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 25
+              "column": 29
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 25
+            "column": 29
           }
         }
       ],
@@ -123,7 +135,7 @@
       },
       "end": {
         "line": 1,
-        "column": 40
+        "column": 44
       },
       "init": {
         "kind": 4,
@@ -133,11 +145,11 @@
             "value": 1,
             "start": {
               "line": 1,
-              "column": 29
+              "column": 33
             },
             "end": {
               "line": 1,
-              "column": 30
+              "column": 34
             }
           },
           {
@@ -145,11 +157,11 @@
             "value": 2,
             "start": {
               "line": 1,
-              "column": 32
+              "column": 36
             },
             "end": {
               "line": 1,
-              "column": 33
+              "column": 37
             }
           },
           {
@@ -157,11 +169,11 @@
             "value": 3,
             "start": {
               "line": 1,
-              "column": 35
+              "column": 39
             },
             "end": {
               "line": 1,
-              "column": 36
+              "column": 40
             }
           },
           {
@@ -169,21 +181,21 @@
             "value": 4,
             "start": {
               "line": 1,
-              "column": 38
+              "column": 42
             },
             "end": {
               "line": 1,
-              "column": 39
+              "column": 43
             }
           }
         ],
         "start": {
           "line": 1,
-          "column": 28
+          "column": 32
         },
         "end": {
           "line": 1,
-          "column": 40
+          "column": 44
         }
       }
     },

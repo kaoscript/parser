@@ -68,24 +68,9 @@
     },
     {
       "kind": 122,
-      "modifiers": [],
-      "attributes": [],
-      "variables": [
+      "modifiers": [
         {
-          "kind": 123,
-          "modifiers": [],
-          "name": {
-            "kind": 52,
-            "name": "bar",
-            "start": {
-              "line": 3,
-              "column": 5
-            },
-            "end": {
-              "line": 3,
-              "column": 8
-            }
-          },
+          "kind": 10,
           "start": {
             "line": 3,
             "column": 5
@@ -96,24 +81,51 @@
           }
         }
       ],
+      "attributes": [],
+      "variables": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "name": {
+            "kind": 52,
+            "name": "bar",
+            "start": {
+              "line": 3,
+              "column": 9
+            },
+            "end": {
+              "line": 3,
+              "column": 12
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 9
+          },
+          "end": {
+            "line": 3,
+            "column": 12
+          }
+        }
+      ],
       "start": {
         "line": 3,
         "column": 1
       },
       "end": {
         "line": 3,
-        "column": 22
+        "column": 26
       },
       "init": {
         "kind": 68,
         "value": "I'm bar!",
         "start": {
           "line": 3,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 3,
-          "column": 22
+          "column": 26
         }
       }
     },

@@ -3,7 +3,7 @@ async func foo(bar: string, qux: int): string {
 }
 
 func bar(callback) {
-	let text = await foo('foobar', 42)
-	
+	var text = await foo('foobar', 42)
+
 	callback(null, text)
 }

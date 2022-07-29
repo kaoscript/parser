@@ -1,1 +1,1 @@
-const foo = (a:Number, b:Number): Number => a - b
+var foo = (a:Number, b:Number): Number => a - b

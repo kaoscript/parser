@@ -1,1 +1,1 @@
-const {x, y} = foo()
+var {x, y} = foo()

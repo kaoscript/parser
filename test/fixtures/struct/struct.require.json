@@ -138,7 +138,19 @@
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 6,
+            "column": 5
+          },
+          "end": {
+            "line": 6,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -149,20 +161,20 @@
             "name": "point",
             "start": {
               "line": 6,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 6,
-              "column": 10
+              "column": 14
             }
           },
           "start": {
             "line": 6,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 6,
-            "column": 10
+            "column": 14
           }
         }
       ],
@@ -172,7 +184,7 @@
       },
       "end": {
         "line": 6,
-        "column": 28
+        "column": 32
       },
       "init": {
         "kind": 14,
@@ -185,11 +197,11 @@
           "name": "Point",
           "start": {
             "line": 6,
-            "column": 13
+            "column": 17
           },
           "end": {
             "line": 6,
-            "column": 18
+            "column": 22
           }
         },
         "arguments": [
@@ -198,11 +210,11 @@
             "value": 0.3,
             "start": {
               "line": 6,
-              "column": 19
+              "column": 23
             },
             "end": {
               "line": 6,
-              "column": 22
+              "column": 26
             }
           },
           {
@@ -210,21 +222,21 @@
             "value": 0.4,
             "start": {
               "line": 6,
-              "column": 24
+              "column": 28
             },
             "end": {
               "line": 6,
-              "column": 27
+              "column": 31
             }
           }
         ],
         "start": {
           "line": 6,
-          "column": 13
+          "column": 17
         },
         "end": {
           "line": 6,
-          "column": 28
+          "column": 32
         }
       }
     },

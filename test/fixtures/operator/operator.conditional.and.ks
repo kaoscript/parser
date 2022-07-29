@@ -1,1 +1,1 @@
-let text = foo && bar ? 'hello' : 'bonjour'
+var dyn text = foo && bar ? 'hello' : 'bonjour'

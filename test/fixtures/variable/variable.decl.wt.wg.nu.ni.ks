@@ -1,1 +1,1 @@
-let a : Array<Number>
+var mut a : Array<Number>

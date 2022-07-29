@@ -1,6 +1,6 @@
 import '@oz/lang'
 
-let a : Array<number> = [1, 3, 2, 4]
+var dyn a : Array<number> = [1, 3, 2, 4]
 
 console.log(a)
 

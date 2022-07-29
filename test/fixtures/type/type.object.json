@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -15,20 +27,20 @@
             "name": "a",
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 6
+              "column": 10
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 31
+            "column": 35
           },
           "type": {
             "kind": 116,
@@ -45,11 +57,11 @@
                   "name": "foo",
                   "start": {
                     "line": 1,
-                    "column": 9
+                    "column": 13
                   },
                   "end": {
                     "line": 1,
-                    "column": 12
+                    "column": 16
                   }
                 },
                 "type": {
@@ -60,29 +72,29 @@
                     "name": "int",
                     "start": {
                       "line": 1,
-                      "column": 14
+                      "column": 18
                     },
                     "end": {
                       "line": 1,
-                      "column": 17
+                      "column": 21
                     }
                   },
                   "start": {
                     "line": 1,
-                    "column": 14
+                    "column": 18
                   },
                   "end": {
                     "line": 1,
-                    "column": 17
+                    "column": 21
                   }
                 },
                 "start": {
                   "line": 1,
-                  "column": 9
+                  "column": 13
                 },
                 "end": {
                   "line": 1,
-                  "column": 17
+                  "column": 21
                 }
               },
               {
@@ -92,11 +104,11 @@
                   "name": "bar",
                   "start": {
                     "line": 1,
-                    "column": 19
+                    "column": 23
                   },
                   "end": {
                     "line": 1,
-                    "column": 22
+                    "column": 26
                   }
                 },
                 "type": {
@@ -107,39 +119,39 @@
                     "name": "string",
                     "start": {
                       "line": 1,
-                      "column": 24
+                      "column": 28
                     },
                     "end": {
                       "line": 1,
-                      "column": 30
+                      "column": 34
                     }
                   },
                   "start": {
                     "line": 1,
-                    "column": 24
+                    "column": 28
                   },
                   "end": {
                     "line": 1,
-                    "column": 30
+                    "column": 34
                   }
                 },
                 "start": {
                   "line": 1,
-                  "column": 19
+                  "column": 23
                 },
                 "end": {
                   "line": 1,
-                  "column": 30
+                  "column": 34
                 }
               }
             ],
             "start": {
               "line": 1,
-              "column": 8
+              "column": 12
             },
             "end": {
               "line": 1,
-              "column": 31
+              "column": 35
             }
           }
         }
@@ -231,7 +243,7 @@
         ],
         "start": {
           "line": 1,
-          "column": 34
+          "column": 38
         },
         "end": {
           "line": 4,

@@ -1,9 +1,9 @@
-let x = 5
+var x = 5
 
 /*
 	a multiline comment
-	
+
 	***
-	
+
 	TODO: test
 */

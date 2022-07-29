@@ -1,1 +1,1 @@
-let foo = {x, y, z}
+var dyn foo = {x, y, z}

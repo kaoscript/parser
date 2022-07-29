@@ -715,7 +715,7 @@ namespace AST {
 				name: name.value
 			}, first, last)
 
-			if type != null {
+			if type != null && type.ok {
 				node.type = type.value
 			}
 			if value != null {
@@ -1421,7 +1421,7 @@ namespace AST {
 				name: name.value
 			}, first, last)
 
-			if type != null {
+			if type != null && type.ok {
 				node.type = type.value
 			}
 			if defaultValue != null {

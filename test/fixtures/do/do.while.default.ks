@@ -3,4 +3,4 @@ do {
 }
 while supply > demand
 
-const price = 42
+var price = 42

@@ -26,4 +26,4 @@ func foo([name, [x = 0, y = 0, z = 0] = []] = []) {
 
 }
 
-const foo = ([x, y, z] = [1, 2, 3]) => [x, y, z]
+var foo = ([x, y, z] = [1, 2, 3]) => [x, y, z]

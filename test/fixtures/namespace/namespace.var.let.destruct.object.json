@@ -172,7 +172,19 @@
       "statements": [
         {
           "kind": 122,
-          "modifiers": [],
+          "modifiers": [
+            {
+              "kind": 10,
+              "start": {
+                "line": 9,
+                "column": 6
+              },
+              "end": {
+                "line": 9,
+                "column": 9
+              }
+            }
+          ],
           "attributes": [],
           "variables": [
             {
@@ -188,21 +200,21 @@
                       "name": "gender",
                       "start": {
                         "line": 9,
-                        "column": 7
+                        "column": 11
                       },
                       "end": {
                         "line": 9,
-                        "column": 13
+                        "column": 17
                       }
                     },
                     "modifiers": [],
                     "start": {
                       "line": 9,
-                      "column": 7
+                      "column": 11
                     },
                     "end": {
                       "line": 9,
-                      "column": 13
+                      "column": 17
                     }
                   },
                   {
@@ -212,40 +224,40 @@
                       "name": "age",
                       "start": {
                         "line": 9,
-                        "column": 15
+                        "column": 19
                       },
                       "end": {
                         "line": 9,
-                        "column": 18
+                        "column": 22
                       }
                     },
                     "modifiers": [],
                     "start": {
                       "line": 9,
-                      "column": 15
+                      "column": 19
                     },
                     "end": {
                       "line": 9,
-                      "column": 18
+                      "column": 22
                     }
                   }
                 ],
                 "start": {
                   "line": 9,
-                  "column": 6
+                  "column": 10
                 },
                 "end": {
                   "line": 9,
-                  "column": 19
+                  "column": 23
                 }
               },
               "start": {
                 "line": 9,
-                "column": 6
+                "column": 10
               },
               "end": {
                 "line": 9,
-                "column": 19
+                "column": 23
               }
             }
           ],
@@ -255,7 +267,7 @@
           },
           "end": {
             "line": 9,
-            "column": 27
+            "column": 31
           },
           "init": {
             "kind": 14,
@@ -268,21 +280,21 @@
               "name": "min",
               "start": {
                 "line": 9,
-                "column": 22
+                "column": 26
               },
               "end": {
                 "line": 9,
-                "column": 25
+                "column": 29
               }
             },
             "arguments": [],
             "start": {
               "line": 9,
-              "column": 22
+              "column": 26
             },
             "end": {
               "line": 9,
-              "column": 27
+              "column": 31
             }
           }
         }

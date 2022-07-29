@@ -1,1 +1,1 @@
-let qux = foo?.bar()
+var dyn qux = foo?.bar()

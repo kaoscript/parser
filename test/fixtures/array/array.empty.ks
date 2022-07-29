@@ -1,1 +1,1 @@
-let foo = []
+var foo = []

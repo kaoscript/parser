@@ -1,5 +1,5 @@
-let min = 1
-let max = 5
+var min = 1
+var max = 5
 
-let a = [min..max]
+var a = [min..max]
 // 1, 2, 3, 4, 5

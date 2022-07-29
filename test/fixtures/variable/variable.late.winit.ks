@@ -1,0 +1,1 @@
+var late a = 42

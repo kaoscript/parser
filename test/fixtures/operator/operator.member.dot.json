@@ -4,24 +4,9 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
-      "attributes": [],
-      "variables": [
+      "modifiers": [
         {
-          "kind": 123,
-          "modifiers": [],
-          "name": {
-            "kind": 52,
-            "name": "qux",
-            "start": {
-              "line": 1,
-              "column": 5
-            },
-            "end": {
-              "line": 1,
-              "column": 8
-            }
-          },
+          "kind": 10,
           "start": {
             "line": 1,
             "column": 5
@@ -32,13 +17,40 @@
           }
         }
       ],
+      "attributes": [],
+      "variables": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "name": {
+            "kind": 52,
+            "name": "qux",
+            "start": {
+              "line": 1,
+              "column": 9
+            },
+            "end": {
+              "line": 1,
+              "column": 12
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 9
+          },
+          "end": {
+            "line": 1,
+            "column": 12
+          }
+        }
+      ],
       "start": {
         "line": 1,
         "column": 1
       },
       "end": {
         "line": 1,
-        "column": 21
+        "column": 25
       },
       "init": {
         "kind": 14,
@@ -50,14 +62,14 @@
           "kind": 71,
           "modifiers": [
             {
-              "kind": 18,
+              "kind": 20,
               "start": {
                 "line": 1,
-                "column": 14
+                "column": 18
               },
               "end": {
                 "line": 1,
-                "column": 16
+                "column": 20
               }
             }
           ],
@@ -66,11 +78,11 @@
             "name": "foo",
             "start": {
               "line": 1,
-              "column": 11
+              "column": 15
             },
             "end": {
               "line": 1,
-              "column": 14
+              "column": 18
             }
           },
           "property": {
@@ -78,30 +90,30 @@
             "name": "bar",
             "start": {
               "line": 1,
-              "column": 16
+              "column": 20
             },
             "end": {
               "line": 1,
-              "column": 19
+              "column": 23
             }
           },
           "start": {
             "line": 1,
-            "column": 11
+            "column": 15
           },
           "end": {
             "line": 1,
-            "column": 19
+            "column": 23
           }
         },
         "arguments": [],
         "start": {
           "line": 1,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 1,
-          "column": 21
+          "column": 25
         }
       }
     }
@@ -112,6 +124,6 @@
   },
   "end": {
     "line": 1,
-    "column": 21
+    "column": 25
   }
 }

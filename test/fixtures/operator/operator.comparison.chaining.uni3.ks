@@ -1,1 +1,1 @@
-let isHealthy = 200 > cholesterol > 60
+var dyn isHealthy = 200 > cholesterol > 60

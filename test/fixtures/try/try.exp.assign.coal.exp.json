@@ -208,7 +208,19 @@
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 10,
+            "column": 5
+          },
+          "end": {
+            "line": 10,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -219,20 +231,20 @@
             "name": "x",
             "start": {
               "line": 10,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 10,
-              "column": 6
+              "column": 10
             }
           },
           "start": {
             "line": 10,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 10,
-            "column": 6
+            "column": 10
           }
         }
       ],
@@ -242,7 +254,7 @@
       },
       "end": {
         "line": 10,
-        "column": 30
+        "column": 34
       },
       "init": {
         "kind": 111,
@@ -258,11 +270,11 @@
             "name": "foobar",
             "start": {
               "line": 10,
-              "column": 13
+              "column": 17
             },
             "end": {
               "line": 10,
-              "column": 19
+              "column": 23
             }
           },
           "arguments": [
@@ -271,41 +283,41 @@
               "name": "true",
               "start": {
                 "line": 10,
-                "column": 20
+                "column": 24
               },
               "end": {
                 "line": 10,
-                "column": 24
+                "column": 28
               }
             }
           ],
           "start": {
             "line": 10,
-            "column": 13
+            "column": 17
           },
           "end": {
             "line": 10,
-            "column": 25
+            "column": 29
           }
         },
         "start": {
           "line": 10,
-          "column": 9
+          "column": 13
         },
         "end": {
           "line": 10,
-          "column": 30
+          "column": 34
         },
         "defaultValue": {
           "kind": 78,
           "value": 24,
           "start": {
             "line": 10,
-            "column": 28
+            "column": 32
           },
           "end": {
             "line": 10,
-            "column": 30
+            "column": 34
           }
         }
       }
@@ -317,6 +329,6 @@
   },
   "end": {
     "line": 10,
-    "column": 30
+    "column": 34
   }
 }

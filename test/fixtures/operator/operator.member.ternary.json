@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -15,20 +27,20 @@
             "name": "m",
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 6
+              "column": 10
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 6
+            "column": 10
           }
         }
       ],
@@ -38,41 +50,26 @@
       },
       "end": {
         "line": 1,
-        "column": 14
+        "column": 18
       },
       "init": {
         "kind": 68,
         "value": "qux",
         "start": {
           "line": 1,
-          "column": 9
+          "column": 13
         },
         "end": {
           "line": 1,
-          "column": 14
+          "column": 18
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
-      "attributes": [],
-      "variables": [
+      "modifiers": [
         {
-          "kind": 123,
-          "modifiers": [],
-          "name": {
-            "kind": 52,
-            "name": "qux",
-            "start": {
-              "line": 2,
-              "column": 5
-            },
-            "end": {
-              "line": 2,
-              "column": 8
-            }
-          },
+          "kind": 10,
           "start": {
             "line": 2,
             "column": 5
@@ -83,34 +80,61 @@
           }
         }
       ],
+      "attributes": [],
+      "variables": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "name": {
+            "kind": 52,
+            "name": "qux",
+            "start": {
+              "line": 2,
+              "column": 9
+            },
+            "end": {
+              "line": 2,
+              "column": 12
+            }
+          },
+          "start": {
+            "line": 2,
+            "column": 9
+          },
+          "end": {
+            "line": 2,
+            "column": 12
+          }
+        }
+      ],
       "start": {
         "line": 2,
         "column": 1
       },
       "end": {
         "line": 2,
-        "column": 24
+        "column": 28
       },
       "init": {
         "kind": 23,
         "start": {
           "line": 2,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 2,
-          "column": 24
+          "column": 28
         },
         "condition": {
           "kind": 52,
           "name": "foo",
           "start": {
             "line": 2,
-            "column": 11
+            "column": 15
           },
           "end": {
             "line": 2,
-            "column": 14
+            "column": 18
           }
         },
         "whenTrue": {
@@ -121,21 +145,21 @@
               "name": "m",
               "start": {
                 "line": 2,
-                "column": 18
+                "column": 22
               },
               "end": {
                 "line": 2,
-                "column": 19
+                "column": 23
               }
             }
           ],
           "start": {
             "line": 2,
-            "column": 17
+            "column": 21
           },
           "end": {
             "line": 2,
-            "column": 20
+            "column": 24
           }
         },
         "whenFalse": {
@@ -143,11 +167,11 @@
           "name": "m",
           "start": {
             "line": 2,
-            "column": 23
+            "column": 27
           },
           "end": {
             "line": 2,
-            "column": 24
+            "column": 28
           }
         }
       }
@@ -159,6 +183,6 @@
   },
   "end": {
     "line": 2,
-    "column": 24
+    "column": 28
   }
 }

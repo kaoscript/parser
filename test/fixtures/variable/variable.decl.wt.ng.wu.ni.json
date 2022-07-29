@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 18,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -15,20 +27,20 @@
             "name": "a",
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 6
+              "column": 10
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 24
+            "column": 28
           },
           "type": {
             "kind": 121,
@@ -41,20 +53,20 @@
                   "name": "number",
                   "start": {
                     "line": 1,
-                    "column": 9
+                    "column": 13
                   },
                   "end": {
                     "line": 1,
-                    "column": 15
+                    "column": 19
                   }
                 },
                 "start": {
                   "line": 1,
-                  "column": 9
+                  "column": 13
                 },
                 "end": {
                   "line": 1,
-                  "column": 15
+                  "column": 19
                 }
               },
               {
@@ -65,30 +77,30 @@
                   "name": "string",
                   "start": {
                     "line": 1,
-                    "column": 18
+                    "column": 22
                   },
                   "end": {
                     "line": 1,
-                    "column": 24
+                    "column": 28
                   }
                 },
                 "start": {
                   "line": 1,
-                  "column": 18
+                  "column": 22
                 },
                 "end": {
                   "line": 1,
-                  "column": 24
+                  "column": 28
                 }
               }
             ],
             "start": {
               "line": 1,
-              "column": 9
+              "column": 13
             },
             "end": {
               "line": 1,
-              "column": 24
+              "column": 28
             }
           }
         }
@@ -99,7 +111,7 @@
       },
       "end": {
         "line": 1,
-        "column": 24
+        "column": 28
       }
     }
   ],
@@ -109,6 +121,6 @@
   },
   "end": {
     "line": 1,
-    "column": 24
+    "column": 28
   }
 }

@@ -1,3 +1,3 @@
 func foobar(p: Point) {
-	const d3 = p as! Point3D
+	var d3 = p as! Point3D
 }

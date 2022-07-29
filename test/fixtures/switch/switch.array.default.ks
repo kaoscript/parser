@@ -1,4 +1,4 @@
-let somePoint = [1, 1]
+var dyn somePoint = [1, 1]
 
 switch somePoint {
 	[0, 0]			=> console.log("(0, 0) is at the origin")

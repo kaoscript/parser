@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -15,20 +27,20 @@
             "name": "foo",
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 8
+              "column": 12
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 8
+            "column": 12
           }
         }
       ],
@@ -38,24 +50,36 @@
       },
       "end": {
         "line": 1,
-        "column": 12
+        "column": 16
       },
       "init": {
         "kind": 78,
         "value": 1,
         "start": {
           "line": 1,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 1,
-          "column": 12
+          "column": 16
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 2,
+            "column": 5
+          },
+          "end": {
+            "line": 2,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -66,20 +90,20 @@
             "name": "bar",
             "start": {
               "line": 2,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 2,
-              "column": 8
+              "column": 12
             }
           },
           "start": {
             "line": 2,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 2,
-            "column": 8
+            "column": 12
           }
         }
       ],
@@ -89,18 +113,18 @@
       },
       "end": {
         "line": 2,
-        "column": 12
+        "column": 16
       },
       "init": {
         "kind": 78,
         "value": 2,
         "start": {
           "line": 2,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 2,
-          "column": 12
+          "column": 16
         }
       }
     },

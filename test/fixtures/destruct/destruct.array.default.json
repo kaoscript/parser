@@ -4,24 +4,9 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
-      "attributes": [],
-      "variables": [
+      "modifiers": [
         {
-          "kind": 123,
-          "modifiers": [],
-          "name": {
-            "kind": 52,
-            "name": "arr",
-            "start": {
-              "line": 1,
-              "column": 5
-            },
-            "end": {
-              "line": 1,
-              "column": 8
-            }
-          },
+          "kind": 10,
           "start": {
             "line": 1,
             "column": 5
@@ -32,13 +17,40 @@
           }
         }
       ],
+      "attributes": [],
+      "variables": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "name": {
+            "kind": 52,
+            "name": "arr",
+            "start": {
+              "line": 1,
+              "column": 9
+            },
+            "end": {
+              "line": 1,
+              "column": 12
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 9
+          },
+          "end": {
+            "line": 1,
+            "column": 12
+          }
+        }
+      ],
       "start": {
         "line": 1,
         "column": 1
       },
       "end": {
         "line": 1,
-        "column": 24
+        "column": 28
       },
       "init": {
         "kind": 4,
@@ -48,19 +60,7 @@
             "value": 1,
             "start": {
               "line": 1,
-              "column": 12
-            },
-            "end": {
-              "line": 1,
-              "column": 13
-            }
-          },
-          {
-            "kind": 68,
-            "value": "",
-            "start": {
-              "line": 1,
-              "column": 15
+              "column": 16
             },
             "end": {
               "line": 1,
@@ -68,31 +68,55 @@
             }
           },
           {
-            "kind": 52,
-            "name": "true",
+            "kind": 68,
+            "value": "",
             "start": {
               "line": 1,
               "column": 19
             },
             "end": {
               "line": 1,
+              "column": 21
+            }
+          },
+          {
+            "kind": 52,
+            "name": "true",
+            "start": {
+              "line": 1,
               "column": 23
+            },
+            "end": {
+              "line": 1,
+              "column": 27
             }
           }
         ],
         "start": {
           "line": 1,
-          "column": 11
+          "column": 15
         },
         "end": {
           "line": 1,
-          "column": 24
+          "column": 28
         }
       }
     },
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -106,22 +130,22 @@
                 "modifiers": [],
                 "start": {
                   "line": 3,
-                  "column": 6
+                  "column": 10
                 },
                 "end": {
                   "line": 3,
-                  "column": 7
+                  "column": 11
                 },
                 "name": {
                   "kind": 52,
                   "name": "a",
                   "start": {
                     "line": 3,
-                    "column": 6
+                    "column": 10
                   },
                   "end": {
                     "line": 3,
-                    "column": 7
+                    "column": 11
                   }
                 }
               },
@@ -130,22 +154,22 @@
                 "modifiers": [],
                 "start": {
                   "line": 3,
-                  "column": 9
+                  "column": 13
                 },
                 "end": {
                   "line": 3,
-                  "column": 10
+                  "column": 14
                 },
                 "name": {
                   "kind": 52,
                   "name": "b",
                   "start": {
                     "line": 3,
-                    "column": 9
+                    "column": 13
                   },
                   "end": {
                     "line": 3,
-                    "column": 10
+                    "column": 14
                   }
                 }
               },
@@ -154,42 +178,42 @@
                 "modifiers": [],
                 "start": {
                   "line": 3,
-                  "column": 12
+                  "column": 16
                 },
                 "end": {
                   "line": 3,
-                  "column": 13
+                  "column": 17
                 },
                 "name": {
                   "kind": 52,
                   "name": "c",
                   "start": {
                     "line": 3,
-                    "column": 12
+                    "column": 16
                   },
                   "end": {
                     "line": 3,
-                    "column": 13
+                    "column": 17
                   }
                 }
               }
             ],
             "start": {
               "line": 3,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 3,
-              "column": 14
+              "column": 18
             }
           },
           "start": {
             "line": 3,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 3,
-            "column": 14
+            "column": 18
           }
         }
       ],
@@ -199,18 +223,18 @@
       },
       "end": {
         "line": 3,
-        "column": 20
+        "column": 24
       },
       "init": {
         "kind": 52,
         "name": "arr",
         "start": {
           "line": 3,
-          "column": 17
+          "column": 21
         },
         "end": {
           "line": 3,
-          "column": 20
+          "column": 24
         }
       }
     }
@@ -221,6 +245,6 @@
   },
   "end": {
     "line": 3,
-    "column": 20
+    "column": 24
   }
 }

@@ -1,1 +1,1 @@
-a = [i for const i in 0..10]
+a = [i for var i in 0..10]

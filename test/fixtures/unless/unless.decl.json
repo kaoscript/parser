@@ -4,7 +4,19 @@
   "body": [
     {
       "kind": 122,
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 10,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
       "attributes": [],
       "variables": [
         {
@@ -15,20 +27,20 @@
             "name": "x",
             "start": {
               "line": 1,
-              "column": 5
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 6
+              "column": 10
             }
           },
           "start": {
             "line": 1,
-            "column": 5
+            "column": 9
           },
           "end": {
             "line": 1,
-            "column": 6
+            "column": 10
           }
         }
       ],
@@ -38,7 +50,7 @@
       },
       "end": {
         "line": 1,
-        "column": 24
+        "column": 28
       },
       "init": {
         "kind": 118,
@@ -50,11 +62,11 @@
               "name": "x",
               "start": {
                 "line": 1,
-                "column": 18
+                "column": 22
               },
               "end": {
                 "line": 1,
-                "column": 19
+                "column": 23
               }
             },
             {
@@ -62,11 +74,11 @@
               "modifiers": [],
               "start": {
                 "line": 1,
-                "column": 20
+                "column": 24
               },
               "end": {
                 "line": 1,
-                "column": 22
+                "column": 26
               }
             },
             {
@@ -74,21 +86,21 @@
               "value": 0,
               "start": {
                 "line": 1,
-                "column": 23
+                "column": 27
               },
               "end": {
                 "line": 1,
-                "column": 24
+                "column": 28
               }
             }
           ],
           "start": {
             "line": 1,
-            "column": 18
+            "column": 22
           },
           "end": {
             "line": 1,
-            "column": 24
+            "column": 28
           }
         },
         "whenFalse": {
@@ -96,20 +108,20 @@
           "value": 1,
           "start": {
             "line": 1,
-            "column": 9
+            "column": 13
           },
           "end": {
             "line": 1,
-            "column": 10
+            "column": 14
           }
         },
         "start": {
           "line": 1,
-          "column": 9
+          "column": 13
         },
         "end": {
           "line": 1,
-          "column": 24
+          "column": 28
         }
       }
     }
@@ -120,6 +132,6 @@
   },
   "end": {
     "line": 1,
-    "column": 24
+    "column": 28
   }
 }
