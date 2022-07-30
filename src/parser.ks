@@ -114,6 +114,14 @@ export namespace Parser {
 		commit(): this { # {{{
 			@token = @scanner.commit()
 		} # }}}
+		error(message: String): SyntaxError { # {{{
+			const error = new SyntaxError(message)
+
+			error.lineNumber = @scanner.line()
+			error.columnNumber = @scanner.column()
+
+			return error
+		} # }}}
 		mark(): Marker => @scanner.mark()
 		match(...tokens: Token): Token => @token = @scanner.match(...tokens)
 		matchM(matcher: Function): Token => @token = @scanner.matchM(matcher)
@@ -170,13 +178,13 @@ export namespace Parser {
 			}
 		} # }}}
 		throw(): Never ~ SyntaxError { # {{{
-			throw new SyntaxError(`Unexpected \(@scanner.toQuote()) at line \(@scanner.line()) and column \(@scanner.column())`)
+			throw @error(`Unexpected \(@scanner.toQuote())`)
 		} # }}}
 		throw(expected: String): Never ~ SyntaxError { # {{{
-			throw new SyntaxError(`Expecting "\(expected)" but got \(@scanner.toQuote()) at line \(@scanner.line()) and column \(@scanner.column())`)
+			throw @error(`Expecting "\(expected)" but got \(@scanner.toQuote())`)
 		} # }}}
 		throw(expecteds: Array): Never ~ SyntaxError { # {{{
-			throw new SyntaxError(`Expecting "\(expecteds.slice(0, expecteds.length - 1).join('", "'))" or "\(expecteds[expecteds.length - 1])" but got \(@scanner.toQuote()) at line \(@scanner.line()) and column \(@scanner.column())`)
+			throw @error(`Expecting "\(expecteds.slice(0, expecteds.length - 1).join('", "'))" or "\(expecteds[expecteds.length - 1])" but got \(@scanner.toQuote())`)
 		} # }}}
 		until(token): Boolean => !@scanner.test(token) && !@scanner.isEOF()
 		value(): String | Array<String> => @scanner.value(@token!?)
@@ -7519,7 +7527,7 @@ export namespace Parser {
 					const value = @scanner.value()
 
 					if value == 'this' || (!isAllowingAuto && value == 'auto') {
-						throw new SyntaxError(`The return type "\(value)" can't be used at line \(@scanner.line()) and column \(@scanner.column())`)
+						throw @error(`The return type "\(value)" can't be used`)
 					}
 					else if value == 'auto' {
 						const identifier = this.yep(AST.Identifier(@scanner.value(), this.yes()))
@@ -7617,7 +7625,7 @@ export namespace Parser {
 					const value = @scanner.value()
 
 					if !isAllowingAuto && value == 'auto' {
-						throw new SyntaxError(`The return type "auto" can't be used at line \(@scanner.line()) and column \(@scanner.column())`)
+						throw @error(`The return type "auto" can't be used`)
 					}
 					else if value == 'this' || value == 'auto' {
 						const identifier = this.yep(AST.Identifier(@scanner.value(), this.yes()))

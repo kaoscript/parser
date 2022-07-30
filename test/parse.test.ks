@@ -65,7 +65,7 @@ func prepare(file) { # {{{
 			}
 			catch ex {
 				try {
-					expect(ex.message).to.equal(error)
+					expect(`\(ex.message) at line \(ex.lineNumber) and column \(ex.columnNumber)`).to.equal(error)
 				}
 				catch ex2 {
 					if debug {

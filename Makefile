@@ -21,6 +21,11 @@ clean:
 cls:
 	printf '\033[2J\033[3J\033[1;1H'
 
+local:
+	nrm use local
+	npm unpublish @kaoscript/parser --force
+	npm publish
+
 dev: export DEBUG = 1
 dev:
 	@# clear terminal
