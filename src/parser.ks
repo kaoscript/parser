@@ -6873,6 +6873,21 @@ export namespace Parser {
 		} # }}}
 		tryClassMember(attributes, modifiers, staticModifier: Event?, staticMark: Marker, finalModifier: Event?, finalMark: Marker, first: Event?) ~ SyntaxError { # {{{
 			if staticModifier.ok {
+				if finalModifier.ok {
+					const member = @tryClassMember(
+						attributes
+						[...modifiers, staticModifier, finalModifier]
+						ClassBits::Variable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method
+						first ?? staticModifier
+					)
+
+					if member.ok {
+						return member
+					}
+
+					@rollback(finalMark)
+				}
+
 				const member = @tryClassMember(
 					attributes
 					[...modifiers, staticModifier]
