@@ -22,7 +22,7 @@ class EmptyReporter {
 	constructor(...)
 }
 
-const myArgs = process.argv.slice(3)
+const args = process.argv.slice(3)
 
 const success = []
 const errors = []
@@ -32,7 +32,7 @@ const mocha = new Mocha({
 })
 mocha.checkLeaks()
 mocha.addFile('./test/parse.test.ks')
-mocha.grep(myArgs[0])
+mocha.grep(args[0])
 
 mocha
 	.run()

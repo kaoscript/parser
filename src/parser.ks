@@ -1756,7 +1756,7 @@ export namespace Parser {
 				}
 				Token::FINAL => {
 					const first = this.yes()
-					const modifiers = [this.yep(AST.Modifier(ModifierKind::Final, first))]
+					const modifiers = [this.yep(AST.Modifier(ModifierKind::Immutable, first))]
 
 					if this.test(Token::CLASS) {
 						this.commit()
@@ -2351,7 +2351,7 @@ export namespace Parser {
 				}
 				Token::FINAL => {
 					const first = this.yes()
-					const modifiers = [this.yep(AST.Modifier(ModifierKind::Final, first))]
+					const modifiers = [this.yep(AST.Modifier(ModifierKind::Immutable, first))]
 
 					if this.test(Token::CLASS) {
 						this.commit()
@@ -5020,7 +5020,7 @@ export namespace Parser {
 				}
 				Token::FINAL => {
 					const first = this.yes()
-					const modifiers = [this.yep(AST.Modifier(ModifierKind::Final, first))]
+					const modifiers = [this.yep(AST.Modifier(ModifierKind::Immutable, first))]
 
 					if this.test(Token::CLASS) {
 						this.commit()

@@ -12,11 +12,11 @@ extern {
 }
 
 import {
-	'..' for parse
-	'@kaoscript/chai' for expect
+	'..'					for parse
+	'@kaoscript/chai'		for expect
 	'fs'
-	'kaoscript/src/fs.js' for escapeJSON, unescapeJSON
-	'klaw-sync' => klaw
+	'kaoscript/src/fs.js'	for escapeJSON, unescapeJSON
+	'klaw-sync'				=> klaw
 	'path'
 }
 

@@ -21,6 +21,11 @@ clean:
 cls:
 	printf '\033[2J\033[3J\033[1;1H'
 
+update:
+	rm -rf node_modules package-lock.json
+	nrm use local
+	npm i
+
 local:
 	nrm use local
 	npm unpublish @kaoscript/parser --force
@@ -32,6 +37,6 @@ dev:
 	@make cls
 
 	@# tests
-	@# ./node_modules/.bin/kaoscript test/parse.dev.ks "parse "
+	@# npx kaoscript test/parse.dev.ks "parse "
 
 .PHONY: test coverage
