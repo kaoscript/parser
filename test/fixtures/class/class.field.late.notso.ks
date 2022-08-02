@@ -5,7 +5,5 @@ class Foobar {
 		@z				= 0
 
 		final @a		= 0
-		dyn @b			= 0
-		dyn @c: Number	= 0
 	}
 }

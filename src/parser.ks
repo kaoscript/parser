@@ -84,7 +84,6 @@ export namespace Parser {
 	flagged enum ClassBits {
 		AbstractMethod		 = 1
 		Attribute
-		DynamicVariable
 		FinalMethod
 		FinalVariable
 		LateVariable
@@ -909,7 +908,7 @@ export namespace Parser {
 				return @reqClassMemberBlock(
 					attributes
 					[accessModifier]
-					ClassBits::Variable + ClassBits::DynamicVariable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method
+					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method
 					members
 				)
 			}
@@ -1049,7 +1048,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						finalModifier.ok ? ClassBits::Variable : ClassBits::Variable + ClassBits::FinalVariable + ClassBits::DynamicVariable
+						finalModifier.ok ? ClassBits::Variable : ClassBits::Variable + ClassBits::FinalVariable
 						members
 					)
 				}
@@ -3045,7 +3044,7 @@ export namespace Parser {
 				return @reqClassMemberBlock(
 					attributes
 					[accessModifier]
-					ClassBits::Variable + ClassBits::DynamicVariable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method
+					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method
 					members
 				)
 			}
@@ -3179,7 +3178,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						finalModifier.ok ? ClassBits::Variable : ClassBits::Variable + ClassBits::FinalVariable + ClassBits::DynamicVariable
+						finalModifier.ok ? ClassBits::Variable : ClassBits::Variable + ClassBits::FinalVariable
 						members
 					)
 				}
@@ -6919,7 +6918,7 @@ export namespace Parser {
 			return @tryClassMember(
 				attributes
 				[...modifiers]
-				ClassBits::Variable + ClassBits::DynamicVariable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::OverrideMethod + ClassBits::AbstractMethod
+				ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::OverrideMethod + ClassBits::AbstractMethod
 				first
 			)
 		} # }}}
@@ -7051,18 +7050,7 @@ export namespace Parser {
 			if bits ~~ ClassBits::Variable {
 				const mark = @mark()
 
-				if bits ~~ ClassBits::DynamicVariable && @test(Token::DYN) {
-					const modifier = @yep(AST.Modifier(ModifierKind::Dynamic, @yes()))
-
-					const variable = @tryClassVariable(attributes, [...modifiers, modifier], bits, null, null, first ?? modifier)
-
-					if variable.ok {
-						return variable
-					}
-
-					@rollback(mark)
-				}
-				else if bits ~~ ClassBits::FinalVariable && @test(Token::FINAL) {
+				if bits ~~ ClassBits::FinalVariable && @test(Token::FINAL) {
 					const modifier = @yep(AST.Modifier(ModifierKind::Immutable, @yes()))
 					const mark2 = @mark()
 
