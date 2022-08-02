@@ -6187,23 +6187,23 @@ export namespace Parser {
 			var dyn name = null
 			var dyn type = null
 
-			if this.match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
-				name = this.reqDestructuringObject(this.yes(), DestructuringMode::Declaration, fMode)
+			if @match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
+				name = @reqDestructuringObject(@yes(), DestructuringMode::Declaration, fMode)
 			}
 			else if @token == Token::LEFT_SQUARE {
-				name = this.reqDestructuringArray(this.yes(), DestructuringMode::Declaration, fMode)
+				name = @reqDestructuringArray(@yes(), DestructuringMode::Declaration, fMode)
 			}
-			else {
-				name = this.reqIdentifier()
-			}
-
-			if this.test(Token::COLON) {
-				this.commit()
-
-				type = this.reqTypeVar()
+			else if name !?= @tryIdentifier() {
+				@throw(['Identifier', '{', '['])
 			}
 
-			return this.yep(AST.VariableDeclarator([], name, type, name, type ?? name))
+			if @test(Token::COLON) {
+				@commit()
+
+				type = @reqTypeVar()
+			}
+
+			return @yep(AST.VariableDeclarator([], name, type, name, type ?? name))
 		} # }}}
 		reqUnaryOperand(value: Event?, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if value == null {
@@ -6361,12 +6361,20 @@ export namespace Parser {
 		reqVarStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mark = @mark()
 			var modifiers = []
+			var variables = []
 
 			var dyn immutable = false
 			var dyn lateinit = false
 
 			if @match(Token::DYN, Token::LATE, Token::MUT) == Token::INVALID {
 				immutable = true
+
+				if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE, Token::IDENTIFIER) {
+					variables.push(@reqTypedVariable(fMode))
+				}
+				else {
+					return NO
+				}
 			}
 			else {
 				var dyn modifier
@@ -6389,9 +6397,9 @@ export namespace Parser {
 				else {
 					modifiers.push(modifier)
 				}
-			}
 
-			var variables = [@reqTypedVariable(fMode)]
+				variables.push(@reqTypedVariable(fMode))
+			}
 
 			if @test(Token::COMMA) {
 				do {

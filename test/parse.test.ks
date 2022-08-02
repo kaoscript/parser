@@ -69,7 +69,7 @@ func prepare(file) { # {{{
 				}
 				catch ex2 {
 					if debug {
-						console.log(ex.message)
+						console.log(`\(ex.message) at line \(ex.lineNumber) and column \(ex.columnNumber)`)
 					}
 
 					throw ex2
