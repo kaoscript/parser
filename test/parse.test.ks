@@ -20,11 +20,11 @@ import {
 	'path'
 }
 
-const debug = process.env.DEBUG == '1' || process.env.DEBUG == 'true' || process.env.DEBUG == 'on'
-let testings = []
+var debug = process.env.DEBUG == '1' || process.env.DEBUG == 'true' || process.env.DEBUG == 'on'
+var mut testings = []
 
 if process.argv[2].endsWith('test/parse.dev.ks') && process.argv.length > 3 {
-	const args = process.argv[3].split(' ')
+	var args = process.argv[3].split(' ')
 
 	if args[0] == 'parse' {
 		if !args[1].includes('|') && !args[1].includes('[') {
@@ -37,19 +37,19 @@ if process.argv[2].endsWith('test/parse.dev.ks') && process.argv.length > 3 {
 }
 
 func prepare(file) { # {{{
-	const root = path.dirname(file)
-	const name = path.basename(file).slice(0, -3)
+	var root = path.dirname(file)
+	var name = path.basename(file).slice(0, -3)
 
 	if testings.length > 0 && !testings.some((testing, ...) => name.startsWith(testing) || testing.startsWith(name)) {
 		return
 	}
 
 	it(name, () => {
-		const source = fs.readFileSync(file, {
+		var source = fs.readFileSync(file, {
 			encoding: 'utf8'
 		})
 
-		let error = null
+		var mut error = null
 
 		try {
 			error = fs.readFileSync(path.join(root, name + '.error'), {
@@ -58,7 +58,7 @@ func prepare(file) { # {{{
 		}
 
 		if ?error {
-			let data = null
+			var mut data = null
 
 			try {
 				data = parse(source)
@@ -85,9 +85,9 @@ func prepare(file) { # {{{
 			expect(data).to.not.exist
 		}
 		else {
-			const data = parse(source)
+			var data = parse(source)
 
-			let json = null
+			var mut json = null
 
 			try {
 				json = fs.readFileSync(path.join(root, name + '.json'), {
@@ -117,13 +117,13 @@ func prepare(file) { # {{{
 } # }}}
 
 describe('parse', () => {
-	const files = klaw(path.join(__dirname, 'fixtures'), {
+	var files = klaw(path.join(__dirname, 'fixtures'), {
 		nodir: true
 		traverseAll: true
 		filter: (item) => item.path.slice(-3) == '.ks'
 	})
 
-	for const file in files {
+	for var file in files {
 		prepare(file.path)
 	}
 })

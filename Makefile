@@ -38,5 +38,6 @@ dev:
 
 	@# tests
 	@# npx kaoscript test/parse.dev.ks "parse "
+	@# npx kaoscript test/parse.dev.ks "parse test"
 
 .PHONY: test coverage

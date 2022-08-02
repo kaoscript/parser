@@ -22,12 +22,12 @@ class EmptyReporter {
 	constructor(...)
 }
 
-const args = process.argv.slice(3)
+var args = process.argv.slice(3)
 
-const success = []
-const errors = []
+var success = []
+var errors = []
 
-const mocha = new Mocha({
+var mocha = new Mocha({
 	reporter: EmptyReporter
 })
 mocha.checkLeaks()

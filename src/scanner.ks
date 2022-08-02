@@ -177,12 +177,12 @@ enum Token {
 	WITH
 }
 
-const overhauls = {
+var overhauls = {
 	[Token::CLASS_VERSION](data: String): Array<String> => data.split('.')
 	[Token::STRING](data: String): String => data.slice(1, -1).replace(/(^|[^\\])\\('|")/g, '$1$2')
 }
 
-const regex: Dictionary<RegExp> = {
+var regex: Dictionary<RegExp> = {
 	binary_number: /^0b[_0-1]+[a-zA-Z]*/
 	class_version: /^\d+(\.\d+(\.\d+)?)?/
 	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?(?:[eE][-+]?[_0-9]+)?(?:[a-zA-Z]*)/
@@ -201,7 +201,7 @@ const regex: Dictionary<RegExp> = {
 namespace M {
 	export {
 		func ASSIGNEMENT_OPERATOR(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
@@ -315,7 +315,7 @@ namespace M {
 		} # }}}
 
 		func BINARY_OPERATOR(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
@@ -584,7 +584,7 @@ namespace M {
 		} # }}}
 
 		func EXPORT_STATEMENT(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
@@ -597,7 +597,7 @@ namespace M {
 			}
 			// abstract
 			else if c == 97 {
-				const identifier = that.scanIdentifier(true)
+				var identifier = that.scanIdentifier(true)
 
 				if identifier == 'bstract' {
 					return Token::ABSTRACT
@@ -611,7 +611,7 @@ namespace M {
 			}
 			// class
 			else if c == 99 {
-				const identifier = that.scanIdentifier(true)
+				var identifier = that.scanIdentifier(true)
 
 				if identifier == 'lass' {
 					return Token::CLASS
@@ -631,7 +631,7 @@ namespace M {
 			}
 			// final, flagged, func
 			else if c == 102 {
-				const identifier = that.scanIdentifier(true)
+				var identifier = that.scanIdentifier(true)
 
 				if identifier == 'inal' {
 					return Token::FINAL
@@ -666,7 +666,7 @@ namespace M {
 			}
 			// sealed, struct
 			else if c == 115 {
-				const identifier = that.scanIdentifier(true)
+				var identifier = that.scanIdentifier(true)
 
 				if identifier == 'ealed' {
 					return Token::SEALED
@@ -680,7 +680,7 @@ namespace M {
 			}
 			// tuple, type
 			else if c == 116 {
-				const identifier = that.scanIdentifier(true)
+				var identifier = that.scanIdentifier(true)
 
 				if identifier == 'uple' {
 					return Token::TUPLE
@@ -711,7 +711,7 @@ namespace M {
 		} # }}}
 
 		func EXTERN_STATEMENT(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
@@ -724,7 +724,7 @@ namespace M {
 			}
 			// abstract, async
 			else if	c == 97 {
-				const identifier = that.scanIdentifier(true)
+				var identifier = that.scanIdentifier(true)
 				if identifier == 'bstract' {
 					return Token::ABSTRACT
 				}
@@ -737,7 +737,7 @@ namespace M {
 			}
 			// class
 			else if c == 99 {
-				const identifier = that.scanIdentifier(true)
+				var identifier = that.scanIdentifier(true)
 				if identifier == 'lass' {
 					return Token::CLASS
 				}
@@ -765,7 +765,7 @@ namespace M {
 			}
 			// sealed, systemic
 			else if c == 115 {
-				const identifier = that.scanIdentifier(true)
+				var identifier = that.scanIdentifier(true)
 
 				if identifier == 'ealed' {
 					return Token::SEALED
@@ -796,7 +796,7 @@ namespace M {
 		} # }}}
 
 		func JUNCTION_OPERATOR(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
@@ -827,7 +827,7 @@ namespace M {
 		} # }}}
 
 		func MACRO(that: Scanner, index: Number): Token { # {{{
-			let c = that._data.charCodeAt(++index)
+			var dyn c = that._data.charCodeAt(++index)
 			if c == 13 && that.charAt(1) == 10 {
 				that.nextLine(2)
 
@@ -864,7 +864,7 @@ namespace M {
 				return Token::RIGHT_CURLY
 			}
 
-			const from = index
+			var from = index
 
 			while ++index < that._length {
 				c = that._data.charCodeAt(index)
@@ -887,7 +887,7 @@ namespace M {
 		} # }}}
 
 		func MODULE_STATEMENT(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
@@ -1044,13 +1044,13 @@ namespace M {
 		} # }}}
 
 		func NUMBER(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
 			}
 			else if c == 46 {
-				let substr = that._data.substr(that._index)
+				var dyn substr = that._data.substr(that._index)
 
 				if match ?= regex.dot_number.exec(substr) {
 					that.next(match[0].length)
@@ -1059,7 +1059,7 @@ namespace M {
 				}
 			}
 			else if c >= 48 && c <= 57 { // 0 - 9
-				let substr = that._data.substr(that._index)
+				var dyn substr = that._data.substr(that._index)
 
 				if match ?= regex.binary_number.exec(substr) {
 					that.next(match[0].length)
@@ -1092,13 +1092,13 @@ namespace M {
 		} # }}}
 
 		func OPERAND(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
 			}
 			else if c == 34 { // "
-				if const match = regex.double_quote.exec(that.substringAt(1)) {
+				if var match = regex.double_quote.exec(that.substringAt(1)) {
 					that.next(match[0].length + 1)
 
 					return Token::STRING
@@ -1176,9 +1176,9 @@ namespace M {
 		} # }}}
 
 		func OPERAND_JUNCTION(that: Scanner, index: Number): Token { # {{{
-			let c = that._data.charCodeAt(index + 1)
+			var dyn c = that._data.charCodeAt(index + 1)
 
-			let p = that._data.charCodeAt(index)
+			var dyn p = that._data.charCodeAt(index)
 			if p == 9 || p == 32 {
 				return Token::INVALID
 			}
@@ -1229,7 +1229,7 @@ namespace M {
 			}
 			else if c == 58 { // :
 				c = that.charAt(1)
-				const c2 = that.charAt(2)
+				var c2 = that.charAt(2)
 
 				if c == 33 && c2 != 9 && c2 != 32 {
 					that.next(2)
@@ -1307,8 +1307,8 @@ namespace M {
 		} # }}}
 
 		func POSTFIX_OPERATOR(that: Scanner, index: Number): Token { # {{{
-			let p = that._data.charCodeAt(index)
-			let c = that._data.charCodeAt(index + 1)
+			var dyn p = that._data.charCodeAt(index)
+			var dyn c = that._data.charCodeAt(index + 1)
 
 			if p == 9 || p == 32 {
 				return Token::INVALID
@@ -1351,7 +1351,7 @@ namespace M {
 		} # }}}
 
 		func PREFIX_OPERATOR(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
@@ -1412,7 +1412,7 @@ namespace M {
 		} # }}}
 
 		func REQUIRE_STATEMENT(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
@@ -1463,7 +1463,7 @@ namespace M {
 		} # }}}
 
 		func STATEMENT(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
@@ -1868,7 +1868,7 @@ namespace M {
 		} # }}}
 
 		func TEMPLATE(that: Scanner, index: Number): Token { # {{{
-			let c = that._data.charCodeAt(++index)
+			var dyn c = that._data.charCodeAt(++index)
 
 			if c == 92 && that._data.charCodeAt(index + 1) == 40 {
 				that.next(2)
@@ -1888,7 +1888,7 @@ namespace M {
 		} # }}}
 
 		func TYPE_OPERATOR(that: Scanner, index: Number): Token { # {{{
-			let c = that.skip(index)
+			var dyn c = that.skip(index)
 			if c == -1 {
 				return Token::EOF
 			}
@@ -1948,7 +1948,7 @@ namespace M {
 	}
 }
 
-const recognize = {
+var recognize = {
 	`\(Token::ABSTRACT)`(that: Scanner, c: Number): Boolean { # {{{
 		if	c == 97 &&
 			that.charAt(1) == 98 &&
@@ -2025,9 +2025,9 @@ const recognize = {
 	} # }}}
 	`\(Token::ATTRIBUTE_IDENTIFIER)`(that: Scanner, c: Number): Boolean { # {{{
 		if (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
-			let index = that._index - 1
+			var dyn index = that._index - 1
 
-			let c
+			var dyn c
 			while ++index < that._length &&
 			(
 				(c = that._data.charCodeAt(index)) == 45 ||
@@ -2569,7 +2569,7 @@ const recognize = {
 	} # }}}
 	`\(Token::NUMERAL)`(that: Scanner, c: Number): Boolean { # {{{
 		if 48 <= c <= 57 {
-			let i = 1
+			var dyn i = 1
 
 			while 48 <= that.charAt(i) <= 57 {
 				++i
@@ -3027,7 +3027,7 @@ class Scanner {
 		return Token::EOF
 	} # }}}
 	isBoundary(d: Number): Boolean { # {{{
-		const c = @data.charCodeAt(@index + d)
+		var c = @data.charCodeAt(@index + d)
 
 		return c == 9 || c == 10 || c == 13 || c == 32 || !((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == 95 || c == 36)
 	} # }}}
@@ -3044,13 +3044,13 @@ class Scanner {
 			return Token::EOF
 		}
 		else {
-			const c = this.skip(@index - 1)
+			var c = this.skip(@index - 1)
 
 			if c == -1 {
 				return this.eof()
 			}
 
-			for const token in tokens {
+			for var token in tokens {
 				if recognize[token](this, c) {
 					return token
 				}
@@ -3099,9 +3099,9 @@ class Scanner {
 		return true
 	} # }}}
 	scanIdentifier(substr: Boolean): String? { # {{{
-		let index = @index - 1
+		var dyn index = @index - 1
 
-		let c = @data.charCodeAt(index)
+		var dyn c = @data.charCodeAt(index)
 		while ++index < @length &&
 		(
 			(c = @data.charCodeAt(index)) == 36 ||
@@ -3112,7 +3112,7 @@ class Scanner {
 		) {}
 
 		if substr {
-			let identifier = @data.substring(@index + 1, index)
+			var dyn identifier = @data.substring(@index + 1, index)
 
 			this.next(index - @index)
 
@@ -3128,7 +3128,7 @@ class Scanner {
 		this.skip(@index  - 1)
 	} # }}}
 	private skip(index: Number): Number { # {{{
-		let c
+		var dyn c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
 			// console.log('sk', index, c, @line, @column)
@@ -3138,7 +3138,7 @@ class Scanner {
 				++@column
 			}
 			else if c == 35 { // #
-				const oldIndex = index
+				var oldIndex = index
 
 				c = @data.charCodeAt(index + 1)
 
@@ -3203,13 +3203,13 @@ class Scanner {
 				c = @data.charCodeAt(index + 1)
 
 				if c == 42 { // /*
-					const oldIndex = index
+					var oldIndex = index
 
-					let line = @line
-					let column = @column
+					var dyn line = @line
+					var dyn column = @column
 
-					let left = 1
-					let lineIndex = index - @column
+					var dyn left = 1
+					var dyn lineIndex = index - @column
 
 					++index
 
@@ -3250,7 +3250,7 @@ class Scanner {
 					@column = column
 				}
 				else if c == 47 { // //
-					const lineIndex = index
+					var lineIndex = index
 
 					while ++index < @length && @data.charCodeAt(index + 1) != 10 {
 					}
@@ -3283,9 +3283,9 @@ class Scanner {
 		return -1
 	} # }}}
 	skipComments(): Number { # {{{
-		let index = @index  - 1
+		var dyn index = @index  - 1
 
-		let c
+		var dyn c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
 			// console.log('cm', index, c, @line, @column)
@@ -3298,13 +3298,13 @@ class Scanner {
 				c = @data.charCodeAt(index + 1)
 
 				if c == 42 { // /*
-					const oldIndex = index
+					var oldIndex = index
 
-					let line = @line
-					let column = @column
+					var dyn line = @line
+					var dyn column = @column
 
-					let left = 1
-					let lineIndex = index - @column
+					var dyn left = 1
+					var dyn lineIndex = index - @column
 
 					++index
 
@@ -3375,7 +3375,7 @@ class Scanner {
 					@column = column
 				}
 				else if c == 47 { // //
-					const lineIndex = index
+					var lineIndex = index
 
 					while ++index < @length && @data.charCodeAt(index + 1) != 10 {
 					}
@@ -3424,7 +3424,7 @@ class Scanner {
 		return -1
 	} # }}}
 	skipNewLine(index: Number = @index - 1): Number { # {{{
-		let c
+		var dyn c
 		while ++index < @length {
 			c = @data.charCodeAt(index)
 			// console.log('nl', index, c, @line, @column)
@@ -3444,7 +3444,7 @@ class Scanner {
 				++@column
 			}
 			else if c == 35 { // #
-				const oldIndex = index
+				var oldIndex = index
 
 				c = @data.charCodeAt(index + 1)
 
@@ -3509,13 +3509,13 @@ class Scanner {
 				c = @data.charCodeAt(index + 1)
 
 				if c == 42 { // /*
-					const oldIndex = index
+					var oldIndex = index
 
-					let line = @line
-					let column = @column
+					var dyn line = @line
+					var dyn column = @column
 
-					let left = 1
-					let lineIndex = index - @column
+					var dyn left = 1
+					var dyn lineIndex = index - @column
 
 					++index
 
@@ -3556,7 +3556,7 @@ class Scanner {
 					@column = column
 				}
 				else if c == 47 { // //
-					const lineIndex = index
+					var lineIndex = index
 
 					while ++index < @length && @data.charCodeAt(index + 1) != 10 {
 					}
@@ -3598,7 +3598,7 @@ class Scanner {
 			return Token::EOF == token
 		}
 		else {
-			const c = this.skip(@index - 1)
+			var c = this.skip(@index - 1)
 
 			if c == -1 {
 				return this.eof() == token
@@ -3621,7 +3621,7 @@ class Scanner {
 			return '"EOF"'
 		}
 		else if @index + 1 >= @nextIndex {
-			const c = @data.charCodeAt(@index)
+			var c = @data.charCodeAt(@index)
 
 			if c == 10 {
 				return '"NewLine"'
