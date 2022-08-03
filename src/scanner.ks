@@ -3044,10 +3044,10 @@ class Scanner {
 			return Token::EOF
 		}
 		else {
-			var c = this.skip(@index - 1)
+			var c = @skip(@index - 1)
 
 			if c == -1 {
-				return this.eof()
+				return @eof()
 			}
 
 			for var token in tokens {
@@ -3114,18 +3114,18 @@ class Scanner {
 		if substr {
 			var dyn identifier = @data.substring(@index + 1, index)
 
-			this.next(index - @index)
+			@next(index - @index)
 
 			return identifier
 		}
 		else {
-			this.next(index - @index)
+			@next(index - @index)
 
 			return null
 		}
 	} # }}}
 	skip(): Void { # {{{
-		this.skip(@index  - 1)
+		@skip(@index  - 1)
 	} # }}}
 	private skip(index: Number): Number { # {{{
 		var dyn c
@@ -3278,7 +3278,7 @@ class Scanner {
 		@nextColumn = @column
 		@nextLine = @line
 
-		this.eof()
+		@eof()
 
 		return -1
 	} # }}}
@@ -3419,7 +3419,7 @@ class Scanner {
 		@nextColumn = @column
 		@nextLine = @line
 
-		this.eof()
+		@eof()
 
 		return -1
 	} # }}}
@@ -3584,7 +3584,7 @@ class Scanner {
 		@nextColumn = @column
 		@nextLine = @line
 
-		this.eof()
+		@eof()
 
 		return -1
 	} # }}}
@@ -3598,10 +3598,10 @@ class Scanner {
 			return Token::EOF == token
 		}
 		else {
-			var c = this.skip(@index - 1)
+			var c = @skip(@index - 1)
 
 			if c == -1 {
-				return this.eof() == token
+				return @eof() == token
 			}
 
 			return recognize[token](this, c)
@@ -3615,7 +3615,7 @@ class Scanner {
 			return recognize[token](this, @data.charCodeAt(@index))
 		}
 	} # }}}
-	toDebug(): String => `line: \(@line), column: \(@column), token: \(this.toQuote())`
+	toDebug(): String => `line: \(@line), column: \(@column), token: \(@toQuote())`
 	toQuote(): String { # {{{
 		if @eof {
 			return '"EOF"'
