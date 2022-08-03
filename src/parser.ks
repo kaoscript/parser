@@ -4438,10 +4438,17 @@ export namespace Parser {
 			}
 
 			if ?mutModifier {
-				if @test(Token::IDENTIFIER) {
-					var modifiers = [mutModifier]
-					modifiers.push(restModifier) if ?restModifier
+				var modifiers = [mutModifier]
+				modifiers.push(restModifier) if ?restModifier
 
+				if @test(Token::AT) && fMode == FunctionMode::Macro {
+					var first = @yes()
+
+					modifiers.push(AST.Modifier(ModifierKind::AutoEvaluate, first))
+
+					parameters.push(@reqParameterIdendifier(modifiers, first, fMode))
+				}
+				else if @test(Token::IDENTIFIER) {
 					parameters.push(@reqParameterIdendifier(modifiers, mutModifier, fMode))
 
 					if @test(Token::COMMA) {
