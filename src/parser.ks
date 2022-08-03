@@ -133,7 +133,7 @@ export namespace Parser {
 				console.log(@scanner.toDebug())
 			}
 		} # }}}
-		relocate(event: Event, first: Event?, last: Event?): Event { # {{{
+		relocate(event: Event, mut first: Event?, last: Event?): Event { # {{{
 			if first != null {
 				event.start = event.value.start = first.start
 			}
@@ -239,7 +239,7 @@ export namespace Parser {
 		NL_0M() ~ SyntaxError { # {{{
 			@skipNewLine()
 		} # }}}
-		altArrayComprehension(expression: Event, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		altArrayComprehension(expression: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var loop = @reqForExpression(@yes(), fMode)
 
 			@NL_0M()
@@ -250,7 +250,7 @@ export namespace Parser {
 
 			return @yep(AST.ArrayComprehension(expression, loop, first, @yes()))
 		} # }}}
-		altArrayList(expression: Event, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		altArrayList(expression: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var values = [expression]
 
 			do {
@@ -285,7 +285,7 @@ export namespace Parser {
 
 			@throw(']')
 		} # }}}
-		altForExpressionFrom(modifiers, variable: Event, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		altForExpressionFrom(modifiers, variable: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var from = @reqExpression(ExpressionMode::Default, fMode)
 
 			var dyn til, to
@@ -333,7 +333,7 @@ export namespace Parser {
 
 			return @yep(AST.ForFromStatement(modifiers, variable, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from))
 		} # }}}
-		altForExpressionIn(modifiers, value: Event, type: Event, index: Event, expression: Event, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		altForExpressionIn(modifiers, value: Event, type: Event, index: Event, expression: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn desc = null
 			if @test(Token::DESC) {
 				desc = @yes()
@@ -390,7 +390,7 @@ export namespace Parser {
 
 			return @yep(AST.ForInStatement(modifiers, value, type, index, expression, from, til, to, by, until, while, whenExp, first, whenExp ?? while ?? until ?? by ?? to ?? til ?? from ?? desc ?? expression))
 		} # }}}
-		altForExpressionInRange(modifiers, value: Event, type: Event, index: Event, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		altForExpressionInRange(modifiers, value: Event, type: Event, index: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn operand = @tryRangeOperand(ExpressionMode::Default, fMode)
 
 			if operand.ok {
@@ -433,7 +433,7 @@ export namespace Parser {
 				return @altForExpressionIn(modifiers, value, type, index, @reqExpression(ExpressionMode::Default, fMode), first, fMode)
 			}
 		} # }}}
-		altForExpressionOf(modifiers, value: Event, type: Event, key: Event, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		altForExpressionOf(modifiers, value: Event, type: Event, key: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var expression = @reqExpression(ExpressionMode::Default, fMode)
 
 			var dyn until, while
@@ -459,7 +459,7 @@ export namespace Parser {
 
 			return @yep(AST.ForOfStatement(modifiers, value, type, key, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
 		} # }}}
-		altForExpressionRange(modifiers, value: Event, index: Event, from: Event?, then: Event?, til: Event?, to: Event?, by: Event?, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		altForExpressionRange(modifiers, value: Event, index: Event, from: Event?, then: Event?, til: Event?, to: Event?, by: Event?, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn until, while
 			if @match(Token::UNTIL, Token::WHILE) == Token::UNTIL {
 				@commit()
@@ -590,7 +590,7 @@ export namespace Parser {
 
 			return modifiers
 		} # }}}
-		reqArray(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqArray(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @test(Token::RIGHT_SQUARE) {
 				return @yep(AST.ArrayExpression([], first, @yes()))
 			}
@@ -688,7 +688,7 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		reqAttribute(first: Event): Event ~ SyntaxError { # {{{
+		reqAttribute(mut first: Event): Event ~ SyntaxError { # {{{
 			var declaration = @reqAttributeMember()
 
 			unless @test(Token::RIGHT_SQUARE) {
@@ -746,12 +746,12 @@ export namespace Parser {
 				return identifier
 			}
 		} # }}}
-		reqAwaitExpression(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqAwaitExpression(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
 
 			return @yep(AST.AwaitExpression([], null, operand, first, operand))
 		} # }}}
-		reqBinaryOperand(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqBinaryOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mark = @mark()
 
 			var dyn expression
@@ -772,7 +772,7 @@ export namespace Parser {
 
 			return @reqPrefixedOperand(eMode, fMode)
 		} # }}}
-		reqBlock(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqBlock(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if !first.ok {
 				unless @test(Token::LEFT_CURLY) {
 					@throw('{')
@@ -815,10 +815,10 @@ export namespace Parser {
 
 			return @yep(AST.Block(attributes, statements, first, @yes()))
 		} # }}}
-		reqBreakStatement(first: Event): Event { # {{{
+		reqBreakStatement(mut first: Event): Event { # {{{
 			return @yep(AST.BreakStatement(first))
 		} # }}}
-		reqCatchOnClause(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqCatchOnClause(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var type = @reqIdentifier()
 
 			var dyn binding
@@ -834,7 +834,7 @@ export namespace Parser {
 
 			return @yep(AST.CatchClause(binding, type, body, first, body))
 		} # }}}
-		reqClassMember(attributes, modifiers, bits: ClassBits, first: Event?): Event ~ SyntaxError { # {{{
+		reqClassMember(attributes, modifiers, mut bits: ClassBits, mut first: Event?): Event ~ SyntaxError { # {{{
 			var member = @tryClassMember(attributes, modifiers, bits, first)
 
 			unless member.ok {
@@ -843,7 +843,7 @@ export namespace Parser {
 
 			return member
 		} # }}}
-		reqClassMemberBlock(attributes, modifiers, bits: ClassBits, members: Array<Event>): Void ~ SyntaxError { # {{{
+		reqClassMemberBlock(attributes, modifiers, mut bits: ClassBits, members: Array<Event>): Void ~ SyntaxError { # {{{
 			@commit().NL_0M()
 
 			var dyn attrs = [...attributes]
@@ -1091,7 +1091,7 @@ export namespace Parser {
 
 			members.push(member)
 		} # }}}
-		reqClassMethod(attributes, modifiers, bits: ClassBits, name: Event, round: Event?, first: Event?): Event ~ SyntaxError { # {{{
+		reqClassMethod(attributes, modifiers, mut bits: ClassBits, name: Event, round: Event?, mut first: Event?): Event ~ SyntaxError { # {{{
 			var parameters = @reqClassMethodParameterList(round)
 			var type = @tryMethodReturns(bits !~ ClassBits::NoBody)
 			var throws = @tryFunctionThrows()
@@ -1109,7 +1109,7 @@ export namespace Parser {
 				return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
 			}
 		} # }}}
-		reqClassMethodParameterList(top: Event = NO): Event ~ SyntaxError { # {{{
+		reqClassMethodParameterList(mut top: Event = NO): Event ~ SyntaxError { # {{{
 			if !top.ok {
 				unless @test(Token::LEFT_ROUND) {
 					@throw('(')
@@ -1132,7 +1132,7 @@ export namespace Parser {
 
 			return @yep(parameters, top, @yes())
 		} # }}}
-		reqClassProperty(attributes, modifiers, name: Event, type: Event?, first: Event): Event ~ SyntaxError { # {{{
+		reqClassProperty(attributes, modifiers, name: Event, type: Event?, mut first: Event): Event ~ SyntaxError { # {{{
 			var dyn defaultValue, accessor, mutator
 
 			if @test(Token::NEWLINE) {
@@ -1245,10 +1245,10 @@ export namespace Parser {
 
 			return @yep(AST.PropertyDeclaration(attributes, modifiers, name, type, defaultValue, accessor, mutator, first, defaultValue ?? last))
 		} # }}}
-		reqClassStatement(first: Event, modifiers = []): Event ~ SyntaxError { # {{{
+		reqClassStatement(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
 			return @reqClassStatementBody(@reqIdentifier(), first, modifiers)
 		} # }}}
-		reqClassStatementBody(name: Event, first: Event, modifiers = []): Event ~ SyntaxError { # {{{
+		reqClassStatementBody(name: Event, mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
 			var dyn generic
 			if @test(Token::LEFT_ANGLE) {
 				generic = @reqTypeGeneric(@yes())
@@ -1316,7 +1316,7 @@ export namespace Parser {
 
 			return @yep(AST.ClassDeclaration(attributes, name, version, extends, modifiers, members, first, @yes()))
 		} # }}}
-		reqClassVariable(attributes, modifiers, bits: ClassBits, name: Event?, first: Event?): Event ~ SyntaxError { # {{{
+		reqClassVariable(attributes, modifiers, mut bits: ClassBits, name: Event?, mut first: Event?): Event ~ SyntaxError { # {{{
 			var variable = @tryClassVariable(attributes, modifiers, bits, name, null, first)
 
 			unless variable.ok {
@@ -1325,7 +1325,7 @@ export namespace Parser {
 
 			return variable
 		} # }}}
-		reqComputedPropertyName(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqComputedPropertyName(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var expression = @reqExpression(ExpressionMode::Default, fMode)
 
 			unless @test(Token::RIGHT_SQUARE) {
@@ -1334,10 +1334,10 @@ export namespace Parser {
 
 			return @yep(AST.ComputedPropertyName(expression, first, @yes()))
 		} # }}}
-		reqContinueStatement(first: Event): Event { # {{{
+		reqContinueStatement(mut first: Event): Event { # {{{
 			return @yep(AST.ContinueStatement(first))
 		} # }}}
-		reqDestructuringArray(first: Event, dMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqDestructuringArray(mut first: Event, dMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
 			var elements = []
@@ -1432,7 +1432,7 @@ export namespace Parser {
 				return @yep(AST.ArrayBindingElement(modifiers, null, type, null, first ?? type ?? @yep(), type ?? first ?? @yep()))
 			}
 		} # }}}
-		reqDestructuringObject(first: Event, dMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqDestructuringObject(mut first: Event, dMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
 			var elements = []
@@ -1531,7 +1531,7 @@ export namespace Parser {
 
 			return @yep(AST.ObjectBindingElement(modifiers, name, alias, defaultValue, first ?? name, defaultValue ?? alias ?? name))
 		} # }}}
-		reqDiscloseStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqDiscloseStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
 
 			unless @test(Token::LEFT_CURLY) {
@@ -1552,7 +1552,7 @@ export namespace Parser {
 
 			return @yep(AST.DiscloseDeclaration(name, members, first, @yes()))
 		} # }}}
-		reqDoStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqDoStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
 			var body = @reqBlock(NO, fMode)
@@ -1639,7 +1639,7 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		reqEnumMethod(attributes, modifiers, first: Event?): Event ~ SyntaxError { # {{{
+		reqEnumMethod(attributes, mut modifiers, mut first: Event?): Event ~ SyntaxError { # {{{
 			var dyn name
 			if @test(Token::ASYNC) {
 				var dyn async = @reqIdentifier()
@@ -1672,7 +1672,7 @@ export namespace Parser {
 			return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
 
 		} # }}}
-		reqEnumStatement(first: Event, modifiers = []): Event ~ SyntaxError { # {{{
+		reqEnumStatement(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
 			var name = @tryIdentifier()
 			unless name.ok {
 				return NO
@@ -1851,7 +1851,7 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		reqExportIdentifier(value: Event): Event ~ SyntaxError { # {{{
+		reqExportIdentifier(mut value: Event): Event ~ SyntaxError { # {{{
 			var dyn identifier = null
 
 			if @testNS(Token::DOT) {
@@ -1947,7 +1947,7 @@ export namespace Parser {
 				return @yep(AST.ExportNamedSpecifier(value, identifier ?? value))
 			}
 		} # }}}
-		reqExportStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqExportStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var attributes = []
 			var declarations = []
 
@@ -2048,7 +2048,7 @@ export namespace Parser {
 
 			return @yep(AST.ExportDeclaration(attributes, declarations, first, last))
 		} # }}}
-		reqExpression(eMode: ExpressionMode?, fMode: FunctionMode, terminator: MacroTerminator = null): Event ~ SyntaxError { # {{{
+		reqExpression(mut eMode: ExpressionMode?, fMode: FunctionMode, terminator: MacroTerminator = null): Event ~ SyntaxError { # {{{
 			if eMode == null {
 				if @mode ~~ ParserMode::MacroExpression &&
 					@scanner.test(Token::IDENTIFIER) &&
@@ -2140,7 +2140,7 @@ export namespace Parser {
 				return @yep(AST.ExpressionStatement(expression))
 			}
 		} # }}}
-		reqExternClassDeclaration(first: Event, modifiers = []): Event ~ SyntaxError { # {{{
+		reqExternClassDeclaration(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
 
 			var dyn generic
@@ -2179,12 +2179,12 @@ export namespace Parser {
 				return @yep(AST.ClassDeclaration([], name, null, extends, modifiers, [], first, extends ?? generic ?? name))
 			}
 		} # }}}
-		reqExternClassField(attributes, modifiers, name: Event, type: Event?, first: Event): Event ~ SyntaxError { # {{{
+		reqExternClassField(attributes, modifiers, name: Event, type: Event?, mut first: Event): Event ~ SyntaxError { # {{{
 			@reqNL_1M()
 
 			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, null, first, type ?? name))
 		} # }}}
-		reqExternClassMember(attributes, modifiers, first: Event?): Event ~ SyntaxError { # {{{
+		reqExternClassMember(attributes, modifiers, mut first: Event?): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
 
 			if @match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
@@ -2479,7 +2479,7 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		reqExternFunctionDeclaration(modifiers, first: Event): Event ~ SyntaxError { # {{{
+		reqExternFunctionDeclaration(modifiers, mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
 
 			if @test(Token::LEFT_ROUND) {
@@ -2497,7 +2497,7 @@ export namespace Parser {
 				return @yep(AST.FunctionDeclaration(name, null, modifiers, type, throws, null, first, throws ?? type ?? name))
 			}
 		} # }}}
-		reqExternNamespaceDeclaration(mode: ExternMode, first: Event, modifiers = []): Event ~ SyntaxError { # {{{
+		reqExternNamespaceDeclaration(mode: ExternMode, mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
 
 			if @test(Token::LEFT_CURLY) {
@@ -2540,7 +2540,7 @@ export namespace Parser {
 				return @yep(AST.NamespaceDeclaration([], modifiers, name, [], first, name))
 			}
 		} # }}}
-		reqExternOrImportStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqExternOrImportStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var attributes = []
 			var declarations = []
 
@@ -2591,7 +2591,7 @@ export namespace Parser {
 
 			return @yep(AST.ExternOrImportDeclaration(attributes, declarations, first, last))
 		} # }}}
-		reqExternOrRequireStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqExternOrRequireStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var attributes = []
 			var declarations = []
 
@@ -2645,7 +2645,7 @@ export namespace Parser {
 
 			return @yep(AST.ExternOrRequireDeclaration(attributes, declarations, first, last))
 		} # }}}
-		reqExternStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqExternStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var attributes = []
 			var declarations = []
 
@@ -2717,10 +2717,10 @@ export namespace Parser {
 				return @yep(AST.VariableDeclarator([], name, null, name, name))
 			}
 		} # }}}
-		reqFallthroughStatement(first: Event): Event { # {{{
+		reqFallthroughStatement(mut first: Event): Event { # {{{
 			return @yep(AST.FallthroughStatement(first))
 		} # }}}
-		reqForExpression(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqForExpression(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var modifiers = []
 
 			var mark = @mark()
@@ -2835,7 +2835,7 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		reqForStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqForStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var statement = @reqForExpression(first, fMode)
 
 			@NL_0M()
@@ -2912,7 +2912,7 @@ export namespace Parser {
 
 			return @yep(parameters, first, @yes())
 		} # }}}
-		reqFunctionStatement(first: Event, modifiers = []): Event ~ SyntaxError { # {{{
+		reqFunctionStatement(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
 			var parameters = @reqFunctionParameterList(FunctionMode::Function)
 			var type = @tryFunctionReturns()
@@ -2929,7 +2929,7 @@ export namespace Parser {
 				@throw('Identifier')
 			}
 		} # }}}
-		reqIfStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqIfStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn condition
 
 			if @test(Token::VAR) {
@@ -3221,7 +3221,7 @@ export namespace Parser {
 
 			members.push(member)
 		} # }}}
-		reqImplementStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqImplementStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var variable = @reqIdentifier()
 
 			if @test(Token::LEFT_ANGLE) {
@@ -3473,7 +3473,7 @@ export namespace Parser {
 
 			return specifiers
 		} # }}}
-		reqImportStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqImportStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
 			var attributes = []
@@ -3533,7 +3533,7 @@ export namespace Parser {
 
 			return @yep(AST.IncludeDeclarator(file))
 		} # }}}
-		reqIncludeStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqIncludeStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
 			var attributes = []
@@ -3584,7 +3584,7 @@ export namespace Parser {
 
 			return @yep(AST.IncludeDeclaration(attributes, declarations, first, last))
 		} # }}}
-		reqIncludeAgainStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqIncludeAgainStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
 			var attributes = []
@@ -3868,7 +3868,7 @@ export namespace Parser {
 				elements.push(@yep(AST.MacroElementLiteral(literal, first!?, last!?)))
 			}
 		} # }}}
-		reqMacroExpression(first: Event, terminator: MacroTerminator = MacroTerminator::NEWLINE): Event ~ SyntaxError { # {{{
+		reqMacroExpression(mut first: Event, terminator: MacroTerminator = MacroTerminator::NEWLINE): Event ~ SyntaxError { # {{{
 			var elements = []
 
 			if @test(Token::LEFT_CURLY) {
@@ -3946,7 +3946,7 @@ export namespace Parser {
 
 			return @yep(AST.MacroDeclaration(attributes, name, parameters, body, name, body))
 		} # }}}
-		reqMacroStatement(attributes = [], name: Event, first: Event): Event ~ SyntaxError { # {{{
+		reqMacroStatement(attributes = [], name: Event, mut first: Event): Event ~ SyntaxError { # {{{
 			var parameters = @reqMacroParameterList()
 
 			var body = @reqMacroBody()
@@ -4034,7 +4034,7 @@ export namespace Parser {
 				@throw(['Identifier', 'String', 'Template'])
 			}
 		} # }}}
-		reqNamespaceStatement(first: Event, name: Event): Event ~ SyntaxError { # {{{
+		reqNamespaceStatement(mut first: Event, name: Event): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
 			unless @test(Token::LEFT_CURLY) {
@@ -4128,7 +4128,7 @@ export namespace Parser {
 				@throw(['NewLine', 'EOF'])
 			}
 		} # }}}
-		reqObject(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqObject(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
 			var attributes = []
@@ -4237,7 +4237,7 @@ export namespace Parser {
 				return @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
 			}
 		} # }}}
-		reqOperand(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if (value = @tryOperand(eMode, fMode)).ok {
 				return value
 			}
@@ -4245,7 +4245,7 @@ export namespace Parser {
 				@throw()
 			}
 		} # }}}
-		reqOperation(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqOperation(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn mark = @mark()
 
 			var dyn operand, operator
@@ -4438,17 +4438,10 @@ export namespace Parser {
 			}
 
 			if ?mutModifier {
-				var modifiers = [mutModifier]
-				modifiers.push(restModifier) if ?restModifier
+				if @test(Token::IDENTIFIER) {
+					var modifiers = [mutModifier]
+					modifiers.push(restModifier) if ?restModifier
 
-				if @test(Token::AT) && fMode == FunctionMode::Macro {
-					var first = @yes()
-
-					modifiers.push(AST.Modifier(ModifierKind::AutoEvaluate, first))
-
-					parameters.push(@reqParameterIdendifier(modifiers, first, fMode))
-				}
-				else if @test(Token::IDENTIFIER) {
 					parameters.push(@reqParameterIdendifier(modifiers, mutModifier, fMode))
 
 					if @test(Token::COMMA) {
@@ -4614,7 +4607,7 @@ export namespace Parser {
 				return @yep(AST.Parameter(name, null, modifiers, null, first ?? name, name))
 			}
 		} # }}}
-		reqParenthesis(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqParenthesis(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @test(Token::NEWLINE) {
 				@commit().NL_0M()
 
@@ -4653,7 +4646,7 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		reqPostfixedOperand(operand: Event?, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqPostfixedOperand(mut operand: Event?, mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			operand = @reqUnaryOperand(operand, eMode, fMode)
 
 			var dyn operator
@@ -4680,7 +4673,7 @@ export namespace Parser {
 
 			return @reqPostfixedOperand(@yep(AST.UnaryExpression(operator, operand, operand, operator)), eMode, fMode)
 		} # }}}
-		reqPrefixedOperand(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqPrefixedOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			switch @matchM(M.PREFIX_OPERATOR) {
 				Token::DOT_DOT_DOT => {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind::Spread, @yes()))
@@ -4788,7 +4781,7 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		reqRequireStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqRequireStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var attributes = []
 			var declarations = []
 
@@ -4842,7 +4835,7 @@ export namespace Parser {
 
 			return @yep(AST.RequireDeclaration(attributes, declarations, first, last))
 		} # }}}
-		reqRequireOrExternStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqRequireOrExternStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var attributes = []
 			var declarations = []
 
@@ -4896,7 +4889,7 @@ export namespace Parser {
 
 			return @yep(AST.RequireOrExternDeclaration(attributes, declarations, first, last))
 		} # }}}
-		reqRequireOrImportStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqRequireOrImportStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var attributes = []
 			var declarations = []
 
@@ -4947,7 +4940,7 @@ export namespace Parser {
 
 			return @yep(AST.RequireOrImportDeclaration(attributes, declarations, first, last))
 		} # }}}
-		reqReturnStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqReturnStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @match(Token::IF, Token::UNLESS, Token::NEWLINE) == Token::IF {
 				@commit()
 
@@ -5208,7 +5201,7 @@ export namespace Parser {
 				@throw('String')
 			}
 		} # }}}
-		reqStructStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqStructStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @tryIdentifier()
 
 			unless name.ok {
@@ -5540,13 +5533,13 @@ export namespace Parser {
 				return operand
 			}
 			} # }}}
-		reqSwitchStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqSwitchStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var expression = @reqOperation(ExpressionMode::Default, fMode)
 			var clauses = @reqSwitchCaseList(fMode)
 
 			return @yep(AST.SwitchStatement(expression, clauses, first, clauses))
 		} # }}}
-		reqTemplateExpression(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqTemplateExpression(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var elements = []
 
 			while true {
@@ -5575,12 +5568,12 @@ export namespace Parser {
 
 			return @yep(AST.TemplateExpression(elements, first, @yes()))
 		} # }}}
-		reqThisExpression(first: Event): Event ~ SyntaxError { # {{{
+		reqThisExpression(mut first: Event): Event ~ SyntaxError { # {{{
 			var identifier = @reqIdentifier()
 
 			return @yep(AST.ThisExpression(identifier, first, identifier))
 		} # }}}
-		reqThrowStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqThrowStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var expression = @reqExpression(ExpressionMode::Default, fMode)
 
 			if @match(Token::IF, Token::UNLESS, Token::NEWLINE) == Token::IF {
@@ -5616,7 +5609,7 @@ export namespace Parser {
 				@throw()
 			}
 		} # }}}
-		reqTryCatchClause(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqTryCatchClause(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn binding
 			if @test(Token::IDENTIFIER) {
 				binding = @reqIdentifier()
@@ -5628,7 +5621,7 @@ export namespace Parser {
 
 			return @yep(AST.CatchClause(binding, null, body, first, body))
 		} # }}}
-		reqTryExpression(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqTryExpression(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var modifiers = []
 			if @testNS(Token::EXCLAMATION) {
 				modifiers.push(AST.Modifier(ModifierKind::Disabled, @yes()))
@@ -5646,7 +5639,7 @@ export namespace Parser {
 
 			return @yep(AST.TryExpression(modifiers, operand, default, first, default ?? operand))
 		} # }}}
-		reqTryStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqTryStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
 			var body = @tryBlock(fMode)
@@ -5702,7 +5695,7 @@ export namespace Parser {
 
 			return @yep(AST.TryStatement(body, catchClauses, catchClause, finalizer, first, last))
 		} # }}}
-		reqTupleStatement(first: Event): Event ~ SyntaxError { # {{{
+		reqTupleStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @tryIdentifier()
 
 			unless name.ok {
@@ -5899,7 +5892,7 @@ export namespace Parser {
 
 			return @yep(AST.TypeReference(modifiers, name, generic, name, last))
 		} # }}}
-		reqTypeGeneric(first: Event): Event ~ SyntaxError { # {{{
+		reqTypeGeneric(mut first: Event): Event ~ SyntaxError { # {{{
 			var entities = [@reqTypeEntity()]
 
 			while @test(Token::COMMA) {
@@ -5914,7 +5907,7 @@ export namespace Parser {
 
 			return @yes(entities)
 		} # }}}
-		reqTypeStatement(first: Event, name: Event): Event ~ SyntaxError { # {{{
+		reqTypeStatement(mut first: Event, name: Event): Event ~ SyntaxError { # {{{
 			unless @test(Token::EQUALS) {
 				@throw('=')
 			}
@@ -6249,7 +6242,7 @@ export namespace Parser {
 
 			return @yep(AST.VariableDeclarator([], name, type, name, type ?? name))
 		} # }}}
-		reqUnaryOperand(value: Event?, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqUnaryOperand(mut value: Event?, mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if value == null {
 				value = @reqOperand(eMode, fMode)
 			}
@@ -6396,13 +6389,13 @@ export namespace Parser {
 
 			return value
 		} # }}}
-		reqUnlessStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqUnlessStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var condition = @reqExpression(ExpressionMode::Default, fMode)
 			var whenFalse = @reqBlock(NO, fMode)
 
 			return @yep(AST.UnlessStatement(condition, whenFalse, first, whenFalse))
 		} # }}}
-		reqVarStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqVarStatement(mut first: Event, mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mark = @mark()
 			var modifiers = []
 			var variables = []
@@ -6525,7 +6518,7 @@ export namespace Parser {
 				@throw(['Identifier', '{', '['])
 			}
 		} # }}}
-		reqVariableName(object: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqVariableName(mut object: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if !object.ok {
 				if fMode == FunctionMode::Method && @test(Token::AT) {
 					object = @reqThisExpression(@yes())
@@ -6778,7 +6771,7 @@ export namespace Parser {
 
 			return @yep(AST.ExpressionStatement(statement))
 		} # }}}
-		tryAwaitExpression(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryAwaitExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			unless @test(Token::AWAIT) {
 				return NO
 			}
@@ -6922,7 +6915,7 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryClassMember(attributes, modifiers, staticModifier: Event?, staticMark: Marker, finalModifier: Event?, finalMark: Marker, first: Event?) ~ SyntaxError { # {{{
+		tryClassMember(attributes, modifiers, staticModifier: Event?, staticMark: Marker, finalModifier: Event?, finalMark: Marker, mut first: Event?) ~ SyntaxError { # {{{
 			if staticModifier.ok {
 				if finalModifier.ok {
 					var member = @tryClassMember(
@@ -6974,7 +6967,7 @@ export namespace Parser {
 				first
 			)
 		} # }}}
-		tryClassMember(attributes, modifiers, bits: ClassBits, first: Event?): Event ~ SyntaxError { # {{{
+		tryClassMember(mut attributes, modifiers, mut bits: ClassBits, mut first: Event?): Event ~ SyntaxError { # {{{
 			var mark = @mark()
 
 			if bits ~~ ClassBits::Attribute {
@@ -7168,7 +7161,7 @@ export namespace Parser {
 
 			return NO
 		} # }}}
-		tryClassMethod(attributes, modifiers, bits: ClassBits, first: Event?): Event ~ SyntaxError { # {{{
+		tryClassMethod(attributes, mut modifiers, mut bits: ClassBits, mut first: Event?): Event ~ SyntaxError { # {{{
 			var dyn name
 			if @test(Token::ASYNC) {
 				var dyn modifier = @reqIdentifier()
@@ -7197,7 +7190,7 @@ export namespace Parser {
 
 			return NO
 		} # }}}
-		tryClassProperty(attributes, modifiers, bits: ClassBits, first: Event?): Event ~ SyntaxError { # {{{
+		tryClassProperty(attributes, mut modifiers, mut bits: ClassBits, mut first: Event?): Event ~ SyntaxError { # {{{
 			var mark = @mark()
 
 			if @test(Token::AT) {
@@ -7233,7 +7226,7 @@ export namespace Parser {
 
 			return NO
 		} # }}}
-		tryClassStatement(first: Event, modifiers = []): Event ~ SyntaxError { # {{{
+		tryClassStatement(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
 			var name = @tryIdentifier()
 
 			unless name.ok {
@@ -7242,7 +7235,7 @@ export namespace Parser {
 
 			return @reqClassStatementBody(name, first, modifiers)
 		} # }}}
-		tryClassVariable(attributes, modifiers, bits: ClassBits, name: Event?, type: Event?, first: Event?): Event ~ SyntaxError { # {{{
+		tryClassVariable(attributes, mut modifiers, mut bits: ClassBits, mut name: Event?, mut type: Event?, mut first: Event?): Event ~ SyntaxError { # {{{
 			var mark = @mark()
 
 			if !?name {
@@ -7287,7 +7280,7 @@ export namespace Parser {
 
 			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
 		} # }}}
-		tryCreateExpression(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryCreateExpression(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @test(Token::LEFT_ROUND) {
 				@commit()
 
@@ -7329,7 +7322,7 @@ export namespace Parser {
 				return @yep(AST.CreateExpression(class, @yep([]), first, class))
 			}
 		} # }}}
-		tryDestroyStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryDestroyStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var variable = @tryVariableName(fMode)
 
 			if variable.ok {
@@ -7353,7 +7346,7 @@ export namespace Parser {
 
 			return NO
 		} # }}}
-		tryDestructuringArray(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryDestructuringArray(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var late dMode: DestructuringMode
 
 			if fMode == FunctionMode::Method {
@@ -7370,7 +7363,7 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryDestructuringObject(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryDestructuringObject(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var late dMode: DestructuringMode
 
 			if fMode == FunctionMode::Method {
@@ -7387,7 +7380,7 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryEnumMethod(attributes, modifiers, first: Event?): Event ~ SyntaxError { # {{{
+		tryEnumMethod(attributes, mut modifiers, mut first: Event?): Event ~ SyntaxError { # {{{
 			var dyn name
 			if @test(Token::ASYNC) {
 				var dyn first = @reqIdentifier()
@@ -7411,7 +7404,7 @@ export namespace Parser {
 
 			return @reqEnumMethod(attributes, modifiers, name, first ?? name)
 		} # }}}
-		tryExpression(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			try {
 				return @reqExpression(eMode, fMode)
 			}
@@ -7427,7 +7420,7 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryExternFunctionDeclaration(modifiers, first: Event): Event ~ SyntaxError { # {{{
+		tryExternFunctionDeclaration(modifiers, mut first: Event): Event ~ SyntaxError { # {{{
 			try {
 				return @reqExternFunctionDeclaration(modifiers, first)
 			}
@@ -7449,7 +7442,7 @@ export namespace Parser {
 				return null
 			}
 		} # }}}
-		tryFunctionExpression(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryFunctionExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if eMode ~~ ExpressionMode::NoAnonymousFunction {
 				return NO
 			}
@@ -7653,7 +7646,7 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		tryMacroStatement(first: Event): Event ~ SyntaxError { # {{{
+		tryMacroStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @tryIdentifier()
 
 			unless name.ok {
@@ -7722,7 +7715,7 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryNamespaceStatement(first: Event): Event ~ SyntaxError { # {{{
+		tryNamespaceStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @tryIdentifier()
 
 			unless name.ok {
@@ -7795,7 +7788,7 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryOperand(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @matchM(M.OPERAND) == Token::AT && fMode == FunctionMode::Method {
 				return @reqThisExpression(@yes())
 			}
@@ -7835,7 +7828,7 @@ export namespace Parser {
 				return @tryNumber()
 			}
 		} # }}}
-		tryRangeOperand(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryRangeOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var operand = @tryOperand(eMode, fMode)
 			if !operand.ok {
 				return NO
@@ -7843,7 +7836,7 @@ export namespace Parser {
 
 			return @reqPostfixedOperand(operand, eMode, fMode)
 		} # }}}
-		trySwitchExpression(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		trySwitchExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			unless @test(Token::SWITCH) {
 				return NO
 			}
@@ -7855,7 +7848,7 @@ export namespace Parser {
 
 			return @yep(AST.SwitchExpression(expression, clauses, first, clauses))
 		} # }}}
-		tryTryExpression(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryTryExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			unless @test(Token::TRY) {
 				return NO
 			}
@@ -7893,7 +7886,7 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		tryTypeStatement(first: Event): Event ~ SyntaxError { # {{{
+		tryTypeStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @tryIdentifier()
 
 			unless name.ok {
@@ -7902,7 +7895,7 @@ export namespace Parser {
 
 			return @reqTypeStatement(first, name)
 		} # }}}
-		tryUntilStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryUntilStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var condition = @tryExpression(ExpressionMode::Default, fMode)
 
 			unless condition.ok {
@@ -7949,7 +7942,7 @@ export namespace Parser {
 
 			return @reqVariableName(object, fMode)
 		} # }}}}
-		tryWhileStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryWhileStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn condition
 
 			if @test(Token::VAR) {
