@@ -688,7 +688,7 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		reqAttribute(mut first: Event): Event ~ SyntaxError { # {{{
+		reqAttribute(mut first: Event, isStatement: Boolean): Event ~ SyntaxError { # {{{
 			var declaration = @reqAttributeMember()
 
 			unless @test(Token::RIGHT_SQUARE) {
@@ -697,11 +697,13 @@ export namespace Parser {
 
 			var last = @yes()
 
-			unless @test(Token::NEWLINE) {
-				@throw('NewLine')
-			}
+			if isStatement {
+				unless @test(Token::NEWLINE) {
+					@throw('NewLine')
+				}
 
-			@commit()
+				@commit()
+			}
 
 			@scanner.skipComments()
 
@@ -4333,6 +4335,12 @@ export namespace Parser {
 			}
 		} # }}}
 		reqParameter(parameters: Array<Event>, pMode: DestructuringMode, fMode: FunctionMode): Boolean ~ SyntaxError { # {{{
+			var mut firstAttr = null
+			var attributes = @stackInlineAttributes([])
+			if attributes.length > 0 {
+				firstAttr = attributes[0]
+			}
+
 			var mutMark = @mark()
 			var mut mutModifier = null
 
@@ -4366,10 +4374,10 @@ export namespace Parser {
 
 						var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-						parameters.push(@yep(AST.Parameter(name, type, modifiers, defaultValue, name, defaultValue)))
+						parameters.push(@yep(AST.Parameter(attributes, modifiers, name, type, defaultValue, firstAttr ?? name, defaultValue)))
 					}
 					else {
-						parameters.push(@yep(AST.Parameter(name, type, modifiers, null, name, type)))
+						parameters.push(@yep(AST.Parameter(attributes, modifiers, name, type, null, firstAttr ?? name, type)))
 					}
 				}
 				else if @token == Token::EQUALS {
@@ -4377,10 +4385,10 @@ export namespace Parser {
 
 					var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-					parameters.push(@yep(AST.Parameter(name, null, modifiers, defaultValue, name, defaultValue)))
+					parameters.push(@yep(AST.Parameter(attributes, modifiers, name, null, defaultValue, firstAttr ?? name, defaultValue)))
 				}
 				else {
-					parameters.push(@yep(AST.Parameter(name, null, modifiers, null, name, name)))
+					parameters.push(@yep(AST.Parameter(attributes, modifiers, name, null, null, firstAttr ?? name, name)))
 				}
 
 				if @test(Token::COMMA) {
@@ -4442,7 +4450,7 @@ export namespace Parser {
 					var modifiers = [mutModifier]
 					modifiers.push(restModifier) if ?restModifier
 
-					parameters.push(@reqParameterIdendifier(modifiers, mutModifier, fMode))
+					parameters.push(@reqParameterIdendifier(attributes, modifiers, firstAttr ?? mutModifier, fMode))
 
 					if @test(Token::COMMA) {
 						@commit()
@@ -4471,10 +4479,12 @@ export namespace Parser {
 
 					modifiers.push(AST.Modifier(ModifierKind::AutoEvaluate, first))
 
-					parameters.push(@reqParameterIdendifier(modifiers, first, fMode))
+					parameters.push(@reqParameterIdendifier(attributes, modifiers, firstAttr ?? first, fMode))
 				}
 				else if fMode == FunctionMode::Method && pMode ~~ DestructuringMode::THIS_ALIAS {
-					parameters.push(@reqParameterThis(modifiers, @yes(), fMode))
+					var first = @yes()
+
+					parameters.push(@reqParameterThis(attributes, modifiers, firstAttr ?? first, fMode))
 				}
 				else {
 					@throw()
@@ -4490,7 +4500,7 @@ export namespace Parser {
 			else if @test(Token::IDENTIFIER) {
 				var first = modifiers.length == 0 ? null : modifiers[0]
 
-				parameters.push(@reqParameterIdendifier(modifiers, first, fMode))
+				parameters.push(@reqParameterIdendifier(attributes, modifiers, firstAttr ?? first, fMode))
 
 				if @test(Token::COMMA) {
 					@commit()
@@ -4511,15 +4521,15 @@ export namespace Parser {
 
 					var type = @reqTypeVar()
 
-					parameters.push(@yep(AST.Parameter(null, type, modifiers, null, first, type)))
+					parameters.push(@yep(AST.Parameter(attributes, modifiers, null, type, null, firstAttr ?? first, type)))
 				}
 				else if @test(Token::QUESTION) {
 					var type = @yep(AST.Nullable(@yes()))
 
-					parameters.push(@yep(AST.Parameter(null, type, modifiers, null, first, type)))
+					parameters.push(@yep(AST.Parameter(attributes, modifiers, null, type, null, firstAttr ?? first, type)))
 				}
 				else {
-					parameters.push(@yep(AST.Parameter(null, null, modifiers, null, first, first)))
+					parameters.push(@yep(AST.Parameter(attributes, modifiers, null, null, null, firstAttr ?? first, first)))
 				}
 
 				if @test(Token::COMMA) {
@@ -4530,7 +4540,7 @@ export namespace Parser {
 				}
 			}
 			else if modifiers.length != 0 {
-				parameters.push(@yep(AST.Parameter(null, null, modifiers, null, modifiers[0], modifiers[0])))
+				parameters.push(@yep(AST.Parameter(attributes, modifiers, null, null, null, firstAttr ?? modifiers[0], modifiers[0])))
 
 				if @test(Token::COMMA) {
 					@commit()
@@ -4545,7 +4555,7 @@ export namespace Parser {
 
 			return true
 		} # }}}
-		reqParameterIdendifier(modifiers, first?, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqParameterIdendifier(attributes, modifiers, first?, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var identifier = @reqIdentifier()
 
 			if @test(Token::EXCLAMATION) {
@@ -4562,10 +4572,10 @@ export namespace Parser {
 
 					var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-					return @yep(AST.Parameter(identifier, type, modifiers, defaultValue, first ?? identifier, defaultValue))
+					return @yep(AST.Parameter(attributes, modifiers, identifier, type, defaultValue, first ?? identifier, defaultValue))
 				}
 				else {
-					return @yep(AST.Parameter(identifier, type, modifiers, null, first ?? identifier, type))
+					return @yep(AST.Parameter(attributes, modifiers, identifier, type, null, first ?? identifier, type))
 				}
 			}
 			else if @token == Token::EQUALS {
@@ -4573,7 +4583,7 @@ export namespace Parser {
 
 				var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.Parameter(identifier, null, modifiers, defaultValue, first ?? identifier, defaultValue))
+				return @yep(AST.Parameter(attributes, modifiers, identifier, null, defaultValue, first ?? identifier, defaultValue))
 			}
 			else if @token == Token::QUESTION {
 				var type = @yep(AST.Nullable(@yes()))
@@ -4583,17 +4593,17 @@ export namespace Parser {
 
 					var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-					return @yep(AST.Parameter(identifier, type, modifiers, defaultValue, first ?? identifier, defaultValue))
+					return @yep(AST.Parameter(attributes, modifiers, identifier, type, defaultValue, first ?? identifier, defaultValue))
 				}
 				else {
-					return @yep(AST.Parameter(identifier, type, modifiers, null, first ?? identifier, type))
+					return @yep(AST.Parameter(attributes, modifiers, identifier, type, null, first ?? identifier, type))
 				}
 			}
 			else {
-				return @yep(AST.Parameter(identifier, null, modifiers, null, first ?? identifier, identifier))
+				return @yep(AST.Parameter(attributes, modifiers, identifier, null, null, first ?? identifier, identifier))
 			}
 		} # }}}
-		reqParameterThis(modifiers, first, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqParameterThis(attributes, modifiers, first, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var name = @reqThisExpression(first)
 
 			if @test(Token::EQUALS) {
@@ -4601,10 +4611,10 @@ export namespace Parser {
 
 				var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.Parameter(name, null, modifiers, defaultValue, first ?? name, defaultValue))
+				return @yep(AST.Parameter(attributes, modifiers, name, null, defaultValue, first ?? name, defaultValue))
 			}
 			else {
-				return @yep(AST.Parameter(name, null, modifiers, null, first ?? name, name))
+				return @yep(AST.Parameter(attributes, modifiers, name, null, null, first ?? name, name))
 			}
 		} # }}}
 		reqParenthesis(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -6555,6 +6565,13 @@ export namespace Parser {
 
 			return object
 		} # }}}
+		stackInlineAttributes(attributes: Array): Array ~ SyntaxError { # {{{
+			while @test(Token::HASH_LEFT_SQUARE) {
+				attributes.push(@reqAttribute(@yes(), false))
+			}
+
+			return attributes
+		} # }}}
 		stackInnerAttributes(attributes: Array): Boolean ~ SyntaxError { # {{{
 			if @test(Token::HASH_EXCLAMATION_LEFT_SQUARE) {
 				do {
@@ -6579,7 +6596,7 @@ export namespace Parser {
 		} # }}}
 		stackOuterAttributes(attributes: Array): Array ~ SyntaxError { # {{{
 			while @test(Token::HASH_LEFT_SQUARE) {
-				attributes.push(@reqAttribute(@yes()))
+				attributes.push(@reqAttribute(@yes(), true))
 
 				@NL_0M()
 			}

@@ -1439,14 +1439,16 @@ namespace AST {
 		func Parameter(name) { # {{{
 			return location({
 				kind: NodeKind::Parameter
+				attributes: []
 				modifiers: []
 				name: name.value
 			}, name, name)
 		} # }}}
 
-		func Parameter(name?, type?, modifiers, defaultValue?, first, last) { # {{{
+		func Parameter(attributes, modifiers, name?, type?, defaultValue?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::Parameter
+				attributes: [attribute.value for attribute in attributes]
 				modifiers: modifiers
 			}, first, last)
 

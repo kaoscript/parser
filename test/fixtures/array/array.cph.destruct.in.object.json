@@ -1,0 +1,225 @@
+{
+  "kind": 74,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 49,
+      "attributes": [],
+      "name": {
+        "kind": 52,
+        "name": "foobar",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 12
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      },
+      "parameters": [
+        {
+          "kind": 83,
+          "attributes": [],
+          "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 13
+          },
+          "end": {
+            "line": 1,
+            "column": 25
+          },
+          "name": {
+            "kind": 52,
+            "name": "items",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 18
+            }
+          },
+          "type": {
+            "kind": 116,
+            "modifiers": [],
+            "typeName": {
+              "kind": 52,
+              "name": "Array",
+              "start": {
+                "line": 1,
+                "column": 20
+              },
+              "end": {
+                "line": 1,
+                "column": 25
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 20
+            },
+            "end": {
+              "line": 1,
+              "column": 25
+            }
+          }
+        }
+      ],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 12,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 90,
+            "attributes": [],
+            "value": {
+              "kind": 3,
+              "body": {
+                "kind": 52,
+                "name": "key",
+                "start": {
+                  "line": 2,
+                  "column": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 13
+                }
+              },
+              "loop": {
+                "kind": 46,
+                "attributes": [],
+                "modifiers": [
+                  {
+                    "kind": 6,
+                    "start": {
+                      "line": 2,
+                      "column": 18
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 21
+                    }
+                  },
+                  {
+                    "kind": 12,
+                    "start": {
+                      "line": 2,
+                      "column": 18
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 21
+                    }
+                  }
+                ],
+                "expression": {
+                  "kind": 52,
+                  "name": "items",
+                  "start": {
+                    "line": 2,
+                    "column": 33
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 38
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 14
+                },
+                "end": {
+                  "line": 2,
+                  "column": 38
+                },
+                "value": {
+                  "kind": 79,
+                  "elements": [
+                    {
+                      "kind": 11,
+                      "name": {
+                        "kind": 52,
+                        "name": "key",
+                        "start": {
+                          "line": 2,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 27
+                        }
+                      },
+                      "modifiers": [],
+                      "start": {
+                        "line": 2,
+                        "column": 24
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 27
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 2,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 29
+                  }
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 39
+              }
+            },
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 39
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 27
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 2
+  }
+}
