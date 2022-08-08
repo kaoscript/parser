@@ -168,16 +168,6 @@ export namespace Parser {
 		} # }}}
 		test(...tokens: Token): Boolean => tokens.indexOf(@match(...tokens)) != -1
 		testNS(...tokens: Token): Boolean => tokens.indexOf(@matchNS(...tokens)) != -1
-		// testNS(token): Boolean { # {{{
-		// 	if @scanner.testNS(token) {
-		// 		@token = token
-
-		// 		return true
-		// 	}
-		// 	else {
-		// 		return false
-		// 	}
-		// } # }}}
 		throw(): Never ~ SyntaxError { # {{{
 			throw @error(`Unexpected \(@scanner.toQuote())`)
 		} # }}}
@@ -1097,20 +1087,54 @@ export namespace Parser {
 		} # }}}
 		reqClassMethod(attributes, modifiers, mut bits: ClassBits, name: Event, round: Event?, mut first: Event?): Event ~ SyntaxError { # {{{
 			var parameters = @reqClassMethodParameterList(round)
-			var type = @tryMethodReturns(bits !~ ClassBits::NoBody)
-			var throws = @tryFunctionThrows()
 
-			if bits ~~ ClassBits::NoBody {
+			if bits !~ ClassBits::NoBody && parameters.value.length == 0 && @test(Token::EQUALS) {
+				@commit()
+
+				unless @test(Token::AT) {
+					@throw('@')
+				}
+
+				@commit()
+
+				var variable = @reqIdentifier()
+
+				unless @testNS(Token::DOT) {
+					@throw('.')
+				}
+
+				@commit()
+
+				var method = @reqIdentifier()
+
+				var mut value = null
+
+				if @test(Token::QUESTION_QUESTION) {
+					@commit()
+
+					value = @reqExpression(ExpressionMode::Default, FunctionMode::Method)
+				}
+
 				@reqNL_1M()
 
-				return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
+				return @yep(AST.MethodAliasDeclaration(attributes, modifiers, name, variable, method, value, first, value ?? variable))
 			}
 			else {
-				var body = @tryFunctionBody(FunctionMode::Method)
+				var type = @tryMethodReturns(bits !~ ClassBits::NoBody)
+				var throws = @tryFunctionThrows()
 
-				@reqNL_1M()
+				if bits ~~ ClassBits::NoBody {
+					@reqNL_1M()
 
-				return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
+					return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
+				}
+				else {
+					var body = @tryFunctionBody(FunctionMode::Method)
+
+					@reqNL_1M()
+
+					return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
+				}
 			}
 		} # }}}
 		reqClassMethodParameterList(mut top: Event = NO): Event ~ SyntaxError { # {{{

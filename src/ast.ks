@@ -1238,6 +1238,23 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func MethodAliasDeclaration(attributes, modifiers, name, variable, method, defaultValue?, first, last) { # {{{
+			var node = location({
+				kind: NodeKind::MethodAliasDeclaration
+				attributes: [attribute.value for attribute in attributes]
+				modifiers: [modifier.value for modifier in modifiers]
+				name: name.value
+				variable: variable.value
+				method: method.value
+			}, first, last)
+
+			if defaultValue != null {
+				node.defaultValue = defaultValue.value
+			}
+
+			return node
+		} # }}}
+
 		func MethodDeclaration(attributes, modifiers, name, parameters, type?, throws?, body?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::MethodDeclaration

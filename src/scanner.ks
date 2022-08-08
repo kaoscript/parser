@@ -2721,6 +2721,14 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::QUESTION_QUESTION)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 63 && that.charAt(1) == 63 {
+			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::RETURN)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if	c == 114 &&
 			that.charAt(1) == 101 &&
