@@ -124,6 +124,7 @@ export namespace Parser {
 		mark(): Marker => @scanner.mark()
 		match(...tokens: Token): Token => @token = @scanner.match(...tokens)
 		matchM(matcher: Function): Token => @token = @scanner.matchM(matcher)
+		matchNS(...tokens: Token): Token => @token = @scanner.matchNS(...tokens)
 		position(): Range => @scanner.position()
 		printDebug(prefix: String? = null): Void { # {{{
 			if prefix? {
@@ -166,16 +167,17 @@ export namespace Parser {
 			}
 		} # }}}
 		test(...tokens: Token): Boolean => tokens.indexOf(@match(...tokens)) != -1
-		testNS(token): Boolean { # {{{
-			if @scanner.testNS(token) {
-				@token = token
+		testNS(...tokens: Token): Boolean => tokens.indexOf(@matchNS(...tokens)) != -1
+		// testNS(token): Boolean { # {{{
+		// 	if @scanner.testNS(token) {
+		// 		@token = token
 
-				return true
-			}
-			else {
-				return false
-			}
-		} # }}}
+		// 		return true
+		// 	}
+		// 	else {
+		// 		return false
+		// 	}
+		// } # }}}
 		throw(): Never ~ SyntaxError { # {{{
 			throw @error(`Unexpected \(@scanner.toQuote())`)
 		} # }}}
@@ -1684,7 +1686,7 @@ export namespace Parser {
 			if @test(Token::LEFT_ANGLE) {
 				@commit()
 
-				type = @reqTypeEntity(NO)
+				type = @reqTypeEntity(false)
 
 				unless @test(Token::RIGHT_ANGLE) {
 					@throw('>')
@@ -3637,13 +3639,13 @@ export namespace Parser {
 
 			return @yep(AST.IncludeAgainDeclaration(attributes, declarations, first, last))
 		} # }}}
-		reqJunctionExpression(operator, eMode, fMode, values, type) ~ SyntaxError { # {{{
+		reqJunctionExpression(operator, eMode, fMode, values, type: Boolean) ~ SyntaxError { # {{{
 			@NL_0M()
 
 			var operands = [values.pop()]
 
 			if type {
-				operands.push(@reqTypeEntity(NO).value)
+				operands.push(@reqTypeEntity(false).value)
 			}
 			else {
 				operands.push(@reqBinaryOperand(eMode, fMode).value)
@@ -3659,7 +3661,7 @@ export namespace Parser {
 					@NL_0M()
 
 					if type {
-						operands.push(@reqTypeEntity(NO).value)
+						operands.push(@reqTypeEntity(false).value)
 					}
 					else {
 						operands.push(@reqBinaryOperand(eMode, fMode).value)
@@ -4185,7 +4187,7 @@ export namespace Parser {
 					var throws = @tryFunctionThrows()
 					var body = @reqFunctionBody(fMode)
 
-					return @yep(AST.ObjectMember(attributes, name, @yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, parameters, body)), first ?? async ?? name, body))
+					return @yep(AST.ObjectMember(attributes, [], name, null, @yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, parameters, body)), first ?? async ?? name, body))
 				}
 				else {
 					@rollback(marker)
@@ -4225,7 +4227,7 @@ export namespace Parser {
 
 				var value = @reqExpression(null, fMode, MacroTerminator::Object)
 
-				return @yep(AST.ObjectMember(attributes, name, value, first ?? name, value))
+				return @yep(AST.ObjectMember(attributes, [], name, null, value, first ?? name, value))
 			}
 			else if @test(Token::LEFT_ROUND) {
 				var parameters = @reqFunctionParameterList(fMode)
@@ -4233,7 +4235,7 @@ export namespace Parser {
 				var throws = @tryFunctionThrows()
 				var body = @reqFunctionBody(fMode)
 
-				return @yep(AST.ObjectMember(attributes, name, @yep(AST.FunctionExpression(parameters, null, type, throws, body, parameters, body)), first ?? name, body))
+				return @yep(AST.ObjectMember(attributes, [], name, null, @yep(AST.FunctionExpression(parameters, null, type, throws, body, parameters, body)), first ?? name, body))
 			}
 			else {
 				return @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
@@ -4293,14 +4295,14 @@ export namespace Parser {
 						break
 					}
 					else {
-						values.push(AST.BinaryExpression(operator), @reqTypeEntity(NO).value)
+						values.push(AST.BinaryExpression(operator), @reqTypeEntity(false).value)
 
 						type = true
 
 						continue
 					}
 				}
-				else if @test(Token::QUESTION) {
+				else if @test(Token::QUESTION_OPERATOR) {
 					values.push(AST.ConditionalExpression(@yes()))
 
 					values.push(@reqExpression(ExpressionMode::Default, fMode).value)
@@ -5444,10 +5446,12 @@ export namespace Parser {
 							if @test(Token::COLON) {
 								@commit()
 
-								members.push(@yep(AST.ObjectMember(name, @reqSwitchConditionValue(fMode))))
+								var value = @reqSwitchConditionValue(fMode)
+
+								members.push(@yep(AST.ObjectMember([], [], name, null, value, name, value)))
 							}
 							else {
-								members.push(@yep(AST.ObjectMember(name)))
+								members.push(@yep(AST.ObjectMember([], [], name, null, null, name, name)))
 							}
 
 							if @test(Token::COMMA) {
@@ -5827,7 +5831,7 @@ export namespace Parser {
 
 			return @yep(AST.TupleDeclaration(attributes, modifiers, name, extends, elements, first, last))
 		} # }}}
-		reqTypeEntity(nullable = null): Event ~ SyntaxError { # {{{
+		reqTypeEntity(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
 			var marker = @mark()
 
 			if @match(Token::ASYNC, Token::FUNC, Token::LEFT_ROUND) == Token::ASYNC {
@@ -5885,6 +5889,8 @@ export namespace Parser {
 				}
 				while @testNS(Token::DOT)
 			}
+
+			var first = modifiers[0] ?? name
 			var dyn last = name
 
 			var dyn generic
@@ -5892,15 +5898,52 @@ export namespace Parser {
 				generic = last = @reqTypeGeneric(@yes())
 			}
 
-			var modifiers =[]
+			var mut genMarker = @mark()
+			var mut type = AST.TypeReference(modifiers, name, generic, first, last)
 
-			if nullable == null && @testNS(Token::QUESTION) {
-				last = @yes()
+			while @testNS(Token::QUESTION, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+				if @token == Token::QUESTION {
+					var modifier = @yep(AST.Modifier(ModifierKind::Nullable, @yes()))
 
-				modifiers.push(AST.Modifier(ModifierKind::Nullable, last))
+					if !@testNS(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+						@rollback(genMarker)
+
+						break
+					}
+
+					AST.pushModifier(type, modifier)
+				}
+
+				if @token == Token::LEFT_CURLY {
+					@commit()
+
+					unless @test(Token::RIGHT_CURLY) {
+						@throw('}')
+					}
+
+					type = AST.ObjectType(type, type, @yes())
+				}
+				else {
+					@commit()
+
+					unless @test(Token::RIGHT_SQUARE) {
+						@throw(']')
+					}
+
+					type = AST.ArrayType(type, type, @yes())
+				}
+
+				genMarker = @mark()
 			}
 
-			return @yep(AST.TypeReference(modifiers, name, generic, name, last))
+			if nullable && @testNS(Token::QUESTION) {
+				var modifier = @yep(AST.Modifier(ModifierKind::Nullable, @yes()))
+
+				return @yep(AST.pushModifier(type, modifier))
+			}
+			else {
+				return @yep(type)
+			}
 		} # }}}
 		reqTypeGeneric(mut first: Event): Event ~ SyntaxError { # {{{
 			var entities = [@reqTypeEntity()]
@@ -5922,16 +5965,14 @@ export namespace Parser {
 				@throw('=')
 			}
 
-			@commit()
+			@commit().NL_0M()
 
 			var type = @reqTypeVar(true)
 
 			return @yep(AST.TypeAliasDeclaration(name, type, first, type))
 		} # }}}
-		reqTypeVar(isMultiLines: Boolean = false): Event ~ SyntaxError { # {{{
-			@NL_0M() if isMultiLines
-
-			var type = @reqTypeReference(isMultiLines)
+		reqTypeVar(modifiers: Array = [], isMultiLines: Boolean = false): Event ~ SyntaxError { # {{{
+			var type = @reqTypeReference(modifiers, isMultiLines)
 
 			var dyn mark = @mark()
 
@@ -6107,9 +6148,9 @@ export namespace Parser {
 				type = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
 			}
 
-			return @yep(AST.ObjectMemberReference(identifier, type))
+			return @yep(AST.ObjectMember([], [], identifier, type, null, identifier, type))
 		} # }}}
-		reqTypeReference(isMultiLines: Boolean): Event ~ SyntaxError { # {{{
+		reqTypeReference(modifiers: Array = [], isMultiLines: Boolean): Event ~ SyntaxError { # {{{
 			if @match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
 				var first = @yes()
 				var properties = []
@@ -6117,7 +6158,7 @@ export namespace Parser {
 				@NL_0M()
 
 				until @test(Token::RIGHT_CURLY) {
-					if @match(Token::ASYNC, Token::FUNC, Token::IDENTIFIER) == Token::IDENTIFIER {
+					if @match(Token::ASYNC, Token::DOT_DOT_DOT, Token::FUNC, Token::IDENTIFIER) == Token::IDENTIFIER {
 						properties.push(@reqTypeObjectMember())
 					}
 					else if @token == Token::ASYNC {
@@ -6138,7 +6179,7 @@ export namespace Parser {
 
 							var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
 
-							properties.push(@yep(AST.ObjectMemberReference(identifier, objectType)))
+							properties.push(@yep(AST.ObjectMember([], [], identifier, objectType, null, identifier, objectType)))
 						}
 						else {
 							@rollback(marker)
@@ -6159,13 +6200,20 @@ export namespace Parser {
 
 							var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
 
-							properties.push(@yep(AST.ObjectMemberReference(identifier, objectType)))
+							properties.push(@yep(AST.ObjectMember([], [], identifier, objectType, null, identifier, objectType)))
 						}
 						else {
 							@rollback(marker)
 
 							properties.push(@reqTypeObjectMember())
 						}
+					}
+					else if @token == Token::DOT_DOT_DOT {
+						var first = @yes()
+						var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
+						var type = @reqTypeVar()
+
+						properties.push(@yep(AST.ObjectMember([], [modifier], null, type, null, first, type)))
 					}
 					else {
 						@throw(['async', 'func', 'Identifier'])
@@ -6206,7 +6254,17 @@ export namespace Parser {
 						@commit().NL_0M()
 					}
 					else {
-						elements.push(@reqTypeVar(isMultiLines))
+						@NL_0M()
+
+						var modifiers = []
+
+						if @test(Token::DOT_DOT_DOT) {
+							var first = @yes()
+
+							modifiers.push(@yep(AST.RestModifier(0, Infinity, first, first)))
+						}
+
+						elements.push(@reqTypeVar(modifiers, isMultiLines))
 
 						if @test(Token::COMMA) {
 							@commit().NL_0M()
@@ -6227,7 +6285,7 @@ export namespace Parser {
 				return @yep(AST.ArrayReference(elements, first, @yes()))
 			}
 			else {
-				return @reqTypeEntity()
+				return @reqTypeEntity(modifiers)
 			}
 		} # }}}
 		reqTypedVariable(fMode: FunctionMode): Event ~ SyntaxError { # {{{

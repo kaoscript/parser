@@ -1,17 +1,17 @@
 {
-  "kind": 74,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 122,
+      "kind": 124,
       "modifiers": [],
       "attributes": [],
       "variables": [
         {
-          "kind": 123,
+          "kind": 125,
           "modifiers": [],
           "name": {
-            "kind": 52,
+            "kind": 53,
             "name": "foo",
             "start": {
               "line": 1,
@@ -41,14 +41,23 @@
         "column": 2
       },
       "init": {
-        "kind": 80,
+        "kind": 81,
         "attributes": [],
         "properties": [
           {
-            "kind": 81,
+            "kind": 82,
             "attributes": [],
+            "modifiers": [],
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 14
+            },
             "name": {
-              "kind": 52,
+              "kind": 53,
               "name": "bar",
               "start": {
                 "line": 2,
@@ -60,7 +69,7 @@
               }
             },
             "value": {
-              "kind": 68,
+              "kind": 69,
               "value": "hello",
               "start": {
                 "line": 2,
@@ -70,14 +79,6 @@
                 "line": 2,
                 "column": 14
               }
-            },
-            "start": {
-              "line": 2,
-              "column": 2
-            },
-            "end": {
-              "line": 2,
-              "column": 14
             }
           }
         ],

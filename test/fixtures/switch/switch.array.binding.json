@@ -1,9 +1,9 @@
 {
-  "kind": 74,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 122,
+      "kind": 124,
       "modifiers": [
         {
           "kind": 9,
@@ -20,10 +20,10 @@
       "attributes": [],
       "variables": [
         {
-          "kind": 123,
+          "kind": 125,
           "modifiers": [],
           "name": {
-            "kind": 52,
+            "kind": 53,
             "name": "somePoint",
             "start": {
               "line": 1,
@@ -56,7 +56,7 @@
         "kind": 4,
         "values": [
           {
-            "kind": 78,
+            "kind": 79,
             "value": 1,
             "start": {
               "line": 1,
@@ -68,7 +68,7 @@
             }
           },
           {
-            "kind": 78,
+            "kind": 79,
             "value": 1,
             "start": {
               "line": 1,
@@ -91,10 +91,10 @@
       }
     },
     {
-      "kind": 104,
+      "kind": 106,
       "attributes": [],
       "expression": {
-        "kind": 52,
+        "kind": 53,
         "name": "somePoint",
         "start": {
           "line": 3,
@@ -107,18 +107,18 @@
       },
       "clauses": [
         {
-          "kind": 97,
+          "kind": 99,
           "body": {
-            "kind": 14,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 71,
+              "kind": 72,
               "modifiers": [],
               "object": {
-                "kind": 52,
+                "kind": 53,
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -130,7 +130,7 @@
                 }
               },
               "property": {
-                "kind": 52,
+                "kind": 53,
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -152,7 +152,7 @@
             },
             "arguments": [
               {
-                "kind": 68,
+                "kind": 69,
                 "value": "(0, 0) is at the origin",
                 "start": {
                   "line": 4,
@@ -183,10 +183,10 @@
           },
           "conditions": [
             {
-              "kind": 98,
+              "kind": 100,
               "values": [
                 {
-                  "kind": 78,
+                  "kind": 79,
                   "value": 0,
                   "start": {
                     "line": 4,
@@ -198,7 +198,7 @@
                   }
                 },
                 {
-                  "kind": 78,
+                  "kind": 79,
                   "value": 0,
                   "start": {
                     "line": 4,
@@ -223,18 +223,18 @@
           "bindings": []
         },
         {
-          "kind": 97,
+          "kind": 99,
           "body": {
-            "kind": 14,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 71,
+              "kind": 72,
               "modifiers": [],
               "object": {
-                "kind": 52,
+                "kind": 53,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -246,7 +246,7 @@
                 }
               },
               "property": {
-                "kind": 52,
+                "kind": 53,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -268,7 +268,7 @@
             },
             "arguments": [
               {
-                "kind": 68,
+                "kind": 69,
                 "value": "(\\(x), 0) is on the x-axis",
                 "start": {
                   "line": 5,
@@ -299,10 +299,10 @@
           },
           "conditions": [
             {
-              "kind": 98,
+              "kind": 100,
               "values": [
                 {
-                  "kind": 82,
+                  "kind": 84,
                   "modifiers": [],
                   "start": {
                     "line": 5,
@@ -314,7 +314,7 @@
                   }
                 },
                 {
-                  "kind": 78,
+                  "kind": 79,
                   "value": 0,
                   "start": {
                     "line": 5,
@@ -341,7 +341,7 @@
               "kind": 2,
               "elements": [
                 {
-                  "kind": 11,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 5,
@@ -352,7 +352,7 @@
                     "column": 18
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "x",
                     "start": {
                       "line": 5,
@@ -365,7 +365,7 @@
                   }
                 },
                 {
-                  "kind": 11,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 5,
@@ -389,18 +389,18 @@
           ]
         },
         {
-          "kind": 97,
+          "kind": 99,
           "body": {
-            "kind": 14,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 71,
+              "kind": 72,
               "modifiers": [],
               "object": {
-                "kind": 52,
+                "kind": 53,
                 "name": "console",
                 "start": {
                   "line": 6,
@@ -412,7 +412,7 @@
                 }
               },
               "property": {
-                "kind": 52,
+                "kind": 53,
                 "name": "log",
                 "start": {
                   "line": 6,
@@ -434,7 +434,7 @@
             },
             "arguments": [
               {
-                "kind": 68,
+                "kind": 69,
                 "value": "(0, \\(y)) is on the y-axis",
                 "start": {
                   "line": 6,
@@ -465,10 +465,10 @@
           },
           "conditions": [
             {
-              "kind": 98,
+              "kind": 100,
               "values": [
                 {
-                  "kind": 78,
+                  "kind": 79,
                   "value": 0,
                   "start": {
                     "line": 6,
@@ -480,7 +480,7 @@
                   }
                 },
                 {
-                  "kind": 82,
+                  "kind": 84,
                   "modifiers": [],
                   "start": {
                     "line": 6,
@@ -507,7 +507,7 @@
               "kind": 2,
               "elements": [
                 {
-                  "kind": 11,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 6,
@@ -519,7 +519,7 @@
                   }
                 },
                 {
-                  "kind": 11,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 6,
@@ -530,7 +530,7 @@
                     "column": 21
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "y",
                     "start": {
                       "line": 6,
@@ -555,18 +555,18 @@
           ]
         },
         {
-          "kind": 97,
+          "kind": 99,
           "body": {
-            "kind": 14,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 71,
+              "kind": 72,
               "modifiers": [],
               "object": {
-                "kind": 52,
+                "kind": 53,
                 "name": "console",
                 "start": {
                   "line": 7,
@@ -578,7 +578,7 @@
                 }
               },
               "property": {
-                "kind": 52,
+                "kind": 53,
                 "name": "log",
                 "start": {
                   "line": 7,
@@ -600,7 +600,7 @@
             },
             "arguments": [
               {
-                "kind": 68,
+                "kind": 69,
                 "value": "(\\(x), \\(y)) is inside the box",
                 "start": {
                   "line": 7,
@@ -631,12 +631,12 @@
           },
           "conditions": [
             {
-              "kind": 98,
+              "kind": 100,
               "values": [
                 {
-                  "kind": 101,
+                  "kind": 103,
                   "from": {
-                    "kind": 78,
+                    "kind": 79,
                     "value": -2,
                     "start": {
                       "line": 7,
@@ -648,7 +648,7 @@
                     }
                   },
                   "to": {
-                    "kind": 78,
+                    "kind": 79,
                     "value": 2,
                     "start": {
                       "line": 7,
@@ -669,9 +669,9 @@
                   }
                 },
                 {
-                  "kind": 101,
+                  "kind": 103,
                   "from": {
-                    "kind": 78,
+                    "kind": 79,
                     "value": -2,
                     "start": {
                       "line": 7,
@@ -683,7 +683,7 @@
                     }
                   },
                   "to": {
-                    "kind": 78,
+                    "kind": 79,
                     "value": 2,
                     "start": {
                       "line": 7,
@@ -719,7 +719,7 @@
               "kind": 2,
               "elements": [
                 {
-                  "kind": 11,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 7,
@@ -730,7 +730,7 @@
                     "column": 24
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "x",
                     "start": {
                       "line": 7,
@@ -743,7 +743,7 @@
                   }
                 },
                 {
-                  "kind": 11,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 7,
@@ -754,7 +754,7 @@
                     "column": 27
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "y",
                     "start": {
                       "line": 7,
@@ -779,18 +779,18 @@
           ]
         },
         {
-          "kind": 97,
+          "kind": 99,
           "body": {
-            "kind": 14,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 71,
+              "kind": 72,
               "modifiers": [],
               "object": {
-                "kind": 52,
+                "kind": 53,
                 "name": "console",
                 "start": {
                   "line": 8,
@@ -802,7 +802,7 @@
                 }
               },
               "property": {
-                "kind": 52,
+                "kind": 53,
                 "name": "log",
                 "start": {
                   "line": 8,
@@ -824,7 +824,7 @@
             },
             "arguments": [
               {
-                "kind": 68,
+                "kind": 69,
                 "value": "(\\(x), \\(y)) is outside of the box",
                 "start": {
                   "line": 8,
@@ -859,7 +859,7 @@
               "kind": 2,
               "elements": [
                 {
-                  "kind": 11,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 8,
@@ -870,7 +870,7 @@
                     "column": 14
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "x",
                     "start": {
                       "line": 8,
@@ -883,7 +883,7 @@
                   }
                 },
                 {
-                  "kind": 11,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 8,
@@ -894,7 +894,7 @@
                     "column": 17
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "y",
                     "start": {
                       "line": 8,
@@ -919,18 +919,18 @@
           ]
         },
         {
-          "kind": 97,
+          "kind": 99,
           "body": {
-            "kind": 14,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 71,
+              "kind": 72,
               "modifiers": [],
               "object": {
-                "kind": 52,
+                "kind": 53,
                 "name": "console",
                 "start": {
                   "line": 9,
@@ -942,7 +942,7 @@
                 }
               },
               "property": {
-                "kind": 52,
+                "kind": 53,
                 "name": "log",
                 "start": {
                   "line": 9,
@@ -964,7 +964,7 @@
             },
             "arguments": [
               {
-                "kind": 68,
+                "kind": 69,
                 "value": "Not a point",
                 "start": {
                   "line": 9,

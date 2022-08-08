@@ -1,1 +1,0 @@
-var dyn foobar: Array<Array<String?>> = []

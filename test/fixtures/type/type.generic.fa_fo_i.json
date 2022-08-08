@@ -1,0 +1,156 @@
+{
+  "kind": 75,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 50,
+      "attributes": [],
+      "name": {
+        "kind": 53,
+        "name": "foobar",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 12
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
+      },
+      "parameters": [
+        {
+          "kind": 85,
+          "attributes": [],
+          "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 13
+          },
+          "end": {
+            "line": 1,
+            "column": 41
+          },
+          "name": {
+            "kind": 53,
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 14
+            }
+          },
+          "type": {
+            "kind": 118,
+            "modifiers": [],
+            "typeName": {
+              "kind": 53,
+              "name": "Array",
+              "start": {
+                "line": 1,
+                "column": 16
+              },
+              "end": {
+                "line": 1,
+                "column": 21
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 1,
+              "column": 41
+            },
+            "typeParameters": [
+              {
+                "kind": 118,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 53,
+                  "name": "Dictionary",
+                  "start": {
+                    "line": 1,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 32
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 22
+                },
+                "end": {
+                  "line": 1,
+                  "column": 40
+                },
+                "typeParameters": [
+                  {
+                    "kind": 118,
+                    "modifiers": [],
+                    "typeName": {
+                      "kind": 53,
+                      "name": "Number",
+                      "start": {
+                        "line": 1,
+                        "column": 33
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 39
+                      }
+                    },
+                    "start": {
+                      "line": 1,
+                      "column": 33
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 39
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 13,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 1,
+          "column": 43
+        },
+        "end": {
+          "line": 2,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 2,
+    "column": 2
+  }
+}

@@ -1,9 +1,9 @@
 {
-  "kind": 74,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 122,
+      "kind": 124,
       "modifiers": [
         {
           "kind": 9,
@@ -20,10 +20,10 @@
       "attributes": [],
       "variables": [
         {
-          "kind": 123,
+          "kind": 125,
           "modifiers": [],
           "name": {
-            "kind": 52,
+            "kind": 53,
             "name": "text",
             "start": {
               "line": 1,
@@ -53,7 +53,7 @@
         "column": 97
       },
       "init": {
-        "kind": 23,
+        "kind": 24,
         "start": {
           "line": 1,
           "column": 16
@@ -63,7 +63,7 @@
           "column": 97
         },
         "condition": {
-          "kind": 10,
+          "kind": 11,
           "operator": {
             "kind": 2,
             "modifiers": [],
@@ -85,7 +85,7 @@
             "column": 26
           },
           "left": {
-            "kind": 52,
+            "kind": 53,
             "name": "foo",
             "start": {
               "line": 1,
@@ -97,7 +97,7 @@
             }
           },
           "right": {
-            "kind": 52,
+            "kind": 53,
             "name": "bar",
             "start": {
               "line": 1,
@@ -110,7 +110,7 @@
           }
         },
         "whenTrue": {
-          "kind": 23,
+          "kind": 24,
           "start": {
             "line": 1,
             "column": 29
@@ -120,7 +120,7 @@
             "column": 53
           },
           "condition": {
-            "kind": 10,
+            "kind": 11,
             "operator": {
               "kind": 22,
               "modifiers": [],
@@ -142,7 +142,7 @@
               "column": 41
             },
             "left": {
-              "kind": 52,
+              "kind": 53,
               "name": "qux",
               "start": {
                 "line": 1,
@@ -154,7 +154,7 @@
               }
             },
             "right": {
-              "kind": 52,
+              "kind": 53,
               "name": "corge",
               "start": {
                 "line": 1,
@@ -167,7 +167,7 @@
             }
           },
           "whenTrue": {
-            "kind": 68,
+            "kind": 69,
             "value": "a",
             "start": {
               "line": 1,
@@ -179,7 +179,7 @@
             }
           },
           "whenFalse": {
-            "kind": 68,
+            "kind": 69,
             "value": "b",
             "start": {
               "line": 1,
@@ -192,7 +192,7 @@
           }
         },
         "whenFalse": {
-          "kind": 23,
+          "kind": 24,
           "start": {
             "line": 1,
             "column": 56
@@ -202,7 +202,7 @@
             "column": 97
           },
           "condition": {
-            "kind": 10,
+            "kind": 11,
             "operator": {
               "kind": 1,
               "modifiers": [],
@@ -224,7 +224,7 @@
               "column": 71
             },
             "left": {
-              "kind": 52,
+              "kind": 53,
               "name": "grault",
               "start": {
                 "line": 1,
@@ -236,7 +236,7 @@
               }
             },
             "right": {
-              "kind": 52,
+              "kind": 53,
               "name": "garply",
               "start": {
                 "line": 1,
@@ -249,7 +249,7 @@
             }
           },
           "whenTrue": {
-            "kind": 68,
+            "kind": 69,
             "value": "c",
             "start": {
               "line": 1,
@@ -261,7 +261,7 @@
             }
           },
           "whenFalse": {
-            "kind": 23,
+            "kind": 24,
             "start": {
               "line": 1,
               "column": 80
@@ -271,7 +271,7 @@
               "column": 97
             },
             "condition": {
-              "kind": 52,
+              "kind": 53,
               "name": "waldo",
               "start": {
                 "line": 1,
@@ -283,7 +283,7 @@
               }
             },
             "whenTrue": {
-              "kind": 68,
+              "kind": 69,
               "value": "d",
               "start": {
                 "line": 1,
@@ -295,7 +295,7 @@
               }
             },
             "whenFalse": {
-              "kind": 68,
+              "kind": 69,
               "value": "e",
               "start": {
                 "line": 1,

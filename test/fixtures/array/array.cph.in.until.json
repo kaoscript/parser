@@ -1,9 +1,9 @@
 {
-  "kind": 74,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 10,
+      "kind": 11,
       "operator": {
         "kind": 3,
         "assignment": 8,
@@ -17,7 +17,7 @@
         }
       },
       "left": {
-        "kind": 52,
+        "kind": 53,
         "name": "heroes",
         "start": {
           "line": 1,
@@ -32,7 +32,7 @@
         "kind": 4,
         "values": [
           {
-            "kind": 68,
+            "kind": 69,
             "value": "leto",
             "start": {
               "line": 1,
@@ -44,7 +44,7 @@
             }
           },
           {
-            "kind": 68,
+            "kind": 69,
             "value": "duncan",
             "start": {
               "line": 1,
@@ -56,7 +56,7 @@
             }
           },
           {
-            "kind": 68,
+            "kind": 69,
             "value": "goku",
             "start": {
               "line": 1,
@@ -88,7 +88,7 @@
       "attributes": []
     },
     {
-      "kind": 10,
+      "kind": 11,
       "operator": {
         "kind": 3,
         "assignment": 8,
@@ -102,7 +102,7 @@
         }
       },
       "left": {
-        "kind": 52,
+        "kind": 53,
         "name": "evenHeroes",
         "start": {
           "line": 3,
@@ -116,7 +116,7 @@
       "right": {
         "kind": 3,
         "body": {
-          "kind": 52,
+          "kind": 53,
           "name": "hero",
           "start": {
             "line": 3,
@@ -128,7 +128,7 @@
           }
         },
         "loop": {
-          "kind": 46,
+          "kind": 47,
           "attributes": [],
           "modifiers": [
             {
@@ -144,7 +144,7 @@
             }
           ],
           "expression": {
-            "kind": 52,
+            "kind": 53,
             "name": "heroes",
             "start": {
               "line": 3,
@@ -164,7 +164,7 @@
             "column": 78
           },
           "value": {
-            "kind": 52,
+            "kind": 53,
             "name": "hero",
             "start": {
               "line": 3,
@@ -176,7 +176,7 @@
             }
           },
           "index": {
-            "kind": 52,
+            "kind": 53,
             "name": "index",
             "start": {
               "line": 3,
@@ -188,7 +188,7 @@
             }
           },
           "to": {
-            "kind": 78,
+            "kind": 79,
             "value": 2,
             "start": {
               "line": 3,
@@ -200,13 +200,13 @@
             }
           },
           "until": {
-            "kind": 14,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 52,
+              "kind": 53,
               "name": "foo",
               "start": {
                 "line": 3,
@@ -219,7 +219,7 @@
             },
             "arguments": [
               {
-                "kind": 52,
+                "kind": 53,
                 "name": "hero",
                 "start": {
                   "line": 3,
@@ -231,7 +231,7 @@
                 }
               },
               {
-                "kind": 52,
+                "kind": 53,
                 "name": "index",
                 "start": {
                   "line": 3,

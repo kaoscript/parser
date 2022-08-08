@@ -1,9 +1,9 @@
 {
-  "kind": 74,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 122,
+      "kind": 124,
       "modifiers": [
         {
           "kind": 9,
@@ -20,10 +20,10 @@
       "attributes": [],
       "variables": [
         {
-          "kind": 123,
+          "kind": 125,
           "modifiers": [],
           "name": {
-            "kind": 52,
+            "kind": 53,
             "name": "foobar",
             "start": {
               "line": 1,
@@ -53,14 +53,23 @@
         "column": 2
       },
       "init": {
-        "kind": 80,
+        "kind": 81,
         "attributes": [],
         "properties": [
           {
-            "kind": 81,
+            "kind": 82,
             "attributes": [],
+            "modifiers": [],
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 3
+            },
             "name": {
-              "kind": 52,
+              "kind": 53,
               "name": "foo",
               "start": {
                 "line": 2,
@@ -72,10 +81,10 @@
               }
             },
             "value": {
-              "kind": 50,
+              "kind": 51,
               "parameters": [
                 {
-                  "kind": 83,
+                  "kind": 85,
                   "attributes": [],
                   "modifiers": [],
                   "start": {
@@ -87,7 +96,7 @@
                     "column": 18
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "name",
                     "start": {
                       "line": 2,
@@ -99,10 +108,10 @@
                     }
                   },
                   "type": {
-                    "kind": 116,
+                    "kind": 118,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 52,
+                      "kind": 53,
                       "name": "string",
                       "start": {
                         "line": 2,
@@ -135,11 +144,11 @@
               "modifiers": [],
               "throws": [],
               "body": {
-                "kind": 12,
+                "kind": 13,
                 "attributes": [],
                 "statements": [
                   {
-                    "kind": 10,
+                    "kind": 11,
                     "operator": {
                       "kind": 3,
                       "assignment": 8,
@@ -153,7 +162,7 @@
                       }
                     },
                     "left": {
-                      "kind": 52,
+                      "kind": 53,
                       "name": "n",
                       "start": {
                         "line": 3,
@@ -165,7 +174,7 @@
                       }
                     },
                     "right": {
-                      "kind": 78,
+                      "kind": 79,
                       "value": 0,
                       "start": {
                         "line": 3,
@@ -196,21 +205,22 @@
                   "column": 3
                 }
               }
-            },
-            "start": {
-              "line": 2,
-              "column": 2
-            },
-            "end": {
-              "line": 4,
-              "column": 3
             }
           },
           {
-            "kind": 81,
+            "kind": 82,
             "attributes": [],
+            "modifiers": [],
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 3
+            },
             "name": {
-              "kind": 52,
+              "kind": 53,
               "name": "bar",
               "start": {
                 "line": 5,
@@ -222,10 +232,10 @@
               }
             },
             "value": {
-              "kind": 50,
+              "kind": 51,
               "parameters": [
                 {
-                  "kind": 83,
+                  "kind": 85,
                   "attributes": [],
                   "modifiers": [],
                   "start": {
@@ -237,7 +247,7 @@
                     "column": 24
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "name",
                     "start": {
                       "line": 5,
@@ -249,10 +259,10 @@
                     }
                   },
                   "type": {
-                    "kind": 116,
+                    "kind": 118,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 52,
+                      "kind": 53,
                       "name": "string",
                       "start": {
                         "line": 5,
@@ -297,11 +307,11 @@
               ],
               "throws": [],
               "body": {
-                "kind": 12,
+                "kind": 13,
                 "attributes": [],
                 "statements": [
                   {
-                    "kind": 10,
+                    "kind": 11,
                     "operator": {
                       "kind": 3,
                       "assignment": 8,
@@ -315,7 +325,7 @@
                       }
                     },
                     "left": {
-                      "kind": 52,
+                      "kind": 53,
                       "name": "n",
                       "start": {
                         "line": 6,
@@ -327,7 +337,7 @@
                       }
                     },
                     "right": {
-                      "kind": 78,
+                      "kind": 79,
                       "value": 0,
                       "start": {
                         "line": 6,
@@ -358,21 +368,22 @@
                   "column": 3
                 }
               }
-            },
-            "start": {
-              "line": 5,
-              "column": 2
-            },
-            "end": {
-              "line": 7,
-              "column": 3
             }
           },
           {
-            "kind": 81,
+            "kind": 82,
             "attributes": [],
+            "modifiers": [],
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 70
+            },
             "name": {
-              "kind": 52,
+              "kind": 53,
               "name": "reverse",
               "start": {
                 "line": 8,
@@ -384,10 +395,10 @@
               }
             },
             "value": {
-              "kind": 50,
+              "kind": 51,
               "parameters": [
                 {
-                  "kind": 83,
+                  "kind": 85,
                   "attributes": [],
                   "modifiers": [],
                   "start": {
@@ -399,7 +410,7 @@
                     "column": 23
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "value",
                     "start": {
                       "line": 8,
@@ -411,10 +422,10 @@
                     }
                   },
                   "type": {
-                    "kind": 116,
+                    "kind": 118,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 52,
+                      "kind": 53,
                       "name": "String",
                       "start": {
                         "line": 8,
@@ -446,10 +457,10 @@
               },
               "modifiers": [],
               "type": {
-                "kind": 116,
+                "kind": 118,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "String",
                   "start": {
                     "line": 8,
@@ -471,34 +482,34 @@
               },
               "throws": [],
               "body": {
-                "kind": 14,
+                "kind": 15,
                 "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 71,
+                  "kind": 72,
                   "modifiers": [],
                   "object": {
-                    "kind": 14,
+                    "kind": 15,
                     "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
-                      "kind": 71,
+                      "kind": 72,
                       "modifiers": [],
                       "object": {
-                        "kind": 14,
+                        "kind": 15,
                         "modifiers": [],
                         "scope": {
                           "kind": 3
                         },
                         "callee": {
-                          "kind": 71,
+                          "kind": 72,
                           "modifiers": [],
                           "object": {
-                            "kind": 52,
+                            "kind": 53,
                             "name": "value",
                             "start": {
                               "line": 8,
@@ -510,7 +521,7 @@
                             }
                           },
                           "property": {
-                            "kind": 52,
+                            "kind": 53,
                             "name": "split",
                             "start": {
                               "line": 8,
@@ -532,7 +543,7 @@
                         },
                         "arguments": [
                           {
-                            "kind": 68,
+                            "kind": 69,
                             "value": "",
                             "start": {
                               "line": 8,
@@ -554,7 +565,7 @@
                         }
                       },
                       "property": {
-                        "kind": 52,
+                        "kind": 53,
                         "name": "reverse",
                         "start": {
                           "line": 8,
@@ -585,7 +596,7 @@
                     }
                   },
                   "property": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "join",
                     "start": {
                       "line": 8,
@@ -607,7 +618,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 68,
+                    "kind": 69,
                     "value": "",
                     "start": {
                       "line": 8,
@@ -628,21 +639,22 @@
                   "column": 70
                 }
               }
-            },
-            "start": {
-              "line": 8,
-              "column": 2
-            },
-            "end": {
-              "line": 8,
-              "column": 70
             }
           },
           {
-            "kind": 81,
+            "kind": 82,
             "attributes": [],
+            "modifiers": [],
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 57
+            },
             "name": {
-              "kind": 52,
+              "kind": 53,
               "name": "reverse",
               "start": {
                 "line": 9,
@@ -654,10 +666,10 @@
               }
             },
             "value": {
-              "kind": 50,
+              "kind": 51,
               "parameters": [
                 {
-                  "kind": 83,
+                  "kind": 85,
                   "attributes": [],
                   "modifiers": [],
                   "start": {
@@ -669,7 +681,7 @@
                     "column": 22
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "value",
                     "start": {
                       "line": 9,
@@ -681,10 +693,10 @@
                     }
                   },
                   "type": {
-                    "kind": 116,
+                    "kind": 118,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 52,
+                      "kind": 53,
                       "name": "Array",
                       "start": {
                         "line": 9,
@@ -716,10 +728,10 @@
               },
               "modifiers": [],
               "type": {
-                "kind": 116,
+                "kind": 118,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "Array",
                   "start": {
                     "line": 9,
@@ -741,25 +753,25 @@
               },
               "throws": [],
               "body": {
-                "kind": 14,
+                "kind": 15,
                 "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 71,
+                  "kind": 72,
                   "modifiers": [],
                   "object": {
-                    "kind": 14,
+                    "kind": 15,
                     "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
-                      "kind": 71,
+                      "kind": 72,
                       "modifiers": [],
                       "object": {
-                        "kind": 52,
+                        "kind": 53,
                         "name": "value",
                         "start": {
                           "line": 9,
@@ -771,7 +783,7 @@
                         }
                       },
                       "property": {
-                        "kind": 52,
+                        "kind": 53,
                         "name": "slice",
                         "start": {
                           "line": 9,
@@ -802,7 +814,7 @@
                     }
                   },
                   "property": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "reverse",
                     "start": {
                       "line": 9,
@@ -832,21 +844,22 @@
                   "column": 57
                 }
               }
-            },
-            "start": {
-              "line": 9,
-              "column": 2
-            },
-            "end": {
-              "line": 9,
-              "column": 57
             }
           },
           {
-            "kind": 81,
+            "kind": 82,
             "attributes": [],
+            "modifiers": [],
+            "start": {
+              "line": 10,
+              "column": 2
+            },
+            "end": {
+              "line": 10,
+              "column": 81
+            },
             "name": {
-              "kind": 52,
+              "kind": 53,
               "name": "reverseAsync",
               "start": {
                 "line": 10,
@@ -858,10 +871,10 @@
               }
             },
             "value": {
-              "kind": 50,
+              "kind": 51,
               "parameters": [
                 {
-                  "kind": 83,
+                  "kind": 85,
                   "attributes": [],
                   "modifiers": [],
                   "start": {
@@ -873,7 +886,7 @@
                     "column": 34
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "value",
                     "start": {
                       "line": 10,
@@ -885,10 +898,10 @@
                     }
                   },
                   "type": {
-                    "kind": 116,
+                    "kind": 118,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 52,
+                      "kind": 53,
                       "name": "String",
                       "start": {
                         "line": 10,
@@ -932,10 +945,10 @@
                 }
               ],
               "type": {
-                "kind": 116,
+                "kind": 118,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "String",
                   "start": {
                     "line": 10,
@@ -957,34 +970,34 @@
               },
               "throws": [],
               "body": {
-                "kind": 14,
+                "kind": 15,
                 "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 71,
+                  "kind": 72,
                   "modifiers": [],
                   "object": {
-                    "kind": 14,
+                    "kind": 15,
                     "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
-                      "kind": 71,
+                      "kind": 72,
                       "modifiers": [],
                       "object": {
-                        "kind": 14,
+                        "kind": 15,
                         "modifiers": [],
                         "scope": {
                           "kind": 3
                         },
                         "callee": {
-                          "kind": 71,
+                          "kind": 72,
                           "modifiers": [],
                           "object": {
-                            "kind": 52,
+                            "kind": 53,
                             "name": "value",
                             "start": {
                               "line": 10,
@@ -996,7 +1009,7 @@
                             }
                           },
                           "property": {
-                            "kind": 52,
+                            "kind": 53,
                             "name": "split",
                             "start": {
                               "line": 10,
@@ -1018,7 +1031,7 @@
                         },
                         "arguments": [
                           {
-                            "kind": 68,
+                            "kind": 69,
                             "value": "",
                             "start": {
                               "line": 10,
@@ -1040,7 +1053,7 @@
                         }
                       },
                       "property": {
-                        "kind": 52,
+                        "kind": 53,
                         "name": "reverse",
                         "start": {
                           "line": 10,
@@ -1071,7 +1084,7 @@
                     }
                   },
                   "property": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "join",
                     "start": {
                       "line": 10,
@@ -1093,7 +1106,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 68,
+                    "kind": 69,
                     "value": "",
                     "start": {
                       "line": 10,
@@ -1114,21 +1127,22 @@
                   "column": 81
                 }
               }
-            },
-            "start": {
-              "line": 10,
-              "column": 2
-            },
-            "end": {
-              "line": 10,
-              "column": 81
             }
           },
           {
-            "kind": 81,
+            "kind": 82,
             "attributes": [],
+            "modifiers": [],
+            "start": {
+              "line": 11,
+              "column": 2
+            },
+            "end": {
+              "line": 11,
+              "column": 68
+            },
             "name": {
-              "kind": 52,
+              "kind": 53,
               "name": "reverseAsync",
               "start": {
                 "line": 11,
@@ -1140,10 +1154,10 @@
               }
             },
             "value": {
-              "kind": 50,
+              "kind": 51,
               "parameters": [
                 {
-                  "kind": 83,
+                  "kind": 85,
                   "attributes": [],
                   "modifiers": [],
                   "start": {
@@ -1155,7 +1169,7 @@
                     "column": 33
                   },
                   "name": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "value",
                     "start": {
                       "line": 11,
@@ -1167,10 +1181,10 @@
                     }
                   },
                   "type": {
-                    "kind": 116,
+                    "kind": 118,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 52,
+                      "kind": 53,
                       "name": "Array",
                       "start": {
                         "line": 11,
@@ -1214,10 +1228,10 @@
                 }
               ],
               "type": {
-                "kind": 116,
+                "kind": 118,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "Array",
                   "start": {
                     "line": 11,
@@ -1239,25 +1253,25 @@
               },
               "throws": [],
               "body": {
-                "kind": 14,
+                "kind": 15,
                 "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 71,
+                  "kind": 72,
                   "modifiers": [],
                   "object": {
-                    "kind": 14,
+                    "kind": 15,
                     "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
-                      "kind": 71,
+                      "kind": 72,
                       "modifiers": [],
                       "object": {
-                        "kind": 52,
+                        "kind": 53,
                         "name": "value",
                         "start": {
                           "line": 11,
@@ -1269,7 +1283,7 @@
                         }
                       },
                       "property": {
-                        "kind": 52,
+                        "kind": 53,
                         "name": "slice",
                         "start": {
                           "line": 11,
@@ -1300,7 +1314,7 @@
                     }
                   },
                   "property": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "reverse",
                     "start": {
                       "line": 11,
@@ -1330,14 +1344,6 @@
                   "column": 68
                 }
               }
-            },
-            "start": {
-              "line": 11,
-              "column": 2
-            },
-            "end": {
-              "line": 11,
-              "column": 68
             }
           }
         ],

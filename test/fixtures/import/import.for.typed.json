@@ -1,17 +1,17 @@
 {
-  "kind": 74,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 57,
+      "kind": 58,
       "attributes": [],
       "declarations": [
         {
-          "kind": 58,
+          "kind": 59,
           "attributes": [],
           "modifiers": [],
           "source": {
-            "kind": 68,
+            "kind": 69,
             "value": "module1",
             "start": {
               "line": 1,
@@ -24,13 +24,13 @@
           },
           "specifiers": [
             {
-              "kind": 62,
+              "kind": 63,
               "attributes": [],
               "imported": {
-                "kind": 123,
+                "kind": 125,
                 "modifiers": [],
                 "name": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "foobar",
                   "start": {
                     "line": 1,
@@ -50,17 +50,27 @@
                   "column": 2
                 },
                 "type": {
-                  "kind": 116,
+                  "kind": 118,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "object"
                   },
                   "properties": [
                     {
-                      "kind": 81,
+                      "kind": 82,
+                      "attributes": [],
+                      "modifiers": [],
+                      "start": {
+                        "line": 2,
+                        "column": 2
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 9
+                      },
                       "name": {
-                        "kind": 52,
+                        "kind": 53,
                         "name": "corge",
                         "start": {
                           "line": 2,
@@ -72,7 +82,7 @@
                         }
                       },
                       "type": {
-                        "kind": 50,
+                        "kind": 51,
                         "parameters": [],
                         "start": {
                           "line": 2,
@@ -84,14 +94,6 @@
                         },
                         "modifiers": [],
                         "throws": []
-                      },
-                      "start": {
-                        "line": 2,
-                        "column": 2
-                      },
-                      "end": {
-                        "line": 2,
-                        "column": 9
                       }
                     }
                   ],
@@ -106,7 +108,7 @@
                 }
               },
               "local": {
-                "kind": 52,
+                "kind": 53,
                 "name": "foobar",
                 "start": {
                   "line": 1,

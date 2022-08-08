@@ -1,9 +1,9 @@
 {
-  "kind": 74,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 10,
+      "kind": 11,
       "operator": {
         "kind": 3,
         "assignment": 8,
@@ -17,7 +17,7 @@
         }
       },
       "left": {
-        "kind": 52,
+        "kind": 53,
         "name": "likes",
         "start": {
           "line": 1,
@@ -29,14 +29,23 @@
         }
       },
       "right": {
-        "kind": 80,
+        "kind": 81,
         "attributes": [],
         "properties": [
           {
-            "kind": 81,
+            "kind": 82,
             "attributes": [],
+            "modifiers": [],
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 15
+            },
             "name": {
-              "kind": 52,
+              "kind": 53,
               "name": "leto",
               "start": {
                 "line": 2,
@@ -48,7 +57,7 @@
               }
             },
             "value": {
-              "kind": 68,
+              "kind": 69,
               "value": "spice",
               "start": {
                 "line": 2,
@@ -58,21 +67,22 @@
                 "line": 2,
                 "column": 15
               }
-            },
-            "start": {
-              "line": 2,
-              "column": 2
-            },
-            "end": {
-              "line": 2,
-              "column": 15
             }
           },
           {
-            "kind": 81,
+            "kind": 82,
             "attributes": [],
+            "modifiers": [],
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 3,
+              "column": 15
+            },
             "name": {
-              "kind": 52,
+              "kind": 53,
               "name": "paul",
               "start": {
                 "line": 3,
@@ -84,7 +94,7 @@
               }
             },
             "value": {
-              "kind": 68,
+              "kind": 69,
               "value": "chani",
               "start": {
                 "line": 3,
@@ -94,21 +104,22 @@
                 "line": 3,
                 "column": 15
               }
-            },
-            "start": {
-              "line": 3,
-              "column": 2
-            },
-            "end": {
-              "line": 3,
-              "column": 15
             }
           },
           {
-            "kind": 81,
+            "kind": 82,
             "attributes": [],
+            "modifiers": [],
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 20
+            },
             "name": {
-              "kind": 52,
+              "kind": 53,
               "name": "duncan",
               "start": {
                 "line": 4,
@@ -120,7 +131,7 @@
               }
             },
             "value": {
-              "kind": 68,
+              "kind": 69,
               "value": "murbella",
               "start": {
                 "line": 4,
@@ -130,14 +141,6 @@
                 "line": 4,
                 "column": 20
               }
-            },
-            "start": {
-              "line": 4,
-              "column": 2
-            },
-            "end": {
-              "line": 4,
-              "column": 20
             }
           }
         ],
@@ -161,7 +164,7 @@
       "attributes": []
     },
     {
-      "kind": 10,
+      "kind": 11,
       "operator": {
         "kind": 3,
         "assignment": 8,
@@ -175,7 +178,7 @@
         }
       },
       "left": {
-        "kind": 52,
+        "kind": 53,
         "name": "names",
         "start": {
           "line": 7,
@@ -189,7 +192,7 @@
       "right": {
         "kind": 3,
         "body": {
-          "kind": 52,
+          "kind": 53,
           "name": "name",
           "start": {
             "line": 7,
@@ -201,7 +204,7 @@
           }
         },
         "loop": {
-          "kind": 47,
+          "kind": 48,
           "attributes": [],
           "modifiers": [
             {
@@ -228,7 +231,7 @@
             }
           ],
           "expression": {
-            "kind": 52,
+            "kind": 53,
             "name": "likes",
             "start": {
               "line": 7,
@@ -248,7 +251,7 @@
             "column": 39
           },
           "key": {
-            "kind": 52,
+            "kind": 53,
             "name": "name",
             "start": {
               "line": 7,

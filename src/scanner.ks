@@ -129,6 +129,7 @@ enum Token {
 	QUESTION_DOT
 	QUESTION_LEFT_ROUND
 	QUESTION_LEFT_SQUARE
+	QUESTION_OPERATOR
 	QUESTION_QUESTION
 	QUESTION_QUESTION_EQUALS
 	RADIX_NUMBER
@@ -2706,6 +2707,14 @@ var recognize = {
 	} # }}}
 	`\(Token::QUESTION)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 63 {
+			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::QUESTION_OPERATOR)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 63 {
 			return (c = that.charAt(1)) == 40 || c == 46 || c == 61 || c == 63 || c == 91 ? false : that.next(1)
 		}
 		else {
@@ -3047,7 +3056,7 @@ class Scanner {
 			var c = @skip(@index - 1)
 
 			if c == -1 {
-				return @eof()
+				return Token::EOF
 			}
 
 			for var token in tokens {
@@ -3065,6 +3074,22 @@ class Scanner {
 		}
 		else {
 			return matcher(this, @index - 1)
+		}
+	} # }}}
+	matchNS(...tokens: Token): Token { # {{{
+		if @eof {
+			return Token::EOF
+		}
+		else {
+			var c = @data.charCodeAt(@index)
+
+			for var token in tokens {
+				if recognize[token](this, c) {
+					return token
+				}
+			}
+
+			return Token::INVALID
 		}
 	} # }}}
 	next(length: Number): Boolean { # {{{
@@ -3601,7 +3626,7 @@ class Scanner {
 			var c = @skip(@index - 1)
 
 			if c == -1 {
-				return @eof() == token
+				return Token::EOF == token
 			}
 
 			return recognize[token](this, c)
@@ -3609,7 +3634,7 @@ class Scanner {
 	} # }}}
 	testNS(token: Token): Boolean { # {{{
 		if @eof {
-			return false
+			return Token::EOF == token
 		}
 		else {
 			return recognize[token](this, @data.charCodeAt(@index))

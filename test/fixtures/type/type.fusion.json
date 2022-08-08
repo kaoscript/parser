@@ -1,12 +1,12 @@
 {
-  "kind": 74,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 115,
+      "kind": 117,
       "attributes": [],
       "name": {
-        "kind": 52,
+        "kind": 53,
         "name": "RegExpExecArray",
         "start": {
           "line": 1,
@@ -18,13 +18,13 @@
         }
       },
       "type": {
-        "kind": 51,
+        "kind": 52,
         "types": [
           {
-            "kind": 116,
+            "kind": 118,
             "modifiers": [],
             "typeName": {
-              "kind": 52,
+              "kind": 53,
               "name": "Array",
               "start": {
                 "line": 1,
@@ -45,7 +45,7 @@
             },
             "typeParameters": [
               {
-                "kind": 116,
+                "kind": 118,
                 "modifiers": [
                   {
                     "kind": 18,
@@ -60,7 +60,7 @@
                   }
                 ],
                 "typeName": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "String",
                   "start": {
                     "line": 1,
@@ -83,17 +83,27 @@
             ]
           },
           {
-            "kind": 116,
+            "kind": 118,
             "modifiers": [],
             "typeName": {
-              "kind": 52,
+              "kind": 53,
               "name": "object"
             },
             "properties": [
               {
-                "kind": 81,
+                "kind": 82,
+                "attributes": [],
+                "modifiers": [],
+                "start": {
+                  "line": 2,
+                  "column": 5
+                },
+                "end": {
+                  "line": 2,
+                  "column": 18
+                },
                 "name": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "index",
                   "start": {
                     "line": 2,
@@ -105,10 +115,10 @@
                   }
                 },
                 "type": {
-                  "kind": 116,
+                  "kind": 118,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "Number",
                     "start": {
                       "line": 2,
@@ -127,20 +137,22 @@
                     "line": 2,
                     "column": 18
                   }
-                },
-                "start": {
-                  "line": 2,
-                  "column": 5
-                },
-                "end": {
-                  "line": 2,
-                  "column": 18
                 }
               },
               {
-                "kind": 81,
+                "kind": 82,
+                "attributes": [],
+                "modifiers": [],
+                "start": {
+                  "line": 3,
+                  "column": 5
+                },
+                "end": {
+                  "line": 3,
+                  "column": 18
+                },
                 "name": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "input",
                   "start": {
                     "line": 3,
@@ -152,10 +164,10 @@
                   }
                 },
                 "type": {
-                  "kind": 116,
+                  "kind": 118,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 52,
+                    "kind": 53,
                     "name": "String",
                     "start": {
                       "line": 3,
@@ -174,14 +186,6 @@
                     "line": 3,
                     "column": 18
                   }
-                },
-                "start": {
-                  "line": 3,
-                  "column": 5
-                },
-                "end": {
-                  "line": 3,
-                  "column": 18
                 }
               }
             ],

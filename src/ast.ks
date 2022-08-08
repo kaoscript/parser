@@ -105,6 +105,12 @@ namespace AST {
 		return descriptor
 	} # }}}
 
+	export func pushModifier(data, modifier: Event) { # {{{
+		data.modifiers.push(modifier.value)
+
+		return location(data, modifier)
+	} # }}}
+
 	export func reorderExpression(operations) { # {{{
 		var precedences = {}
 		var mut precedenceList = []
@@ -359,6 +365,14 @@ namespace AST {
 					name: 'array'
 				},
 				elements: [element.value for element in elements]
+			}, first, last)
+		} # }}}
+
+		func ArrayType(element, first, last) { # {{{
+			return location({
+				kind: NodeKind::ArrayType
+				modifiers: []
+				element
 			}, first, last)
 		} # }}}
 
@@ -1352,28 +1366,24 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func ObjectMember(name) { # {{{
-			return location({
-				kind: NodeKind::ObjectMember
-				name: name.value
-			}, name, name)
-		} # }}}
-
-		func ObjectMember(name, value) { # {{{
-			return location({
-				kind: NodeKind::ObjectMember
-				name: name.value
-				value: value.value
-			}, name, value)
-		} # }}}
-
-		func ObjectMember(attributes, name, value, first, last) { # {{{
-			return location({
+		func ObjectMember(attributes, modifiers, name?, type?, value?, first, last) { # {{{
+			var node = location({
 				kind: NodeKind::ObjectMember
 				attributes: [attribute.value for attribute in attributes]
-				name: name.value
-				value: value.value
+				modifiers: [modifier.value for modifier in modifiers]
 			}, first, last)
+
+			if name != null {
+				node.name = name.value
+			}
+			if type != null {
+				node.type = type.value
+			}
+			if value != null {
+				node.value = value.value
+			}
+
+			return node
 		} # }}}
 
 		func ObjectReference(properties, first, last) { # {{{
@@ -1388,12 +1398,12 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func ObjectMemberReference(name, type) { # {{{
+		func ObjectType(element, first, last) { # {{{
 			return location({
-				kind: NodeKind::ObjectMember
-				name: name.value
-				type: type.value
-			}, name, type)
+				kind: NodeKind::ObjectType
+				modifiers: []
+				element
+			}, first, last)
 		} # }}}
 
 		func OmittedExpression(modifiers, first) { # {{{
@@ -1811,7 +1821,7 @@ namespace AST {
 		func TypeReference(modifiers, name, parameters?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::TypeReference
-				modifiers
+				modifiers: [modifier.value for modifier in modifiers]
 				typeName: name.value
 			}, first, last)
 

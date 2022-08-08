@@ -1,12 +1,12 @@
 {
-  "kind": 74,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 69,
+      "kind": 70,
       "attributes": [],
       "name": {
-        "kind": 52,
+        "kind": 53,
         "name": "trace_build_age_with_reification",
         "start": {
           "line": 1,
@@ -19,19 +19,19 @@
       },
       "parameters": [],
       "body": {
-        "kind": 12,
+        "kind": 13,
         "attributes": [],
         "statements": [
           {
-            "kind": 122,
+            "kind": 124,
             "modifiers": [],
             "attributes": [],
             "variables": [
               {
-                "kind": 123,
+                "kind": 125,
                 "modifiers": [],
                 "name": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "buildTime",
                   "start": {
                     "line": 2,
@@ -61,16 +61,16 @@
               "column": 57
             },
             "init": {
-              "kind": 14,
+              "kind": 15,
               "modifiers": [],
               "scope": {
                 "kind": 3
               },
               "callee": {
-                "kind": 71,
+                "kind": 72,
                 "modifiers": [],
                 "object": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "Math",
                   "start": {
                     "line": 2,
@@ -82,7 +82,7 @@
                   }
                 },
                 "property": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "floor",
                   "start": {
                     "line": 2,
@@ -104,7 +104,7 @@
               },
               "arguments": [
                 {
-                  "kind": 10,
+                  "kind": 11,
                   "operator": {
                     "kind": 9,
                     "modifiers": [],
@@ -126,25 +126,25 @@
                     "column": 56
                   },
                   "left": {
-                    "kind": 14,
+                    "kind": 15,
                     "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
-                      "kind": 71,
+                      "kind": 72,
                       "modifiers": [],
                       "object": {
-                        "kind": 14,
+                        "kind": 15,
                         "modifiers": [],
                         "scope": {
                           "kind": 3
                         },
                         "callee": {
-                          "kind": 71,
+                          "kind": 72,
                           "modifiers": [],
                           "object": {
-                            "kind": 52,
+                            "kind": 53,
                             "name": "Date",
                             "start": {
                               "line": 2,
@@ -156,7 +156,7 @@
                             }
                           },
                           "property": {
-                            "kind": 52,
+                            "kind": 53,
                             "name": "now",
                             "start": {
                               "line": 2,
@@ -187,7 +187,7 @@
                         }
                       },
                       "property": {
-                        "kind": 52,
+                        "kind": 53,
                         "name": "getTime",
                         "start": {
                           "line": 2,
@@ -218,7 +218,7 @@
                     }
                   },
                   "right": {
-                    "kind": 78,
+                    "kind": 79,
                     "value": 1000,
                     "start": {
                       "line": 2,
@@ -242,7 +242,7 @@
             }
           },
           {
-            "kind": 70,
+            "kind": 71,
             "attributes": [],
             "elements": [
               {
@@ -283,7 +283,7 @@
               {
                 "kind": 1,
                 "expression": {
-                  "kind": 52,
+                  "kind": 53,
                   "name": "buildTime",
                   "start": {
                     "line": 6,
