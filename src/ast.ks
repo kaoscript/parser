@@ -257,6 +257,16 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func AliasDeclaration(attributes, modifiers, name, target, first, last) { # {{{
+			return location({
+				kind: NodeKind::AliasDeclaration
+				attributes: [attribute.value for attribute in attributes]
+				modifiers: [modifier.value for modifier in modifiers]
+				name: name.value
+				target: target.value
+			}, first, last)
+		} # }}}
+
 		func ArrayBinding(elements, first, last) { # {{{
 			return location({
 				kind: NodeKind::ArrayBinding
@@ -1236,23 +1246,6 @@ namespace AST {
 				object: object.value
 				property: property.value
 			}, first, last)
-		} # }}}
-
-		func MethodAliasDeclaration(attributes, modifiers, name, variable, method, defaultValue?, first, last) { # {{{
-			var node = location({
-				kind: NodeKind::MethodAliasDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
-				name: name.value
-				variable: variable.value
-				method: method.value
-			}, first, last)
-
-			if defaultValue != null {
-				node.defaultValue = defaultValue.value
-			}
-
-			return node
 		} # }}}
 
 		func MethodDeclaration(attributes, modifiers, name, parameters, type?, throws?, body?, first, last) { # {{{

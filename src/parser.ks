@@ -83,6 +83,7 @@ export namespace Parser {
 
 	flagged enum ClassBits {
 		AbstractMethod		 = 1
+		Alias
 		Attribute
 		FinalMethod
 		FinalVariable
@@ -828,6 +829,34 @@ export namespace Parser {
 
 			return @yep(AST.CatchClause(binding, type, body, first, body))
 		} # }}}
+		reqClassAlias(attributes, modifiers, mut first: Event?): Event ~ SyntaxError { # {{{
+			var member = @tryClassAlias(attributes, modifiers, first)
+
+			unless member.ok {
+				@throw(['Identifier'])
+			}
+
+			return member
+		} # }}}
+		reqClassAliasBlock(attributes, modifiers, members: Array<Event>): Void ~ SyntaxError { # {{{
+			@commit().NL_0M()
+
+			var dyn attrs = [...attributes]
+
+			while @until(Token::RIGHT_CURLY) {
+				if @stackInnerAttributes(attrs) {
+					continue
+				}
+
+				members.push(@reqClassAlias(attrs, modifiers, null))
+			}
+
+			unless @test(Token::RIGHT_CURLY) {
+				@throw('}')
+			}
+
+			@commit().reqNL_1M()
+		} # }}}
 		reqClassMember(attributes, modifiers, mut bits: ClassBits, mut first: Event?): Event ~ SyntaxError { # {{{
 			var member = @tryClassMember(attributes, modifiers, bits, first)
 
@@ -902,7 +931,7 @@ export namespace Parser {
 				return @reqClassMemberBlock(
 					attributes
 					[accessModifier]
-					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method
+					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::Alias
 					members
 				)
 			}
@@ -954,18 +983,78 @@ export namespace Parser {
 			if @test(Token::STATIC) {
 				staticModifier = @yep(AST.Modifier(ModifierKind::Static, @yes()))
 
-				if @test(Token::LEFT_CURLY) {
-					var modifiers = [staticModifier]
-					if accessModifier.ok {
-						modifiers.unshift(accessModifier)
-					}
+				var modifiers = [staticModifier]
+				if accessModifier.ok {
+					modifiers.unshift(accessModifier)
+				}
 
+				if @test(Token::LEFT_CURLY) {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod
+						ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod + ClassBits::Alias
 						members
 					)
+				}
+				else if @test(Token::ALIAS) {
+					var mark = @mark()
+
+					@commit()
+
+					if @test(Token::LEFT_CURLY) {
+						return @reqClassAliasBlock(
+							attributes
+							modifiers
+							members
+						)
+					}
+					else {
+						var member = @tryClassAlias(
+							attributes
+							modifiers
+							modifiers[0]
+						)
+
+						if member.ok {
+							members.push(member)
+
+							return
+						}
+
+						@rollback(mark)
+					}
+				}
+			}
+			else if @test(Token::ALIAS) {
+				var mark = @mark()
+				var first = @yes()
+
+				var modifiers = []
+				if accessModifier.ok {
+					modifiers.unshift(accessModifier)
+				}
+
+				if @test(Token::LEFT_CURLY) {
+					return @reqClassAliasBlock(
+						attributes
+						modifiers
+						members
+					)
+				}
+				else {
+					var member = @tryClassAlias(
+						attributes
+						modifiers
+						accessModifier[0] ?? first
+					)
+
+					if member.ok {
+						members.push(member)
+
+						return
+					}
+
+					@rollback(mark)
 				}
 			}
 
@@ -1062,8 +1151,6 @@ export namespace Parser {
 
 				@rollback(lateMark)
 			}
-			else if @test(Token::OVERRIDE) {
-			}
 
 			if accessModifier.ok {
 				var member = @tryClassMember(attributes, [accessModifier], staticModifier, staticMark, finalModifier, finalMark, first ?? accessModifier)
@@ -1088,53 +1175,20 @@ export namespace Parser {
 		reqClassMethod(attributes, modifiers, mut bits: ClassBits, name: Event, round: Event?, mut first: Event?): Event ~ SyntaxError { # {{{
 			var parameters = @reqClassMethodParameterList(round)
 
-			if bits !~ ClassBits::NoBody && parameters.value.length == 0 && @test(Token::EQUALS) {
-				@commit()
+			var type = @tryMethodReturns(bits !~ ClassBits::NoBody)
+			var throws = @tryFunctionThrows()
 
-				unless @test(Token::AT) {
-					@throw('@')
-				}
+			if bits ~~ ClassBits::NoBody {
+				@reqNL_1M()
 
-				@commit()
-
-				var variable = @reqIdentifier()
-
-				unless @testNS(Token::DOT) {
-					@throw('.')
-				}
-
-				@commit()
-
-				var method = @reqIdentifier()
-
-				var mut value = null
-
-				if @test(Token::QUESTION_QUESTION) {
-					@commit()
-
-					value = @reqExpression(ExpressionMode::Default, FunctionMode::Method)
-				}
+				return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
+			}
+			else {
+				var body = @tryFunctionBody(FunctionMode::Method)
 
 				@reqNL_1M()
 
-				return @yep(AST.MethodAliasDeclaration(attributes, modifiers, name, variable, method, value, first, value ?? variable))
-			}
-			else {
-				var type = @tryMethodReturns(bits !~ ClassBits::NoBody)
-				var throws = @tryFunctionThrows()
-
-				if bits ~~ ClassBits::NoBody {
-					@reqNL_1M()
-
-					return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
-				}
-				else {
-					var body = @tryFunctionBody(FunctionMode::Method)
-
-					@reqNL_1M()
-
-					return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
-				}
+				return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
 			}
 		} # }}}
 		reqClassMethodParameterList(mut top: Event = NO): Event ~ SyntaxError { # {{{
@@ -7014,6 +7068,29 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
+		tryClassAlias(attributes, mut modifiers, mut first: Event?): Event ~ SyntaxError { # {{{
+			var name = @tryIdentifier()
+
+			unless name.ok {
+				return NO
+			}
+
+			unless @test(Token::EQUALS) {
+				return NO
+			}
+
+			@commit()
+
+			unless @test(Token::AT) {
+				@throw('@')
+			}
+
+			var target = @reqExpression(ExpressionMode::Default, FunctionMode::Method)
+
+			@reqNL_1M()
+
+			return @yep(AST.AliasDeclaration(attributes, modifiers, name, target, first ?? name, target ?? name))
+		} # }}}
 		tryClassMember(attributes, modifiers, staticModifier: Event?, staticMark: Marker, finalModifier: Event?, finalMark: Marker, mut first: Event?) ~ SyntaxError { # {{{
 			if staticModifier.ok {
 				if finalModifier.ok {
@@ -7034,7 +7111,7 @@ export namespace Parser {
 				var member = @tryClassMember(
 					attributes
 					[...modifiers, staticModifier]
-					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod
+					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod + ClassBits::Alias
 					first ?? staticModifier
 				)
 
@@ -7062,7 +7139,7 @@ export namespace Parser {
 			return @tryClassMember(
 				attributes
 				[...modifiers]
-				ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::OverrideMethod + ClassBits::AbstractMethod
+				ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::OverrideMethod + ClassBits::AbstractMethod + ClassBits::Alias
 				first
 			)
 		} # }}}
@@ -7186,6 +7263,19 @@ export namespace Parser {
 
 				if property.ok {
 					return property
+				}
+
+				@rollback(mark)
+			}
+
+			if bits ~~ ClassBits::Alias && @test(Token::ALIAS) {
+				var mark = @mark()
+				var keyword = @yes()
+
+				var alias = @tryClassAlias(attributes, modifiers, first ?? keyword)
+
+				if alias.ok {
+					return alias
 				}
 
 				@rollback(mark)

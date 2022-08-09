@@ -3,7 +3,7 @@
   "attributes": [],
   "body": [
     {
-      "kind": 11,
+      "kind": 12,
       "operator": {
         "kind": 3,
         "assignment": 8,
@@ -17,7 +17,7 @@
         }
       },
       "left": {
-        "kind": 53,
+        "kind": 54,
         "name": "a",
         "start": {
           "line": 1,
@@ -29,9 +29,9 @@
         }
       },
       "right": {
-        "kind": 3,
+        "kind": 4,
         "body": {
-          "kind": 53,
+          "kind": 54,
           "name": "i",
           "start": {
             "line": 1,
@@ -43,11 +43,11 @@
           }
         },
         "loop": {
-          "kind": 46,
+          "kind": 47,
           "modifiers": [],
           "attributes": [],
           "variable": {
-            "kind": 53,
+            "kind": 54,
             "name": "i",
             "start": {
               "line": 1,
@@ -91,13 +91,13 @@
             }
           },
           "while": {
-            "kind": 15,
+            "kind": 16,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 53,
+              "kind": 54,
               "name": "foo",
               "start": {
                 "line": 1,
@@ -110,7 +110,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 54,
                 "name": "i",
                 "start": {
                   "line": 1,
@@ -132,13 +132,13 @@
             }
           },
           "when": {
-            "kind": 15,
+            "kind": 16,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 53,
+              "kind": 54,
               "name": "bar",
               "start": {
                 "line": 1,
@@ -151,7 +151,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 54,
                 "name": "i",
                 "start": {
                   "line": 1,

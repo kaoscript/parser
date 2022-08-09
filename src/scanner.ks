@@ -5,6 +5,7 @@ enum Token {
 	AMPERSAND_AMPERSAND
 	AMPERSAND_AMPERSAND_AMPERSAND
 	AMPERSAND_AMPERSAND_EQUALS
+	ALIAS
 	AS
 	AS_EXCLAMATION
 	AS_QUESTION
@@ -1978,6 +1979,20 @@ var recognize = {
 	`\(Token::AMPERSAND_AMPERSAND)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 38 && that.charAt(1) == 38 {
 			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::ALIAS)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 97 &&
+			that.charAt(1) == 108 &&
+			that.charAt(2) == 105 &&
+			that.charAt(3) == 97 &&
+			that.charAt(4) == 115 &&
+			that.isBoundary(5)
+		{
+			return that.next(5)
 		}
 		else {
 			return false

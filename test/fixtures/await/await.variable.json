@@ -3,10 +3,10 @@
   "attributes": [],
   "body": [
     {
-      "kind": 50,
+      "kind": 51,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "name": "foo",
         "start": {
           "line": 1,
@@ -39,7 +39,7 @@
             "column": 27
           },
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "bar",
             "start": {
               "line": 1,
@@ -54,7 +54,7 @@
             "kind": 119,
             "modifiers": [],
             "typeName": {
-              "kind": 53,
+              "kind": 54,
               "name": "string",
               "start": {
                 "line": 1,
@@ -88,7 +88,7 @@
             "column": 37
           },
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "qux",
             "start": {
               "line": 1,
@@ -103,7 +103,7 @@
             "kind": 119,
             "modifiers": [],
             "typeName": {
-              "kind": 53,
+              "kind": 54,
               "name": "int",
               "start": {
                 "line": 1,
@@ -142,7 +142,7 @@
         "kind": 119,
         "modifiers": [],
         "typeName": {
-          "kind": 53,
+          "kind": 54,
           "name": "string",
           "start": {
             "line": 1,
@@ -164,7 +164,7 @@
       },
       "throws": [],
       "body": {
-        "kind": 13,
+        "kind": 14,
         "attributes": [],
         "statements": [
           {
@@ -194,7 +194,7 @@
               },
               "operands": [
                 {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "bar",
                   "start": {
                     "line": 2,
@@ -206,7 +206,7 @@
                   }
                 },
                 {
-                  "kind": 69,
+                  "kind": 70,
                   "value": "+",
                   "start": {
                     "line": 2,
@@ -218,7 +218,7 @@
                   }
                 },
                 {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "qux",
                   "start": {
                     "line": 2,
@@ -252,10 +252,10 @@
       }
     },
     {
-      "kind": 50,
+      "kind": 51,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "name": "bar",
         "start": {
           "line": 5,
@@ -288,7 +288,7 @@
             "column": 18
           },
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "callback",
             "start": {
               "line": 5,
@@ -304,7 +304,7 @@
       "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 13,
+        "kind": 14,
         "attributes": [],
         "statements": [
           {
@@ -316,7 +316,7 @@
                 "kind": 126,
                 "modifiers": [],
                 "name": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "text",
                   "start": {
                     "line": 6,
@@ -346,16 +346,16 @@
               "column": 36
             },
             "init": {
-              "kind": 10,
+              "kind": 11,
               "modifiers": [],
               "operation": {
-                "kind": 15,
+                "kind": 16,
                 "modifiers": [],
                 "scope": {
                   "kind": 3
                 },
                 "callee": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "foo",
                   "start": {
                     "line": 6,
@@ -368,7 +368,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 69,
+                    "kind": 70,
                     "value": "foobar",
                     "start": {
                       "line": 6,
@@ -412,13 +412,13 @@
             }
           },
           {
-            "kind": 15,
+            "kind": 16,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 53,
+              "kind": 54,
               "name": "callback",
               "start": {
                 "line": 8,
@@ -431,7 +431,7 @@
             },
             "arguments": [
               {
-                "kind": 53,
+                "kind": 54,
                 "name": "null",
                 "start": {
                   "line": 8,
@@ -443,7 +443,7 @@
                 }
               },
               {
-                "kind": 53,
+                "kind": 54,
                 "name": "text",
                 "start": {
                   "line": 8,

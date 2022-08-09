@@ -23,7 +23,7 @@
           "kind": 126,
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "text",
             "start": {
               "line": 1,
@@ -53,7 +53,7 @@
         "column": 97
       },
       "init": {
-        "kind": 24,
+        "kind": 25,
         "start": {
           "line": 1,
           "column": 16
@@ -63,7 +63,7 @@
           "column": 97
         },
         "condition": {
-          "kind": 11,
+          "kind": 12,
           "operator": {
             "kind": 2,
             "modifiers": [],
@@ -85,7 +85,7 @@
             "column": 26
           },
           "left": {
-            "kind": 53,
+            "kind": 54,
             "name": "foo",
             "start": {
               "line": 1,
@@ -97,7 +97,7 @@
             }
           },
           "right": {
-            "kind": 53,
+            "kind": 54,
             "name": "bar",
             "start": {
               "line": 1,
@@ -110,7 +110,7 @@
           }
         },
         "whenTrue": {
-          "kind": 24,
+          "kind": 25,
           "start": {
             "line": 1,
             "column": 29
@@ -120,7 +120,7 @@
             "column": 53
           },
           "condition": {
-            "kind": 11,
+            "kind": 12,
             "operator": {
               "kind": 22,
               "modifiers": [],
@@ -142,7 +142,7 @@
               "column": 41
             },
             "left": {
-              "kind": 53,
+              "kind": 54,
               "name": "qux",
               "start": {
                 "line": 1,
@@ -154,7 +154,7 @@
               }
             },
             "right": {
-              "kind": 53,
+              "kind": 54,
               "name": "corge",
               "start": {
                 "line": 1,
@@ -167,7 +167,7 @@
             }
           },
           "whenTrue": {
-            "kind": 69,
+            "kind": 70,
             "value": "a",
             "start": {
               "line": 1,
@@ -179,7 +179,7 @@
             }
           },
           "whenFalse": {
-            "kind": 69,
+            "kind": 70,
             "value": "b",
             "start": {
               "line": 1,
@@ -192,7 +192,7 @@
           }
         },
         "whenFalse": {
-          "kind": 24,
+          "kind": 25,
           "start": {
             "line": 1,
             "column": 56
@@ -202,7 +202,7 @@
             "column": 97
           },
           "condition": {
-            "kind": 11,
+            "kind": 12,
             "operator": {
               "kind": 1,
               "modifiers": [],
@@ -224,7 +224,7 @@
               "column": 71
             },
             "left": {
-              "kind": 53,
+              "kind": 54,
               "name": "grault",
               "start": {
                 "line": 1,
@@ -236,7 +236,7 @@
               }
             },
             "right": {
-              "kind": 53,
+              "kind": 54,
               "name": "garply",
               "start": {
                 "line": 1,
@@ -249,7 +249,7 @@
             }
           },
           "whenTrue": {
-            "kind": 69,
+            "kind": 70,
             "value": "c",
             "start": {
               "line": 1,
@@ -261,7 +261,7 @@
             }
           },
           "whenFalse": {
-            "kind": 24,
+            "kind": 25,
             "start": {
               "line": 1,
               "column": 80
@@ -271,7 +271,7 @@
               "column": 97
             },
             "condition": {
-              "kind": 53,
+              "kind": 54,
               "name": "waldo",
               "start": {
                 "line": 1,
@@ -283,7 +283,7 @@
               }
             },
             "whenTrue": {
-              "kind": 69,
+              "kind": 70,
               "value": "d",
               "start": {
                 "line": 1,
@@ -295,7 +295,7 @@
               }
             },
             "whenFalse": {
-              "kind": 69,
+              "kind": 70,
               "value": "e",
               "start": {
                 "line": 1,
