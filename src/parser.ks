@@ -6367,8 +6367,9 @@ export namespace Parser {
 			}
 		} # }}}
 		reqTypedVariable(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var dyn name = null
-			var dyn type = null
+			var modifiers = []
+			var mut name = null
+			var mut type = null
 
 			if @match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
 				name = @reqDestructuringObject(@yes(), DestructuringMode::Declaration, fMode)
@@ -6385,8 +6386,11 @@ export namespace Parser {
 
 				type = @reqTypeVar()
 			}
+			else if @test(Token::QUESTION) {
+				modifiers.push(AST.Modifier(ModifierKind::Nullable, @yes()))
+			}
 
-			return @yep(AST.VariableDeclarator([], name, type, name, type ?? name))
+			return @yep(AST.VariableDeclarator(modifiers, name, type, name, type ?? name))
 		} # }}}
 		reqUnaryOperand(mut value: Event?, mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if value == null {
