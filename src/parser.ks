@@ -7764,26 +7764,13 @@ export namespace Parser {
 
 				var mark = @mark()
 
-				if @scanner.test(Token::IDENTIFIER) {
-					var value = @scanner.value()
+				var number = @tryNumber()
 
-					if value == 'this' || (!isAllowingAuto && value == 'auto') {
-						throw @error(`The return type "\(value)" can't be used`)
-					}
-					else if value == 'auto' {
-						var identifier = @yep(AST.Identifier(@scanner.value(), @yes()))
-
-						return @yep(AST.ReturnTypeReference(identifier))
-					}
-					else {
-						@rollback(mark)
-
-						return @reqTypeVar()
-					}
+				if number.ok {
+					return number
 				}
-				else {
-					return @reqTypeVar()
-				}
+
+				return @reqTypeVar()
 			}
 			else {
 				@rollback(mark)
@@ -7862,27 +7849,14 @@ export namespace Parser {
 
 				var mark = @mark()
 
-				if @scanner.test(Token::IDENTIFIER) {
-					var value = @scanner.value()
+				var number = @tryNumber()
 
-					if !isAllowingAuto && value == 'auto' {
-						throw @error(`The return type "auto" can't be used`)
-					}
-					else if value == 'this' || value == 'auto' {
-						var identifier = @yep(AST.Identifier(@scanner.value(), @yes()))
-
-						return @yep(AST.ReturnTypeReference(identifier))
-					}
-					else {
-						@rollback(mark)
-
-						return @reqTypeVar()
-					}
+				if number.ok {
+					return number
 				}
-				else if @test(Token::AT) {
-					var alias = @reqThisExpression(@yes())
 
-					return @yep(AST.ReturnTypeReference(alias))
+				if @test(Token::AT) {
+					return @reqThisExpression(@yes())
 				}
 				else {
 					return @reqTypeVar()
