@@ -6646,6 +6646,12 @@ export namespace Parser {
 			else {
 				@throw('=') if immutable
 
+				for var variable in variables {
+					if variable.value.modifiers[variable.value.modifiers.length - 1]?.kind == ModifierKind::Nullable {
+						@throw('=')
+					}
+				}
+
 				return @yep(AST.VariableDeclaration(modifiers, variables, null, first, variables[variables.length - 1]))
 			}
 		} # }}}
@@ -7453,6 +7459,11 @@ export namespace Parser {
 					@commit()
 
 					type = @reqTypeVar()
+				}
+				else if bits !~ ClassBits::NoAssignment && @test(Token::QUESTION) {
+					modifiers = [...modifiers, @yep(AST.Modifier(ModifierKind::Nullable, @yes()))]
+
+					bits += ClassBits::RequiredAssignment
 				}
 			}
 
