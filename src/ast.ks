@@ -1562,6 +1562,13 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func ShebangDeclaration(command, first, last) { # {{{
+			return location({
+				kind: NodeKind::ShebangDeclaration
+				command
+			}, first, last)
+		} # }}}
+
 		func ShorthandProperty(attributes, name, first, last) { # {{{
 			return location({
 				kind: NodeKind::ShorthandProperty

@@ -75,6 +75,7 @@ enum Token {
 	FUNC
 	GET
 	HASH
+	HASH_EXCLAMATION
 	HASH_EXCLAMATION_LEFT_SQUARE
 	HASH_LEFT_SQUARE
 	HEX_NUMBER
@@ -2394,6 +2395,14 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::HASH_EXCLAMATION)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 35 && that.charAt(1) == 33 && that.charAt(2) != 91 {
+			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::HASH_EXCLAMATION_LEFT_SQUARE)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 35 && that.charAt(1) == 33 && that.charAt(2) == 91 {
 			return that.next(3)
@@ -3138,6 +3147,35 @@ class Scanner {
 			column: @nextColumn
 		)
 	) # }}}
+	readLine(): String { # {{{
+		var mut index = @index - 1
+		var dyn c
+
+		while ++index < @length {
+			c = @data.charCodeAt(index)
+
+			if c == 13 && @data.charCodeAt(index + 1) == 10 {
+				var text = @data.substring(@index, index)
+
+				@nextColumn += index - @index
+				@nextIndex = @index = index
+
+				return text
+			}
+			else if c == 10 || c == 13 {
+				var text = @data.substring(@index, index)
+
+				@nextColumn += index - @index
+				@nextIndex = @index = index
+
+				return text
+			}
+		}
+
+		@eof()
+
+		return ''
+	} # }}}
 	rollback(mark: Marker): Boolean { # {{{
 		@eof = mark.eof
 		@index = mark.index
@@ -3640,7 +3678,7 @@ class Scanner {
 		line: @line
 		column: @column
 	) # }}}
-	substringAt(d: Number): String => @data.substr(@index + d)
+	substringAt(d: Number): String => @data.substring(@index + d)
 	test(token: Token): Boolean { # {{{
 		if @eof {
 			return Token::EOF == token

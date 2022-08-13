@@ -4038,13 +4038,18 @@ export namespace Parser {
 			return @yep(AST.MacroDeclaration(attributes, name, parameters, body, first, body))
 		} # }}}
 		reqModule(): Event ~ SyntaxError { # {{{
-			@NL_0M()
-
 			var attributes = []
 			var body = []
 
 			var dyn attrs = []
 			var dyn statement
+
+			if (statement = @tryShebang()).ok {
+				body.push(statement.value)
+			}
+
+			@NL_0M()
+
 			until @scanner.isEOF() {
 				if @stackInnerAttributes(attributes) {
 					continue
@@ -8013,6 +8018,19 @@ export namespace Parser {
 			}
 
 			return @reqPostfixedOperand(operand, eMode, fMode)
+		} # }}}
+		tryShebang(): Event ~ SyntaxError { # {{{
+			if @test(Token::HASH_EXCLAMATION) {
+				var first = @yes()
+				var command = @scanner.readLine()
+				var last = @yep()
+
+				@reqNL_1M()
+
+				return @yep(AST.ShebangDeclaration(command, first, last))
+			}
+
+			return NO
 		} # }}}
 		trySwitchExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			unless @test(Token::SWITCH) {
