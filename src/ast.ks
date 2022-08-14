@@ -4,17 +4,13 @@ namespace AST {
 		[BinaryOperatorKind::Addition]: false
 		[BinaryOperatorKind::And]: false
 		[BinaryOperatorKind::Assignment]: false
-		[BinaryOperatorKind::BitwiseAnd]: false
-		[BinaryOperatorKind::BitwiseLeftShift]: false
-		[BinaryOperatorKind::BitwiseOr]: false
-		[BinaryOperatorKind::BitwiseRightShift]: false
-		[BinaryOperatorKind::BitwiseXor]: false
 		[BinaryOperatorKind::Division]: false
 		[BinaryOperatorKind::Equality]: true
 		[BinaryOperatorKind::GreaterThan]: true
 		[BinaryOperatorKind::GreaterThanOrEqual]: true
 		[BinaryOperatorKind::Imply]: false
 		[BinaryOperatorKind::Inequality]: true
+		[BinaryOperatorKind::LeftShift]: false
 		[BinaryOperatorKind::LessThan]: true
 		[BinaryOperatorKind::LessThanOrEqual]: true
 		[BinaryOperatorKind::Match]: false
@@ -24,6 +20,7 @@ namespace AST {
 		[BinaryOperatorKind::NullCoalescing]: false
 		[BinaryOperatorKind::Or]: false
 		[BinaryOperatorKind::Quotient]: false
+		[BinaryOperatorKind::RightShift]: false
 		[BinaryOperatorKind::Subtraction]: false
 		[BinaryOperatorKind::TypeCasting]: false
 		[BinaryOperatorKind::TypeEquality]: false
@@ -35,18 +32,15 @@ namespace AST {
 		[BinaryOperatorKind::Addition]: true
 		[BinaryOperatorKind::And]: true
 		[BinaryOperatorKind::Assignment]: false
-		[BinaryOperatorKind::BitwiseAnd]: true
-		[BinaryOperatorKind::BitwiseLeftShift]: true
-		[BinaryOperatorKind::BitwiseOr]: true
-		[BinaryOperatorKind::BitwiseRightShift]: true
-		[BinaryOperatorKind::BitwiseXor]: true
 		[BinaryOperatorKind::Division]: true
 		[BinaryOperatorKind::Imply]: true
+		[BinaryOperatorKind::LeftShift]: true
 		[BinaryOperatorKind::Modulo]: true
 		[BinaryOperatorKind::Multiplication]: true
 		[BinaryOperatorKind::NullCoalescing]: true
 		[BinaryOperatorKind::Or]: true
 		[BinaryOperatorKind::Quotient]: true
+		[BinaryOperatorKind::RightShift]: true
 		[BinaryOperatorKind::Subtraction]: true
 		[BinaryOperatorKind::TypeCasting]: false
 		[BinaryOperatorKind::TypeEquality]: false
@@ -58,17 +52,13 @@ namespace AST {
 		[BinaryOperatorKind::Addition]: 13
 		[BinaryOperatorKind::And]: 6
 		[BinaryOperatorKind::Assignment]: 3
-		[BinaryOperatorKind::BitwiseAnd]: 11
-		[BinaryOperatorKind::BitwiseLeftShift]: 12
-		[BinaryOperatorKind::BitwiseOr]: 9
-		[BinaryOperatorKind::BitwiseRightShift]: 12
-		[BinaryOperatorKind::BitwiseXor]: 10
 		[BinaryOperatorKind::Division]: 14
 		[BinaryOperatorKind::Equality]: 8
 		[BinaryOperatorKind::GreaterThan]: 8
 		[BinaryOperatorKind::GreaterThanOrEqual]: 8
 		[BinaryOperatorKind::Imply]: 5
 		[BinaryOperatorKind::Inequality]: 8
+		[BinaryOperatorKind::LeftShift]: 12
 		[BinaryOperatorKind::LessThan]: 8
 		[BinaryOperatorKind::LessThanOrEqual]: 8
 		[BinaryOperatorKind::Match]: 8
@@ -78,6 +68,7 @@ namespace AST {
 		[BinaryOperatorKind::NullCoalescing]: 15
 		[BinaryOperatorKind::Or]: 5
 		[BinaryOperatorKind::Quotient]: 14
+		[BinaryOperatorKind::RightShift]: 12
 		[BinaryOperatorKind::Subtraction]: 13
 		[BinaryOperatorKind::TypeCasting]: 8
 		[BinaryOperatorKind::TypeEquality]: 8

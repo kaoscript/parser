@@ -3,7 +3,6 @@ enum Token {
 	ABSTRACT
 	AMPERSAND
 	AMPERSAND_AMPERSAND
-	AMPERSAND_AMPERSAND_AMPERSAND
 	AMPERSAND_AMPERSAND_EQUALS
 	ALIAS
 	AS
@@ -94,8 +93,8 @@ enum Token {
 	LATEINIT
 	LEFT_ANGLE
 	LEFT_ANGLE_EQUALS
+	LEFT_ANGLE_LEFT_ANGLE
 	LEFT_ANGLE_LEFT_ANGLE_EQUALS
-	LEFT_ANGLE_LEFT_ANGLE_LEFT_ANGLE
 	LEFT_CURLY
 	LEFT_ROUND
 	LEFT_SQUARE
@@ -119,7 +118,6 @@ enum Token {
 	PIPE
 	PIPE_PIPE
 	PIPE_PIPE_EQUALS
-	PIPE_PIPE_PIPE
 	PLUS
 	PLUS_EQUALS
 	PLUS_PLUS
@@ -142,8 +140,8 @@ enum Token {
 	RETURN
 	RIGHT_ANGLE
 	RIGHT_ANGLE_EQUALS
+	RIGHT_ANGLE_RIGHT_ANGLE
 	RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
-	RIGHT_ANGLE_RIGHT_ANGLE_RIGHT_ANGLE
 	RIGHT_CURLY
 	RIGHT_ROUND
 	RIGHT_SQUARE
@@ -166,7 +164,6 @@ enum Token {
 	TIL
 	TILDE
 	TILDE_TILDE
-	TILDE_TILDE_TILDE
 	TO
 	TRY
 	TUPLE
@@ -358,12 +355,7 @@ namespace M {
 				c = that.charAt(1)
 
 				if c == 38 {
-					if that.charAt(2) == 38 {
-						that.next(3)
-
-						return Token::AMPERSAND_AMPERSAND_AMPERSAND
-					}
-					else if that.charAt(2) == 61 {
+					if that.charAt(2) == 61 {
 						that.next(3)
 
 						return Token::AMPERSAND_AMPERSAND_EQUALS
@@ -450,15 +442,15 @@ namespace M {
 				c = that.charAt(1)
 
 				if c == 60 {
-					if that.charAt(2) == 60 {
-						that.next(3)
-
-						return Token::LEFT_ANGLE_LEFT_ANGLE_LEFT_ANGLE
-					}
-					else if that.charAt(2) == 61 {
+					if that.charAt(2) == 61 {
 						that.next(3)
 
 						return Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS
+					}
+					else {
+						that.next(2)
+
+						return Token::LEFT_ANGLE_LEFT_ANGLE
 					}
 				}
 				else if c == 61 {
@@ -500,10 +492,10 @@ namespace M {
 
 						return Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
 					}
-					else if that.charAt(2) == 62 {
-						that.next(3)
+					else {
+						that.next(2)
 
-						return Token::RIGHT_ANGLE_RIGHT_ANGLE_RIGHT_ANGLE
+						return Token::RIGHT_ANGLE_RIGHT_ANGLE
 					}
 				}
 				else {
@@ -562,11 +554,6 @@ namespace M {
 						that.next(3)
 
 						return Token::PIPE_PIPE_EQUALS
-					}
-					else if that.charAt(2) == 124 {
-						that.next(3)
-
-						return Token::PIPE_PIPE_PIPE
 					}
 					else {
 						that.next(2)
@@ -1401,13 +1388,6 @@ namespace M {
 					that.next(1)
 
 					return Token::QUESTION
-				}
-			}
-			else if c == 126 { // ~
-				if that.charAt(1) == 126 && that.charAt(2) == 126 && !((c = that.charAt(3)) == 9 || c == 32) {
-					that.next(3)
-
-					return Token::TILDE_TILDE_TILDE
 				}
 			}
 
