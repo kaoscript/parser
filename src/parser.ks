@@ -1172,7 +1172,7 @@ export namespace Parser {
 
 			members.push(member)
 		} # }}}
-		reqClassMethod(attributes, modifiers, mut bits: ClassBits, name: Event, round: Event?, mut first: Event?): Event ~ SyntaxError { # {{{
+		reqClassMethod(attributes, modifiers, mut bits: ClassBits, name: Event, round: Event?, mut first: Event): Event ~ SyntaxError { # {{{
 			var parameters = @reqClassMethodParameterList(round)
 
 			var type = @tryMethodReturns(bits !~ ClassBits::NoBody)
@@ -1201,7 +1201,7 @@ export namespace Parser {
 			}
 
 			var parameters = []
-			var pMode = DestructuringMode::Parameter ||| DestructuringMode::THIS_ALIAS
+			var pMode = DestructuringMode::Parameter + DestructuringMode::THIS_ALIAS
 
 			while @until(Token::RIGHT_ROUND) {
 				while @reqParameter(parameters, pMode, FunctionMode::Method) {
@@ -7544,7 +7544,7 @@ export namespace Parser {
 			var late dMode: DestructuringMode
 
 			if fMode == FunctionMode::Method {
-				dMode = DestructuringMode::Expression ||| DestructuringMode::THIS_ALIAS
+				dMode = DestructuringMode::Expression + DestructuringMode::THIS_ALIAS
 			}
 			else {
 				dMode = DestructuringMode::Expression
@@ -7561,7 +7561,7 @@ export namespace Parser {
 			var late dMode: DestructuringMode
 
 			if fMode == FunctionMode::Method {
-				dMode = DestructuringMode::Expression ||| DestructuringMode::THIS_ALIAS
+				dMode = DestructuringMode::Expression + DestructuringMode::THIS_ALIAS
 			}
 			else {
 				dMode = DestructuringMode::Expression
@@ -7699,7 +7699,7 @@ export namespace Parser {
 					return @yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body))
 				}
 				else {
-					var body = @reqExpression(eMode ||| ExpressionMode::NoObject, fMode)
+					var body = @reqExpression(eMode + ExpressionMode::NoObject, fMode)
 
 					return @yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body))
 				}
@@ -7721,7 +7721,7 @@ export namespace Parser {
 					return @yep(AST.LambdaExpression(parameters, null, null, null, body, parameters, body))
 				}
 				else {
-					var body = @reqExpression(eMode ||| ExpressionMode::NoObject, fMode)
+					var body = @reqExpression(eMode + ExpressionMode::NoObject, fMode)
 
 					return @yep(AST.LambdaExpression(parameters, null, null, null, body, parameters, body))
 				}
