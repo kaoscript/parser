@@ -1452,7 +1452,8 @@ namespace AST {
 				kind: NodeKind::Parameter
 				attributes: []
 				modifiers: []
-				name: name.value
+				internal: name.value
+				external: name.value
 			}, name, name)
 		} # }}}
 
