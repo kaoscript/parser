@@ -1317,6 +1317,15 @@ namespace AST {
 			}, name, value)
 		} # }}}
 
+		func NamedArgument(name, value, first, last) { # {{{
+			return location({
+				kind: NodeKind::NamedArgument
+				modifiers: []
+				name: name.value
+				value: value.value
+			}, first, last)
+		} # }}}
+
 		func NamespaceDeclaration(attributes, modifiers, name, statements, first, last) { # {{{
 			return location({
 				kind: NodeKind::NamespaceDeclaration

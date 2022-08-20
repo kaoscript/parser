@@ -2157,22 +2157,38 @@ export namespace Parser {
 				var expressions = []
 
 				while true {
-					var expression = @reqExpression(null, fMode, MacroTerminator::List)
+					if @test(Token::COLON) {
+						var first = @yes()
 
-					if expression.value.kind == NodeKind::Identifier {
-						if @test(Token::COLON) {
-							@commit()
+						if fMode == FunctionMode::Method && @test(Token::AT) {
+							var alias = @reqThisExpression(@yes())
 
-							var value = @reqExpression(null, fMode, MacroTerminator::List)
+							expressions.push(@yep(AST.NamedArgument(@yep(alias.value.name), alias, first, alias)))
+						}
+						else {
+							var identifier = @reqIdentifier()
 
-							expressions.push(@yep(AST.NamedArgument(expression, value)))
+							expressions.push(@yep(AST.NamedArgument(identifier, identifier, first, identifier)))
+						}
+					}
+					else {
+						var expression = @reqExpression(null, fMode, MacroTerminator::List)
+
+						if expression.value.kind == NodeKind::Identifier {
+							if @test(Token::COLON) {
+								@commit()
+
+								var value = @reqExpression(null, fMode, MacroTerminator::List)
+
+								expressions.push(@yep(AST.NamedArgument(expression, value)))
+							}
+							else {
+								expressions.push(expression)
+							}
 						}
 						else {
 							expressions.push(expression)
 						}
-					}
-					else {
-						expressions.push(expression)
 					}
 
 					if @match(Token::COMMA, Token::NEWLINE) == Token::COMMA || @token == Token::NEWLINE {
