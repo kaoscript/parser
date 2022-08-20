@@ -31,6 +31,7 @@ export namespace Parser {
 
 		COMPUTED
 		DEFAULT
+		EXTERNAL_ONLY
 		RECURSION
 		THIS_ALIAS
 		TYPE
@@ -1173,7 +1174,7 @@ export namespace Parser {
 			members.push(member)
 		} # }}}
 		reqClassMethod(attributes, modifiers, mut bits: ClassBits, name: Event, round: Event?, mut first: Event): Event ~ SyntaxError { # {{{
-			var parameters = @reqClassMethodParameterList(round)
+			var parameters = @reqClassMethodParameterList(round, bits ~~ ClassBits::NoBody ? DestructuringMode::EXTERNAL_ONLY : null)
 
 			var type = @tryMethodReturns(bits !~ ClassBits::NoBody)
 			var throws = @tryFunctionThrows()
@@ -1191,7 +1192,7 @@ export namespace Parser {
 				return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
 			}
 		} # }}}
-		reqClassMethodParameterList(mut top: Event = NO): Event ~ SyntaxError { # {{{
+		reqClassMethodParameterList(mut top: Event = NO, mut pMode: DestructuringMode = DestructuringMode::Nil): Event ~ SyntaxError { # {{{
 			if !top.ok {
 				unless @test(Token::LEFT_ROUND) {
 					@throw('(')
@@ -1201,7 +1202,8 @@ export namespace Parser {
 			}
 
 			var parameters = []
-			var pMode = DestructuringMode::Parameter + DestructuringMode::THIS_ALIAS
+
+			pMode += DestructuringMode::Parameter + DestructuringMode::THIS_ALIAS
 
 			while @until(Token::RIGHT_ROUND) {
 				while @reqParameter(parameters, pMode, FunctionMode::Method) {
@@ -2386,7 +2388,7 @@ export namespace Parser {
 			}
 		} # }}}
 		reqExternClassMethod(attributes, modifiers, name: Event, round: Event, first): Event ~ SyntaxError { # {{{
-			var parameters = @reqClassMethodParameterList(round)
+			var parameters = @reqClassMethodParameterList(round, DestructuringMode::EXTERNAL_ONLY)
 			var type = @tryMethodReturns(false)
 
 			@reqNL_1M()
@@ -2565,7 +2567,7 @@ export namespace Parser {
 			var name = @reqIdentifier()
 
 			if @test(Token::LEFT_ROUND) {
-				var parameters = @reqFunctionParameterList(FunctionMode::Function)
+				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
@@ -2790,7 +2792,7 @@ export namespace Parser {
 				return @yep(AST.VariableDeclarator([], name, type, name, type))
 			}
 			else if @token == Token::LEFT_ROUND {
-				var parameters = @reqFunctionParameterList(FunctionMode::Function)
+				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 
 				return @yep(AST.FunctionDeclaration(name, parameters, [], type, null, null, name, type ?? parameters))
@@ -2974,7 +2976,7 @@ export namespace Parser {
 				@throw(['{', '=>'])
 			}
 		} # }}}
-		reqFunctionParameterList(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqFunctionParameterList(fMode: FunctionMode, mut pMode: DestructuringMode = DestructuringMode::Nil): Event ~ SyntaxError { # {{{
 			unless @test(Token::LEFT_ROUND) {
 				@throw('(')
 			}
@@ -2983,8 +2985,10 @@ export namespace Parser {
 
 			var parameters = []
 
+			pMode += DestructuringMode::Parameter
+
 			unless @test(Token::RIGHT_ROUND) {
-				while @reqParameter(parameters, DestructuringMode::Parameter, fMode) {
+				while @reqParameter(parameters, pMode, fMode) {
 				}
 
 				unless @test(Token::RIGHT_ROUND) {
@@ -4433,47 +4437,157 @@ export namespace Parser {
 				mutModifier = AST.Modifier(ModifierKind::Mutable, @yes())
 			}
 
-			if @match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY || @token == Token::LEFT_SQUARE {
-				if fMode == FunctionMode::Macro {
-					@throw()
+			var mut positionalModifier = null
+			var mut namedModifier = null
+
+			if pMode !~ DestructuringMode::EXTERNAL_ONLY {
+				if @test(Token::HASH) {
+					positionalModifier = AST.Modifier(ModifierKind::PositionOnly, @yes())
 				}
+				else if @test(Token::ASTERISK) {
+					namedModifier = AST.Modifier(ModifierKind::NameOnly, @yes())
+				}
+			}
+
+			var mut external = null
+
+			if namedModifier? {
+				var identifier = @tryIdentifier()
+
+				if identifier.ok {
+					if @test(Token::PERCENT) {
+						@commit()
+
+						external = identifier
+					}
+					else {
+						var modifiers = []
+						modifiers.push(mutModifier) if ?mutModifier
+						modifiers.push(?positionalModifier ? positionalModifier : namedModifier)
+
+						parameters.push(@reqParameterIdendifier(attributes, modifiers, null, identifier, true, true, true, true, firstAttr ?? mutModifier ?? positionalModifier ?? namedModifier, fMode))
+
+						if @test(Token::COMMA) {
+							@commit()
+
+							return true
+						}
+						else {
+							return false
+						}
+					}
+				}
+			}
+
+			if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+				@throw() if fMode == FunctionMode::Macro
+				@throw() if positionalModifier? || (?namedModifier && !?external)
+
+				var modifiers = []
+				modifiers.push(mutModifier) if ?mutModifier
+				modifiers.push(namedModifier) if ?namedModifier
+
+				var mut internal
+				if @token == Token::LEFT_CURLY {
+					internal = @reqDestructuringObject(@yes(), pMode, fMode)
+				}
+				else {
+					internal = @reqDestructuringArray(@yes(), pMode, fMode)
+				}
+
+				parameters.push(@reqParameterIdendifier(attributes, modifiers, external, internal, false, true, false, true, firstAttr ?? mutModifier ?? namedModifier ?? external ?? internal, fMode))
+
+				if @test(Token::COMMA) {
+					@commit()
+
+					return true
+				}
+				else {
+					return false
+				}
+			}
+
+			if @test(Token::DOT_DOT_DOT) {
+				@throw() if positionalModifier? || namedModifier?
+
+				var first = @yes()
 
 				var modifiers = []
 				modifiers.push(mutModifier) if ?mutModifier
 
-				var dyn name
-				if @token == Token::LEFT_CURLY {
-					name = @reqDestructuringObject(@yes(), pMode, fMode)
-				}
-				else {
-					name = @reqDestructuringArray(@yes(), pMode, fMode)
-				}
+				parameters.push(@reqParameterRest(attributes, modifiers, external, firstAttr ?? mutModifier ?? first, pMode, fMode))
 
-				if @match(Token::COLON, Token::EQUALS) == Token::COLON {
+				if @test(Token::COMMA) {
 					@commit()
 
-					var type = @reqTypeVar()
+					return true
+				}
+				else {
+					return false
+				}
+			}
 
-					if @test(Token::EQUALS) {
+			if @test(Token::AT) {
+				@throw() if mutModifier?
+
+				var modifiers = []
+				modifiers.push(namedModifier) if ?namedModifier
+				modifiers.push(positionalModifier) if ?positionalModifier
+
+				parameters.push(@reqParameterAt(attributes, modifiers, external, firstAttr ?? namedModifier ?? positionalModifier, pMode, fMode))
+
+				if @test(Token::COMMA) {
+					@commit()
+
+					return true
+				}
+				else {
+					return false
+				}
+			}
+
+			if @test(Token::UNDERSCORE) {
+				@throw() if positionalModifier? || (?namedModifier && !?external)
+
+				var modifiers = []
+				modifiers.push(mutModifier) if ?mutModifier
+				modifiers.push(namedModifier) if ?namedModifier
+
+				var underscore = @yes()
+
+				if !?external && pMode !~ DestructuringMode::EXTERNAL_ONLY && @test(Token::PERCENT) {
+					@commit()
+
+					if @test(Token::UNDERSCORE) {
 						@commit()
 
-						var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
+						parameters.push(@reqParameterIdendifier(attributes, modifiers, null, null, false, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode))
+					}
+					else if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+						var mut internal
+						if @token == Token::LEFT_CURLY {
+							internal = @reqDestructuringObject(@yes(), pMode, fMode)
+						}
+						else {
+							internal = @reqDestructuringArray(@yes(), pMode, fMode)
+						}
 
-						parameters.push(@yep(AST.Parameter(attributes, modifiers, name, type, defaultValue, firstAttr ?? name, defaultValue)))
+						parameters.push(@reqParameterIdendifier(attributes, modifiers, null, internal, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode))
+					}
+					else if !?namedModifier && @test(Token::DOT_DOT_DOT) {
+						@commit()
+
+						parameters.push(@reqParameterRest(attributes, modifiers, NO, firstAttr ?? mutModifier ?? underscore, pMode, fMode))
+					}
+					else if @test(Token::AT) {
+						parameters.push(@reqParameterAt(attributes, modifiers, null, firstAttr ?? namedModifier ?? underscore, pMode, fMode))
 					}
 					else {
-						parameters.push(@yep(AST.Parameter(attributes, modifiers, name, type, null, firstAttr ?? name, type)))
+						parameters.push(@reqParameterIdendifier(attributes, modifiers, null, null, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode))
 					}
 				}
-				else if @token == Token::EQUALS {
-					@commit()
-
-					var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
-
-					parameters.push(@yep(AST.Parameter(attributes, modifiers, name, null, defaultValue, firstAttr ?? name, defaultValue)))
-				}
 				else {
-					parameters.push(@yep(AST.Parameter(attributes, modifiers, name, null, null, firstAttr ?? name, name)))
+					parameters.push(@reqParameterIdendifier(attributes, modifiers, external, null, false, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode))
 				}
 
 				if @test(Token::COMMA) {
@@ -4486,56 +4600,64 @@ export namespace Parser {
 				}
 			}
 
-			var mut restModifier = null
-			if @test(Token::DOT_DOT_DOT) {
-				var first = @yes()
+			if ?positionalModifier || ?namedModifier {
+				var modifiers = []
+				modifiers.push(mutModifier) if ?mutModifier
+				modifiers.push(?positionalModifier ? positionalModifier : namedModifier)
 
-				if @test(Token::LEFT_CURLY) {
+				parameters.push(@reqParameterIdendifier(attributes, modifiers, external, null, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? positionalModifier, fMode))
+
+				if @test(Token::COMMA) {
 					@commit()
 
-					var dyn min, max
-
-					if @test(Token::COMMA) {
-						@commit()
-
-						min = 0
-						max = @reqNumber().value.value
-					}
-					else {
-						min = @reqNumber().value.value
-
-						if @test(Token::COMMA) {
-							@commit()
-
-							if @test(Token::RIGHT_CURLY) {
-								max = Infinity
-							}
-							else {
-								max = @reqNumber().value.value
-							}
-						}
-						else {
-							max = min
-						}
-					}
-
-					unless @test(Token::RIGHT_CURLY) {
-						@throw('}')
-					}
-
-					restModifier = AST.RestModifier(min, max, first, @yes())
+					return true
 				}
 				else {
-					restModifier = AST.RestModifier(0, Infinity, first, first)
+					return false
 				}
 			}
 
-			if ?mutModifier {
-				if @test(Token::IDENTIFIER) {
-					var modifiers = [mutModifier]
-					modifiers.push(restModifier) if ?restModifier
+			do {
+				var identifier = @tryIdentifier()
 
-					parameters.push(@reqParameterIdendifier(attributes, modifiers, firstAttr ?? mutModifier, fMode))
+				if identifier.ok {
+					var modifiers = []
+					modifiers.push(mutModifier) if ?mutModifier
+
+					if pMode !~ DestructuringMode::EXTERNAL_ONLY && @test(Token::PERCENT) {
+						@commit()
+
+						if @test(Token::UNDERSCORE) {
+							@commit()
+
+							parameters.push(@reqParameterIdendifier(attributes, modifiers, identifier, null, false, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode))
+						}
+						else if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+							var mut internal
+							if @token == Token::LEFT_CURLY {
+								internal = @reqDestructuringObject(@yes(), pMode, fMode)
+							}
+							else {
+								internal = @reqDestructuringArray(@yes(), pMode, fMode)
+							}
+
+							parameters.push(@reqParameterIdendifier(attributes, modifiers, identifier, internal, true, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode))
+						}
+						else if @test(Token::DOT_DOT_DOT) {
+							@commit()
+
+							parameters.push(@reqParameterRest(attributes, modifiers, identifier, firstAttr ?? mutModifier ?? identifier, pMode, fMode))
+						}
+						else if @test(Token::AT) {
+							parameters.push(@reqParameterAt(attributes, modifiers, identifier, firstAttr ?? namedModifier ?? identifier, pMode, fMode))
+						}
+						else {
+							parameters.push(@reqParameterIdendifier(attributes, modifiers, identifier, null, true, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode))
+						}
+					}
+					else {
+						parameters.push(@reqParameterIdendifier(attributes, modifiers, identifier, identifier, true, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode))
+					}
 
 					if @test(Token::COMMA) {
 						@commit()
@@ -4547,148 +4669,201 @@ export namespace Parser {
 					}
 				}
 
-				if ?restModifier {
-					@throw()
-				}
-				else {
+				if mutModifier? {
 					@rollback(mutMark)
+
+					mutModifier = null
+				}
+				else {
+					break
 				}
 			}
+			while true
 
-			var modifiers = []
-			modifiers.push(restModifier) if ?restModifier
+			@throw()
+		} # }}}
+		reqParameterAt(attributes, modifiers, external?, first?, pMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			if fMode == FunctionMode::Macro {
+				var at = @yes()
 
-			if @test(Token::AT) {
-				if fMode == FunctionMode::Macro {
-					var first = @yes()
+				modifiers.push(AST.Modifier(ModifierKind::AutoEvaluate, at))
 
-					modifiers.push(AST.Modifier(ModifierKind::AutoEvaluate, first))
-
-					parameters.push(@reqParameterIdendifier(attributes, modifiers, firstAttr ?? first, fMode))
-				}
-				else if fMode == FunctionMode::Method && pMode ~~ DestructuringMode::THIS_ALIAS {
-					var first = @yes()
-
-					parameters.push(@reqParameterThis(attributes, modifiers, firstAttr ?? first, fMode))
-				}
-				else {
-					@throw()
-				}
-
-				if @test(Token::COMMA) {
-					@commit()
-				}
-				else {
-					return false
-				}
+				return @reqParameterIdendifier(attributes, modifiers, external, null, true, true, true, true, first ?? at, fMode)
 			}
-			else if @test(Token::IDENTIFIER) {
-				var first = modifiers.length == 0 ? null : modifiers[0]
+			else if fMode == FunctionMode::Method && pMode ~~ DestructuringMode::THIS_ALIAS {
+				var at = @yes()
 
-				parameters.push(@reqParameterIdendifier(attributes, modifiers, firstAttr ?? first, fMode))
-
-				if @test(Token::COMMA) {
-					@commit()
-				}
-				else {
-					return false
-				}
-			}
-			else if @test(Token::UNDERSCORE) {
-				var first = @yes()
-
-				if @test(Token::EXCLAMATION) {
-					modifiers.push(AST.Modifier(ModifierKind::Required, @yes()))
-				}
-
-				if @test(Token::COLON) {
-					@commit()
-
-					var type = @reqTypeVar()
-
-					parameters.push(@yep(AST.Parameter(attributes, modifiers, null, type, null, firstAttr ?? first, type)))
-				}
-				else if @test(Token::QUESTION) {
-					var type = @yep(AST.Nullable(@yes()))
-
-					parameters.push(@yep(AST.Parameter(attributes, modifiers, null, type, null, firstAttr ?? first, type)))
-				}
-				else {
-					parameters.push(@yep(AST.Parameter(attributes, modifiers, null, null, null, firstAttr ?? first, first)))
-				}
-
-				if @test(Token::COMMA) {
-					@commit()
-				}
-				else {
-					return false
-				}
-			}
-			else if modifiers.length != 0 {
-				parameters.push(@yep(AST.Parameter(attributes, modifiers, null, null, null, firstAttr ?? modifiers[0], modifiers[0])))
-
-				if @test(Token::COMMA) {
-					@commit()
-				}
-				else {
-					return false
-				}
+				return @reqParameterThis(attributes, modifiers, external, first ?? at, fMode)
 			}
 			else {
 				@throw()
 			}
-
-			return true
 		} # }}}
-		reqParameterIdendifier(attributes, modifiers, first?, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var identifier = @reqIdentifier()
+		reqParameterIdendifier(attributes, modifiers, mut external?, mut internal?, required: Boolean, typed: Boolean, nullable: Boolean, valued: Boolean, mut first?, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			if !?internal {
+				if !required {
+					var identifier = @tryIdentifier()
 
-			if @test(Token::EXCLAMATION) {
-				modifiers.push(AST.Modifier(ModifierKind::Required, @yes()))
+					if identifier.ok {
+						internal = identifier
+
+						first ??= identifier
+					}
+				}
+				else {
+					if !?external {
+						var identifier = @reqIdentifier()
+
+						if @test(Token::PERCENT) {
+							@commit()
+
+							external = identifier
+						}
+						else {
+							internal = identifier
+						}
+
+						first ??= identifier
+					}
+
+					if !?internal {
+						internal = @reqIdentifier()
+
+						first ??= internal
+					}
+				}
 			}
 
-			if @match(Token::COLON, Token::EQUALS, Token::QUESTION) == Token::COLON {
+			var mut requireDefault = false
+
+			if required && ?internal && valued && @test(Token::EXCLAMATION) {
+				modifiers.push(AST.Modifier(ModifierKind::Required, @yes()))
+
+				requireDefault = true
+			}
+
+			if typed && @test(Token::COLON) {
 				@commit()
 
 				var type = @reqTypeVar()
 
-				if @test(Token::EQUALS) {
+				if valued && @test(Token::EQUALS) {
 					@commit()
 
 					var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-					return @yep(AST.Parameter(attributes, modifiers, identifier, type, defaultValue, first ?? identifier, defaultValue))
+					return @yep(AST.Parameter(attributes, modifiers, external, internal, type, defaultValue, first, defaultValue))
+				}
+				else if requireDefault {
+					@throw('=')
 				}
 				else {
-					return @yep(AST.Parameter(attributes, modifiers, identifier, type, null, first ?? identifier, type))
+					return @yep(AST.Parameter(attributes, modifiers, external, internal, type, null, first, type))
 				}
 			}
-			else if @token == Token::EQUALS {
+			else if valued && @test(Token::EQUALS) {
 				@commit()
 
 				var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.Parameter(attributes, modifiers, identifier, null, defaultValue, first ?? identifier, defaultValue))
+				return @yep(AST.Parameter(attributes, modifiers, external, internal, null, defaultValue, first, defaultValue))
 			}
-			else if @token == Token::QUESTION {
+			else if nullable && @test(Token::QUESTION) {
 				var type = @yep(AST.Nullable(@yes()))
 
-				if @test(Token::EQUALS) {
+				if valued && @test(Token::EQUALS) {
 					@commit()
 
 					var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-					return @yep(AST.Parameter(attributes, modifiers, identifier, type, defaultValue, first ?? identifier, defaultValue))
+					return @yep(AST.Parameter(attributes, modifiers, external, internal, type, defaultValue, first, defaultValue))
+				}
+				else if requireDefault {
+					@throw('=')
 				}
 				else {
-					return @yep(AST.Parameter(attributes, modifiers, identifier, type, null, first ?? identifier, type))
+					return @yep(AST.Parameter(attributes, modifiers, external, internal, type, null, first, type))
+				}
+			}
+			else if requireDefault {
+				@throw('=')
+			}
+			else {
+				return @yep(AST.Parameter(attributes, modifiers, external, internal, null, null, first, internal ?? external ?? first))
+			}
+		} # }}}
+		reqParameterRest(attributes, modifiers, mut external?, first, pMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			if @test(Token::LEFT_CURLY) {
+				@commit()
+
+				var dyn min, max
+
+				if @test(Token::COMMA) {
+					@commit()
+
+					min = 0
+					max = @reqNumber().value.value
+				}
+				else {
+					min = @reqNumber().value.value
+
+					if @test(Token::COMMA) {
+						@commit()
+
+						if @test(Token::RIGHT_CURLY) {
+							max = Infinity
+						}
+						else {
+							max = @reqNumber().value.value
+						}
+					}
+					else {
+						max = min
+					}
+				}
+
+				unless @test(Token::RIGHT_CURLY) {
+					@throw('}')
+				}
+
+				modifiers.push(AST.RestModifier(min, max, first, @yes()))
+			}
+			else {
+				modifiers.push(AST.RestModifier(0, Infinity, first, first))
+			}
+
+			if @test(Token::AT) {
+				if fMode == FunctionMode::Method && pMode ~~ DestructuringMode::THIS_ALIAS {
+					@commit()
+
+					return @reqParameterThis(attributes, modifiers, external, first, fMode)
+				}
+				else {
+					@throw()
 				}
 			}
 			else {
-				return @yep(AST.Parameter(attributes, modifiers, identifier, null, null, first ?? identifier, identifier))
+				var identifier = @tryIdentifier()
+
+				if identifier.ok {
+					if !?external {
+						external = identifier
+					}
+					else if !external.ok {
+						external = null
+					}
+
+					return @reqParameterIdendifier(attributes, modifiers, external, identifier, false, false, false, true, first, fMode)
+				}
+
+				if ?external && !external.ok {
+					external = null
+				}
+
+				return @reqParameterIdendifier(attributes, modifiers, external, null, false, false, false, true, first, fMode)
 			}
 		} # }}}
-		reqParameterThis(attributes, modifiers, first, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqParameterThis(attributes, modifiers, external?, first, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var name = @reqThisExpression(first)
 
 			if @test(Token::EQUALS) {
@@ -4696,10 +4871,10 @@ export namespace Parser {
 
 				var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.Parameter(attributes, modifiers, name, null, defaultValue, first ?? name, defaultValue))
+				return @yep(AST.Parameter(attributes, modifiers, external ?? name, name, null, defaultValue, first ?? name, defaultValue))
 			}
 			else {
-				return @yep(AST.Parameter(attributes, modifiers, name, null, null, first ?? name, name))
+				return @yep(AST.Parameter(attributes, modifiers, external ?? name, name, null, null, first ?? name, name))
 			}
 		} # }}}
 		reqParenthesis(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -5920,7 +6095,7 @@ export namespace Parser {
 
 				if @test(Token::LEFT_ROUND) {
 					var modifiers = [@yep(AST.Modifier(ModifierKind::Async, async))]
-					var parameters = @reqFunctionParameterList(FunctionMode::Function)
+					var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 					var type = @tryFunctionReturns(false)
 					var throws = @tryFunctionThrows()
 
@@ -5934,7 +6109,7 @@ export namespace Parser {
 				var first = @yes()
 
 				if @test(Token::LEFT_ROUND) {
-					var parameters = @reqFunctionParameterList(FunctionMode::Function)
+					var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 					var type = @tryFunctionReturns(false)
 					var throws = @tryFunctionThrows()
 
@@ -5945,7 +6120,7 @@ export namespace Parser {
 				}
 			}
 			else if @token == Token::LEFT_ROUND {
-				var parameters = @reqFunctionParameterList(FunctionMode::Function)
+				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
@@ -6218,7 +6393,7 @@ export namespace Parser {
 				type = @reqTypeVar()
 			}
 			else {
-				var parameters = @reqFunctionParameterList(FunctionMode::Function)
+				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 				type = @tryFunctionReturns()
 				var throws = @tryFunctionThrows()
 
@@ -6250,7 +6425,7 @@ export namespace Parser {
 
 						if @test(Token::LEFT_ROUND) {
 							var modifiers = [@yep(AST.Modifier(ModifierKind::Async, async))]
-							var parameters = @reqFunctionParameterList(FunctionMode::Function)
+							var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 							var type = @tryFunctionReturns(false)
 							var throws = @tryFunctionThrows()
 
@@ -6271,7 +6446,7 @@ export namespace Parser {
 						var identifier = @reqIdentifier()
 
 						if @test(Token::LEFT_ROUND) {
-							var parameters = @reqFunctionParameterList(FunctionMode::Function)
+							var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 							var type = @tryFunctionReturns(false)
 							var throws = @tryFunctionThrows()
 

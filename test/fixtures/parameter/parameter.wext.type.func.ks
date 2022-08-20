@@ -1,0 +1,1 @@
+type S = func(value % x: Number): Number

@@ -74,7 +74,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 21,
+              "kind": 23,
               "start": {
                 "line": 4,
                 "column": 2
@@ -254,7 +254,30 @@
                 "line": 12,
                 "column": 22
               },
-              "name": {
+              "external": {
+                "kind": 111,
+                "name": {
+                  "kind": 54,
+                  "name": "message",
+                  "start": {
+                    "line": 12,
+                    "column": 15
+                  },
+                  "end": {
+                    "line": 12,
+                    "column": 22
+                  }
+                },
+                "start": {
+                  "line": 12,
+                  "column": 14
+                },
+                "end": {
+                  "line": 12,
+                  "column": 22
+                }
+              },
+              "internal": {
                 "kind": 111,
                 "name": {
                   "kind": 54,
@@ -330,7 +353,19 @@
                 "line": 14,
                 "column": 21
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "name",
+                "start": {
+                  "line": 14,
+                  "column": 17
+                },
+                "end": {
+                  "line": 14,
+                  "column": 21
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "name",
                 "start": {
@@ -434,7 +469,19 @@
                 "line": 18,
                 "column": 12
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "name",
+                "start": {
+                  "line": 18,
+                  "column": 8
+                },
+                "end": {
+                  "line": 18,
+                  "column": 12
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "name",
                 "start": {

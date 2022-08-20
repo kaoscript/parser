@@ -395,7 +395,7 @@
                 "attributes": [],
                 "modifiers": [
                   {
-                    "kind": 21,
+                    "kind": 23,
                     "start": {
                       "line": 10,
                       "column": 2
@@ -480,7 +480,30 @@
                       "line": 14,
                       "column": 14
                     },
-                    "name": {
+                    "external": {
+                      "kind": 111,
+                      "name": {
+                        "kind": 54,
+                        "name": "a",
+                        "start": {
+                          "line": 14,
+                          "column": 13
+                        },
+                        "end": {
+                          "line": 14,
+                          "column": 14
+                        }
+                      },
+                      "start": {
+                        "line": 14,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 14,
+                        "column": 14
+                      }
+                    },
+                    "internal": {
                       "kind": 111,
                       "name": {
                         "kind": 54,

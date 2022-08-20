@@ -1,0 +1,2 @@
+func foobar(_ % x) {
+}

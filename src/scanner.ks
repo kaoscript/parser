@@ -2375,6 +2375,14 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::HASH)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 35 && (c = that.charAt(1)) != 33 && c != 91 {
+			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::HASH_EXCLAMATION)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 35 && that.charAt(1) == 33 && that.charAt(2) != 91 {
 			return that.next(2)
@@ -2639,6 +2647,14 @@ var recognize = {
 			that.isBoundary(9)
 		{
 			return that.next(9)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::PERCENT)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 37 {
+			return that.next(1)
 		}
 		else {
 			return false
@@ -2918,7 +2934,7 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token::UNDERSCORE)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 95 {
+		if c == 95 && that.isBoundary(1) {
 			return that.next(1)
 		}
 		else {

@@ -13,7 +13,7 @@
             "attributes": [],
             "modifiers": [
               {
-                "kind": 25,
+                "kind": 27,
                 "arity": {
                   "min": 0,
                   "max": "Infinity"
@@ -36,7 +36,19 @@
               "line": 1,
               "column": 21
             },
-            "name": {
+            "external": {
+              "kind": 54,
+              "name": "items",
+              "start": {
+                "line": 1,
+                "column": 16
+              },
+              "end": {
+                "line": 1,
+                "column": 21
+              }
+            },
+            "internal": {
               "kind": 54,
               "name": "items",
               "start": {

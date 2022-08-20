@@ -1456,20 +1456,22 @@ namespace AST {
 			}, name, name)
 		} # }}}
 
-		func Parameter(attributes, modifiers, name?, type?, defaultValue?, first, last) { # {{{
+		func Parameter(attributes, modifiers, external?, internal?, type?, defaultValue?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::Parameter
 				attributes: [attribute.value for attribute in attributes]
 				modifiers: modifiers
 			}, first, last)
 
-			if name != null {
-				node.name = name.value
+			if external != null {
+				node.external = external.value
+			}
+			if internal != null {
+				node.internal = internal.value
 			}
 			if type != null {
 				node.type = type.value
 			}
-
 			if defaultValue != null {
 				node.defaultValue = defaultValue.value
 			}

@@ -140,7 +140,7 @@
               "attributes": [],
               "modifiers": [
                 {
-                  "kind": 28,
+                  "kind": 30,
                   "start": {
                     "line": 7,
                     "column": 2
@@ -176,7 +176,19 @@
                     "line": 7,
                     "column": 33
                   },
-                  "name": {
+                  "external": {
+                    "kind": 54,
+                    "name": "value",
+                    "start": {
+                      "line": 7,
+                      "column": 20
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 25
+                    }
+                  },
+                  "internal": {
                     "kind": 54,
                     "name": "value",
                     "start": {
@@ -226,7 +238,7 @@
                 "kind": 119,
                 "modifiers": [
                   {
-                    "kind": 18,
+                    "kind": 19,
                     "start": {
                       "line": 7,
                       "column": 44

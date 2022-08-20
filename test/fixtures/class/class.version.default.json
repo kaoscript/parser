@@ -24,7 +24,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 23,
+              "kind": 25,
               "start": {
                 "line": 2,
                 "column": 5
@@ -109,7 +109,30 @@
                 "line": 3,
                 "column": 33
               },
-              "name": {
+              "external": {
+                "kind": 111,
+                "name": {
+                  "kind": 54,
+                  "name": "color",
+                  "start": {
+                    "line": 3,
+                    "column": 18
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 23
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 17
+                },
+                "end": {
+                  "line": 3,
+                  "column": 23
+                }
+              },
+              "internal": {
                 "kind": 111,
                 "name": {
                   "kind": 54,
@@ -185,7 +208,19 @@
                 "line": 5,
                 "column": 16
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "canvas",
+                "start": {
+                  "line": 5,
+                  "column": 10
+                },
+                "end": {
+                  "line": 5,
+                  "column": 16
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "canvas",
                 "start": {

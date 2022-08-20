@@ -23,7 +23,7 @@
           },
           "modifiers": [
             {
-              "kind": 29,
+              "kind": 31,
               "start": {
                 "line": 1,
                 "column": 9
@@ -99,7 +99,19 @@
                 "line": 4,
                 "column": 15
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "item",
+                "start": {
+                  "line": 4,
+                  "column": 11
+                },
+                "end": {
+                  "line": 4,
+                  "column": 15
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "item",
                 "start": {
@@ -124,7 +136,19 @@
                 "line": 4,
                 "column": 25
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "from",
+                "start": {
+                  "line": 4,
+                  "column": 17
+                },
+                "end": {
+                  "line": 4,
+                  "column": 21
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "from",
                 "start": {
@@ -322,7 +346,7 @@
               "attributes": [],
               "modifiers": [
                 {
-                  "kind": 25,
+                  "kind": 27,
                   "arity": {
                     "min": 0,
                     "max": "Infinity"
@@ -345,7 +369,19 @@
                 "line": 7,
                 "column": 18
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "args",
+                "start": {
+                  "line": 7,
+                  "column": 14
+                },
+                "end": {
+                  "line": 7,
+                  "column": 18
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "args",
                 "start": {

@@ -44,7 +44,19 @@
                   "line": 1,
                   "column": 34
                 },
-                "name": {
+                "external": {
+                  "kind": 54,
+                  "name": "bar",
+                  "start": {
+                    "line": 1,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 26
+                  }
+                },
+                "internal": {
                   "kind": 54,
                   "name": "bar",
                   "start": {
@@ -93,7 +105,19 @@
                   "line": 1,
                   "column": 44
                 },
-                "name": {
+                "external": {
+                  "kind": 54,
+                  "name": "qux",
+                  "start": {
+                    "line": 1,
+                    "column": 36
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 39
+                  }
+                },
+                "internal": {
                   "kind": 54,
                   "name": "qux",
                   "start": {

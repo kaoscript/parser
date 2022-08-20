@@ -24,7 +24,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 21,
+              "kind": 23,
               "start": {
                 "line": 2,
                 "column": 2
@@ -35,7 +35,7 @@
               }
             },
             {
-              "kind": 30,
+              "kind": 32,
               "start": {
                 "line": 3,
                 "column": 3
@@ -120,7 +120,7 @@
                 "line": 5,
                 "column": 42
               },
-              "name": {
+              "internal": {
                 "kind": 81,
                 "elements": [
                   {
@@ -395,7 +395,30 @@
                 "line": 9,
                 "column": 18
               },
-              "name": {
+              "external": {
+                "kind": 111,
+                "name": {
+                  "kind": 54,
+                  "name": "message",
+                  "start": {
+                    "line": 9,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 18
+                  }
+                },
+                "start": {
+                  "line": 9,
+                  "column": 10
+                },
+                "end": {
+                  "line": 9,
+                  "column": 18
+                }
+              },
+              "internal": {
                 "kind": 111,
                 "name": {
                   "kind": 54,

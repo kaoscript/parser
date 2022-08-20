@@ -24,7 +24,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 21,
+              "kind": 23,
               "start": {
                 "line": 2,
                 "column": 2
@@ -109,7 +109,30 @@
                 "line": 5,
                 "column": 19
               },
-              "name": {
+              "external": {
+                "kind": 111,
+                "name": {
+                  "kind": 54,
+                  "name": "line",
+                  "start": {
+                    "line": 5,
+                    "column": 15
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 19
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 14
+                },
+                "end": {
+                  "line": 5,
+                  "column": 19
+                }
+              },
+              "internal": {
                 "kind": 111,
                 "name": {
                   "kind": 54,
@@ -166,7 +189,7 @@
               "attributes": [],
               "modifiers": [
                 {
-                  "kind": 25,
+                  "kind": 27,
                   "arity": {
                     "min": 0,
                     "max": "Infinity"
@@ -189,7 +212,19 @@
                 "line": 6,
                 "column": 17
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "args",
+                "start": {
+                  "line": 6,
+                  "column": 13
+                },
+                "end": {
+                  "line": 6,
+                  "column": 17
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "args",
                 "start": {

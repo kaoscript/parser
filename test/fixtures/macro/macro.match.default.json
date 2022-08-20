@@ -30,7 +30,19 @@
             "line": 1,
             "column": 33
           },
-          "name": {
+          "external": {
+            "kind": 54,
+            "name": "i",
+            "start": {
+              "line": 1,
+              "column": 20
+            },
+            "end": {
+              "line": 1,
+              "column": 21
+            }
+          },
+          "internal": {
             "kind": 54,
             "name": "i",
             "start": {
@@ -124,7 +136,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 25,
+              "kind": 27,
               "arity": {
                 "min": 0,
                 "max": "Infinity"
@@ -147,7 +159,19 @@
             "line": 2,
             "column": 29
           },
-          "name": {
+          "external": {
+            "kind": 54,
+            "name": "others",
+            "start": {
+              "line": 2,
+              "column": 23
+            },
+            "end": {
+              "line": 2,
+              "column": 29
+            }
+          },
+          "internal": {
             "kind": 54,
             "name": "others",
             "start": {

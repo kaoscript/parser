@@ -24,7 +24,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 21,
+              "kind": 23,
               "start": {
                 "line": 2,
                 "column": 2
@@ -204,7 +204,19 @@
                 "line": 10,
                 "column": 29
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "message",
+                "start": {
+                  "line": 10,
+                  "column": 14
+                },
+                "end": {
+                  "line": 10,
+                  "column": 21
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "message",
                 "start": {
@@ -367,7 +379,19 @@
                 "line": 14,
                 "column": 20
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "name",
+                "start": {
+                  "line": 14,
+                  "column": 8
+                },
+                "end": {
+                  "line": 14,
+                  "column": 12
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "name",
                 "start": {

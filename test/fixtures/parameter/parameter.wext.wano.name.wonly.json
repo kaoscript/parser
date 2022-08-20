@@ -29,25 +29,37 @@
         {
           "kind": 86,
           "attributes": [],
-          "modifiers": [],
+          "modifiers": [
+            {
+              "kind": 18,
+              "start": {
+                "line": 1,
+                "column": 13
+              },
+              "end": {
+                "line": 1,
+                "column": 14
+              }
+            }
+          ],
           "start": {
             "line": 1,
             "column": 13
           },
           "end": {
             "line": 1,
-            "column": 15
+            "column": 19
           },
-          "name": {
+          "external": {
             "kind": 54,
-            "name": "_x",
+            "name": "value",
             "start": {
               "line": 1,
-              "column": 13
+              "column": 14
             },
             "end": {
               "line": 1,
-              "column": 15
+              "column": 19
             }
           }
         }
@@ -60,7 +72,7 @@
         "statements": [],
         "start": {
           "line": 1,
-          "column": 17
+          "column": 25
         },
         "end": {
           "line": 2,

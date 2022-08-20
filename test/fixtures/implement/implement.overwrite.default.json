@@ -23,7 +23,7 @@
           },
           "modifiers": [
             {
-              "kind": 26,
+              "kind": 28,
               "start": {
                 "line": 1,
                 "column": 8
@@ -64,7 +64,19 @@
                     "line": 2,
                     "column": 26
                   },
-                  "name": {
+                  "external": {
+                    "kind": 54,
+                    "name": "value",
+                    "start": {
+                      "line": 2,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 18
+                    }
+                  },
+                  "internal": {
                     "kind": 54,
                     "name": "value",
                     "start": {
@@ -177,7 +189,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 20,
+              "kind": 21,
               "start": {
                 "line": 6,
                 "column": 5
@@ -213,7 +225,19 @@
                 "line": 6,
                 "column": 36
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "value",
+                "start": {
+                  "line": 6,
+                  "column": 23
+                },
+                "end": {
+                  "line": 6,
+                  "column": 28
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "value",
                 "start": {

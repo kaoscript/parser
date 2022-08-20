@@ -24,7 +24,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 21,
+              "kind": 23,
               "start": {
                 "line": 2,
                 "column": 2
@@ -97,7 +97,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 21,
+              "kind": 23,
               "start": {
                 "line": 2,
                 "column": 2
@@ -170,7 +170,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 28,
+              "kind": 30,
               "start": {
                 "line": 7,
                 "column": 2
@@ -206,7 +206,19 @@
                 "line": 8,
                 "column": 30
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "color",
+                "start": {
+                  "line": 8,
+                  "column": 17
+                },
+                "end": {
+                  "line": 8,
+                  "column": 22
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "color",
                 "start": {
@@ -356,7 +368,30 @@
                 "line": 11,
                 "column": 19
               },
-              "name": {
+              "external": {
+                "kind": 111,
+                "name": {
+                  "kind": 54,
+                  "name": "type",
+                  "start": {
+                    "line": 11,
+                    "column": 15
+                  },
+                  "end": {
+                    "line": 11,
+                    "column": 19
+                  }
+                },
+                "start": {
+                  "line": 11,
+                  "column": 14
+                },
+                "end": {
+                  "line": 11,
+                  "column": 19
+                }
+              },
+              "internal": {
                 "kind": 111,
                 "name": {
                   "kind": 54,
@@ -392,7 +427,30 @@
                 "line": 11,
                 "column": 27
               },
-              "name": {
+              "external": {
+                "kind": 111,
+                "name": {
+                  "kind": 54,
+                  "name": "color",
+                  "start": {
+                    "line": 11,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 11,
+                    "column": 27
+                  }
+                },
+                "start": {
+                  "line": 11,
+                  "column": 21
+                },
+                "end": {
+                  "line": 11,
+                  "column": 27
+                }
+              },
+              "internal": {
                 "kind": 111,
                 "name": {
                   "kind": 54,

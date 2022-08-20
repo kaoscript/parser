@@ -199,7 +199,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 28,
+              "kind": 30,
               "start": {
                 "line": 10,
                 "column": 2
@@ -246,7 +246,19 @@
                 "line": 10,
                 "column": 39
               },
-              "name": {
+              "external": {
+                "kind": 54,
+                "name": "value",
+                "start": {
+                  "line": 10,
+                  "column": 26
+                },
+                "end": {
+                  "line": 10,
+                  "column": 31
+                }
+              },
+              "internal": {
                 "kind": 54,
                 "name": "value",
                 "start": {
@@ -296,7 +308,7 @@
             "kind": 119,
             "modifiers": [
               {
-                "kind": 18,
+                "kind": 19,
                 "start": {
                   "line": 10,
                   "column": 49

@@ -10,7 +10,7 @@
           "kind": 126,
           "modifiers": [
             {
-              "kind": 26,
+              "kind": 28,
               "start": {
                 "line": 1,
                 "column": 8
@@ -81,7 +81,7 @@
                       "attributes": [],
                       "modifiers": [
                         {
-                          "kind": 25,
+                          "kind": 27,
                           "arity": {
                             "min": 0,
                             "max": "Infinity"
@@ -104,7 +104,19 @@
                         "line": 2,
                         "column": 13
                       },
-                      "name": {
+                      "external": {
+                        "kind": 54,
+                        "name": "args",
+                        "start": {
+                          "line": 2,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 13
+                        }
+                      },
+                      "internal": {
                         "kind": 54,
                         "name": "args",
                         "start": {
@@ -193,7 +205,19 @@
                         "line": 3,
                         "column": 20
                       },
-                      "name": {
+                      "external": {
+                        "kind": 54,
+                        "name": "label",
+                        "start": {
+                          "line": 3,
+                          "column": 7
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 12
+                        }
+                      },
+                      "internal": {
                         "kind": 54,
                         "name": "label",
                         "start": {
@@ -306,7 +330,19 @@
                         "line": 4,
                         "column": 23
                       },
-                      "name": {
+                      "external": {
+                        "kind": 54,
+                        "name": "label",
+                        "start": {
+                          "line": 4,
+                          "column": 10
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 15
+                        }
+                      },
+                      "internal": {
                         "kind": 54,
                         "name": "label",
                         "start": {

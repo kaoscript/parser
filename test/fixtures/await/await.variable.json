@@ -38,7 +38,19 @@
             "line": 1,
             "column": 27
           },
-          "name": {
+          "external": {
+            "kind": 54,
+            "name": "bar",
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 1,
+              "column": 19
+            }
+          },
+          "internal": {
             "kind": 54,
             "name": "bar",
             "start": {
@@ -87,7 +99,19 @@
             "line": 1,
             "column": 37
           },
-          "name": {
+          "external": {
+            "kind": 54,
+            "name": "qux",
+            "start": {
+              "line": 1,
+              "column": 29
+            },
+            "end": {
+              "line": 1,
+              "column": 32
+            }
+          },
+          "internal": {
             "kind": 54,
             "name": "qux",
             "start": {
@@ -287,7 +311,19 @@
             "line": 5,
             "column": 18
           },
-          "name": {
+          "external": {
+            "kind": 54,
+            "name": "callback",
+            "start": {
+              "line": 5,
+              "column": 10
+            },
+            "end": {
+              "line": 5,
+              "column": 18
+            }
+          },
+          "internal": {
             "kind": 54,
             "name": "callback",
             "start": {
