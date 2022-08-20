@@ -1580,7 +1580,7 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func StructDeclaration(attributes, name, extends!?, fields, first, last) { # {{{
+		func StructDeclaration(attributes, name, extends?, fields, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::StructDeclaration
 				attributes: [attribute.value for attribute in attributes]
@@ -1787,7 +1787,7 @@ namespace AST {
 			return node
 		} # }}}
 
-		func TupleDeclaration(attributes, modifiers, name, extends!?, fields, first, last) { # {{{
+		func TupleDeclaration(attributes, modifiers, name, extends?, fields, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::TupleDeclaration
 				attributes: [attribute.value for attribute in attributes]

@@ -4875,14 +4875,14 @@ export namespace Parser {
 						external = null
 					}
 
-					return @reqParameterIdendifier(attributes, modifiers, external, identifier, false, false, false, true, first, fMode)
+					return @reqParameterIdendifier(attributes, modifiers, external, identifier, false, true, true, true, first, fMode)
 				}
 
 				if ?external && !external.ok {
 					external = null
 				}
 
-				return @reqParameterIdendifier(attributes, modifiers, external, null, false, false, false, true, first, fMode)
+				return @reqParameterIdendifier(attributes, modifiers, external, null, false, true, true, true, first, fMode)
 			}
 		} # }}}
 		reqParameterThis(attributes, modifiers, external?, first, fMode: FunctionMode): Event ~ SyntaxError { # {{{
