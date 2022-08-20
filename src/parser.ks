@@ -4580,6 +4580,8 @@ export namespace Parser {
 						parameters.push(@reqParameterRest(attributes, modifiers, NO, firstAttr ?? mutModifier ?? underscore, pMode, fMode))
 					}
 					else if @test(Token::AT) {
+						@throw() if mutModifier?
+
 						parameters.push(@reqParameterAt(attributes, modifiers, null, firstAttr ?? namedModifier ?? underscore, pMode, fMode))
 					}
 					else {
@@ -4649,6 +4651,8 @@ export namespace Parser {
 							parameters.push(@reqParameterRest(attributes, modifiers, identifier, firstAttr ?? mutModifier ?? identifier, pMode, fMode))
 						}
 						else if @test(Token::AT) {
+							@throw() if mutModifier?
+
 							parameters.push(@reqParameterAt(attributes, modifiers, identifier, firstAttr ?? namedModifier ?? identifier, pMode, fMode))
 						}
 						else {
@@ -4688,7 +4692,9 @@ export namespace Parser {
 
 				modifiers.push(AST.Modifier(ModifierKind::AutoEvaluate, at))
 
-				return @reqParameterIdendifier(attributes, modifiers, external, null, true, true, true, true, first ?? at, fMode)
+				var internal = @reqIdentifier()
+
+				return @reqParameterIdendifier(attributes, modifiers, external ?? internal, internal, true, true, true, true, first ?? at, fMode)
 			}
 			else if fMode == FunctionMode::Method && pMode ~~ DestructuringMode::THIS_ALIAS {
 				var at = @yes()
