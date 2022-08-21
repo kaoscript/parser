@@ -934,7 +934,19 @@
         {
           "kind": 86,
           "attributes": [],
-          "modifiers": [],
+          "modifiers": [
+            {
+              "kind": 19,
+              "start": {
+                "line": 21,
+                "column": 16
+              },
+              "end": {
+                "line": 21,
+                "column": 17
+              }
+            }
+          ],
           "start": {
             "line": 21,
             "column": 12
@@ -965,34 +977,6 @@
             "end": {
               "line": 21,
               "column": 16
-            }
-          },
-          "type": {
-            "kind": 119,
-            "modifiers": [
-              {
-                "kind": 19,
-                "start": {
-                  "line": 21,
-                  "column": 16
-                },
-                "end": {
-                  "line": 21,
-                  "column": 17
-                }
-              }
-            ],
-            "typeName": {
-              "kind": 54,
-              "name": "any"
-            },
-            "start": {
-              "line": 21,
-              "column": 16
-            },
-            "end": {
-              "line": 21,
-              "column": 17
             }
           },
           "defaultValue": {

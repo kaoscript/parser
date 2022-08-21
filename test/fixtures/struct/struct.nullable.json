@@ -5,6 +5,7 @@
     {
       "kind": 97,
       "attributes": [],
+      "modifiers": [],
       "name": {
         "kind": 54,
         "name": "Point",
@@ -20,6 +21,20 @@
       "fields": [
         {
           "kind": 98,
+          "attributes": [],
+          "modifiers": [
+            {
+              "kind": 19,
+              "start": {
+                "line": 2,
+                "column": 6
+              },
+              "end": {
+                "line": 2,
+                "column": 7
+              }
+            }
+          ],
           "name": {
             "kind": 54,
             "name": "x",
@@ -39,38 +54,24 @@
           "end": {
             "line": 2,
             "column": 7
-          },
-          "type": {
-            "kind": 119,
-            "modifiers": [
-              {
-                "kind": 19,
-                "start": {
-                  "line": 2,
-                  "column": 6
-                },
-                "end": {
-                  "line": 2,
-                  "column": 7
-                }
-              }
-            ],
-            "typeName": {
-              "kind": 54,
-              "name": "any"
-            },
-            "start": {
-              "line": 2,
-              "column": 6
-            },
-            "end": {
-              "line": 2,
-              "column": 7
-            }
           }
         },
         {
           "kind": 98,
+          "attributes": [],
+          "modifiers": [
+            {
+              "kind": 19,
+              "start": {
+                "line": 3,
+                "column": 6
+              },
+              "end": {
+                "line": 3,
+                "column": 7
+              }
+            }
+          ],
           "name": {
             "kind": 54,
             "name": "y",
@@ -90,34 +91,6 @@
           "end": {
             "line": 3,
             "column": 7
-          },
-          "type": {
-            "kind": 119,
-            "modifiers": [
-              {
-                "kind": 19,
-                "start": {
-                  "line": 3,
-                  "column": 6
-                },
-                "end": {
-                  "line": 3,
-                  "column": 7
-                }
-              }
-            ],
-            "typeName": {
-              "kind": 54,
-              "name": "any"
-            },
-            "start": {
-              "line": 3,
-              "column": 6
-            },
-            "end": {
-              "line": 3,
-              "column": 7
-            }
           }
         }
       ],
@@ -133,6 +106,7 @@
     {
       "kind": 97,
       "attributes": [],
+      "modifiers": [],
       "name": {
         "kind": 54,
         "name": "Pair2",
@@ -148,6 +122,20 @@
       "fields": [
         {
           "kind": 98,
+          "attributes": [],
+          "modifiers": [
+            {
+              "kind": 19,
+              "start": {
+                "line": 7,
+                "column": 3
+              },
+              "end": {
+                "line": 7,
+                "column": 4
+              }
+            }
+          ],
           "name": {
             "kind": 54,
             "name": "x",
@@ -167,34 +155,6 @@
           "end": {
             "line": 7,
             "column": 8
-          },
-          "type": {
-            "kind": 119,
-            "modifiers": [
-              {
-                "kind": 19,
-                "start": {
-                  "line": 7,
-                  "column": 3
-                },
-                "end": {
-                  "line": 7,
-                  "column": 4
-                }
-              }
-            ],
-            "typeName": {
-              "kind": 54,
-              "name": "any"
-            },
-            "start": {
-              "line": 7,
-              "column": 3
-            },
-            "end": {
-              "line": 7,
-              "column": 4
-            }
           },
           "defaultValue": {
             "kind": 80,
@@ -211,6 +171,20 @@
         },
         {
           "kind": 98,
+          "attributes": [],
+          "modifiers": [
+            {
+              "kind": 19,
+              "start": {
+                "line": 8,
+                "column": 3
+              },
+              "end": {
+                "line": 8,
+                "column": 4
+              }
+            }
+          ],
           "name": {
             "kind": 54,
             "name": "y",
@@ -230,34 +204,6 @@
           "end": {
             "line": 8,
             "column": 8
-          },
-          "type": {
-            "kind": 119,
-            "modifiers": [
-              {
-                "kind": 19,
-                "start": {
-                  "line": 8,
-                  "column": 3
-                },
-                "end": {
-                  "line": 8,
-                  "column": 4
-                }
-              }
-            ],
-            "typeName": {
-              "kind": 54,
-              "name": "any"
-            },
-            "start": {
-              "line": 8,
-              "column": 3
-            },
-            "end": {
-              "line": 8,
-              "column": 4
-            }
           },
           "defaultValue": {
             "kind": 80,

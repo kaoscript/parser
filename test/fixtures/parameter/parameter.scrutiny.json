@@ -67,7 +67,19 @@
         {
           "kind": 86,
           "attributes": [],
-          "modifiers": [],
+          "modifiers": [
+            {
+              "kind": 19,
+              "start": {
+                "line": 3,
+                "column": 14
+              },
+              "end": {
+                "line": 3,
+                "column": 15
+              }
+            }
+          ],
           "start": {
             "line": 3,
             "column": 10
@@ -98,34 +110,6 @@
             "end": {
               "line": 3,
               "column": 14
-            }
-          },
-          "type": {
-            "kind": 119,
-            "modifiers": [
-              {
-                "kind": 19,
-                "start": {
-                  "line": 3,
-                  "column": 14
-                },
-                "end": {
-                  "line": 3,
-                  "column": 15
-                }
-              }
-            ],
-            "typeName": {
-              "kind": 54,
-              "name": "any"
-            },
-            "start": {
-              "line": 3,
-              "column": 14
-            },
-            "end": {
-              "line": 3,
-              "column": 15
             }
           }
         }

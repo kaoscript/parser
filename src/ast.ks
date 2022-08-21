@@ -500,12 +500,12 @@ namespace AST {
 			return node
 		} # }}}
 
-		func ClassDeclaration(attributes, name, version?, extends?, modifiers, members, first, last) { # {{{
+		func ClassDeclaration(attributes, modifiers, name, version?, extends?, members, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::ClassDeclaration
 				attributes: [attribute.value for attribute in attributes]
-				name: name.value
 				modifiers: [modifier.value for modifier in modifiers]
+				name: name.value
 				members: [member.value for member in members]
 			}, first, last)
 
@@ -1297,17 +1297,6 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func Nullable(first) { # {{{
-			return location({
-				kind: NodeKind::TypeReference
-				modifiers: [Modifier(ModifierKind::Nullable, first)]
-				typeName: {
-					kind: NodeKind::Identifier
-					name: 'any'
-				}
-			}, first)
-		} # }}}
-
 		func NamedArgument(name, value) { # {{{
 			return location({
 				kind: NodeKind::NamedArgument
@@ -1580,10 +1569,11 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func StructDeclaration(attributes, name, extends?, fields, first, last) { # {{{
+		func StructDeclaration(attributes, modifiers, name, extends?, fields, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::StructDeclaration
 				attributes: [attribute.value for attribute in attributes]
+				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 				fields
 			}, first, last)
@@ -1595,9 +1585,11 @@ namespace AST {
 			return node
 		} # }}}
 
-		func StructField(name, type?, defaultValue?, first, last) { # {{{
+		func StructField(attributes, modifiers, name, type?, defaultValue?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::StructField
+				attributes: [attribute.value for attribute in attributes]
+				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 			}, first, last)
 
@@ -1791,7 +1783,7 @@ namespace AST {
 			var node = location({
 				kind: NodeKind::TupleDeclaration
 				attributes: [attribute.value for attribute in attributes]
-				modifiers
+				modifiers: [modifier.value for modifier in modifiers]
 				name: name.value
 				fields
 			}, first, last)
@@ -1803,9 +1795,11 @@ namespace AST {
 			return node
 		} # }}}
 
-		func TupleField(name?, type?, defaultValue?, first, last) { # {{{
+		func TupleField(attributes, modifiers, name?, type?, defaultValue?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::TupleField
+				attributes: [attribute.value for attribute in attributes]
+				modifiers: [modifier.value for modifier in modifiers]
 			}, first, last)
 
 			if name? {

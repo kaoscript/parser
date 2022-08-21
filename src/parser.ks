@@ -4722,6 +4722,8 @@ export namespace Parser {
 			}
 		} # }}}
 		reqParameterIdendifier(attributes, modifiers, mut external?, mut internal?, required: Boolean, typed: Boolean, nullable: Boolean, valued: Boolean, mut first?, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var mut last = internal ?? external ?? first
+
 			if !?internal {
 				if !required {
 					var identifier = @tryIdentifier()
@@ -4730,6 +4732,7 @@ export namespace Parser {
 						internal = identifier
 
 						first ??= identifier
+						last = identifier
 					}
 				}
 				else {
@@ -4746,12 +4749,14 @@ export namespace Parser {
 						}
 
 						first ??= identifier
+						last = identifier
 					}
 
 					if !?internal {
 						internal = @reqIdentifier()
 
 						first ??= internal
+						last = internal
 					}
 				}
 			}
@@ -4759,9 +4764,12 @@ export namespace Parser {
 			var mut requireDefault = false
 
 			if required && ?internal && valued && @test(Token::EXCLAMATION) {
-				modifiers.push(AST.Modifier(ModifierKind::Required, @yes()))
+				var modifier = AST.Modifier(ModifierKind::Required, @yes())
+
+				modifiers.push(modifier)
 
 				requireDefault = true
+				last = modifier
 			}
 
 			if typed && @test(Token::COLON) {
@@ -4791,27 +4799,29 @@ export namespace Parser {
 				return @yep(AST.Parameter(attributes, modifiers, external, internal, null, defaultValue, first, defaultValue))
 			}
 			else if nullable && @test(Token::QUESTION) {
-				var type = @yep(AST.Nullable(@yes()))
+				var modifier = AST.Modifier(ModifierKind::Nullable, @yes())
+
+				modifiers.push(modifier)
 
 				if valued && @test(Token::EQUALS) {
 					@commit()
 
 					var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-					return @yep(AST.Parameter(attributes, modifiers, external, internal, type, defaultValue, first, defaultValue))
+					return @yep(AST.Parameter(attributes, modifiers, external, internal, null, defaultValue, first, defaultValue))
 				}
 				else if requireDefault {
 					@throw('=')
 				}
 				else {
-					return @yep(AST.Parameter(attributes, modifiers, external, internal, type, null, first, type))
+					return @yep(AST.Parameter(attributes, modifiers, external, internal, null, null, first, modifier))
 				}
 			}
 			else if requireDefault {
 				@throw('=')
 			}
 			else {
-				return @yep(AST.Parameter(attributes, modifiers, external, internal, null, null, first, internal ?? external ?? first))
+				return @yep(AST.Parameter(attributes, modifiers, external, internal, null, null, first, last))
 			}
 		} # }}}
 		reqParameterRest(attributes, modifiers, mut external?, first, pMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -5513,16 +5523,33 @@ export namespace Parser {
 				@stackInnerAttributes(attributes)
 
 				until @test(Token::RIGHT_CURLY) {
+					var mut first = null
+
+					var attributes = @stackOuterAttributes([])
+					if attributes.length != 0 {
+						first = attributes[0]
+					}
+
+					var modifiers = []
+
 					var name = @reqIdentifier()
 
-					var dyn type = null
+					var mut last = name
+
+					var mut type = null
 					if @test(Token::COLON) {
 						@commit()
 
 						type = @reqTypeVar()
+
+						last = type
 					}
 					else if @test(Token::QUESTION) {
-						type = @yep(AST.Nullable(@yes()))
+						var modifier = @yep(AST.Modifier(ModifierKind::Nullable, @yes()))
+
+						modifiers.push(modifier)
+
+						last = modifier
 					}
 
 					var dyn defaultValue = null
@@ -5530,9 +5557,11 @@ export namespace Parser {
 						@commit()
 
 						defaultValue = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
+
+						last = defaultValue
 					}
 
-					elements.push(AST.StructField(name, type, defaultValue, name, defaultValue ?? type ?? name))
+					elements.push(AST.StructField(attributes, modifiers, name, type, defaultValue, first ?? name, last))
 
 					if @match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
 						@commit().NL_0M()
@@ -5556,7 +5585,7 @@ export namespace Parser {
 				last = @yes()
 			}
 
-			return @yep(AST.StructDeclaration(attributes, name, extends, elements, first, last))
+			return @yep(AST.StructDeclaration(attributes, [], name, extends, elements, first, last))
 		} # }}}
 		reqSwitchBinding(fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var bindings = [@reqSwitchBindingValue(fMode)]
@@ -6010,6 +6039,13 @@ export namespace Parser {
 				@stackInnerAttributes(attributes)
 
 				until @test(Token::RIGHT_ROUND) {
+					var mut first = null
+
+					var attributes = @stackOuterAttributes([])
+					if attributes.length != 0 {
+						first = attributes[0]
+					}
+
 					var type = @reqTypeVar()
 
 					if @test(Token::EQUALS) {
@@ -6017,10 +6053,10 @@ export namespace Parser {
 
 						var defaultValue = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
-						elements.push(AST.TupleField(null, type, defaultValue, type, defaultValue))
+						elements.push(AST.TupleField(attributes, [], null, type, defaultValue, first ?? type, defaultValue))
 					}
 					else {
-						elements.push(AST.TupleField(null, type, null, type, type))
+						elements.push(AST.TupleField(attributes, [], null, type, null, first ?? type, type))
 					}
 
 					if @match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
@@ -6055,21 +6091,38 @@ export namespace Parser {
 
 				@NL_0M()
 
-				modifiers.push(AST.Modifier(ModifierKind::Named, first))
+				modifiers.push(@yep(AST.Modifier(ModifierKind::Named, first)))
 
 				@stackInnerAttributes(attributes)
 
 				until @test(Token::RIGHT_CURLY) {
+					var mut first = null
+
+					var attributes = @stackOuterAttributes([])
+					if attributes.length != 0 {
+						first = attributes[0]
+					}
+
+					var modifiers = []
+
 					var name = @reqIdentifier()
 
-					var dyn type = null
+					var mut last = name
+
+					var mut type = null
 					if @test(Token::COLON) {
 						@commit()
 
 						type = @reqTypeVar()
+
+						last = name
 					}
 					else if @test(Token::QUESTION) {
-						type = @yep(AST.Nullable(@yes()))
+						var modifier = @yep(AST.Modifier(ModifierKind::Nullable, @yes()))
+
+						modifiers.push(modifier)
+
+						last = modifier
 					}
 
 					var dyn defaultValue = null
@@ -6077,9 +6130,11 @@ export namespace Parser {
 						@commit()
 
 						defaultValue = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
+
+						last = defaultValue
 					}
 
-					elements.push(AST.TupleField(name, type, defaultValue, name, defaultValue ?? type ?? name))
+					elements.push(AST.TupleField(attributes, modifiers, name, type, defaultValue, first ?? name, last))
 
 					if @match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
 						@commit().NL_0M()
