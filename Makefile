@@ -23,9 +23,9 @@ cls:
 
 update:
 	rm -rf node_modules package-lock.json
+	@make clean
 	nrm use local
 	npm i
-	@make clean
 
 local:
 	nrm use local

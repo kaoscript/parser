@@ -370,6 +370,18 @@
               "column": 55
             }
           },
+          "operator": {
+            "kind": 3,
+            "assignment": 6,
+            "start": {
+              "line": 5,
+              "column": 56
+            },
+            "end": {
+              "line": 5,
+              "column": 57
+            }
+          },
           "defaultValue": {
             "kind": 5,
             "values": [],
@@ -647,6 +659,18 @@
               "column": 57
             }
           },
+          "operator": {
+            "kind": 3,
+            "assignment": 6,
+            "start": {
+              "line": 9,
+              "column": 58
+            },
+            "end": {
+              "line": 9,
+              "column": 59
+            }
+          },
           "defaultValue": {
             "kind": 5,
             "values": [],
@@ -883,6 +907,18 @@
                 }
               }
             ]
+          },
+          "operator": {
+            "kind": 3,
+            "assignment": 6,
+            "start": {
+              "line": 13,
+              "column": 47
+            },
+            "end": {
+              "line": 13,
+              "column": 48
+            }
           },
           "defaultValue": {
             "kind": 5,
@@ -1410,6 +1446,18 @@
               "column": 44
             }
           },
+          "operator": {
+            "kind": 3,
+            "assignment": 6,
+            "start": {
+              "line": 25,
+              "column": 45
+            },
+            "end": {
+              "line": 25,
+              "column": 46
+            }
+          },
           "defaultValue": {
             "kind": 5,
             "values": [],
@@ -1442,11 +1490,12 @@
     },
     {
       "kind": 125,
-      "modifiers": [],
       "attributes": [],
+      "modifiers": [],
       "variables": [
         {
           "kind": 126,
+          "attributes": [],
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -1478,7 +1527,7 @@
         "line": 29,
         "column": 47
       },
-      "init": {
+      "value": {
         "kind": 69,
         "modifiers": [],
         "parameters": [
@@ -1577,6 +1626,18 @@
               "end": {
                 "line": 29,
                 "column": 21
+              }
+            },
+            "operator": {
+              "kind": 3,
+              "assignment": 6,
+              "start": {
+                "line": 29,
+                "column": 22
+              },
+              "end": {
+                "line": 29,
+                "column": 23
               }
             },
             "defaultValue": {

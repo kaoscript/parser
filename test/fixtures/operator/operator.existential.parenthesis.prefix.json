@@ -8,6 +8,7 @@
       "declarations": [
         {
           "kind": 126,
+          "attributes": [],
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -42,6 +43,7 @@
     },
     {
       "kind": 125,
+      "attributes": [],
       "modifiers": [
         {
           "kind": 9,
@@ -55,10 +57,10 @@
           }
         }
       ],
-      "attributes": [],
       "variables": [
         {
           "kind": 126,
+          "attributes": [],
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -88,12 +90,12 @@
       },
       "end": {
         "line": 3,
-        "column": 34
+        "column": 35
       },
-      "init": {
+      "value": {
         "kind": 120,
         "operator": {
-          "kind": 3,
+          "kind": 1,
           "start": {
             "line": 3,
             "column": 14
@@ -110,14 +112,14 @@
             "kind": 12,
             "operator": {
               "kind": 3,
-              "assignment": 6,
+              "assignment": 16,
               "start": {
                 "line": 3,
                 "column": 20
               },
               "end": {
                 "line": 3,
-                "column": 21
+                "column": 22
               }
             },
             "start": {
@@ -126,7 +128,7 @@
             },
             "end": {
               "line": 3,
-              "column": 30
+              "column": 31
             },
             "left": {
               "kind": 54,
@@ -148,11 +150,11 @@
                 "name": "foo",
                 "start": {
                   "line": 3,
-                  "column": 22
+                  "column": 23
                 },
                 "end": {
                   "line": 3,
-                  "column": 25
+                  "column": 26
                 }
               },
               "property": {
@@ -160,20 +162,20 @@
                 "name": "bar",
                 "start": {
                   "line": 3,
-                  "column": 26
+                  "column": 27
                 },
                 "end": {
                   "line": 3,
-                  "column": 29
+                  "column": 30
                 }
               },
               "start": {
                 "line": 3,
-                "column": 22
+                "column": 23
               },
               "end": {
                 "line": 3,
-                "column": 29
+                "column": 30
               }
             }
           },
@@ -182,11 +184,11 @@
             "name": "qux",
             "start": {
               "line": 3,
-              "column": 31
+              "column": 32
             },
             "end": {
               "line": 3,
-              "column": 34
+              "column": 35
             }
           },
           "start": {
@@ -195,7 +197,7 @@
           },
           "end": {
             "line": 3,
-            "column": 34
+            "column": 35
           }
         },
         "start": {
@@ -204,7 +206,7 @@
         },
         "end": {
           "line": 3,
-          "column": 34
+          "column": 35
         }
       }
     }
@@ -215,6 +217,6 @@
   },
   "end": {
     "line": 3,
-    "column": 34
+    "column": 35
   }
 }

@@ -125,14 +125,14 @@
                       "condition": {
                         "kind": 120,
                         "operator": {
-                          "kind": 3,
+                          "kind": 1,
                           "start": {
                             "line": 3,
-                            "column": 27
+                            "column": 6
                           },
                           "end": {
                             "line": 3,
-                            "column": 28
+                            "column": 7
                           }
                         },
                         "argument": {
@@ -143,11 +143,11 @@
                             "name": "expression",
                             "start": {
                               "line": 3,
-                              "column": 6
+                              "column": 7
                             },
                             "end": {
                               "line": 3,
-                              "column": 16
+                              "column": 17
                             }
                           },
                           "property": {
@@ -155,20 +155,20 @@
                             "name": "components",
                             "start": {
                               "line": 3,
-                              "column": 17
+                              "column": 18
                             },
                             "end": {
                               "line": 3,
-                              "column": 27
+                              "column": 28
                             }
                           },
                           "start": {
                             "line": 3,
-                            "column": 6
+                            "column": 7
                           },
                           "end": {
                             "line": 3,
-                            "column": 27
+                            "column": 28
                           }
                         },
                         "start": {
@@ -186,11 +186,12 @@
                         "statements": [
                           {
                             "kind": 125,
-                            "modifiers": [],
                             "attributes": [],
+                            "modifiers": [],
                             "variables": [
                               {
                                 "kind": 126,
+                                "attributes": [],
                                 "modifiers": [],
                                 "name": {
                                   "kind": 54,
@@ -246,7 +247,7 @@
                               "line": 4,
                               "column": 26
                             },
-                            "init": {
+                            "value": {
                               "kind": 5,
                               "values": [],
                               "start": {
@@ -261,11 +262,12 @@
                           },
                           {
                             "kind": 125,
-                            "modifiers": [],
                             "attributes": [],
+                            "modifiers": [],
                             "variables": [
                               {
                                 "kind": 126,
+                                "attributes": [],
                                 "modifiers": [],
                                 "name": {
                                   "kind": 54,
@@ -321,7 +323,7 @@
                               "line": 5,
                               "column": 27
                             },
-                            "init": {
+                            "value": {
                               "kind": 5,
                               "values": [],
                               "start": {
@@ -336,6 +338,7 @@
                           },
                           {
                             "kind": 125,
+                            "attributes": [],
                             "modifiers": [
                               {
                                 "kind": 9,
@@ -349,10 +352,10 @@
                                 }
                               }
                             ],
-                            "attributes": [],
                             "variables": [
                               {
                                 "kind": 126,
+                                "attributes": [],
                                 "modifiers": [],
                                 "name": {
                                   "kind": 54,

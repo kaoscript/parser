@@ -180,6 +180,18 @@
                   "column": 47
                 }
               },
+              "operator": {
+                "kind": 3,
+                "assignment": 6,
+                "start": {
+                  "line": 2,
+                  "column": 48
+                },
+                "end": {
+                  "line": 2,
+                  "column": 49
+                }
+              },
               "defaultValue": {
                 "kind": 70,
                 "value": "hier_part [ \"?\" query ] [ \"#\" fragment ]",
@@ -240,11 +252,12 @@
               },
               {
                 "kind": 125,
-                "modifiers": [],
                 "attributes": [],
+                "modifiers": [],
                 "variables": [
                   {
                     "kind": 126,
+                    "attributes": [],
                     "modifiers": [],
                     "name": {
                       "kind": 54,
@@ -276,7 +289,7 @@
                   "line": 5,
                   "column": 77
                 },
-                "init": {
+                "value": {
                   "kind": 110,
                   "elements": [
                     {

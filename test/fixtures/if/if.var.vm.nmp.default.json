@@ -1,0 +1,198 @@
+{
+  "kind": 76,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 56,
+      "attributes": [],
+      "condition": {
+        "kind": 125,
+        "attributes": [],
+        "modifiers": [
+          {
+            "kind": 16,
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 1,
+              "column": 11
+            }
+          }
+        ],
+        "variables": [
+          {
+            "kind": 126,
+            "attributes": [],
+            "modifiers": [],
+            "name": {
+              "kind": 54,
+              "name": "x",
+              "start": {
+                "line": 1,
+                "column": 12
+              },
+              "end": {
+                "line": 1,
+                "column": 13
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 13
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 25
+        },
+        "operator": {
+          "kind": 3,
+          "assignment": 11,
+          "start": {
+            "line": 1,
+            "column": 14
+          },
+          "end": {
+            "line": 1,
+            "column": 16
+          }
+        },
+        "value": {
+          "kind": 16,
+          "modifiers": [],
+          "scope": {
+            "kind": 3
+          },
+          "callee": {
+            "kind": 54,
+            "name": "foobar",
+            "start": {
+              "line": 1,
+              "column": 17
+            },
+            "end": {
+              "line": 1,
+              "column": 23
+            }
+          },
+          "arguments": [],
+          "start": {
+            "line": 1,
+            "column": 17
+          },
+          "end": {
+            "line": 1,
+            "column": 25
+          }
+        }
+      },
+      "whenTrue": {
+        "kind": 14,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 16,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 73,
+              "modifiers": [],
+              "object": {
+                "kind": 54,
+                "name": "console",
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 9
+                }
+              },
+              "property": {
+                "kind": 54,
+                "name": "log",
+                "start": {
+                  "line": 2,
+                  "column": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 13
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 13
+              }
+            },
+            "arguments": [
+              {
+                "kind": 54,
+                "name": "x",
+                "start": {
+                  "line": 2,
+                  "column": 14
+                },
+                "end": {
+                  "line": 2,
+                  "column": 15
+                }
+              }
+            ],
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 16
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 26
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 2
+  }
+}

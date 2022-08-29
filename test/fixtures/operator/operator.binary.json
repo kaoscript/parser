@@ -1590,6 +1590,89 @@
         "column": 11
       },
       "attributes": []
+    },
+    {
+      "kind": 12,
+      "operator": {
+        "kind": 3,
+        "assignment": 6,
+        "start": {
+          "line": 39,
+          "column": 3
+        },
+        "end": {
+          "line": 39,
+          "column": 4
+        }
+      },
+      "left": {
+        "kind": 54,
+        "name": "z",
+        "start": {
+          "line": 39,
+          "column": 1
+        },
+        "end": {
+          "line": 39,
+          "column": 2
+        }
+      },
+      "right": {
+        "kind": 12,
+        "operator": {
+          "kind": 5,
+          "modifiers": [],
+          "start": {
+            "line": 39,
+            "column": 7
+          },
+          "end": {
+            "line": 39,
+            "column": 9
+          }
+        },
+        "start": {
+          "line": 39,
+          "column": 5
+        },
+        "end": {
+          "line": 39,
+          "column": 11
+        },
+        "left": {
+          "kind": 54,
+          "name": "x",
+          "start": {
+            "line": 39,
+            "column": 5
+          },
+          "end": {
+            "line": 39,
+            "column": 6
+          }
+        },
+        "right": {
+          "kind": 54,
+          "name": "y",
+          "start": {
+            "line": 39,
+            "column": 10
+          },
+          "end": {
+            "line": 39,
+            "column": 11
+          }
+        }
+      },
+      "start": {
+        "line": 39,
+        "column": 1
+      },
+      "end": {
+        "line": 39,
+        "column": 11
+      },
+      "attributes": []
     }
   ],
   "start": {
@@ -1597,7 +1680,7 @@
     "column": 1
   },
   "end": {
-    "line": 37,
+    "line": 39,
     "column": 11
   }
 }

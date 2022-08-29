@@ -28,6 +28,7 @@
               "attributes": [],
               "imported": {
                 "kind": 126,
+                "attributes": [],
                 "modifiers": [],
                 "name": {
                   "kind": 54,
@@ -195,6 +196,18 @@
                 "end": {
                   "line": 4,
                   "column": 21
+                }
+              },
+              "operator": {
+                "kind": 3,
+                "assignment": 6,
+                "start": {
+                  "line": 4,
+                  "column": 22
+                },
+                "end": {
+                  "line": 4,
+                  "column": 23
                 }
               },
               "defaultValue": {
@@ -531,7 +544,7 @@
                       "condition": {
                         "kind": 120,
                         "operator": {
-                          "kind": 7,
+                          "kind": 3,
                           "start": {
                             "line": 9,
                             "column": 7
@@ -844,7 +857,7 @@
                             "condition": {
                               "kind": 120,
                               "operator": {
-                                "kind": 7,
+                                "kind": 3,
                                 "start": {
                                   "line": 15,
                                   "column": 8

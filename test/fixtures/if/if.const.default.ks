@@ -1,3 +1,0 @@
-if var x = foobar() {
-
-}

@@ -1,0 +1,479 @@
+{
+  "kind": 76,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 42,
+      "attributes": [],
+      "declarations": [
+        {
+          "kind": 126,
+          "attributes": [],
+          "modifiers": [],
+          "name": {
+            "kind": 54,
+            "name": "console",
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 1,
+              "column": 15
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 15
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 15
+      }
+    },
+    {
+      "kind": 51,
+      "attributes": [],
+      "name": {
+        "kind": 54,
+        "name": "foobar",
+        "start": {
+          "line": 3,
+          "column": 6
+        },
+        "end": {
+          "line": 3,
+          "column": 12
+        }
+      },
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      },
+      "parameters": [
+        {
+          "kind": 86,
+          "attributes": [],
+          "modifiers": [],
+          "start": {
+            "line": 3,
+            "column": 13
+          },
+          "end": {
+            "line": 3,
+            "column": 25
+          },
+          "external": {
+            "kind": 54,
+            "name": "text",
+            "start": {
+              "line": 3,
+              "column": 13
+            },
+            "end": {
+              "line": 3,
+              "column": 17
+            }
+          },
+          "internal": {
+            "kind": 54,
+            "name": "text",
+            "start": {
+              "line": 3,
+              "column": 13
+            },
+            "end": {
+              "line": 3,
+              "column": 17
+            }
+          },
+          "type": {
+            "kind": 119,
+            "modifiers": [],
+            "typeName": {
+              "kind": 54,
+              "name": "String",
+              "start": {
+                "line": 3,
+                "column": 19
+              },
+              "end": {
+                "line": 3,
+                "column": 25
+              }
+            },
+            "start": {
+              "line": 3,
+              "column": 19
+            },
+            "end": {
+              "line": 3,
+              "column": 25
+            }
+          }
+        }
+      ],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 14,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 127,
+            "attributes": [],
+            "condition": {
+              "kind": 125,
+              "attributes": [],
+              "modifiers": [],
+              "variables": [
+                {
+                  "kind": 126,
+                  "attributes": [],
+                  "modifiers": [],
+                  "name": {
+                    "kind": 54,
+                    "name": "data",
+                    "start": {
+                      "line": 4,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 16
+                    }
+                  },
+                  "start": {
+                    "line": 4,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 16
+                  }
+                }
+              ],
+              "start": {
+                "line": 4,
+                "column": 8
+              },
+              "end": {
+                "line": 4,
+                "column": 32
+              },
+              "operator": {
+                "kind": 3,
+                "assignment": 7,
+                "start": {
+                  "line": 4,
+                  "column": 17
+                },
+                "end": {
+                  "line": 4,
+                  "column": 19
+                }
+              },
+              "value": {
+                "kind": 16,
+                "modifiers": [],
+                "scope": {
+                  "kind": 3
+                },
+                "callee": {
+                  "kind": 54,
+                  "name": "quxbaz",
+                  "start": {
+                    "line": 4,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 26
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 54,
+                    "name": "text",
+                    "start": {
+                      "line": 4,
+                      "column": 27
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 31
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 4,
+                  "column": 20
+                },
+                "end": {
+                  "line": 4,
+                  "column": 32
+                }
+              }
+            },
+            "body": {
+              "kind": 14,
+              "attributes": [],
+              "statements": [
+                {
+                  "kind": 16,
+                  "modifiers": [],
+                  "scope": {
+                    "kind": 3
+                  },
+                  "callee": {
+                    "kind": 73,
+                    "modifiers": [],
+                    "object": {
+                      "kind": 54,
+                      "name": "console",
+                      "start": {
+                        "line": 5,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 10
+                      }
+                    },
+                    "property": {
+                      "kind": 54,
+                      "name": "log",
+                      "start": {
+                        "line": 5,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 14
+                      }
+                    },
+                    "start": {
+                      "line": 5,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 14
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "kind": 110,
+                      "elements": [
+                        {
+                          "kind": 54,
+                          "name": "data",
+                          "start": {
+                            "line": 5,
+                            "column": 18
+                          },
+                          "end": {
+                            "line": 5,
+                            "column": 22
+                          }
+                        }
+                      ],
+                      "start": {
+                        "line": 5,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 24
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 5,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 25
+                  },
+                  "attributes": []
+                }
+              ],
+              "start": {
+                "line": 4,
+                "column": 33
+              },
+              "end": {
+                "line": 6,
+                "column": 3
+              }
+            },
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 3
+            }
+          }
+        ],
+        "start": {
+          "line": 3,
+          "column": 27
+        },
+        "end": {
+          "line": 7,
+          "column": 2
+        }
+      }
+    },
+    {
+      "kind": 51,
+      "attributes": [],
+      "name": {
+        "kind": 54,
+        "name": "quxbaz",
+        "start": {
+          "line": 9,
+          "column": 6
+        },
+        "end": {
+          "line": 9,
+          "column": 12
+        }
+      },
+      "start": {
+        "line": 9,
+        "column": 1
+      },
+      "end": {
+        "line": 9,
+        "column": 42
+      },
+      "parameters": [
+        {
+          "kind": 86,
+          "attributes": [],
+          "modifiers": [],
+          "start": {
+            "line": 9,
+            "column": 13
+          },
+          "end": {
+            "line": 9,
+            "column": 25
+          },
+          "external": {
+            "kind": 54,
+            "name": "text",
+            "start": {
+              "line": 9,
+              "column": 13
+            },
+            "end": {
+              "line": 9,
+              "column": 17
+            }
+          },
+          "internal": {
+            "kind": 54,
+            "name": "text",
+            "start": {
+              "line": 9,
+              "column": 13
+            },
+            "end": {
+              "line": 9,
+              "column": 17
+            }
+          },
+          "type": {
+            "kind": 119,
+            "modifiers": [],
+            "typeName": {
+              "kind": 54,
+              "name": "String",
+              "start": {
+                "line": 9,
+                "column": 19
+              },
+              "end": {
+                "line": 9,
+                "column": 25
+              }
+            },
+            "start": {
+              "line": 9,
+              "column": 19
+            },
+            "end": {
+              "line": 9,
+              "column": 25
+            }
+          }
+        }
+      ],
+      "modifiers": [],
+      "type": {
+        "kind": 119,
+        "modifiers": [],
+        "typeName": {
+          "kind": 54,
+          "name": "String",
+          "start": {
+            "line": 9,
+            "column": 28
+          },
+          "end": {
+            "line": 9,
+            "column": 34
+          }
+        },
+        "start": {
+          "line": 9,
+          "column": 28
+        },
+        "end": {
+          "line": 9,
+          "column": 34
+        }
+      },
+      "throws": [],
+      "body": {
+        "kind": 54,
+        "name": "text",
+        "start": {
+          "line": 9,
+          "column": 38
+        },
+        "end": {
+          "line": 9,
+          "column": 42
+        }
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 9,
+    "column": 42
+  }
+}

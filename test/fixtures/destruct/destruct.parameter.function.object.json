@@ -463,6 +463,18 @@
               "column": 66
             }
           },
+          "operator": {
+            "kind": 3,
+            "assignment": 6,
+            "start": {
+              "line": 5,
+              "column": 67
+            },
+            "end": {
+              "line": 5,
+              "column": 68
+            }
+          },
           "defaultValue": {
             "kind": 82,
             "attributes": [],
@@ -736,6 +748,18 @@
                 }
               }
             ]
+          },
+          "operator": {
+            "kind": 3,
+            "assignment": 6,
+            "start": {
+              "line": 9,
+              "column": 57
+            },
+            "end": {
+              "line": 9,
+              "column": 58
+            }
           },
           "defaultValue": {
             "kind": 82,
@@ -1150,6 +1174,18 @@
               "column": 52
             }
           },
+          "operator": {
+            "kind": 3,
+            "assignment": 6,
+            "start": {
+              "line": 17,
+              "column": 53
+            },
+            "end": {
+              "line": 17,
+              "column": 54
+            }
+          },
           "defaultValue": {
             "kind": 82,
             "attributes": [],
@@ -1183,11 +1219,12 @@
     },
     {
       "kind": 125,
-      "modifiers": [],
       "attributes": [],
+      "modifiers": [],
       "variables": [
         {
           "kind": 126,
+          "attributes": [],
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -1219,7 +1256,7 @@
         "line": 21,
         "column": 56
       },
-      "init": {
+      "value": {
         "kind": 69,
         "modifiers": [],
         "parameters": [
@@ -1318,6 +1355,18 @@
               "end": {
                 "line": 21,
                 "column": 21
+              }
+            },
+            "operator": {
+              "kind": 3,
+              "assignment": 6,
+              "start": {
+                "line": 21,
+                "column": 22
+              },
+              "end": {
+                "line": 21,
+                "column": 23
               }
             },
             "defaultValue": {

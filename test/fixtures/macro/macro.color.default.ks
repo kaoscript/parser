@@ -1,6 +1,6 @@
 class Color {
 	macro registerSpace(@data: Object) {
-		if data.components? {
+		if ?data.components {
 			var fields: Array<Expr> = []
 			var methods: Array<Expr> = []
 

@@ -4,6 +4,7 @@
   "body": [
     {
       "kind": 125,
+      "attributes": [],
       "modifiers": [
         {
           "kind": 9,
@@ -17,10 +18,10 @@
           }
         }
       ],
-      "attributes": [],
       "variables": [
         {
           "kind": 126,
+          "attributes": [],
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -52,7 +53,7 @@
         "line": 1,
         "column": 38
       },
-      "init": {
+      "value": {
         "kind": 69,
         "modifiers": [],
         "parameters": [
@@ -90,6 +91,18 @@
               "end": {
                 "line": 1,
                 "column": 17
+              }
+            },
+            "operator": {
+              "kind": 3,
+              "assignment": 6,
+              "start": {
+                "line": 1,
+                "column": 18
+              },
+              "end": {
+                "line": 1,
+                "column": 19
               }
             },
             "defaultValue": {

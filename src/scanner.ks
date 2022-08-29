@@ -56,6 +56,7 @@ enum Token {
 	EXCLAMATION
 	EXCLAMATION_EQUALS
 	EXCLAMATION_EXCLAMATION
+	EXCLAMATION_HASH_EQUALS
 	EXCLAMATION_LEFT_ROUND
 	EXCLAMATION_QUESTION
 	EXCLAMATION_QUESTION_EQUALS
@@ -74,8 +75,11 @@ enum Token {
 	FUNC
 	GET
 	HASH
+	HASH_EQUALS
 	HASH_EXCLAMATION
 	HASH_EXCLAMATION_LEFT_SQUARE
+	HASH_HASH
+	HASH_HASH_EQUALS
 	HASH_LEFT_SQUARE
 	HEX_NUMBER
 	IDENTIFIER
@@ -95,13 +99,13 @@ enum Token {
 	LEFT_ANGLE_EQUALS
 	LEFT_ANGLE_LEFT_ANGLE
 	LEFT_ANGLE_LEFT_ANGLE_EQUALS
+	LEFT_ANGLE_MINUS
 	LEFT_CURLY
 	LEFT_ROUND
 	LEFT_SQUARE
 	MACRO
 	MINUS
 	MINUS_EQUALS
-	MINUS_MINUS
 	MINUS_RIGHT_ANGLE
 	MUT
 	NAMESPACE
@@ -120,7 +124,6 @@ enum Token {
 	PIPE_PIPE_EQUALS
 	PLUS
 	PLUS_EQUALS
-	PLUS_PLUS
 	PRIVATE
 	PROTECTED
 	PUBLIC
@@ -206,6 +209,20 @@ namespace M {
 			if c == -1 {
 				return Token::EOF
 			}
+			else if c == 35 { // #
+				c = that.charAt(1)
+
+				if c == 35 && that.charAt(2) == 61 {
+					that.next(3)
+
+					return Token::HASH_HASH_EQUALS
+				}
+				else if c == 61 {
+					that.next(2)
+
+					return Token::HASH_EQUALS
+				}
+			}
 			else if c == 37 { // %
 				if that.charAt(1) == 61 {
 					that.next(2)
@@ -258,16 +275,21 @@ namespace M {
 				}
 			}
 			else if c == 60 { // <
-				if that.charAt(1) == 60 && that.charAt(2) == 61 {
+				c = that.charAt(1)
+
+				if c == 45 {
+					that.next(2)
+
+					return Token::LEFT_ANGLE_MINUS
+				}
+				else if c == 60 && that.charAt(2) == 61 {
 					that.next(3)
 
 					return Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS
 				}
 			}
 			else if c == 61 { // =
-				c = that.charAt(1)
-
-				if c != 61 && c != 62 {
+				if that.charAt(1) != 61 & 62 {
 					that.next(1)
 
 					return Token::EQUALS
@@ -323,7 +345,12 @@ namespace M {
 			else if c == 33 { // !
 				c = that.charAt(1)
 
-				if c == 61 {
+				if c == 35 && that.charAt(2) == 61 {
+					that.next(3)
+
+					return Token::EXCLAMATION_HASH_EQUALS
+				}
+				else if c == 61 {
 					that.next(2)
 
 					return Token::EXCLAMATION_EQUALS
@@ -337,6 +364,27 @@ namespace M {
 					that.next(2)
 
 					return Token::EXCLAMATION_TILDE
+				}
+			}
+			else if c == 35 { // #
+				c = that.charAt(1)
+
+				if c == 35 {
+					if that.charAt(2) == 61 {
+						that.next(3)
+
+						return Token::HASH_HASH_EQUALS
+					}
+					else {
+						that.next(2)
+
+						return Token::HASH_HASH
+					}
+				}
+				else if c == 61 {
+					that.next(2)
+
+					return Token::HASH_EQUALS
 				}
 			}
 			else if c == 37 { // %
@@ -387,7 +435,7 @@ namespace M {
 
 					return Token::PLUS_EQUALS
 				}
-				else if c != 43 {
+				else {
 					that.next(1)
 
 					return Token::PLUS
@@ -406,7 +454,7 @@ namespace M {
 
 					return Token::MINUS_RIGHT_ANGLE
 				}
-				else if c != 45 {
+				else {
 					that.next(1)
 
 					return Token::MINUS
@@ -441,7 +489,12 @@ namespace M {
 			else if c == 60 { // <
 				c = that.charAt(1)
 
-				if c == 60 {
+				if c == 45 {
+					that.next(2)
+
+					return Token::LEFT_ANGLE_MINUS
+				}
+				else if c == 60 {
 					if that.charAt(2) == 61 {
 						that.next(3)
 
@@ -1211,7 +1264,7 @@ namespace M {
 				}
 			}
 			else if c == 46 { // .
-				if (c = that.charAt(1)) != 46 && c != 9 && c != 32 {
+				if that.charAt(1) != 46 & 9 & 32 {
 					that.next(1)
 
 					return Token::DOT
@@ -1250,7 +1303,7 @@ namespace M {
 
 					return Token::QUESTION_LEFT_ROUND
 				}
-				else if c == 46 && !((c = that.charAt(2)) == 9 || c == 32){
+				else if c == 46 && !(that.charAt(2) == 9 | 32) {
 					that.next(2)
 
 					return Token::QUESTION_DOT
@@ -1315,27 +1368,6 @@ namespace M {
 					return Token::EXCLAMATION_QUESTION
 				}
 			}
-			else if c == 43 { // +
-				if that.charAt(1) == 43 {
-					that.next(2)
-
-					return Token::PLUS_PLUS
-				}
-			}
-			else if c == 45 { // -
-				if that.charAt(1) == 45 {
-					that.next(2)
-
-					return Token::MINUS_MINUS
-				}
-			}
-			else if c == 63 { // ?
-				if !((c = that.charAt(1)) == 40 || c == 46 || c == 61 || c == 63 || c == 91) {
-					that.next(1)
-
-					return Token::QUESTION
-				}
-			}
 
 			return Token::INVALID
 		} # }}}
@@ -1347,44 +1379,39 @@ namespace M {
 				return Token::EOF
 			}
 			else if c == 33 { // !
-				if !((c = that.charAt(1)) == 61 || (c == 63 && that.charAt(2) == 61) || c == 9 || c == 32) {
+				if !((c = that.charAt(1)) == 61 || (c == 63 && that.charAt(2) == 61) || c == 9 | 32) {
 					that.next(1)
 
 					return Token::EXCLAMATION
 				}
 			}
-			else if c == 43 { // +
-				if that.charAt(1) == 43 && !((c = that.charAt(2)) == 9 || c == 32) {
-					that.next(2)
+			else if c == 35 { // #
+				c = that.charAt(1)
 
-					return Token::PLUS_PLUS
+				if c != 35 & 61 {
+					that.next(1)
+
+					return Token::HASH
 				}
 			}
 			else if c == 45 { // -
 				c = that.charAt(1)
 
-				if c == 45 {
-					if !((c = that.charAt(2)) == 9 || c == 32) {
-						that.next(2)
-
-						return Token::MINUS_MINUS
-					}
-				}
-				else if c != 61 && c != 9 || c != 32 {
+				if c != 61 {
 					that.next(1)
 
 					return Token::MINUS
 				}
 			}
 			else if c == 46 { // .
-				if that.charAt(1) == 46 && that.charAt(2) == 46 && !((c = that.charAt(3)) == 9 || c == 32) {
+				if that.charAt(1) == 46 && that.charAt(2) == 46 && that.charAt(3) != 9 & 32 {
 					that.next(3)
 
 					return Token::DOT_DOT_DOT
 				}
 			}
 			else if c == 63 { // ?
-				if !((c = that.charAt(1)) == 9 || c == 32) {
+				if that.charAt(1) != 9 & 32 {
 					that.next(1)
 
 					return Token::QUESTION
@@ -1399,6 +1426,12 @@ namespace M {
 
 			if c == -1 {
 				return Token::EOF
+			}
+			// _
+			else if c == 95 && !that.isBoundary(1) {
+				that.scanIdentifier(false)
+
+				return Token::IDENTIFIER
 			}
 			// enum
 			else if c == 101 {
@@ -1903,7 +1936,7 @@ namespace M {
 			else if c == 105
 			{
 				if that.charAt(1) == 115 {
-					if (c = that.charAt(2)) == 9 || c == 32 {
+					if that.charAt(2) == 9 | 32 {
 						if	that.charAt(3) == 110 &&
 							that.charAt(4) == 111 &&
 							that.charAt(5) == 116 &&
@@ -1980,7 +2013,7 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token::ASTERISK)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 42 && (c = that.charAt(1)) != 42 && c != 36 && c != 61 {
+		if c == 42 && that.charAt(1) != 42 & 36 & 61 {
 			return that.next(1)
 		}
 		else {
@@ -2256,7 +2289,7 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token::EQUALS)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 61 && (c = that.charAt(1)) != 61 && c != 62 {
+		if c == 61 && that.charAt(1) != 61 & 62 {
 			return that.next(1)
 		}
 		else {
@@ -2376,8 +2409,16 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token::HASH)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 35 && (c = that.charAt(1)) != 33 && c != 91 {
+		if c == 35 && that.charAt(1) != 33 & 35 & 61 & 91 {
 			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::HASH_EQUALS)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 35 && that.charAt(1) == 61 {
+			return that.next(2)
 		}
 		else {
 			return false
@@ -2393,6 +2434,14 @@ var recognize = {
 	} # }}}
 	`\(Token::HASH_EXCLAMATION_LEFT_SQUARE)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 35 && that.charAt(1) == 33 && that.charAt(2) == 91 {
+			return that.next(3)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::HASH_HASH_EQUALS)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 35 && that.charAt(1) == 35 && that.charAt(2) == 61 {
 			return that.next(3)
 		}
 		else {
@@ -2551,7 +2600,7 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token::MINUS)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 45 && (c = that.charAt(1)) != 61 {
+		if c == 45 && that.charAt(1) != 61 {
 			return that.next(1)
 		}
 		else {
@@ -2726,8 +2775,16 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token::QUESTION)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 63 {
+		if c == 63 && that.charAt(1) != 61 & 63 {
 			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::QUESTION_EQUALS)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 63 && that.charAt(1) == 61 {
+			return that.next(2)
 		}
 		else {
 			return false
@@ -2735,15 +2792,23 @@ var recognize = {
 	} # }}}
 	`\(Token::QUESTION_OPERATOR)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 63 {
-			return (c = that.charAt(1)) == 40 || c == 46 || c == 61 || c == 63 || c == 91 ? false : that.next(1)
+			return that.charAt(1) == 40 | 46 | 61 | 63 | 91 ? false : that.next(1)
 		}
 		else {
 			return false
 		}
 	} # }}}
 	`\(Token::QUESTION_QUESTION)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 63 && that.charAt(1) == 63 {
+		if c == 63 && that.charAt(1) == 63 && that.charAt(2) != 61 {
 			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::QUESTION_QUESTION_EQUALS)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 63 && that.charAt(1) == 63 && that.charAt(2) == 61 {
+			return that.next(3)
 		}
 		else {
 			return false

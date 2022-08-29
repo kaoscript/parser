@@ -6,6 +6,7 @@ namespace AST {
 		[BinaryOperatorKind::Assignment]: false
 		[BinaryOperatorKind::Division]: false
 		[BinaryOperatorKind::Equality]: true
+		[BinaryOperatorKind::EmptyCoalescing]: false
 		[BinaryOperatorKind::GreaterThan]: true
 		[BinaryOperatorKind::GreaterThanOrEqual]: true
 		[BinaryOperatorKind::Imply]: false
@@ -33,6 +34,7 @@ namespace AST {
 		[BinaryOperatorKind::And]: true
 		[BinaryOperatorKind::Assignment]: false
 		[BinaryOperatorKind::Division]: true
+		[BinaryOperatorKind::EmptyCoalescing]: true
 		[BinaryOperatorKind::Imply]: true
 		[BinaryOperatorKind::LeftShift]: true
 		[BinaryOperatorKind::Modulo]: true
@@ -54,6 +56,7 @@ namespace AST {
 		[BinaryOperatorKind::Assignment]: 3
 		[BinaryOperatorKind::Division]: 14
 		[BinaryOperatorKind::Equality]: 8
+		[BinaryOperatorKind::EmptyCoalescing]: 15
 		[BinaryOperatorKind::GreaterThan]: 8
 		[BinaryOperatorKind::GreaterThanOrEqual]: 8
 		[BinaryOperatorKind::Imply]: 5
@@ -1455,7 +1458,7 @@ namespace AST {
 			}, name, name)
 		} # }}}
 
-		func Parameter(attributes, modifiers, external?, internal?, type?, defaultValue?, first, last) { # {{{
+		func Parameter(attributes, modifiers, external?, internal?, type?, operator?, defaultValue?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::Parameter
 				attributes: [attribute.value for attribute in attributes]
@@ -1470,6 +1473,9 @@ namespace AST {
 			}
 			if type != null {
 				node.type = type.value
+			}
+			if operator != null {
+				node.operator = operator.value
 			}
 			if defaultValue != null {
 				node.defaultValue = defaultValue.value
@@ -1895,24 +1901,28 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func VariableDeclaration(modifiers, variables, expression?, first, last) { # {{{
+		func VariableDeclaration(attributes, modifiers, variables, operator?, value?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::VariableDeclaration
+				attributes: [attribute.value for attribute in attributes]
 				modifiers
-				attributes: []
 				variables: [variable.value for variable in variables]
 			}, first, last)
 
-			if expression != null {
-				node.init = expression.value
+			if operator != null {
+				node.operator = operator.value
+			}
+			if value != null {
+				node.value = value.value
 			}
 
 			return node
 		} # }}}
 
-		func VariableDeclarator(modifiers, name, type?, first, last) { # {{{
+		func VariableDeclarator(attributes, modifiers, name, type?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::VariableDeclarator
+				attributes: [attribute.value for attribute in attributes]
 				modifiers
 				name: name.value
 			}, first, last)

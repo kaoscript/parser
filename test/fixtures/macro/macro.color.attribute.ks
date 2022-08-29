@@ -1,6 +1,6 @@
 export class Color {
 	macro registerSpace(@expression: Object) {
-		if expression.components? {
+		if ?expression.components {
 			var fields: Array = []
 			var methods: Array = []
 
