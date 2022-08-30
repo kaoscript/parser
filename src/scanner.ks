@@ -869,8 +869,9 @@ namespace M {
 			return Token::INVALID
 		} # }}}
 
-		func MACRO(that: Scanner, index: Number): Token { # {{{
-			var dyn c = that._data.charCodeAt(++index)
+		func MACRO(that: Scanner, mut index: Number): Token { # {{{
+			var dyn c = that._data.charCodeAt(index)
+
 			if c == 13 && that.charAt(1) == 10 {
 				that.nextLine(2)
 
@@ -909,7 +910,9 @@ namespace M {
 
 			var from = index
 
-			while ++index < that._length {
+			index += 1
+
+			while index < that._length {
 				c = that._data.charCodeAt(index)
 
 				if c == 10 || c == 13 || c == 35 || c == 40 || c == 41 || c == 123 || c == 125 {
@@ -917,6 +920,8 @@ namespace M {
 
 					return Token::INVALID
 				}
+
+				index += 1
 			}
 
 			if index == from + 1 {
@@ -930,7 +935,7 @@ namespace M {
 		} # }}}
 
 		func MODULE_STATEMENT(that: Scanner, index: Number): Token { # {{{
-			var dyn c = that.skip(index)
+			var mut c = that.skip(index)
 
 			if c == -1 {
 				return Token::EOF
@@ -1141,7 +1146,7 @@ namespace M {
 				return Token::EOF
 			}
 			else if c == 34 { // "
-				if var match = regex.double_quote.exec(that.substringAt(1)) {
+				if var match ?= regex.double_quote.exec(that.substringAt(1)) {
 					that.next(match[0].length + 1)
 
 					return Token::STRING
@@ -1219,9 +1224,9 @@ namespace M {
 		} # }}}
 
 		func OPERAND_JUNCTION(that: Scanner, index: Number): Token { # {{{
-			var dyn c = that._data.charCodeAt(index + 1)
+			var dyn p = that._data.charCodeAt(index - 1)
+			var dyn c = that._data.charCodeAt(index)
 
-			var dyn p = that._data.charCodeAt(index)
 			if p == 9 || p == 32 {
 				return Token::INVALID
 			}
@@ -1350,14 +1355,14 @@ namespace M {
 		} # }}}
 
 		func POSTFIX_OPERATOR(that: Scanner, index: Number): Token { # {{{
-			var dyn p = that._data.charCodeAt(index)
-			var dyn c = that._data.charCodeAt(index + 1)
+			var dyn p = that._data.charCodeAt(index - 1)
+			var dyn c = that._data.charCodeAt(index)
 
 			if p == 9 || p == 32 {
 				return Token::INVALID
 			}
 			else if c == 33 { // !
-				if (c = that.charAt(1)) == 33 {
+				if (c <- that.charAt(1)) == 33 {
 					that.next(2)
 
 					return Token::EXCLAMATION_EXCLAMATION
@@ -1379,7 +1384,7 @@ namespace M {
 				return Token::EOF
 			}
 			else if c == 33 { // !
-				if !((c = that.charAt(1)) == 61 || (c == 63 && that.charAt(2) == 61) || c == 9 | 32) {
+				if !((c <- that.charAt(1)) == 61 || (c == 63 && that.charAt(2) == 61) || c == 9 | 32) {
 					that.next(1)
 
 					return Token::EXCLAMATION
@@ -1883,8 +1888,8 @@ namespace M {
 			return Token::INVALID
 		} # }}}
 
-		func TEMPLATE(that: Scanner, index: Number): Token { # {{{
-			var dyn c = that._data.charCodeAt(++index)
+		func TEMPLATE(that: Scanner, mut index: Number): Token { # {{{
+			var dyn c = that._data.charCodeAt(index)
 
 			if c == 92 && that._data.charCodeAt(index + 1) == 40 {
 				that.next(2)
@@ -1905,11 +1910,9 @@ namespace M {
 
 		func TYPE_OPERATOR(that: Scanner, index: Number): Token { # {{{
 			var dyn c = that.skip(index)
+
 			if c == -1 {
 				return Token::EOF
-			}
-			else if index == that._index {
-				return Token::INVALID
 			}
 			// as
 			else if c == 97
@@ -2055,18 +2058,20 @@ var recognize = {
 	} # }}}
 	`\(Token::ATTRIBUTE_IDENTIFIER)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
-			var dyn index = that._index - 1
+			var dyn index = that._index
 
 			var dyn c
-			while ++index < that._length &&
+			while index < that._length &&
 			(
-				(c = that._data.charCodeAt(index)) == 45 ||
+				(c <- that._data.charCodeAt(index)) == 45 ||
 				c == 46 ||
 				(c >= 48 && c <= 57) ||
 				(c >= 65 && c <= 90) ||
 				c == 95 ||
 				(c >= 97 && c <= 122)
-			) {}
+			) {
+				index += 1
+			}
 
 			that.next(index - that._index)
 
@@ -2634,7 +2639,7 @@ var recognize = {
 			var dyn i = 1
 
 			while 48 <= that.charAt(i) <= 57 {
-				++i
+				i += 1
 			}
 
 			if that.isBoundary(i) {
@@ -3146,7 +3151,7 @@ class Scanner {
 			return Token::EOF
 		}
 		else {
-			var c = @skip(@index - 1)
+			var c = @skip(@index)
 
 			if c == -1 {
 				return Token::EOF
@@ -3166,7 +3171,7 @@ class Scanner {
 			return Token::EOF
 		}
 		else {
-			return matcher(this, @index - 1)
+			return matcher(this, @index)
 		}
 	} # }}}
 	matchNS(...tokens: Token): Token { # {{{
@@ -3209,11 +3214,10 @@ class Scanner {
 		)
 	) # }}}
 	readLine(): String { # {{{
-		var mut index = @index - 1
-		var dyn c
+		var mut index = @index
 
-		while ++index < @length {
-			c = @data.charCodeAt(index)
+		while index < @length {
+			var c = @data.charCodeAt(index)
 
 			if c == 13 && @data.charCodeAt(index + 1) == 10 {
 				var text = @data.substring(@index, index)
@@ -3231,6 +3235,8 @@ class Scanner {
 
 				return text
 			}
+
+			index += 1
 		}
 
 		@eof()
@@ -3246,17 +3252,19 @@ class Scanner {
 		return true
 	} # }}}
 	scanIdentifier(substr: Boolean): String? { # {{{
-		var dyn index = @index - 1
+		var dyn index = @index
 
 		var dyn c = @data.charCodeAt(index)
-		while ++index < @length &&
+		while index < @length &&
 		(
-			(c = @data.charCodeAt(index)) == 36 ||
+			(c <- @data.charCodeAt(index)) == 36 ||
 			(c >= 48 && c <= 57) ||
 			(c >= 65 && c <= 90) ||
 			c == 95 ||
 			(c >= 97 && c <= 122)
-		) {}
+		) {
+			index += 1
+		}
 
 		if substr {
 			var dyn identifier = @data.substring(@index + 1, index)
@@ -3272,17 +3280,16 @@ class Scanner {
 		}
 	} # }}}
 	skip(): Void { # {{{
-		@skip(@index  - 1)
+		@skip(@index)
 	} # }}}
 	private skip(mut index: Number): Number { # {{{
-		var dyn c
-		while ++index < @length {
-			c = @data.charCodeAt(index)
+		while index < @length {
+			var mut c = @data.charCodeAt(index)
 			// console.log('sk', index, c, @line, @column)
 
 			if c == 32 || c == 9 {
 				// skip
-				++@column
+				@column += 1
 			}
 			else if c == 35 { // #
 				var oldIndex = index
@@ -3297,15 +3304,17 @@ class Scanner {
 					return 35
 				}
 
-				++index
+				index += 2
 
 				// skip spaces
-				while ++index < @length {
+				while index < @length {
 					c = @data.charCodeAt(index)
 
 					if c != 32 && c != 9 {
 						break
 					}
+
+					index += 1
 				}
 
 				c = @data.charCodeAt(index + 1)
@@ -3341,7 +3350,7 @@ class Scanner {
 				}
 
 				while index + 1 < @length && @data.charCodeAt(index + 1) != 10 {
-					++index
+					index += 1
 				}
 
 				@column += index - oldIndex
@@ -3358,31 +3367,32 @@ class Scanner {
 					var dyn left = 1
 					var dyn lineIndex = index - @column
 
-					++index
+					index += 2
 
-					while ++index < @length {
+					while index < @length {
 						c = @data.charCodeAt(index)
 
 						if c == 10 {
-							line++
+							line += 1
 							column = 1
 
 							lineIndex = index
 						}
 						else if c == 42 && @data.charCodeAt(index + 1) == 47 { // * /
-							--left
+							left -= 1
 
 							if left == 0 {
-								++index
-
+								index += 1
 								column += index - lineIndex
 
 								break
 							}
 						}
 						else if c == 47 && @data.charCodeAt(index + 1) == 42 { // / *
-							++left
+							left += 1
 						}
+
+						index += 1
 					}
 
 					if left != 0 {
@@ -3399,7 +3409,10 @@ class Scanner {
 				else if c == 47 { // //
 					var lineIndex = index
 
-					while ++index < @length && @data.charCodeAt(index + 1) != 10 {
+					index += 1
+
+					while index < @length && @data.charCodeAt(index + 1) != 10 {
+						index += 1
 					}
 
 					@column += index - lineIndex
@@ -3419,6 +3432,8 @@ class Scanner {
 
 				return c
 			}
+
+			index += 1
 		}
 
 		@nextIndex = @index = index
@@ -3430,16 +3445,15 @@ class Scanner {
 		return -1
 	} # }}}
 	skipComments(): Number { # {{{
-		var dyn index = @index  - 1
+		var dyn index = @index
 
-		var dyn c
-		while ++index < @length {
-			c = @data.charCodeAt(index)
+		while index < @length {
+			var mut c = @data.charCodeAt(index)
 			// console.log('cm', index, c, @line, @column)
 
 			if c == 32 || c == 9 {
 				// skip
-				++@column
+				@column += 1
 			}
 			else if c == 47 { // /
 				c = @data.charCodeAt(index + 1)
@@ -3453,31 +3467,32 @@ class Scanner {
 					var dyn left = 1
 					var dyn lineIndex = index - @column
 
-					++index
+					index += 2
 
-					while ++index < @length {
+					while index < @length {
 						c = @data.charCodeAt(index)
 
 						if c == 10 {
-							++line
+							line += 1
 							column = 1
 
 							lineIndex = index
 						}
 						else if c == 42 && @data.charCodeAt(index + 1) == 47 { // * /
-							--left
+							left -= 1
 
 							if left == 0 {
-								++index
-
+								index += 1
 								column += index - lineIndex
 
 								break
 							}
 						}
 						else if c == 47 && @data.charCodeAt(index + 1) == 42 { // / *
-							++left
+							left += 1
 						}
+
+						index += 1
 					}
 
 					if left != 0 {
@@ -3488,34 +3503,37 @@ class Scanner {
 						return 47
 					}
 
+					index += 1
+
 					// skip spaces
-					while ++index < @length {
+					while index < @length {
 						c = @data.charCodeAt(index)
 
 						if c == 32 || c == 9 {
 							// skip
-							++column
+							column += 1
 						}
 						else {
 							break
 						}
+
+						index += 1
 					}
 
 					// skip new line
 					c = @data.charCodeAt(index)
 
 					if c == 13 && @data.charCodeAt(index + 1) == 10 {
-						++line
+						line += 1
 						column = 1
-
-						++index
+						index += 1
 					}
 					else if c == 10 || c == 13 {
-						++line
+						line += 1
 						column = 1
 					}
 					else {
-						--index
+						index -= 1
 					}
 
 					@line = line
@@ -3524,7 +3542,10 @@ class Scanner {
 				else if c == 47 { // //
 					var lineIndex = index
 
-					while ++index < @length && @data.charCodeAt(index + 1) != 10 {
+					index += 1
+
+					while index < @length && @data.charCodeAt(index + 1) != 10 {
+						index += 1
 					}
 
 					@column += index - lineIndex
@@ -3533,16 +3554,14 @@ class Scanner {
 					c = @data.charCodeAt(index + 1)
 
 					if c == 13 && @data.charCodeAt(index + 2) == 10 {
-						++@line
+						@line += 1
 						@column = 1
-
 						index += 2
 					}
 					else if c == 10 || c == 13 {
-						++@line
+						@line += 1
 						@column = 1
-
-						++index
+						index += 1
 					}
 				}
 				else {
@@ -3560,6 +3579,8 @@ class Scanner {
 
 				return c
 			}
+
+			index += 1
 		}
 
 		@nextIndex = @index = index
@@ -3570,25 +3591,23 @@ class Scanner {
 
 		return -1
 	} # }}}
-	skipNewLine(mut index: Number = @index - 1): Number { # {{{
-		var dyn c
-		while ++index < @length {
-			c = @data.charCodeAt(index)
+	skipNewLine(mut index: Number = @index): Number { # {{{
+		while index < @length {
+			var mut c = @data.charCodeAt(index)
 			// console.log('nl', index, c, @line, @column)
 
 			if c == 13 && @data.charCodeAt(index + 1) == 10 {
-				++@line
+				@line += 1
 				@column = 1
-
-				++index
+				index += 1
 			}
 			else if c == 10 || c == 13 {
-				++@line
+				@line += 1
 				@column = 1
 			}
 			else if c == 32 || c == 9 {
 				// skip
-				++@column
+				@column += 1
 			}
 			else if c == 35 { // #
 				var oldIndex = index
@@ -3603,15 +3622,17 @@ class Scanner {
 					return 35
 				}
 
-				++index
+				index += 2
 
 				// skip spaces
-				while ++index < @length {
+				while index < @length {
 					c = @data.charCodeAt(index)
 
 					if c != 32 && c != 9 {
 						break
 					}
+
+					index += 1
 				}
 
 				c = @data.charCodeAt(index + 1)
@@ -3647,7 +3668,7 @@ class Scanner {
 				}
 
 				while index + 1 < @length && @data.charCodeAt(index + 1) != 10 {
-					++index
+					index += 1
 				}
 
 				@column += index - oldIndex
@@ -3664,22 +3685,22 @@ class Scanner {
 					var dyn left = 1
 					var dyn lineIndex = index - @column
 
-					++index
+					index += 2
 
-					while ++index < @length {
+					while index < @length {
 						c = @data.charCodeAt(index)
 
 						if c == 10 {
-							line++
+							line += 1
 							column = 1
 
 							lineIndex = index
 						}
 						else if c == 42 && @data.charCodeAt(index + 1) == 47 { // * /
-							--left
+							left -= 1
 
 							if left == 0 {
-								++index
+								index += 1
 
 								column += index - lineIndex
 
@@ -3687,8 +3708,10 @@ class Scanner {
 							}
 						}
 						else if c == 47 && @data.charCodeAt(index + 1) == 42 { // / *
-							++left
+							left += 1
 						}
+
+						index += 1
 					}
 
 					if left != 0 {
@@ -3705,7 +3728,10 @@ class Scanner {
 				else if c == 47 { // //
 					var lineIndex = index
 
-					while ++index < @length && @data.charCodeAt(index + 1) != 10 {
+					index += 1
+
+					while index < @length && @data.charCodeAt(index + 1) != 10 {
+						index += 1
 					}
 
 					@column += index - lineIndex
@@ -3725,6 +3751,8 @@ class Scanner {
 
 				return c
 			}
+
+			index += 1
 		}
 
 		@nextIndex = @index = index
@@ -3745,7 +3773,7 @@ class Scanner {
 			return Token::EOF == token
 		}
 		else {
-			var c = @skip(@index - 1)
+			var c = @skip(@index)
 
 			if c == -1 {
 				return Token::EOF == token

@@ -23,7 +23,7 @@ export namespace Parser {
 
 	struct AmbiguityResult {
 		token: Token?	= null
-		identifier		= null
+		identifier: Event?		= null
 	}
 
 	flagged enum DestructuringMode {
@@ -124,12 +124,12 @@ export namespace Parser {
 			return error
 		} # }}}
 		mark(): Marker => @scanner.mark()
-		match(...tokens: Token): Token => @token = @scanner.match(...tokens)
-		matchM(matcher: Function): Token => @token = @scanner.matchM(matcher)
-		matchNS(...tokens: Token): Token => @token = @scanner.matchNS(...tokens)
+		match(...tokens: Token): Token => @token <- @scanner.match(...tokens)
+		matchM(matcher: Function): Token => @token <- @scanner.matchM(matcher)
+		matchNS(...tokens: Token): Token => @token <- @scanner.matchNS(...tokens)
 		position(): Range => @scanner.position()
 		printDebug(prefix: String? = null): Void { # {{{
-			if prefix? {
+			if ?prefix {
 				console.log(prefix, @scanner.toDebug())
 			}
 			else {
@@ -1470,7 +1470,7 @@ export namespace Parser {
 			var dyn notThis = true
 
 			if @test(Token::DOT_DOT_DOT) {
-				modifiers.push(AST.Modifier(ModifierKind::Rest, first = @yes()))
+				modifiers.push(AST.Modifier(ModifierKind::Rest, first <- @yes()))
 
 				if dMode ~~ DestructuringMode::THIS_ALIAS && @test(Token::AT) {
 					name = @reqThisExpression(@yes())
@@ -1561,7 +1561,7 @@ export namespace Parser {
 			var dyn notThis = true
 
 			if @test(Token::DOT_DOT_DOT) {
-				modifiers.push(AST.Modifier(ModifierKind::Rest, first = @yes()))
+				modifiers.push(AST.Modifier(ModifierKind::Rest, first <- @yes()))
 
 				if dMode ~~ DestructuringMode::THIS_ALIAS && @test(Token::AT) {
 					name = @reqThisExpression(@yes())
@@ -1677,10 +1677,10 @@ export namespace Parser {
 			var result = AmbiguityResult()
 
 			if @isAmbiguousAccessModifierForEnum(modifiers, result) {
-				@submitEnumMember(attributes, modifiers, result.identifier, result.token, members)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members)
 			}
 			else if @isAmbiguousStaticModifier(modifiers, result) {
-				@submitEnumMember(attributes, modifiers, result.identifier, result.token, members)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members)
 			}
 			else if @isAmbiguousAsyncModifier(modifiers, result) {
 				var {identifier, token} = result
@@ -1688,14 +1688,14 @@ export namespace Parser {
 				var first = attributes[0] ?? modifiers[0] ?? identifier
 
 				if token == Token::IDENTIFIER {
-					members.push(@reqEnumMethod(attributes, modifiers, identifier, first).value)
+					members.push(@reqEnumMethod(attributes, modifiers, identifier!?, first).value)
 				}
 				else {
-					@submitEnumMember(attributes, modifiers, identifier, null, members)
+					@submitEnumMember(attributes, modifiers, identifier!?, null, members)
 				}
 			}
 			else if @isAmbiguousIdentifier(result) {
-				@submitEnumMember(attributes, modifiers, result.identifier, null, members)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, null, members)
 			}
 			else {
 				var mark = @mark()
@@ -1729,7 +1729,7 @@ export namespace Parser {
 				else {
 					@rollback(mark)
 
-					@submitEnumMember(attributes, [], result.identifier, null, members)
+					@submitEnumMember(attributes, [], result.identifier!?, null, members)
 				}
 			}
 		} # }}}
@@ -2142,7 +2142,7 @@ export namespace Parser {
 
 			return @yep(AST.ExportDeclaration(attributes, declarations, first, last))
 		} # }}}
-		reqExpression(mut eMode: ExpressionMode?, fMode: FunctionMode, terminator: MacroTerminator = null): Event ~ SyntaxError { # {{{
+		reqExpression(mut eMode: ExpressionMode?, fMode: FunctionMode, terminator: MacroTerminator? = null): Event ~ SyntaxError { # {{{
 			if eMode == null {
 				if @mode ~~ ParserMode::MacroExpression &&
 					@scanner.test(Token::IDENTIFIER) &&
@@ -2694,7 +2694,7 @@ export namespace Parser {
 				last = @yes()
 			}
 			else {
-				declarations.push(last = @reqImportDeclarator())
+				declarations.push(last <- @reqImportDeclarator())
 			}
 
 			@reqNL_EOF_1M()
@@ -3622,7 +3622,7 @@ export namespace Parser {
 				last = @yes()
 			}
 			else {
-				declarations.push(last = @reqImportDeclarator())
+				declarations.push(last <- @reqImportDeclarator())
 			}
 
 			return @yep(AST.ImportDeclaration(attributes, declarations, first, last))
@@ -3682,7 +3682,7 @@ export namespace Parser {
 				last = @yes()
 			}
 			else {
-				declarations.push(last = @reqIncludeDeclarator())
+				declarations.push(last <- @reqIncludeDeclarator())
 			}
 
 			return @yep(AST.IncludeDeclaration(attributes, declarations, first, last))
@@ -3733,7 +3733,7 @@ export namespace Parser {
 				last = @yes()
 			}
 			else {
-				declarations.push(last = @reqIncludeDeclarator())
+				declarations.push(last <- @reqIncludeDeclarator())
 			}
 
 			return @yep(AST.IncludeAgainDeclaration(attributes, declarations, first, last))
@@ -4468,7 +4468,7 @@ export namespace Parser {
 
 			var mut external = null
 
-			if namedModifier? {
+			if ?namedModifier {
 				var identifier = @tryIdentifier()
 
 				if identifier.ok {
@@ -4498,7 +4498,7 @@ export namespace Parser {
 
 			if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
 				@throw() if fMode == FunctionMode::Macro
-				@throw() if positionalModifier? || (?namedModifier && !?external)
+				@throw() if ?positionalModifier || (?namedModifier && !?external)
 
 				var modifiers = []
 				modifiers.push(mutModifier) if ?mutModifier
@@ -4525,7 +4525,7 @@ export namespace Parser {
 			}
 
 			if @test(Token::DOT_DOT_DOT) {
-				@throw() if positionalModifier? || namedModifier?
+				@throw() if ?positionalModifier || ?namedModifier
 
 				var first = @yes()
 
@@ -4545,7 +4545,7 @@ export namespace Parser {
 			}
 
 			if @test(Token::AT) {
-				@throw() if mutModifier?
+				@throw() if ?mutModifier
 
 				var modifiers = []
 				modifiers.push(namedModifier) if ?namedModifier
@@ -4564,7 +4564,7 @@ export namespace Parser {
 			}
 
 			if @test(Token::UNDERSCORE) {
-				@throw() if positionalModifier? || (?namedModifier && !?external)
+				@throw() if ?positionalModifier || (?namedModifier && !?external)
 
 				var modifiers = []
 				modifiers.push(mutModifier) if ?mutModifier
@@ -4597,7 +4597,7 @@ export namespace Parser {
 						parameters.push(@reqParameterRest(attributes, modifiers, NO, firstAttr ?? mutModifier ?? underscore, pMode, fMode))
 					}
 					else if @test(Token::AT) {
-						@throw() if mutModifier?
+						@throw() if ?mutModifier
 
 						parameters.push(@reqParameterAt(attributes, modifiers, null, firstAttr ?? namedModifier ?? underscore, pMode, fMode))
 					}
@@ -4668,7 +4668,7 @@ export namespace Parser {
 							parameters.push(@reqParameterRest(attributes, modifiers, identifier, firstAttr ?? mutModifier ?? identifier, pMode, fMode))
 						}
 						else if @test(Token::AT) {
-							@throw() if mutModifier?
+							@throw() if ?mutModifier
 
 							parameters.push(@reqParameterAt(attributes, modifiers, identifier, firstAttr ?? namedModifier ?? identifier, pMode, fMode))
 						}
@@ -4690,7 +4690,7 @@ export namespace Parser {
 					}
 				}
 
-				if mutModifier? {
+				if ?mutModifier {
 					@rollback(mutMark)
 
 					mutModifier = null
@@ -5215,7 +5215,7 @@ export namespace Parser {
 				last = @yes()
 			}
 			else {
-				declarations.push(last = @reqImportDeclarator())
+				declarations.push(last <- @reqImportDeclarator())
 			}
 
 			@reqNL_EOF_1M()
@@ -5962,7 +5962,7 @@ export namespace Parser {
 
 			if @test(Token::ON) {
 				do {
-					catchClauses.push(last = @reqCatchOnClause(@yes(), fMode))
+					catchClauses.push(last <- @reqCatchOnClause(@yes(), fMode))
 
 					mark = @mark()
 

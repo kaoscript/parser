@@ -22,8 +22,8 @@ cls:
 	printf '\033[2J\033[3J\033[1;1H'
 
 update:
-	rm -rf node_modules package-lock.json
 	@make clean
+	rm -rf node_modules package-lock.json
 	nrm use local
 	npm i
 

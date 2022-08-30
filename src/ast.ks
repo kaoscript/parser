@@ -82,7 +82,7 @@ namespace AST {
 
 	var CONDITIONAL_PRECEDENCE = 4
 
-	func location(descriptor, firstToken, lastToken = null) { # {{{
+	func location(descriptor, firstToken, lastToken? = null) { # {{{
 		if lastToken == null {
 			if !?descriptor.start {
 				descriptor.start = firstToken.start
@@ -111,8 +111,8 @@ namespace AST {
 
 		for i from 1 til operations.length by 2 {
 			if operations[i].kind == NodeKind::ConditionalExpression {
-				if precedences[CONDITIONAL_PRECEDENCE]? {
-					++precedences[CONDITIONAL_PRECEDENCE]
+				if ?precedences[CONDITIONAL_PRECEDENCE] {
+					precedences[CONDITIONAL_PRECEDENCE] += 1
 				}
 				else {
 					precedences[CONDITIONAL_PRECEDENCE] = 1
@@ -120,13 +120,13 @@ namespace AST {
 
 				precedenceList.push(CONDITIONAL_PRECEDENCE)
 
-				i++
+				i += 1
 			}
 			else {
 				var precedence = $precedence[operations[i].operator.kind]
 
-				if precedences[precedence]? {
-					++precedences[precedence]
+				if ?precedences[precedence] {
+					precedences[precedence] += 1
 				}
 				else {
 					precedences[precedence] = 1
@@ -147,7 +147,7 @@ namespace AST {
 			for k from 1 til operations.length by 2 while count > 0 {
 				if operations[k].kind == NodeKind::ConditionalExpression {
 					if precedence == CONDITIONAL_PRECEDENCE {
-						--count
+						count -= 1
 
 						operator = operations[k]
 
@@ -163,11 +163,11 @@ namespace AST {
 						k -= 3
 					}
 					else {
-						k++
+						k += 1
 					}
 				}
 				else if $precedence[operations[k].operator.kind] == precedence {
-					--count
+					count -= 1
 
 					operator = operations[k]
 
@@ -274,15 +274,15 @@ namespace AST {
 				modifiers
 			}, first, last)
 
-			if name? {
+			if ?name {
 				node.name = name.value
 			}
 
-			if type? {
+			if ?type {
 				node.type = type.value
 			}
 
-			if defaultValue? {
+			if ?defaultValue {
 				node.defaultValue = defaultValue.value
 			}
 
@@ -311,7 +311,7 @@ namespace AST {
 				til: til.value
 			}, first, last)
 
-			if by? {
+			if ?by {
 				node.by = by.value
 			}
 
@@ -325,7 +325,7 @@ namespace AST {
 				to: to.value
 			}, first, last)
 
-			if by? {
+			if ?by {
 				node.by = by.value
 			}
 
@@ -339,7 +339,7 @@ namespace AST {
 				til: til.value
 			}, first, last)
 
-			if by? {
+			if ?by {
 				node.by = by.value
 			}
 
@@ -353,7 +353,7 @@ namespace AST {
 				to: to.value
 			}, first, last)
 
-			if by? {
+			if ?by {
 				node.by = by.value
 			}
 
@@ -1147,7 +1147,7 @@ namespace AST {
 			return node
 		} # }}}
 
-		func Literal(value, first, last = null) { # {{{
+		func Literal(value, first, last? = null) { # {{{
 			return location({
 				kind: NodeKind::Literal
 				value: value
@@ -1269,7 +1269,7 @@ namespace AST {
 			return node
 		} # }}}
 
-		func Modifier(kind, first, last = null) { # {{{
+		func Modifier(kind, first, last? = null) { # {{{
 			return location({
 				kind: kind
 			}, first, last)
@@ -1349,11 +1349,11 @@ namespace AST {
 				modifiers
 			}, first, last)
 
-			if alias? {
+			if ?alias {
 				node.alias = alias.value
 			}
 
-			if defaultValue? {
+			if ?defaultValue {
 				node.defaultValue = defaultValue.value
 			}
 
@@ -1599,11 +1599,11 @@ namespace AST {
 				name: name.value
 			}, first, last)
 
-			if type? {
+			if ?type {
 				node.type = type.value
 			}
 
-			if defaultValue? {
+			if ?defaultValue {
 				node.defaultValue = defaultValue.value
 			}
 
@@ -1808,15 +1808,15 @@ namespace AST {
 				modifiers: [modifier.value for modifier in modifiers]
 			}, first, last)
 
-			if name? {
+			if ?name {
 				node.name = name.value
 			}
 
-			if type? {
+			if ?type {
 				node.type = type.value
 			}
 
-			if defaultValue? {
+			if ?defaultValue {
 				node.defaultValue = defaultValue.value
 			}
 
