@@ -75,12 +75,18 @@ enum Token {
 	FUNC
 	GET
 	HASH
+	HASH_A_LEFT_ROUND
+	HASH_E_LEFT_ROUND
 	HASH_EQUALS
 	HASH_EXCLAMATION
 	HASH_EXCLAMATION_LEFT_SQUARE
 	HASH_HASH
 	HASH_HASH_EQUALS
+	HASH_J_LEFT_ROUND
+	HASH_LEFT_ROUND
 	HASH_LEFT_SQUARE
+	HASH_S_LEFT_ROUND
+	HASH_W_LEFT_ROUND
 	HEX_NUMBER
 	IDENTIFIER
 	IF
@@ -877,15 +883,52 @@ namespace M {
 
 				return Token::NEWLINE
 			}
-			else if c == 10 || c == 13 {
+			else if c == 10 | 13 {
 				that.nextLine(1)
 
 				return Token::NEWLINE
 			}
 			else if c == 35 {
-				that.next(1)
+				if (c <- that.charAt(1)) == 40 {
+					that.next(2)
 
-				return Token::HASH
+					return Token::HASH_LEFT_ROUND
+				}
+				else if c == 97 {
+					if that.charAt(2) == 40 {
+						that.next(3)
+
+						return Token::HASH_A_LEFT_ROUND
+					}
+				}
+				else if c == 101 {
+					if that.charAt(2) == 40 {
+						that.next(3)
+
+						return Token::HASH_E_LEFT_ROUND
+					}
+				}
+				else if c == 106 {
+					if that.charAt(2) == 40 {
+						that.next(3)
+
+						return Token::HASH_J_LEFT_ROUND
+					}
+				}
+				else if c == 115 {
+					if that.charAt(2) == 40 {
+						that.next(3)
+
+						return Token::HASH_S_LEFT_ROUND
+					}
+				}
+				else if c == 119 {
+					if that.charAt(2) == 40 {
+						that.next(3)
+
+						return Token::HASH_W_LEFT_ROUND
+					}
+				}
 			}
 			else if c == 40 {
 				that.next(1)
@@ -915,7 +958,7 @@ namespace M {
 			while index < that._length {
 				c = that._data.charCodeAt(index)
 
-				if c == 10 || c == 13 || c == 35 || c == 40 || c == 41 || c == 123 || c == 125 {
+				if c == 10 | 13 | 35 | 40 | 41 | 123 | 125 {
 					that.next(index - from)
 
 					return Token::INVALID

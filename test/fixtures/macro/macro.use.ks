@@ -1,8 +1,8 @@
 macro using_a(a: Identifier, e: Expression) {
 	macro {
 		(() => {
-			var dyn #a = 42
-			return #e
+			var dyn #(a) = 42
+			return #(e)
 		})()
 	}
 }

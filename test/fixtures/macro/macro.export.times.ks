@@ -1,1 +1,1 @@
-export macro times_five(e) => 5 * #e
+export macro times_five(e) => 5 * #(e)

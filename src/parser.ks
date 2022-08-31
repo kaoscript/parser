@@ -3822,84 +3822,75 @@ export namespace Parser {
 
 						break
 					}
-					Token::HASH => {
+					Token::HASH_LEFT_ROUND => {
+						addLiteral()
+
 						var first = @yes()
+						var expression = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
-						if @testNS(Token::IDENTIFIER) {
-							addLiteral()
+						@throw(')') unless @test(Token::RIGHT_ROUND)
 
-							var identifier = @scanner.value()
-							var last = @yes()
-							var mark = @mark()
+						elements.push(@yep(AST.MacroElementExpression(expression, null, first, @yes())))
+					}
+					Token::HASH_A_LEFT_ROUND => {
+						addLiteral()
 
-							if identifier.length == 1 && (identifier == 'a' || identifier == 'e' || identifier == 's' || identifier == 'w') && @test(Token::LEFT_ROUND) {
-								var reification = AST.MacroReification(identifier, last)
+						var reification = AST.Modifier(ReificationKind::Argument, @yes())
+						var expression = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
-								@commit()
+						@throw(')') unless @test(Token::RIGHT_ROUND)
 
-								var expression = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
+						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
+					}
+					Token::HASH_E_LEFT_ROUND => {
+						addLiteral()
 
-								unless @test(Token::RIGHT_ROUND) {
-									@throw(')')
-								}
+						var reification = AST.Modifier(ReificationKind::Expression, @yes())
+						var expression = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
-								elements.push(@yep(AST.MacroElementExpression(expression, reification, first, @yes())))
-							}
-							else if identifier.length == 1 && identifier == 'j' {
-								var reification = AST.MacroReification(identifier, last)
+						@throw(')') unless @test(Token::RIGHT_ROUND)
 
-								@commit()
+						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
+					}
+					Token::HASH_J_LEFT_ROUND => {
+						addLiteral()
 
-								unless @test(Token::LEFT_ROUND) {
-									@throw('(')
-								}
+						var reification = AST.Modifier(ReificationKind::Join, @yes())
+						var expression = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
-								@commit()
+						@throw(',') unless @test(Token::COMMA)
 
-								var expression = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
+						@commit()
 
-								unless @test(Token::COMMA) {
-									@throw(',')
-								}
+						var separator = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
-								@commit()
+						@throw(')') unless @test(Token::RIGHT_ROUND)
 
-								var separator = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
+						var ast = AST.MacroElementExpression(expression, reification, reification, @yes())
 
-								unless @test(Token::RIGHT_ROUND) {
-									@throw(')')
-								}
+						ast.separator = separator.value
 
-								var ast = AST.MacroElementExpression(expression, reification, first, @yes())
+						elements.push(@yep(ast))
+					}
+					Token::HASH_S_LEFT_ROUND => {
+						addLiteral()
 
-								ast.separator = separator.value
+						var reification = AST.Modifier(ReificationKind::Statement, @yes())
+						var expression = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
-								elements.push(@yep(ast))
-							}
-							else {
-								@rollback(mark)
+						@throw(')') unless @test(Token::RIGHT_ROUND)
 
-								var expression = @yep(AST.Identifier(identifier, last))
+						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
+					}
+					Token::HASH_W_LEFT_ROUND => {
+						addLiteral()
 
-								elements.push(@yep(AST.MacroElementExpression(expression, null, first, expression)))
-							}
-						}
-						else if @testNS(Token::LEFT_ROUND) {
-							addLiteral()
+						var reification = AST.Modifier(ReificationKind::Write, @yes())
+						var expression = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
-							@commit()
+						@throw(')') unless @test(Token::RIGHT_ROUND)
 
-							var expression = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
-
-							unless @test(Token::RIGHT_ROUND) {
-								@throw(')')
-							}
-
-							elements.push(@yep(AST.MacroElementExpression(expression, null, first, @yes())))
-						}
-						else {
-							pushToLiteral('#', first)
-						}
+						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
 					}
 					Token::INVALID => {
 						addToLiteral()

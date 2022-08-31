@@ -1203,36 +1203,6 @@ namespace AST {
 			}, first)
 		} # }}}
 
-		func MacroReification(value, first) { # {{{
-			switch value {
-				'a' => {
-					return location({
-						kind: ReificationKind::Argument
-					}, first)
-				}
-				'e' => {
-					return location({
-						kind: ReificationKind::Expression
-					}, first)
-				}
-				'j' => {
-					return location({
-						kind: ReificationKind::Join
-					}, first)
-				}
-				's' => {
-					return location({
-						kind: ReificationKind::Statement
-					}, first)
-				}
-				'w' => {
-					return location({
-						kind: ReificationKind::Write
-					}, first)
-				}
-			}
-		} # }}}
-
 		func MemberExpression(modifiers, object, property, first = object, last = property) { # {{{
 			return location({
 				kind: NodeKind::MemberExpression
