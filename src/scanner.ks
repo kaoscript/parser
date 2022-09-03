@@ -4,7 +4,6 @@ enum Token {
 	AMPERSAND
 	AMPERSAND_AMPERSAND
 	AMPERSAND_AMPERSAND_EQUALS
-	ALIAS
 	AS
 	AS_EXCLAMATION
 	AS_QUESTION
@@ -132,6 +131,7 @@ enum Token {
 	PLUS_EQUALS
 	PRIVATE
 	PROTECTED
+	PROXY
 	PUBLIC
 	QUESTION
 	QUESTION_EQUALS
@@ -2044,20 +2044,6 @@ var recognize = {
 			return false
 		}
 	} # }}}
-	`\(Token::ALIAS)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if	c == 97 &&
-			that.charAt(1) == 108 &&
-			that.charAt(2) == 105 &&
-			that.charAt(3) == 97 &&
-			that.charAt(4) == 115 &&
-			that.isBoundary(5)
-		{
-			return that.next(5)
-		}
-		else {
-			return false
-		}
-	} # }}}
 	`\(Token::ASTERISK)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 42 && that.charAt(1) != 42 & 36 & 61 {
 			return that.next(1)
@@ -2802,6 +2788,20 @@ var recognize = {
 			that.isBoundary(9)
 		{
 			return that.next(9)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::PROXY)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 112 &&
+			that.charAt(1) == 114 &&
+			that.charAt(2) == 111 &&
+			that.charAt(3) == 120 &&
+			that.charAt(4) == 121 &&
+			that.isBoundary(5)
+		{
+			return that.next(5)
 		}
 		else {
 			return false

@@ -1,9 +1,9 @@
 {
-  "kind": 76,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 12,
+      "kind": 11,
       "operator": {
         "kind": 3,
         "assignment": 6,
@@ -17,7 +17,7 @@
         }
       },
       "left": {
-        "kind": 54,
+        "kind": 53,
         "name": "a",
         "start": {
           "line": 1,
@@ -29,9 +29,9 @@
         }
       },
       "right": {
-        "kind": 4,
+        "kind": 3,
         "body": {
-          "kind": 54,
+          "kind": 53,
           "name": "i",
           "start": {
             "line": 1,
@@ -43,11 +43,11 @@
           }
         },
         "loop": {
-          "kind": 47,
+          "kind": 46,
           "modifiers": [],
           "attributes": [],
           "variable": {
-            "kind": 54,
+            "kind": 53,
             "name": "i",
             "start": {
               "line": 1,
@@ -59,7 +59,7 @@
             }
           },
           "from": {
-            "kind": 80,
+            "kind": 79,
             "value": 0,
             "start": {
               "line": 1,
@@ -79,7 +79,7 @@
             "column": 44
           },
           "to": {
-            "kind": 80,
+            "kind": 79,
             "value": 10,
             "start": {
               "line": 1,
@@ -91,7 +91,7 @@
             }
           },
           "by": {
-            "kind": 80,
+            "kind": 79,
             "value": 2,
             "start": {
               "line": 1,
@@ -103,13 +103,13 @@
             }
           },
           "until": {
-            "kind": 16,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 53,
               "name": "foo",
               "start": {
                 "line": 1,
@@ -122,7 +122,7 @@
             },
             "arguments": [
               {
-                "kind": 54,
+                "kind": 53,
                 "name": "i",
                 "start": {
                   "line": 1,

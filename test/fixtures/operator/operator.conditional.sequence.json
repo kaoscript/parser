@@ -1,9 +1,9 @@
 {
-  "kind": 76,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 125,
+      "kind": 126,
       "attributes": [],
       "modifiers": [
         {
@@ -20,11 +20,11 @@
       ],
       "variables": [
         {
-          "kind": 126,
+          "kind": 127,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 54,
+            "kind": 53,
             "name": "foo",
             "start": {
               "line": 1,
@@ -54,7 +54,7 @@
         "column": 60
       },
       "value": {
-        "kind": 25,
+        "kind": 24,
         "start": {
           "line": 1,
           "column": 15
@@ -64,7 +64,7 @@
           "column": 60
         },
         "condition": {
-          "kind": 54,
+          "kind": 53,
           "name": "lang",
           "start": {
             "line": 1,
@@ -76,10 +76,10 @@
           }
         },
         "whenTrue": {
-          "kind": 94,
+          "kind": 95,
           "expressions": [
             {
-              "kind": 12,
+              "kind": 11,
               "operator": {
                 "kind": 3,
                 "assignment": 6,
@@ -101,7 +101,7 @@
                 "column": 38
               },
               "left": {
-                "kind": 54,
+                "kind": 53,
                 "name": "bar",
                 "start": {
                   "line": 1,
@@ -113,7 +113,7 @@
                 }
               },
               "right": {
-                "kind": 70,
+                "kind": 69,
                 "value": "goodbye",
                 "start": {
                   "line": 1,
@@ -126,7 +126,7 @@
               }
             },
             {
-              "kind": 70,
+              "kind": 69,
               "value": "hello",
               "start": {
                 "line": 1,
@@ -148,7 +148,7 @@
           }
         },
         "whenFalse": {
-          "kind": 70,
+          "kind": 69,
           "value": "bonjour",
           "start": {
             "line": 1,

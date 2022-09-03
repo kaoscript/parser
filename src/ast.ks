@@ -251,16 +251,6 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func AliasDeclaration(attributes, modifiers, name, target, first, last) { # {{{
-			return location({
-				kind: NodeKind::AliasDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
-				name: name.value
-				target: target.value
-			}, first, last)
-		} # }}}
-
 		func ArrayBinding(elements, first, last) { # {{{
 			return location({
 				kind: NodeKind::ArrayBinding
@@ -1070,6 +1060,7 @@ namespace AST {
 			return node
 		} # }}}
 
+		// TODO external/internal
 		func ImportSpecifier(imported, local, first, last) { # {{{
 			return location({
 				kind: NodeKind::ImportSpecifier
@@ -1418,6 +1409,26 @@ namespace AST {
 			return node
 		} # }}}
 
+		func ProxyDeclaration(attributes, modifiers, internal, external, first, last) { # {{{
+			return location({
+				kind: NodeKind::ProxyDeclaration
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
+				internal: internal.value
+				external: external.value
+			}, first, last)
+		} # }}}
+
+		func ProxyGroupDeclaration(attributes, modifiers, recipient, elements, first, last) { # {{{
+			return location({
+				kind: NodeKind::ProxyGroupDeclaration
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
+				recipient: recipient.value
+				elements: [element.value for var element in elements]
+			}, first, last)
+		} # }}}
+
 		func Parameter(name) { # {{{
 			return location({
 				kind: NodeKind::Parameter
@@ -1431,7 +1442,7 @@ namespace AST {
 		func Parameter(attributes, modifiers, external?, internal?, type?, operator?, defaultValue?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::Parameter
-				attributes: [attribute.value for attribute in attributes]
+				attributes: [attribute.value for var attribute in attributes]
 				modifiers: modifiers
 			}, first, last)
 

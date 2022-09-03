@@ -1,12 +1,12 @@
 {
-  "kind": 76,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 51,
+      "kind": 50,
       "attributes": [],
       "name": {
-        "kind": 54,
+        "kind": 53,
         "name": "foo",
         "start": {
           "line": 1,
@@ -27,7 +27,7 @@
       },
       "parameters": [
         {
-          "kind": 86,
+          "kind": 85,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -39,7 +39,7 @@
             "column": 11
           },
           "external": {
-            "kind": 54,
+            "kind": 53,
             "name": "x",
             "start": {
               "line": 1,
@@ -51,7 +51,7 @@
             }
           },
           "internal": {
-            "kind": 54,
+            "kind": 53,
             "name": "x",
             "start": {
               "line": 1,
@@ -64,7 +64,7 @@
           }
         },
         {
-          "kind": 86,
+          "kind": 85,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -76,7 +76,7 @@
             "column": 14
           },
           "external": {
-            "kind": 54,
+            "kind": 53,
             "name": "y",
             "start": {
               "line": 1,
@@ -88,7 +88,7 @@
             }
           },
           "internal": {
-            "kind": 54,
+            "kind": 53,
             "name": "y",
             "start": {
               "line": 1,
@@ -104,14 +104,14 @@
       "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 14,
+        "kind": 13,
         "attributes": [],
         "statements": [
           {
-            "kind": 56,
+            "kind": 55,
             "attributes": [],
             "condition": {
-              "kind": 120,
+              "kind": 121,
               "operator": {
                 "kind": 3,
                 "start": {
@@ -124,7 +124,7 @@
                 }
               },
               "argument": {
-                "kind": 54,
+                "kind": 53,
                 "name": "x",
                 "start": {
                   "line": 2,
@@ -145,14 +145,14 @@
               }
             },
             "whenTrue": {
-              "kind": 14,
+              "kind": 13,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 93,
+                  "kind": 94,
                   "attributes": [],
                   "value": {
-                    "kind": 54,
+                    "kind": 53,
                     "name": "y",
                     "start": {
                       "line": 3,
@@ -191,14 +191,14 @@
               "column": 3
             },
             "whenFalse": {
-              "kind": 14,
+              "kind": 13,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 93,
+                  "kind": 94,
                   "attributes": [],
                   "value": {
-                    "kind": 54,
+                    "kind": 53,
                     "name": "x",
                     "start": {
                       "line": 6,

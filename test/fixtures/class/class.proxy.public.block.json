@@ -1,13 +1,13 @@
 {
-  "kind": 76,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 19,
+      "kind": 18,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 54,
+        "kind": 53,
         "name": "Proxy",
         "start": {
           "line": 1,
@@ -20,75 +20,87 @@
       },
       "members": [
         {
-          "kind": 2,
+          "kind": 88,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
+          "modifiers": [
+            {
+              "kind": 25,
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 8
+              }
+            }
+          ],
+          "internal": {
+            "kind": 53,
             "name": "hello",
             "start": {
-              "line": 2,
-              "column": 8
+              "line": 3,
+              "column": 9
             },
             "end": {
-              "line": 2,
-              "column": 13
+              "line": 3,
+              "column": 14
             }
           },
-          "target": {
-            "kind": 73,
+          "external": {
+            "kind": 72,
             "modifiers": [],
             "object": {
-              "kind": 111,
+              "kind": 112,
               "name": {
-                "kind": 54,
+                "kind": 53,
                 "name": "component",
                 "start": {
-                  "line": 2,
-                  "column": 17
+                  "line": 3,
+                  "column": 18
                 },
                 "end": {
-                  "line": 2,
-                  "column": 26
+                  "line": 3,
+                  "column": 27
                 }
               },
               "start": {
-                "line": 2,
-                "column": 16
+                "line": 3,
+                "column": 17
               },
               "end": {
-                "line": 2,
-                "column": 26
+                "line": 3,
+                "column": 27
               }
             },
             "property": {
-              "kind": 54,
+              "kind": 53,
               "name": "hello",
               "start": {
-                "line": 2,
-                "column": 27
+                "line": 3,
+                "column": 28
               },
               "end": {
-                "line": 2,
-                "column": 32
+                "line": 3,
+                "column": 33
               }
             },
             "start": {
-              "line": 2,
-              "column": 16
+              "line": 3,
+              "column": 17
             },
             "end": {
-              "line": 2,
-              "column": 32
+              "line": 3,
+              "column": 33
             }
           },
           "start": {
-            "line": 2,
-            "column": 2
+            "line": 3,
+            "column": 3
           },
           "end": {
-            "line": 2,
-            "column": 32
+            "line": 3,
+            "column": 33
           }
         }
       ],
@@ -97,7 +109,7 @@
         "column": 1
       },
       "end": {
-        "line": 3,
+        "line": 5,
         "column": 2
       }
     }
@@ -107,7 +119,7 @@
     "column": 1
   },
   "end": {
-    "line": 3,
+    "line": 5,
     "column": 2
   }
 }

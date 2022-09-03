@@ -1,12 +1,12 @@
 {
-  "kind": 76,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 51,
+      "kind": 50,
       "attributes": [],
       "name": {
-        "kind": 54,
+        "kind": 53,
         "name": "age",
         "start": {
           "line": 1,
@@ -28,10 +28,10 @@
       "parameters": [],
       "modifiers": [],
       "type": {
-        "kind": 119,
+        "kind": 120,
         "modifiers": [],
         "typeName": {
-          "kind": 54,
+          "kind": 53,
           "name": "int",
           "start": {
             "line": 1,
@@ -53,7 +53,7 @@
       },
       "throws": [],
       "body": {
-        "kind": 80,
+        "kind": 79,
         "value": 15,
         "start": {
           "line": 1,
@@ -66,10 +66,10 @@
       }
     },
     {
-      "kind": 51,
+      "kind": 50,
       "attributes": [],
       "name": {
-        "kind": 54,
+        "kind": 53,
         "name": "main",
         "start": {
           "line": 3,
@@ -92,20 +92,20 @@
       "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 14,
+        "kind": 13,
         "attributes": [],
         "statements": [
           {
-            "kind": 107,
+            "kind": 108,
             "attributes": [],
             "expression": {
-              "kind": 16,
+              "kind": 15,
               "modifiers": [],
               "scope": {
                 "kind": 3
               },
               "callee": {
-                "kind": 54,
+                "kind": 53,
                 "name": "age",
                 "start": {
                   "line": 4,
@@ -128,18 +128,18 @@
             },
             "clauses": [
               {
-                "kind": 100,
+                "kind": 101,
                 "body": {
-                  "kind": 16,
+                  "kind": 15,
                   "modifiers": [],
                   "scope": {
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 73,
+                    "kind": 72,
                     "modifiers": [],
                     "object": {
-                      "kind": 54,
+                      "kind": 53,
                       "name": "console",
                       "start": {
                         "line": 5,
@@ -151,7 +151,7 @@
                       }
                     },
                     "property": {
-                      "kind": 54,
+                      "kind": 53,
                       "name": "log",
                       "start": {
                         "line": 5,
@@ -173,10 +173,10 @@
                   },
                   "arguments": [
                     {
-                      "kind": 110,
+                      "kind": 111,
                       "elements": [
                         {
-                          "kind": 70,
+                          "kind": 69,
                           "value": "I'm not born yet I guess",
                           "start": {
                             "line": 5,
@@ -217,7 +217,7 @@
                 },
                 "conditions": [
                   {
-                    "kind": 80,
+                    "kind": 79,
                     "value": 0,
                     "start": {
                       "line": 5,
@@ -232,18 +232,18 @@
                 "bindings": []
               },
               {
-                "kind": 100,
+                "kind": 101,
                 "body": {
-                  "kind": 16,
+                  "kind": 15,
                   "modifiers": [],
                   "scope": {
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 73,
+                    "kind": 72,
                     "modifiers": [],
                     "object": {
-                      "kind": 54,
+                      "kind": 53,
                       "name": "console",
                       "start": {
                         "line": 6,
@@ -255,7 +255,7 @@
                       }
                     },
                     "property": {
-                      "kind": 54,
+                      "kind": 53,
                       "name": "log",
                       "start": {
                         "line": 6,
@@ -277,10 +277,10 @@
                   },
                   "arguments": [
                     {
-                      "kind": 110,
+                      "kind": 111,
                       "elements": [
                         {
-                          "kind": 70,
+                          "kind": 69,
                           "value": "I'm a child of age ",
                           "start": {
                             "line": 6,
@@ -292,7 +292,7 @@
                           }
                         },
                         {
-                          "kind": 54,
+                          "kind": 53,
                           "name": "n",
                           "start": {
                             "line": 6,
@@ -333,9 +333,9 @@
                 },
                 "conditions": [
                   {
-                    "kind": 104,
+                    "kind": 105,
                     "from": {
-                      "kind": 80,
+                      "kind": 79,
                       "value": 1,
                       "start": {
                         "line": 6,
@@ -347,7 +347,7 @@
                       }
                     },
                     "to": {
-                      "kind": 80,
+                      "kind": 79,
                       "value": 12,
                       "start": {
                         "line": 6,
@@ -370,7 +370,7 @@
                 ],
                 "bindings": [
                   {
-                    "kind": 54,
+                    "kind": 53,
                     "name": "n",
                     "start": {
                       "line": 6,
@@ -384,18 +384,18 @@
                 ]
               },
               {
-                "kind": 100,
+                "kind": 101,
                 "body": {
-                  "kind": 16,
+                  "kind": 15,
                   "modifiers": [],
                   "scope": {
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 73,
+                    "kind": 72,
                     "modifiers": [],
                     "object": {
-                      "kind": 54,
+                      "kind": 53,
                       "name": "console",
                       "start": {
                         "line": 7,
@@ -407,7 +407,7 @@
                       }
                     },
                     "property": {
-                      "kind": 54,
+                      "kind": 53,
                       "name": "log",
                       "start": {
                         "line": 7,
@@ -429,10 +429,10 @@
                   },
                   "arguments": [
                     {
-                      "kind": 110,
+                      "kind": 111,
                       "elements": [
                         {
-                          "kind": 70,
+                          "kind": 69,
                           "value": "I'm a teen of age ",
                           "start": {
                             "line": 7,
@@ -444,7 +444,7 @@
                           }
                         },
                         {
-                          "kind": 54,
+                          "kind": 53,
                           "name": "n",
                           "start": {
                             "line": 7,
@@ -485,9 +485,9 @@
                 },
                 "conditions": [
                   {
-                    "kind": 104,
+                    "kind": 105,
                     "from": {
-                      "kind": 80,
+                      "kind": 79,
                       "value": 13,
                       "start": {
                         "line": 7,
@@ -499,7 +499,7 @@
                       }
                     },
                     "to": {
-                      "kind": 80,
+                      "kind": 79,
                       "value": 19,
                       "start": {
                         "line": 7,
@@ -522,7 +522,7 @@
                 ],
                 "bindings": [
                   {
-                    "kind": 54,
+                    "kind": 53,
                     "name": "n",
                     "start": {
                       "line": 7,
@@ -536,18 +536,18 @@
                 ]
               },
               {
-                "kind": 100,
+                "kind": 101,
                 "body": {
-                  "kind": 16,
+                  "kind": 15,
                   "modifiers": [],
                   "scope": {
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 73,
+                    "kind": 72,
                     "modifiers": [],
                     "object": {
-                      "kind": 54,
+                      "kind": 53,
                       "name": "console",
                       "start": {
                         "line": 8,
@@ -559,7 +559,7 @@
                       }
                     },
                     "property": {
-                      "kind": 54,
+                      "kind": 53,
                       "name": "log",
                       "start": {
                         "line": 8,
@@ -581,10 +581,10 @@
                   },
                   "arguments": [
                     {
-                      "kind": 110,
+                      "kind": 111,
                       "elements": [
                         {
-                          "kind": 70,
+                          "kind": 69,
                           "value": "I'm an old person of age ",
                           "start": {
                             "line": 8,
@@ -596,7 +596,7 @@
                           }
                         },
                         {
-                          "kind": 54,
+                          "kind": 53,
                           "name": "n",
                           "start": {
                             "line": 8,
@@ -638,7 +638,7 @@
                 "conditions": [],
                 "bindings": [
                   {
-                    "kind": 54,
+                    "kind": 53,
                     "name": "n",
                     "start": {
                       "line": 8,

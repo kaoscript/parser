@@ -1,12 +1,12 @@
 {
-  "kind": 76,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 51,
+      "kind": 50,
       "attributes": [],
       "name": {
-        "kind": 54,
+        "kind": 53,
         "name": "foo",
         "start": {
           "line": 1,
@@ -27,7 +27,7 @@
       },
       "parameters": [
         {
-          "kind": 86,
+          "kind": 85,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -39,7 +39,7 @@
             "column": 17
           },
           "external": {
-            "kind": 54,
+            "kind": 53,
             "name": "x",
             "start": {
               "line": 1,
@@ -51,7 +51,7 @@
             }
           },
           "internal": {
-            "kind": 54,
+            "kind": 53,
             "name": "x",
             "start": {
               "line": 1,
@@ -64,7 +64,7 @@
           }
         },
         {
-          "kind": 86,
+          "kind": 85,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -76,7 +76,7 @@
             "column": 20
           },
           "external": {
-            "kind": 54,
+            "kind": 53,
             "name": "y",
             "start": {
               "line": 1,
@@ -88,7 +88,7 @@
             }
           },
           "internal": {
-            "kind": 54,
+            "kind": 53,
             "name": "y",
             "start": {
               "line": 1,
@@ -116,7 +116,7 @@
       ],
       "throws": [],
       "body": {
-        "kind": 12,
+        "kind": 11,
         "operator": {
           "kind": 22,
           "modifiers": [],
@@ -138,7 +138,7 @@
           "column": 30
         },
         "left": {
-          "kind": 54,
+          "kind": 53,
           "name": "x",
           "start": {
             "line": 1,
@@ -150,7 +150,7 @@
           }
         },
         "right": {
-          "kind": 54,
+          "kind": 53,
           "name": "y",
           "start": {
             "line": 1,
@@ -164,10 +164,10 @@
       }
     },
     {
-      "kind": 51,
+      "kind": 50,
       "attributes": [],
       "name": {
-        "kind": 54,
+        "kind": 53,
         "name": "bar",
         "start": {
           "line": 3,
@@ -202,16 +202,16 @@
       ],
       "throws": [],
       "body": {
-        "kind": 11,
+        "kind": 10,
         "modifiers": [],
         "operation": {
-          "kind": 16,
+          "kind": 15,
           "modifiers": [],
           "scope": {
             "kind": 3
           },
           "callee": {
-            "kind": 54,
+            "kind": 53,
             "name": "foo",
             "start": {
               "line": 3,
@@ -224,7 +224,7 @@
           },
           "arguments": [
             {
-              "kind": 80,
+              "kind": 79,
               "value": 42,
               "start": {
                 "line": 3,
@@ -236,7 +236,7 @@
               }
             },
             {
-              "kind": 80,
+              "kind": 79,
               "value": 24,
               "start": {
                 "line": 3,

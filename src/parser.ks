@@ -84,7 +84,6 @@ export namespace Parser {
 
 	flagged enum ClassBits {
 		AbstractMethod		 = 1
-		Alias
 		Attribute
 		FinalMethod
 		FinalVariable
@@ -97,6 +96,7 @@ export namespace Parser {
 		OverwriteMethod
 		OverwriteProperty
 		Property
+		Proxy
 		RequiredAssignment
 		Variable
 	}
@@ -830,34 +830,6 @@ export namespace Parser {
 
 			return @yep(AST.CatchClause(binding, type, body, first, body))
 		} # }}}
-		reqClassAlias(attributes, modifiers, mut first: Event?): Event ~ SyntaxError { # {{{
-			var member = @tryClassAlias(attributes, modifiers, first)
-
-			unless member.ok {
-				@throw('Identifier')
-			}
-
-			return member
-		} # }}}
-		reqClassAliasBlock(attributes, modifiers, members: Array<Event>): Void ~ SyntaxError { # {{{
-			@commit().NL_0M()
-
-			var dyn attrs = [...attributes]
-
-			while @until(Token::RIGHT_CURLY) {
-				if @stackInnerAttributes(attrs) {
-					continue
-				}
-
-				members.push(@reqClassAlias(attrs, modifiers, null))
-			}
-
-			unless @test(Token::RIGHT_CURLY) {
-				@throw('}')
-			}
-
-			@commit().reqNL_1M()
-		} # }}}
 		reqClassMember(attributes, modifiers, mut bits: ClassBits, mut first: Event?): Event ~ SyntaxError { # {{{
 			var member = @tryClassMember(attributes, modifiers, bits, first)
 
@@ -932,7 +904,7 @@ export namespace Parser {
 				return @reqClassMemberBlock(
 					attributes
 					[accessModifier]
-					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::Alias
+					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::Proxy
 					members
 				)
 			}
@@ -993,24 +965,32 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod + ClassBits::Alias
+						ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod + ClassBits::Proxy
 						members
 					)
 				}
-				else if @test(Token::ALIAS) {
+				else if @test(Token::PROXY) {
 					var mark = @mark()
 
 					@commit()
 
 					if @test(Token::LEFT_CURLY) {
-						return @reqClassAliasBlock(
+						return @reqClassProxyBlock(
 							attributes
 							modifiers
 							members
 						)
 					}
+					else if @test(Token::AT) {
+						return @reqClassProxyGroup(
+							attributes
+							modifiers
+							members
+							staticModifier
+						)
+					}
 					else {
-						var member = @tryClassAlias(
+						var member = @tryClassProxy(
 							attributes
 							modifiers
 							modifiers[0]
@@ -1026,7 +1006,7 @@ export namespace Parser {
 					}
 				}
 			}
-			else if @test(Token::ALIAS) {
+			else if @test(Token::PROXY) {
 				var mark = @mark()
 				var first = @yes()
 
@@ -1036,14 +1016,22 @@ export namespace Parser {
 				}
 
 				if @test(Token::LEFT_CURLY) {
-					return @reqClassAliasBlock(
+					return @reqClassProxyBlock(
 						attributes
 						modifiers
 						members
 					)
 				}
+				else if @test(Token::AT) {
+					return @reqClassProxyGroup(
+						attributes
+						modifiers
+						members
+						first
+					)
+				}
 				else {
-					var member = @tryClassAlias(
+					var member = @tryClassProxy(
 						attributes
 						modifiers
 						accessModifier[0] ?? first
@@ -1328,6 +1316,71 @@ export namespace Parser {
 			@reqNL_1M()
 
 			return @yep(AST.PropertyDeclaration(attributes, modifiers, name, type, defaultValue, accessor, mutator, first, defaultValue ?? last))
+		} # }}}
+		reqClassProxy(attributes, modifiers, mut first: Event?): Event ~ SyntaxError { # {{{
+			var member = @tryClassProxy(attributes, modifiers, first)
+
+			unless member.ok {
+				@throw('Identifier')
+			}
+
+			return member
+		} # }}}
+		reqClassProxyBlock(attributes, modifiers, members: Array<Event>): Void ~ SyntaxError { # {{{
+			@commit().NL_0M()
+
+			var dyn attrs = [...attributes]
+
+			while @until(Token::RIGHT_CURLY) {
+				if @stackInnerAttributes(attrs) {
+					continue
+				}
+
+				members.push(@reqClassProxy(attrs, modifiers, null))
+			}
+
+			unless @test(Token::RIGHT_CURLY) {
+				@throw('}')
+			}
+
+			@commit().reqNL_1M()
+		} # }}}
+		reqClassProxyGroup(attributes, modifiers, members: Array<Event>, first: Event): Void ~ SyntaxError { # {{{
+			var recipient = @reqExpression(ExpressionMode::Default, FunctionMode::Method)
+
+			@throw('{') unless @test(Token::LEFT_CURLY)
+
+			@commit().reqNL_1M()
+
+			var dyn attrs = [...attributes]
+			var elements = []
+
+			while @until(Token::RIGHT_CURLY) {
+				if @stackInnerAttributes(attrs) {
+					continue
+				}
+
+				var external = @reqIdentifier()
+				var mut internal = external
+
+				if @test(Token::EQUALS_RIGHT_ANGLE) {
+					@commit()
+
+					internal = @reqIdentifier()
+				}
+
+				@reqNL_1M()
+
+				elements.push(@yep(AST.ProxyDeclaration(attrs, modifiers, internal, external, external, internal)))
+			}
+
+			unless @test(Token::RIGHT_CURLY) {
+				@throw('}')
+			}
+
+			members.push(@yep(AST.ProxyGroupDeclaration(attrs, modifiers, recipient, elements, first, @yes())))
+
+			@reqNL_1M()
 		} # }}}
 		reqClassStatement(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
 			return @reqClassStatementBody(@reqIdentifier(), first, modifiers)
@@ -7325,29 +7378,6 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryClassAlias(attributes, mut modifiers, mut first: Event?): Event ~ SyntaxError { # {{{
-			var name = @tryIdentifier()
-
-			unless name.ok {
-				return NO
-			}
-
-			unless @test(Token::EQUALS) {
-				return NO
-			}
-
-			@commit()
-
-			unless @test(Token::AT) {
-				@throw('@')
-			}
-
-			var target = @reqExpression(ExpressionMode::Default, FunctionMode::Method)
-
-			@reqNL_1M()
-
-			return @yep(AST.AliasDeclaration(attributes, modifiers, name, target, first ?? name, target ?? name))
-		} # }}}
 		tryClassMember(attributes, modifiers, staticModifier: Event?, staticMark: Marker, finalModifier: Event?, finalMark: Marker, mut first: Event?) ~ SyntaxError { # {{{
 			if staticModifier.ok {
 				if finalModifier.ok {
@@ -7368,7 +7398,7 @@ export namespace Parser {
 				var member = @tryClassMember(
 					attributes
 					[...modifiers, staticModifier]
-					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod + ClassBits::Alias
+					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::FinalMethod + ClassBits::Proxy
 					first ?? staticModifier
 				)
 
@@ -7396,7 +7426,7 @@ export namespace Parser {
 			return @tryClassMember(
 				attributes
 				[...modifiers]
-				ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::OverrideMethod + ClassBits::AbstractMethod + ClassBits::Alias
+				ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::OverrideMethod + ClassBits::AbstractMethod + ClassBits::Proxy
 				first
 			)
 		} # }}}
@@ -7525,14 +7555,14 @@ export namespace Parser {
 				@rollback(mark)
 			}
 
-			if bits ~~ ClassBits::Alias && @test(Token::ALIAS) {
+			if bits ~~ ClassBits::Proxy && @test(Token::PROXY) {
 				var mark = @mark()
 				var keyword = @yes()
 
-				var alias = @tryClassAlias(attributes, modifiers, first ?? keyword)
+				var proxy = @tryClassProxy(attributes, modifiers, first ?? keyword)
 
-				if alias.ok {
-					return alias
+				if proxy.ok {
+					return proxy
 				}
 
 				@rollback(mark)
@@ -7671,6 +7701,29 @@ export namespace Parser {
 			}
 
 			return NO
+		} # }}}
+		tryClassProxy(attributes, mut modifiers, mut first: Event?): Event ~ SyntaxError { # {{{
+			var name = @tryIdentifier()
+
+			unless name.ok {
+				return NO
+			}
+
+			unless @test(Token::EQUALS) {
+				return NO
+			}
+
+			@commit()
+
+			unless @test(Token::AT) {
+				@throw('@')
+			}
+
+			var target = @reqExpression(ExpressionMode::Default, FunctionMode::Method)
+
+			@reqNL_1M()
+
+			return @yep(AST.ProxyDeclaration(attributes, modifiers, name, target, first ?? name, target ?? name))
 		} # }}}
 		tryClassStatement(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
 			var name = @tryIdentifier()

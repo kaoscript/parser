@@ -1,9 +1,9 @@
 {
-  "kind": 76,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 125,
+      "kind": 126,
       "attributes": [],
       "modifiers": [
         {
@@ -20,11 +20,11 @@
       ],
       "variables": [
         {
-          "kind": 126,
+          "kind": 127,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 54,
+            "kind": 53,
             "name": "pair",
             "start": {
               "line": 1,
@@ -54,10 +54,10 @@
         "column": 23
       },
       "value": {
-        "kind": 5,
+        "kind": 4,
         "values": [
           {
-            "kind": 80,
+            "kind": 79,
             "value": 2,
             "start": {
               "line": 1,
@@ -69,7 +69,7 @@
             }
           },
           {
-            "kind": 80,
+            "kind": 79,
             "value": -2,
             "start": {
               "line": 1,
@@ -92,10 +92,10 @@
       }
     },
     {
-      "kind": 107,
+      "kind": 108,
       "attributes": [],
       "expression": {
-        "kind": 54,
+        "kind": 53,
         "name": "pair",
         "start": {
           "line": 3,
@@ -108,18 +108,18 @@
       },
       "clauses": [
         {
-          "kind": 100,
+          "kind": 101,
           "body": {
-            "kind": 16,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 72,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 53,
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -131,7 +131,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 53,
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -153,7 +153,7 @@
             },
             "arguments": [
               {
-                "kind": 70,
+                "kind": 69,
                 "value": "These are twins",
                 "start": {
                   "line": 4,
@@ -185,10 +185,10 @@
           "conditions": [],
           "bindings": [
             {
-              "kind": 3,
+              "kind": 2,
               "elements": [
                 {
-                  "kind": 13,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 4,
@@ -199,7 +199,7 @@
                     "column": 9
                   },
                   "name": {
-                    "kind": 54,
+                    "kind": 53,
                     "name": "x",
                     "start": {
                       "line": 4,
@@ -212,7 +212,7 @@
                   }
                 },
                 {
-                  "kind": 13,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 4,
@@ -223,7 +223,7 @@
                     "column": 12
                   },
                   "name": {
-                    "kind": 54,
+                    "kind": 53,
                     "name": "y",
                     "start": {
                       "line": 4,
@@ -247,10 +247,10 @@
             }
           ],
           "filter": {
-            "kind": 23,
+            "kind": 22,
             "values": [
               {
-                "kind": 54,
+                "kind": 53,
                 "name": "x",
                 "start": {
                   "line": 4,
@@ -274,7 +274,7 @@
                 }
               },
               {
-                "kind": 54,
+                "kind": 53,
                 "name": "y",
                 "start": {
                   "line": 4,
@@ -297,18 +297,18 @@
           }
         },
         {
-          "kind": 100,
+          "kind": 101,
           "body": {
-            "kind": 16,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 72,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 53,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -320,7 +320,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 53,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -342,7 +342,7 @@
             },
             "arguments": [
               {
-                "kind": 70,
+                "kind": 69,
                 "value": "Antimatter, kaboom!",
                 "start": {
                   "line": 5,
@@ -374,10 +374,10 @@
           "conditions": [],
           "bindings": [
             {
-              "kind": 3,
+              "kind": 2,
               "elements": [
                 {
-                  "kind": 13,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 5,
@@ -388,7 +388,7 @@
                     "column": 9
                   },
                   "name": {
-                    "kind": 54,
+                    "kind": 53,
                     "name": "x",
                     "start": {
                       "line": 5,
@@ -401,7 +401,7 @@
                   }
                 },
                 {
-                  "kind": 13,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 5,
@@ -412,7 +412,7 @@
                     "column": 12
                   },
                   "name": {
-                    "kind": 54,
+                    "kind": 53,
                     "name": "y",
                     "start": {
                       "line": 5,
@@ -436,10 +436,10 @@
             }
           ],
           "filter": {
-            "kind": 23,
+            "kind": 22,
             "values": [
               {
-                "kind": 12,
+                "kind": 11,
                 "operator": {
                   "kind": 1,
                   "modifiers": [],
@@ -461,7 +461,7 @@
                   "column": 24
                 },
                 "left": {
-                  "kind": 54,
+                  "kind": 53,
                   "name": "x",
                   "start": {
                     "line": 5,
@@ -473,7 +473,7 @@
                   }
                 },
                 "right": {
-                  "kind": 54,
+                  "kind": 53,
                   "name": "y",
                   "start": {
                     "line": 5,
@@ -498,7 +498,7 @@
                 }
               },
               {
-                "kind": 80,
+                "kind": 79,
                 "value": 0,
                 "start": {
                   "line": 5,
@@ -521,18 +521,18 @@
           }
         },
         {
-          "kind": 100,
+          "kind": 101,
           "body": {
-            "kind": 16,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 72,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 53,
                 "name": "console",
                 "start": {
                   "line": 6,
@@ -544,7 +544,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 53,
                 "name": "log",
                 "start": {
                   "line": 6,
@@ -566,7 +566,7 @@
             },
             "arguments": [
               {
-                "kind": 70,
+                "kind": 69,
                 "value": "The first one is odd",
                 "start": {
                   "line": 6,
@@ -598,10 +598,10 @@
           "conditions": [],
           "bindings": [
             {
-              "kind": 3,
+              "kind": 2,
               "elements": [
                 {
-                  "kind": 13,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 6,
@@ -612,7 +612,7 @@
                     "column": 9
                   },
                   "name": {
-                    "kind": 54,
+                    "kind": 53,
                     "name": "x",
                     "start": {
                       "line": 6,
@@ -625,7 +625,7 @@
                   }
                 },
                 {
-                  "kind": 13,
+                  "kind": 12,
                   "modifiers": [],
                   "start": {
                     "line": 6,
@@ -648,10 +648,10 @@
             }
           ],
           "filter": {
-            "kind": 23,
+            "kind": 22,
             "values": [
               {
-                "kind": 12,
+                "kind": 11,
                 "operator": {
                   "kind": 16,
                   "modifiers": [],
@@ -673,7 +673,7 @@
                   "column": 24
                 },
                 "left": {
-                  "kind": 54,
+                  "kind": 53,
                   "name": "x",
                   "start": {
                     "line": 6,
@@ -685,7 +685,7 @@
                   }
                 },
                 "right": {
-                  "kind": 80,
+                  "kind": 79,
                   "value": 2,
                   "start": {
                     "line": 6,
@@ -710,7 +710,7 @@
                 }
               },
               {
-                "kind": 80,
+                "kind": 79,
                 "value": 1,
                 "start": {
                   "line": 6,
@@ -733,18 +733,18 @@
           }
         },
         {
-          "kind": 100,
+          "kind": 101,
           "body": {
-            "kind": 16,
+            "kind": 15,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 72,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 53,
                 "name": "console",
                 "start": {
                   "line": 7,
@@ -756,7 +756,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 53,
                 "name": "log",
                 "start": {
                   "line": 7,
@@ -778,7 +778,7 @@
             },
             "arguments": [
               {
-                "kind": 70,
+                "kind": 69,
                 "value": "No correlation...",
                 "start": {
                   "line": 7,

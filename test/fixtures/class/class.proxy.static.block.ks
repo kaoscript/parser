@@ -1,5 +1,5 @@
 class Proxy {
-	static alias {
+	static proxy {
 		hello = @component.hello
 	}
 }
