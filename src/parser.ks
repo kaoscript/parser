@@ -8277,7 +8277,7 @@ export namespace Parser {
 				return @reqObject(@yes(), fMode)
 			}
 			else if @token == Token::LEFT_ROUND {
-				return @reqParenthesis(@yes(), fMode)
+				return @tryParenthesis(@yes(), fMode)
 			}
 			else if @token == Token::LEFT_SQUARE {
 				return @reqArray(@yes(), fMode)
@@ -8320,6 +8320,14 @@ export namespace Parser {
 			}
 
 			return NO
+		} # }}}
+		tryParenthesis(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			try {
+				return @reqParenthesis(first, fMode)
+			}
+			catch {
+				return NO
+			}
 		} # }}}
 		tryRangeOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var operand = @tryOperand(eMode, fMode)
