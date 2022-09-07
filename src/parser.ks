@@ -1561,7 +1561,7 @@ export namespace Parser {
 			if notThis && dMode ~~ DestructuringMode::TYPE && @test(Token::COLON) {
 				@commit()
 
-				type = @reqTypeVar()
+				type = @reqType()
 			}
 
 			if name != null {
@@ -1829,7 +1829,7 @@ export namespace Parser {
 			if @test(Token::LEFT_ANGLE) {
 				@commit()
 
-				type = @reqTypeEntity(false)
+				type = @reqTypeLimited(false)
 
 				unless @test(Token::RIGHT_ANGLE) {
 					@throw('>')
@@ -2353,7 +2353,7 @@ export namespace Parser {
 			if @match(Token::COLON, Token::LEFT_CURLY, Token::LEFT_ROUND) == Token::COLON {
 				@commit()
 
-				var type = @reqTypeVar()
+				var type = @reqType()
 
 				if @test(Token::LEFT_CURLY) {
 					@throw()
@@ -2573,7 +2573,7 @@ export namespace Parser {
 						if @test(Token::COLON) {
 							@commit()
 
-							var type = @reqTypeVar()
+							var type = @reqType()
 
 							return @yep(AST.VariableDeclarator([], modifiers, name, type, sealed, type))
 						}
@@ -2605,7 +2605,7 @@ export namespace Parser {
 						if @test(Token::COLON) {
 							@commit()
 
-							var type = @reqTypeVar()
+							var type = @reqType()
 
 							return @yep(AST.VariableDeclarator([], modifiers, name, type, systemic, type))
 						}
@@ -2629,7 +2629,7 @@ export namespace Parser {
 					if @test(Token::COLON) {
 						@commit()
 
-						var type = @reqTypeVar()
+						var type = @reqType()
 
 						return @yep(AST.VariableDeclarator([], [], name, type, first, type))
 					}
@@ -2866,7 +2866,7 @@ export namespace Parser {
 			if @match(Token::COLON, Token::LEFT_ROUND) == Token::COLON {
 				@commit()
 
-				var type = @reqTypeVar()
+				var type = @reqType()
 
 				return @yep(AST.VariableDeclarator([], [], name, type, name, type))
 			}
@@ -2935,7 +2935,7 @@ export namespace Parser {
 				if @test(Token::COLON) {
 					@commit()
 
-					type1 = @reqTypeVar()
+					type1 = @reqType()
 				}
 			}
 
@@ -3533,19 +3533,18 @@ export namespace Parser {
 			else if @token == Token::FOR {
 				@commit()
 
-				var dyn imported, local
 				while @until(Token::NEWLINE) {
-					imported = @reqExternDeclarator(ExternMode::Default)
+					var external = @reqExternDeclarator(ExternMode::Default)
 
 					if @test(Token::EQUALS_RIGHT_ANGLE) {
 						@commit()
 
-						local = @reqIdentifier()
+						var internal = @reqIdentifier()
 
-						specifiers.push(@yep(AST.ImportSpecifier(imported, local, imported, local)))
+						specifiers.push(@yep(AST.ImportSpecifier(external, internal, external, internal)))
 					}
 					else {
-						specifiers.push(@yep(AST.ImportSpecifier(imported, @yep(imported.value.name), imported, imported)))
+						specifiers.push(@yep(AST.ImportSpecifier(external, @yep(external.value.name), external, external)))
 					}
 
 					if @test(Token::COMMA) {
@@ -3567,7 +3566,7 @@ export namespace Parser {
 		reqImportSpecifiers(attributes, specifiers): Event ~ SyntaxError { # {{{
 			@commit().reqNL_1M()
 
-			var dyn first, imported, local
+			var dyn first
 			var dyn attrs = []
 			var dyn specifier
 
@@ -3592,17 +3591,17 @@ export namespace Parser {
 					specifier = @yep(AST.ImportNamespaceSpecifier(local, null, first, local))
 				}
 				else {
-					imported = @reqExternDeclarator(ExternMode::Default)
+					var external = @reqExternDeclarator(ExternMode::Namespace)
 
 					if @test(Token::EQUALS_RIGHT_ANGLE) {
 						@commit()
 
-						local = @reqIdentifier()
+						var internal = @reqIdentifier()
 
-						specifier = @yep(AST.ImportSpecifier(imported, local, imported, local))
+						specifier = @yep(AST.ImportSpecifier(external, internal, external, internal))
 					}
 					else {
-						specifier = @yep(AST.ImportSpecifier(imported, @yep(imported.value.name), imported, imported))
+						specifier = @yep(AST.ImportSpecifier(external, @yep(external.value.name), external, external))
 					}
 				}
 
@@ -3797,7 +3796,7 @@ export namespace Parser {
 			var operands = [values.pop()]
 
 			if type {
-				operands.push(@reqTypeEntity(false).value)
+				operands.push(@reqTypeLimited(false).value)
 			}
 			else {
 				operands.push(@reqBinaryOperand(eMode, fMode).value)
@@ -3813,7 +3812,7 @@ export namespace Parser {
 					@NL_0M()
 
 					if type {
-						operands.push(@reqTypeEntity(false).value)
+						operands.push(@reqTypeLimited(false).value)
 					}
 					else {
 						operands.push(@reqBinaryOperand(eMode, fMode).value)
@@ -4443,7 +4442,7 @@ export namespace Parser {
 						break
 					}
 					else {
-						values.push(AST.BinaryExpression(operator), @reqTypeEntity(false).value)
+						values.push(AST.BinaryExpression(operator), @reqTypeLimited(false).value)
 
 						type = true
 
@@ -4820,7 +4819,7 @@ export namespace Parser {
 			if typed && @test(Token::COLON) {
 				@commit()
 
-				var type = @reqTypeVar()
+				var type = @reqType()
 				var operator = @tryParameterAssignment(valued)
 
 				if operator.ok {
@@ -5570,7 +5569,7 @@ export namespace Parser {
 					if @test(Token::COLON) {
 						@commit()
 
-						type = @reqTypeVar()
+						type = @reqType()
 
 						last = type
 					}
@@ -5642,7 +5641,7 @@ export namespace Parser {
 					if @test(Token::AS) {
 						@commit()
 
-						var type = @reqTypeVar()
+						var type = @reqType()
 
 						return @yep(AST.SwitchTypeCasting(name, type))
 					}
@@ -5761,7 +5760,7 @@ export namespace Parser {
 				}
 				Token::IS => {
 					var first = @yes()
-					var type = @reqTypeVar()
+					var type = @reqType()
 
 					return @yep(AST.SwitchConditionType(type, first, type))
 				}
@@ -6076,7 +6075,7 @@ export namespace Parser {
 						first = attributes[0]
 					}
 
-					var type = @reqTypeVar()
+					var type = @reqType()
 
 					if @test(Token::EQUALS) {
 						@commit()
@@ -6143,7 +6142,7 @@ export namespace Parser {
 					if @test(Token::COLON) {
 						@commit()
 
-						type = @reqTypeVar()
+						type = @reqType()
 
 						last = name
 					}
@@ -6190,10 +6189,340 @@ export namespace Parser {
 
 			return @yep(AST.TupleDeclaration(attributes, modifiers, name, extends, elements, first, last))
 		} # }}}
-		reqTypeEntity(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
-			var marker = @mark()
+		reqType(modifiers: Array = [], multiline: Boolean = false): Event ~ SyntaxError { # {{{
+			var type = @reqTypeCore(modifiers, multiline)
 
-			if @match(Token::ASYNC, Token::FUNC, Token::LEFT_ROUND) == Token::ASYNC {
+			var dyn mark = @mark()
+
+			if multiline {
+				var types = [type]
+
+				@NL_0M()
+
+				if @match(Token::PIPE, Token::AMPERSAND, Token::CARET) == Token::PIPE {
+					do {
+						@commit()
+
+						if @test(Token::PIPE) {
+							@commit()
+						}
+
+						@NL_0M()
+
+						if @test(Token::QUESTION) {
+							var first = @yes()
+
+							types.push(@yep(AST.TypeReference([], 'Null', null, first, first)))
+						}
+						else {
+							types.push(@reqTypeCore(true))
+						}
+
+						mark = @mark()
+
+						@NL_0M()
+					}
+					while @test(Token::PIPE)
+
+					@rollback(mark)
+
+					if types.length == 1 {
+						return types[0]
+					}
+					else {
+						return @yep(AST.UnionType(types, type, types[types.length - 1]))
+					}
+				}
+				else if @token == Token::AMPERSAND {
+					do {
+						@commit()
+
+						if @test(Token::AMPERSAND) {
+							@commit()
+						}
+
+						@NL_0M()
+
+						types.push(@reqTypeCore(true))
+
+						mark = @mark()
+
+						@NL_0M()
+					}
+					while @test(Token::AMPERSAND)
+
+					@rollback(mark)
+
+					if types.length == 1 {
+						return types[0]
+					}
+					else {
+						return @yep(AST.FusionType(types, type, types[types.length - 1]))
+					}
+				}
+				else if @token == Token::CARET {
+					do {
+						@commit()
+
+						if @test(Token::CARET) {
+							@commit()
+						}
+
+						@NL_0M()
+
+						types.push(@reqTypeCore(true))
+
+						mark = @mark()
+
+						@NL_0M()
+					}
+					while @test(Token::CARET)
+
+					@rollback(mark)
+
+					if types.length == 1 {
+						return types[0]
+					}
+					else {
+						return @yep(AST.ExclusionType(types, type, types[types.length - 1]))
+					}
+				}
+				else {
+					@rollback(mark)
+				}
+			}
+			else {
+				if @match(Token::PIPE_PIPE, Token::PIPE, Token::AMPERSAND_AMPERSAND, Token::AMPERSAND, Token::CARET_CARET, Token::CARET) == Token::PIPE {
+					@commit()
+
+					if @test(Token::NEWLINE) {
+						@rollback(mark)
+
+						return type
+					}
+
+					var types = [type]
+
+					do {
+						@commit()
+
+						if @test(Token::QUESTION) {
+							var first = @yes()
+
+							types.push(@yep(AST.TypeReference([], 'Null', null, first, first)))
+						}
+						else {
+							types.push(@reqTypeCore(false))
+						}
+					}
+					while @test(Token::PIPE)
+
+					return @yep(AST.UnionType(types, type, types[types.length - 1]))
+				}
+				else if @token == Token::AMPERSAND {
+					@commit()
+
+					if @test(Token::NEWLINE) {
+						@rollback(mark)
+
+						return type
+					}
+
+					var types = [type]
+
+					do {
+						@commit()
+
+						types.push(@reqTypeCore(false))
+					}
+					while @test(Token::AMPERSAND)
+
+					return @yep(AST.FusionType(types, type, types[types.length - 1]))
+				}
+				else if @token == Token::CARET {
+					@commit()
+
+					if @test(Token::NEWLINE) {
+						@rollback(mark)
+
+						return type
+					}
+
+					var types = [type]
+
+					do {
+						@commit()
+
+						types.push(@reqTypeCore(false))
+					}
+					while @test(Token::CARET)
+
+					return @yep(AST.ExclusionType(types, type, types[types.length - 1]))
+				}
+			}
+
+			return type
+		} # }}}
+		reqTypeCore(modifiers: Array = [], multiline: Boolean): Event ~ SyntaxError { # {{{
+			if @test(Token::LEFT_CURLY) {
+				var first = @yes()
+				var properties = []
+
+				@NL_0M()
+
+				until @test(Token::RIGHT_CURLY) {
+					var mark = @mark()
+					var mut property = null
+
+					if @test(Token::ASYNC) {
+						var async = @yes()
+
+						if @test(Token::FUNC) {
+							@commit()
+						}
+
+						var identifier = @tryIdentifier()
+
+						if identifier.ok && @test(Token::LEFT_ROUND) {
+							var modifiers = [@yep(AST.Modifier(ModifierKind::Async, async))]
+							var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
+							var type = @tryFunctionReturns(false)
+							var throws = @tryFunctionThrows()
+
+							var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
+
+							property = @yep(AST.ObjectMember([], [], identifier, objectType, null, identifier, objectType))
+						}
+						else {
+							@rollback(mark)
+						}
+					}
+
+					if property == null && @test(Token::FUNC) {
+						var first = @yes()
+						var identifier = @tryIdentifier()
+
+						if identifier.ok && @test(Token::LEFT_ROUND) {
+							var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
+							var type = @tryFunctionReturns(false)
+							var throws = @tryFunctionThrows()
+
+							var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
+
+							property = @yep(AST.ObjectMember([], [], identifier, objectType, null, identifier, objectType))
+						}
+						else {
+							@rollback(mark)
+						}
+					}
+
+					if property == null && @test(Token::DOT_DOT_DOT) {
+						var first = @yes()
+						var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
+						var type = @reqType()
+
+						property = @yep(AST.ObjectMember([], [modifier], null, type, null, first, type))
+					}
+
+					if property == null {
+						var identifier = @tryIdentifier()
+
+						if identifier.ok {
+							var mut type = null
+
+							if @test(Token::LEFT_ROUND) {
+								var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
+								var return = @tryFunctionReturns()
+								var throws = @tryFunctionThrows()
+
+								type = @yep(AST.FunctionExpression(parameters, null, return, throws, null, parameters, throws ?? return ?? parameters))
+							}
+							else if @test(Token::COLON) {
+								@commit()
+
+								type = @reqType()
+							}
+
+							property = @yep(AST.ObjectMember([], [], identifier, type, null, identifier, type ?? identifier))
+						}
+					}
+
+					if property == null {
+						@throw('async', 'func', 'var', 'Identifier', '...')
+					}
+					else {
+						properties.push(property)
+
+						if @test(Token::COMMA) {
+							@commit().NL_0M()
+						}
+						else if @test(Token::NEWLINE) {
+							@commit().NL_0M()
+
+							if @test(Token::COMMA) {
+								@commit().NL_0M()
+							}
+						}
+						else {
+							break
+						}
+					}
+				}
+
+				unless @test(Token::RIGHT_CURLY) {
+					@throw('}')
+				}
+
+				return @yep(AST.ObjectReference(properties, first, @yes()))
+			}
+
+			if @test(Token::LEFT_SQUARE) {
+				var first = @yes()
+				var elements = []
+
+				@NL_0M()
+
+				while @until(Token::RIGHT_SQUARE) {
+					if @test(Token::COMMA) {
+						elements.push(AST.OmittedReference(@yep()))
+
+						@commit().NL_0M()
+					}
+					else {
+						@NL_0M()
+
+						var modifiers = []
+
+						if @test(Token::DOT_DOT_DOT) {
+							var first = @yes()
+
+							modifiers.push(@yep(AST.RestModifier(0, Infinity, first, first)))
+						}
+
+						elements.push(@reqType(modifiers, multiline))
+
+						if @test(Token::COMMA) {
+							@commit().NL_0M()
+						}
+						else if @test(Token::NEWLINE) {
+							@commit().NL_0M()
+						}
+						else {
+							break
+						}
+					}
+				}
+
+				unless @test(Token::RIGHT_SQUARE) {
+					@throw(']')
+				}
+
+				return @yep(AST.ArrayReference(elements, first, @yes()))
+			}
+
+			var mark = @mark()
+
+			if @test(Token::ASYNC) {
 				var async = @yes()
 
 				if @test(Token::FUNC) {
@@ -6206,13 +6535,15 @@ export namespace Parser {
 					var type = @tryFunctionReturns(false)
 					var throws = @tryFunctionThrows()
 
+					var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
+
 					return @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, async, throws ?? type ?? parameters))
 				}
-				else {
-					@rollback(marker)
-				}
+
+				@rollback(mark)
 			}
-			else if @token == Token::FUNC {
+
+			if @test(Token::FUNC) {
 				var first = @yes()
 
 				if @test(Token::LEFT_ROUND) {
@@ -6220,37 +6551,45 @@ export namespace Parser {
 					var type = @tryFunctionReturns(false)
 					var throws = @tryFunctionThrows()
 
+					var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
+
 					return @yep(AST.FunctionExpression(parameters, null, type, throws, null, first, throws ?? type ?? parameters))
 				}
-				else {
-					@rollback(marker)
-				}
+
+				@rollback(mark)
 			}
-			else if @token == Token::LEFT_ROUND {
+
+			if @test(Token::LEFT_ROUND) {
 				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
+				var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
+
 				return @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
 			}
 
-			var dyn name = @reqIdentifier()
+			return @reqTypeLimited(modifiers)
+		} # }}}
+		reqTypeGeneric(mut first: Event): Event ~ SyntaxError { # {{{
+			var entities = [@reqTypeLimited()]
 
-			if @testNS(Token::DOT) {
-				var dyn property
+			while @test(Token::COMMA) {
+				@commit()
 
-				do {
-					@commit()
-
-					property = @reqIdentifier()
-
-					name = @yep(AST.MemberExpression([], name, property))
-				}
-				while @testNS(Token::DOT)
+				entities.push(@reqTypeLimited())
 			}
 
+			unless @test(Token::RIGHT_ANGLE) {
+				@throw('>')
+			}
+
+			return @yes(entities)
+		} # }}}
+		reqTypeLimited(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
+			var mut name = @reqIdentifier()
 			var first = modifiers[0] ?? name
-			var dyn last = name
+			var mut last = name
 
 			var dyn generic
 			if @testNS(Token::LEFT_ANGLE) {
@@ -6304,21 +6643,6 @@ export namespace Parser {
 				return @yep(type)
 			}
 		} # }}}
-		reqTypeGeneric(mut first: Event): Event ~ SyntaxError { # {{{
-			var entities = [@reqTypeEntity()]
-
-			while @test(Token::COMMA) {
-				@commit()
-
-				entities.push(@reqTypeEntity())
-			}
-
-			unless @test(Token::RIGHT_ANGLE) {
-				@throw('>')
-			}
-
-			return @yes(entities)
-		} # }}}
 		reqTypeStatement(mut first: Event, name: Event): Event ~ SyntaxError { # {{{
 			unless @test(Token::EQUALS) {
 				@throw('=')
@@ -6326,326 +6650,9 @@ export namespace Parser {
 
 			@commit().NL_0M()
 
-			var type = @reqTypeVar(true)
+			var type = @reqType(true)
 
 			return @yep(AST.TypeAliasDeclaration(name, type, first, type))
-		} # }}}
-		reqTypeVar(modifiers: Array = [], isMultiLines: Boolean = false): Event ~ SyntaxError { # {{{
-			var type = @reqTypeReference(modifiers, isMultiLines)
-
-			var dyn mark = @mark()
-
-			if isMultiLines {
-				var types = [type]
-
-				@NL_0M()
-
-				if @match(Token::PIPE, Token::AMPERSAND, Token::CARET) == Token::PIPE {
-					do {
-						@commit()
-
-						if @test(Token::PIPE) {
-							@commit()
-						}
-
-						@NL_0M()
-
-						types.push(@reqTypeReference(true))
-
-						mark = @mark()
-
-						@NL_0M()
-					}
-					while @test(Token::PIPE)
-
-					@rollback(mark)
-
-					if types.length == 1 {
-						return types[0]
-					}
-					else {
-						return @yep(AST.UnionType(types, type, types[types.length - 1]))
-					}
-				}
-				else if @token == Token::AMPERSAND {
-					do {
-						@commit()
-
-						if @test(Token::AMPERSAND) {
-							@commit()
-						}
-
-						@NL_0M()
-
-						types.push(@reqTypeReference(true))
-
-						mark = @mark()
-
-						@NL_0M()
-					}
-					while @test(Token::AMPERSAND)
-
-					@rollback(mark)
-
-					if types.length == 1 {
-						return types[0]
-					}
-					else {
-						return @yep(AST.FusionType(types, type, types[types.length - 1]))
-					}
-				}
-				else if @token == Token::CARET {
-					do {
-						@commit()
-
-						if @test(Token::CARET) {
-							@commit()
-						}
-
-						@NL_0M()
-
-						types.push(@reqTypeReference(true))
-
-						mark = @mark()
-
-						@NL_0M()
-					}
-					while @test(Token::CARET)
-
-					@rollback(mark)
-
-					if types.length == 1 {
-						return types[0]
-					}
-					else {
-						return @yep(AST.ExclusionType(types, type, types[types.length - 1]))
-					}
-				}
-				else {
-					@rollback(mark)
-				}
-			}
-			else {
-				if @match(Token::PIPE_PIPE, Token::PIPE, Token::AMPERSAND_AMPERSAND, Token::AMPERSAND, Token::CARET_CARET, Token::CARET) == Token::PIPE {
-					@commit()
-
-					if @test(Token::NEWLINE) {
-						@rollback(mark)
-
-						return type
-					}
-
-					var types = [type]
-
-					do {
-						@commit()
-
-						types.push(@reqTypeReference(false))
-					}
-					while @test(Token::PIPE)
-
-					return @yep(AST.UnionType(types, type, types[types.length - 1]))
-				}
-				else if @token == Token::AMPERSAND {
-					@commit()
-
-					if @test(Token::NEWLINE) {
-						@rollback(mark)
-
-						return type
-					}
-
-					var types = [type]
-
-					do {
-						@commit()
-
-						types.push(@reqTypeReference(false))
-					}
-					while @test(Token::AMPERSAND)
-
-					return @yep(AST.FusionType(types, type, types[types.length - 1]))
-				}
-				else if @token == Token::CARET {
-					@commit()
-
-					if @test(Token::NEWLINE) {
-						@rollback(mark)
-
-						return type
-					}
-
-					var types = [type]
-
-					do {
-						@commit()
-
-						types.push(@reqTypeReference(false))
-					}
-					while @test(Token::CARET)
-
-					return @yep(AST.ExclusionType(types, type, types[types.length - 1]))
-				}
-			}
-
-			return type
-		} # }}}
-		reqTypeObjectMember(): Event ~ SyntaxError { # {{{
-			var identifier = @reqIdentifier()
-
-			var dyn type
-			if @test(Token::COLON) {
-				@commit()
-
-				type = @reqTypeVar()
-			}
-			else {
-				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
-				type = @tryFunctionReturns()
-				var throws = @tryFunctionThrows()
-
-				type = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
-			}
-
-			return @yep(AST.ObjectMember([], [], identifier, type, null, identifier, type))
-		} # }}}
-		reqTypeReference(modifiers: Array = [], isMultiLines: Boolean): Event ~ SyntaxError { # {{{
-			if @match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
-				var first = @yes()
-				var properties = []
-
-				@NL_0M()
-
-				until @test(Token::RIGHT_CURLY) {
-					if @match(Token::ASYNC, Token::DOT_DOT_DOT, Token::FUNC, Token::IDENTIFIER) == Token::IDENTIFIER {
-						properties.push(@reqTypeObjectMember())
-					}
-					else if @token == Token::ASYNC {
-						var marker = @mark()
-						var async = @yes()
-
-						if @test(Token::FUNC) {
-							@commit()
-						}
-
-						var identifier = @reqIdentifier()
-
-						if @test(Token::LEFT_ROUND) {
-							var modifiers = [@yep(AST.Modifier(ModifierKind::Async, async))]
-							var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
-							var type = @tryFunctionReturns(false)
-							var throws = @tryFunctionThrows()
-
-							var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
-
-							properties.push(@yep(AST.ObjectMember([], [], identifier, objectType, null, identifier, objectType)))
-						}
-						else {
-							@rollback(marker)
-
-							properties.push(@reqTypeObjectMember())
-						}
-					}
-					else if @token == Token::FUNC {
-						var marker = @mark()
-						var first = @yes()
-
-						var identifier = @reqIdentifier()
-
-						if @test(Token::LEFT_ROUND) {
-							var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
-							var type = @tryFunctionReturns(false)
-							var throws = @tryFunctionThrows()
-
-							var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
-
-							properties.push(@yep(AST.ObjectMember([], [], identifier, objectType, null, identifier, objectType)))
-						}
-						else {
-							@rollback(marker)
-
-							properties.push(@reqTypeObjectMember())
-						}
-					}
-					else if @token == Token::DOT_DOT_DOT {
-						var first = @yes()
-						var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
-						var type = @reqTypeVar()
-
-						properties.push(@yep(AST.ObjectMember([], [modifier], null, type, null, first, type)))
-					}
-					else {
-						@throw('async', 'func', 'Identifier')
-					}
-
-
-					if @test(Token::COMMA) {
-						@commit().NL_0M()
-					}
-					else if @test(Token::NEWLINE) {
-						@commit().NL_0M()
-
-						if @test(Token::COMMA) {
-							@commit().NL_0M()
-						}
-					}
-					else {
-						break
-					}
-				}
-
-				unless @test(Token::RIGHT_CURLY) {
-					@throw('}')
-				}
-
-				return @yep(AST.ObjectReference(properties, first, @yes()))
-			}
-			else if @token == Token::LEFT_SQUARE {
-				var first = @yes()
-				var elements = []
-
-				@NL_0M()
-
-				while @until(Token::RIGHT_SQUARE) {
-					if @test(Token::COMMA) {
-						elements.push(AST.OmittedReference(@yep()))
-
-						@commit().NL_0M()
-					}
-					else {
-						@NL_0M()
-
-						var modifiers = []
-
-						if @test(Token::DOT_DOT_DOT) {
-							var first = @yes()
-
-							modifiers.push(@yep(AST.RestModifier(0, Infinity, first, first)))
-						}
-
-						elements.push(@reqTypeVar(modifiers, isMultiLines))
-
-						if @test(Token::COMMA) {
-							@commit().NL_0M()
-						}
-						else if @test(Token::NEWLINE) {
-							@commit().NL_0M()
-						}
-						else {
-							break
-						}
-					}
-				}
-
-				unless @test(Token::RIGHT_SQUARE) {
-					@throw(']')
-				}
-
-				return @yep(AST.ArrayReference(elements, first, @yes()))
-			}
-			else {
-				return @reqTypeEntity(modifiers)
-			}
 		} # }}}
 		reqTypedVariable(fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var modifiers = []
@@ -6665,7 +6672,7 @@ export namespace Parser {
 			if @test(Token::COLON) {
 				@commit()
 
-				type = @reqTypeVar()
+				type = @reqType()
 			}
 			else if @test(Token::QUESTION) {
 				modifiers.push(AST.Modifier(ModifierKind::Nullable, @yes()))
@@ -7688,7 +7695,7 @@ export namespace Parser {
 			if @test(Token::COLON) {
 				@commit()
 
-				type = @reqTypeVar()
+				type = @reqType()
 			}
 
 			if @test(Token::LEFT_CURLY) {
@@ -7758,7 +7765,7 @@ export namespace Parser {
 				if @test(Token::COLON) {
 					@commit()
 
-					type = @reqTypeVar()
+					type = @reqType()
 				}
 				else if bits !~ ClassBits::NoAssignment && @test(Token::QUESTION) {
 					modifiers = [...modifiers, @yep(AST.Modifier(ModifierKind::Nullable, @yes()))]
@@ -8081,7 +8088,7 @@ export namespace Parser {
 					return number
 				}
 
-				return @reqTypeVar()
+				return @reqType()
 			}
 			else {
 				@rollback(mark)
@@ -8170,7 +8177,7 @@ export namespace Parser {
 					return @reqThisExpression(@yes())
 				}
 				else {
-					return @reqTypeVar()
+					return @reqType()
 				}
 			}
 			else {

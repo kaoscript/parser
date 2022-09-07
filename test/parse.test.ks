@@ -20,7 +20,8 @@ import {
 	'path'
 }
 
-var debug = process.env.DEBUG == '1' || process.env.DEBUG == 'true' || process.env.DEBUG == 'on'
+var DEBUG = process.env.DEBUG == '1' || process.env.DEBUG == 'true' || process.env.DEBUG == 'on'
+
 var mut testings = []
 
 if process.argv[2].endsWith('test/parse.dev.ks') && process.argv.length > 3 {
@@ -68,7 +69,7 @@ func prepare(file) { # {{{
 					expect(`\(ex.message) at line \(ex.lineNumber) and column \(ex.columnNumber)`).to.equal(error)
 				}
 				catch ex2 {
-					if debug {
+					if DEBUG {
 						console.log(`\(ex.message) at line \(ex.lineNumber) and column \(ex.columnNumber)`)
 					}
 
@@ -76,7 +77,7 @@ func prepare(file) { # {{{
 				}
 			}
 
-			if ?data && debug {
+			if ?data && DEBUG {
 				console.log(JSON.stringify(data, escapeJSON, 2))
 				console.log('>----------------------------------------------------------<')
 				console.log('It should throw an error')
@@ -85,7 +86,18 @@ func prepare(file) { # {{{
 			expect(data).to.not.exist
 		}
 		else {
-			var data = parse(source)
+			var late data
+
+			try {
+				data = parse(source)
+			}
+			catch ex {
+				if DEBUG {
+					ex.message += ` (\(file):\(ex.lineNumber):\(ex.columnNumber))`
+				}
+
+				throw ex
+			}
 
 			var mut json = null
 
@@ -95,7 +107,7 @@ func prepare(file) { # {{{
 				})
 			}
 			catch ex {
-				if debug {
+				if DEBUG {
 					console.log(JSON.stringify(data, escapeJSON, 2))
 				}
 
@@ -106,7 +118,7 @@ func prepare(file) { # {{{
 				expect(JSON.parse(JSON.stringify(data, escapeJSON), unescapeJSON)).to.eql(JSON.parse(json, unescapeJSON))
 			}
 			catch ex {
-				if debug {
+				if DEBUG {
 					console.log(JSON.stringify(data, escapeJSON, 2))
 				}
 

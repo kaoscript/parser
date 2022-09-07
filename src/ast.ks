@@ -1060,13 +1060,12 @@ namespace AST {
 			return node
 		} # }}}
 
-		// TODO external/internal
-		func ImportSpecifier(imported, local, first, last) { # {{{
+		func ImportSpecifier(external, internal, first, last) { # {{{
 			return location({
 				kind: NodeKind::ImportSpecifier
 				attributes: []
-				imported: imported.value
-				local: local.value
+				external: external.value
+				internal: internal.value
 			}, first, last)
 		} # }}}
 

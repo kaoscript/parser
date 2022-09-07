@@ -1,0 +1,753 @@
+{
+  "kind": 75,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 58,
+      "attributes": [],
+      "declarations": [
+        {
+          "kind": 59,
+          "attributes": [],
+          "modifiers": [],
+          "source": {
+            "kind": 69,
+            "value": "path",
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 1,
+              "column": 14
+            }
+          },
+          "specifiers": [
+            {
+              "kind": 63,
+              "attributes": [],
+              "external": {
+                "kind": 127,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 53,
+                  "name": "sep",
+                  "start": {
+                    "line": 2,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 9
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 17
+                },
+                "type": {
+                  "kind": 120,
+                  "modifiers": [],
+                  "typeName": {
+                    "kind": 53,
+                    "name": "String",
+                    "start": {
+                      "line": 2,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 17
+                    }
+                  },
+                  "start": {
+                    "line": 2,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 17
+                  }
+                }
+              },
+              "internal": {
+                "kind": 53,
+                "name": "sep",
+                "start": {
+                  "line": 2,
+                  "column": 6
+                },
+                "end": {
+                  "line": 2,
+                  "column": 9
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 17
+              }
+            },
+            {
+              "kind": 63,
+              "attributes": [],
+              "external": {
+                "kind": 50,
+                "attributes": [],
+                "name": {
+                  "kind": 53,
+                  "name": "basename",
+                  "start": {
+                    "line": 3,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 15
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 2
+                },
+                "end": {
+                  "line": 3,
+                  "column": 37
+                },
+                "parameters": [
+                  {
+                    "kind": 85,
+                    "attributes": [],
+                    "modifiers": [],
+                    "start": {
+                      "line": 3,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 28
+                    },
+                    "external": {
+                      "kind": 53,
+                      "name": "path",
+                      "start": {
+                        "line": 3,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 20
+                      }
+                    },
+                    "internal": {
+                      "kind": 53,
+                      "name": "path",
+                      "start": {
+                        "line": 3,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 20
+                      }
+                    },
+                    "type": {
+                      "kind": 120,
+                      "modifiers": [],
+                      "typeName": {
+                        "kind": 53,
+                        "name": "String",
+                        "start": {
+                          "line": 3,
+                          "column": 22
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 28
+                        }
+                      },
+                      "start": {
+                        "line": 3,
+                        "column": 22
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 28
+                      }
+                    }
+                  }
+                ],
+                "modifiers": [],
+                "type": {
+                  "kind": 120,
+                  "modifiers": [],
+                  "typeName": {
+                    "kind": 53,
+                    "name": "String",
+                    "start": {
+                      "line": 3,
+                      "column": 31
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 37
+                    }
+                  },
+                  "start": {
+                    "line": 3,
+                    "column": 31
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 37
+                  }
+                },
+                "throws": []
+              },
+              "internal": {
+                "kind": 53,
+                "name": "basename",
+                "start": {
+                  "line": 3,
+                  "column": 7
+                },
+                "end": {
+                  "line": 3,
+                  "column": 15
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 2
+              },
+              "end": {
+                "line": 3,
+                "column": 37
+              }
+            },
+            {
+              "kind": 63,
+              "attributes": [],
+              "external": {
+                "kind": 50,
+                "attributes": [],
+                "name": {
+                  "kind": 53,
+                  "name": "dirname",
+                  "start": {
+                    "line": 4,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 14
+                  }
+                },
+                "start": {
+                  "line": 4,
+                  "column": 2
+                },
+                "end": {
+                  "line": 4,
+                  "column": 36
+                },
+                "parameters": [
+                  {
+                    "kind": 85,
+                    "attributes": [],
+                    "modifiers": [],
+                    "start": {
+                      "line": 4,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 27
+                    },
+                    "external": {
+                      "kind": 53,
+                      "name": "path",
+                      "start": {
+                        "line": 4,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 19
+                      }
+                    },
+                    "internal": {
+                      "kind": 53,
+                      "name": "path",
+                      "start": {
+                        "line": 4,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 19
+                      }
+                    },
+                    "type": {
+                      "kind": 120,
+                      "modifiers": [],
+                      "typeName": {
+                        "kind": 53,
+                        "name": "String",
+                        "start": {
+                          "line": 4,
+                          "column": 21
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 27
+                        }
+                      },
+                      "start": {
+                        "line": 4,
+                        "column": 21
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 27
+                      }
+                    }
+                  }
+                ],
+                "modifiers": [],
+                "type": {
+                  "kind": 120,
+                  "modifiers": [],
+                  "typeName": {
+                    "kind": 53,
+                    "name": "String",
+                    "start": {
+                      "line": 4,
+                      "column": 30
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 36
+                    }
+                  },
+                  "start": {
+                    "line": 4,
+                    "column": 30
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 36
+                  }
+                },
+                "throws": []
+              },
+              "internal": {
+                "kind": 53,
+                "name": "dirname",
+                "start": {
+                  "line": 4,
+                  "column": 7
+                },
+                "end": {
+                  "line": 4,
+                  "column": 14
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 36
+              }
+            },
+            {
+              "kind": 63,
+              "attributes": [],
+              "external": {
+                "kind": 50,
+                "attributes": [],
+                "name": {
+                  "kind": 53,
+                  "name": "join",
+                  "start": {
+                    "line": 5,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 11
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 2
+                },
+                "end": {
+                  "line": 5,
+                  "column": 37
+                },
+                "parameters": [
+                  {
+                    "kind": 85,
+                    "attributes": [],
+                    "modifiers": [
+                      {
+                        "kind": 27,
+                        "arity": {
+                          "min": 0,
+                          "max": "Infinity"
+                        },
+                        "start": {
+                          "line": 5,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 15
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 5,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 28
+                    },
+                    "external": {
+                      "kind": 53,
+                      "name": "paths",
+                      "start": {
+                        "line": 5,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 20
+                      }
+                    },
+                    "internal": {
+                      "kind": 53,
+                      "name": "paths",
+                      "start": {
+                        "line": 5,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 20
+                      }
+                    },
+                    "type": {
+                      "kind": 120,
+                      "modifiers": [],
+                      "typeName": {
+                        "kind": 53,
+                        "name": "String",
+                        "start": {
+                          "line": 5,
+                          "column": 22
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 28
+                        }
+                      },
+                      "start": {
+                        "line": 5,
+                        "column": 22
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 28
+                      }
+                    }
+                  }
+                ],
+                "modifiers": [],
+                "type": {
+                  "kind": 120,
+                  "modifiers": [],
+                  "typeName": {
+                    "kind": 53,
+                    "name": "String",
+                    "start": {
+                      "line": 5,
+                      "column": 31
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 37
+                    }
+                  },
+                  "start": {
+                    "line": 5,
+                    "column": 31
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 37
+                  }
+                },
+                "throws": []
+              },
+              "internal": {
+                "kind": 53,
+                "name": "join",
+                "start": {
+                  "line": 5,
+                  "column": 7
+                },
+                "end": {
+                  "line": 5,
+                  "column": 11
+                }
+              },
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 37
+              }
+            },
+            {
+              "kind": 63,
+              "attributes": [],
+              "external": {
+                "kind": 50,
+                "attributes": [],
+                "name": {
+                  "kind": 53,
+                  "name": "relative",
+                  "start": {
+                    "line": 6,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 15
+                  }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 2
+                },
+                "end": {
+                  "line": 6,
+                  "column": 49
+                },
+                "parameters": [
+                  {
+                    "kind": 85,
+                    "attributes": [],
+                    "modifiers": [],
+                    "start": {
+                      "line": 6,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 28
+                    },
+                    "external": {
+                      "kind": 53,
+                      "name": "from",
+                      "start": {
+                        "line": 6,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 20
+                      }
+                    },
+                    "internal": {
+                      "kind": 53,
+                      "name": "from",
+                      "start": {
+                        "line": 6,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 20
+                      }
+                    },
+                    "type": {
+                      "kind": 120,
+                      "modifiers": [],
+                      "typeName": {
+                        "kind": 53,
+                        "name": "String",
+                        "start": {
+                          "line": 6,
+                          "column": 22
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 28
+                        }
+                      },
+                      "start": {
+                        "line": 6,
+                        "column": 22
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 28
+                      }
+                    }
+                  },
+                  {
+                    "kind": 85,
+                    "attributes": [],
+                    "modifiers": [],
+                    "start": {
+                      "line": 6,
+                      "column": 30
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 40
+                    },
+                    "external": {
+                      "kind": 53,
+                      "name": "to",
+                      "start": {
+                        "line": 6,
+                        "column": 30
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 32
+                      }
+                    },
+                    "internal": {
+                      "kind": 53,
+                      "name": "to",
+                      "start": {
+                        "line": 6,
+                        "column": 30
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 32
+                      }
+                    },
+                    "type": {
+                      "kind": 120,
+                      "modifiers": [],
+                      "typeName": {
+                        "kind": 53,
+                        "name": "String",
+                        "start": {
+                          "line": 6,
+                          "column": 34
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 40
+                        }
+                      },
+                      "start": {
+                        "line": 6,
+                        "column": 34
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 40
+                      }
+                    }
+                  }
+                ],
+                "modifiers": [],
+                "type": {
+                  "kind": 120,
+                  "modifiers": [],
+                  "typeName": {
+                    "kind": 53,
+                    "name": "String",
+                    "start": {
+                      "line": 6,
+                      "column": 43
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 49
+                    }
+                  },
+                  "start": {
+                    "line": 6,
+                    "column": 43
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 49
+                  }
+                },
+                "throws": []
+              },
+              "internal": {
+                "kind": 53,
+                "name": "relative",
+                "start": {
+                  "line": 6,
+                  "column": 7
+                },
+                "end": {
+                  "line": 6,
+                  "column": 15
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 49
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 7,
+            "column": 2
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 2
+  }
+}
