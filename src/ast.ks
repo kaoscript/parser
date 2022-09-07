@@ -654,12 +654,12 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func ExportNamedSpecifier(local, exported) { # {{{
+		func ExportNamedSpecifier(internal, external) { # {{{
 			return location({
 				kind: NodeKind::ExportNamedSpecifier
-				local: local.value
-				exported: exported.value
-			}, local, exported)
+				internal: internal.value
+				external: external.value
+			}, internal, external)
 		} # }}}
 
 		func ExportPropertiesSpecifier(object, properties, last) { # {{{
@@ -670,11 +670,11 @@ namespace AST {
 			}, object, last)
 		} # }}}
 
-		func ExportWildcardSpecifier(local, end) { # {{{
+		func ExportWildcardSpecifier(internal, end) { # {{{
 			return location({
 				kind: NodeKind::ExportWildcardSpecifier
-				local: local.value
-			}, local, end)
+				internal: internal.value
+			}, internal, end)
 		} # }}}
 
 		func ExpressionStatement(expression) { # {{{
@@ -1046,11 +1046,11 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func ImportNamespaceSpecifier(local, specifiers?, first, last) { # {{{
+		func ImportNamespaceSpecifier(internal, specifiers?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::ImportNamespaceSpecifier
 				attributes: []
-				local: local.value
+				internal: internal.value
 			}, first, last)
 
 			if specifiers != null {

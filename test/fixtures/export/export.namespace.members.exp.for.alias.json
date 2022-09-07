@@ -245,7 +245,7 @@
           "properties": [
             {
               "kind": 38,
-              "local": {
+              "internal": {
                 "kind": 53,
                 "name": "foo",
                 "start": {
@@ -257,7 +257,7 @@
                   "column": 18
                 }
               },
-              "exported": {
+              "external": {
                 "kind": 53,
                 "name": "nsFoo",
                 "start": {
@@ -280,7 +280,7 @@
             },
             {
               "kind": 38,
-              "local": {
+              "internal": {
                 "kind": 53,
                 "name": "bar",
                 "start": {
@@ -292,7 +292,7 @@
                   "column": 32
                 }
               },
-              "exported": {
+              "external": {
                 "kind": 53,
                 "name": "nsBar",
                 "start": {
@@ -315,7 +315,7 @@
             },
             {
               "kind": 38,
-              "local": {
+              "internal": {
                 "kind": 53,
                 "name": "qux",
                 "start": {
@@ -327,7 +327,7 @@
                   "column": 46
                 }
               },
-              "exported": {
+              "external": {
                 "kind": 53,
                 "name": "nsQux",
                 "start": {

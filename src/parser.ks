@@ -3586,9 +3586,9 @@ export namespace Parser {
 
 					@commit()
 
-					local = @reqIdentifier()
+					var internal = @reqIdentifier()
 
-					specifier = @yep(AST.ImportNamespaceSpecifier(local, null, first, local))
+					specifier = @yep(AST.ImportNamespaceSpecifier(internal, null, first, internal))
 				}
 				else {
 					var external = @reqExternDeclarator(ExternMode::Namespace)
