@@ -164,7 +164,7 @@ enum Token {
 	STRING
 	STRUCT
 	SWITCH
-	SYSTEMIC
+	SYSTEM
 	TEMPLATE_BEGIN
 	TEMPLATE_ELEMENT
 	TEMPLATE_END
@@ -812,15 +812,15 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// sealed, systemic
+			// sealed, system
 			else if c == 115 {
 				var identifier = that.scanIdentifier(true)
 
 				if identifier == 'ealed' {
 					return Token::SEALED
 				}
-				else if identifier == 'ystemic' {
-					return Token::SYSTEMIC
+				else if identifier == 'ystem' {
+					return Token::SYSTEM
 				}
 				else {
 					return Token::IDENTIFIER

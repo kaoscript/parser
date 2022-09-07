@@ -2602,33 +2602,33 @@ export namespace Parser {
 						@throw('class', 'namespace')
 					}
 				}
-				Token::SYSTEMIC => {
-					var systemic = @yep(AST.Modifier(ModifierKind::Systemic, @yes()))
+				Token::SYSTEM => {
+					var system = @yep(AST.Modifier(ModifierKind::System, @yes()))
 
 					if @matchM(M.EXTERN_STATEMENT) == Token::CLASS {
 						@commit()
 
-						return @reqExternClassDeclaration(systemic, [systemic])
+						return @reqExternClassDeclaration(system, [system])
 					}
 					else if @token == Token::IDENTIFIER {
 						var name = @reqIdentifier()
-						var modifiers = [systemic.value]
+						var modifiers = [system.value]
 
 						if @test(Token::COLON) {
 							@commit()
 
 							var type = @reqType()
 
-							return @yep(AST.VariableDeclarator([], modifiers, name, type, systemic, type))
+							return @yep(AST.VariableDeclarator([], modifiers, name, type, system, type))
 						}
 						else {
-							return @yep(AST.VariableDeclarator([], modifiers, name, null, systemic, name))
+							return @yep(AST.VariableDeclarator([], modifiers, name, null, system, name))
 						}
 					}
 					else if @token == Token::NAMESPACE {
 						@commit()
 
-						return @reqExternNamespaceDeclaration(mode, systemic, [systemic])
+						return @reqExternNamespaceDeclaration(mode, system, [system])
 					}
 					else {
 						@throw('class', 'namespace')
