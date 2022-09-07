@@ -38,6 +38,6 @@ dev:
 	@make cls
 
 	@# tests
-	npx kaoscript test/parse.dev.ks "parse import.typing.var"
+	npx kaoscript test/parse.dev.ks "parse test"
 
 .PHONY: test coverage

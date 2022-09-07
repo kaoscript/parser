@@ -230,6 +230,18 @@ export namespace Parser {
 				end: end
 			)
 		} # }}}
+		yes(value, first): Event { # {{{
+			var end: Position = value.end ?? @scanner.endPosition()
+
+			@commit()
+
+			return Event(
+				ok: true
+				value: value
+				start: first.start
+				end: end
+			)
+		} # }}}
 		NL_0M() ~ SyntaxError { # {{{
 			@skipNewLine()
 		} # }}}
@@ -1829,7 +1841,7 @@ export namespace Parser {
 			if @test(Token::LEFT_ANGLE) {
 				@commit()
 
-				type = @reqTypeLimited(false)
+				type = @reqTypeEntity()
 
 				unless @test(Token::RIGHT_ANGLE) {
 					@throw('>')
@@ -6448,7 +6460,7 @@ export namespace Parser {
 					}
 
 					if property == null {
-						@throw('async', 'func', 'var', 'Identifier', '...')
+						@throw('Identifier', '...')
 					}
 					else {
 						properties.push(property)
@@ -6535,8 +6547,6 @@ export namespace Parser {
 					var type = @tryFunctionReturns(false)
 					var throws = @tryFunctionThrows()
 
-					var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
-
 					return @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, async, throws ?? type ?? parameters))
 				}
 
@@ -6551,49 +6561,86 @@ export namespace Parser {
 					var type = @tryFunctionReturns(false)
 					var throws = @tryFunctionThrows()
 
-					var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
-
 					return @yep(AST.FunctionExpression(parameters, null, type, throws, null, first, throws ?? type ?? parameters))
 				}
 
 				@rollback(mark)
 			}
 
-			if @test(Token::LEFT_ROUND) {
-				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
-				var type = @tryFunctionReturns(false)
-				var throws = @tryFunctionThrows()
-
-				var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
-
-				return @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
-			}
-
 			return @reqTypeLimited(modifiers)
 		} # }}}
+		reqTypeEntity(): Event ~ SyntaxError { # {{{
+			var mut name = @reqIdentifier()
+
+			if @testNS(Token::DOT) {
+				do {
+					@commit()
+
+					var property = @reqIdentifier()
+
+					name = @yep(AST.MemberExpression([], name, property))
+				}
+				while @testNS(Token::DOT)
+			}
+
+			return @yep(AST.TypeReference([], name, null, name, name))
+		} # }}}
 		reqTypeGeneric(mut first: Event): Event ~ SyntaxError { # {{{
-			var entities = [@reqTypeLimited()]
+			var types = [@reqTypeEntity()]
 
 			while @test(Token::COMMA) {
 				@commit()
 
-				entities.push(@reqTypeLimited())
+				types.push(@reqTypeEntity())
 			}
 
 			unless @test(Token::RIGHT_ANGLE) {
 				@throw('>')
 			}
 
-			return @yes(entities)
+			return @yes(types)
 		} # }}}
 		reqTypeLimited(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
+			if @test(Token::LEFT_ROUND) {
+				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
+				var type = @tryFunctionReturns(false)
+				var throws = @tryFunctionThrows()
+
+				return @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
+			}
+
 			var mut name = @reqIdentifier()
+
+			if @testNS(Token::DOT) {
+				do {
+					@commit()
+
+					var property = @reqIdentifier()
+
+					name = @yep(AST.MemberExpression([], name, property))
+				}
+				while @testNS(Token::DOT)
+			}
+
 			var first = modifiers[0] ?? name
 			var mut last = name
 
-			var dyn generic
+			var mut generic = null
 			if @testNS(Token::LEFT_ANGLE) {
-				generic = last = @reqTypeGeneric(@yes())
+				var first = @yes()
+				var types = [@reqTypeLimited()]
+
+				while @test(Token::COMMA) {
+					@commit()
+
+					types.push(@reqTypeLimited())
+				}
+
+				unless @test(Token::RIGHT_ANGLE) {
+					@throw('>')
+				}
+
+				last = generic = @yes(types, first)
 			}
 
 			var mut genMarker = @mark()
@@ -7818,11 +7865,11 @@ export namespace Parser {
 				return NO
 			}
 
-			if @match(Token::LEFT_ANGLE, Token::LEFT_SQUARE) == Token::LEFT_ANGLE {
-				var generic = @reqTypeGeneric(@yes())
+			// if @match(Token::LEFT_ANGLE, Token::LEFT_SQUARE) == Token::LEFT_ANGLE {
+			// 	var generic = @reqTypeGeneric(@yes())
 
-				class = @yep(AST.TypeReference([], class, generic, class, generic))
-			}
+			// 	class = @yep(AST.TypeReference([], class, generic, class, generic))
+			// }
 
 			if @test(Token::LEFT_ROUND) {
 				@commit()
