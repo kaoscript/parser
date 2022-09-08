@@ -26,7 +26,7 @@ export namespace Parser {
 		identifier: Event?		= null
 	}
 
-	flagged enum ClassBits {
+	bitmask ClassBits {
 		AbstractMethod		 = 1
 		Attribute
 		FinalMethod
@@ -45,7 +45,7 @@ export namespace Parser {
 		Variable
 	}
 
-	flagged enum DestructuringMode {
+	bitmask DestructuringMode {
 		Nil
 
 		COMPUTED
@@ -60,7 +60,7 @@ export namespace Parser {
 		Parameter			= DEFAULT + RECURSION + TYPE
 	}
 
-	flagged enum ExpressionMode {
+	bitmask ExpressionMode {
 		Default
 		NoAnonymousFunction
 		NoAwait
@@ -68,7 +68,7 @@ export namespace Parser {
 		WithMacro
 	}
 
-	flagged enum ExternMode {
+	bitmask ExternMode {
 		Default
 		Fallthrough
 		Namespace
@@ -80,7 +80,7 @@ export namespace Parser {
 		Method
 	}
 
-	flagged enum MacroTerminator {
+	bitmask MacroTerminator {
 		Nil
 
 		COMMA
@@ -95,7 +95,7 @@ export namespace Parser {
 		Parenthesis			= NEWLINE + RIGHT_ROUND
 	}
 
-	flagged enum ParserMode {
+	bitmask ParserMode {
 		Default
 		MacroExpression
 		Typing
