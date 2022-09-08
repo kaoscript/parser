@@ -1,4 +1,4 @@
-extern flagged enum CardSuit {
+extern bitmask CardSuit {
 	Clubs
 	Diamonds
 	Hearts

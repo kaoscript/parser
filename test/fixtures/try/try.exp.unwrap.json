@@ -1,12 +1,12 @@
 {
-  "kind": 75,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 50,
+      "kind": 51,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "name": "foobar",
         "start": {
           "line": 1,
@@ -27,7 +27,7 @@
       },
       "parameters": [
         {
-          "kind": 85,
+          "kind": 86,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -39,7 +39,7 @@
             "column": 14
           },
           "external": {
-            "kind": 53,
+            "kind": 54,
             "name": "x",
             "start": {
               "line": 1,
@@ -51,7 +51,7 @@
             }
           },
           "internal": {
-            "kind": 53,
+            "kind": 54,
             "name": "x",
             "start": {
               "line": 1,
@@ -67,7 +67,7 @@
       "modifiers": [],
       "throws": [
         {
-          "kind": 53,
+          "kind": 54,
           "name": "Error",
           "start": {
             "line": 1,
@@ -80,14 +80,14 @@
         }
       ],
       "body": {
-        "kind": 13,
+        "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 55,
+            "kind": 56,
             "attributes": [],
             "condition": {
-              "kind": 53,
+              "kind": 54,
               "name": "x",
               "start": {
                 "line": 2,
@@ -99,14 +99,14 @@
               }
             },
             "whenTrue": {
-              "kind": 13,
+              "kind": 14,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 94,
+                  "kind": 95,
                   "attributes": [],
                   "value": {
-                    "kind": 79,
+                    "kind": 80,
                     "value": 42,
                     "start": {
                       "line": 3,
@@ -145,16 +145,16 @@
               "column": 6
             },
             "whenFalse": {
-              "kind": 13,
+              "kind": 14,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 113,
+                  "kind": 114,
                   "attributes": [],
                   "value": {
-                    "kind": 26,
+                    "kind": 27,
                     "class": {
-                      "kind": 53,
+                      "kind": 54,
                       "name": "Error",
                       "start": {
                         "line": 6,
@@ -167,7 +167,7 @@
                     },
                     "arguments": [
                       {
-                        "kind": 69,
+                        "kind": 70,
                         "value": "foobar",
                         "start": {
                           "line": 6,
@@ -220,7 +220,7 @@
       }
     },
     {
-      "kind": 126,
+      "kind": 127,
       "attributes": [],
       "modifiers": [
         {
@@ -237,11 +237,11 @@
       ],
       "variables": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "x",
             "start": {
               "line": 10,
@@ -271,7 +271,7 @@
         "column": 30
       },
       "value": {
-        "kind": 115,
+        "kind": 116,
         "modifiers": [
           {
             "kind": 8,
@@ -286,13 +286,13 @@
           }
         ],
         "argument": {
-          "kind": 15,
+          "kind": 16,
           "modifiers": [],
           "scope": {
             "kind": 3
           },
           "callee": {
-            "kind": 53,
+            "kind": 54,
             "name": "foobar",
             "start": {
               "line": 10,
@@ -305,7 +305,7 @@
           },
           "arguments": [
             {
-              "kind": 53,
+              "kind": 54,
               "name": "true",
               "start": {
                 "line": 10,

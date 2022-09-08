@@ -1,12 +1,12 @@
 {
-  "kind": 75,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 50,
+      "kind": 51,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "name": "log",
         "start": {
           "line": 1,
@@ -27,11 +27,11 @@
       },
       "parameters": [
         {
-          "kind": 85,
+          "kind": 86,
           "attributes": [],
           "modifiers": [
             {
-              "kind": 27,
+              "kind": 26,
               "arity": {
                 "min": 0,
                 "max": "Infinity"
@@ -55,7 +55,7 @@
             "column": 17
           },
           "external": {
-            "kind": 53,
+            "kind": 54,
             "name": "args",
             "start": {
               "line": 1,
@@ -67,7 +67,7 @@
             }
           },
           "internal": {
-            "kind": 53,
+            "kind": 54,
             "name": "args",
             "start": {
               "line": 1,
@@ -83,20 +83,20 @@
       "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 13,
+        "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 15,
+            "kind": 16,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 72,
+              "kind": 73,
               "modifiers": [],
               "object": {
-                "kind": 53,
+                "kind": 54,
                 "name": "this",
                 "start": {
                   "line": 2,
@@ -108,7 +108,7 @@
                 }
               },
               "property": {
-                "kind": 53,
+                "kind": 54,
                 "name": "log",
                 "start": {
                   "line": 2,
@@ -130,7 +130,7 @@
             },
             "arguments": [
               {
-                "kind": 121,
+                "kind": 122,
                 "operator": {
                   "kind": 7,
                   "start": {
@@ -143,7 +143,7 @@
                   }
                 },
                 "argument": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "args",
                   "start": {
                     "line": 2,
@@ -186,12 +186,12 @@
       }
     },
     {
-      "kind": 15,
+      "kind": 16,
       "modifiers": [],
       "scope": {
         "kind": 1,
         "value": {
-          "kind": 53,
+          "kind": 54,
           "name": "console",
           "start": {
             "line": 5,
@@ -204,7 +204,7 @@
         }
       },
       "callee": {
-        "kind": 53,
+        "kind": 54,
         "name": "log",
         "start": {
           "line": 5,
@@ -217,7 +217,7 @@
       },
       "arguments": [
         {
-          "kind": 69,
+          "kind": 70,
           "value": "hello",
           "start": {
             "line": 5,

@@ -1,12 +1,12 @@
 {
-  "kind": 75,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 50,
+      "kind": 51,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "name": "foobar",
         "start": {
           "line": 1,
@@ -27,7 +27,7 @@
       },
       "parameters": [
         {
-          "kind": 85,
+          "kind": 86,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -39,7 +39,7 @@
             "column": 14
           },
           "external": {
-            "kind": 53,
+            "kind": 54,
             "name": "x",
             "start": {
               "line": 1,
@@ -51,7 +51,7 @@
             }
           },
           "internal": {
-            "kind": 53,
+            "kind": 54,
             "name": "x",
             "start": {
               "line": 1,
@@ -64,7 +64,7 @@
           }
         },
         {
-          "kind": 85,
+          "kind": 86,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -76,7 +76,7 @@
             "column": 17
           },
           "external": {
-            "kind": 53,
+            "kind": 54,
             "name": "y",
             "start": {
               "line": 1,
@@ -88,7 +88,7 @@
             }
           },
           "internal": {
-            "kind": 53,
+            "kind": 54,
             "name": "y",
             "start": {
               "line": 1,
@@ -104,10 +104,10 @@
       "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 55,
+        "kind": 56,
         "attributes": [],
         "condition": {
-          "kind": 22,
+          "kind": 23,
           "values": [
             {
               "kind": 11,
@@ -132,7 +132,7 @@
                 "column": 33
               },
               "left": {
-                "kind": 53,
+                "kind": 54,
                 "name": "x",
                 "start": {
                   "line": 1,
@@ -144,7 +144,7 @@
                 }
               },
               "right": {
-                "kind": 53,
+                "kind": 54,
                 "name": "y",
                 "start": {
                   "line": 1,
@@ -169,7 +169,7 @@
               }
             },
             {
-              "kind": 79,
+              "kind": 80,
               "value": 0,
               "start": {
                 "line": 1,
@@ -191,10 +191,10 @@
           }
         },
         "whenTrue": {
-          "kind": 94,
+          "kind": 95,
           "attributes": [],
           "value": {
-            "kind": 79,
+            "kind": 80,
             "value": 42,
             "start": {
               "line": 1,
@@ -225,10 +225,10 @@
       }
     },
     {
-      "kind": 50,
+      "kind": 51,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "name": "quxbaz",
         "start": {
           "line": 3,
@@ -249,7 +249,7 @@
       },
       "parameters": [
         {
-          "kind": 85,
+          "kind": 86,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -261,7 +261,7 @@
             "column": 14
           },
           "external": {
-            "kind": 53,
+            "kind": 54,
             "name": "x",
             "start": {
               "line": 3,
@@ -273,7 +273,7 @@
             }
           },
           "internal": {
-            "kind": 53,
+            "kind": 54,
             "name": "x",
             "start": {
               "line": 3,
@@ -286,7 +286,7 @@
           }
         },
         {
-          "kind": 85,
+          "kind": 86,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -298,7 +298,7 @@
             "column": 17
           },
           "external": {
-            "kind": 53,
+            "kind": 54,
             "name": "y",
             "start": {
               "line": 3,
@@ -310,7 +310,7 @@
             }
           },
           "internal": {
-            "kind": 53,
+            "kind": 54,
             "name": "y",
             "start": {
               "line": 3,
@@ -326,12 +326,12 @@
       "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 94,
+        "kind": 95,
         "attributes": [],
         "value": {
-          "kind": 54,
+          "kind": 55,
           "condition": {
-            "kind": 22,
+            "kind": 23,
             "values": [
               {
                 "kind": 11,
@@ -356,7 +356,7 @@
                   "column": 33
                 },
                 "left": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "x",
                   "start": {
                     "line": 3,
@@ -368,7 +368,7 @@
                   }
                 },
                 "right": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "y",
                   "start": {
                     "line": 3,
@@ -393,7 +393,7 @@
                 }
               },
               {
-                "kind": 79,
+                "kind": 80,
                 "value": 0,
                 "start": {
                   "line": 3,
@@ -415,7 +415,7 @@
             }
           },
           "whenTrue": {
-            "kind": 79,
+            "kind": 80,
             "value": 42,
             "start": {
               "line": 3,
@@ -435,7 +435,7 @@
             "column": 46
           },
           "whenFalse": {
-            "kind": 79,
+            "kind": 80,
             "value": 24,
             "start": {
               "line": 3,

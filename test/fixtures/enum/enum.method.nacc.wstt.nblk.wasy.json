@@ -1,13 +1,13 @@
 {
-  "kind": 75,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 32,
+      "kind": 33,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "name": "Weekday",
         "start": {
           "line": 1,
@@ -20,11 +20,11 @@
       },
       "members": [
         {
-          "kind": 45,
+          "kind": 46,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "MONDAY",
             "start": {
               "line": 2,
@@ -45,11 +45,11 @@
           }
         },
         {
-          "kind": 45,
+          "kind": 46,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "TUESDAY",
             "start": {
               "line": 3,
@@ -70,11 +70,11 @@
           }
         },
         {
-          "kind": 45,
+          "kind": 46,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "WEDNESDAY",
             "start": {
               "line": 4,
@@ -95,11 +95,11 @@
           }
         },
         {
-          "kind": 45,
+          "kind": 46,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "THURSDAY",
             "start": {
               "line": 5,
@@ -120,11 +120,11 @@
           }
         },
         {
-          "kind": 45,
+          "kind": 46,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "FRIDAY",
             "start": {
               "line": 6,
@@ -145,11 +145,11 @@
           }
         },
         {
-          "kind": 45,
+          "kind": 46,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "SATURDAY",
             "start": {
               "line": 7,
@@ -170,11 +170,11 @@
           }
         },
         {
-          "kind": 45,
+          "kind": 46,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "SUNDAY",
             "start": {
               "line": 8,
@@ -195,11 +195,11 @@
           }
         },
         {
-          "kind": 73,
+          "kind": 74,
           "attributes": [],
           "modifiers": [
             {
-              "kind": 30,
+              "kind": 29,
               "start": {
                 "line": 10,
                 "column": 2
@@ -222,7 +222,7 @@
             }
           ],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "fromString",
             "start": {
               "line": 10,
@@ -235,7 +235,7 @@
           },
           "parameters": [
             {
-              "kind": 85,
+              "kind": 86,
               "attributes": [],
               "modifiers": [],
               "start": {
@@ -247,7 +247,7 @@
                 "column": 39
               },
               "external": {
-                "kind": 53,
+                "kind": 54,
                 "name": "value",
                 "start": {
                   "line": 10,
@@ -259,7 +259,7 @@
                 }
               },
               "internal": {
-                "kind": 53,
+                "kind": 54,
                 "name": "value",
                 "start": {
                   "line": 10,
@@ -271,10 +271,10 @@
                 }
               },
               "type": {
-                "kind": 120,
+                "kind": 121,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "String",
                   "start": {
                     "line": 10,
@@ -305,10 +305,10 @@
             "column": 3
           },
           "type": {
-            "kind": 120,
+            "kind": 121,
             "modifiers": [
               {
-                "kind": 19,
+                "kind": 18,
                 "start": {
                   "line": 10,
                   "column": 49
@@ -320,7 +320,7 @@
               }
             ],
             "typeName": {
-              "kind": 53,
+              "kind": 54,
               "name": "Weekday",
               "start": {
                 "line": 10,
@@ -342,14 +342,14 @@
           },
           "throws": [],
           "body": {
-            "kind": 13,
+            "kind": 14,
             "attributes": [],
             "statements": [
               {
-                "kind": 108,
+                "kind": 109,
                 "attributes": [],
                 "expression": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "value",
                   "start": {
                     "line": 11,
@@ -362,12 +362,12 @@
                 },
                 "clauses": [
                   {
-                    "kind": 101,
+                    "kind": 102,
                     "body": {
-                      "kind": 94,
+                      "kind": 95,
                       "attributes": [],
                       "value": {
-                        "kind": 53,
+                        "kind": 54,
                         "name": "MONDAY",
                         "start": {
                           "line": 12,
@@ -397,7 +397,7 @@
                     },
                     "conditions": [
                       {
-                        "kind": 69,
+                        "kind": 70,
                         "value": "monday",
                         "start": {
                           "line": 12,
@@ -422,10 +422,10 @@
                 }
               },
               {
-                "kind": 94,
+                "kind": 95,
                 "attributes": [],
                 "value": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "null",
                   "start": {
                     "line": 15,

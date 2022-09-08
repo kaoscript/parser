@@ -1,0 +1,2 @@
+bitmask Mode<u64> {
+}

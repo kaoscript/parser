@@ -17,6 +17,7 @@ enum Token {
 	AUTO
 	AWAIT
 	BINARY_NUMBER
+	BITMASK
 	BREAK
 	BUT
 	BY
@@ -68,7 +69,6 @@ enum Token {
 	FALLTHROUGH
 	FINAL
 	FINALLY
-	FLAGGED
 	FOR
 	FROM
 	FUNC
@@ -658,6 +658,17 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
+			// bitmask
+			else if c == 98 {
+				var identifier = that.scanIdentifier(true)
+
+				if identifier == 'itmask' {
+					return Token::BITMASK
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
 			// class
 			else if c == 99 {
 				var identifier = that.scanIdentifier(true)
@@ -678,15 +689,12 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
-			// final, flagged, func
+			// final, func
 			else if c == 102 {
 				var identifier = that.scanIdentifier(true)
 
 				if identifier == 'inal' {
 					return Token::FINAL
-				}
-				else if identifier == 'lagged' {
-					return Token::FLAGGED
 				}
 				else if identifier == 'unc' {
 					return Token::FUNC
@@ -1481,19 +1489,19 @@ namespace M {
 
 				return Token::IDENTIFIER
 			}
-			// enum
-			else if c == 101 {
-				if that.scanIdentifier(true) == 'num' {
-					return Token::ENUM
+			// bitmask
+			else if c == 98 {
+				if that.scanIdentifier(true) == 'itmask' {
+					return Token::BITMASK
 				}
 				else {
 					return Token::IDENTIFIER
 				}
 			}
-			// flagged
-			else if c == 102 {
-				if that.scanIdentifier(true) == 'lagged' {
-					return Token::FLAGGED
+			// enum
+			else if c == 101 {
+				if that.scanIdentifier(true) == 'num' {
+					return Token::ENUM
 				}
 				else {
 					return Token::IDENTIFIER
@@ -1568,14 +1576,26 @@ namespace M {
 					return Token::AUTO
 				}
 			}
-			// break
+			// bitmask, break
 			else if	c == 98
 			{
-				if	that.charAt(1) == 114 &&
-					that.charAt(2) == 101 &&
-					that.charAt(3) == 97 &&
-					that.charAt(4) == 107 &&
-					that.isBoundary(5)
+				if	that.charAt(1) == 105 &&
+					that.charAt(2) == 116 &&
+					that.charAt(3) == 109 &&
+					that.charAt(4) == 97 &&
+					that.charAt(5) == 115 &&
+					that.charAt(6) == 107 &&
+					that.isBoundary(7)
+				{
+					that.next(7)
+
+					return Token::BITMASK
+				}
+				else if	that.charAt(1) == 114 &&
+						that.charAt(2) == 101 &&
+						that.charAt(3) == 97 &&
+						that.charAt(4) == 107 &&
+						that.isBoundary(5)
 				{
 					that.next(5)
 
@@ -1644,7 +1664,7 @@ namespace M {
 					return Token::ENUM
 				}
 			}
-			// fallthrough, final, flagged, for, func
+			// fallthrough, final, for, func
 			else if c == 102
 			{
 				if	that.charAt(1) == 111 &&
@@ -1673,18 +1693,6 @@ namespace M {
 					that.next(5)
 
 					return Token::FINAL
-				}
-				else if that.charAt(1) == 108 &&
-					that.charAt(2) == 97 &&
-					that.charAt(3) == 103 &&
-					that.charAt(4) == 103 &&
-					that.charAt(5) == 101 &&
-					that.charAt(6) == 100 &&
-					that.isBoundary(7)
-				{
-					that.next(7)
-
-					return Token::FLAGGED
 				}
 				else if that.charAt(1) == 97 &&
 					that.charAt(2) == 108 &&

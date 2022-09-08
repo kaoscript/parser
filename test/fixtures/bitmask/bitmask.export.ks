@@ -1,4 +1,4 @@
-flagged enum CardSuit {
+export bitmask CardSuit {
 	Clubs
 	Diamonds
 	Hearts

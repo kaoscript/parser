@@ -1,4 +1,4 @@
-require flagged enum CardSuit {
+require bitmask CardSuit {
 	Clubs
 	Diamonds
 	Hearts

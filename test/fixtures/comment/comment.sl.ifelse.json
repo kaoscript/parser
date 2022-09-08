@@ -1,12 +1,12 @@
 {
-  "kind": 75,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 55,
+      "kind": 56,
       "attributes": [],
       "condition": {
-        "kind": 53,
+        "kind": 54,
         "name": "foo",
         "start": {
           "line": 2,
@@ -18,7 +18,7 @@
         }
       },
       "whenTrue": {
-        "kind": 13,
+        "kind": 14,
         "attributes": [],
         "statements": [
           {
@@ -36,7 +36,7 @@
               }
             },
             "left": {
-              "kind": 53,
+              "kind": 54,
               "name": "qux",
               "start": {
                 "line": 3,
@@ -48,7 +48,7 @@
               }
             },
             "right": {
-              "kind": 79,
+              "kind": 80,
               "value": 1,
               "start": {
                 "line": 3,
@@ -88,10 +88,10 @@
         "column": 2
       },
       "whenFalse": {
-        "kind": 55,
+        "kind": 56,
         "attributes": [],
         "condition": {
-          "kind": 53,
+          "kind": 54,
           "name": "bar",
           "start": {
             "line": 6,
@@ -103,7 +103,7 @@
           }
         },
         "whenTrue": {
-          "kind": 13,
+          "kind": 14,
           "attributes": [],
           "statements": [
             {
@@ -121,7 +121,7 @@
                 }
               },
               "left": {
-                "kind": 53,
+                "kind": 54,
                 "name": "qux",
                 "start": {
                   "line": 7,
@@ -133,7 +133,7 @@
                 }
               },
               "right": {
-                "kind": 79,
+                "kind": 80,
                 "value": 2,
                 "start": {
                   "line": 7,
@@ -173,7 +173,7 @@
           "column": 2
         },
         "whenFalse": {
-          "kind": 13,
+          "kind": 14,
           "attributes": [],
           "statements": [
             {
@@ -191,7 +191,7 @@
                 }
               },
               "left": {
-                "kind": 53,
+                "kind": 54,
                 "name": "qux",
                 "start": {
                   "line": 11,
@@ -203,7 +203,7 @@
                 }
               },
               "right": {
-                "kind": 79,
+                "kind": 80,
                 "value": 3,
                 "start": {
                   "line": 11,

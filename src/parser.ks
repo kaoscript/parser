@@ -780,6 +780,71 @@ export namespace Parser {
 
 			return @reqPrefixedOperand(eMode, fMode)
 		} # }}}
+		reqBitmaskStatement(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
+			var name = @tryIdentifier()
+			unless name.ok {
+				return NO
+			}
+
+			var mut type = null
+			var mut initialValue = null
+
+			if @test(Token::LEFT_ANGLE) {
+				@commit()
+
+				var identifier = @tryIdentifier()
+
+				if identifier.ok {
+					unless identifier.value.name == 'u8' | 'u16' | 'u32' | 'u64' | 'u128' {
+						@throw('u8', 'u16', 'u32', 'u64', 'u128')
+					}
+
+					type = identifier
+				}
+
+				if @test(Token::COMMA) {
+					@commit()
+
+					initialValue = @reqNumber()
+
+					unless initialValue.value.value == 0 | 1 {
+						@throw('0', '1')
+					}
+				}
+
+				unless @test(Token::RIGHT_ANGLE) {
+					@throw('>')
+				}
+
+				@commit()
+			}
+
+			@NL_0M()
+
+			unless @test(Token::LEFT_CURLY) {
+				@throw('{')
+			}
+
+			@commit().NL_0M()
+
+			var attributes = []
+			var members = []
+
+			while @until(Token::RIGHT_CURLY) {
+				if @stackInnerAttributes(attributes) {
+					// do nothing
+				}
+				else {
+					@reqEnumMember(members, false)
+				}
+			}
+
+			unless @test(Token::RIGHT_CURLY) {
+				@throw('}')
+			}
+
+			return @yep(AST.BitmaskDeclaration(attributes, modifiers, name, type, initialValue, members, first, @yes()))
+		} # }}}
 		reqBlock(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if !first.ok {
 				unless @test(Token::LEFT_CURLY) {
@@ -1736,16 +1801,16 @@ export namespace Parser {
 				@throw('until', 'while')
 			}
 		} # }}}
-		reqEnumMember(members: Array): Void ~ SyntaxError { # {{{
+		reqEnumMember(members: Array, allowValue: Boolean): Void ~ SyntaxError { # {{{
 			var attributes = @stackOuterAttributes([])
 			var modifiers = []
 			var result = AmbiguityResult()
 
 			if @isAmbiguousAccessModifierForEnum(modifiers, result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members, allowValue)
 			}
 			else if @isAmbiguousStaticModifier(modifiers, result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members, allowValue)
 			}
 			else if @isAmbiguousAsyncModifier(modifiers, result) {
 				var {identifier, token} = result
@@ -1756,11 +1821,11 @@ export namespace Parser {
 					members.push(@reqEnumMethod(attributes, modifiers, identifier!?, first).value)
 				}
 				else {
-					@submitEnumMember(attributes, modifiers, identifier!?, null, members)
+					@submitEnumMember(attributes, modifiers, identifier!?, null, members, allowValue)
 				}
 			}
 			else if @isAmbiguousIdentifier(result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, null, members)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, null, members, allowValue)
 			}
 			else {
 				var mark = @mark()
@@ -1794,7 +1859,7 @@ export namespace Parser {
 				else {
 					@rollback(mark)
 
-					@submitEnumMember(attributes, [], result.identifier!?, null, members)
+					@submitEnumMember(attributes, [], result.identifier!?, null, members, allowValue)
 				}
 			}
 		} # }}}
@@ -1866,7 +1931,7 @@ export namespace Parser {
 					// do nothing
 				}
 				else {
-					@reqEnumMember(members)
+					@reqEnumMember(members, true)
 				}
 			}
 
@@ -1906,6 +1971,9 @@ export namespace Parser {
 						return @reqExportIdentifier(first)
 					}
 				}
+				Token::BITMASK => {
+					return @yep(AST.ExportDeclarationSpecifier(@reqBitmaskStatement(@yes())))
+				}
 				Token::CLASS => {
 					return @yep(AST.ExportDeclarationSpecifier(@reqClassStatement(@yes())))
 				}
@@ -1935,20 +2003,6 @@ export namespace Parser {
 					}
 					else {
 						@throw('class')
-					}
-				}
-				Token::FLAGGED => {
-					var first = @yes()
-
-					if @test(Token::ENUM) {
-						@commit()
-
-						var modifiers = [@yep(AST.Modifier(ModifierKind::Flagged, first))]
-
-						return @yep(AST.ExportDeclarationSpecifier(@reqEnumStatement(first, modifiers)))
-					}
-					else {
-						@throw('enum')
 					}
 				}
 				Token::FUNC => {
@@ -5075,6 +5129,15 @@ export namespace Parser {
 			}
 
 			switch @matchM(M.REQUIRE_STATEMENT) {
+				Token::BITMASK => {
+					@mode += ParserMode::Typing
+
+					var declarator = @reqBitmaskStatement(@yes())
+
+					@mode -= ParserMode::Typing
+
+					return declarator
+				}
 				Token::ENUM => {
 					@mode += ParserMode::Typing
 
@@ -5083,26 +5146,6 @@ export namespace Parser {
 					@mode -= ParserMode::Typing
 
 					return declarator
-				}
-				Token::FLAGGED => {
-					var first = @reqIdentifier()
-
-					if @test(Token::ENUM) {
-						@commit()
-
-						var modifiers = [@yep(AST.Modifier(ModifierKind::Flagged, first))]
-
-						@mode += ParserMode::Typing
-
-						var declarator = @reqEnumStatement(first, modifiers)
-
-						@mode -= ParserMode::Typing
-
-						return declarator
-					}
-					else {
-						return @reqExternVariableDeclarator(first)
-					}
 				}
 				Token::IDENTIFIER => {
 					return @reqExternVariableDeclarator(@reqIdentifier())
@@ -5370,6 +5413,9 @@ export namespace Parser {
 						statement = NO
 					}
 				}
+				Token::BITMASK => {
+					statement = @reqBitmaskStatement(@yes())
+				}
 				Token::BREAK => {
 					statement = @reqBreakStatement(@yes())
 				}
@@ -5411,20 +5457,6 @@ export namespace Parser {
 						else {
 							@throw('class')
 						}
-					}
-					else {
-						statement = NO
-					}
-				}
-				Token::FLAGGED => {
-					var first = @yes()
-
-					if @test(Token::ENUM) {
-						@commit()
-
-						var modifiers = [@yep(AST.Modifier(ModifierKind::Flagged, first))]
-
-						statement = @reqEnumStatement(first, modifiers)
 					}
 					else {
 						statement = NO
@@ -7087,11 +7119,11 @@ export namespace Parser {
 
 			return attributes
 		} # }}}
-		submitEnumMember(attributes: Array, modifiers: Array, identifier: Event, token: Token?, members: Array): Void ~ SyntaxError { # {{{
+		submitEnumMember(attributes: Array, modifiers: Array, identifier: Event, token: Token?, members: Array, allowValue: Boolean): Void ~ SyntaxError { # {{{
 			var first = attributes[0] ?? modifiers[0] ?? identifier
 
 			switch token ?? @match(Token::EQUALS, Token::LEFT_ROUND)  {
-				Token::EQUALS => {
+				Token::EQUALS when allowValue => {
 					if @mode ~~ ParserMode::Typing {
 						@throw()
 					}

@@ -1,9 +1,9 @@
 {
-  "kind": 75,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 126,
+      "kind": 127,
       "attributes": [],
       "modifiers": [
         {
@@ -20,11 +20,11 @@
       ],
       "variables": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "x",
             "start": {
               "line": 1,
@@ -45,11 +45,11 @@
           }
         },
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "y",
             "start": {
               "line": 1,
@@ -70,11 +70,11 @@
           }
         },
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "z",
             "start": {
               "line": 1,
@@ -95,11 +95,11 @@
           }
         },
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "foo",
             "start": {
               "line": 1,
@@ -120,11 +120,11 @@
           }
         },
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "bar",
             "start": {
               "line": 1,
@@ -145,11 +145,11 @@
           }
         },
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "name": "qux",
             "start": {
               "line": 1,
@@ -180,10 +180,10 @@
       }
     },
     {
-      "kind": 55,
+      "kind": 56,
       "attributes": [],
       "condition": {
-        "kind": 53,
+        "kind": 54,
         "name": "x",
         "start": {
           "line": 3,
@@ -195,14 +195,14 @@
         }
       },
       "whenTrue": {
-        "kind": 13,
+        "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 55,
+            "kind": 56,
             "attributes": [],
             "condition": {
-              "kind": 53,
+              "kind": 54,
               "name": "foo",
               "start": {
                 "line": 4,
@@ -214,7 +214,7 @@
               }
             },
             "whenTrue": {
-              "kind": 13,
+              "kind": 14,
               "attributes": [],
               "statements": [],
               "start": {
@@ -235,10 +235,10 @@
               "column": 3
             },
             "whenFalse": {
-              "kind": 55,
+              "kind": 56,
               "attributes": [],
               "condition": {
-                "kind": 53,
+                "kind": 54,
                 "name": "bar",
                 "start": {
                   "line": 6,
@@ -250,7 +250,7 @@
                 }
               },
               "whenTrue": {
-                "kind": 13,
+                "kind": 14,
                 "attributes": [],
                 "statements": [],
                 "start": {
@@ -271,10 +271,10 @@
                 "column": 3
               },
               "whenFalse": {
-                "kind": 55,
+                "kind": 56,
                 "attributes": [],
                 "condition": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "qux",
                   "start": {
                     "line": 8,
@@ -286,7 +286,7 @@
                   }
                 },
                 "whenTrue": {
-                  "kind": 13,
+                  "kind": 14,
                   "attributes": [],
                   "statements": [],
                   "start": {
@@ -307,7 +307,7 @@
                   "column": 3
                 },
                 "whenFalse": {
-                  "kind": 13,
+                  "kind": 14,
                   "attributes": [],
                   "statements": [],
                   "start": {
@@ -341,10 +341,10 @@
         "column": 2
       },
       "whenFalse": {
-        "kind": 55,
+        "kind": 56,
         "attributes": [],
         "condition": {
-          "kind": 53,
+          "kind": 54,
           "name": "y",
           "start": {
             "line": 13,
@@ -356,7 +356,7 @@
           }
         },
         "whenTrue": {
-          "kind": 13,
+          "kind": 14,
           "attributes": [],
           "statements": [],
           "start": {
@@ -377,10 +377,10 @@
           "column": 2
         },
         "whenFalse": {
-          "kind": 55,
+          "kind": 56,
           "attributes": [],
           "condition": {
-            "kind": 53,
+            "kind": 54,
             "name": "z",
             "start": {
               "line": 15,
@@ -392,14 +392,14 @@
             }
           },
           "whenTrue": {
-            "kind": 13,
+            "kind": 14,
             "attributes": [],
             "statements": [
               {
-                "kind": 55,
+                "kind": 56,
                 "attributes": [],
                 "condition": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "foo",
                   "start": {
                     "line": 16,
@@ -411,7 +411,7 @@
                   }
                 },
                 "whenTrue": {
-                  "kind": 13,
+                  "kind": 14,
                   "attributes": [],
                   "statements": [],
                   "start": {
@@ -432,10 +432,10 @@
                   "column": 3
                 },
                 "whenFalse": {
-                  "kind": 55,
+                  "kind": 56,
                   "attributes": [],
                   "condition": {
-                    "kind": 53,
+                    "kind": 54,
                     "name": "bar",
                     "start": {
                       "line": 18,
@@ -447,7 +447,7 @@
                     }
                   },
                   "whenTrue": {
-                    "kind": 13,
+                    "kind": 14,
                     "attributes": [],
                     "statements": [],
                     "start": {
@@ -468,10 +468,10 @@
                     "column": 3
                   },
                   "whenFalse": {
-                    "kind": 55,
+                    "kind": 56,
                     "attributes": [],
                     "condition": {
-                      "kind": 53,
+                      "kind": 54,
                       "name": "qux",
                       "start": {
                         "line": 20,
@@ -483,7 +483,7 @@
                       }
                     },
                     "whenTrue": {
-                      "kind": 13,
+                      "kind": 14,
                       "attributes": [],
                       "statements": [],
                       "start": {
@@ -504,7 +504,7 @@
                       "column": 3
                     },
                     "whenFalse": {
-                      "kind": 13,
+                      "kind": 14,
                       "attributes": [],
                       "statements": [],
                       "start": {
@@ -538,14 +538,14 @@
             "column": 2
           },
           "whenFalse": {
-            "kind": 13,
+            "kind": 14,
             "attributes": [],
             "statements": [
               {
-                "kind": 55,
+                "kind": 56,
                 "attributes": [],
                 "condition": {
-                  "kind": 53,
+                  "kind": 54,
                   "name": "foo",
                   "start": {
                     "line": 26,
@@ -557,7 +557,7 @@
                   }
                 },
                 "whenTrue": {
-                  "kind": 13,
+                  "kind": 14,
                   "attributes": [],
                   "statements": [],
                   "start": {
@@ -578,10 +578,10 @@
                   "column": 3
                 },
                 "whenFalse": {
-                  "kind": 55,
+                  "kind": 56,
                   "attributes": [],
                   "condition": {
-                    "kind": 53,
+                    "kind": 54,
                     "name": "bar",
                     "start": {
                       "line": 28,
@@ -593,7 +593,7 @@
                     }
                   },
                   "whenTrue": {
-                    "kind": 13,
+                    "kind": 14,
                     "attributes": [],
                     "statements": [],
                     "start": {
@@ -614,10 +614,10 @@
                     "column": 3
                   },
                   "whenFalse": {
-                    "kind": 55,
+                    "kind": 56,
                     "attributes": [],
                     "condition": {
-                      "kind": 53,
+                      "kind": 54,
                       "name": "qux",
                       "start": {
                         "line": 30,
@@ -629,7 +629,7 @@
                       }
                     },
                     "whenTrue": {
-                      "kind": 13,
+                      "kind": 14,
                       "attributes": [],
                       "statements": [],
                       "start": {
