@@ -101,11 +101,6 @@ export namespace Parser {
 		Typing
 	}
 
-	enum ValueMode {
-		Expression
-		Number
-	}
-
 	var NO = Event(ok: false)
 
 	class Parser {
@@ -792,7 +787,6 @@ export namespace Parser {
 			}
 
 			var mut type = null
-			var mut initialValue = null
 
 			if @test(Token::LEFT_ANGLE) {
 				@commit()
@@ -800,21 +794,11 @@ export namespace Parser {
 				var identifier = @tryIdentifier()
 
 				if identifier.ok {
-					unless identifier.value.name == 'u8' | 'u16' | 'u32' | 'u64' | 'u128' {
-						@throw('u8', 'u16', 'u32', 'u64', 'u128')
+					unless identifier.value.name == 'u8' | 'u16' | 'u32' | 'u48' | 'u64' | 'u128' | 'u256' {
+						@throw('u8', 'u16', 'u32', 'u48', 'u64', 'u128', 'u256')
 					}
 
 					type = identifier
-				}
-
-				if @test(Token::COMMA) {
-					@commit()
-
-					initialValue = @reqNumber()
-
-					unless initialValue.value.value == 0 | 1 {
-						@throw('0', '1')
-					}
 				}
 
 				unless @test(Token::RIGHT_ANGLE) {
@@ -840,7 +824,7 @@ export namespace Parser {
 					// do nothing
 				}
 				else {
-					@reqEnumMember(members, ValueMode::Number)
+					@reqEnumMember(members)
 				}
 			}
 
@@ -848,7 +832,7 @@ export namespace Parser {
 				@throw('}')
 			}
 
-			return @yep(AST.BitmaskDeclaration(attributes, modifiers, name, type, initialValue, members, first, @yes()))
+			return @yep(AST.BitmaskDeclaration(attributes, modifiers, name, type, members, first, @yes()))
 		} # }}}
 		reqBlock(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if !first.ok {
@@ -1806,16 +1790,16 @@ export namespace Parser {
 				@throw('until', 'while')
 			}
 		} # }}}
-		reqEnumMember(members: Array, vMode: ValueMode): Void ~ SyntaxError { # {{{
+		reqEnumMember(members: Array): Void ~ SyntaxError { # {{{
 			var attributes = @stackOuterAttributes([])
 			var modifiers = []
 			var result = AmbiguityResult()
 
 			if @isAmbiguousAccessModifierForEnum(modifiers, result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members, vMode)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members)
 			}
 			else if @isAmbiguousStaticModifier(modifiers, result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members, vMode)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members)
 			}
 			else if @isAmbiguousAsyncModifier(modifiers, result) {
 				var {identifier, token} = result
@@ -1826,11 +1810,11 @@ export namespace Parser {
 					members.push(@reqEnumMethod(attributes, modifiers, identifier!?, first).value)
 				}
 				else {
-					@submitEnumMember(attributes, modifiers, identifier!?, null, members, vMode)
+					@submitEnumMember(attributes, modifiers, identifier!?, null, members)
 				}
 			}
 			else if @isAmbiguousIdentifier(result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, null, members, vMode)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, null, members)
 			}
 			else {
 				var mark = @mark()
@@ -1864,7 +1848,7 @@ export namespace Parser {
 				else {
 					@rollback(mark)
 
-					@submitEnumMember(attributes, [], result.identifier!?, null, members, vMode)
+					@submitEnumMember(attributes, [], result.identifier!?, null, members)
 				}
 			}
 		} # }}}
@@ -1936,7 +1920,7 @@ export namespace Parser {
 					// do nothing
 				}
 				else {
-					@reqEnumMember(members, ValueMode::Expression)
+					@reqEnumMember(members)
 				}
 			}
 
@@ -7124,7 +7108,7 @@ export namespace Parser {
 
 			return attributes
 		} # }}}
-		submitEnumMember(attributes: Array, modifiers: Array, identifier: Event, token: Token?, members: Array, vMode: ValueMode): Void ~ SyntaxError { # {{{
+		submitEnumMember(attributes: Array, modifiers: Array, identifier: Event, token: Token?, members: Array): Void ~ SyntaxError { # {{{
 			var first = attributes[0] ?? modifiers[0] ?? identifier
 
 			switch token ?? @match(Token::EQUALS, Token::LEFT_ROUND)  {
@@ -7135,7 +7119,7 @@ export namespace Parser {
 
 					@commit()
 
-					var value = vMode == ValueMode::Expression ? @reqExpression(ExpressionMode::Default, FunctionMode::Function) : @reqNumber()
+					var value = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
 					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, value, first, value))
 

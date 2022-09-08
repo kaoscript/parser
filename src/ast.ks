@@ -444,7 +444,7 @@ namespace AST {
 			}, first)
 		} # }}}
 
-		func BitmaskDeclaration(attributes, modifiers, name, type?, initialValue?, members, first, last) { # {{{
+		func BitmaskDeclaration(attributes, modifiers, name, type?, members, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::BitmaskDeclaration
 				attributes: [attribute.value for attribute in attributes]
@@ -455,9 +455,6 @@ namespace AST {
 
 			if type != null {
 				node.type = type.value
-			}
-			if initialValue != null {
-				node.initialValue = initialValue.value
 			}
 
 			return node

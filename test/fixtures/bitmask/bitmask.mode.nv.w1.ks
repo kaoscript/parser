@@ -1,2 +1,0 @@
-bitmask Mode<,1> {
-}
