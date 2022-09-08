@@ -26,6 +26,25 @@ export namespace Parser {
 		identifier: Event?		= null
 	}
 
+	flagged enum ClassBits {
+		AbstractMethod		 = 1
+		Attribute
+		FinalMethod
+		FinalVariable
+		LateVariable
+		Method
+		NoAssignment
+		NoBody
+		OverrideMethod
+		OverrideProperty
+		OverwriteMethod
+		OverwriteProperty
+		Property
+		Proxy
+		RequiredAssignment
+		Variable
+	}
+
 	flagged enum DestructuringMode {
 		Nil
 
@@ -82,23 +101,9 @@ export namespace Parser {
 		Typing
 	}
 
-	flagged enum ClassBits {
-		AbstractMethod		 = 1
-		Attribute
-		FinalMethod
-		FinalVariable
-		LateVariable
-		Method
-		NoAssignment
-		NoBody
-		OverrideMethod
-		OverrideProperty
-		OverwriteMethod
-		OverwriteProperty
-		Property
-		Proxy
-		RequiredAssignment
-		Variable
+	enum ValueMode {
+		Expression
+		Number
 	}
 
 	var NO = Event(ok: false)
@@ -835,7 +840,7 @@ export namespace Parser {
 					// do nothing
 				}
 				else {
-					@reqEnumMember(members, false)
+					@reqEnumMember(members, ValueMode::Number)
 				}
 			}
 
@@ -1801,16 +1806,16 @@ export namespace Parser {
 				@throw('until', 'while')
 			}
 		} # }}}
-		reqEnumMember(members: Array, allowValue: Boolean): Void ~ SyntaxError { # {{{
+		reqEnumMember(members: Array, vMode: ValueMode): Void ~ SyntaxError { # {{{
 			var attributes = @stackOuterAttributes([])
 			var modifiers = []
 			var result = AmbiguityResult()
 
 			if @isAmbiguousAccessModifierForEnum(modifiers, result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members, allowValue)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members, vMode)
 			}
 			else if @isAmbiguousStaticModifier(modifiers, result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members, allowValue)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members, vMode)
 			}
 			else if @isAmbiguousAsyncModifier(modifiers, result) {
 				var {identifier, token} = result
@@ -1821,11 +1826,11 @@ export namespace Parser {
 					members.push(@reqEnumMethod(attributes, modifiers, identifier!?, first).value)
 				}
 				else {
-					@submitEnumMember(attributes, modifiers, identifier!?, null, members, allowValue)
+					@submitEnumMember(attributes, modifiers, identifier!?, null, members, vMode)
 				}
 			}
 			else if @isAmbiguousIdentifier(result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, null, members, allowValue)
+				@submitEnumMember(attributes, modifiers, result.identifier!?, null, members, vMode)
 			}
 			else {
 				var mark = @mark()
@@ -1859,7 +1864,7 @@ export namespace Parser {
 				else {
 					@rollback(mark)
 
-					@submitEnumMember(attributes, [], result.identifier!?, null, members, allowValue)
+					@submitEnumMember(attributes, [], result.identifier!?, null, members, vMode)
 				}
 			}
 		} # }}}
@@ -1931,7 +1936,7 @@ export namespace Parser {
 					// do nothing
 				}
 				else {
-					@reqEnumMember(members, true)
+					@reqEnumMember(members, ValueMode::Expression)
 				}
 			}
 
@@ -7119,18 +7124,18 @@ export namespace Parser {
 
 			return attributes
 		} # }}}
-		submitEnumMember(attributes: Array, modifiers: Array, identifier: Event, token: Token?, members: Array, allowValue: Boolean): Void ~ SyntaxError { # {{{
+		submitEnumMember(attributes: Array, modifiers: Array, identifier: Event, token: Token?, members: Array, vMode: ValueMode): Void ~ SyntaxError { # {{{
 			var first = attributes[0] ?? modifiers[0] ?? identifier
 
 			switch token ?? @match(Token::EQUALS, Token::LEFT_ROUND)  {
-				Token::EQUALS when allowValue => {
+				Token::EQUALS => {
 					if @mode ~~ ParserMode::Typing {
 						@throw()
 					}
 
 					@commit()
 
-					var value = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
+					var value = vMode == ValueMode::Expression ? @reqExpression(ExpressionMode::Default, FunctionMode::Function) : @reqNumber()
 
 					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, value, first, value))
 
