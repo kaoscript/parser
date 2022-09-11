@@ -1400,6 +1400,49 @@ namespace AST {
 			}, first, first)
 		} # }}}
 
+		func PassStatement(first) { # {{{
+			return location({
+				kind: NodeKind::PassStatement
+				attributes: []
+			}, first, first)
+		} # }}}
+
+		func Parameter(name) { # {{{
+			return location({
+				kind: NodeKind::Parameter
+				attributes: []
+				modifiers: []
+				internal: name.value
+				external: name.value
+			}, name, name)
+		} # }}}
+
+		func Parameter(attributes, modifiers, external?, internal?, type?, operator?, defaultValue?, first, last) { # {{{
+			var node = location({
+				kind: NodeKind::Parameter
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: modifiers
+			}, first, last)
+
+			if external != null {
+				node.external = external.value
+			}
+			if internal != null {
+				node.internal = internal.value
+			}
+			if type != null {
+				node.type = type.value
+			}
+			if operator != null {
+				node.operator = operator.value
+			}
+			if defaultValue != null {
+				node.defaultValue = defaultValue.value
+			}
+
+			return node
+		} # }}}
+
 		func PropertyDeclaration(attributes, modifiers, name, type?, defaultValue?, accessor?, mutator?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::PropertyDeclaration
@@ -1442,42 +1485,6 @@ namespace AST {
 				recipient: recipient.value
 				elements: [element.value for var element in elements]
 			}, first, last)
-		} # }}}
-
-		func Parameter(name) { # {{{
-			return location({
-				kind: NodeKind::Parameter
-				attributes: []
-				modifiers: []
-				internal: name.value
-				external: name.value
-			}, name, name)
-		} # }}}
-
-		func Parameter(attributes, modifiers, external?, internal?, type?, operator?, defaultValue?, first, last) { # {{{
-			var node = location({
-				kind: NodeKind::Parameter
-				attributes: [attribute.value for var attribute in attributes]
-				modifiers: modifiers
-			}, first, last)
-
-			if external != null {
-				node.external = external.value
-			}
-			if internal != null {
-				node.internal = internal.value
-			}
-			if type != null {
-				node.type = type.value
-			}
-			if operator != null {
-				node.operator = operator.value
-			}
-			if defaultValue != null {
-				node.defaultValue = defaultValue.value
-			}
-
-			return node
 		} # }}}
 
 		func RegularExpression(value, first) { # {{{
@@ -1900,9 +1907,9 @@ namespace AST {
 		func VariableDeclaration(attributes, modifiers, variables, operator?, value?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::VariableDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers
-				variables: [variable.value for variable in variables]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
+				variables: [variable.value for var variable in variables]
 			}, first, last)
 
 			if operator != null {
@@ -1915,11 +1922,10 @@ namespace AST {
 			return node
 		} # }}}
 
-		func VariableDeclarator(attributes, modifiers, name, type?, first, last) { # {{{
+		func VariableDeclarator(modifiers, name, type?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::VariableDeclarator
-				attributes: [attribute.value for attribute in attributes]
-				modifiers
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 			}, first, last)
 
@@ -1930,6 +1936,14 @@ namespace AST {
 			return node
 		} # }}}
 
+		func VariableStatement(attributes, declarations, first, last) { # {{{
+			return location({
+				kind: NodeKind::VariableStatement
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declaration.value for var declaration in declarations]
+			}, first, last)
+		} # }}}
+
 		func WhileStatement(condition, body, first, last) { # {{{
 			return location({
 				kind: NodeKind::WhileStatement
@@ -1937,6 +1951,21 @@ namespace AST {
 				condition: condition.value
 				body: body.value
 			}, first, last)
+		} # }}}
+
+		func WithStatement(variables, body, finalizer?, first, last) { # {{{
+			var node = location({
+				kind: NodeKind::WithStatement
+				attributes: []
+				variables: [variable.value for var variable in variables]
+				body: body.value
+			}, first, last)
+
+			if finalizer != null {
+				node.finalizer = finalizer.value
+			}
+
+			return node
 		} # }}}
 	}
 }

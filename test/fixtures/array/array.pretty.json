@@ -3,33 +3,71 @@
   "attributes": [],
   "body": [
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
           "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "a",
-            "start": {
-              "line": 1,
-              "column": 5
-            },
-            "end": {
-              "line": 1,
-              "column": 6
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "a",
+                "start": {
+                  "line": 1,
+                  "column": 5
+                },
+                "end": {
+                  "line": 1,
+                  "column": 6
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 6
+              }
             }
-          },
+          ],
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
-            "line": 1,
-            "column": 6
+            "line": 4,
+            "column": 3
+          },
+          "value": {
+            "kind": 4,
+            "values": [
+              {
+                "kind": 80,
+                "value": 1,
+                "start": {
+                  "line": 3,
+                  "column": 3
+                },
+                "end": {
+                  "line": 3,
+                  "column": 4
+                }
+              }
+            ],
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 3
+            }
           }
         }
       ],
@@ -40,31 +78,6 @@
       "end": {
         "line": 4,
         "column": 3
-      },
-      "value": {
-        "kind": 4,
-        "values": [
-          {
-            "kind": 80,
-            "value": 1,
-            "start": {
-              "line": 3,
-              "column": 3
-            },
-            "end": {
-              "line": 3,
-              "column": 4
-            }
-          }
-        ],
-        "start": {
-          "line": 2,
-          "column": 2
-        },
-        "end": {
-          "line": 4,
-          "column": 3
-        }
       }
     }
   ],

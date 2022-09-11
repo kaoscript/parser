@@ -33,45 +33,70 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 127,
+            "kind": 130,
             "attributes": [],
-            "modifiers": [
-              {
-                "kind": 9,
-                "start": {
-                  "line": 2,
-                  "column": 6
-                },
-                "end": {
-                  "line": 2,
-                  "column": 9
-                }
-              }
-            ],
-            "variables": [
+            "declarations": [
               {
                 "kind": 128,
                 "attributes": [],
-                "modifiers": [],
-                "name": {
-                  "kind": 54,
-                  "name": "bar",
-                  "start": {
-                    "line": 2,
-                    "column": 10
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 13
+                "modifiers": [
+                  {
+                    "kind": 9,
+                    "start": {
+                      "line": 2,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 9
+                    }
                   }
-                },
+                ],
+                "variables": [
+                  {
+                    "kind": 129,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 54,
+                      "name": "bar",
+                      "start": {
+                        "line": 2,
+                        "column": 10
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 13
+                      }
+                    },
+                    "start": {
+                      "line": 2,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 13
+                    }
+                  }
+                ],
                 "start": {
                   "line": 2,
-                  "column": 10
+                  "column": 2
                 },
                 "end": {
                   "line": 2,
-                  "column": 13
+                  "column": 23
+                },
+                "value": {
+                  "kind": 70,
+                  "value": "hello",
+                  "start": {
+                    "line": 2,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 23
+                  }
                 }
               }
             ],
@@ -82,18 +107,6 @@
             "end": {
               "line": 2,
               "column": 23
-            },
-            "value": {
-              "kind": 70,
-              "value": "hello",
-              "start": {
-                "line": 2,
-                "column": 16
-              },
-              "end": {
-                "line": 2,
-                "column": 23
-              }
             }
           }
         ],

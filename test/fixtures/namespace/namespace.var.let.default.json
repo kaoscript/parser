@@ -7,8 +7,7 @@
       "attributes": [],
       "declarations": [
         {
-          "kind": 128,
-          "attributes": [],
+          "kind": 129,
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -59,68 +58,93 @@
       },
       "statements": [
         {
-          "kind": 127,
+          "kind": 130,
           "attributes": [],
-          "modifiers": [
-            {
-              "kind": 9,
-              "start": {
-                "line": 4,
-                "column": 6
-              },
-              "end": {
-                "line": 4,
-                "column": 9
-              }
-            }
-          ],
-          "variables": [
+          "declarations": [
             {
               "kind": 128,
               "attributes": [],
-              "modifiers": [],
-              "name": {
-                "kind": 54,
-                "name": "PI",
-                "start": {
-                  "line": 4,
-                  "column": 10
-                },
-                "end": {
-                  "line": 4,
-                  "column": 12
-                }
-              },
-              "start": {
-                "line": 4,
-                "column": 10
-              },
-              "end": {
-                "line": 4,
-                "column": 20
-              },
-              "type": {
-                "kind": 121,
-                "modifiers": [],
-                "typeName": {
-                  "kind": 54,
-                  "name": "Number",
+              "modifiers": [
+                {
+                  "kind": 15,
                   "start": {
                     "line": 4,
-                    "column": 14
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 9
+                  }
+                }
+              ],
+              "variables": [
+                {
+                  "kind": 129,
+                  "modifiers": [],
+                  "name": {
+                    "kind": 54,
+                    "name": "PI",
+                    "start": {
+                      "line": 4,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 12
+                    }
+                  },
+                  "start": {
+                    "line": 4,
+                    "column": 10
                   },
                   "end": {
                     "line": 4,
                     "column": 20
+                  },
+                  "type": {
+                    "kind": 122,
+                    "modifiers": [],
+                    "typeName": {
+                      "kind": 54,
+                      "name": "Number",
+                      "start": {
+                        "line": 4,
+                        "column": 14
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 20
+                      }
+                    },
+                    "start": {
+                      "line": 4,
+                      "column": 14
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 20
+                    }
                   }
-                },
+                }
+              ],
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 27
+              },
+              "value": {
+                "kind": 80,
+                "value": 3.14,
                 "start": {
                   "line": 4,
-                  "column": 14
+                  "column": 23
                 },
                 "end": {
                   "line": 4,
-                  "column": 20
+                  "column": 27
                 }
               }
             }
@@ -132,83 +156,96 @@
           "end": {
             "line": 4,
             "column": 27
-          },
-          "value": {
-            "kind": 80,
-            "value": 3.14,
-            "start": {
-              "line": 4,
-              "column": 23
-            },
-            "end": {
-              "line": 4,
-              "column": 27
-            }
           }
         },
         {
-          "kind": 127,
+          "kind": 130,
           "attributes": [],
-          "modifiers": [
-            {
-              "kind": 9,
-              "start": {
-                "line": 5,
-                "column": 6
-              },
-              "end": {
-                "line": 5,
-                "column": 9
-              }
-            }
-          ],
-          "variables": [
+          "declarations": [
             {
               "kind": 128,
               "attributes": [],
-              "modifiers": [],
-              "name": {
-                "kind": 54,
-                "name": "name",
-                "start": {
-                  "line": 5,
-                  "column": 10
-                },
-                "end": {
-                  "line": 5,
-                  "column": 14
-                }
-              },
-              "start": {
-                "line": 5,
-                "column": 10
-              },
-              "end": {
-                "line": 5,
-                "column": 22
-              },
-              "type": {
-                "kind": 121,
-                "modifiers": [],
-                "typeName": {
-                  "kind": 54,
-                  "name": "String",
+              "modifiers": [
+                {
+                  "kind": 15,
                   "start": {
                     "line": 5,
-                    "column": 16
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 9
+                  }
+                }
+              ],
+              "variables": [
+                {
+                  "kind": 129,
+                  "modifiers": [],
+                  "name": {
+                    "kind": 54,
+                    "name": "name",
+                    "start": {
+                      "line": 5,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 14
+                    }
+                  },
+                  "start": {
+                    "line": 5,
+                    "column": 10
                   },
                   "end": {
                     "line": 5,
                     "column": 22
+                  },
+                  "type": {
+                    "kind": 122,
+                    "modifiers": [],
+                    "typeName": {
+                      "kind": 54,
+                      "name": "String",
+                      "start": {
+                        "line": 5,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 22
+                      }
+                    },
+                    "start": {
+                      "line": 5,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 22
+                    }
                   }
-                },
+                }
+              ],
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 31
+              },
+              "value": {
+                "kind": 70,
+                "value": "john",
                 "start": {
                   "line": 5,
-                  "column": 16
+                  "column": 25
                 },
                 "end": {
                   "line": 5,
-                  "column": 22
+                  "column": 31
                 }
               }
             }
@@ -220,18 +257,6 @@
           "end": {
             "line": 5,
             "column": 31
-          },
-          "value": {
-            "kind": 70,
-            "value": "john",
-            "start": {
-              "line": 5,
-              "column": 25
-            },
-            "end": {
-              "line": 5,
-              "column": 31
-            }
           }
         }
       ],
@@ -378,7 +403,7 @@
       },
       "arguments": [
         {
-          "kind": 112,
+          "kind": 113,
           "elements": [
             {
               "kind": 73,

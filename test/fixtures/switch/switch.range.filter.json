@@ -3,45 +3,70 @@
   "attributes": [],
   "body": [
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 9,
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 1,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "temperature",
-            "start": {
-              "line": 1,
-              "column": 9
-            },
-            "end": {
-              "line": 1,
-              "column": 20
+          "modifiers": [
+            {
+              "kind": 9,
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 8
+              }
             }
-          },
+          ],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "temperature",
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 20
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            }
+          ],
           "start": {
             "line": 1,
-            "column": 9
+            "column": 1
           },
           "end": {
             "line": 1,
-            "column": 20
+            "column": 25
+          },
+          "value": {
+            "kind": 80,
+            "value": 54,
+            "start": {
+              "line": 1,
+              "column": 23
+            },
+            "end": {
+              "line": 1,
+              "column": 25
+            }
           }
         }
       ],
@@ -52,22 +77,10 @@
       "end": {
         "line": 1,
         "column": 25
-      },
-      "value": {
-        "kind": 80,
-        "value": 54,
-        "start": {
-          "line": 1,
-          "column": 23
-        },
-        "end": {
-          "line": 1,
-          "column": 25
-        }
       }
     },
     {
-      "kind": 109,
+      "kind": 110,
       "attributes": [],
       "expression": {
         "kind": 54,
@@ -83,7 +96,7 @@
       },
       "clauses": [
         {
-          "kind": 102,
+          "kind": 103,
           "body": {
             "kind": 16,
             "modifiers": [],
@@ -159,7 +172,7 @@
           },
           "conditions": [
             {
-              "kind": 106,
+              "kind": 107,
               "from": {
                 "kind": 80,
                 "value": 0,
@@ -281,7 +294,7 @@
           }
         },
         {
-          "kind": 102,
+          "kind": 103,
           "body": {
             "kind": 16,
             "modifiers": [],
@@ -357,7 +370,7 @@
           },
           "conditions": [
             {
-              "kind": 106,
+              "kind": 107,
               "from": {
                 "kind": 80,
                 "value": 50,
@@ -479,7 +492,7 @@
           }
         },
         {
-          "kind": 102,
+          "kind": 103,
           "body": {
             "kind": 16,
             "modifiers": [],
@@ -555,7 +568,7 @@
           },
           "conditions": [
             {
-              "kind": 106,
+              "kind": 107,
               "from": {
                 "kind": 80,
                 "value": 80,
@@ -677,7 +690,7 @@
           }
         },
         {
-          "kind": 102,
+          "kind": 103,
           "body": {
             "kind": 16,
             "modifiers": [],

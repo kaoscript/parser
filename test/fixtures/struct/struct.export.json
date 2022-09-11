@@ -9,7 +9,7 @@
         {
           "kind": 37,
           "declaration": {
-            "kind": 99,
+            "kind": 100,
             "attributes": [],
             "modifiers": [],
             "name": {
@@ -26,7 +26,7 @@
             },
             "fields": [
               {
-                "kind": 100,
+                "kind": 101,
                 "attributes": [],
                 "modifiers": [],
                 "name": {
@@ -50,7 +50,7 @@
                   "column": 14
                 },
                 "type": {
-                  "kind": 121,
+                  "kind": 122,
                   "modifiers": [],
                   "typeName": {
                     "kind": 54,
@@ -75,7 +75,7 @@
                 }
               },
               {
-                "kind": 100,
+                "kind": 101,
                 "attributes": [],
                 "modifiers": [],
                 "name": {
@@ -99,7 +99,7 @@
                   "column": 14
                 },
                 "type": {
-                  "kind": 121,
+                  "kind": 122,
                   "modifiers": [],
                   "typeName": {
                     "kind": 54,
@@ -153,45 +153,111 @@
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 9,
-          "start": {
-            "line": 6,
-            "column": 5
-          },
-          "end": {
-            "line": 6,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "point",
-            "start": {
-              "line": 6,
-              "column": 9
-            },
-            "end": {
-              "line": 6,
-              "column": 14
+          "modifiers": [
+            {
+              "kind": 9,
+              "start": {
+                "line": 6,
+                "column": 5
+              },
+              "end": {
+                "line": 6,
+                "column": 8
+              }
             }
-          },
+          ],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "point",
+                "start": {
+                  "line": 6,
+                  "column": 9
+                },
+                "end": {
+                  "line": 6,
+                  "column": 14
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 9
+              },
+              "end": {
+                "line": 6,
+                "column": 14
+              }
+            }
+          ],
           "start": {
             "line": 6,
-            "column": 9
+            "column": 1
           },
           "end": {
             "line": 6,
-            "column": 14
+            "column": 32
+          },
+          "value": {
+            "kind": 16,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 54,
+              "name": "Point",
+              "start": {
+                "line": 6,
+                "column": 17
+              },
+              "end": {
+                "line": 6,
+                "column": 22
+              }
+            },
+            "arguments": [
+              {
+                "kind": 80,
+                "value": 0.3,
+                "start": {
+                  "line": 6,
+                  "column": 23
+                },
+                "end": {
+                  "line": 6,
+                  "column": 26
+                }
+              },
+              {
+                "kind": 80,
+                "value": 0.4,
+                "start": {
+                  "line": 6,
+                  "column": 28
+                },
+                "end": {
+                  "line": 6,
+                  "column": 31
+                }
+              }
+            ],
+            "start": {
+              "line": 6,
+              "column": 17
+            },
+            "end": {
+              "line": 6,
+              "column": 32
+            }
           }
         }
       ],
@@ -202,59 +268,6 @@
       "end": {
         "line": 6,
         "column": 32
-      },
-      "value": {
-        "kind": 16,
-        "modifiers": [],
-        "scope": {
-          "kind": 3
-        },
-        "callee": {
-          "kind": 54,
-          "name": "Point",
-          "start": {
-            "line": 6,
-            "column": 17
-          },
-          "end": {
-            "line": 6,
-            "column": 22
-          }
-        },
-        "arguments": [
-          {
-            "kind": 80,
-            "value": 0.3,
-            "start": {
-              "line": 6,
-              "column": 23
-            },
-            "end": {
-              "line": 6,
-              "column": 26
-            }
-          },
-          {
-            "kind": 80,
-            "value": 0.4,
-            "start": {
-              "line": 6,
-              "column": 28
-            },
-            "end": {
-              "line": 6,
-              "column": 31
-            }
-          }
-        ],
-        "start": {
-          "line": 6,
-          "column": 17
-        },
-        "end": {
-          "line": 6,
-          "column": 32
-        }
       }
     },
     {

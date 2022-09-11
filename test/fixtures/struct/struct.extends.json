@@ -3,7 +3,7 @@
   "attributes": [],
   "body": [
     {
-      "kind": 99,
+      "kind": 100,
       "attributes": [],
       "modifiers": [],
       "name": {
@@ -20,7 +20,7 @@
       },
       "fields": [
         {
-          "kind": 100,
+          "kind": 101,
           "attributes": [],
           "modifiers": [],
           "name": {
@@ -44,7 +44,7 @@
             "column": 14
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -69,7 +69,7 @@
           }
         },
         {
-          "kind": 100,
+          "kind": 101,
           "attributes": [],
           "modifiers": [],
           "name": {
@@ -93,7 +93,7 @@
             "column": 14
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -128,7 +128,7 @@
       }
     },
     {
-      "kind": 99,
+      "kind": 100,
       "attributes": [],
       "modifiers": [],
       "name": {
@@ -145,7 +145,7 @@
       },
       "fields": [
         {
-          "kind": 100,
+          "kind": 101,
           "attributes": [],
           "modifiers": [],
           "name": {
@@ -169,7 +169,7 @@
             "column": 11
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -216,45 +216,123 @@
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 9,
-          "start": {
-            "line": 10,
-            "column": 5
-          },
-          "end": {
-            "line": 10,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "point",
-            "start": {
-              "line": 10,
-              "column": 9
-            },
-            "end": {
-              "line": 10,
-              "column": 14
+          "modifiers": [
+            {
+              "kind": 9,
+              "start": {
+                "line": 10,
+                "column": 5
+              },
+              "end": {
+                "line": 10,
+                "column": 8
+              }
             }
-          },
+          ],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "point",
+                "start": {
+                  "line": 10,
+                  "column": 9
+                },
+                "end": {
+                  "line": 10,
+                  "column": 14
+                }
+              },
+              "start": {
+                "line": 10,
+                "column": 9
+              },
+              "end": {
+                "line": 10,
+                "column": 14
+              }
+            }
+          ],
           "start": {
             "line": 10,
-            "column": 9
+            "column": 1
           },
           "end": {
             "line": 10,
-            "column": 14
+            "column": 39
+          },
+          "value": {
+            "kind": 16,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 54,
+              "name": "Point3D",
+              "start": {
+                "line": 10,
+                "column": 17
+              },
+              "end": {
+                "line": 10,
+                "column": 24
+              }
+            },
+            "arguments": [
+              {
+                "kind": 80,
+                "value": 0.3,
+                "start": {
+                  "line": 10,
+                  "column": 25
+                },
+                "end": {
+                  "line": 10,
+                  "column": 28
+                }
+              },
+              {
+                "kind": 80,
+                "value": 0.4,
+                "start": {
+                  "line": 10,
+                  "column": 30
+                },
+                "end": {
+                  "line": 10,
+                  "column": 33
+                }
+              },
+              {
+                "kind": 80,
+                "value": 0.5,
+                "start": {
+                  "line": 10,
+                  "column": 35
+                },
+                "end": {
+                  "line": 10,
+                  "column": 38
+                }
+              }
+            ],
+            "start": {
+              "line": 10,
+              "column": 17
+            },
+            "end": {
+              "line": 10,
+              "column": 39
+            }
           }
         }
       ],
@@ -265,71 +343,6 @@
       "end": {
         "line": 10,
         "column": 39
-      },
-      "value": {
-        "kind": 16,
-        "modifiers": [],
-        "scope": {
-          "kind": 3
-        },
-        "callee": {
-          "kind": 54,
-          "name": "Point3D",
-          "start": {
-            "line": 10,
-            "column": 17
-          },
-          "end": {
-            "line": 10,
-            "column": 24
-          }
-        },
-        "arguments": [
-          {
-            "kind": 80,
-            "value": 0.3,
-            "start": {
-              "line": 10,
-              "column": 25
-            },
-            "end": {
-              "line": 10,
-              "column": 28
-            }
-          },
-          {
-            "kind": 80,
-            "value": 0.4,
-            "start": {
-              "line": 10,
-              "column": 30
-            },
-            "end": {
-              "line": 10,
-              "column": 33
-            }
-          },
-          {
-            "kind": 80,
-            "value": 0.5,
-            "start": {
-              "line": 10,
-              "column": 35
-            },
-            "end": {
-              "line": 10,
-              "column": 38
-            }
-          }
-        ],
-        "start": {
-          "line": 10,
-          "column": 17
-        },
-        "end": {
-          "line": 10,
-          "column": 39
-        }
       }
     },
     {

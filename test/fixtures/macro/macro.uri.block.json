@@ -84,7 +84,7 @@
                 }
               },
               "type": {
-                "kind": 121,
+                "kind": 122,
                 "modifiers": [],
                 "typeName": {
                   "kind": 54,
@@ -157,7 +157,7 @@
                 }
               },
               "type": {
-                "kind": 121,
+                "kind": 122,
                 "modifiers": [],
                 "typeName": {
                   "kind": 54,
@@ -251,33 +251,251 @@
                 }
               },
               {
-                "kind": 127,
+                "kind": 130,
                 "attributes": [],
-                "modifiers": [],
-                "variables": [
+                "declarations": [
                   {
                     "kind": 128,
                     "attributes": [],
                     "modifiers": [],
-                    "name": {
-                      "kind": 54,
-                      "name": "name",
-                      "start": {
-                        "line": 6,
-                        "column": 8
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 12
+                    "variables": [
+                      {
+                        "kind": 129,
+                        "modifiers": [],
+                        "name": {
+                          "kind": 54,
+                          "name": "name",
+                          "start": {
+                            "line": 6,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 12
+                          }
+                        },
+                        "start": {
+                          "line": 6,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 12
+                        }
                       }
-                    },
+                    ],
                     "start": {
                       "line": 6,
                       "column": 8
                     },
                     "end": {
                       "line": 6,
-                      "column": 12
+                      "column": 78
+                    },
+                    "value": {
+                      "kind": 113,
+                      "elements": [
+                        {
+                          "kind": 16,
+                          "modifiers": [],
+                          "scope": {
+                            "kind": 3
+                          },
+                          "callee": {
+                            "kind": 73,
+                            "modifiers": [],
+                            "object": {
+                              "kind": 73,
+                              "modifiers": [
+                                {
+                                  "kind": 5,
+                                  "start": {
+                                    "line": 6,
+                                    "column": 24
+                                  },
+                                  "end": {
+                                    "line": 6,
+                                    "column": 25
+                                  }
+                                }
+                              ],
+                              "object": {
+                                "kind": 54,
+                                "name": "scheme",
+                                "start": {
+                                  "line": 6,
+                                  "column": 18
+                                },
+                                "end": {
+                                  "line": 6,
+                                  "column": 24
+                                }
+                              },
+                              "property": {
+                                "kind": 80,
+                                "value": 0,
+                                "start": {
+                                  "line": 6,
+                                  "column": 25
+                                },
+                                "end": {
+                                  "line": 6,
+                                  "column": 26
+                                }
+                              },
+                              "start": {
+                                "line": 6,
+                                "column": 18
+                              },
+                              "end": {
+                                "line": 6,
+                                "column": 27
+                              }
+                            },
+                            "property": {
+                              "kind": 54,
+                              "name": "toUpperCase",
+                              "start": {
+                                "line": 6,
+                                "column": 28
+                              },
+                              "end": {
+                                "line": 6,
+                                "column": 39
+                              }
+                            },
+                            "start": {
+                              "line": 6,
+                              "column": 18
+                            },
+                            "end": {
+                              "line": 6,
+                              "column": 39
+                            }
+                          },
+                          "arguments": [],
+                          "start": {
+                            "line": 6,
+                            "column": 18
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 41
+                          }
+                        },
+                        {
+                          "kind": 16,
+                          "modifiers": [],
+                          "scope": {
+                            "kind": 3
+                          },
+                          "callee": {
+                            "kind": 73,
+                            "modifiers": [],
+                            "object": {
+                              "kind": 16,
+                              "modifiers": [],
+                              "scope": {
+                                "kind": 3
+                              },
+                              "callee": {
+                                "kind": 73,
+                                "modifiers": [],
+                                "object": {
+                                  "kind": 54,
+                                  "name": "scheme",
+                                  "start": {
+                                    "line": 6,
+                                    "column": 44
+                                  },
+                                  "end": {
+                                    "line": 6,
+                                    "column": 50
+                                  }
+                                },
+                                "property": {
+                                  "kind": 54,
+                                  "name": "substr",
+                                  "start": {
+                                    "line": 6,
+                                    "column": 51
+                                  },
+                                  "end": {
+                                    "line": 6,
+                                    "column": 57
+                                  }
+                                },
+                                "start": {
+                                  "line": 6,
+                                  "column": 44
+                                },
+                                "end": {
+                                  "line": 6,
+                                  "column": 57
+                                }
+                              },
+                              "arguments": [],
+                              "start": {
+                                "line": 6,
+                                "column": 44
+                              },
+                              "end": {
+                                "line": 6,
+                                "column": 59
+                              }
+                            },
+                            "property": {
+                              "kind": 54,
+                              "name": "toLowerCase",
+                              "start": {
+                                "line": 6,
+                                "column": 60
+                              },
+                              "end": {
+                                "line": 6,
+                                "column": 71
+                              }
+                            },
+                            "start": {
+                              "line": 6,
+                              "column": 44
+                            },
+                            "end": {
+                              "line": 6,
+                              "column": 71
+                            }
+                          },
+                          "arguments": [],
+                          "start": {
+                            "line": 6,
+                            "column": 44
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 73
+                          }
+                        },
+                        {
+                          "kind": 70,
+                          "value": "URI",
+                          "start": {
+                            "line": 6,
+                            "column": 74
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 77
+                          }
+                        }
+                      ],
+                      "start": {
+                        "line": 6,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 78
+                      }
                     }
                   }
                 ],
@@ -288,211 +506,6 @@
                 "end": {
                   "line": 6,
                   "column": 78
-                },
-                "value": {
-                  "kind": 112,
-                  "elements": [
-                    {
-                      "kind": 16,
-                      "modifiers": [],
-                      "scope": {
-                        "kind": 3
-                      },
-                      "callee": {
-                        "kind": 73,
-                        "modifiers": [],
-                        "object": {
-                          "kind": 73,
-                          "modifiers": [
-                            {
-                              "kind": 5,
-                              "start": {
-                                "line": 6,
-                                "column": 24
-                              },
-                              "end": {
-                                "line": 6,
-                                "column": 25
-                              }
-                            }
-                          ],
-                          "object": {
-                            "kind": 54,
-                            "name": "scheme",
-                            "start": {
-                              "line": 6,
-                              "column": 18
-                            },
-                            "end": {
-                              "line": 6,
-                              "column": 24
-                            }
-                          },
-                          "property": {
-                            "kind": 80,
-                            "value": 0,
-                            "start": {
-                              "line": 6,
-                              "column": 25
-                            },
-                            "end": {
-                              "line": 6,
-                              "column": 26
-                            }
-                          },
-                          "start": {
-                            "line": 6,
-                            "column": 18
-                          },
-                          "end": {
-                            "line": 6,
-                            "column": 27
-                          }
-                        },
-                        "property": {
-                          "kind": 54,
-                          "name": "toUpperCase",
-                          "start": {
-                            "line": 6,
-                            "column": 28
-                          },
-                          "end": {
-                            "line": 6,
-                            "column": 39
-                          }
-                        },
-                        "start": {
-                          "line": 6,
-                          "column": 18
-                        },
-                        "end": {
-                          "line": 6,
-                          "column": 39
-                        }
-                      },
-                      "arguments": [],
-                      "start": {
-                        "line": 6,
-                        "column": 18
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 41
-                      }
-                    },
-                    {
-                      "kind": 16,
-                      "modifiers": [],
-                      "scope": {
-                        "kind": 3
-                      },
-                      "callee": {
-                        "kind": 73,
-                        "modifiers": [],
-                        "object": {
-                          "kind": 16,
-                          "modifiers": [],
-                          "scope": {
-                            "kind": 3
-                          },
-                          "callee": {
-                            "kind": 73,
-                            "modifiers": [],
-                            "object": {
-                              "kind": 54,
-                              "name": "scheme",
-                              "start": {
-                                "line": 6,
-                                "column": 44
-                              },
-                              "end": {
-                                "line": 6,
-                                "column": 50
-                              }
-                            },
-                            "property": {
-                              "kind": 54,
-                              "name": "substr",
-                              "start": {
-                                "line": 6,
-                                "column": 51
-                              },
-                              "end": {
-                                "line": 6,
-                                "column": 57
-                              }
-                            },
-                            "start": {
-                              "line": 6,
-                              "column": 44
-                            },
-                            "end": {
-                              "line": 6,
-                              "column": 57
-                            }
-                          },
-                          "arguments": [],
-                          "start": {
-                            "line": 6,
-                            "column": 44
-                          },
-                          "end": {
-                            "line": 6,
-                            "column": 59
-                          }
-                        },
-                        "property": {
-                          "kind": 54,
-                          "name": "toLowerCase",
-                          "start": {
-                            "line": 6,
-                            "column": 60
-                          },
-                          "end": {
-                            "line": 6,
-                            "column": 71
-                          }
-                        },
-                        "start": {
-                          "line": 6,
-                          "column": 44
-                        },
-                        "end": {
-                          "line": 6,
-                          "column": 71
-                        }
-                      },
-                      "arguments": [],
-                      "start": {
-                        "line": 6,
-                        "column": 44
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 73
-                      }
-                    },
-                    {
-                      "kind": 70,
-                      "value": "URI",
-                      "start": {
-                        "line": 6,
-                        "column": 74
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 77
-                      }
-                    }
-                  ],
-                  "start": {
-                    "line": 6,
-                    "column": 15
-                  },
-                  "end": {
-                    "line": 6,
-                    "column": 78
-                  }
                 }
               },
               {

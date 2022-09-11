@@ -1,0 +1,1 @@
+var late a, b, c = 42

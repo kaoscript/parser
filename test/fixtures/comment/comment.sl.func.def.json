@@ -33,33 +33,58 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 127,
+            "kind": 130,
             "attributes": [],
-            "modifiers": [],
-            "variables": [
+            "declarations": [
               {
                 "kind": 128,
                 "attributes": [],
                 "modifiers": [],
-                "name": {
-                  "kind": 54,
-                  "name": "foo",
-                  "start": {
-                    "line": 3,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 9
+                "variables": [
+                  {
+                    "kind": 129,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 54,
+                      "name": "foo",
+                      "start": {
+                        "line": 3,
+                        "column": 6
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 9
+                      }
+                    },
+                    "start": {
+                      "line": 3,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 9
+                    }
                   }
-                },
+                ],
                 "start": {
                   "line": 3,
                   "column": 6
                 },
                 "end": {
                   "line": 3,
-                  "column": 9
+                  "column": 14
+                },
+                "value": {
+                  "kind": 80,
+                  "value": 42,
+                  "start": {
+                    "line": 3,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 14
+                  }
                 }
               }
             ],
@@ -70,48 +95,61 @@
             "end": {
               "line": 3,
               "column": 14
-            },
-            "value": {
-              "kind": 80,
-              "value": 42,
-              "start": {
-                "line": 3,
-                "column": 12
-              },
-              "end": {
-                "line": 3,
-                "column": 14
-              }
             }
           },
           {
-            "kind": 127,
+            "kind": 130,
             "attributes": [],
-            "modifiers": [],
-            "variables": [
+            "declarations": [
               {
                 "kind": 128,
                 "attributes": [],
                 "modifiers": [],
-                "name": {
-                  "kind": 54,
-                  "name": "bar",
-                  "start": {
-                    "line": 5,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 5,
-                    "column": 9
+                "variables": [
+                  {
+                    "kind": 129,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 54,
+                      "name": "bar",
+                      "start": {
+                        "line": 5,
+                        "column": 6
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 9
+                      }
+                    },
+                    "start": {
+                      "line": 5,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 9
+                    }
                   }
-                },
+                ],
                 "start": {
                   "line": 5,
                   "column": 6
                 },
                 "end": {
                   "line": 5,
-                  "column": 9
+                  "column": 14
+                },
+                "value": {
+                  "kind": 80,
+                  "value": 24,
+                  "start": {
+                    "line": 5,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 14
+                  }
                 }
               }
             ],
@@ -122,18 +160,6 @@
             "end": {
               "line": 5,
               "column": 14
-            },
-            "value": {
-              "kind": 80,
-              "value": 24,
-              "start": {
-                "line": 5,
-                "column": 12
-              },
-              "end": {
-                "line": 5,
-                "column": 14
-              }
             }
           }
         ],

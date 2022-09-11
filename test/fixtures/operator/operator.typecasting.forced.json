@@ -63,7 +63,7 @@
             }
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -95,33 +95,117 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 127,
+            "kind": 130,
             "attributes": [],
-            "modifiers": [],
-            "variables": [
+            "declarations": [
               {
                 "kind": 128,
                 "attributes": [],
                 "modifiers": [],
-                "name": {
-                  "kind": 54,
-                  "name": "d3",
-                  "start": {
-                    "line": 2,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 8
+                "variables": [
+                  {
+                    "kind": 129,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 54,
+                      "name": "d3",
+                      "start": {
+                        "line": 2,
+                        "column": 6
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 8
+                      }
+                    },
+                    "start": {
+                      "line": 2,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 8
+                    }
                   }
-                },
+                ],
                 "start": {
                   "line": 2,
                   "column": 6
                 },
                 "end": {
                   "line": 2,
-                  "column": 8
+                  "column": 24
+                },
+                "value": {
+                  "kind": 11,
+                  "operator": {
+                    "kind": 23,
+                    "modifiers": [
+                      {
+                        "kind": 10,
+                        "start": {
+                          "line": 2,
+                          "column": 13
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 16
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 2,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 16
+                    }
+                  },
+                  "start": {
+                    "line": 2,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 24
+                  },
+                  "left": {
+                    "kind": 54,
+                    "name": "p",
+                    "start": {
+                      "line": 2,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 12
+                    }
+                  },
+                  "right": {
+                    "kind": 122,
+                    "modifiers": [],
+                    "typeName": {
+                      "kind": 54,
+                      "name": "Point3D",
+                      "start": {
+                        "line": 2,
+                        "column": 17
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 24
+                      }
+                    },
+                    "start": {
+                      "line": 2,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 24
+                    }
+                  }
                 }
               }
             ],
@@ -132,77 +216,6 @@
             "end": {
               "line": 2,
               "column": 24
-            },
-            "value": {
-              "kind": 11,
-              "operator": {
-                "kind": 23,
-                "modifiers": [
-                  {
-                    "kind": 10,
-                    "start": {
-                      "line": 2,
-                      "column": 13
-                    },
-                    "end": {
-                      "line": 2,
-                      "column": 16
-                    }
-                  }
-                ],
-                "start": {
-                  "line": 2,
-                  "column": 13
-                },
-                "end": {
-                  "line": 2,
-                  "column": 16
-                }
-              },
-              "start": {
-                "line": 2,
-                "column": 11
-              },
-              "end": {
-                "line": 2,
-                "column": 24
-              },
-              "left": {
-                "kind": 54,
-                "name": "p",
-                "start": {
-                  "line": 2,
-                  "column": 11
-                },
-                "end": {
-                  "line": 2,
-                  "column": 12
-                }
-              },
-              "right": {
-                "kind": 121,
-                "modifiers": [],
-                "typeName": {
-                  "kind": 54,
-                  "name": "Point3D",
-                  "start": {
-                    "line": 2,
-                    "column": 17
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 24
-                  }
-                },
-                "start": {
-                  "line": 2,
-                  "column": 17
-                },
-                "end": {
-                  "line": 2,
-                  "column": 24
-                }
-              }
             }
           }
         ],

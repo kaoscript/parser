@@ -56,7 +56,7 @@
             "column": 24
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -229,7 +229,7 @@
                 }
               },
               "type": {
-                "kind": 121,
+                "kind": 122,
                 "modifiers": [],
                 "typeName": {
                   "kind": 54,
@@ -404,7 +404,7 @@
                 }
               },
               "type": {
-                "kind": 121,
+                "kind": 122,
                 "modifiers": [],
                 "typeName": {
                   "kind": 54,
@@ -438,7 +438,7 @@
             "column": 3
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -467,10 +467,10 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 95,
+                "kind": 96,
                 "attributes": [],
                 "value": {
-                  "kind": 87,
+                  "kind": 88,
                   "operator": {
                     "kind": 1,
                     "modifiers": [],
@@ -597,33 +597,83 @@
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
           "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "hello",
-            "start": {
-              "line": 19,
-              "column": 5
-            },
-            "end": {
-              "line": 19,
-              "column": 10
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "hello",
+                "start": {
+                  "line": 19,
+                  "column": 5
+                },
+                "end": {
+                  "line": 19,
+                  "column": 10
+                }
+              },
+              "start": {
+                "line": 19,
+                "column": 5
+              },
+              "end": {
+                "line": 19,
+                "column": 10
+              }
             }
-          },
+          ],
           "start": {
             "line": 19,
             "column": 5
           },
           "end": {
             "line": 19,
-            "column": 10
+            "column": 42
+          },
+          "value": {
+            "kind": 27,
+            "class": {
+              "kind": 54,
+              "name": "Greetings",
+              "start": {
+                "line": 19,
+                "column": 17
+              },
+              "end": {
+                "line": 19,
+                "column": 26
+              }
+            },
+            "arguments": [
+              {
+                "kind": 70,
+                "value": "Hello world!",
+                "start": {
+                  "line": 19,
+                  "column": 27
+                },
+                "end": {
+                  "line": 19,
+                  "column": 41
+                }
+              }
+            ],
+            "start": {
+              "line": 19,
+              "column": 13
+            },
+            "end": {
+              "line": 19,
+              "column": 42
+            }
           }
         }
       ],
@@ -634,43 +684,6 @@
       "end": {
         "line": 19,
         "column": 42
-      },
-      "value": {
-        "kind": 27,
-        "class": {
-          "kind": 54,
-          "name": "Greetings",
-          "start": {
-            "line": 19,
-            "column": 17
-          },
-          "end": {
-            "line": 19,
-            "column": 26
-          }
-        },
-        "arguments": [
-          {
-            "kind": 70,
-            "value": "Hello world!",
-            "start": {
-              "line": 19,
-              "column": 27
-            },
-            "end": {
-              "line": 19,
-              "column": 41
-            }
-          }
-        ],
-        "start": {
-          "line": 19,
-          "column": 13
-        },
-        "end": {
-          "line": 19,
-          "column": 42
-        }
       }
     },
     {

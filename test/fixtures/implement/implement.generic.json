@@ -43,95 +43,157 @@
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
+      "declarations": [
         {
-          "kind": 9,
+          "kind": 128,
+          "attributes": [],
+          "modifiers": [],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "a",
+                "start": {
+                  "line": 3,
+                  "column": 5
+                },
+                "end": {
+                  "line": 3,
+                  "column": 6
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 5
+              },
+              "end": {
+                "line": 3,
+                "column": 22
+              },
+              "type": {
+                "kind": 122,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 54,
+                  "name": "Array",
+                  "start": {
+                    "line": 3,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 14
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
+                  "column": 22
+                },
+                "typeParameters": [
+                  {
+                    "kind": 122,
+                    "modifiers": [],
+                    "typeName": {
+                      "kind": 54,
+                      "name": "number",
+                      "start": {
+                        "line": 3,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 21
+                      }
+                    },
+                    "start": {
+                      "line": 3,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 21
+                    }
+                  }
+                ]
+              }
+            }
+          ],
           "start": {
             "line": 3,
             "column": 5
           },
           "end": {
             "line": 3,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
-        {
-          "kind": 128,
-          "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "a",
-            "start": {
-              "line": 3,
-              "column": 9
-            },
-            "end": {
-              "line": 3,
-              "column": 10
-            }
+            "column": 37
           },
-          "start": {
-            "line": 3,
-            "column": 9
-          },
-          "end": {
-            "line": 3,
-            "column": 26
-          },
-          "type": {
-            "kind": 121,
-            "modifiers": [],
-            "typeName": {
-              "kind": 54,
-              "name": "Array",
-              "start": {
-                "line": 3,
-                "column": 13
-              },
-              "end": {
-                "line": 3,
-                "column": 18
-              }
-            },
-            "start": {
-              "line": 3,
-              "column": 13
-            },
-            "end": {
-              "line": 3,
-              "column": 26
-            },
-            "typeParameters": [
+          "value": {
+            "kind": 4,
+            "values": [
               {
-                "kind": 121,
-                "modifiers": [],
-                "typeName": {
-                  "kind": 54,
-                  "name": "number",
-                  "start": {
-                    "line": 3,
-                    "column": 19
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 25
-                  }
-                },
+                "kind": 80,
+                "value": 1,
                 "start": {
                   "line": 3,
-                  "column": 19
+                  "column": 26
                 },
                 "end": {
                   "line": 3,
-                  "column": 25
+                  "column": 27
+                }
+              },
+              {
+                "kind": 80,
+                "value": 3,
+                "start": {
+                  "line": 3,
+                  "column": 29
+                },
+                "end": {
+                  "line": 3,
+                  "column": 30
+                }
+              },
+              {
+                "kind": 80,
+                "value": 2,
+                "start": {
+                  "line": 3,
+                  "column": 32
+                },
+                "end": {
+                  "line": 3,
+                  "column": 33
+                }
+              },
+              {
+                "kind": 80,
+                "value": 4,
+                "start": {
+                  "line": 3,
+                  "column": 35
+                },
+                "end": {
+                  "line": 3,
+                  "column": 36
                 }
               }
-            ]
+            ],
+            "start": {
+              "line": 3,
+              "column": 25
+            },
+            "end": {
+              "line": 3,
+              "column": 37
+            }
           }
         }
       ],
@@ -141,68 +203,7 @@
       },
       "end": {
         "line": 3,
-        "column": 41
-      },
-      "value": {
-        "kind": 4,
-        "values": [
-          {
-            "kind": 80,
-            "value": 1,
-            "start": {
-              "line": 3,
-              "column": 30
-            },
-            "end": {
-              "line": 3,
-              "column": 31
-            }
-          },
-          {
-            "kind": 80,
-            "value": 3,
-            "start": {
-              "line": 3,
-              "column": 33
-            },
-            "end": {
-              "line": 3,
-              "column": 34
-            }
-          },
-          {
-            "kind": 80,
-            "value": 2,
-            "start": {
-              "line": 3,
-              "column": 36
-            },
-            "end": {
-              "line": 3,
-              "column": 37
-            }
-          },
-          {
-            "kind": 80,
-            "value": 4,
-            "start": {
-              "line": 3,
-              "column": 39
-            },
-            "end": {
-              "line": 3,
-              "column": 40
-            }
-          }
-        ],
-        "start": {
-          "line": 3,
-          "column": 29
-        },
-        "end": {
-          "line": 3,
-          "column": 41
-        }
+        "column": 37
       }
     },
     {
@@ -313,7 +314,7 @@
             "column": 64
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -337,7 +338,7 @@
             },
             "typeParameters": [
               {
-                "kind": 121,
+                "kind": 122,
                 "modifiers": [],
                 "typeName": {
                   "kind": 54,
@@ -407,7 +408,7 @@
                   }
                 },
                 "right": {
-                  "kind": 121,
+                  "kind": 122,
                   "modifiers": [],
                   "typeName": {
                     "kind": 54,

@@ -3,45 +3,70 @@
   "attributes": [],
   "body": [
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 9,
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 1,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "key",
-            "start": {
-              "line": 1,
-              "column": 9
-            },
-            "end": {
-              "line": 1,
-              "column": 12
+          "modifiers": [
+            {
+              "kind": 9,
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 8
+              }
             }
-          },
+          ],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "key",
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 12
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 12
+              }
+            }
+          ],
           "start": {
             "line": 1,
-            "column": 9
+            "column": 1
           },
           "end": {
             "line": 1,
-            "column": 12
+            "column": 20
+          },
+          "value": {
+            "kind": 70,
+            "value": "qux",
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 1,
+              "column": 20
+            }
           }
         }
       ],
@@ -52,109 +77,161 @@
       "end": {
         "line": 1,
         "column": 20
-      },
-      "value": {
-        "kind": 70,
-        "value": "qux",
-        "start": {
-          "line": 1,
-          "column": 15
-        },
-        "end": {
-          "line": 1,
-          "column": 20
-        }
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 9,
-          "start": {
-            "line": 3,
-            "column": 5
-          },
-          "end": {
-            "line": 3,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 81,
-            "elements": [
-              {
-                "kind": 12,
-                "name": {
-                  "kind": 54,
-                  "name": "key",
-                  "start": {
-                    "line": 3,
-                    "column": 12
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 15
-                  }
-                },
-                "modifiers": [
+          "modifiers": [
+            {
+              "kind": 9,
+              "start": {
+                "line": 3,
+                "column": 5
+              },
+              "end": {
+                "line": 3,
+                "column": 8
+              }
+            }
+          ],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 81,
+                "elements": [
                   {
-                    "kind": 5,
+                    "kind": 12,
+                    "name": {
+                      "kind": 54,
+                      "name": "key",
+                      "start": {
+                        "line": 3,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 15
+                      }
+                    },
+                    "modifiers": [
+                      {
+                        "kind": 5,
+                        "start": {
+                          "line": 3,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 16
+                        }
+                      }
+                    ],
                     "start": {
                       "line": 3,
                       "column": 11
                     },
                     "end": {
                       "line": 3,
-                      "column": 16
+                      "column": 21
+                    },
+                    "alias": {
+                      "kind": 54,
+                      "name": "foo",
+                      "start": {
+                        "line": 3,
+                        "column": 18
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 21
+                      }
                     }
                   }
                 ],
                 "start": {
                   "line": 3,
-                  "column": 11
+                  "column": 9
                 },
                 "end": {
                   "line": 3,
-                  "column": 21
+                  "column": 23
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 9
+              },
+              "end": {
+                "line": 3,
+                "column": 23
+              }
+            }
+          ],
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 40
+          },
+          "value": {
+            "kind": 82,
+            "attributes": [],
+            "properties": [
+              {
+                "kind": 83,
+                "attributes": [],
+                "modifiers": [],
+                "start": {
+                  "line": 3,
+                  "column": 28
                 },
-                "alias": {
+                "end": {
+                  "line": 3,
+                  "column": 38
+                },
+                "name": {
                   "kind": 54,
-                  "name": "foo",
+                  "name": "qux",
                   "start": {
                     "line": 3,
-                    "column": 18
+                    "column": 28
                   },
                   "end": {
                     "line": 3,
-                    "column": 21
+                    "column": 31
+                  }
+                },
+                "value": {
+                  "kind": 70,
+                  "value": "bar",
+                  "start": {
+                    "line": 3,
+                    "column": 33
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 38
                   }
                 }
               }
             ],
             "start": {
               "line": 3,
-              "column": 9
+              "column": 26
             },
             "end": {
               "line": 3,
-              "column": 23
+              "column": 40
             }
-          },
-          "start": {
-            "line": 3,
-            "column": 9
-          },
-          "end": {
-            "line": 3,
-            "column": 23
           }
         }
       ],
@@ -165,57 +242,6 @@
       "end": {
         "line": 3,
         "column": 40
-      },
-      "value": {
-        "kind": 82,
-        "attributes": [],
-        "properties": [
-          {
-            "kind": 83,
-            "attributes": [],
-            "modifiers": [],
-            "start": {
-              "line": 3,
-              "column": 28
-            },
-            "end": {
-              "line": 3,
-              "column": 38
-            },
-            "name": {
-              "kind": 54,
-              "name": "qux",
-              "start": {
-                "line": 3,
-                "column": 28
-              },
-              "end": {
-                "line": 3,
-                "column": 31
-              }
-            },
-            "value": {
-              "kind": 70,
-              "value": "bar",
-              "start": {
-                "line": 3,
-                "column": 33
-              },
-              "end": {
-                "line": 3,
-                "column": 38
-              }
-            }
-          }
-        ],
-        "start": {
-          "line": 3,
-          "column": 26
-        },
-        "end": {
-          "line": 3,
-          "column": 40
-        }
       }
     },
     {

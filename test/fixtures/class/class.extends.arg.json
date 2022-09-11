@@ -56,7 +56,7 @@
             "column": 22
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -122,7 +122,7 @@
                 "column": 20
               },
               "external": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "color",
@@ -145,7 +145,7 @@
                 }
               },
               "internal": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "color",
@@ -243,7 +243,7 @@
             "column": 3
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -272,7 +272,7 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 114,
+                "kind": 115,
                 "attributes": [],
                 "value": {
                   "kind": 27,
@@ -388,7 +388,7 @@
                 "column": 20
               },
               "external": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "color",
@@ -411,7 +411,7 @@
                 }
               },
               "internal": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "color",
@@ -509,7 +509,7 @@
             "column": 3
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -538,10 +538,10 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 95,
+                "kind": 96,
                 "attributes": [],
                 "value": {
-                  "kind": 87,
+                  "kind": 88,
                   "operator": {
                     "kind": 1,
                     "modifiers": [],
@@ -668,33 +668,83 @@
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
           "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "r",
-            "start": {
-              "line": 21,
-              "column": 5
-            },
-            "end": {
-              "line": 21,
-              "column": 6
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "r",
+                "start": {
+                  "line": 21,
+                  "column": 5
+                },
+                "end": {
+                  "line": 21,
+                  "column": 6
+                }
+              },
+              "start": {
+                "line": 21,
+                "column": 5
+              },
+              "end": {
+                "line": 21,
+                "column": 6
+              }
             }
-          },
+          ],
           "start": {
             "line": 21,
             "column": 5
           },
           "end": {
             "line": 21,
-            "column": 6
+            "column": 31
+          },
+          "value": {
+            "kind": 27,
+            "class": {
+              "kind": 54,
+              "name": "Rectangle",
+              "start": {
+                "line": 21,
+                "column": 13
+              },
+              "end": {
+                "line": 21,
+                "column": 22
+              }
+            },
+            "arguments": [
+              {
+                "kind": 70,
+                "value": "black",
+                "start": {
+                  "line": 21,
+                  "column": 23
+                },
+                "end": {
+                  "line": 21,
+                  "column": 30
+                }
+              }
+            ],
+            "start": {
+              "line": 21,
+              "column": 9
+            },
+            "end": {
+              "line": 21,
+              "column": 31
+            }
           }
         }
       ],
@@ -705,43 +755,6 @@
       "end": {
         "line": 21,
         "column": 31
-      },
-      "value": {
-        "kind": 27,
-        "class": {
-          "kind": 54,
-          "name": "Rectangle",
-          "start": {
-            "line": 21,
-            "column": 13
-          },
-          "end": {
-            "line": 21,
-            "column": 22
-          }
-        },
-        "arguments": [
-          {
-            "kind": 70,
-            "value": "black",
-            "start": {
-              "line": 21,
-              "column": 23
-            },
-            "end": {
-              "line": 21,
-              "column": 30
-            }
-          }
-        ],
-        "start": {
-          "line": 21,
-          "column": 9
-        },
-        "end": {
-          "line": 21,
-          "column": 31
-        }
       }
     },
     {

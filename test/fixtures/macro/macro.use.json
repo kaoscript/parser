@@ -55,7 +55,7 @@
             }
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -116,7 +116,7 @@
             }
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -335,45 +335,142 @@
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 9,
-          "start": {
-            "line": 10,
-            "column": 5
-          },
-          "end": {
-            "line": 10,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "four",
-            "start": {
-              "line": 10,
-              "column": 9
-            },
-            "end": {
-              "line": 10,
-              "column": 13
+          "modifiers": [
+            {
+              "kind": 9,
+              "start": {
+                "line": 10,
+                "column": 5
+              },
+              "end": {
+                "line": 10,
+                "column": 8
+              }
             }
-          },
+          ],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "four",
+                "start": {
+                  "line": 10,
+                  "column": 9
+                },
+                "end": {
+                  "line": 10,
+                  "column": 13
+                }
+              },
+              "start": {
+                "line": 10,
+                "column": 9
+              },
+              "end": {
+                "line": 10,
+                "column": 13
+              }
+            }
+          ],
           "start": {
             "line": 10,
-            "column": 9
+            "column": 1
           },
           "end": {
             "line": 10,
-            "column": 13
+            "column": 35
+          },
+          "value": {
+            "kind": 17,
+            "callee": {
+              "kind": 54,
+              "name": "using_a",
+              "start": {
+                "line": 10,
+                "column": 16
+              },
+              "end": {
+                "line": 10,
+                "column": 23
+              }
+            },
+            "arguments": [
+              {
+                "kind": 54,
+                "name": "a",
+                "start": {
+                  "line": 10,
+                  "column": 25
+                },
+                "end": {
+                  "line": 10,
+                  "column": 26
+                }
+              },
+              {
+                "kind": 11,
+                "operator": {
+                  "kind": 4,
+                  "modifiers": [],
+                  "start": {
+                    "line": 10,
+                    "column": 30
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 31
+                  }
+                },
+                "start": {
+                  "line": 10,
+                  "column": 28
+                },
+                "end": {
+                  "line": 10,
+                  "column": 34
+                },
+                "left": {
+                  "kind": 54,
+                  "name": "a",
+                  "start": {
+                    "line": 10,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 29
+                  }
+                },
+                "right": {
+                  "kind": 80,
+                  "value": 10,
+                  "start": {
+                    "line": 10,
+                    "column": 32
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 34
+                  }
+                }
+              }
+            ],
+            "start": {
+              "line": 10,
+              "column": 16
+            },
+            "end": {
+              "line": 10,
+              "column": 35
+            }
           }
         }
       ],
@@ -384,90 +481,6 @@
       "end": {
         "line": 10,
         "column": 35
-      },
-      "value": {
-        "kind": 17,
-        "callee": {
-          "kind": 54,
-          "name": "using_a",
-          "start": {
-            "line": 10,
-            "column": 16
-          },
-          "end": {
-            "line": 10,
-            "column": 23
-          }
-        },
-        "arguments": [
-          {
-            "kind": 54,
-            "name": "a",
-            "start": {
-              "line": 10,
-              "column": 25
-            },
-            "end": {
-              "line": 10,
-              "column": 26
-            }
-          },
-          {
-            "kind": 11,
-            "operator": {
-              "kind": 4,
-              "modifiers": [],
-              "start": {
-                "line": 10,
-                "column": 30
-              },
-              "end": {
-                "line": 10,
-                "column": 31
-              }
-            },
-            "start": {
-              "line": 10,
-              "column": 28
-            },
-            "end": {
-              "line": 10,
-              "column": 34
-            },
-            "left": {
-              "kind": 54,
-              "name": "a",
-              "start": {
-                "line": 10,
-                "column": 28
-              },
-              "end": {
-                "line": 10,
-                "column": 29
-              }
-            },
-            "right": {
-              "kind": 80,
-              "value": 10,
-              "start": {
-                "line": 10,
-                "column": 32
-              },
-              "end": {
-                "line": 10,
-                "column": 34
-              }
-            }
-          }
-        ],
-        "start": {
-          "line": 10,
-          "column": 16
-        },
-        "end": {
-          "line": 10,
-          "column": 35
-        }
       }
     }
   ],

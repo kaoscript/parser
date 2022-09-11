@@ -1,1 +1,1 @@
-var mut a;
+var mut a = 1;

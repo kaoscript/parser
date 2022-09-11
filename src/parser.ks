@@ -102,6 +102,7 @@ export namespace Parser {
 	}
 
 	var NO = Event(ok: false)
+	var YES = Event(ok: true)
 
 	class Parser {
 		private {
@@ -2623,17 +2624,16 @@ export namespace Parser {
 					}
 					else if @token == Token::IDENTIFIER {
 						var name = @reqIdentifier()
-						var modifiers = [sealed.value]
 
 						if @test(Token::COLON) {
 							@commit()
 
 							var type = @reqType()
 
-							return @yep(AST.VariableDeclarator([], modifiers, name, type, sealed, type))
+							return @yep(AST.VariableDeclarator([sealed], name, type, sealed, type))
 						}
 						else {
-							return @yep(AST.VariableDeclarator([], modifiers, name, null, sealed, name))
+							return @yep(AST.VariableDeclarator([sealed], name, null, sealed, name))
 						}
 					}
 					else if @token == Token::NAMESPACE {
@@ -2655,17 +2655,16 @@ export namespace Parser {
 					}
 					else if @token == Token::IDENTIFIER {
 						var name = @reqIdentifier()
-						var modifiers = [system.value]
 
 						if @test(Token::COLON) {
 							@commit()
 
 							var type = @reqType()
 
-							return @yep(AST.VariableDeclarator([], modifiers, name, type, system, type))
+							return @yep(AST.VariableDeclarator([system], name, type, system, type))
 						}
 						else {
-							return @yep(AST.VariableDeclarator([], modifiers, name, null, system, name))
+							return @yep(AST.VariableDeclarator([system], name, null, system, name))
 						}
 					}
 					else if @token == Token::NAMESPACE {
@@ -2686,10 +2685,10 @@ export namespace Parser {
 
 						var type = @reqType()
 
-						return @yep(AST.VariableDeclarator([], [], name, type, first, type))
+						return @yep(AST.VariableDeclarator([], name, type, first, type))
 					}
 					else {
-						return @yep(AST.VariableDeclarator([], [], name, null, first, name))
+						return @yep(AST.VariableDeclarator([], name, null, first, name))
 					}
 				}
 				=> {
@@ -2923,7 +2922,7 @@ export namespace Parser {
 
 				var type = @reqType()
 
-				return @yep(AST.VariableDeclarator([], [], name, type, name, type))
+				return @yep(AST.VariableDeclarator([], name, type, name, type))
 			}
 			else if @token == Token::LEFT_ROUND {
 				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
@@ -2932,7 +2931,7 @@ export namespace Parser {
 				return @yep(AST.FunctionDeclaration(name, parameters, [], type, null, null, name, type ?? parameters))
 			}
 			else {
-				return @yep(AST.VariableDeclarator([], [], name, null, name, name))
+				return @yep(AST.VariableDeclarator([], name, null, name, name))
 			}
 		} # }}}
 		reqFallthroughStatement(mut first: Event): Event { # {{{
@@ -3183,8 +3182,9 @@ export namespace Parser {
 						@commit()
 
 						var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
-						condition = @yep(AST.VariableDeclaration([], modifiers, variables, operator, operand, first, operand))
+						condition = @yep(AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression))
 					}
 					else {
 						var operator = @reqConditionAssignment()
@@ -5047,6 +5047,9 @@ export namespace Parser {
 				}
 			}
 		} # }}}
+		reqPassStatement(first: Event): Event ~ SyntaxError { # {{{
+			return @yep(AST.PassStatement(first))
+		} # }}}
 		reqPostfixedOperand(mut operand: Event?, mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			operand = @reqUnaryOperand(operand, eMode, fMode)
 
@@ -5477,6 +5480,9 @@ export namespace Parser {
 				Token::NAMESPACE => {
 					statement = @tryNamespaceStatement(@yes())
 				}
+				Token::PASS => {
+					statement = @reqPassStatement(@yes())
+				}
 				Token::RETURN => {
 					statement = @reqReturnStatement(@yes(), fMode)
 				}
@@ -5530,10 +5536,13 @@ export namespace Parser {
 					statement = @tryUntilStatement(@yes(), fMode)
 				}
 				Token::VAR => {
-					statement = @reqVarStatement(@yes(), ExpressionMode::Default, fMode)
+					statement = @tryVarStatement(@yes(), ExpressionMode::Default, fMode)
 				}
 				Token::WHILE => {
 					statement = @tryWhileStatement(@yes(), fMode)
+				}
+				Token::WITH => {
+					statement = @tryWithStatement(@yes(), fMode)
 				}
 			}
 
@@ -6027,9 +6036,9 @@ export namespace Parser {
 				return NO
 			}
 
-			var dyn last = body
+			var mut last = body
 
-			var dyn mark = @mark()
+			var mut mark = @mark()
 
 			var catchClauses = []
 			var dyn catchClause, finalizer
@@ -6722,10 +6731,8 @@ export namespace Parser {
 
 			return @yep(AST.TypeAliasDeclaration(name, type, first, type))
 		} # }}}
-		reqTypedVariable(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var modifiers = []
+		reqTypedVariable(fMode: FunctionMode, typeable: Boolean = true, questionable: Boolean = true): Event ~ SyntaxError { # {{{
 			var mut name = null
-			var mut type = null
 
 			if @match(Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::LEFT_CURLY {
 				name = @reqDestructuringObject(@yes(), DestructuringMode::Declaration, fMode)
@@ -6733,20 +6740,28 @@ export namespace Parser {
 			else if @token == Token::LEFT_SQUARE {
 				name = @reqDestructuringArray(@yes(), DestructuringMode::Declaration, fMode)
 			}
-			else if name !?= @tryIdentifier() {
-				@throw('Identifier', '{', '[')
+			else {
+				name = @tryIdentifier()
+
+				@throw('Identifier', '{', '[') unless name.ok
 			}
 
-			if @test(Token::COLON) {
-				@commit()
+			if typeable {
+				if @test(Token::COLON) {
+					@commit()
 
-				type = @reqType()
-			}
-			else if @test(Token::QUESTION) {
-				modifiers.push(AST.Modifier(ModifierKind::Nullable, @yes()))
+					var type = @reqType()
+
+					return @yep(AST.VariableDeclarator([], name, type, name, type))
+				}
+				else if questionable && @test(Token::QUESTION) {
+					var modifier = @yep(AST.Modifier(ModifierKind::Nullable, @yes()))
+
+					return @yep(AST.VariableDeclarator([modifier], name, null, name, modifier))
+				}
 			}
 
-			return @yep(AST.VariableDeclarator([], modifiers, name, type, name, type ?? name))
+			return @yep(AST.VariableDeclarator([], name, null, name, name))
 		} # }}}
 		reqUnaryOperand(mut value: Event?, mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if value == null {
@@ -6905,119 +6920,19 @@ export namespace Parser {
 			return @yep(AST.UnlessStatement(condition, whenFalse, first, whenFalse))
 		} # }}}
 		reqVarStatement(mut first: Event, mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var mark = @mark()
-			var modifiers = []
-			var variables = []
+			var statement = @tryVarStatement(first, eMode, fMode)
 
-			var dyn immutable = false
-			var dyn lateinit = false
-
-			if @match(Token::DYN, Token::LATE, Token::MUT) == Token::INVALID {
-				immutable = true
-
-				if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE, Token::IDENTIFIER) {
-					variables.push(@reqTypedVariable(fMode))
-				}
-				else {
-					return NO
-				}
+			if statement.ok {
+				return statement
 			}
 			else {
-				var dyn modifier
-
-				if @token == Token::DYN {
-					modifier = AST.Modifier(ModifierKind::Dynamic, @yes())
-				}
-				else if @token == Token::LATE {
-					modifier = AST.Modifier(ModifierKind::LateInit, @yes())
-
-					lateinit = true
-				}
-				else if @token == Token::MUT {
-					modifier = AST.Modifier(ModifierKind::Mutable, @yes())
-				}
-
-				if @test(Token::COLON, Token::EQUALS, Token::NEWLINE) {
-					@rollback(mark)
-				}
-				else {
-					modifiers.push(modifier)
-				}
-
-				variables.push(@reqTypedVariable(fMode))
-			}
-
-			if @test(Token::COMMA) {
-				do {
-					@commit()
-
-					variables.push(@reqTypedVariable(fMode))
-				}
-				while @test(Token::COMMA)
-			}
-
-			if @test(Token::EQUALS) {
-				@throw(':', ',', 'NewLine') if lateinit
-
-				@commit().NL_0M()
-
-				var dyn init
-				if variables.length == 1 {
-					init = @reqExpression(eMode, fMode)
-				}
-				else {
-					unless @test(Token::AWAIT) {
-						@throw('await')
-					}
-
-					@commit()
-
-					var operand = @reqPrefixedOperand(eMode, fMode)
-
-					init = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
-				}
-
-				if @match(Token::IF, Token::UNLESS) == Token::IF {
-					var first = @yes()
-					var condition = @reqExpression(ExpressionMode::Default, fMode)
-
-					if @test(Token::ELSE) {
-						@commit()
-
-						var whenFalse = @reqExpression(ExpressionMode::Default, fMode)
-
-						init = @yep(AST.IfExpression(condition, init, whenFalse, init, whenFalse))
-					}
-					else {
-						init = @yep(AST.IfExpression(condition, init, null, init, condition))
-					}
-				}
-				else if @token == Token::UNLESS {
-					@commit()
-
-					var condition = @reqExpression(ExpressionMode::Default, fMode)
-
-					init = @yep(AST.UnlessExpression(condition, init, init, condition))
-				}
-
-				return @yep(AST.VariableDeclaration([], modifiers, variables, null, init, first, init))
-			}
-			else {
-				@throw('=') if immutable
-
-				for var variable in variables {
-					if variable.value.modifiers[variable.value.modifiers.length - 1]?.kind == ModifierKind::Nullable {
-						@throw('=')
-					}
-				}
-
-				return @yep(AST.VariableDeclaration([], modifiers, variables, null, null, first, variables[variables.length - 1]))
+				@throw('Identifier', '{', '[')
 			}
 		} # }}}
 		reqVariable(): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
 
-			return @yep(AST.VariableDeclarator([], [], name, null, name, name))
+			return @yep(AST.VariableDeclarator([], name, null, name, name))
 		} # }}}
 		reqVariableIdentifier(fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @match(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::IDENTIFIER {
@@ -8341,6 +8256,18 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
+		tryNL_1M(): Event ~ SyntaxError { # {{{
+			if @test(Token::NEWLINE) {
+				@commit()
+
+				@skipNewLine()
+
+				return YES
+			}
+			else {
+				return NO
+			}
+		} # }}}
 		tryOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @matchM(M.OPERAND) == Token::AT && fMode == FunctionMode::Method {
 				return @reqThisExpression(@yes())
@@ -8484,6 +8411,14 @@ export namespace Parser {
 
 			return @reqTypeStatement(first, name)
 		} # }}}
+		tryTypedVariable(fMode: FunctionMode, typeable: Boolean = true, questionable: Boolean = true): Event ~ SyntaxError { # {{{
+			try {
+				return @reqTypedVariable(fMode, typeable, questionable)
+			}
+			catch {
+				return NO
+			}
+		} # }}}
 		tryUntilStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var condition = @tryExpression(ExpressionMode::Default, fMode)
 
@@ -8510,7 +8445,7 @@ export namespace Parser {
 			var name = @tryIdentifier()
 
 			if name.ok {
-				return @yep(AST.VariableDeclarator([], [], name, null, name, name))
+				return @yep(AST.VariableDeclarator([], name, null, name, name))
 			}
 			else {
 				return NO
@@ -8531,7 +8466,425 @@ export namespace Parser {
 
 			return @reqVariableName(object, fMode)
 		} # }}}}
-		tryWhileStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryVarStatement(mut first: Event, mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var mark = @mark()
+
+			if @test(Token::MUT) {
+				var statement = @tryVarMutStatement(first, eMode, fMode)
+				if statement.ok {
+					return statement
+				}
+
+				@rollback(mark)
+			}
+
+			if @test(Token::DYN) {
+				var statement = @tryVarDynStatement(first, eMode, fMode)
+				if statement.ok {
+					return statement
+				}
+
+				@rollback(mark)
+			}
+
+			if @test(Token::LATE) {
+				var statement = @tryVarLateStatement(first, eMode, fMode)
+				if statement.ok {
+					return statement
+				}
+
+				@rollback(mark)
+			}
+
+			if @test(Token::LEFT_CURLY) {
+				@commit()
+
+				var declarations = []
+				var mut ok = @tryNL_1M().ok
+
+				if ok {
+					while @until(Token::RIGHT_CURLY) {
+						var variable = @tryTypedVariable(fMode, true, false)
+						if !variable.ok {
+							ok = false
+
+							break
+						}
+
+						if @test(Token::EQUALS) {
+							@commit()
+						}
+						else {
+							ok = false
+
+							break
+						}
+
+						var value = @reqExpression(eMode, fMode)
+
+						declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, value, variable, value)))
+
+						@reqNL_1M()
+					}
+				}
+
+				if ok {
+					unless @test(Token::RIGHT_CURLY) {
+						@throw('}')
+					}
+
+					return @yep(AST.VariableStatement([], declarations, first, @yes()))
+				}
+				else {
+					@rollback(mark)
+				}
+			}
+
+			var variable = @tryTypedVariable(fMode, true, false)
+
+			return NO unless variable.ok
+
+			var variables = [variable]
+
+			if @test(Token::COMMA) {
+				@commit()
+
+				variables.push(@reqTypedVariable(fMode, true, false))
+			}
+
+			if @test(Token::EQUALS) {
+				@commit()
+			}
+			else {
+				@throw('=')
+			}
+
+			@NL_0M()
+
+			var late value: Event
+
+			if variables.length == 1 {
+				value = @reqExpression(eMode, fMode)
+			}
+			else {
+				unless @test(Token::AWAIT) {
+					@throw('await')
+				}
+
+				@commit()
+
+				var operand = @reqPrefixedOperand(eMode, fMode)
+
+				value = @yep(AST.AwaitExpression([], variables, operand, variable, operand))
+			}
+
+			var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, variable, value))
+
+			return @yep(AST.VariableStatement([], [declaration], first, declaration))
+		} # }}}
+		tryVarDynStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var modifiers = [@yep(AST.Modifier(ModifierKind::Dynamic, @yes()))]
+
+			var mark = @mark()
+
+			if @test(Token::LEFT_CURLY) {
+				@commit()
+
+				var declarations = []
+				var mut ok = @tryNL_1M().ok
+
+				if ok {
+					while @until(Token::RIGHT_CURLY) {
+						var variable = @tryTypedVariable(fMode, false, false)
+						if !variable.ok {
+							ok = false
+
+							break
+						}
+
+						if @test(Token::EQUALS) {
+							@commit()
+
+							var value = @reqExpression(eMode, fMode)
+
+							declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, value, variable, value)))
+						}
+						else {
+							declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+						}
+
+						@reqNL_1M()
+					}
+				}
+
+				if ok {
+					unless @test(Token::RIGHT_CURLY) {
+						@throw('}')
+					}
+
+					return @yep(AST.VariableStatement([], declarations, first, @yes()))
+				}
+				else {
+					@rollback(mark)
+				}
+			}
+
+			var variable = @tryTypedVariable(fMode, false, false)
+
+			return NO unless variable.ok
+
+			var variables = [variable]
+
+			if @test(Token::COMMA) {
+				@commit()
+
+				var variable = @tryTypedVariable(fMode, false, false)
+
+				return NO unless variable.ok
+
+				variables.push(variable)
+			}
+
+			if @test(Token::EQUALS) {
+				@commit().NL_0M()
+
+				if variables.length == 1 {
+					value = @reqExpression(eMode, fMode)
+
+					var declaration = @yep(AST.VariableDeclaration([], modifiers, variables, null, value, first, value))
+
+					return @yep(AST.VariableStatement([], [declaration], first, declaration))
+				}
+				else {
+					if @test(Token::AWAIT) {
+						@commit()
+					}
+					else {
+						@throw('await')
+					}
+
+					var operand = @reqPrefixedOperand(eMode, fMode)
+
+					var value = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
+
+					var declaration = @yep(AST.VariableDeclaration([], modifiers, variables, null, value, first, value))
+
+					return @yep(AST.VariableStatement([], [declaration], first, declaration))
+				}
+			}
+
+			var declarations = []
+			var mut last = null
+
+			for var variable in variables {
+				declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+
+				last = variable
+			}
+
+			while @test(Token::COMMA) {
+				@commit()
+
+				var variable = @reqTypedVariable(fMode, false, false)
+
+				declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+
+				last = variable
+			}
+
+			return @yep(AST.VariableStatement([], declarations, first, last))
+		} # }}}
+		tryVarLateStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var modifiers = [@yep(AST.Modifier(ModifierKind::LateInit, @yes()))]
+
+			var mark = @mark()
+
+			if @test(Token::LEFT_CURLY) {
+				@commit()
+
+				var declarations = []
+				var mut ok = @tryNL_1M().ok
+
+				if ok {
+					while @until(Token::RIGHT_CURLY) {
+						var variable = @tryTypedVariable(fMode, true, true)
+						if !variable.ok {
+							ok = false
+
+							break
+						}
+
+						declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+
+						@reqNL_1M()
+					}
+				}
+
+				if ok {
+					unless @test(Token::RIGHT_CURLY) {
+						@throw('}')
+					}
+
+					return @yep(AST.VariableStatement([], declarations, first, @yes()))
+				}
+				else {
+					@rollback(mark)
+				}
+			}
+
+			var variable = @tryTypedVariable(fMode, true, true)
+
+			return NO unless variable.ok
+
+			var declarations = [@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable))]
+
+			var mut last = variable
+
+			while @test(Token::COMMA) {
+				@commit()
+
+				var variable = @reqTypedVariable(fMode, true, true)
+
+				declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+
+				last = variable
+			}
+
+			return @yep(AST.VariableStatement([], declarations, first, last))
+		} # }}}
+		tryVarMutStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var modifiers = [@yep(AST.Modifier(ModifierKind::Mutable, @yes()))]
+
+			var mark = @mark()
+
+			if @test(Token::LEFT_CURLY) {
+				@commit()
+
+				var declarations = []
+				var mut ok = @tryNL_1M().ok
+
+				if ok {
+					while @until(Token::RIGHT_CURLY) {
+						var variable = @tryTypedVariable(fMode, true, true)
+						if !variable.ok {
+							ok = false
+
+							break
+						}
+
+						if @test(Token::EQUALS) {
+							@commit()
+
+							var value = @reqExpression(eMode, fMode)
+
+							declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, value, variable, value)))
+						}
+						else if ?variable.value.type {
+							declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+						}
+						else {
+							ok = false
+
+							break
+						}
+
+						@reqNL_1M()
+					}
+				}
+
+				if ok {
+					unless @test(Token::RIGHT_CURLY) {
+						@throw('}')
+					}
+
+					return @yep(AST.VariableStatement([], declarations, first, @yes()))
+				}
+				else {
+					@rollback(mark)
+				}
+			}
+
+			var variable = @tryTypedVariable(fMode, true, true)
+
+			return NO unless variable.ok
+
+			var variables = [variable]
+
+			if @test(Token::COMMA) {
+				@commit()
+
+				var variable = @tryTypedVariable(fMode, true, true)
+
+				return NO unless variable.ok
+
+				variables.push(variable)
+			}
+
+			if variables.length == 1 {
+				if @test(Token::EQUALS) {
+					@commit().NL_0M()
+
+					value = @reqExpression(eMode, fMode)
+
+					var declaration = @yep(AST.VariableDeclaration([], modifiers, variables, null, value, first, value))
+
+					return @yep(AST.VariableStatement([], [declaration], first, declaration))
+				}
+				else if ?variable.value.type {
+					var declaration = @yep(AST.VariableDeclaration([], modifiers, variables, null, null, first, variable))
+
+					return @yep(AST.VariableStatement([], [declaration], first, declaration))
+				}
+				else {
+					return NO
+				}
+			}
+
+			if @test(Token::EQUALS) {
+				@commit().NL_0M()
+
+				if @test(Token::AWAIT) {
+					@commit()
+				}
+				else {
+					@throw('await')
+				}
+
+				var operand = @reqPrefixedOperand(eMode, fMode)
+
+				var value = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
+
+				var declaration = @yep(AST.VariableDeclaration([], modifiers, variables, null, value, first, value))
+
+				return @yep(AST.VariableStatement([], [declaration], first, declaration))
+			}
+
+			var declarations = []
+			var mut last = null
+
+			for var variable in variables {
+				if !?variable.value.type {
+					return NO
+				}
+
+				declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+
+				last = variable
+			}
+
+			while @test(Token::COMMA) {
+				@commit()
+
+				var variable = @reqTypedVariable(fMode, true, false)
+
+				declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+
+				last = variable
+			}
+
+			return @yep(AST.VariableStatement([], declarations, first, last))
+		} # }}}
+		tryWhileStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn condition
 
 			if @test(Token::VAR) {
@@ -8565,8 +8918,9 @@ export namespace Parser {
 						@commit()
 
 						var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
-						condition = @yep(AST.VariableDeclaration([], modifiers, variables, operator, operand, first, operand))
+						condition = @yep(AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression))
 					}
 					else {
 						var operator = @reqConditionAssignment()
@@ -8603,6 +8957,188 @@ export namespace Parser {
 			}
 
 			return @yep(AST.WhileStatement(condition, body, first, body))
+		} # }}}
+		tryWithVariable(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			if @test(Token::VAR) {
+				var mark = @mark()
+				var first = @yes()
+
+				var modifiers = []
+				if @test(Token::MUT) {
+					modifiers.push(@yep(AST.Modifier(ModifierKind::Mutable, @yes())))
+				}
+
+				if @test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+					var variable = @reqTypedVariable(fMode)
+
+					if @test(Token::COMMA) {
+						var variables = [variable]
+
+						do {
+							@commit()
+
+							variables.push(@reqTypedVariable(fMode))
+						}
+						while @test(Token::COMMA)
+
+						if @test(Token::EQUALS) {
+							@commit()
+						}
+						else {
+							@throw('=')
+						}
+
+						unless @test(Token::AWAIT) {
+							@throw('await')
+						}
+
+						@commit()
+
+						var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
+
+						return @yep(AST.VariableDeclaration([], modifiers, variables, null, expression, first, expression))
+					}
+					else {
+						if @test(Token::EQUALS) {
+							@commit()
+						}
+						else {
+							@throw('=')
+						}
+
+						var expression = @reqExpression(ExpressionMode::Default, fMode)
+
+						return @yep(AST.VariableDeclaration([], modifiers, [variable], null, expression, first, expression))
+					}
+				}
+
+				@rollback(mark)
+			}
+
+			var variable = @tryVariableName(fMode)
+
+			return NO unless variable.ok
+
+			var late operator: Event
+
+			switch @matchM(M.ASSIGNEMENT_OPERATOR) {
+				Token::AMPERSAND_AMPERSAND_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::And, @yes()))
+				}
+				Token::ASTERISK_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Multiplication, @yes()))
+				}
+				Token::CARET_CARET_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Xor, @yes()))
+				}
+				Token::EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Equals, @yes()))
+				}
+				Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::LeftShift, @yes()))
+				}
+				Token::MINUS_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Subtraction, @yes()))
+				}
+				Token::PERCENT_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Modulo, @yes()))
+				}
+				Token::PIPE_PIPE_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Or, @yes()))
+				}
+				Token::PLUS_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Addition, @yes()))
+				}
+				Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::RightShift, @yes()))
+				}
+				Token::SLASH_DOT_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Quotient, @yes()))
+				}
+				Token::SLASH_EQUALS => {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Division, @yes()))
+				}
+				=> {
+					@throw('=', '+=', '-=', '*=', '/=', '/.=', '%=', '&&=', '||=', '^^=', '<<=', '>>=')
+				}
+			}
+
+			var value = @reqExpression(null, fMode)
+
+			return @yep(AST.BinaryExpression(variable, operator, value, variable, value))
+		} # }}}
+		tryWithStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var mut mark = @mark()
+			var variables = []
+
+			if @test(Token::LEFT_CURLY) {
+				@commit()
+
+				var mut ok = @tryNL_1M().ok
+
+				if ok {
+					while @until(Token::RIGHT_CURLY) {
+						var variable = @tryWithVariable(fMode)
+
+						if variable.ok {
+							variables.push(variable)
+						}
+						else {
+							ok = false
+
+							break
+						}
+
+						@reqNL_1M()
+					}
+				}
+
+				if !ok {
+					@rollback(mark)
+
+					return NO
+				}
+
+				if @test(Token::RIGHT_CURLY) {
+					@commit()
+				}
+				else {
+					@throw('}')
+				}
+
+				@reqNL_1M()
+
+				if @test(Token::THEN) {
+					@commit()
+				}
+				else {
+					@throw('then')
+				}
+			}
+			else {
+				var variable = @tryWithVariable(fMode)
+
+				return NO unless variable.ok
+
+				variables.push(variable)
+			}
+
+			var body = @reqBlock(NO, fMode)
+			var mut finalizer = null
+
+			mark = @mark()
+
+			if @tryNL_1M().ok && @test(Token::FINALLY) {
+				@commit()
+
+				finalizer = @reqBlock(NO, fMode)
+			}
+			else {
+				@rollback(mark)
+			}
+
+			return @yep(AST.WithStatement(variables, body, finalizer, first, finalizer ?? body))
 		} # }}}
 	}
 

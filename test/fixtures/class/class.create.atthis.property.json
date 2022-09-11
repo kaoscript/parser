@@ -164,33 +164,105 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 127,
+                "kind": 130,
                 "attributes": [],
-                "modifiers": [],
-                "variables": [
+                "declarations": [
                   {
                     "kind": 128,
                     "attributes": [],
                     "modifiers": [],
-                    "name": {
-                      "kind": 54,
-                      "name": "foo",
-                      "start": {
-                        "line": 12,
-                        "column": 7
-                      },
-                      "end": {
-                        "line": 12,
-                        "column": 10
+                    "variables": [
+                      {
+                        "kind": 129,
+                        "modifiers": [],
+                        "name": {
+                          "kind": 54,
+                          "name": "foo",
+                          "start": {
+                            "line": 12,
+                            "column": 7
+                          },
+                          "end": {
+                            "line": 12,
+                            "column": 10
+                          }
+                        },
+                        "start": {
+                          "line": 12,
+                          "column": 7
+                        },
+                        "end": {
+                          "line": 12,
+                          "column": 10
+                        }
                       }
-                    },
+                    ],
                     "start": {
                       "line": 12,
                       "column": 7
                     },
                     "end": {
                       "line": 12,
-                      "column": 10
+                      "column": 33
+                    },
+                    "value": {
+                      "kind": 27,
+                      "class": {
+                        "kind": 73,
+                        "modifiers": [],
+                        "object": {
+                          "kind": 114,
+                          "name": {
+                            "kind": 54,
+                            "name": "options",
+                            "start": {
+                              "line": 12,
+                              "column": 18
+                            },
+                            "end": {
+                              "line": 12,
+                              "column": 25
+                            }
+                          },
+                          "start": {
+                            "line": 12,
+                            "column": 17
+                          },
+                          "end": {
+                            "line": 12,
+                            "column": 25
+                          }
+                        },
+                        "property": {
+                          "kind": 54,
+                          "name": "class",
+                          "start": {
+                            "line": 12,
+                            "column": 26
+                          },
+                          "end": {
+                            "line": 12,
+                            "column": 31
+                          }
+                        },
+                        "start": {
+                          "line": 12,
+                          "column": 17
+                        },
+                        "end": {
+                          "line": 12,
+                          "column": 31
+                        }
+                      },
+                      "arguments": [],
+                      "start": {
+                        "line": 12,
+                        "column": 13
+                      },
+                      "end": {
+                        "line": 12,
+                        "column": 33
+                      }
                     }
                   }
                 ],
@@ -201,65 +273,6 @@
                 "end": {
                   "line": 12,
                   "column": 33
-                },
-                "value": {
-                  "kind": 27,
-                  "class": {
-                    "kind": 73,
-                    "modifiers": [],
-                    "object": {
-                      "kind": 113,
-                      "name": {
-                        "kind": 54,
-                        "name": "options",
-                        "start": {
-                          "line": 12,
-                          "column": 18
-                        },
-                        "end": {
-                          "line": 12,
-                          "column": 25
-                        }
-                      },
-                      "start": {
-                        "line": 12,
-                        "column": 17
-                      },
-                      "end": {
-                        "line": 12,
-                        "column": 25
-                      }
-                    },
-                    "property": {
-                      "kind": 54,
-                      "name": "class",
-                      "start": {
-                        "line": 12,
-                        "column": 26
-                      },
-                      "end": {
-                        "line": 12,
-                        "column": 31
-                      }
-                    },
-                    "start": {
-                      "line": 12,
-                      "column": 17
-                    },
-                    "end": {
-                      "line": 12,
-                      "column": 31
-                    }
-                  },
-                  "arguments": [],
-                  "start": {
-                    "line": 12,
-                    "column": 13
-                  },
-                  "end": {
-                    "line": 12,
-                    "column": 33
-                  }
                 }
               }
             ],

@@ -3,7 +3,7 @@
   "attributes": [],
   "body": [
     {
-      "kind": 120,
+      "kind": 121,
       "attributes": [],
       "name": {
         "kind": 54,
@@ -18,10 +18,10 @@
         }
       },
       "type": {
-        "kind": 126,
+        "kind": 127,
         "types": [
           {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -45,7 +45,7 @@
             }
           },
           {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -88,68 +88,93 @@
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 9,
-          "start": {
-            "line": 3,
-            "column": 5
-          },
-          "end": {
-            "line": 3,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "x",
-            "start": {
-              "line": 3,
-              "column": 9
-            },
-            "end": {
-              "line": 3,
-              "column": 10
-            }
-          },
-          "start": {
-            "line": 3,
-            "column": 9
-          },
-          "end": {
-            "line": 3,
-            "column": 13
-          },
-          "type": {
-            "kind": 121,
-            "modifiers": [],
-            "typeName": {
-              "kind": 54,
-              "name": "T",
+          "modifiers": [
+            {
+              "kind": 15,
               "start": {
                 "line": 3,
-                "column": 12
+                "column": 5
+              },
+              "end": {
+                "line": 3,
+                "column": 8
+              }
+            }
+          ],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "x",
+                "start": {
+                  "line": 3,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
+                  "column": 10
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 9
               },
               "end": {
                 "line": 3,
                 "column": 13
+              },
+              "type": {
+                "kind": 122,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 54,
+                  "name": "T",
+                  "start": {
+                    "line": 3,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 13
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 12
+                },
+                "end": {
+                  "line": 3,
+                  "column": 13
+                }
               }
-            },
+            }
+          ],
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 17
+          },
+          "value": {
+            "kind": 80,
+            "value": 0,
             "start": {
               "line": 3,
-              "column": 12
+              "column": 16
             },
             "end": {
               "line": 3,
-              "column": 13
+              "column": 17
             }
           }
         }
@@ -161,18 +186,6 @@
       "end": {
         "line": 3,
         "column": 17
-      },
-      "value": {
-        "kind": 80,
-        "value": 0,
-        "start": {
-          "line": 3,
-          "column": 16
-        },
-        "end": {
-          "line": 3,
-          "column": 17
-        }
       }
     }
   ],

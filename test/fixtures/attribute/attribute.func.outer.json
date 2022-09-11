@@ -57,7 +57,7 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 127,
+            "kind": 130,
             "attributes": [
               {
                 "kind": 7,
@@ -83,31 +83,56 @@
                 }
               }
             ],
-            "modifiers": [],
-            "variables": [
+            "declarations": [
               {
                 "kind": 128,
                 "attributes": [],
                 "modifiers": [],
-                "name": {
-                  "kind": 54,
-                  "name": "bar",
-                  "start": {
-                    "line": 4,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 4,
-                    "column": 9
+                "variables": [
+                  {
+                    "kind": 129,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 54,
+                      "name": "bar",
+                      "start": {
+                        "line": 4,
+                        "column": 6
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 9
+                      }
+                    },
+                    "start": {
+                      "line": 4,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 9
+                    }
                   }
-                },
+                ],
                 "start": {
                   "line": 4,
                   "column": 6
                 },
                 "end": {
                   "line": 4,
-                  "column": 9
+                  "column": 14
+                },
+                "value": {
+                  "kind": 80,
+                  "value": 42,
+                  "start": {
+                    "line": 4,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 14
+                  }
                 }
               }
             ],
@@ -118,18 +143,6 @@
             "end": {
               "line": 4,
               "column": 14
-            },
-            "value": {
-              "kind": 80,
-              "value": 42,
-              "start": {
-                "line": 4,
-                "column": 12
-              },
-              "end": {
-                "line": 4,
-                "column": 14
-              }
             }
           }
         ],

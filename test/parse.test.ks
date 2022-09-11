@@ -65,15 +65,20 @@ func prepare(file) { # {{{
 				data = parse(source)
 			}
 			catch ex {
-				try {
-					expect(`\(ex.message) at line \(ex.lineNumber) and column \(ex.columnNumber)`).to.equal(error)
-				}
-				catch ex2 {
-					if DEBUG {
-						console.log(`\(ex.message) at line \(ex.lineNumber) and column \(ex.columnNumber)`)
+				if ?ex.lineNumber {
+					try {
+						expect(`\(ex.message) at line \(ex.lineNumber) and column \(ex.columnNumber)`).to.equal(error)
 					}
+					catch ex2 {
+						if DEBUG {
+							console.log(`\(ex.message) at line \(ex.lineNumber) and column \(ex.columnNumber)`)
+						}
 
-					throw ex2
+						throw ex2
+					}
+				}
+				else {
+					throw ex
 				}
 			}
 

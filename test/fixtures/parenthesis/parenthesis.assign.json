@@ -3,45 +3,70 @@
   "attributes": [],
   "body": [
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 9,
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 1,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "a",
-            "start": {
-              "line": 1,
-              "column": 9
-            },
-            "end": {
-              "line": 1,
-              "column": 10
+          "modifiers": [
+            {
+              "kind": 9,
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 8
+              }
             }
-          },
+          ],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "a",
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 10
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 10
+              }
+            }
+          ],
           "start": {
             "line": 1,
-            "column": 9
+            "column": 1
           },
           "end": {
             "line": 1,
-            "column": 10
+            "column": 20
+          },
+          "value": {
+            "kind": 70,
+            "value": "HELLO",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 20
+            }
           }
         }
       ],
@@ -52,60 +77,148 @@
       "end": {
         "line": 1,
         "column": 20
-      },
-      "value": {
-        "kind": 70,
-        "value": "HELLO",
-        "start": {
-          "line": 1,
-          "column": 13
-        },
-        "end": {
-          "line": 1,
-          "column": 20
-        }
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 9,
-          "start": {
-            "line": 2,
-            "column": 5
-          },
-          "end": {
-            "line": 2,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "c",
-            "start": {
-              "line": 2,
-              "column": 9
-            },
-            "end": {
-              "line": 2,
-              "column": 10
+          "modifiers": [
+            {
+              "kind": 9,
+              "start": {
+                "line": 2,
+                "column": 5
+              },
+              "end": {
+                "line": 2,
+                "column": 8
+              }
             }
-          },
+          ],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "c",
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 10
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 10
+              }
+            }
+          ],
           "start": {
             "line": 2,
-            "column": 9
+            "column": 1
           },
           "end": {
             "line": 2,
-            "column": 10
+            "column": 34
+          },
+          "value": {
+            "kind": 16,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 73,
+              "modifiers": [],
+              "object": {
+                "kind": 11,
+                "operator": {
+                  "kind": 3,
+                  "assignment": 6,
+                  "start": {
+                    "line": 2,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 17
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 13
+                },
+                "end": {
+                  "line": 2,
+                  "column": 20
+                },
+                "left": {
+                  "kind": 54,
+                  "name": "b",
+                  "start": {
+                    "line": 2,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 15
+                  }
+                },
+                "right": {
+                  "kind": 54,
+                  "name": "a",
+                  "start": {
+                    "line": 2,
+                    "column": 18
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 19
+                  }
+                }
+              },
+              "property": {
+                "kind": 54,
+                "name": "toLowerCase",
+                "start": {
+                  "line": 2,
+                  "column": 21
+                },
+                "end": {
+                  "line": 2,
+                  "column": 32
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 13
+              },
+              "end": {
+                "line": 2,
+                "column": 32
+              }
+            },
+            "arguments": [],
+            "start": {
+              "line": 2,
+              "column": 13
+            },
+            "end": {
+              "line": 2,
+              "column": 34
+            }
           }
         }
       ],
@@ -116,93 +229,6 @@
       "end": {
         "line": 2,
         "column": 34
-      },
-      "value": {
-        "kind": 16,
-        "modifiers": [],
-        "scope": {
-          "kind": 3
-        },
-        "callee": {
-          "kind": 73,
-          "modifiers": [],
-          "object": {
-            "kind": 11,
-            "operator": {
-              "kind": 3,
-              "assignment": 6,
-              "start": {
-                "line": 2,
-                "column": 16
-              },
-              "end": {
-                "line": 2,
-                "column": 17
-              }
-            },
-            "start": {
-              "line": 2,
-              "column": 13
-            },
-            "end": {
-              "line": 2,
-              "column": 20
-            },
-            "left": {
-              "kind": 54,
-              "name": "b",
-              "start": {
-                "line": 2,
-                "column": 14
-              },
-              "end": {
-                "line": 2,
-                "column": 15
-              }
-            },
-            "right": {
-              "kind": 54,
-              "name": "a",
-              "start": {
-                "line": 2,
-                "column": 18
-              },
-              "end": {
-                "line": 2,
-                "column": 19
-              }
-            }
-          },
-          "property": {
-            "kind": 54,
-            "name": "toLowerCase",
-            "start": {
-              "line": 2,
-              "column": 21
-            },
-            "end": {
-              "line": 2,
-              "column": 32
-            }
-          },
-          "start": {
-            "line": 2,
-            "column": 13
-          },
-          "end": {
-            "line": 2,
-            "column": 32
-          }
-        },
-        "arguments": [],
-        "start": {
-          "line": 2,
-          "column": 13
-        },
-        "end": {
-          "line": 2,
-          "column": 34
-        }
       }
     }
   ],

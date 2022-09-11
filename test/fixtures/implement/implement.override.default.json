@@ -7,8 +7,7 @@
       "attributes": [],
       "declarations": [
         {
-          "kind": 128,
-          "attributes": [],
+          "kind": 129,
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -31,7 +30,7 @@
             "column": 2
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -206,7 +205,7 @@
             "column": 22
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -280,7 +279,7 @@
             "column": 3
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -309,7 +308,7 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 95,
+                "kind": 96,
                 "attributes": [],
                 "value": {
                   "kind": 27,
@@ -398,7 +397,7 @@
                 "column": 20
               },
               "external": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "color",
@@ -421,7 +420,7 @@
                 }
               },
               "internal": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "color",
@@ -481,7 +480,7 @@
             "column": 3
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -510,10 +509,10 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 95,
+                "kind": 96,
                 "attributes": [],
                 "value": {
-                  "kind": 112,
+                  "kind": 113,
                   "elements": [
                     {
                       "kind": 70,
@@ -528,7 +527,7 @@
                       }
                     },
                     {
-                      "kind": 113,
+                      "kind": 114,
                       "name": {
                         "kind": 54,
                         "name": "color",
@@ -655,7 +654,7 @@
             "column": 34
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -718,7 +717,7 @@
           },
           "throws": [],
           "body": {
-            "kind": 113,
+            "kind": 114,
             "name": {
               "kind": 54,
               "name": "name",
@@ -771,7 +770,7 @@
                 "column": 12
               },
               "external": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "name",
@@ -794,7 +793,7 @@
                 }
               },
               "internal": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "name",
@@ -878,7 +877,7 @@
             "column": 3
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -907,10 +906,10 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 95,
+                "kind": 96,
                 "attributes": [],
                 "value": {
-                  "kind": 112,
+                  "kind": 113,
                   "elements": [
                     {
                       "kind": 70,
@@ -925,7 +924,7 @@
                       }
                     },
                     {
-                      "kind": 113,
+                      "kind": 114,
                       "name": {
                         "kind": 54,
                         "name": "color",
@@ -960,7 +959,7 @@
                       }
                     },
                     {
-                      "kind": 113,
+                      "kind": 114,
                       "name": {
                         "kind": 54,
                         "name": "name",
@@ -1035,45 +1034,110 @@
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 9,
-          "start": {
-            "line": 32,
-            "column": 5
-          },
-          "end": {
-            "line": 32,
-            "column": 8
-          }
-        }
-      ],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "shape",
-            "start": {
-              "line": 32,
-              "column": 9
-            },
-            "end": {
-              "line": 32,
-              "column": 14
+          "modifiers": [
+            {
+              "kind": 9,
+              "start": {
+                "line": 32,
+                "column": 5
+              },
+              "end": {
+                "line": 32,
+                "column": 8
+              }
             }
-          },
+          ],
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "shape",
+                "start": {
+                  "line": 32,
+                  "column": 9
+                },
+                "end": {
+                  "line": 32,
+                  "column": 14
+                }
+              },
+              "start": {
+                "line": 32,
+                "column": 9
+              },
+              "end": {
+                "line": 32,
+                "column": 14
+              }
+            }
+          ],
           "start": {
             "line": 32,
-            "column": 9
+            "column": 1
           },
           "end": {
             "line": 32,
-            "column": 14
+            "column": 32
+          },
+          "value": {
+            "kind": 16,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 73,
+              "modifiers": [],
+              "object": {
+                "kind": 54,
+                "name": "Shape",
+                "start": {
+                  "line": 32,
+                  "column": 17
+                },
+                "end": {
+                  "line": 32,
+                  "column": 22
+                }
+              },
+              "property": {
+                "kind": 54,
+                "name": "makeRed",
+                "start": {
+                  "line": 32,
+                  "column": 23
+                },
+                "end": {
+                  "line": 32,
+                  "column": 30
+                }
+              },
+              "start": {
+                "line": 32,
+                "column": 17
+              },
+              "end": {
+                "line": 32,
+                "column": 30
+              }
+            },
+            "arguments": [],
+            "start": {
+              "line": 32,
+              "column": 17
+            },
+            "end": {
+              "line": 32,
+              "column": 32
+            }
           }
         }
       ],
@@ -1084,58 +1148,6 @@
       "end": {
         "line": 32,
         "column": 32
-      },
-      "value": {
-        "kind": 16,
-        "modifiers": [],
-        "scope": {
-          "kind": 3
-        },
-        "callee": {
-          "kind": 73,
-          "modifiers": [],
-          "object": {
-            "kind": 54,
-            "name": "Shape",
-            "start": {
-              "line": 32,
-              "column": 17
-            },
-            "end": {
-              "line": 32,
-              "column": 22
-            }
-          },
-          "property": {
-            "kind": 54,
-            "name": "makeRed",
-            "start": {
-              "line": 32,
-              "column": 23
-            },
-            "end": {
-              "line": 32,
-              "column": 30
-            }
-          },
-          "start": {
-            "line": 32,
-            "column": 17
-          },
-          "end": {
-            "line": 32,
-            "column": 30
-          }
-        },
-        "arguments": [],
-        "start": {
-          "line": 32,
-          "column": 17
-        },
-        "end": {
-          "line": 32,
-          "column": 32
-        }
       }
     },
     {

@@ -122,6 +122,7 @@ enum Token {
 	ON
 	OVERRIDE
 	OVERWRITE
+	PASS
 	PERCENT
 	PERCENT_EQUALS
 	PIPE
@@ -169,6 +170,7 @@ enum Token {
 	TEMPLATE_ELEMENT
 	TEMPLATE_END
 	TEMPLATE_VALUE
+	THEN
 	THROW
 	TIL
 	TILDE
@@ -1791,6 +1793,19 @@ namespace M {
 					return Token::NAMESPACE
 				}
 			}
+			// pass
+			else if c == 112
+			{
+				if	that.charAt(1) == 97 &&
+					that.charAt(2) == 115 &&
+					that.charAt(3) == 115 &&
+					that.isBoundary(4)
+				{
+					that.next(4)
+
+					return Token::PASS
+				}
+			}
 			// return
 			else if c == 114
 			{
@@ -1921,7 +1936,7 @@ namespace M {
 					return Token::VAR
 				}
 			}
-			// while
+			// while, with
 			else if c == 119
 			{
 				if	that.charAt(1) == 104 &&
@@ -1933,6 +1948,15 @@ namespace M {
 					that.next(5)
 
 					return Token::WHILE
+				}
+				else if	that.charAt(1) == 105 &&
+					that.charAt(2) == 116 &&
+					that.charAt(3) == 104 &&
+					that.isBoundary(4)
+				{
+					that.next(4)
+
+					return Token::WITH
 				}
 			}
 
@@ -2984,6 +3008,19 @@ var recognize = {
 	`\(Token::TEMPLATE_END)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 96 {
 			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::THEN)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 116 &&
+			that.charAt(1) == 104 &&
+			that.charAt(2) == 101 &&
+			that.charAt(3) == 110 &&
+			that.isBoundary(4)
+		{
+			return that.next(4)
 		}
 		else {
 			return false

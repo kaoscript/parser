@@ -56,7 +56,7 @@
             "column": 22
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -129,7 +129,7 @@
             "column": 21
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -231,7 +231,7 @@
                 }
               },
               "type": {
-                "kind": 121,
+                "kind": 122,
                 "modifiers": [],
                 "typeName": {
                   "kind": 54,
@@ -265,7 +265,7 @@
             "column": 71
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -369,7 +369,7 @@
                 "column": 19
               },
               "external": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "type",
@@ -392,7 +392,7 @@
                 }
               },
               "internal": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "type",
@@ -428,7 +428,7 @@
                 "column": 27
               },
               "external": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "color",
@@ -451,7 +451,7 @@
                 }
               },
               "internal": {
-                "kind": 113,
+                "kind": 114,
                 "name": {
                   "kind": 54,
                   "name": "color",
@@ -496,33 +496,111 @@
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
           "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "r",
-            "start": {
-              "line": 14,
-              "column": 5
-            },
-            "end": {
-              "line": 14,
-              "column": 6
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "r",
+                "start": {
+                  "line": 14,
+                  "column": 5
+                },
+                "end": {
+                  "line": 14,
+                  "column": 6
+                }
+              },
+              "start": {
+                "line": 14,
+                "column": 5
+              },
+              "end": {
+                "line": 14,
+                "column": 6
+              }
             }
-          },
+          ],
           "start": {
             "line": 14,
             "column": 5
           },
           "end": {
             "line": 14,
-            "column": 6
+            "column": 37
+          },
+          "value": {
+            "kind": 16,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 73,
+              "modifiers": [],
+              "object": {
+                "kind": 54,
+                "name": "Shape",
+                "start": {
+                  "line": 14,
+                  "column": 9
+                },
+                "end": {
+                  "line": 14,
+                  "column": 14
+                }
+              },
+              "property": {
+                "kind": 54,
+                "name": "makeRectangle",
+                "start": {
+                  "line": 14,
+                  "column": 15
+                },
+                "end": {
+                  "line": 14,
+                  "column": 28
+                }
+              },
+              "start": {
+                "line": 14,
+                "column": 9
+              },
+              "end": {
+                "line": 14,
+                "column": 28
+              }
+            },
+            "arguments": [
+              {
+                "kind": 70,
+                "value": "black",
+                "start": {
+                  "line": 14,
+                  "column": 29
+                },
+                "end": {
+                  "line": 14,
+                  "column": 36
+                }
+              }
+            ],
+            "start": {
+              "line": 14,
+              "column": 9
+            },
+            "end": {
+              "line": 14,
+              "column": 37
+            }
           }
         }
       ],
@@ -533,71 +611,6 @@
       "end": {
         "line": 14,
         "column": 37
-      },
-      "value": {
-        "kind": 16,
-        "modifiers": [],
-        "scope": {
-          "kind": 3
-        },
-        "callee": {
-          "kind": 73,
-          "modifiers": [],
-          "object": {
-            "kind": 54,
-            "name": "Shape",
-            "start": {
-              "line": 14,
-              "column": 9
-            },
-            "end": {
-              "line": 14,
-              "column": 14
-            }
-          },
-          "property": {
-            "kind": 54,
-            "name": "makeRectangle",
-            "start": {
-              "line": 14,
-              "column": 15
-            },
-            "end": {
-              "line": 14,
-              "column": 28
-            }
-          },
-          "start": {
-            "line": 14,
-            "column": 9
-          },
-          "end": {
-            "line": 14,
-            "column": 28
-          }
-        },
-        "arguments": [
-          {
-            "kind": 70,
-            "value": "black",
-            "start": {
-              "line": 14,
-              "column": 29
-            },
-            "end": {
-              "line": 14,
-              "column": 36
-            }
-          }
-        ],
-        "start": {
-          "line": 14,
-          "column": 9
-        },
-        "end": {
-          "line": 14,
-          "column": 37
-        }
       }
     },
     {

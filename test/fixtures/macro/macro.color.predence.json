@@ -7,8 +7,7 @@
       "attributes": [],
       "declarations": [
         {
-          "kind": 128,
-          "attributes": [],
+          "kind": 129,
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -32,8 +31,7 @@
           }
         },
         {
-          "kind": 128,
-          "attributes": [],
+          "kind": 129,
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -57,8 +55,7 @@
           }
         },
         {
-          "kind": 128,
-          "attributes": [],
+          "kind": 129,
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -82,8 +79,7 @@
           }
         },
         {
-          "kind": 128,
-          "attributes": [],
+          "kind": 129,
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -107,8 +103,7 @@
           }
         },
         {
-          "kind": 128,
-          "attributes": [],
+          "kind": 129,
           "modifiers": [],
           "name": {
             "kind": 54,
@@ -142,33 +137,247 @@
       }
     },
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
           "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "foo",
-            "start": {
-              "line": 3,
-              "column": 5
-            },
-            "end": {
-              "line": 3,
-              "column": 8
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "foo",
+                "start": {
+                  "line": 3,
+                  "column": 5
+                },
+                "end": {
+                  "line": 3,
+                  "column": 8
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 5
+              },
+              "end": {
+                "line": 3,
+                "column": 8
+              }
             }
-          },
+          ],
           "start": {
             "line": 3,
             "column": 5
           },
           "end": {
             "line": 3,
-            "column": 8
+            "column": 44
+          },
+          "value": {
+            "kind": 11,
+            "operator": {
+              "kind": 1,
+              "modifiers": [],
+              "start": {
+                "line": 3,
+                "column": 14
+              },
+              "end": {
+                "line": 3,
+                "column": 15
+              }
+            },
+            "start": {
+              "line": 3,
+              "column": 11
+            },
+            "end": {
+              "line": 3,
+              "column": 44
+            },
+            "left": {
+              "kind": 54,
+              "name": "t1",
+              "start": {
+                "line": 3,
+                "column": 11
+              },
+              "end": {
+                "line": 3,
+                "column": 13
+              }
+            },
+            "right": {
+              "kind": 88,
+              "operator": {
+                "kind": 17,
+                "modifiers": [],
+                "start": {
+                  "line": 3,
+                  "column": 41
+                },
+                "end": {
+                  "line": 3,
+                  "column": 42
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 16
+              },
+              "end": {
+                "line": 3,
+                "column": 44
+              },
+              "operands": [
+                {
+                  "kind": 11,
+                  "operator": {
+                    "kind": 22,
+                    "modifiers": [],
+                    "start": {
+                      "line": 3,
+                      "column": 20
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 21
+                    }
+                  },
+                  "start": {
+                    "line": 3,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 25
+                  },
+                  "left": {
+                    "kind": 54,
+                    "name": "t2",
+                    "start": {
+                      "line": 3,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 19
+                    }
+                  },
+                  "right": {
+                    "kind": 54,
+                    "name": "t1",
+                    "start": {
+                      "line": 3,
+                      "column": 22
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 24
+                    }
+                  }
+                },
+                {
+                  "kind": 11,
+                  "operator": {
+                    "kind": 22,
+                    "modifiers": [],
+                    "start": {
+                      "line": 3,
+                      "column": 35
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 36
+                    }
+                  },
+                  "start": {
+                    "line": 3,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 40
+                  },
+                  "left": {
+                    "kind": 11,
+                    "operator": {
+                      "kind": 4,
+                      "modifiers": [],
+                      "start": {
+                        "line": 3,
+                        "column": 31
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 32
+                      }
+                    },
+                    "start": {
+                      "line": 3,
+                      "column": 29
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 34
+                    },
+                    "left": {
+                      "kind": 80,
+                      "value": 2,
+                      "start": {
+                        "line": 3,
+                        "column": 29
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 30
+                      }
+                    },
+                    "right": {
+                      "kind": 80,
+                      "value": 3,
+                      "start": {
+                        "line": 3,
+                        "column": 33
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 34
+                      }
+                    }
+                  },
+                  "right": {
+                    "kind": 54,
+                    "name": "t3",
+                    "start": {
+                      "line": 3,
+                      "column": 37
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 39
+                    }
+                  }
+                },
+                {
+                  "kind": 80,
+                  "value": 6,
+                  "start": {
+                    "line": 3,
+                    "column": 43
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 44
+                  }
+                }
+              ]
+            }
           }
         }
       ],
@@ -179,132 +388,105 @@
       "end": {
         "line": 3,
         "column": 44
-      },
-      "value": {
-        "kind": 11,
-        "operator": {
-          "kind": 1,
+      }
+    },
+    {
+      "kind": 130,
+      "attributes": [],
+      "declarations": [
+        {
+          "kind": 128,
+          "attributes": [],
           "modifiers": [],
-          "start": {
-            "line": 3,
-            "column": 14
-          },
-          "end": {
-            "line": 3,
-            "column": 15
-          }
-        },
-        "start": {
-          "line": 3,
-          "column": 11
-        },
-        "end": {
-          "line": 3,
-          "column": 44
-        },
-        "left": {
-          "kind": 54,
-          "name": "t1",
-          "start": {
-            "line": 3,
-            "column": 11
-          },
-          "end": {
-            "line": 3,
-            "column": 13
-          }
-        },
-        "right": {
-          "kind": 87,
-          "operator": {
-            "kind": 17,
-            "modifiers": [],
-            "start": {
-              "line": 3,
-              "column": 41
-            },
-            "end": {
-              "line": 3,
-              "column": 42
-            }
-          },
-          "start": {
-            "line": 3,
-            "column": 16
-          },
-          "end": {
-            "line": 3,
-            "column": 44
-          },
-          "operands": [
+          "variables": [
             {
-              "kind": 11,
-              "operator": {
-                "kind": 22,
-                "modifiers": [],
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "bar",
                 "start": {
-                  "line": 3,
-                  "column": 20
+                  "line": 4,
+                  "column": 5
                 },
                 "end": {
-                  "line": 3,
-                  "column": 21
+                  "line": 4,
+                  "column": 8
                 }
               },
               "start": {
-                "line": 3,
-                "column": 16
+                "line": 4,
+                "column": 5
               },
               "end": {
-                "line": 3,
-                "column": 25
+                "line": 4,
+                "column": 8
+              }
+            }
+          ],
+          "start": {
+            "line": 4,
+            "column": 5
+          },
+          "end": {
+            "line": 4,
+            "column": 32
+          },
+          "value": {
+            "kind": 11,
+            "operator": {
+              "kind": 1,
+              "modifiers": [],
+              "start": {
+                "line": 4,
+                "column": 13
               },
-              "left": {
-                "kind": 54,
-                "name": "t2",
-                "start": {
-                  "line": 3,
-                  "column": 17
-                },
-                "end": {
-                  "line": 3,
-                  "column": 19
-                }
-              },
-              "right": {
-                "kind": 54,
-                "name": "t1",
-                "start": {
-                  "line": 3,
-                  "column": 22
-                },
-                "end": {
-                  "line": 3,
-                  "column": 24
-                }
+              "end": {
+                "line": 4,
+                "column": 14
               }
             },
-            {
+            "start": {
+              "line": 4,
+              "column": 11
+            },
+            "end": {
+              "line": 4,
+              "column": 32
+            },
+            "left": {
+              "kind": 54,
+              "name": "h",
+              "start": {
+                "line": 4,
+                "column": 11
+              },
+              "end": {
+                "line": 4,
+                "column": 12
+              }
+            },
+            "right": {
               "kind": 11,
               "operator": {
-                "kind": 22,
+                "kind": 17,
                 "modifiers": [],
                 "start": {
-                  "line": 3,
-                  "column": 35
+                  "line": 4,
+                  "column": 21
                 },
                 "end": {
-                  "line": 3,
-                  "column": 36
+                  "line": 4,
+                  "column": 22
                 }
               },
               "start": {
-                "line": 3,
-                "column": 28
+                "line": 4,
+                "column": 15
               },
               "end": {
-                "line": 3,
-                "column": 40
+                "line": 4,
+                "column": 32
               },
               "left": {
                 "kind": 11,
@@ -312,104 +494,117 @@
                   "kind": 4,
                   "modifiers": [],
                   "start": {
-                    "line": 3,
-                    "column": 31
+                    "line": 4,
+                    "column": 17
                   },
                   "end": {
-                    "line": 3,
-                    "column": 32
+                    "line": 4,
+                    "column": 18
                   }
                 },
                 "start": {
-                  "line": 3,
-                  "column": 29
+                  "line": 4,
+                  "column": 15
                 },
                 "end": {
-                  "line": 3,
-                  "column": 34
+                  "line": 4,
+                  "column": 20
                 },
                 "left": {
                   "kind": 80,
-                  "value": 2,
+                  "value": 1,
                   "start": {
-                    "line": 3,
-                    "column": 29
+                    "line": 4,
+                    "column": 15
                   },
                   "end": {
-                    "line": 3,
-                    "column": 30
+                    "line": 4,
+                    "column": 16
                   }
                 },
                 "right": {
                   "kind": 80,
                   "value": 3,
                   "start": {
-                    "line": 3,
-                    "column": 33
+                    "line": 4,
+                    "column": 19
                   },
                   "end": {
-                    "line": 3,
-                    "column": 34
+                    "line": 4,
+                    "column": 20
                   }
                 }
               },
               "right": {
-                "kind": 54,
-                "name": "t3",
+                "kind": 123,
+                "operator": {
+                  "kind": 4,
+                  "start": {
+                    "line": 4,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 24
+                  }
+                },
+                "argument": {
+                  "kind": 11,
+                  "operator": {
+                    "kind": 22,
+                    "modifiers": [],
+                    "start": {
+                      "line": 4,
+                      "column": 28
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 29
+                    }
+                  },
+                  "start": {
+                    "line": 4,
+                    "column": 25
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 32
+                  },
+                  "left": {
+                    "kind": 54,
+                    "name": "i",
+                    "start": {
+                      "line": 4,
+                      "column": 26
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 27
+                    }
+                  },
+                  "right": {
+                    "kind": 80,
+                    "value": 1,
+                    "start": {
+                      "line": 4,
+                      "column": 30
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 31
+                    }
+                  }
+                },
                 "start": {
-                  "line": 3,
-                  "column": 37
+                  "line": 4,
+                  "column": 23
                 },
                 "end": {
-                  "line": 3,
-                  "column": 39
+                  "line": 4,
+                  "column": 32
                 }
               }
-            },
-            {
-              "kind": 80,
-              "value": 6,
-              "start": {
-                "line": 3,
-                "column": 43
-              },
-              "end": {
-                "line": 3,
-                "column": 44
-              }
             }
-          ]
-        }
-      }
-    },
-    {
-      "kind": 127,
-      "attributes": [],
-      "modifiers": [],
-      "variables": [
-        {
-          "kind": 128,
-          "attributes": [],
-          "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "bar",
-            "start": {
-              "line": 4,
-              "column": 5
-            },
-            "end": {
-              "line": 4,
-              "column": 8
-            }
-          },
-          "start": {
-            "line": 4,
-            "column": 5
-          },
-          "end": {
-            "line": 4,
-            "column": 8
           }
         }
       ],
@@ -420,180 +615,6 @@
       "end": {
         "line": 4,
         "column": 32
-      },
-      "value": {
-        "kind": 11,
-        "operator": {
-          "kind": 1,
-          "modifiers": [],
-          "start": {
-            "line": 4,
-            "column": 13
-          },
-          "end": {
-            "line": 4,
-            "column": 14
-          }
-        },
-        "start": {
-          "line": 4,
-          "column": 11
-        },
-        "end": {
-          "line": 4,
-          "column": 32
-        },
-        "left": {
-          "kind": 54,
-          "name": "h",
-          "start": {
-            "line": 4,
-            "column": 11
-          },
-          "end": {
-            "line": 4,
-            "column": 12
-          }
-        },
-        "right": {
-          "kind": 11,
-          "operator": {
-            "kind": 17,
-            "modifiers": [],
-            "start": {
-              "line": 4,
-              "column": 21
-            },
-            "end": {
-              "line": 4,
-              "column": 22
-            }
-          },
-          "start": {
-            "line": 4,
-            "column": 15
-          },
-          "end": {
-            "line": 4,
-            "column": 32
-          },
-          "left": {
-            "kind": 11,
-            "operator": {
-              "kind": 4,
-              "modifiers": [],
-              "start": {
-                "line": 4,
-                "column": 17
-              },
-              "end": {
-                "line": 4,
-                "column": 18
-              }
-            },
-            "start": {
-              "line": 4,
-              "column": 15
-            },
-            "end": {
-              "line": 4,
-              "column": 20
-            },
-            "left": {
-              "kind": 80,
-              "value": 1,
-              "start": {
-                "line": 4,
-                "column": 15
-              },
-              "end": {
-                "line": 4,
-                "column": 16
-              }
-            },
-            "right": {
-              "kind": 80,
-              "value": 3,
-              "start": {
-                "line": 4,
-                "column": 19
-              },
-              "end": {
-                "line": 4,
-                "column": 20
-              }
-            }
-          },
-          "right": {
-            "kind": 122,
-            "operator": {
-              "kind": 4,
-              "start": {
-                "line": 4,
-                "column": 23
-              },
-              "end": {
-                "line": 4,
-                "column": 24
-              }
-            },
-            "argument": {
-              "kind": 11,
-              "operator": {
-                "kind": 22,
-                "modifiers": [],
-                "start": {
-                  "line": 4,
-                  "column": 28
-                },
-                "end": {
-                  "line": 4,
-                  "column": 29
-                }
-              },
-              "start": {
-                "line": 4,
-                "column": 25
-              },
-              "end": {
-                "line": 4,
-                "column": 32
-              },
-              "left": {
-                "kind": 54,
-                "name": "i",
-                "start": {
-                  "line": 4,
-                  "column": 26
-                },
-                "end": {
-                  "line": 4,
-                  "column": 27
-                }
-              },
-              "right": {
-                "kind": 80,
-                "value": 1,
-                "start": {
-                  "line": 4,
-                  "column": 30
-                },
-                "end": {
-                  "line": 4,
-                  "column": 31
-                }
-              }
-            },
-            "start": {
-              "line": 4,
-              "column": 23
-            },
-            "end": {
-              "line": 4,
-              "column": 32
-            }
-          }
-        }
       }
     },
     {
@@ -684,7 +705,7 @@
                       }
                     },
                     "type": {
-                      "kind": 121,
+                      "kind": 122,
                       "modifiers": [],
                       "typeName": {
                         "kind": 54,
@@ -1117,7 +1138,7 @@
                           }
                         },
                         "right": {
-                          "kind": 87,
+                          "kind": 88,
                           "operator": {
                             "kind": 17,
                             "modifiers": [],
@@ -1501,7 +1522,7 @@
                             }
                           },
                           "right": {
-                            "kind": 122,
+                            "kind": 123,
                             "operator": {
                               "kind": 4,
                               "start": {

@@ -38,6 +38,6 @@ dev:
 	@make cls
 
 	@# tests
-	npx kaoscript test/parse.dev.ks "parse test"
+	npx kaoscript test/parse.dev.ks "parse array.pretty"
 
 .PHONY: test coverage

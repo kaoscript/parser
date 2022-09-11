@@ -315,7 +315,7 @@
             }
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -376,7 +376,7 @@
             }
           },
           "type": {
-            "kind": 121,
+            "kind": 122,
             "modifiers": [],
             "typeName": {
               "kind": 54,
@@ -403,7 +403,7 @@
       ],
       "modifiers": [],
       "type": {
-        "kind": 121,
+        "kind": 122,
         "modifiers": [],
         "typeName": {
           "kind": 54,
@@ -432,45 +432,426 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 127,
+            "kind": 130,
             "attributes": [],
-            "modifiers": [
-              {
-                "kind": 9,
-                "start": {
-                  "line": 14,
-                  "column": 6
-                },
-                "end": {
-                  "line": 14,
-                  "column": 9
-                }
-              }
-            ],
-            "variables": [
+            "declarations": [
               {
                 "kind": 128,
                 "attributes": [],
-                "modifiers": [],
-                "name": {
-                  "kind": 54,
-                  "name": "fg_code",
-                  "start": {
-                    "line": 14,
-                    "column": 10
-                  },
-                  "end": {
-                    "line": 14,
-                    "column": 17
+                "modifiers": [
+                  {
+                    "kind": 9,
+                    "start": {
+                      "line": 14,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 14,
+                      "column": 9
+                    }
                   }
-                },
+                ],
+                "variables": [
+                  {
+                    "kind": 129,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 54,
+                      "name": "fg_code",
+                      "start": {
+                        "line": 14,
+                        "column": 10
+                      },
+                      "end": {
+                        "line": 14,
+                        "column": 17
+                      }
+                    },
+                    "start": {
+                      "line": 14,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 14,
+                      "column": 17
+                    }
+                  }
+                ],
                 "start": {
                   "line": 14,
-                  "column": 10
+                  "column": 2
                 },
                 "end": {
-                  "line": 14,
-                  "column": 17
+                  "line": 24,
+                  "column": 3
+                },
+                "value": {
+                  "kind": 109,
+                  "attributes": [],
+                  "expression": {
+                    "kind": 54,
+                    "name": "fg",
+                    "start": {
+                      "line": 14,
+                      "column": 27
+                    },
+                    "end": {
+                      "line": 14,
+                      "column": 29
+                    }
+                  },
+                  "clauses": [
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 30,
+                        "start": {
+                          "line": 15,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 15,
+                          "column": 14
+                        }
+                      },
+                      "start": {
+                        "line": 15,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 15,
+                        "column": 14
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "black",
+                          "start": {
+                            "line": 15,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 15,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 31,
+                        "start": {
+                          "line": 16,
+                          "column": 10
+                        },
+                        "end": {
+                          "line": 16,
+                          "column": 12
+                        }
+                      },
+                      "start": {
+                        "line": 16,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 16,
+                        "column": 12
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "red",
+                          "start": {
+                            "line": 16,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 16,
+                            "column": 6
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 32,
+                        "start": {
+                          "line": 17,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 17,
+                          "column": 14
+                        }
+                      },
+                      "start": {
+                        "line": 17,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 17,
+                        "column": 14
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "green",
+                          "start": {
+                            "line": 17,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 17,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 33,
+                        "start": {
+                          "line": 18,
+                          "column": 13
+                        },
+                        "end": {
+                          "line": 18,
+                          "column": 15
+                        }
+                      },
+                      "start": {
+                        "line": 18,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 18,
+                        "column": 15
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "yellow",
+                          "start": {
+                            "line": 18,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 18,
+                            "column": 9
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 34,
+                        "start": {
+                          "line": 19,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 19,
+                          "column": 13
+                        }
+                      },
+                      "start": {
+                        "line": 19,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 19,
+                        "column": 13
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "blue",
+                          "start": {
+                            "line": 19,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 19,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 35,
+                        "start": {
+                          "line": 20,
+                          "column": 14
+                        },
+                        "end": {
+                          "line": 20,
+                          "column": 16
+                        }
+                      },
+                      "start": {
+                        "line": 20,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 20,
+                        "column": 16
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "magenta",
+                          "start": {
+                            "line": 20,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 20,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 36,
+                        "start": {
+                          "line": 21,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 21,
+                          "column": 13
+                        }
+                      },
+                      "start": {
+                        "line": 21,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 21,
+                        "column": 13
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "cyan",
+                          "start": {
+                            "line": 21,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 21,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 37,
+                        "start": {
+                          "line": 22,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 22,
+                          "column": 14
+                        }
+                      },
+                      "start": {
+                        "line": 22,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 22,
+                        "column": 14
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "white",
+                          "start": {
+                            "line": 22,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 22,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 39,
+                        "start": {
+                          "line": 23,
+                          "column": 14
+                        },
+                        "end": {
+                          "line": 23,
+                          "column": 16
+                        }
+                      },
+                      "start": {
+                        "line": 23,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 23,
+                        "column": 16
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "default",
+                          "start": {
+                            "line": 23,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 23,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    }
+                  ],
+                  "start": {
+                    "line": 14,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 24,
+                    "column": 3
+                  }
                 }
               }
             ],
@@ -481,416 +862,429 @@
             "end": {
               "line": 24,
               "column": 3
-            },
-            "value": {
-              "kind": 108,
-              "attributes": [],
-              "expression": {
-                "kind": 54,
-                "name": "fg",
-                "start": {
-                  "line": 14,
-                  "column": 27
-                },
-                "end": {
-                  "line": 14,
-                  "column": 29
-                }
-              },
-              "clauses": [
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 30,
-                    "start": {
-                      "line": 15,
-                      "column": 12
-                    },
-                    "end": {
-                      "line": 15,
-                      "column": 14
-                    }
-                  },
-                  "start": {
-                    "line": 15,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 15,
-                    "column": 14
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "black",
-                      "start": {
-                        "line": 15,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 15,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 31,
-                    "start": {
-                      "line": 16,
-                      "column": 10
-                    },
-                    "end": {
-                      "line": 16,
-                      "column": 12
-                    }
-                  },
-                  "start": {
-                    "line": 16,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 16,
-                    "column": 12
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "red",
-                      "start": {
-                        "line": 16,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 16,
-                        "column": 6
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 32,
-                    "start": {
-                      "line": 17,
-                      "column": 12
-                    },
-                    "end": {
-                      "line": 17,
-                      "column": 14
-                    }
-                  },
-                  "start": {
-                    "line": 17,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 17,
-                    "column": 14
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "green",
-                      "start": {
-                        "line": 17,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 17,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 33,
-                    "start": {
-                      "line": 18,
-                      "column": 13
-                    },
-                    "end": {
-                      "line": 18,
-                      "column": 15
-                    }
-                  },
-                  "start": {
-                    "line": 18,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 18,
-                    "column": 15
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "yellow",
-                      "start": {
-                        "line": 18,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 18,
-                        "column": 9
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 34,
-                    "start": {
-                      "line": 19,
-                      "column": 11
-                    },
-                    "end": {
-                      "line": 19,
-                      "column": 13
-                    }
-                  },
-                  "start": {
-                    "line": 19,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 19,
-                    "column": 13
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "blue",
-                      "start": {
-                        "line": 19,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 19,
-                        "column": 7
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 35,
-                    "start": {
-                      "line": 20,
-                      "column": 14
-                    },
-                    "end": {
-                      "line": 20,
-                      "column": 16
-                    }
-                  },
-                  "start": {
-                    "line": 20,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 20,
-                    "column": 16
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "magenta",
-                      "start": {
-                        "line": 20,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 20,
-                        "column": 10
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 36,
-                    "start": {
-                      "line": 21,
-                      "column": 11
-                    },
-                    "end": {
-                      "line": 21,
-                      "column": 13
-                    }
-                  },
-                  "start": {
-                    "line": 21,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 21,
-                    "column": 13
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "cyan",
-                      "start": {
-                        "line": 21,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 21,
-                        "column": 7
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 37,
-                    "start": {
-                      "line": 22,
-                      "column": 12
-                    },
-                    "end": {
-                      "line": 22,
-                      "column": 14
-                    }
-                  },
-                  "start": {
-                    "line": 22,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 22,
-                    "column": 14
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "white",
-                      "start": {
-                        "line": 22,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 22,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 39,
-                    "start": {
-                      "line": 23,
-                      "column": 14
-                    },
-                    "end": {
-                      "line": 23,
-                      "column": 16
-                    }
-                  },
-                  "start": {
-                    "line": 23,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 23,
-                    "column": 16
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "default",
-                      "start": {
-                        "line": 23,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 23,
-                        "column": 10
-                      }
-                    }
-                  ],
-                  "bindings": []
-                }
-              ],
-              "start": {
-                "line": 14,
-                "column": 20
-              },
-              "end": {
-                "line": 24,
-                "column": 3
-              }
             }
           },
           {
-            "kind": 127,
+            "kind": 130,
             "attributes": [],
-            "modifiers": [
-              {
-                "kind": 9,
-                "start": {
-                  "line": 26,
-                  "column": 6
-                },
-                "end": {
-                  "line": 26,
-                  "column": 9
-                }
-              }
-            ],
-            "variables": [
+            "declarations": [
               {
                 "kind": 128,
                 "attributes": [],
-                "modifiers": [],
-                "name": {
-                  "kind": 54,
-                  "name": "bg_code",
-                  "start": {
-                    "line": 26,
-                    "column": 10
-                  },
-                  "end": {
-                    "line": 26,
-                    "column": 17
+                "modifiers": [
+                  {
+                    "kind": 9,
+                    "start": {
+                      "line": 26,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 26,
+                      "column": 9
+                    }
                   }
-                },
+                ],
+                "variables": [
+                  {
+                    "kind": 129,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 54,
+                      "name": "bg_code",
+                      "start": {
+                        "line": 26,
+                        "column": 10
+                      },
+                      "end": {
+                        "line": 26,
+                        "column": 17
+                      }
+                    },
+                    "start": {
+                      "line": 26,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 26,
+                      "column": 17
+                    }
+                  }
+                ],
                 "start": {
                   "line": 26,
-                  "column": 10
+                  "column": 2
                 },
                 "end": {
-                  "line": 26,
-                  "column": 17
+                  "line": 36,
+                  "column": 3
+                },
+                "value": {
+                  "kind": 109,
+                  "attributes": [],
+                  "expression": {
+                    "kind": 54,
+                    "name": "bg",
+                    "start": {
+                      "line": 26,
+                      "column": 27
+                    },
+                    "end": {
+                      "line": 26,
+                      "column": 29
+                    }
+                  },
+                  "clauses": [
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 40,
+                        "start": {
+                          "line": 27,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 27,
+                          "column": 14
+                        }
+                      },
+                      "start": {
+                        "line": 27,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 27,
+                        "column": 14
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "black",
+                          "start": {
+                            "line": 27,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 27,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 41,
+                        "start": {
+                          "line": 28,
+                          "column": 10
+                        },
+                        "end": {
+                          "line": 28,
+                          "column": 12
+                        }
+                      },
+                      "start": {
+                        "line": 28,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 28,
+                        "column": 12
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "red",
+                          "start": {
+                            "line": 28,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 28,
+                            "column": 6
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 42,
+                        "start": {
+                          "line": 29,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 29,
+                          "column": 14
+                        }
+                      },
+                      "start": {
+                        "line": 29,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 29,
+                        "column": 14
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "green",
+                          "start": {
+                            "line": 29,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 29,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 44,
+                        "start": {
+                          "line": 30,
+                          "column": 13
+                        },
+                        "end": {
+                          "line": 30,
+                          "column": 15
+                        }
+                      },
+                      "start": {
+                        "line": 30,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 30,
+                        "column": 15
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "yellow",
+                          "start": {
+                            "line": 30,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 30,
+                            "column": 9
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 44,
+                        "start": {
+                          "line": 31,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 31,
+                          "column": 13
+                        }
+                      },
+                      "start": {
+                        "line": 31,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 31,
+                        "column": 13
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "blue",
+                          "start": {
+                            "line": 31,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 31,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 45,
+                        "start": {
+                          "line": 32,
+                          "column": 14
+                        },
+                        "end": {
+                          "line": 32,
+                          "column": 16
+                        }
+                      },
+                      "start": {
+                        "line": 32,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 16
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "magenta",
+                          "start": {
+                            "line": 32,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 32,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 46,
+                        "start": {
+                          "line": 33,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 33,
+                          "column": 13
+                        }
+                      },
+                      "start": {
+                        "line": 33,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 33,
+                        "column": 13
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "cyan",
+                          "start": {
+                            "line": 33,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 33,
+                            "column": 7
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 47,
+                        "start": {
+                          "line": 34,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 34,
+                          "column": 14
+                        }
+                      },
+                      "start": {
+                        "line": 34,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 34,
+                        "column": 14
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "white",
+                          "start": {
+                            "line": 34,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 34,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    },
+                    {
+                      "kind": 103,
+                      "body": {
+                        "kind": 80,
+                        "value": 49,
+                        "start": {
+                          "line": 35,
+                          "column": 14
+                        },
+                        "end": {
+                          "line": 35,
+                          "column": 16
+                        }
+                      },
+                      "start": {
+                        "line": 35,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 35,
+                        "column": 16
+                      },
+                      "conditions": [
+                        {
+                          "kind": 54,
+                          "name": "default",
+                          "start": {
+                            "line": 35,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 35,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "bindings": []
+                    }
+                  ],
+                  "start": {
+                    "line": 26,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 36,
+                    "column": 3
+                  }
                 }
               }
             ],
@@ -901,381 +1295,13 @@
             "end": {
               "line": 36,
               "column": 3
-            },
-            "value": {
-              "kind": 108,
-              "attributes": [],
-              "expression": {
-                "kind": 54,
-                "name": "bg",
-                "start": {
-                  "line": 26,
-                  "column": 27
-                },
-                "end": {
-                  "line": 26,
-                  "column": 29
-                }
-              },
-              "clauses": [
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 40,
-                    "start": {
-                      "line": 27,
-                      "column": 12
-                    },
-                    "end": {
-                      "line": 27,
-                      "column": 14
-                    }
-                  },
-                  "start": {
-                    "line": 27,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 27,
-                    "column": 14
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "black",
-                      "start": {
-                        "line": 27,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 27,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 41,
-                    "start": {
-                      "line": 28,
-                      "column": 10
-                    },
-                    "end": {
-                      "line": 28,
-                      "column": 12
-                    }
-                  },
-                  "start": {
-                    "line": 28,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 28,
-                    "column": 12
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "red",
-                      "start": {
-                        "line": 28,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 28,
-                        "column": 6
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 42,
-                    "start": {
-                      "line": 29,
-                      "column": 12
-                    },
-                    "end": {
-                      "line": 29,
-                      "column": 14
-                    }
-                  },
-                  "start": {
-                    "line": 29,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 29,
-                    "column": 14
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "green",
-                      "start": {
-                        "line": 29,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 29,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 44,
-                    "start": {
-                      "line": 30,
-                      "column": 13
-                    },
-                    "end": {
-                      "line": 30,
-                      "column": 15
-                    }
-                  },
-                  "start": {
-                    "line": 30,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 30,
-                    "column": 15
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "yellow",
-                      "start": {
-                        "line": 30,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 30,
-                        "column": 9
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 44,
-                    "start": {
-                      "line": 31,
-                      "column": 11
-                    },
-                    "end": {
-                      "line": 31,
-                      "column": 13
-                    }
-                  },
-                  "start": {
-                    "line": 31,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 31,
-                    "column": 13
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "blue",
-                      "start": {
-                        "line": 31,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 31,
-                        "column": 7
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 45,
-                    "start": {
-                      "line": 32,
-                      "column": 14
-                    },
-                    "end": {
-                      "line": 32,
-                      "column": 16
-                    }
-                  },
-                  "start": {
-                    "line": 32,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 32,
-                    "column": 16
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "magenta",
-                      "start": {
-                        "line": 32,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 32,
-                        "column": 10
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 46,
-                    "start": {
-                      "line": 33,
-                      "column": 11
-                    },
-                    "end": {
-                      "line": 33,
-                      "column": 13
-                    }
-                  },
-                  "start": {
-                    "line": 33,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 33,
-                    "column": 13
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "cyan",
-                      "start": {
-                        "line": 33,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 33,
-                        "column": 7
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 47,
-                    "start": {
-                      "line": 34,
-                      "column": 12
-                    },
-                    "end": {
-                      "line": 34,
-                      "column": 14
-                    }
-                  },
-                  "start": {
-                    "line": 34,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 34,
-                    "column": 14
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "white",
-                      "start": {
-                        "line": 34,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 34,
-                        "column": 8
-                      }
-                    }
-                  ],
-                  "bindings": []
-                },
-                {
-                  "kind": 102,
-                  "body": {
-                    "kind": 80,
-                    "value": 49,
-                    "start": {
-                      "line": 35,
-                      "column": 14
-                    },
-                    "end": {
-                      "line": 35,
-                      "column": 16
-                    }
-                  },
-                  "start": {
-                    "line": 35,
-                    "column": 3
-                  },
-                  "end": {
-                    "line": 35,
-                    "column": 16
-                  },
-                  "conditions": [
-                    {
-                      "kind": 54,
-                      "name": "default",
-                      "start": {
-                        "line": 35,
-                        "column": 3
-                      },
-                      "end": {
-                        "line": 35,
-                        "column": 10
-                      }
-                    }
-                  ],
-                  "bindings": []
-                }
-              ],
-              "start": {
-                "line": 26,
-                "column": 20
-              },
-              "end": {
-                "line": 36,
-                "column": 3
-              }
             }
           },
           {
-            "kind": 95,
+            "kind": 96,
             "attributes": [],
             "value": {
-              "kind": 112,
+              "kind": 113,
               "elements": [
                 {
                   "kind": 54,

@@ -3,33 +3,213 @@
   "attributes": [],
   "body": [
     {
-      "kind": 127,
+      "kind": 130,
       "attributes": [],
-      "modifiers": [],
-      "variables": [
+      "declarations": [
         {
           "kind": 128,
           "attributes": [],
           "modifiers": [],
-          "name": {
-            "kind": 54,
-            "name": "foobar",
-            "start": {
-              "line": 1,
-              "column": 5
-            },
-            "end": {
-              "line": 1,
-              "column": 11
+          "variables": [
+            {
+              "kind": 129,
+              "modifiers": [],
+              "name": {
+                "kind": 54,
+                "name": "foobar",
+                "start": {
+                  "line": 1,
+                  "column": 5
+                },
+                "end": {
+                  "line": 1,
+                  "column": 11
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 11
+              }
             }
-          },
+          ],
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
-            "line": 1,
-            "column": 11
+            "line": 9,
+            "column": 2
+          },
+          "value": {
+            "kind": 82,
+            "attributes": [
+              {
+                "kind": 7,
+                "declaration": {
+                  "kind": 8,
+                  "name": {
+                    "kind": 54,
+                    "name": "error",
+                    "start": {
+                      "line": 2,
+                      "column": 5
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 10
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "kind": 54,
+                      "name": "off",
+                      "start": {
+                        "line": 2,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 14
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 2,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 15
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 16
+                }
+              }
+            ],
+            "properties": [
+              {
+                "kind": 83,
+                "attributes": [],
+                "modifiers": [],
+                "start": {
+                  "line": 4,
+                  "column": 2
+                },
+                "end": {
+                  "line": 5,
+                  "column": 3
+                },
+                "name": {
+                  "kind": 54,
+                  "name": "foo",
+                  "start": {
+                    "line": 4,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 5
+                  }
+                },
+                "value": {
+                  "kind": 52,
+                  "parameters": [],
+                  "start": {
+                    "line": 4,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 3
+                  },
+                  "modifiers": [],
+                  "throws": [],
+                  "body": {
+                    "kind": 14,
+                    "attributes": [],
+                    "statements": [],
+                    "start": {
+                      "line": 4,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 3
+                    }
+                  }
+                }
+              },
+              {
+                "kind": 83,
+                "attributes": [],
+                "modifiers": [],
+                "start": {
+                  "line": 7,
+                  "column": 2
+                },
+                "end": {
+                  "line": 8,
+                  "column": 3
+                },
+                "name": {
+                  "kind": 54,
+                  "name": "bar",
+                  "start": {
+                    "line": 7,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 5
+                  }
+                },
+                "value": {
+                  "kind": 52,
+                  "parameters": [],
+                  "start": {
+                    "line": 7,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 3
+                  },
+                  "modifiers": [],
+                  "throws": [],
+                  "body": {
+                    "kind": 14,
+                    "attributes": [],
+                    "statements": [],
+                    "start": {
+                      "line": 7,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 3
+                    }
+                  }
+                }
+              }
+            ],
+            "start": {
+              "line": 1,
+              "column": 14
+            },
+            "end": {
+              "line": 9,
+              "column": 2
+            }
           }
         }
       ],
@@ -40,173 +220,6 @@
       "end": {
         "line": 9,
         "column": 2
-      },
-      "value": {
-        "kind": 82,
-        "attributes": [
-          {
-            "kind": 7,
-            "declaration": {
-              "kind": 8,
-              "name": {
-                "kind": 54,
-                "name": "error",
-                "start": {
-                  "line": 2,
-                  "column": 5
-                },
-                "end": {
-                  "line": 2,
-                  "column": 10
-                }
-              },
-              "arguments": [
-                {
-                  "kind": 54,
-                  "name": "off",
-                  "start": {
-                    "line": 2,
-                    "column": 11
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 14
-                  }
-                }
-              ],
-              "start": {
-                "line": 2,
-                "column": 5
-              },
-              "end": {
-                "line": 2,
-                "column": 15
-              }
-            },
-            "start": {
-              "line": 2,
-              "column": 2
-            },
-            "end": {
-              "line": 2,
-              "column": 16
-            }
-          }
-        ],
-        "properties": [
-          {
-            "kind": 83,
-            "attributes": [],
-            "modifiers": [],
-            "start": {
-              "line": 4,
-              "column": 2
-            },
-            "end": {
-              "line": 5,
-              "column": 3
-            },
-            "name": {
-              "kind": 54,
-              "name": "foo",
-              "start": {
-                "line": 4,
-                "column": 2
-              },
-              "end": {
-                "line": 4,
-                "column": 5
-              }
-            },
-            "value": {
-              "kind": 52,
-              "parameters": [],
-              "start": {
-                "line": 4,
-                "column": 5
-              },
-              "end": {
-                "line": 5,
-                "column": 3
-              },
-              "modifiers": [],
-              "throws": [],
-              "body": {
-                "kind": 14,
-                "attributes": [],
-                "statements": [],
-                "start": {
-                  "line": 4,
-                  "column": 8
-                },
-                "end": {
-                  "line": 5,
-                  "column": 3
-                }
-              }
-            }
-          },
-          {
-            "kind": 83,
-            "attributes": [],
-            "modifiers": [],
-            "start": {
-              "line": 7,
-              "column": 2
-            },
-            "end": {
-              "line": 8,
-              "column": 3
-            },
-            "name": {
-              "kind": 54,
-              "name": "bar",
-              "start": {
-                "line": 7,
-                "column": 2
-              },
-              "end": {
-                "line": 7,
-                "column": 5
-              }
-            },
-            "value": {
-              "kind": 52,
-              "parameters": [],
-              "start": {
-                "line": 7,
-                "column": 5
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              },
-              "modifiers": [],
-              "throws": [],
-              "body": {
-                "kind": 14,
-                "attributes": [],
-                "statements": [],
-                "start": {
-                  "line": 7,
-                  "column": 8
-                },
-                "end": {
-                  "line": 8,
-                  "column": 3
-                }
-              }
-            }
-          }
-        ],
-        "start": {
-          "line": 1,
-          "column": 14
-        },
-        "end": {
-          "line": 9,
-          "column": 2
-        }
       }
     }
   ],
