@@ -1,0 +1,177 @@
+{
+  "kind": 76,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 51,
+      "attributes": [],
+      "name": {
+        "kind": 54,
+        "name": "foobar",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 12
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
+      },
+      "parameters": [
+        {
+          "kind": 86,
+          "attributes": [],
+          "modifiers": [],
+          "start": {
+            "line": 1,
+            "column": 13
+          },
+          "end": {
+            "line": 1,
+            "column": 35
+          },
+          "external": {
+            "kind": 54,
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 14
+            }
+          },
+          "internal": {
+            "kind": 54,
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 14
+            }
+          },
+          "type": {
+            "kind": 127,
+            "types": [
+              {
+                "kind": 122,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 54,
+                  "name": "String",
+                  "start": {
+                    "line": 1,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 22
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 16
+                },
+                "end": {
+                  "line": 1,
+                  "column": 22
+                }
+              },
+              {
+                "kind": 122,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 54,
+                  "name": "Number",
+                  "start": {
+                    "line": 1,
+                    "column": 25
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 31
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 25
+                },
+                "end": {
+                  "line": 1,
+                  "column": 31
+                }
+              },
+              {
+                "kind": 122,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 54,
+                  "name": "Null",
+                  "start": {
+                    "line": 1,
+                    "column": 34
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 35
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 34
+                },
+                "end": {
+                  "line": 1,
+                  "column": 35
+                }
+              }
+            ],
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 1,
+              "column": 35
+            }
+          }
+        }
+      ],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 14,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 1,
+          "column": 37
+        },
+        "end": {
+          "line": 2,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 2,
+    "column": 2
+  }
+}

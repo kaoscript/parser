@@ -6252,9 +6252,9 @@ export namespace Parser {
 						@NL_0M()
 
 						if @test(Token::QUESTION) {
-							var first = @yes()
+							var name = @yep(AST.Identifier('Null', @yes()))
 
-							types.push(@yep(AST.TypeReference([], 'Null', null, first, first)))
+							types.push(@yep(AST.TypeReference([], name, null, name, name)))
 						}
 						else {
 							types.push(@reqTypeCore(true))
@@ -6349,9 +6349,9 @@ export namespace Parser {
 						@commit()
 
 						if @test(Token::QUESTION) {
-							var first = @yes()
+							var name = @yep(AST.Identifier('Null', @yes()))
 
-							types.push(@yep(AST.TypeReference([], 'Null', null, first, first)))
+							types.push(@yep(AST.TypeReference([], name, null, name, name)))
 						}
 						else {
 							types.push(@reqTypeCore(false))
