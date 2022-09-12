@@ -1925,6 +1925,7 @@ namespace AST {
 		func VariableDeclarator(modifiers, name, type?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::VariableDeclarator
+				attributes: []
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 			}, first, last)
@@ -1936,10 +1937,11 @@ namespace AST {
 			return node
 		} # }}}
 
-		func VariableStatement(attributes, declarations, first, last) { # {{{
+		func VariableStatement(attributes, modifiers, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind::VariableStatement
 				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				declarations: [declaration.value for var declaration in declarations]
 			}, first, last)
 		} # }}}

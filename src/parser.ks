@@ -3157,7 +3157,10 @@ export namespace Parser {
 
 				var modifiers = []
 				if @test(Token::MUT) {
-					modifiers.push(AST.Modifier(ModifierKind::Mutable, @yes()))
+					modifiers.push(@yep(AST.Modifier(ModifierKind::Mutable, @yes())))
+				}
+				else {
+					modifiers.push(@yep(AST.Modifier(ModifierKind::Immutable, @yes())))
 				}
 
 				if @test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
@@ -8533,7 +8536,7 @@ export namespace Parser {
 						@throw('}')
 					}
 
-					return @yep(AST.VariableStatement([], declarations, first, @yes()))
+					return @yep(AST.VariableStatement([], [], declarations, first, @yes()))
 				}
 				else {
 					@rollback(mark)
@@ -8580,7 +8583,7 @@ export namespace Parser {
 
 			var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, variable, value))
 
-			return @yep(AST.VariableStatement([], [declaration], first, declaration))
+			return @yep(AST.VariableStatement([], [], [declaration], first, declaration))
 		} # }}}
 		tryVarDynStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var modifiers = [@yep(AST.Modifier(ModifierKind::Dynamic, @yes()))]
@@ -8607,10 +8610,10 @@ export namespace Parser {
 
 							var value = @reqExpression(eMode, fMode)
 
-							declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, value, variable, value)))
+							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, value, variable, value)))
 						}
 						else {
-							declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
 						}
 
 						@reqNL_1M()
@@ -8622,7 +8625,7 @@ export namespace Parser {
 						@throw('}')
 					}
 
-					return @yep(AST.VariableStatement([], declarations, first, @yes()))
+					return @yep(AST.VariableStatement([], modifiers, declarations, first, @yes()))
 				}
 				else {
 					@rollback(mark)
@@ -8651,9 +8654,9 @@ export namespace Parser {
 				if variables.length == 1 {
 					value = @reqExpression(eMode, fMode)
 
-					var declaration = @yep(AST.VariableDeclaration([], modifiers, variables, null, value, first, value))
+					var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, first, value))
 
-					return @yep(AST.VariableStatement([], [declaration], first, declaration))
+					return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 				}
 				else {
 					if @test(Token::AWAIT) {
@@ -8667,9 +8670,9 @@ export namespace Parser {
 
 					var value = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
-					var declaration = @yep(AST.VariableDeclaration([], modifiers, variables, null, value, first, value))
+					var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, first, value))
 
-					return @yep(AST.VariableStatement([], [declaration], first, declaration))
+					return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 				}
 			}
 
@@ -8677,7 +8680,7 @@ export namespace Parser {
 			var mut last = null
 
 			for var variable in variables {
-				declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
 
 				last = variable
 			}
@@ -8687,12 +8690,12 @@ export namespace Parser {
 
 				var variable = @reqTypedVariable(fMode, false, false)
 
-				declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
 
 				last = variable
 			}
 
-			return @yep(AST.VariableStatement([], declarations, first, last))
+			return @yep(AST.VariableStatement([], modifiers, declarations, first, last))
 		} # }}}
 		tryVarLateStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var modifiers = [@yep(AST.Modifier(ModifierKind::LateInit, @yes()))]
@@ -8714,7 +8717,7 @@ export namespace Parser {
 							break
 						}
 
-						declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+						declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
 
 						@reqNL_1M()
 					}
@@ -8725,7 +8728,7 @@ export namespace Parser {
 						@throw('}')
 					}
 
-					return @yep(AST.VariableStatement([], declarations, first, @yes()))
+					return @yep(AST.VariableStatement([], modifiers, declarations, first, @yes()))
 				}
 				else {
 					@rollback(mark)
@@ -8736,7 +8739,7 @@ export namespace Parser {
 
 			return NO unless variable.ok
 
-			var declarations = [@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable))]
+			var declarations = [@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable))]
 
 			var mut last = variable
 
@@ -8745,12 +8748,12 @@ export namespace Parser {
 
 				var variable = @reqTypedVariable(fMode, true, true)
 
-				declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
 
 				last = variable
 			}
 
-			return @yep(AST.VariableStatement([], declarations, first, last))
+			return @yep(AST.VariableStatement([], modifiers, declarations, first, last))
 		} # }}}
 		tryVarMutStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var modifiers = [@yep(AST.Modifier(ModifierKind::Mutable, @yes()))]
@@ -8777,10 +8780,10 @@ export namespace Parser {
 
 							var value = @reqExpression(eMode, fMode)
 
-							declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, value, variable, value)))
+							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, value, variable, value)))
 						}
 						else if ?variable.value.type {
-							declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
 						}
 						else {
 							ok = false
@@ -8797,7 +8800,7 @@ export namespace Parser {
 						@throw('}')
 					}
 
-					return @yep(AST.VariableStatement([], declarations, first, @yes()))
+					return @yep(AST.VariableStatement([], modifiers, declarations, first, @yes()))
 				}
 				else {
 					@rollback(mark)
@@ -8826,14 +8829,14 @@ export namespace Parser {
 
 					value = @reqExpression(eMode, fMode)
 
-					var declaration = @yep(AST.VariableDeclaration([], modifiers, variables, null, value, first, value))
+					var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, first, value))
 
-					return @yep(AST.VariableStatement([], [declaration], first, declaration))
+					return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 				}
 				else if ?variable.value.type {
-					var declaration = @yep(AST.VariableDeclaration([], modifiers, variables, null, null, first, variable))
+					var declaration = @yep(AST.VariableDeclaration([], [], variables, null, null, first, variable))
 
-					return @yep(AST.VariableStatement([], [declaration], first, declaration))
+					return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 				}
 				else {
 					return NO
@@ -8854,9 +8857,9 @@ export namespace Parser {
 
 				var value = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
-				var declaration = @yep(AST.VariableDeclaration([], modifiers, variables, null, value, first, value))
+				var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, first, value))
 
-				return @yep(AST.VariableStatement([], [declaration], first, declaration))
+				return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 			}
 
 			var declarations = []
@@ -8867,7 +8870,7 @@ export namespace Parser {
 					return NO
 				}
 
-				declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
 
 				last = variable
 			}
@@ -8877,12 +8880,12 @@ export namespace Parser {
 
 				var variable = @reqTypedVariable(fMode, true, false)
 
-				declarations.push(@yep(AST.VariableDeclaration([], modifiers, [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
 
 				last = variable
 			}
 
-			return @yep(AST.VariableStatement([], declarations, first, last))
+			return @yep(AST.VariableStatement([], modifiers, declarations, first, last))
 		} # }}}
 		tryWhileStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn condition
@@ -8893,7 +8896,10 @@ export namespace Parser {
 
 				var modifiers = []
 				if @test(Token::MUT) {
-					modifiers.push(AST.Modifier(ModifierKind::Mutable, @yes()))
+					modifiers.push(@yep(AST.Modifier(ModifierKind::Mutable, @yes())))
+				}
+				else {
+					modifiers.push(@yep(AST.Modifier(ModifierKind::Immutable, @yes())))
 				}
 
 				if @test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
@@ -8966,6 +8972,9 @@ export namespace Parser {
 				var modifiers = []
 				if @test(Token::MUT) {
 					modifiers.push(@yep(AST.Modifier(ModifierKind::Mutable, @yes())))
+				}
+				else {
+					modifiers.push(@yep(AST.Modifier(ModifierKind::Immutable, @yes())))
 				}
 
 				if @test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
