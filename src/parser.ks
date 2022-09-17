@@ -822,7 +822,7 @@ export namespace Parser {
 
 			while @until(Token::RIGHT_CURLY) {
 				if @stackInnerAttributes(attributes) {
-					// do nothing
+					pass
 				}
 				else {
 					@reqEnumMember(members)
@@ -1918,7 +1918,7 @@ export namespace Parser {
 
 			while @until(Token::RIGHT_CURLY) {
 				if @stackInnerAttributes(attributes) {
-					// do nothing
+					pass
 				}
 				else {
 					@reqEnumMember(members)
@@ -4447,6 +4447,7 @@ export namespace Parser {
 			}
 		} # }}}
 		reqOperand(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			// TODO remove =
 			if (value = @tryOperand(eMode, fMode)).ok {
 				return value
 			}
@@ -4605,7 +4606,7 @@ export namespace Parser {
 				modifiers.push(mutModifier) if ?mutModifier
 				modifiers.push(namedModifier) if ?namedModifier
 
-				var mut internal
+				var late internal
 				if @token == Token::LEFT_CURLY {
 					internal = @reqDestructuringObject(@yes(), pMode, fMode)
 				}
@@ -4682,7 +4683,7 @@ export namespace Parser {
 						parameters.push(@reqParameterIdendifier(attributes, modifiers, null, null, false, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode))
 					}
 					else if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
-						var mut internal
+						var late internal
 						if @token == Token::LEFT_CURLY {
 							internal = @reqDestructuringObject(@yes(), pMode, fMode)
 						}
@@ -4753,7 +4754,7 @@ export namespace Parser {
 							parameters.push(@reqParameterIdendifier(attributes, modifiers, identifier, null, false, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode))
 						}
 						else if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
-							var mut internal
+							var late internal
 							if @token == Token::LEFT_CURLY {
 								internal = @reqDestructuringObject(@yes(), pMode, fMode)
 							}
@@ -5125,22 +5126,14 @@ export namespace Parser {
 
 			switch @matchM(M.REQUIRE_STATEMENT) {
 				Token::BITMASK => {
-					@mode += ParserMode::Typing
-
-					var declarator = @reqBitmaskStatement(@yes())
-
-					@mode -= ParserMode::Typing
-
-					return declarator
+					with @mode += ParserMode::Typing {
+						return @reqBitmaskStatement(@yes())
+					}
 				}
 				Token::ENUM => {
-					@mode += ParserMode::Typing
-
-					var declarator = @reqEnumStatement(@yes())
-
-					@mode -= ParserMode::Typing
-
-					return declarator
+					with @mode += ParserMode::Typing {
+						return @reqEnumStatement(@yes())
+					}
 				}
 				Token::IDENTIFIER => {
 					return @reqExternVariableDeclarator(@reqIdentifier())
@@ -6235,7 +6228,24 @@ export namespace Parser {
 			return @yep(AST.TupleDeclaration(attributes, modifiers, name, extends, elements, first, last))
 		} # }}}
 		reqType(modifiers: Array = [], multiline: Boolean = false): Event ~ SyntaxError { # {{{
-			var type = @reqTypeCore(modifiers, multiline)
+			var type = @tryType(modifiers, multiline)
+
+			return type.ok ? type : NO
+		} # }}}
+		reqTypeCore(modifiers: Array = [], multiline: Boolean): Event ~ SyntaxError { # {{{
+			var type = @tryTypeCore(modifiers, multiline)
+
+			return type.ok ? type : NO
+		} # }}}
+		reqTypeLimited(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
+			var type = @tryTypeLimited(modifiers, nullable)
+
+			return type.ok ? type : NO
+		} # }}}
+		tryType(modifiers: Array = [], multiline: Boolean = false): Event ~ SyntaxError { # {{{
+			var type = @tryTypeCore(modifiers, multiline)
+
+			return NO unless type.ok
 
 			var dyn mark = @mark()
 
@@ -6408,16 +6418,17 @@ export namespace Parser {
 
 			return type
 		} # }}}
-		reqTypeCore(modifiers: Array = [], multiline: Boolean): Event ~ SyntaxError { # {{{
+		tryTypeCore(modifiers: Array = [], multiline: Boolean): Event ~ SyntaxError { # {{{
 			if @test(Token::LEFT_CURLY) {
 				var first = @yes()
 				var properties = []
+				var mut rest = null
 
 				@NL_0M()
 
 				until @test(Token::RIGHT_CURLY) {
 					var mark = @mark()
-					var mut property = null
+					var mut nf = true
 
 					if @test(Token::ASYNC) {
 						var async = @yes()
@@ -6436,14 +6447,18 @@ export namespace Parser {
 
 							var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
 
-							property = @yep(AST.ObjectMember([], [], identifier, objectType, null, identifier, objectType))
+							var property = @yep(AST.PropertyType([], identifier, objectType, identifier, objectType))
+
+							properties.push(property)
+
+							nf = false
 						}
 						else {
 							@rollback(mark)
 						}
 					}
 
-					if property == null && @test(Token::FUNC) {
+					if nf && @test(Token::FUNC) {
 						var first = @yes()
 						var identifier = @tryIdentifier()
 
@@ -6454,22 +6469,37 @@ export namespace Parser {
 
 							var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
 
-							property = @yep(AST.ObjectMember([], [], identifier, objectType, null, identifier, objectType))
+							var property = @yep(AST.PropertyType([], identifier, objectType, identifier, objectType))
+
+							properties.push(property)
+
+							nf = false
 						}
 						else {
 							@rollback(mark)
 						}
 					}
 
-					if property == null && @test(Token::DOT_DOT_DOT) {
+					if nf && @test(Token::DOT_DOT_DOT) {
+						if ?rest {
+							@throw('Identifier')
+						}
+
 						var first = @yes()
 						var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
-						var type = @reqType()
+						var type = @tryType()
 
-						property = @yep(AST.ObjectMember([], [modifier], null, type, null, first, type))
+						if type.ok {
+							rest = @yep(AST.PropertyType([modifier], null, type, first, type))
+						}
+						else {
+							rest = @yep(AST.PropertyType([modifier], null, null, first, first))
+						}
+
+						nf = false
 					}
 
-					if property == null {
+					if nf {
 						var identifier = @tryIdentifier()
 
 						if identifier.ok {
@@ -6488,16 +6518,18 @@ export namespace Parser {
 								type = @reqType()
 							}
 
-							property = @yep(AST.ObjectMember([], [], identifier, type, null, identifier, type ?? identifier))
+							var property = @yep(AST.PropertyType([], identifier, type, identifier, type ?? identifier))
+
+							properties.push(property)
+
+							nf = false
 						}
 					}
 
-					if property == null {
+					if nf {
 						@throw('Identifier', '...')
 					}
 					else {
-						properties.push(property)
-
 						if @test(Token::COMMA) {
 							@commit().NL_0M()
 						}
@@ -6518,33 +6550,51 @@ export namespace Parser {
 					@throw('}')
 				}
 
-				return @yep(AST.ObjectReference(properties, first, @yes()))
+				return @yep(AST.ObjectType([], properties, rest, first, @yes()))
 			}
 
 			if @test(Token::LEFT_SQUARE) {
 				var first = @yes()
-				var elements = []
+				var properties = []
+				var mut rest = null
 
 				@NL_0M()
 
 				while @until(Token::RIGHT_SQUARE) {
 					if @test(Token::COMMA) {
-						elements.push(AST.OmittedReference(@yep()))
+						var first = @yep()
+						var property = @yep(AST.PropertyType([], null, null, first, first))
+
+						properties.push(property)
 
 						@commit().NL_0M()
 					}
 					else {
 						@NL_0M()
 
-						var modifiers = []
-
 						if @test(Token::DOT_DOT_DOT) {
+							if ?rest {
+								@throw('Identifier')
+							}
+
 							var first = @yes()
+							var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
+							var type = @tryType([], multiline)
 
-							modifiers.push(@yep(AST.RestModifier(0, Infinity, first, first)))
+							if type.ok {
+								rest = @yep(AST.PropertyType([modifier], null, type, first, type))
+							}
+							else {
+								rest = @yep(AST.PropertyType([modifier], null, null, first, first))
+							}
 						}
+						else {
+							var type = @reqType([], multiline)
 
-						elements.push(@reqType(modifiers, multiline))
+							var property = @yep(AST.PropertyType([], null, type, type, type))
+
+							properties.push(property)
+						}
 
 						if @test(Token::COMMA) {
 							@commit().NL_0M()
@@ -6562,7 +6612,7 @@ export namespace Parser {
 					@throw(']')
 				}
 
-				return @yep(AST.ArrayReference(elements, first, @yes()))
+				return @yep(AST.ArrayType([], properties, rest, first, @yes()))
 			}
 
 			var mark = @mark()
@@ -6600,40 +6650,9 @@ export namespace Parser {
 				@rollback(mark)
 			}
 
-			return @reqTypeLimited(modifiers)
+			return @tryTypeLimited(modifiers)
 		} # }}}
-		reqTypeEntity(): Event ~ SyntaxError { # {{{
-			var mut name = @reqIdentifier()
-
-			if @testNS(Token::DOT) {
-				do {
-					@commit()
-
-					var property = @reqIdentifier()
-
-					name = @yep(AST.MemberExpression([], name, property))
-				}
-				while @testNS(Token::DOT)
-			}
-
-			return @yep(AST.TypeReference([], name, null, name, name))
-		} # }}}
-		reqTypeGeneric(mut first: Event): Event ~ SyntaxError { # {{{
-			var types = [@reqTypeEntity()]
-
-			while @test(Token::COMMA) {
-				@commit()
-
-				types.push(@reqTypeEntity())
-			}
-
-			unless @test(Token::RIGHT_ANGLE) {
-				@throw('>')
-			}
-
-			return @yes(types)
-		} # }}}
-		reqTypeLimited(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
+		tryTypeLimited(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
 			if @test(Token::LEFT_ROUND) {
 				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
@@ -6642,7 +6661,9 @@ export namespace Parser {
 				return @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
 			}
 
-			var mut name = @reqIdentifier()
+			var mut name = @tryIdentifier()
+
+			return NO unless name.ok
 
 			if @testNS(Token::DOT) {
 				do {
@@ -6677,7 +6698,7 @@ export namespace Parser {
 			}
 
 			var mut genMarker = @mark()
-			var mut type = AST.TypeReference(modifiers, name, generic, first, last)
+			var mut type = @yep(AST.TypeReference(modifiers, name, generic, first, last))
 
 			while @testNS(Token::QUESTION, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
 				if @token == Token::QUESTION {
@@ -6689,7 +6710,7 @@ export namespace Parser {
 						break
 					}
 
-					AST.pushModifier(type, modifier)
+					AST.pushModifier(type.value, modifier)
 				}
 
 				if @token == Token::LEFT_CURLY {
@@ -6699,7 +6720,9 @@ export namespace Parser {
 						@throw('}')
 					}
 
-					type = AST.ObjectType(type, type, @yes())
+					var property = @yep(AST.PropertyType([], null, type, type, type))
+
+					type = @yep(AST.ObjectType([], [], property, property, @yes()))
 				}
 				else {
 					@commit()
@@ -6708,7 +6731,9 @@ export namespace Parser {
 						@throw(']')
 					}
 
-					type = AST.ArrayType(type, type, @yes())
+					var property = @yep(AST.PropertyType([], null, type, type, type))
+
+					type = @yep(AST.ArrayType([], [], property, property, @yes()))
 				}
 
 				genMarker = @mark()
@@ -6717,11 +6742,42 @@ export namespace Parser {
 			if nullable && @testNS(Token::QUESTION) {
 				var modifier = @yep(AST.Modifier(ModifierKind::Nullable, @yes()))
 
-				return @yep(AST.pushModifier(type, modifier))
+				return @yep(AST.pushModifier(type.value, modifier))
 			}
 			else {
-				return @yep(type)
+				return type
 			}
+		} # }}}
+		reqTypeEntity(): Event ~ SyntaxError { # {{{
+			var mut name = @reqIdentifier()
+
+			if @testNS(Token::DOT) {
+				do {
+					@commit()
+
+					var property = @reqIdentifier()
+
+					name = @yep(AST.MemberExpression([], name, property))
+				}
+				while @testNS(Token::DOT)
+			}
+
+			return @yep(AST.TypeReference([], name, null, name, name))
+		} # }}}
+		reqTypeGeneric(mut first: Event): Event ~ SyntaxError { # {{{
+			var types = [@reqTypeEntity()]
+
+			while @test(Token::COMMA) {
+				@commit()
+
+				types.push(@reqTypeEntity())
+			}
+
+			unless @test(Token::RIGHT_ANGLE) {
+				@throw('>')
+			}
+
+			return @yes(types)
 		} # }}}
 		reqTypeStatement(mut first: Event, name: Event): Event ~ SyntaxError { # {{{
 			unless @test(Token::EQUALS) {
@@ -7762,7 +7818,7 @@ export namespace Parser {
 
 			var dyn value
 			if bits ~~ ClassBits::NoAssignment {
-				// do nothing
+				pass
 			}
 			else if @test(Token::EQUALS) {
 				@commit()

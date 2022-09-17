@@ -350,24 +350,18 @@ namespace AST {
 			return node
 		} # }}}
 
-		func ArrayReference(elements, first, last) { # {{{
-			return location({
-				kind: NodeKind::TypeReference
-				modifiers: []
-				typeName: {
-					kind: NodeKind::Identifier
-					name: 'array'
-				},
-				elements: [element.value for element in elements]
-			}, first, last)
-		} # }}}
-
-		func ArrayType(element, first, last) { # {{{
-			return location({
+		func ArrayType(modifiers, properties, rest?, first, last) { # {{{
+			var node = location({
 				kind: NodeKind::ArrayType
-				modifiers: []
-				element
+				modifiers: [modifier.value for var modifier in modifiers]
+				properties: [property.value for var property in properties]
 			}, first, last)
+
+			if rest != null {
+				node.rest = rest.value
+			}
+
+			return node
 		} # }}}
 
 		func AssignmentOperator(operator: AssignmentOperatorKind, first) { # {{{
@@ -1347,8 +1341,8 @@ namespace AST {
 		func ObjectMember(attributes, modifiers, name?, type?, value?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::ObjectMember
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 			}, first, last)
 
 			if name != null {
@@ -1364,24 +1358,18 @@ namespace AST {
 			return node
 		} # }}}
 
-		func ObjectReference(properties, first, last) { # {{{
-			return location({
-				kind: NodeKind::TypeReference
-				modifiers: []
-				typeName: {
-					kind: NodeKind::Identifier
-					name: 'object'
-				},
-				properties: [property.value for property in properties]
-			}, first, last)
-		} # }}}
-
-		func ObjectType(element, first, last) { # {{{
-			return location({
+		func ObjectType(modifiers, properties, rest?, first, last) { # {{{
+			var node = location({
 				kind: NodeKind::ObjectType
-				modifiers: []
-				element
+				modifiers: [modifier.value for var modifier in modifiers]
+				properties: [property.value for var property in properties]
 			}, first, last)
+
+			if rest != null {
+				node.rest = rest.value
+			}
+
+			return node
 		} # }}}
 
 		func OmittedExpression(modifiers, first) { # {{{
@@ -1462,6 +1450,22 @@ namespace AST {
 			}
 			if mutator != null {
 				node.mutator = mutator.value
+			}
+
+			return node
+		} # }}}
+
+		func PropertyType(modifiers, name?, type?, first, last) { # {{{
+			var node = location({
+				kind: NodeKind::PropertyType
+				modifiers: [modifier.value for var modifier in modifiers]
+			}, first, last)
+
+			if name != null {
+				node.name = name.value
+			}
+			if type != null {
+				node.type = type.value
 			}
 
 			return node

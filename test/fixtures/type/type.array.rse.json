@@ -63,32 +63,47 @@
             }
           },
           "type": {
-            "kind": 122,
+            "kind": 6,
             "modifiers": [],
-            "typeName": {
-              "kind": 54,
-              "name": "array"
+            "properties": [],
+            "start": {
+              "line": 1,
+              "column": 16
             },
-            "elements": [
-              {
-                "kind": 122,
-                "modifiers": [
-                  {
-                    "kind": 26,
-                    "arity": {
-                      "min": 0,
-                      "max": "Infinity"
-                    },
-                    "start": {
-                      "line": 1,
-                      "column": 17
-                    },
-                    "end": {
-                      "line": 1,
-                      "column": 20
-                    }
+            "end": {
+              "line": 1,
+              "column": 27
+            },
+            "rest": {
+              "kind": 90,
+              "modifiers": [
+                {
+                  "kind": 26,
+                  "arity": {
+                    "min": 0,
+                    "max": "Infinity"
+                  },
+                  "start": {
+                    "line": 1,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 20
                   }
-                ],
+                }
+              ],
+              "start": {
+                "line": 1,
+                "column": 17
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              },
+              "type": {
+                "kind": 123,
+                "modifiers": [],
                 "typeName": {
                   "kind": 54,
                   "name": "String",
@@ -103,21 +118,13 @@
                 },
                 "start": {
                   "line": 1,
-                  "column": 17
+                  "column": 20
                 },
                 "end": {
                   "line": 1,
                   "column": 26
                 }
               }
-            ],
-            "start": {
-              "line": 1,
-              "column": 16
-            },
-            "end": {
-              "line": 1,
-              "column": 27
             }
           }
         }

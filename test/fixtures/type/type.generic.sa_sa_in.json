@@ -65,54 +65,7 @@
           "type": {
             "kind": 6,
             "modifiers": [],
-            "element": {
-              "kind": 6,
-              "modifiers": [],
-              "element": {
-                "kind": 122,
-                "modifiers": [
-                  {
-                    "kind": 18,
-                    "start": {
-                      "line": 1,
-                      "column": 22
-                    },
-                    "end": {
-                      "line": 1,
-                      "column": 23
-                    }
-                  }
-                ],
-                "typeName": {
-                  "kind": 54,
-                  "name": "Number",
-                  "start": {
-                    "line": 1,
-                    "column": 16
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 22
-                  }
-                },
-                "start": {
-                  "line": 1,
-                  "column": 16
-                },
-                "end": {
-                  "line": 1,
-                  "column": 23
-                }
-              },
-              "start": {
-                "line": 1,
-                "column": 16
-              },
-              "end": {
-                "line": 1,
-                "column": 25
-              }
-            },
+            "properties": [],
             "start": {
               "line": 1,
               "column": 16
@@ -120,6 +73,79 @@
             "end": {
               "line": 1,
               "column": 27
+            },
+            "rest": {
+              "kind": 90,
+              "modifiers": [],
+              "start": {
+                "line": 1,
+                "column": 16
+              },
+              "end": {
+                "line": 1,
+                "column": 25
+              },
+              "type": {
+                "kind": 6,
+                "modifiers": [],
+                "properties": [],
+                "start": {
+                  "line": 1,
+                  "column": 16
+                },
+                "end": {
+                  "line": 1,
+                  "column": 25
+                },
+                "rest": {
+                  "kind": 90,
+                  "modifiers": [],
+                  "start": {
+                    "line": 1,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 22
+                  },
+                  "type": {
+                    "kind": 123,
+                    "modifiers": [
+                      {
+                        "kind": 18,
+                        "start": {
+                          "line": 1,
+                          "column": 22
+                        },
+                        "end": {
+                          "line": 1,
+                          "column": 23
+                        }
+                      }
+                    ],
+                    "typeName": {
+                      "kind": 54,
+                      "name": "Number",
+                      "start": {
+                        "line": 1,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 22
+                      }
+                    },
+                    "start": {
+                      "line": 1,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 23
+                    }
+                  }
+                }
+              }
             }
           }
         }

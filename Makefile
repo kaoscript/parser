@@ -38,6 +38,6 @@ dev:
 	@make cls
 
 	@# tests
-	npx kaoscript test/parse.dev.ks "parse test"
+	npx kaoscript test/parse.dev.ks "parse type.dict.i_i_re"
 
 .PHONY: test coverage
