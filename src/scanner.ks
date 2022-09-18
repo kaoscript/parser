@@ -186,6 +186,15 @@ enum Token {
 	WHEN
 	WHILE
 	WITH
+
+	toString(): String { # {{{
+		switch this {
+			RIGHT_CURLY => return '}'
+			RIGHT_ROUND => return ')'
+			RIGHT_SQUARE => return ']'
+			=> return ''
+		}
+	} # }}}
 }
 
 var overhauls = {

@@ -1258,11 +1258,14 @@ export namespace Parser {
 
 			var parameters = []
 
+			@NL_0M()
+
 			pMode += DestructuringMode::Parameter + DestructuringMode::THIS_ALIAS
 
 			while @until(Token::RIGHT_ROUND) {
-				while @reqParameter(parameters, pMode, FunctionMode::Method) {
-				}
+				parameters.push(@reqParameter(pMode, FunctionMode::Method))
+
+				@reqSeparator(Token::RIGHT_ROUND)
 			}
 
 			unless @test(Token::RIGHT_ROUND) {
@@ -1556,22 +1559,12 @@ export namespace Parser {
 
 			var elements = []
 
-			while true {
+			while @until(Token::RIGHT_SQUARE) {
 				elements.push(@reqDestructuringArrayItem(dMode, fMode))
 
-				if @match(Token::COMMA, Token::NEWLINE) == Token::COMMA {
-					@commit().NL_0M()
+				var separator = @trySeparator(Token::RIGHT_SQUARE)
 
-					continue
-				}
-				else if @token == Token::NEWLINE {
-					@commit().NL_0M()
-
-					if @test(Token::RIGHT_SQUARE) {
-						break
-					}
-				}
-				else {
+				unless separator.ok {
 					break
 				}
 			}
@@ -1651,20 +1644,12 @@ export namespace Parser {
 
 			var elements = []
 
-			while true {
+			do {
 				elements.push(@reqDestructuringObjectItem(dMode, fMode))
 
-				if @match(Token::COMMA, Token::NEWLINE) == Token::COMMA || @token == Token::NEWLINE {
-					@commit().NL_0M()
-				}
-				else {
-					break
-				}
-
-				if @test(Token::RIGHT_CURLY) {
-					break
-				}
+				@reqSeparator(Token::RIGHT_CURLY)
 			}
+			while @until(Token::RIGHT_CURLY)
 
 			unless @test(Token::RIGHT_CURLY) {
 				@throw('}')
@@ -3116,17 +3101,20 @@ export namespace Parser {
 
 			var first = @yes()
 
+			@NL_0M()
+
 			var parameters = []
 
 			pMode += DestructuringMode::Parameter
 
-			unless @test(Token::RIGHT_ROUND) {
-				while @reqParameter(parameters, pMode, fMode) {
-				}
+			while @until(Token::RIGHT_ROUND) {
+				parameters.push(@reqParameter(pMode, fMode))
 
-				unless @test(Token::RIGHT_ROUND) {
-					@throw(')')
-				}
+				@reqSeparator(Token::RIGHT_ROUND)
+			}
+
+			unless @test(Token::RIGHT_ROUND) {
+				@throw(')')
 			}
 
 			return @yep(parameters, first, @yes())
@@ -4110,15 +4098,18 @@ export namespace Parser {
 
 			var first = @yes()
 
+			@NL_0M()
+
 			var parameters = []
 
-			unless @test(Token::RIGHT_ROUND) {
-				while @reqParameter(parameters, DestructuringMode::Parameter, FunctionMode::Macro) {
-				}
+			while @until(Token::RIGHT_ROUND) {
+				parameters.push(@reqParameter(DestructuringMode::Parameter, FunctionMode::Macro))
 
-				unless @test(Token::RIGHT_ROUND) {
-					@throw(')')
-				}
+				@reqSeparator(Token::RIGHT_ROUND)
+			}
+
+			unless @test(Token::RIGHT_ROUND) {
+				@throw(')')
 			}
 
 			return @yep(parameters, first, @yes())
@@ -4542,7 +4533,7 @@ export namespace Parser {
 				return @yep(AST.reorderExpression(values))
 			}
 		} # }}}
-		reqParameter(parameters: Array<Event>, pMode: DestructuringMode, fMode: FunctionMode): Boolean ~ SyntaxError { # {{{
+		reqParameter(pMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mut firstAttr = null
 			var attributes = @stackInlineAttributes([])
 			if attributes.length > 0 {
@@ -4584,16 +4575,7 @@ export namespace Parser {
 						modifiers.push(mutModifier) if ?mutModifier
 						modifiers.push(?positionalModifier ? positionalModifier : namedModifier)
 
-						parameters.push(@reqParameterIdendifier(attributes, modifiers, null, identifier, true, true, true, true, firstAttr ?? mutModifier ?? positionalModifier ?? namedModifier, fMode))
-
-						if @test(Token::COMMA) {
-							@commit()
-
-							return true
-						}
-						else {
-							return false
-						}
+						return @reqParameterIdendifier(attributes, modifiers, null, identifier, true, true, true, true, firstAttr ?? mutModifier ?? positionalModifier ?? namedModifier, fMode)
 					}
 				}
 			}
@@ -4614,16 +4596,7 @@ export namespace Parser {
 					internal = @reqDestructuringArray(@yes(), pMode, fMode)
 				}
 
-				parameters.push(@reqParameterIdendifier(attributes, modifiers, external, internal, false, true, false, true, firstAttr ?? mutModifier ?? namedModifier ?? external ?? internal, fMode))
-
-				if @test(Token::COMMA) {
-					@commit()
-
-					return true
-				}
-				else {
-					return false
-				}
+				return @reqParameterIdendifier(attributes, modifiers, external, internal, false, true, false, true, firstAttr ?? mutModifier ?? namedModifier ?? external ?? internal, fMode)
 			}
 
 			if @test(Token::DOT_DOT_DOT) {
@@ -4634,16 +4607,7 @@ export namespace Parser {
 				var modifiers = []
 				modifiers.push(mutModifier) if ?mutModifier
 
-				parameters.push(@reqParameterRest(attributes, modifiers, external, firstAttr ?? mutModifier ?? first, pMode, fMode))
-
-				if @test(Token::COMMA) {
-					@commit()
-
-					return true
-				}
-				else {
-					return false
-				}
+				return @reqParameterRest(attributes, modifiers, external, firstAttr ?? mutModifier ?? first, pMode, fMode)
 			}
 
 			if @test(Token::AT) {
@@ -4653,16 +4617,7 @@ export namespace Parser {
 				modifiers.push(namedModifier) if ?namedModifier
 				modifiers.push(positionalModifier) if ?positionalModifier
 
-				parameters.push(@reqParameterAt(attributes, modifiers, external, firstAttr ?? namedModifier ?? positionalModifier, pMode, fMode))
-
-				if @test(Token::COMMA) {
-					@commit()
-
-					return true
-				}
-				else {
-					return false
-				}
+				return @reqParameterAt(attributes, modifiers, external, firstAttr ?? namedModifier ?? positionalModifier, pMode, fMode)
 			}
 
 			if @test(Token::UNDERSCORE) {
@@ -4680,7 +4635,7 @@ export namespace Parser {
 					if @test(Token::UNDERSCORE) {
 						@commit()
 
-						parameters.push(@reqParameterIdendifier(attributes, modifiers, null, null, false, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode))
+						return @reqParameterIdendifier(attributes, modifiers, null, null, false, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode)
 					}
 					else if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
 						var late internal
@@ -4691,33 +4646,24 @@ export namespace Parser {
 							internal = @reqDestructuringArray(@yes(), pMode, fMode)
 						}
 
-						parameters.push(@reqParameterIdendifier(attributes, modifiers, null, internal, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode))
+						return @reqParameterIdendifier(attributes, modifiers, null, internal, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode)
 					}
 					else if !?namedModifier && @test(Token::DOT_DOT_DOT) {
 						@commit()
 
-						parameters.push(@reqParameterRest(attributes, modifiers, NO, firstAttr ?? mutModifier ?? underscore, pMode, fMode))
+						return @reqParameterRest(attributes, modifiers, NO, firstAttr ?? mutModifier ?? underscore, pMode, fMode)
 					}
 					else if @test(Token::AT) {
 						@throw() if ?mutModifier
 
-						parameters.push(@reqParameterAt(attributes, modifiers, null, firstAttr ?? namedModifier ?? underscore, pMode, fMode))
+						return @reqParameterAt(attributes, modifiers, null, firstAttr ?? namedModifier ?? underscore, pMode, fMode)
 					}
 					else {
-						parameters.push(@reqParameterIdendifier(attributes, modifiers, null, null, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode))
+						return @reqParameterIdendifier(attributes, modifiers, null, null, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode)
 					}
 				}
 				else {
-					parameters.push(@reqParameterIdendifier(attributes, modifiers, external, null, false, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode))
-				}
-
-				if @test(Token::COMMA) {
-					@commit()
-
-					return true
-				}
-				else {
-					return false
+					return @reqParameterIdendifier(attributes, modifiers, external, null, false, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode)
 				}
 			}
 
@@ -4726,16 +4672,7 @@ export namespace Parser {
 				modifiers.push(mutModifier) if ?mutModifier
 				modifiers.push(?positionalModifier ? positionalModifier : namedModifier)
 
-				parameters.push(@reqParameterIdendifier(attributes, modifiers, external, null, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? positionalModifier, fMode))
-
-				if @test(Token::COMMA) {
-					@commit()
-
-					return true
-				}
-				else {
-					return false
-				}
+				return @reqParameterIdendifier(attributes, modifiers, external, null, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? positionalModifier, fMode)
 			}
 
 			do {
@@ -4751,7 +4688,7 @@ export namespace Parser {
 						if @test(Token::UNDERSCORE) {
 							@commit()
 
-							parameters.push(@reqParameterIdendifier(attributes, modifiers, identifier, null, false, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode))
+							return @reqParameterIdendifier(attributes, modifiers, identifier, null, false, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode)
 						}
 						else if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
 							var late internal
@@ -4762,33 +4699,24 @@ export namespace Parser {
 								internal = @reqDestructuringArray(@yes(), pMode, fMode)
 							}
 
-							parameters.push(@reqParameterIdendifier(attributes, modifiers, identifier, internal, true, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode))
+							return @reqParameterIdendifier(attributes, modifiers, identifier, internal, true, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode)
 						}
 						else if @test(Token::DOT_DOT_DOT) {
 							@commit()
 
-							parameters.push(@reqParameterRest(attributes, modifiers, identifier, firstAttr ?? mutModifier ?? identifier, pMode, fMode))
+							return @reqParameterRest(attributes, modifiers, identifier, firstAttr ?? mutModifier ?? identifier, pMode, fMode)
 						}
 						else if @test(Token::AT) {
 							@throw() if ?mutModifier
 
-							parameters.push(@reqParameterAt(attributes, modifiers, identifier, firstAttr ?? namedModifier ?? identifier, pMode, fMode))
+							return @reqParameterAt(attributes, modifiers, identifier, firstAttr ?? namedModifier ?? identifier, pMode, fMode)
 						}
 						else {
-							parameters.push(@reqParameterIdendifier(attributes, modifiers, identifier, null, true, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode))
+							return @reqParameterIdendifier(attributes, modifiers, identifier, null, true, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode)
 						}
 					}
 					else {
-						parameters.push(@reqParameterIdendifier(attributes, modifiers, identifier, identifier, true, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode))
-					}
-
-					if @test(Token::COMMA) {
-						@commit()
-
-						return true
-					}
-					else {
-						return false
+						return @reqParameterIdendifier(attributes, modifiers, identifier, identifier, true, true, true, true, firstAttr ?? mutModifier ?? identifier, fMode)
 					}
 				}
 
@@ -5365,6 +5293,28 @@ export namespace Parser {
 				else {
 					@throw()
 				}
+			}
+		} # }}}
+		reqSeparator(token: Token): Void ~ SyntaxError { # {{{
+			if @match(Token::COMMA, Token::NEWLINE, token) == Token::COMMA {
+				@commit()
+
+				if @test(token) {
+					@throw()
+				}
+
+				@skipNewLine()
+			}
+			else if @token == Token::NEWLINE {
+				@commit()
+
+				@skipNewLine()
+			}
+			else if @token == token {
+				pass
+			}
+			else {
+				@throw(',', token.toString(), 'NewLine')
 			}
 		} # }}}
 		reqStatement(fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -7899,7 +7849,7 @@ export namespace Parser {
 
 			return NO
 		} # }}}
-		tryDestructuringArray(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryDestructuringArray(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var late dMode: DestructuringMode
 
 			if fMode == FunctionMode::Method {
@@ -7916,7 +7866,7 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryDestructuringObject(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryDestructuringObject(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var late dMode: DestructuringMode
 
 			if fMode == FunctionMode::Method {
@@ -8096,20 +8046,27 @@ export namespace Parser {
 
 			var first = @yes()
 
+			@NL_0M()
+
 			var parameters = []
 
-			unless @test(Token::RIGHT_ROUND) {
+			while @until(Token::RIGHT_ROUND) {
 				try {
-					while @reqParameter(parameters, DestructuringMode::Parameter, fMode) {
-					}
+					parameters.push(@reqParameter(DestructuringMode::Parameter, fMode))
 				}
 				catch {
 					return NO
 				}
 
-				unless @test(Token::RIGHT_ROUND) {
+				var separator = @trySeparator(Token::RIGHT_ROUND)
+
+				unless separator.ok {
 					return NO
 				}
+			}
+
+			unless @test(Token::RIGHT_ROUND) {
+				return NO
 			}
 
 			return @yep(parameters, first, @yes())
@@ -8397,6 +8354,32 @@ export namespace Parser {
 			}
 
 			return @reqPostfixedOperand(operand, eMode, fMode)
+		} # }}}
+		trySeparator(token: Token): Event ~ SyntaxError { # {{{
+			if @match(Token::COMMA, Token::NEWLINE, token) == Token::COMMA {
+				@commit()
+
+				if @test(token) {
+					return NO
+				}
+
+				@skipNewLine()
+
+				return YES
+			}
+			else if @token == Token::NEWLINE {
+				@commit()
+
+				@skipNewLine()
+
+				return YES
+			}
+			else if @token == token {
+				return YES
+			}
+			else {
+				return NO
+			}
 		} # }}}
 		tryShebang(): Event ~ SyntaxError { # {{{
 			if @test(Token::HASH_EXCLAMATION) {

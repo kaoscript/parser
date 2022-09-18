@@ -1,0 +1,214 @@
+{
+  "kind": 76,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 19,
+      "attributes": [],
+      "modifiers": [],
+      "name": {
+        "kind": 54,
+        "name": "Foobar",
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 13
+        }
+      },
+      "members": [
+        {
+          "kind": 74,
+          "attributes": [],
+          "modifiers": [],
+          "name": {
+            "kind": 54,
+            "name": "foobar",
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 8
+            }
+          },
+          "parameters": [],
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 3
+          },
+          "throws": [],
+          "body": {
+            "kind": 14,
+            "attributes": [],
+            "statements": [
+              {
+                "kind": 97,
+                "attributes": [],
+                "value": {
+                  "kind": 11,
+                  "operator": {
+                    "kind": 18,
+                    "modifiers": [],
+                    "start": {
+                      "line": 3,
+                      "column": 18
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 20
+                    }
+                  },
+                  "start": {
+                    "line": 3,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 42
+                  },
+                  "left": {
+                    "kind": 115,
+                    "name": {
+                      "kind": 54,
+                      "name": "foobar",
+                      "start": {
+                        "line": 3,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 17
+                      }
+                    },
+                    "start": {
+                      "line": 3,
+                      "column": 10
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 17
+                    }
+                  },
+                  "right": {
+                    "kind": 11,
+                    "operator": {
+                      "kind": 3,
+                      "assignment": 16,
+                      "start": {
+                        "line": 3,
+                        "column": 30
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 32
+                      }
+                    },
+                    "start": {
+                      "line": 3,
+                      "column": 21
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 42
+                    },
+                    "left": {
+                      "kind": 115,
+                      "name": {
+                        "kind": 54,
+                        "name": "foobar",
+                        "start": {
+                          "line": 3,
+                          "column": 23
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 29
+                        }
+                      },
+                      "start": {
+                        "line": 3,
+                        "column": 22
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 29
+                      }
+                    },
+                    "right": {
+                      "kind": 16,
+                      "modifiers": [],
+                      "scope": {
+                        "kind": 3
+                      },
+                      "callee": {
+                        "kind": 54,
+                        "name": "foobar",
+                        "start": {
+                          "line": 3,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 39
+                        }
+                      },
+                      "arguments": [],
+                      "start": {
+                        "line": 3,
+                        "column": 33
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 41
+                      }
+                    }
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 3
+                },
+                "end": {
+                  "line": 3,
+                  "column": 42
+                }
+              }
+            ],
+            "start": {
+              "line": 2,
+              "column": 11
+            },
+            "end": {
+              "line": 4,
+              "column": 3
+            }
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 2
+  }
+}
