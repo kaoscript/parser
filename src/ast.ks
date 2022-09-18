@@ -99,6 +99,16 @@ namespace AST {
 		return descriptor
 	} # }}}
 
+	export func pushAttributes(data, attributes: Array): Void { # {{{
+		if #attributes {
+			data.start = attributes[0].value.start
+
+			while #attributes {
+				data.attributes.unshift(attributes.pop().value)
+			}
+		}
+	} # }}}
+
 	export func pushModifier(data, modifier: Event) { # {{{
 		data.modifiers.push(modifier.value)
 

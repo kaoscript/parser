@@ -643,6 +643,120 @@ namespace M {
 			return Token::INVALID
 		} # }}}
 
+		func DESCRIPTIVE_TYPE(that: Scanner, index: Number): Token { # {{{
+			var dyn c = that.skip(index)
+
+			if c == -1 {
+				return Token::EOF
+			}
+			// _
+			else if c == 95 && !that.isBoundary(1) {
+				that.scanIdentifier(false)
+
+				return Token::IDENTIFIER
+			}
+			// abstract, async
+			else if	c == 97 {
+				var identifier = that.scanIdentifier(true)
+				if identifier == 'bstract' {
+					return Token::ABSTRACT
+				}
+				else if identifier == 'sync' {
+					return Token::ASYNC
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// bitmask
+			else if c == 98 {
+				if that.scanIdentifier(true) == 'itmask' {
+					return Token::BITMASK
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// class
+			else if c == 99 {
+				var identifier = that.scanIdentifier(true)
+				if identifier == 'lass' {
+					return Token::CLASS
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// enum
+			else if c == 101 {
+				if that.scanIdentifier(true) == 'num' {
+					return Token::ENUM
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// func
+			else if c == 102 {
+				if that.scanIdentifier(true) == 'unc' {
+					return Token::FUNC
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// namespace
+			else if c == 110 {
+				if that.scanIdentifier(true) == 'amespace' {
+					return Token::NAMESPACE
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// sealed, struct, system
+			else if c == 115 {
+				var identifier = that.scanIdentifier(true)
+
+				if identifier == 'ealed' {
+					return Token::SEALED
+				}
+				else if identifier == 'ystem' {
+					return Token::SYSTEM
+				}
+				else if identifier == 'truct' {
+					return Token::STRUCT
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			else if c == 116 {
+				if that.scanIdentifier(true) == 'uple' {
+					return Token::TUPLE
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			// var
+			else if c == 118 {
+				if that.scanIdentifier(true) == 'ar' {
+					return Token::VAR
+				}
+				else {
+					return Token::IDENTIFIER
+				}
+			}
+			else if c == 36 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
+				that.scanIdentifier(false)
+
+				return Token::IDENTIFIER
+			}
+
+			return Token::INVALID
+		} # }}}
+
 		func EXPORT_STATEMENT(that: Scanner, index: Number): Token { # {{{
 			var dyn c = that.skip(index)
 
@@ -755,91 +869,6 @@ namespace M {
 				}
 				else if identifier == 'ype' {
 					return Token::TYPE
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// var
-			else if c == 118 {
-				if that.scanIdentifier(true) == 'ar' {
-					return Token::VAR
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			else if c == 36 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
-				that.scanIdentifier(false)
-
-				return Token::IDENTIFIER
-			}
-
-			return Token::INVALID
-		} # }}}
-
-		func EXTERN_STATEMENT(that: Scanner, index: Number): Token { # {{{
-			var dyn c = that.skip(index)
-
-			if c == -1 {
-				return Token::EOF
-			}
-			// _
-			else if c == 95 && !that.isBoundary(1) {
-				that.scanIdentifier(false)
-
-				return Token::IDENTIFIER
-			}
-			// abstract, async
-			else if	c == 97 {
-				var identifier = that.scanIdentifier(true)
-				if identifier == 'bstract' {
-					return Token::ABSTRACT
-				}
-				else if identifier == 'sync' {
-					return Token::ASYNC
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// class
-			else if c == 99 {
-				var identifier = that.scanIdentifier(true)
-				if identifier == 'lass' {
-					return Token::CLASS
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// func
-			else if c == 102 {
-				if that.scanIdentifier(true) == 'unc' {
-					return Token::FUNC
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// namespace
-			else if c == 110 {
-				if that.scanIdentifier(true) == 'amespace' {
-					return Token::NAMESPACE
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// sealed, system
-			else if c == 115 {
-				var identifier = that.scanIdentifier(true)
-
-				if identifier == 'ealed' {
-					return Token::SEALED
-				}
-				else if identifier == 'ystem' {
-					return Token::SYSTEM
 				}
 				else {
 					return Token::IDENTIFIER
@@ -1483,63 +1512,6 @@ namespace M {
 
 					return Token::QUESTION
 				}
-			}
-
-			return Token::INVALID
-		} # }}}
-
-		func REQUIRE_STATEMENT(that: Scanner, index: Number): Token { # {{{
-			var dyn c = that.skip(index)
-
-			if c == -1 {
-				return Token::EOF
-			}
-			// _
-			else if c == 95 && !that.isBoundary(1) {
-				that.scanIdentifier(false)
-
-				return Token::IDENTIFIER
-			}
-			// bitmask
-			else if c == 98 {
-				if that.scanIdentifier(true) == 'itmask' {
-					return Token::BITMASK
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// enum
-			else if c == 101 {
-				if that.scanIdentifier(true) == 'num' {
-					return Token::ENUM
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// struct
-			else if c == 115 {
-				if that.scanIdentifier(true) == 'truct' {
-					return Token::STRUCT
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			// tuple
-			else if c == 116 {
-				if that.scanIdentifier(true) == 'uple' {
-					return Token::TUPLE
-				}
-				else {
-					return Token::IDENTIFIER
-				}
-			}
-			else if c == 36 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
-				that.scanIdentifier(false)
-
-				return Token::IDENTIFIER
 			}
 
 			return Token::INVALID
