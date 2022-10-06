@@ -1441,6 +1441,14 @@ namespace AST {
 			return node
 		} # }}}
 
+		func PositionalArgument(value) { # {{{
+			return location({
+				kind: NodeKind::PositionalArgument
+				modifiers: []
+				value: value.value
+			}, value, value)
+		} # }}}
+
 		func PropertyDeclaration(attributes, modifiers, name, type?, defaultValue?, accessor?, mutator?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::PropertyDeclaration

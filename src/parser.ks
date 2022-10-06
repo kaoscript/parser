@@ -591,6 +591,77 @@ export namespace Parser {
 
 			return modifiers
 		} # }}}
+		reqArgumentList(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			@NL_0M()
+
+			if @test(Token::RIGHT_ROUND) {
+				return @yep([])
+			}
+			else {
+				var arguments = []
+
+				while @until(Token::RIGHT_ROUND) {
+					if @test(Token::BACKSLASH) {
+						var first = @yes()
+
+						if fMode == FunctionMode::Method && @test(Token::AT) {
+							var alias = @reqThisExpression(@yes())
+
+							arguments.push(@yep(AST.PositionalArgument(@yep(alias.value.name))))
+						}
+						else {
+							var identifier = @reqIdentifier()
+
+							arguments.push(@yep(AST.PositionalArgument(identifier)))
+						}
+					}
+					else if @test(Token::COLON) {
+						var first = @yes()
+
+						if fMode == FunctionMode::Method && @test(Token::AT) {
+							var alias = @reqThisExpression(@yes())
+
+							arguments.push(@yep(AST.NamedArgument(@yep(alias.value.name), alias, first, alias)))
+						}
+						else {
+							var identifier = @reqIdentifier()
+
+							arguments.push(@yep(AST.NamedArgument(identifier, identifier, first, identifier)))
+						}
+					}
+					else {
+						var argument = @reqExpression(null, fMode, MacroTerminator::List)
+
+						if argument.value.kind == NodeKind::Identifier {
+							if @test(Token::COLON) {
+								@commit()
+
+								var value = @reqExpression(null, fMode, MacroTerminator::List)
+
+								arguments.push(@yep(AST.NamedArgument(argument, value)))
+							}
+							else {
+								arguments.push(argument)
+							}
+						}
+						else {
+							arguments.push(argument)
+						}
+					}
+
+					if @match(Token::COMMA, Token::NEWLINE) == Token::COMMA || @token == Token::NEWLINE {
+						@commit().NL_0M()
+					}
+					else {
+						break
+					}
+				}
+
+				@throw(')') unless @test(Token::RIGHT_ROUND)
+
+				return @yep(arguments)
+			}
+		} # }}}
 		reqArray(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @test(Token::RIGHT_SQUARE) {
 				return @yep(AST.ArrayExpression([], first, @yes()))
@@ -960,7 +1031,7 @@ export namespace Parser {
 				return @reqClassMemberBlock(
 					attributes
 					[accessModifier]
-					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::Proxy
+					ClassBits::Variable + ClassBits::FinalVariable + ClassBits::LateVariable + ClassBits::Property + ClassBits::Method + ClassBits::OverrideMethod + ClassBits::Proxy
 					members
 				)
 			}
@@ -2238,69 +2309,6 @@ export namespace Parser {
 			}
 
 			return @reqOperation(eMode, fMode)
-		} # }}}
-		reqExpression0CNList(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			@NL_0M()
-
-			if @test(Token::RIGHT_ROUND) {
-				return @yep([])
-			}
-			else {
-				var expressions = []
-
-				while true {
-					if @test(Token::COLON) {
-						var first = @yes()
-
-						if fMode == FunctionMode::Method && @test(Token::AT) {
-							var alias = @reqThisExpression(@yes())
-
-							expressions.push(@yep(AST.NamedArgument(@yep(alias.value.name), alias, first, alias)))
-						}
-						else {
-							var identifier = @reqIdentifier()
-
-							expressions.push(@yep(AST.NamedArgument(identifier, identifier, first, identifier)))
-						}
-					}
-					else {
-						var expression = @reqExpression(null, fMode, MacroTerminator::List)
-
-						if expression.value.kind == NodeKind::Identifier {
-							if @test(Token::COLON) {
-								@commit()
-
-								var value = @reqExpression(null, fMode, MacroTerminator::List)
-
-								expressions.push(@yep(AST.NamedArgument(expression, value)))
-							}
-							else {
-								expressions.push(expression)
-							}
-						}
-						else {
-							expressions.push(expression)
-						}
-					}
-
-					if @match(Token::COMMA, Token::NEWLINE) == Token::COMMA || @token == Token::NEWLINE {
-						@commit().NL_0M()
-					}
-					else {
-						break
-					}
-
-					if @test(Token::RIGHT_ROUND) {
-						break
-					}
-				}
-
-				unless @test(Token::RIGHT_ROUND) {
-					@throw(')')
-				}
-
-				return @yep(expressions)
-			}
 		} # }}}
 		reqExpressionStatement(fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var expression = @reqExpression(ExpressionMode::Default, fMode)
@@ -6124,29 +6132,29 @@ export namespace Parser {
 					Token::ASTERISK_ASTERISK_LEFT_ROUND => {
 						@commit()
 
-						value = @yep(AST.CallExpression([], AST.Scope(ScopeKind::Null), value, @reqExpression0CNList(fMode), value, @yes()))
+						value = @yep(AST.CallExpression([], AST.Scope(ScopeKind::Null), value, @reqArgumentList(fMode), value, @yes()))
 					}
 					Token::ASTERISK_DOLLAR_LEFT_ROUND => {
 						@commit()
 
-						var arguments = @reqExpression0CNList(fMode)
+						var arguments = @reqArgumentList(fMode)
 
 						value = @yep(AST.CallExpression([], AST.Scope(ScopeKind::Argument, arguments.value.shift()), value, arguments, value, @yes()))
 					}
 					Token::CARET_AT_LEFT_ROUND => {
 						@commit()
 
-						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind::This), value, @reqExpression0CNList(fMode), value, @yes()))
+						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind::This), value, @reqArgumentList(fMode), value, @yes()))
 					}
 					Token::CARET_CARET_LEFT_ROUND => {
 						@commit()
 
-						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind::Null), value, @reqExpression0CNList(fMode), value, @yes()))
+						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind::Null), value, @reqArgumentList(fMode), value, @yes()))
 					}
 					Token::CARET_DOLLAR_LEFT_ROUND => {
 						@commit()
 
-						var arguments = @reqExpression0CNList(fMode)
+						var arguments = @reqArgumentList(fMode)
 
 						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind::Argument, arguments.value.shift()), value, arguments, value, @yes()))
 					}
@@ -6190,7 +6198,7 @@ export namespace Parser {
 					Token::EXCLAMATION_LEFT_ROUND => {
 						@commit()
 
-						value = @yep(AST.CallMacroExpression(value, @reqExpression0CNList(fMode), value, @yes()))
+						value = @yep(AST.CallMacroExpression(value, @reqArgumentList(fMode), value, @yes()))
 					}
 					Token::LEFT_SQUARE => {
 						var modifiers = [AST.Modifier(ModifierKind::Computed, @yes())]
@@ -6206,7 +6214,7 @@ export namespace Parser {
 					Token::LEFT_ROUND => {
 						@commit()
 
-						value = @yep(AST.CallExpression([], value, @reqExpression0CNList(fMode), value, @yes()))
+						value = @yep(AST.CallExpression([], value, @reqArgumentList(fMode), value, @yes()))
 					}
 					Token::NEWLINE => {
 						mark = @mark()
@@ -6234,7 +6242,7 @@ export namespace Parser {
 					Token::QUESTION_LEFT_ROUND => {
 						var modifiers = [AST.Modifier(ModifierKind::Nullable, @yes())]
 
-						value = @yep(AST.CallExpression(modifiers, AST.Scope(ScopeKind::This), value, @reqExpression0CNList(fMode), value, @yes()))
+						value = @yep(AST.CallExpression(modifiers, AST.Scope(ScopeKind::This), value, @reqArgumentList(fMode), value, @yes()))
 					}
 					Token::QUESTION_LEFT_SQUARE => {
 						var position = @yes()
@@ -7141,7 +7149,7 @@ export namespace Parser {
 
 				@commit()
 
-				return @yep(AST.CreateExpression(class, @reqExpression0CNList(fMode), first, @yes()))
+				return @yep(AST.CreateExpression(class, @reqArgumentList(fMode), first, @yes()))
 			}
 
 			var dyn class = @tryVariableName(fMode)
@@ -7159,7 +7167,7 @@ export namespace Parser {
 			if @test(Token::LEFT_ROUND) {
 				@commit()
 
-				return @yep(AST.CreateExpression(class, @reqExpression0CNList(fMode), first, @yes()))
+				return @yep(AST.CreateExpression(class, @reqArgumentList(fMode), first, @yes()))
 			}
 			else {
 				return @yep(AST.CreateExpression(class, @yep([]), first, class))

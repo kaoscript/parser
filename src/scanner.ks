@@ -16,6 +16,7 @@ enum Token {
 	ATTRIBUTE_IDENTIFIER
 	AUTO
 	AWAIT
+	BACKSLASH
 	BINARY_NUMBER
 	BITMASK
 	BREAK
@@ -2146,6 +2147,16 @@ var recognize = {
 			that.isBoundary(5)
 		{
 			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::BACKSLASH)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 92 {
+			c = that.charAt(1)
+
+			return that.next(1)
 		}
 		else {
 			return false
