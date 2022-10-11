@@ -4432,42 +4432,7 @@ export namespace Parser {
 
 				var underscore = @yes()
 
-				if !?external && pMode !~ DestructuringMode::EXTERNAL_ONLY && @test(Token::PERCENT) {
-					@commit()
-
-					if @test(Token::UNDERSCORE) {
-						@commit()
-
-						return @reqParameterIdendifier(attributes, modifiers, null, null, false, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode)
-					}
-					else if @test(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
-						var late internal
-						if @token == Token::LEFT_CURLY {
-							internal = @reqDestructuringObject(@yes(), pMode, fMode)
-						}
-						else {
-							internal = @reqDestructuringArray(@yes(), pMode, fMode)
-						}
-
-						return @reqParameterIdendifier(attributes, modifiers, null, internal, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode)
-					}
-					else if !?namedModifier && @test(Token::DOT_DOT_DOT) {
-						@commit()
-
-						return @reqParameterRest(attributes, modifiers, NO, firstAttr ?? mutModifier ?? underscore, pMode, fMode)
-					}
-					else if @test(Token::AT) {
-						@throw() if ?mutModifier
-
-						return @reqParameterAt(attributes, modifiers, null, firstAttr ?? namedModifier ?? underscore, pMode, fMode)
-					}
-					else {
-						return @reqParameterIdendifier(attributes, modifiers, null, null, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode)
-					}
-				}
-				else {
-					return @reqParameterIdendifier(attributes, modifiers, external, null, false, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode)
-				}
+				return @reqParameterIdendifier(attributes, modifiers, external, null, false, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? underscore, fMode)
 			}
 
 			if ?positionalModifier || ?namedModifier {
@@ -4737,10 +4702,10 @@ export namespace Parser {
 			if operator.ok {
 				var defaultValue = @reqExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.Parameter(attributes, modifiers, external ?? name, name, null, operator, defaultValue, first ?? name, defaultValue))
+				return @yep(AST.Parameter(attributes, modifiers, external ?? @yep(name.value.name), name, null, operator, defaultValue, first ?? name, defaultValue))
 			}
 			else {
-				return @yep(AST.Parameter(attributes, modifiers, external ?? name, name, null, null, null, first ?? name, name))
+				return @yep(AST.Parameter(attributes, modifiers, external ?? @yep(name.value.name), name, null, null, null, first ?? name, name))
 			}
 		} # }}}
 		reqParenthesis(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
