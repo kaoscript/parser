@@ -1,6 +1,6 @@
 struct Point {
-    x?
-    y?
+	x?
+	y?
 }
 
 struct Pair2 {

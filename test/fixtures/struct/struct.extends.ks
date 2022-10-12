@@ -1,6 +1,6 @@
 struct Point {
-    x: Number
-    y: Number
+	x: Number
+	y: Number
 }
 
 struct Point3D extends Point {

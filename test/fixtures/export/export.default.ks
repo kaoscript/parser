@@ -3,7 +3,7 @@ export var c = 3
 export var b = 5
 
 export func foo() {
-    return c + b
+	return c + b
 }
 
 export class BarQux {
@@ -11,5 +11,5 @@ export class BarQux {
 		a: int
 	}
 
-    BarQux(@a)
+	BarQux(@a)
 }

@@ -607,7 +607,7 @@ export namespace Parser {
 						if fMode == FunctionMode::Method && @test(Token::AT) {
 							var alias = @reqThisExpression(@yes())
 
-							arguments.push(@yep(AST.PositionalArgument(@yep(alias.value.name))))
+							arguments.push(@yep(AST.PositionalArgument(alias)))
 						}
 						else {
 							var identifier = @reqIdentifier()

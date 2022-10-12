@@ -1,6 +1,6 @@
 require struct Point {
-    x: Number
-    y: Number
+	x: Number
+	y: Number
 }
 
 var dyn point = Point(0.3, 0.4)
