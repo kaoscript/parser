@@ -7046,7 +7046,7 @@ export namespace Parser {
 
 			return @reqClassStatementBody(name, first, modifiers)
 		} # }}}
-		tryClassVariable(attributes, mut modifiers, mut bits: ClassBits, mut name: Event?, mut type: Event?, mut first: Event?): Event ~ SyntaxError { # {{{
+		tryClassVariable(attributes, mut modifiers, bits: ClassBits, mut name: Event?, mut type: Event?, mut first: Event?): Event ~ SyntaxError { # {{{
 			var mark = @mark()
 
 			if !?name {
@@ -7072,10 +7072,8 @@ export namespace Parser {
 
 					type = @reqType()
 				}
-				else if bits !~ ClassBits::NoAssignment && @test(Token::QUESTION) {
+				else if @test(Token::QUESTION) {
 					modifiers = [...modifiers, @yep(AST.Modifier(ModifierKind::Nullable, @yes()))]
-
-					bits += ClassBits::RequiredAssignment
 				}
 			}
 
