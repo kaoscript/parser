@@ -4574,7 +4574,7 @@ export namespace Parser {
 			if typed && @test(Token::COLON) {
 				@commit()
 
-				var type = @reqType()
+				var type = @reqTypeParameter()
 				var operator = @tryParameterAssignment(valued)
 
 				if operator.ok {
@@ -5818,12 +5818,22 @@ export namespace Parser {
 		reqType(modifiers: Array = [], multiline: Boolean = false): Event ~ SyntaxError { # {{{
 			var type = @tryType(modifiers, multiline)
 
-			return type.ok ? type : NO
+			if type.ok {
+				return type
+			}
+			else {
+				@throw('type')
+			}
 		} # }}}
 		reqTypeCore(modifiers: Array = [], multiline: Boolean): Event ~ SyntaxError { # {{{
 			var type = @tryTypeCore(modifiers, multiline)
 
-			return type.ok ? type : NO
+			if type.ok {
+				return type
+			}
+			else {
+				@throw('type')
+			}
 		} # }}}
 		reqTypeDescriptive(): Event ~ SyntaxError { # {{{
 			switch @matchM(M.DESCRIPTIVE_TYPE) {
@@ -6041,6 +6051,37 @@ export namespace Parser {
 			}
 
 			return @yes(types)
+		} # }}}
+		reqTypeParameter(): Event ~ SyntaxError { # {{{
+			var type = @tryType()
+
+			if @match(Token::PIPE_PIPE, Token::AMPERSAND_AMPERSAND) == Token::PIPE_PIPE {
+				var types = [type]
+
+				do {
+					@commit()
+
+					types.push(@reqType())
+				}
+				while @test(Token::PIPE_PIPE)
+
+				return @yep(AST.UnionType(types, type, types[types.length - 1]))
+			}
+			else if @token == Token::AMPERSAND_AMPERSAND {
+				var types = [type]
+
+				do {
+					@commit()
+
+					types.push(@reqType())
+				}
+				while @test(Token::AMPERSAND_AMPERSAND)
+
+				return @yep(AST.UnionType(types, type, types[types.length - 1]))
+			}
+			else {
+				return type
+			}
 		} # }}}
 		reqTypeStatement(mut first: Event, name: Event): Event ~ SyntaxError { # {{{
 			unless @test(Token::EQUALS) {
