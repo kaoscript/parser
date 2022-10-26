@@ -4353,13 +4353,11 @@ export namespace Parser {
 			var mut positionalModifier = null
 			var mut namedModifier = null
 
-			if pMode !~ DestructuringMode::EXTERNAL_ONLY {
-				if @test(Token::HASH) {
-					positionalModifier = AST.Modifier(ModifierKind::PositionOnly, @yes())
-				}
-				else if @test(Token::ASTERISK) {
-					namedModifier = AST.Modifier(ModifierKind::NameOnly, @yes())
-				}
+			if @test(Token::HASH) {
+				positionalModifier = AST.Modifier(ModifierKind::PositionOnly, @yes())
+			}
+			else if @test(Token::ASTERISK) {
+				namedModifier = AST.Modifier(ModifierKind::NameOnly, @yes())
 			}
 
 			var mut external = null
