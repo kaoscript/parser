@@ -1,17 +1,17 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 134,
+      "kind": 131,
       "attributes": [],
       "variables": [
         {
-          "kind": 130,
+          "kind": 127,
           "attributes": [],
           "modifiers": [
             {
-              "kind": 11,
+              "kind": 13,
               "start": {
                 "line": 1,
                 "column": 10
@@ -24,11 +24,11 @@
           ],
           "variables": [
             {
-              "kind": 131,
+              "kind": 128,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 54,
+                "kind": 52,
                 "name": "file",
                 "start": {
                   "line": 1,
@@ -58,16 +58,16 @@
             "column": 29
           },
           "value": {
-            "kind": 10,
+            "kind": 11,
             "modifiers": [],
             "operation": {
-              "kind": 16,
+              "kind": 17,
               "modifiers": [],
               "scope": {
                 "kind": 3
               },
               "callee": {
-                "kind": 54,
+                "kind": 52,
                 "name": "open",
                 "start": {
                   "line": 1,
@@ -100,25 +100,25 @@
         }
       ],
       "body": {
-        "kind": 14,
+        "kind": 15,
         "attributes": [],
         "statements": [
           {
-            "kind": 132,
+            "kind": 129,
             "attributes": [],
             "modifiers": [],
             "declarations": [
               {
-                "kind": 130,
+                "kind": 127,
                 "attributes": [],
                 "modifiers": [],
                 "variables": [
                   {
-                    "kind": 131,
+                    "kind": 128,
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "text",
                       "start": {
                         "line": 2,
@@ -148,19 +148,19 @@
                   "column": 34
                 },
                 "value": {
-                  "kind": 10,
+                  "kind": 11,
                   "modifiers": [],
                   "operation": {
-                    "kind": 16,
+                    "kind": 17,
                     "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
-                      "kind": 73,
+                      "kind": 66,
                       "modifiers": [],
                       "object": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "file",
                         "start": {
                           "line": 2,
@@ -172,7 +172,7 @@
                         }
                       },
                       "property": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "readText",
                         "start": {
                           "line": 2,
@@ -241,20 +241,20 @@
         "column": 2
       },
       "finalizer": {
-        "kind": 14,
+        "kind": 15,
         "attributes": [],
         "statements": [
           {
-            "kind": 16,
+            "kind": 17,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 66,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 52,
                 "name": "file",
                 "start": {
                   "line": 5,
@@ -266,7 +266,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 52,
                 "name": "close",
                 "start": {
                   "line": 5,

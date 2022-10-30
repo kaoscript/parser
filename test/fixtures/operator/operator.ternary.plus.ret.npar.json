@@ -1,9 +1,9 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 11,
+      "kind": 12,
       "operator": {
         "kind": 3,
         "assignment": 16,
@@ -25,7 +25,7 @@
         "column": 27
       },
       "left": {
-        "kind": 54,
+        "kind": 52,
         "name": "foo",
         "start": {
           "line": 1,
@@ -37,7 +37,7 @@
         }
       },
       "right": {
-        "kind": 25,
+        "kind": 26,
         "start": {
           "line": 1,
           "column": 8
@@ -47,7 +47,7 @@
           "column": 27
         },
         "condition": {
-          "kind": 11,
+          "kind": 12,
           "operator": {
             "kind": 1,
             "modifiers": [],
@@ -69,7 +69,7 @@
             "column": 17
           },
           "left": {
-            "kind": 54,
+            "kind": 52,
             "name": "foo",
             "start": {
               "line": 1,
@@ -81,7 +81,7 @@
             }
           },
           "right": {
-            "kind": 54,
+            "kind": 52,
             "name": "bar",
             "start": {
               "line": 1,
@@ -94,7 +94,7 @@
           }
         },
         "whenTrue": {
-          "kind": 80,
+          "kind": 74,
           "value": 42,
           "start": {
             "line": 1,
@@ -106,7 +106,7 @@
           }
         },
         "whenFalse": {
-          "kind": 80,
+          "kind": 74,
           "value": 24,
           "start": {
             "line": 1,

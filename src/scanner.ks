@@ -680,18 +680,22 @@ namespace M {
 			}
 			// class
 			else if c == 99 {
-				var identifier = that.scanIdentifier(true)
-				if identifier == 'lass' {
+				if that.scanIdentifier(true) == 'lass' {
 					return Token::CLASS
 				}
 				else {
 					return Token::IDENTIFIER
 				}
 			}
-			// enum
+			// enum, export
 			else if c == 101 {
-				if that.scanIdentifier(true) == 'num' {
+				var identifier = that.scanIdentifier(true)
+
+				if identifier == 'num' {
 					return Token::ENUM
+				}
+				else if identifier == 'xport' {
+					return Token::EXPORT
 				}
 				else {
 					return Token::IDENTIFIER

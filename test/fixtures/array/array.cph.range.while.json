@@ -1,9 +1,9 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 11,
+      "kind": 12,
       "operator": {
         "kind": 3,
         "assignment": 6,
@@ -17,7 +17,7 @@
         }
       },
       "left": {
-        "kind": 54,
+        "kind": 52,
         "name": "a",
         "start": {
           "line": 1,
@@ -29,9 +29,9 @@
         }
       },
       "right": {
-        "kind": 3,
+        "kind": 4,
         "body": {
-          "kind": 54,
+          "kind": 52,
           "name": "i",
           "start": {
             "line": 1,
@@ -43,11 +43,11 @@
           }
         },
         "loop": {
-          "kind": 50,
+          "kind": 47,
           "attributes": [],
           "modifiers": [],
           "value": {
-            "kind": 54,
+            "kind": 52,
             "name": "i",
             "start": {
               "line": 1,
@@ -67,7 +67,7 @@
             "column": 49
           },
           "then": {
-            "kind": 80,
+            "kind": 74,
             "value": 0,
             "start": {
               "line": 1,
@@ -79,7 +79,7 @@
             }
           },
           "til": {
-            "kind": 80,
+            "kind": 74,
             "value": 10,
             "start": {
               "line": 1,
@@ -91,13 +91,13 @@
             }
           },
           "while": {
-            "kind": 16,
+            "kind": 17,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 52,
               "name": "foo",
               "start": {
                 "line": 1,
@@ -110,7 +110,7 @@
             },
             "arguments": [
               {
-                "kind": 54,
+                "kind": 52,
                 "name": "i",
                 "start": {
                   "line": 1,
@@ -132,13 +132,13 @@
             }
           },
           "when": {
-            "kind": 16,
+            "kind": 17,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 54,
+              "kind": 52,
               "name": "bar",
               "start": {
                 "line": 1,
@@ -151,7 +151,7 @@
             },
             "arguments": [
               {
-                "kind": 54,
+                "kind": 52,
                 "name": "i",
                 "start": {
                   "line": 1,

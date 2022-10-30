@@ -1,13 +1,13 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 132,
+      "kind": 129,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 9,
+          "kind": 10,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,16 @@
       ],
       "declarations": [
         {
-          "kind": 130,
+          "kind": 127,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 131,
+              "kind": 128,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 54,
+                "kind": 52,
                 "name": "v",
                 "start": {
                   "line": 1,
@@ -59,10 +59,10 @@
             "column": 28
           },
           "value": {
-            "kind": 4,
+            "kind": 5,
             "values": [
               {
-                "kind": 80,
+                "kind": 74,
                 "value": 1,
                 "start": {
                   "line": 1,
@@ -74,7 +74,7 @@
                 }
               },
               {
-                "kind": 80,
+                "kind": 74,
                 "value": 2,
                 "start": {
                   "line": 1,
@@ -86,7 +86,7 @@
                 }
               },
               {
-                "kind": 80,
+                "kind": 74,
                 "value": 3,
                 "start": {
                   "line": 1,
@@ -98,7 +98,7 @@
                 }
               },
               {
-                "kind": 80,
+                "kind": 74,
                 "value": 4,
                 "start": {
                   "line": 1,
@@ -110,7 +110,7 @@
                 }
               },
               {
-                "kind": 80,
+                "kind": 74,
                 "value": 5,
                 "start": {
                   "line": 1,
@@ -143,10 +143,10 @@
       }
     },
     {
-      "kind": 112,
+      "kind": 107,
       "attributes": [],
       "expression": {
-        "kind": 54,
+        "kind": 52,
         "name": "v",
         "start": {
           "line": 3,
@@ -159,18 +159,18 @@
       },
       "clauses": [
         {
-          "kind": 105,
+          "kind": 100,
           "body": {
-            "kind": 16,
+            "kind": 17,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 66,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 52,
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -182,7 +182,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 52,
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -204,7 +204,7 @@
             },
             "arguments": [
               {
-                "kind": 70,
+                "kind": 63,
                 "value": "empty",
                 "start": {
                   "line": 4,
@@ -235,7 +235,7 @@
           },
           "conditions": [
             {
-              "kind": 106,
+              "kind": 101,
               "values": [],
               "start": {
                 "line": 4,
@@ -250,18 +250,18 @@
           "bindings": []
         },
         {
-          "kind": 105,
+          "kind": 100,
           "body": {
-            "kind": 16,
+            "kind": 17,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 66,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 52,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -273,7 +273,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 52,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -295,7 +295,7 @@
             },
             "arguments": [
               {
-                "kind": 54,
+                "kind": 52,
                 "name": "elem",
                 "start": {
                   "line": 5,
@@ -327,10 +327,10 @@
           "conditions": [],
           "bindings": [
             {
-              "kind": 2,
+              "kind": 3,
               "elements": [
                 {
-                  "kind": 12,
+                  "kind": 13,
                   "modifiers": [],
                   "start": {
                     "line": 5,
@@ -341,7 +341,7 @@
                     "column": 12
                   },
                   "name": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "elem",
                     "start": {
                       "line": 5,
@@ -366,18 +366,18 @@
           ]
         },
         {
-          "kind": 105,
+          "kind": 100,
           "body": {
-            "kind": 16,
+            "kind": 17,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 66,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 52,
                 "name": "console",
                 "start": {
                   "line": 6,
@@ -389,7 +389,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 52,
                 "name": "log",
                 "start": {
                   "line": 6,
@@ -411,7 +411,7 @@
             },
             "arguments": [
               {
-                "kind": 54,
+                "kind": 52,
                 "name": "rest",
                 "start": {
                   "line": 6,
@@ -443,10 +443,10 @@
           "conditions": [],
           "bindings": [
             {
-              "kind": 2,
+              "kind": 3,
               "elements": [
                 {
-                  "kind": 12,
+                  "kind": 13,
                   "modifiers": [],
                   "start": {
                     "line": 6,
@@ -458,7 +458,7 @@
                   }
                 },
                 {
-                  "kind": 12,
+                  "kind": 13,
                   "modifiers": [],
                   "start": {
                     "line": 6,
@@ -470,10 +470,10 @@
                   }
                 },
                 {
-                  "kind": 12,
+                  "kind": 13,
                   "modifiers": [
                     {
-                      "kind": 26,
+                      "kind": 29,
                       "start": {
                         "line": 6,
                         "column": 14
@@ -493,7 +493,7 @@
                     "column": 21
                   },
                   "name": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "rest",
                     "start": {
                       "line": 6,

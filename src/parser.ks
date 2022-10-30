@@ -95,6 +95,12 @@ export namespace Parser {
 		Typing
 	}
 
+	enum TypeMode {
+		Default
+		Module
+		NoIdentifier
+	}
+
 	var NO = Event(ok: false)
 	var YES = Event(ok: true)
 
@@ -122,6 +128,10 @@ export namespace Parser {
 		match(...tokens: Token): Token => @token <- @scanner.match(...tokens)
 		matchM(matcher: Function): Token => @token <- @scanner.matchM(matcher)
 		matchNS(...tokens: Token): Token => @token <- @scanner.matchNS(...tokens)
+		no(...expecteds: String): Event => Event( # {{{
+			ok: false
+			value: expecteds
+		) # }}}
 		position(): Range => @scanner.position()
 		printDebug(prefix: String? = null): Void { # {{{
 			if ?prefix {
@@ -574,6 +584,97 @@ export namespace Parser {
 
 				return false
 			}
+		} # }}}
+		parseModule() ~ SyntaxError { # {{{
+			var attributes = []
+			var body = []
+
+			var dyn attrs = []
+			var dyn statement
+
+			if (statement = @tryShebang()).ok {
+				body.push(statement.value)
+			}
+
+			@NL_0M()
+
+			until @scanner.isEOF() {
+				if @stackInnerAttributes(attributes) {
+					continue
+				}
+
+				@stackOuterAttributes(attrs)
+
+				switch @matchM(M.MODULE_STATEMENT) {
+					Token::DISCLOSE => {
+						statement = @reqDiscloseStatement(@yes()).value
+					}
+					Token::EXPORT => {
+						statement = @reqExportStatement(@yes()).value
+					}
+					Token::EXTERN => {
+						statement = @reqExternStatement(@yes()).value
+					}
+					Token::EXTERN_IMPORT => {
+						statement = @reqExternOrImportStatement(@yes()).value
+					}
+					Token::EXTERN_REQUIRE => {
+						statement = @reqExternOrRequireStatement(@yes()).value
+					}
+					Token::INCLUDE => {
+						statement = @reqIncludeStatement(@yes()).value
+					}
+					Token::INCLUDE_AGAIN => {
+						statement = @reqIncludeAgainStatement(@yes()).value
+					}
+					Token::REQUIRE => {
+						statement = @reqRequireStatement(@yes()).value
+					}
+					Token::REQUIRE_EXTERN => {
+						statement = @reqRequireOrExternStatement(@yes()).value
+					}
+					Token::REQUIRE_IMPORT => {
+						statement = @reqRequireOrImportStatement(@yes()).value
+					}
+					=> {
+						statement = @reqStatement(FunctionMode::Function).value
+					}
+				}
+
+				AST.pushAttributes(statement, attrs)
+
+				body.push(statement)
+
+				@NL_0M()
+			}
+
+			return AST.Module(attributes, body, this)
+		} # }}}
+		parseModuleType() ~ SyntaxError { # {{{
+			@NL_0M()
+
+			var types = []
+			var attributes = []
+			var mut attrs = []
+			var mut type = NO
+
+			until @scanner.isEOF() {
+				if @stackInnerAttributes(attributes) {
+					continue
+				}
+
+				@stackOuterAttributes(attrs)
+
+				var type = @reqTypeDescriptive(TypeMode::Module)
+
+				@reqNL_EOF_1M()
+
+				AST.pushAttributes(type.value, attrs)
+
+				types.push(type)
+			}
+
+			return AST.TypeList(attributes, types, attributes[0] ?? types[0], types[types.length - 1])
 		} # }}}
 		reqAccessModifiers(modifiers: Array<Event>): Array<Event> ~ SyntaxError { # {{{
 			if @match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC, Token::INTERNAL) == Token::PRIVATE {
@@ -1986,7 +2087,7 @@ export namespace Parser {
 
 						var modifiers = [@yep(AST.Modifier(ModifierKind::Abstract, first))]
 
-						return @yep(AST.ExportDeclarationSpecifier(@reqClassStatement(first, modifiers)))
+						return @yep(AST.DeclarationSpecifier(@reqClassStatement(first, modifiers)))
 					}
 					else {
 						@throw('class')
@@ -2000,20 +2101,20 @@ export namespace Parser {
 
 						var modifiers = [@yep(AST.Modifier(ModifierKind::Async, first))]
 
-						return @yep(AST.ExportDeclarationSpecifier(@reqFunctionStatement(first, modifiers)))
+						return @yep(AST.DeclarationSpecifier(@reqFunctionStatement(first, modifiers)))
 					}
 					else {
 						return @reqExportIdentifier(first)
 					}
 				}
 				Token::BITMASK => {
-					return @yep(AST.ExportDeclarationSpecifier(@reqBitmaskStatement(@yes())))
+					return @yep(AST.DeclarationSpecifier(@reqBitmaskStatement(@yes())))
 				}
 				Token::CLASS => {
-					return @yep(AST.ExportDeclarationSpecifier(@reqClassStatement(@yes())))
+					return @yep(AST.DeclarationSpecifier(@reqClassStatement(@yes())))
 				}
 				Token::ENUM => {
-					return @yep(AST.ExportDeclarationSpecifier(@reqEnumStatement(@yes())))
+					return @yep(AST.DeclarationSpecifier(@reqEnumStatement(@yes())))
 				}
 				Token::FINAL => {
 					var first = @yes()
@@ -2022,7 +2123,7 @@ export namespace Parser {
 					if @test(Token::CLASS) {
 						@commit()
 
-						return @yep(AST.ExportDeclarationSpecifier(@reqClassStatement(first, modifiers)))
+						return @yep(AST.DeclarationSpecifier(@reqClassStatement(first, modifiers)))
 					}
 					else if @test(Token::ABSTRACT) {
 						modifiers.push(@yep(AST.Modifier(ModifierKind::Abstract, @yes())))
@@ -2030,7 +2131,7 @@ export namespace Parser {
 						if @test(Token::CLASS) {
 							@commit()
 
-							return @yep(AST.ExportDeclarationSpecifier(@reqClassStatement(first, modifiers)))
+							return @yep(AST.DeclarationSpecifier(@reqClassStatement(first, modifiers)))
 						}
 						else {
 							@throw('class')
@@ -2041,21 +2142,21 @@ export namespace Parser {
 					}
 				}
 				Token::FUNC => {
-					return @yep(AST.ExportDeclarationSpecifier(@reqFunctionStatement(@yes())))
+					return @yep(AST.DeclarationSpecifier(@reqFunctionStatement(@yes())))
 				}
 				Token::IDENTIFIER => {
 					return @reqExportIdentifier(@reqIdentifier())
 				}
 				Token::MACRO => {
 					if @mode !~ ParserMode::MacroExpression {
-						return @yep(AST.ExportDeclarationSpecifier(@tryMacroStatement(@yes())))
+						return @yep(AST.DeclarationSpecifier(@tryMacroStatement(@yes())))
 					}
 					else {
-						return @yep(AST.ExportDeclarationSpecifier(@reqMacroExpression(@yes())))
+						return @yep(AST.DeclarationSpecifier(@reqMacroExpression(@yes())))
 					}
 				}
 				Token::NAMESPACE => {
-					return @yep(AST.ExportDeclarationSpecifier(@tryNamespaceStatement(@yes())))
+					return @yep(AST.DeclarationSpecifier(@tryNamespaceStatement(@yes())))
 				}
 				Token::SEALED => {
 					var first = @yes()
@@ -2064,7 +2165,7 @@ export namespace Parser {
 					if @test(Token::CLASS) {
 						@commit()
 
-						return @yep(AST.ExportDeclarationSpecifier(@reqClassStatement(first, modifiers)))
+						return @yep(AST.DeclarationSpecifier(@reqClassStatement(first, modifiers)))
 					}
 					else if @test(Token::ABSTRACT) {
 						modifiers.push(@yep(AST.Modifier(ModifierKind::Abstract, @yes())))
@@ -2072,7 +2173,7 @@ export namespace Parser {
 						if @test(Token::CLASS) {
 							@commit()
 
-							return @yep(AST.ExportDeclarationSpecifier(@reqClassStatement(first, modifiers)))
+							return @yep(AST.DeclarationSpecifier(@reqClassStatement(first, modifiers)))
 						}
 						else {
 							@throw('class')
@@ -2083,16 +2184,16 @@ export namespace Parser {
 					}
 				}
 				Token::STRUCT => {
-					return @yep(AST.ExportDeclarationSpecifier(@reqStructStatement(@yes())))
+					return @yep(AST.DeclarationSpecifier(@reqStructStatement(@yes())))
 				}
 				Token::TUPLE => {
-					return @yep(AST.ExportDeclarationSpecifier(@reqTupleStatement(@yes())))
+					return @yep(AST.DeclarationSpecifier(@reqTupleStatement(@yes())))
 				}
 				Token::TYPE => {
-					return @yep(AST.ExportDeclarationSpecifier(@reqTypeStatement(@yes(), @reqIdentifier())))
+					return @yep(AST.DeclarationSpecifier(@reqTypeStatement(@yes(), @reqIdentifier())))
 				}
 				Token::VAR => {
-					return @yep(AST.ExportDeclarationSpecifier(@reqVarStatement(@yes(), ExpressionMode::NoAwait, FunctionMode::Function)))
+					return @yep(AST.DeclarationSpecifier(@reqVarStatement(@yes(), ExpressionMode::NoAwait, FunctionMode::Function)))
 				}
 				=> {
 					@throw()
@@ -2107,7 +2208,9 @@ export namespace Parser {
 					@commit()
 
 					if @testNS(Token::ASTERISK) {
-						return @yep(AST.ExportWildcardSpecifier(value, @yes()))
+						var modifier = @yep(AST.Modifier(ModifierKind::Wildcard, @yes()))
+
+						return @yep(AST.NamedSpecifier([modifier], value, null, value, modifier))
 					}
 					else {
 						identifier = @reqIdentifier()
@@ -2121,13 +2224,17 @@ export namespace Parser {
 			if @test(Token::EQUALS_RIGHT_ANGLE) {
 				@commit()
 
-				return @yep(AST.ExportNamedSpecifier(value, @reqIdentifier()))
+				var external = @reqIdentifier()
+
+				return @yep(AST.NamedSpecifier([], value, external, value, external))
 			}
 			else if @test(Token::FOR) {
 				@commit()
 
 				if @test(Token::ASTERISK) {
-					return @yep(AST.ExportWildcardSpecifier(value, @yes()))
+					var modifier = @yep(AST.Modifier(ModifierKind::Wildcard, @yes()))
+
+					return @yep(AST.NamedSpecifier([modifier], value, null, value, modifier))
 				}
 				else if @test(Token::LEFT_CURLY) {
 					var members = []
@@ -2140,10 +2247,12 @@ export namespace Parser {
 						if @test(Token::EQUALS_RIGHT_ANGLE) {
 							@commit()
 
-							members.push(AST.ExportNamedSpecifier(identifier, @reqIdentifier()))
+							var external = @reqIdentifier()
+
+							members.push(@yep(AST.NamedSpecifier([], identifier, external, identifier, external)))
 						}
 						else {
-							members.push(AST.ExportNamedSpecifier(identifier, identifier))
+							members.push(@yep(AST.NamedSpecifier([], identifier, null, identifier, identifier)))
 						}
 
 						if @test(Token::COMMA) {
@@ -2157,7 +2266,7 @@ export namespace Parser {
 						@throw('}')
 					}
 
-					return @yep(AST.ExportPropertiesSpecifier(value, members, @yes()))
+					return @yep(AST.PropertiesSpecifier([], value, members, value, @yes()))
 				}
 				else {
 					var members = []
@@ -2167,10 +2276,12 @@ export namespace Parser {
 					if @test(Token::EQUALS_RIGHT_ANGLE) {
 						@commit()
 
-						members.push(AST.ExportNamedSpecifier(identifier, @reqIdentifier()))
+						var external = @reqIdentifier()
+
+						members.push(@yep(AST.NamedSpecifier([], identifier, external, identifier, external)))
 					}
 					else {
-						members.push(AST.ExportNamedSpecifier(identifier, identifier))
+						members.push(@yep(AST.NamedSpecifier([], identifier, null, identifier, identifier)))
 					}
 
 					while @test(Token::COMMA) {
@@ -2181,19 +2292,90 @@ export namespace Parser {
 						if @test(Token::EQUALS_RIGHT_ANGLE) {
 							@commit()
 
-							members.push(AST.ExportNamedSpecifier(identifier, @reqIdentifier()))
+							var external = @reqIdentifier()
+
+							members.push(@yep(AST.NamedSpecifier([], identifier, external, identifier, external)))
 						}
 						else {
-							members.push(AST.ExportNamedSpecifier(identifier, identifier))
+							members.push(@yep(AST.NamedSpecifier([], identifier, null, identifier, identifier)))
 						}
 					}
 
-					return @yep(AST.ExportPropertiesSpecifier(value, members, @yep()))
+					last = members[members.length - 1]
+
+					return @yep(AST.PropertiesSpecifier([], value, members, value, last))
 				}
 			}
 			else {
-				return @yep(AST.ExportNamedSpecifier(value, identifier ?? value))
+				return @yep(AST.NamedSpecifier([], value, identifier, value, identifier ?? value))
 			}
+		} # }}}
+		reqExportModule(first: Event): Event ~ SyntaxError { # {{{
+			var mut last = first
+			var declarations = []
+
+			if @match(Token::EQUALS, Token::IDENTIFIER, Token::LEFT_CURLY) == Token::EQUALS {
+				var modifier = @yep(AST.Modifier(ModifierKind::Default, @yes()))
+				var identifier = @reqIdentifier()
+
+				declarations.push(@yep(AST.NamedSpecifier([modifier], identifier, null, first, identifier)))
+			}
+			else if @token == Token::IDENTIFIER {
+				var internal = @reqIdentifier()
+				var mut external = internal
+
+				if @test(Token::EQUALS_RIGHT_ANGLE) {
+					@commit()
+
+					external = @reqIdentifier()
+				}
+
+				declarations.push(@yep(AST.NamedSpecifier([], internal, external, internal, external)))
+
+				while @until(Token::COMMA) {
+					@commit()
+
+					var internal = @reqIdentifier()
+					var mut external = internal
+
+					if @test(Token::EQUALS_RIGHT_ANGLE) {
+						@commit()
+
+						external = @reqIdentifier()
+					}
+
+					declarations.push(@yep(AST.NamedSpecifier([], internal, external, internal, external)))
+				}
+
+				last = declarations[declarations.length - 1]
+			}
+			else if @token == Token::LEFT_CURLY {
+				@commit()
+
+				while @until(Token::RIGHT_CURLY) {
+					@commit()
+
+					var internal = @reqIdentifier()
+					var mut external = internal
+
+					if @test(Token::EQUALS_RIGHT_ANGLE) {
+						@commit()
+
+						external = @reqIdentifier()
+					}
+
+					declarations.push(@yep(AST.NamedSpecifier([], internal, external, internal, external)))
+				}
+
+				@throw('}') unless @test(Token::RIGHT_CURLY)
+
+				last = @yes()
+			}
+			else {
+				@throw('Idendifier', '{', '=')
+			}
+
+			return @yep(AST.ExportDeclaration([], declarations, first, last))
 		} # }}}
 		reqExportStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var attributes = []
@@ -2204,43 +2386,42 @@ export namespace Parser {
 				var first = @yes()
 
 				if @test(Token::BUT) {
-					@commit()
-
-					var exclusions = []
+					var modifier = @yep(AST.Modifier(ModifierKind::Exclusion, @yes()))
+					var elements = []
 
 					if @test(Token::LEFT_CURLY) {
 						@commit().NL_0M()
 
 						until @test(Token::RIGHT_CURLY) {
-							exclusions.push(@reqIdentifier())
+							elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
 
 							@reqNL_1M()
 						}
 
-						unless @test(Token::RIGHT_CURLY) {
-							@throw('}')
-						}
+						@throw('}') unless @test(Token::RIGHT_CURLY)
 
 						last = @yes()
 					}
 					else {
-						exclusions.push(@reqIdentifier())
+						elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
 
 						while @test(Token::COMMA) {
 							@commit()
 
-							exclusions.push(@reqIdentifier())
+							elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
 						}
 
-						last = exclusions[exclusions.length - 1]
+						last = elements[elements.length - 1]
 					}
 
-					declarations.push(@yep(AST.ExportExclusionSpecifier(exclusions, first, last)))
+					declarations.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
 				}
 				else {
-					last = @yep()
+					var modifier = @yep(AST.Modifier(ModifierKind::Exclusion, first))
 
-					declarations.push(@yep(AST.ExportExclusionSpecifier([], first, last)))
+					declarations.push(@yep(AST.GroupSpecifier([modifier], [], null, modifier, modifier)))
+
+					last = modifier
 				}
 			}
 			else if @token == Token::LEFT_CURLY {
@@ -2259,7 +2440,7 @@ export namespace Parser {
 					declarator = @reqExportDeclarator()
 
 					if attrs.length > 0 {
-						if declarator.value.kind != NodeKind::ExportDeclarationSpecifier {
+						if declarator.value.kind != NodeKind::DeclarationSpecifier {
 							@throw()
 						}
 
@@ -3290,7 +3471,7 @@ export namespace Parser {
 			var source = @reqString()
 			var modifiers = []
 			var dyn arguments = null
-			var dyn last = source
+			var mut last = source
 
 			if @test(Token::LEFT_ROUND) {
 				@commit()
@@ -3322,10 +3503,10 @@ export namespace Parser {
 
 								var value = @reqIdentifier()
 
-								arguments.push(AST.ImportArgument(modifiers, name, value, first, value))
+								arguments.push(AST.Argument(modifiers, name, value, first, value))
 							}
 							else {
-								arguments.push(AST.ImportArgument(modifiers, null, name, first, name))
+								arguments.push(AST.Argument(modifiers, null, name, first, name))
 							}
 						}
 						else {
@@ -3334,15 +3515,15 @@ export namespace Parser {
 
 								var value = @reqExpression(ExpressionMode::Default, FunctionMode::Function)
 
-								arguments.push(AST.ImportArgument(modifiers, name, value, name, value))
+								arguments.push(AST.Argument(modifiers, name, value, name, value))
 							}
 							else {
-								arguments.push(AST.ImportArgument(modifiers, null, name, name, name))
+								arguments.push(AST.Argument(modifiers, null, name, name, name))
 							}
 						}
 					}
 					else {
-						arguments.push(AST.ImportArgument(modifiers, null, name, name, name))
+						arguments.push(AST.Argument(modifiers, null, name, name, name))
 					}
 
 					if @test(Token::COMMA) {
@@ -3361,18 +3542,18 @@ export namespace Parser {
 			}
 
 			var attributes = []
+			var mut type = null
 			var specifiers = []
 
 			if @match(Token::BUT, Token::EQUALS_RIGHT_ANGLE, Token::FOR, Token::LEFT_CURLY) == Token::BUT {
-				var first = @yes()
-
-				var exclusions = []
+				var modifier = @yep(AST.Modifier(ModifierKind::Exclusion, @yes()))
+				var elements = []
 
 				if @test(Token::LEFT_CURLY) {
 					@commit().NL_0M()
 
 					until @test(Token::RIGHT_CURLY) {
-						exclusions.push(@reqIdentifier())
+						elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
 
 						@reqNL_1M()
 					}
@@ -3384,123 +3565,134 @@ export namespace Parser {
 					last = @yes()
 				}
 				else {
-					exclusions.push(@reqIdentifier())
+					elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
 
 					while @test(Token::COMMA) {
 						@commit()
 
-						exclusions.push(@reqIdentifier())
+						elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
 					}
 
-					last = exclusions[exclusions.length - 1]
+					last = elements[elements.length - 1]
 				}
 
-				specifiers.push(@yep(AST.ImportExclusionSpecifier(exclusions, first, last)))
+				specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
+
+				last = specifiers[specifiers.length - 1]
 			}
 			else if @token == Token::EQUALS_RIGHT_ANGLE {
-				@commit()
+				var modifier = @yep(AST.Modifier(ModifierKind::Namespace, @yes()))
 
-				last = @reqIdentifier()
+				@submitNamedGroupSpecifier([modifier], null, specifiers)
 
-				if @test(Token::LEFT_CURLY) {
-					specifiers.push(@yep(AST.ImportNamespaceSpecifier(last, @reqImportSpecifiers(attributes, []), last, @yes())))
-				}
-				else {
-					specifiers.push(@yep(AST.ImportNamespaceSpecifier(last, null, last, last)))
-				}
+				last = specifiers[specifiers.length - 1]
 			}
 			else if @token == Token::FOR {
-				@commit()
+				var modifier = @yep(AST.Modifier(ModifierKind::Namespace, @yes()))
+				var elements = []
 
-				while @until(Token::NEWLINE) {
-					var external = @reqTypeDescriptive()
+				if @test(Token::LEFT_CURLY) {
+					@commit().reqNL_1M()
 
-					if @test(Token::EQUALS_RIGHT_ANGLE) {
-						@commit()
+					while @until(Token::RIGHT_CURLY) {
+						var type = @tryTypeDescriptive(TypeMode::NoIdentifier)
 
-						var internal = @reqIdentifier()
+						if type.ok {
+							if @test(Token::EQUALS_RIGHT_ANGLE) {
+								@commit()
 
-						specifiers.push(@yep(AST.ImportSpecifier(external, internal, external, internal)))
+								@submitNamedGroupSpecifier([], type, elements)
+							}
+							else {
+								elements.push(@yep(AST.TypedSpecifier(type, type)))
+							}
+						}
+						else {
+							@submitNamedSpecifier([], elements)
+						}
+
+						@reqNL_1M()
 					}
-					else {
-						specifiers.push(@yep(AST.ImportSpecifier(external, @yep(external.value.name), external, external)))
-					}
 
-					if @test(Token::COMMA) {
-						@commit()
-					}
-					else {
-						break
-					}
-				}
-			}
-			else if @token == Token::LEFT_CURLY {
-				@reqImportSpecifiers(attributes, specifiers)
-
-				last = @yes()
-			}
-
-			return @yep(AST.ImportDeclarator(attributes, modifiers, source, specifiers, arguments, source, last))
-		} # }}}
-		reqImportSpecifiers(attributes, specifiers): Event ~ SyntaxError { # {{{
-			@commit().reqNL_1M()
-
-			var dyn first
-			var dyn attrs = []
-			var dyn specifier
-
-			until @test(Token::RIGHT_CURLY) {
-				if @stackInnerAttributes(attributes) {
-					continue
-				}
-
-				@stackOuterAttributes(attrs)
-
-				if @match(Token::ASTERISK) == Token::ASTERISK {
-					first = @yes()
-
-					unless @test(Token::EQUALS_RIGHT_ANGLE) {
-						@throw('=>')
-					}
+					@throw('}') unless @test(Token::RIGHT_CURLY)
 
 					@commit()
-
-					var internal = @reqIdentifier()
-
-					specifier = @yep(AST.ImportNamespaceSpecifier(internal, null, first, internal))
 				}
 				else {
-					var external = @reqTypeDescriptive()
+					var type = @tryTypeDescriptive(TypeMode::NoIdentifier)
 
-					if @test(Token::EQUALS_RIGHT_ANGLE) {
-						@commit()
+					if type.ok {
+						if @test(Token::EQUALS_RIGHT_ANGLE) {
+							@commit()
 
-						var internal = @reqIdentifier()
-
-						specifier = @yep(AST.ImportSpecifier(external, internal, external, internal))
+							@submitNamedGroupSpecifier([], type, elements)
+						}
+						else {
+							elements.push(@yep(AST.TypedSpecifier(type, type)))
+						}
 					}
 					else {
-						specifier = @yep(AST.ImportSpecifier(external, @yep(external.value.name), external, external))
+						@submitNamedSpecifier([], elements)
+
+						while @test(Token::COMMA) {
+							@commit()
+
+							@submitNamedSpecifier([], elements)
+						}
 					}
 				}
 
-				AST.pushAttributes(specifier.value, attrs)
+				last = elements[elements.length - 1]
 
-				specifiers.push(specifier)
+				specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
 
-				if @test(Token::NEWLINE) {
-					@commit().NL_0M()
+				last = specifiers[specifiers.length - 1]
+			}
+			else if @token == Token::LEFT_CURLY {
+				type = @reqTypeModule(@yes())
+
+				if @match(Token::EQUALS_RIGHT_ANGLE, Token::FOR) == Token::EQUALS_RIGHT_ANGLE {
+					var modifier = @yep(AST.Modifier(ModifierKind::Namespace, @yes()))
+
+					@submitNamedGroupSpecifier([modifier], null, specifiers)
+
+					last = specifiers[specifiers.length - 1]
+				}
+				else if @token == Token::FOR {
+					var modifier = @yep(AST.Modifier(ModifierKind::Namespace, @yes()))
+					var elements = []
+
+					if @test(Token::LEFT_CURLY) {
+						@commit().NL_0M()
+
+						while @until(Token::RIGHT_CURLY) {
+							@submitNamedSpecifier([modifier], specifiers)
+
+							@reqNL_1M()
+						}
+
+						@throw('}') unless @test(Token::RIGHT_CURLY)
+
+						last = @yes()
+					}
+					else {
+						@submitNamedSpecifier([modifier], specifiers)
+
+						while @test(Token::COMMA) {
+							@commit()
+
+							@submitNamedSpecifier([modifier], specifiers)
+						}
+					}
+
+					last = specifiers[specifiers.length - 1]
 				}
 				else {
-					break
+					last = type
 				}
 			}
 
-			unless @test(Token::RIGHT_CURLY) {
-				@throw('}')
-			}
-
-			return specifiers
+			return @yep(AST.ImportDeclarator(attributes, modifiers, source, arguments, type, specifiers, source, last))
 		} # }}}
 		reqImportStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			@NL_0M()
@@ -3963,70 +4155,19 @@ export namespace Parser {
 
 			return @yep(AST.MacroDeclaration(attributes, name, parameters, body, first, body))
 		} # }}}
-		reqModule(): Event ~ SyntaxError { # {{{
-			var attributes = []
-			var body = []
-
-			var dyn attrs = []
-			var dyn statement
-
-			if (statement = @tryShebang()).ok {
-				body.push(statement.value)
+		reqNameIB(): Event ~ SyntaxError { # {{{
+			if @match(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::IDENTIFIER {
+				return @reqIdentifier()
 			}
-
-			@NL_0M()
-
-			until @scanner.isEOF() {
-				if @stackInnerAttributes(attributes) {
-					continue
-				}
-
-				@stackOuterAttributes(attrs)
-
-				switch @matchM(M.MODULE_STATEMENT) {
-					Token::DISCLOSE => {
-						statement = @reqDiscloseStatement(@yes()).value
-					}
-					Token::EXPORT => {
-						statement = @reqExportStatement(@yes()).value
-					}
-					Token::EXTERN => {
-						statement = @reqExternStatement(@yes()).value
-					}
-					Token::EXTERN_IMPORT => {
-						statement = @reqExternOrImportStatement(@yes()).value
-					}
-					Token::EXTERN_REQUIRE => {
-						statement = @reqExternOrRequireStatement(@yes()).value
-					}
-					Token::INCLUDE => {
-						statement = @reqIncludeStatement(@yes()).value
-					}
-					Token::INCLUDE_AGAIN => {
-						statement = @reqIncludeAgainStatement(@yes()).value
-					}
-					Token::REQUIRE => {
-						statement = @reqRequireStatement(@yes()).value
-					}
-					Token::REQUIRE_EXTERN => {
-						statement = @reqRequireOrExternStatement(@yes()).value
-					}
-					Token::REQUIRE_IMPORT => {
-						statement = @reqRequireOrImportStatement(@yes()).value
-					}
-					=> {
-						statement = @reqStatement(FunctionMode::Function).value
-					}
-				}
-
-				AST.pushAttributes(statement, attrs)
-
-				body.push(statement)
-
-				@NL_0M()
+			else if @token == Token::LEFT_CURLY {
+				return @reqDestructuringObject(@yes(), DestructuringMode::Nil, FunctionMode::Function)
 			}
-
-			return AST.Module(attributes, body, this)
+			else if @token == Token::LEFT_SQUARE {
+				return @reqDestructuringArray(@yes(), DestructuringMode::Nil, FunctionMode::Function)
+			}
+			else {
+				@throw('Identifier', 'Destructuring')
+			}
 		} # }}}
 		reqNameIST(fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @match(Token::IDENTIFIER, Token::STRING, Token::TEMPLATE_BEGIN) == Token::IDENTIFIER {
@@ -5833,185 +5974,17 @@ export namespace Parser {
 				@throw('type')
 			}
 		} # }}}
-		reqTypeDescriptive(): Event ~ SyntaxError { # {{{
-			switch @matchM(M.DESCRIPTIVE_TYPE) {
-				Token::ABSTRACT => {
-					var abstract = @yep(AST.Modifier(ModifierKind::Abstract, @yes()))
+		reqTypeDescriptive(tMode: TypeMode = TypeMode::Default): Event ~ SyntaxError { # {{{
+			var type = @tryTypeDescriptive(tMode)
 
-					if @test(Token::CLASS) {
-						@commit()
-
-						return @reqExternClassDeclaration(abstract, [abstract])
-					}
-					else {
-						@throw('class')
-					}
-				}
-				Token::ASYNC => {
-					var first = @reqIdentifier()
-					var modifiers = [@yep(AST.Modifier(ModifierKind::Async, first))]
-
-					if @test(Token::FUNC) {
-						@commit()
-
-						return @reqExternFunctionDeclaration(modifiers, first)
-					}
-					else {
-						var fn = @tryExternFunctionDeclaration(modifiers, first)
-						if fn.ok {
-							return fn
-						}
-						else {
-							return @reqExternVariableDeclarator(first)
-						}
-					}
-				}
-				Token::BITMASK => {
-					with @mode += ParserMode::Typing {
-						return @reqBitmaskStatement(@yes())
-					}
-				}
-				Token::CLASS => {
-					return @reqExternClassDeclaration(@yes(), [])
-				}
-				Token::ENUM => {
-					with @mode += ParserMode::Typing {
-						return @reqEnumStatement(@yes())
-					}
-				}
-				Token::FINAL => {
-					var first = @yes()
-					var modifiers = [@yep(AST.Modifier(ModifierKind::Immutable, first))]
-
-					if @test(Token::CLASS) {
-						@commit()
-
-						return @reqExternClassDeclaration(first, modifiers)
-					}
-					else if @test(Token::ABSTRACT) {
-						modifiers.push(@yep(AST.Modifier(ModifierKind::Abstract, @yes())))
-
-						if @test(Token::CLASS) {
-							@commit()
-
-							return @reqExternClassDeclaration(first, modifiers)
-						}
-						else {
-							@throw('class')
-						}
-					}
-					else {
-						@throw('class')
-					}
-				}
-				Token::FUNC => {
-					var first = @yes()
-					return @reqExternFunctionDeclaration([], first)
-				}
-				Token::IDENTIFIER => {
-					return @reqExternVariableDeclarator(@reqIdentifier())
-				}
-				Token::NAMESPACE => {
-					return @reqExternNamespaceDeclaration(@yes(), [])
-				}
-				Token::SEALED => {
-					var sealed = @yep(AST.Modifier(ModifierKind::Sealed, @yes()))
-
-					if @matchM(M.DESCRIPTIVE_TYPE) == Token::ABSTRACT {
-						var abstract = @yep(AST.Modifier(ModifierKind::Abstract, @yes()))
-
-						if @test(Token::CLASS) {
-							@commit()
-
-							return @reqExternClassDeclaration(sealed, [sealed, abstract])
-						}
-						else {
-							@throw('class')
-						}
-					}
-					else if @token == Token::CLASS {
-						@commit()
-
-						return @reqExternClassDeclaration(sealed, [sealed])
-					}
-					else if @token == Token::IDENTIFIER {
-						var name = @reqIdentifier()
-
-						if @test(Token::COLON) {
-							@commit()
-
-							var type = @reqType()
-
-							return @yep(AST.VariableDeclarator([sealed], name, type, sealed, type))
-						}
-						else {
-							return @yep(AST.VariableDeclarator([sealed], name, null, sealed, name))
-						}
-					}
-					else if @token == Token::NAMESPACE {
-						@commit()
-
-						return @reqExternNamespaceDeclaration(sealed, [sealed])
-					}
-					else {
-						@throw('class', 'namespace')
-					}
-				}
-				Token::STRUCT => {
-					return @reqStructStatement(@yes())
-				}
-				Token::SYSTEM => {
-					var system = @yep(AST.Modifier(ModifierKind::System, @yes()))
-
-					if @matchM(M.DESCRIPTIVE_TYPE) == Token::CLASS {
-						@commit()
-
-						return @reqExternClassDeclaration(system, [system])
-					}
-					else if @token == Token::IDENTIFIER {
-						var name = @reqIdentifier()
-
-						if @test(Token::COLON) {
-							@commit()
-
-							var type = @reqType()
-
-							return @yep(AST.VariableDeclarator([system], name, type, system, type))
-						}
-						else {
-							return @yep(AST.VariableDeclarator([system], name, null, system, name))
-						}
-					}
-					else if @token == Token::NAMESPACE {
-						@commit()
-
-						return @reqExternNamespaceDeclaration(system, [system])
-					}
-					else {
-						@throw('class', 'namespace')
-					}
-				}
-				Token::TUPLE => {
-					return @reqTupleStatement(@yes())
-				}
-				Token::VAR => {
-					var first = @yes()
-					var name = @reqIdentifier()
-
-					if @test(Token::COLON) {
-						@commit()
-
-						var type = @reqType()
-
-						return @yep(AST.VariableDeclarator([], name, type, first, type))
-					}
-					else {
-						return @yep(AST.VariableDeclarator([], name, null, first, name))
-					}
-				}
-				=> {
-					@throw()
-				}
+			if type.ok {
+				return type
+			}
+			else if #type.value {
+				@throw(...(type.value as Array<String>))
+			}
+			else {
+				@throw('type')
 			}
 		} # }}}
 		reqTypeLimited(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
@@ -6049,6 +6022,33 @@ export namespace Parser {
 			}
 
 			return @yes(types)
+		} # }}}
+		reqTypeModule(first: Event): Event ~ SyntaxError { # {{{
+			@reqNL_1M()
+
+			var types = []
+			var attributes = []
+			var mut attrs = []
+
+			while @until(Token::RIGHT_CURLY) {
+				if @stackInnerAttributes(attributes) {
+					continue
+				}
+
+				@stackOuterAttributes(attrs)
+
+				var type = @reqTypeDescriptive(TypeMode::Module)
+
+				@reqNL_1M()
+
+				AST.pushAttributes(type.value, attrs)
+
+				types.push(type)
+			}
+
+			@throw('}') unless @test(Token::RIGHT_CURLY)
+
+			return @yep(AST.TypeList(attributes, types, first, @yes()))
 		} # }}}
 		reqTypeParameter(): Event ~ SyntaxError { # {{{
 			var type = @tryType()
@@ -6409,6 +6409,40 @@ export namespace Parser {
 
 					@reqNL_1M()
 				}
+			}
+		} # }}}
+		submitNamedGroupSpecifier(modifiers: Array, type: Event?, specifiers: Array): Void ~ SyntaxError { # {{{
+			var elements = []
+
+			var name = @reqNameIB()
+
+			elements.push(@yep(AST.NamedSpecifier(name)))
+
+			while @test(Token::COMMA) {
+				@commit()
+
+				var name = @reqNameIB()
+
+				elements.push(@yep(AST.NamedSpecifier(name)))
+			}
+
+			var first = #modifiers ? modifiers[0] : name
+			var last = elements[elements.length - 1]
+
+			specifiers.push(@yep(AST.GroupSpecifier(modifiers, elements, type, first, last)))
+		} # }}}
+		submitNamedSpecifier(modifiers: Array, specifiers: Array): Void ~ SyntaxError { # {{{
+			var identifier = @reqIdentifier()
+
+			if @test(Token::EQUALS_RIGHT_ANGLE) {
+				@commit()
+
+				var internal = @reqNameIB()
+
+				specifiers.push(@yep(AST.NamedSpecifier(modifiers, internal, identifier, identifier, internal)))
+			}
+			else {
+				specifiers.push(@yep(AST.NamedSpecifier(modifiers, identifier, null, identifier, identifier)))
 			}
 		} # }}}
 		tryAccessModifier(): Event ~ SyntaxError { # {{{
@@ -8170,6 +8204,199 @@ export namespace Parser {
 
 			return @tryTypeLimited(modifiers)
 		} # }}}
+		tryTypeDescriptive(tMode: TypeMode = TypeMode::Default): Event ~ SyntaxError { # {{{
+			switch @matchM(M.DESCRIPTIVE_TYPE) {
+				Token::ABSTRACT => {
+					var abstract = @yep(AST.Modifier(ModifierKind::Abstract, @yes()))
+
+					if @test(Token::CLASS) {
+						@commit()
+
+						return @reqExternClassDeclaration(abstract, [abstract])
+					}
+					else {
+						@no('class')
+					}
+				}
+				Token::ASYNC => {
+					var first = @reqIdentifier()
+					var modifiers = [@yep(AST.Modifier(ModifierKind::Async, first))]
+
+					if @test(Token::FUNC) {
+						@commit()
+
+						return @reqExternFunctionDeclaration(modifiers, first)
+					}
+					else {
+						var fn = @tryExternFunctionDeclaration(modifiers, first)
+						if fn.ok {
+							return fn
+						}
+						else {
+							return @reqExternVariableDeclarator(first)
+						}
+					}
+				}
+				Token::BITMASK => {
+					with @mode += ParserMode::Typing {
+						return @reqBitmaskStatement(@yes())
+					}
+				}
+				Token::CLASS => {
+					return @reqExternClassDeclaration(@yes(), [])
+				}
+				Token::ENUM => {
+					with @mode += ParserMode::Typing {
+						return @reqEnumStatement(@yes())
+					}
+				}
+				Token::EXPORT => {
+					if tMode == TypeMode::Module {
+						return NO
+					}
+					else {
+						return @reqExportModule(@yes())
+					}
+				}
+				Token::FINAL => {
+					var first = @yes()
+					var modifiers = [@yep(AST.Modifier(ModifierKind::Immutable, first))]
+
+					if @test(Token::CLASS) {
+						@commit()
+
+						return @reqExternClassDeclaration(first, modifiers)
+					}
+					else if @test(Token::ABSTRACT) {
+						modifiers.push(@yep(AST.Modifier(ModifierKind::Abstract, @yes())))
+
+						if @test(Token::CLASS) {
+							@commit()
+
+							return @reqExternClassDeclaration(first, modifiers)
+						}
+						else {
+							@no('class')
+						}
+					}
+					else {
+						@no('class')
+					}
+				}
+				Token::FUNC => {
+					var first = @yes()
+					return @reqExternFunctionDeclaration([], first)
+				}
+				Token::IDENTIFIER => {
+					if tMode == TypeMode::NoIdentifier {
+						return NO
+					}
+					else {
+						return @reqExternVariableDeclarator(@reqIdentifier())
+					}
+				}
+				Token::NAMESPACE => {
+					return @reqExternNamespaceDeclaration(@yes(), [])
+				}
+				Token::SEALED => {
+					var sealed = @yep(AST.Modifier(ModifierKind::Sealed, @yes()))
+
+					if @matchM(M.DESCRIPTIVE_TYPE) == Token::ABSTRACT {
+						var abstract = @yep(AST.Modifier(ModifierKind::Abstract, @yes()))
+
+						if @test(Token::CLASS) {
+							@commit()
+
+							return @reqExternClassDeclaration(sealed, [sealed, abstract])
+						}
+						else {
+							@no('class')
+						}
+					}
+					else if @token == Token::CLASS {
+						@commit()
+
+						return @reqExternClassDeclaration(sealed, [sealed])
+					}
+					else if @token == Token::IDENTIFIER {
+						var name = @reqIdentifier()
+
+						if @test(Token::COLON) {
+							@commit()
+
+							var type = @reqType()
+
+							return @yep(AST.VariableDeclarator([sealed], name, type, sealed, type))
+						}
+						else {
+							return @yep(AST.VariableDeclarator([sealed], name, null, sealed, name))
+						}
+					}
+					else if @token == Token::NAMESPACE {
+						@commit()
+
+						return @reqExternNamespaceDeclaration(sealed, [sealed])
+					}
+					else {
+						@no('class', 'namespace')
+					}
+				}
+				Token::STRUCT => {
+					return @reqStructStatement(@yes())
+				}
+				Token::SYSTEM => {
+					var system = @yep(AST.Modifier(ModifierKind::System, @yes()))
+
+					if @matchM(M.DESCRIPTIVE_TYPE) == Token::CLASS {
+						@commit()
+
+						return @reqExternClassDeclaration(system, [system])
+					}
+					else if @token == Token::IDENTIFIER {
+						var name = @reqIdentifier()
+
+						if @test(Token::COLON) {
+							@commit()
+
+							var type = @reqType()
+
+							return @yep(AST.VariableDeclarator([system], name, type, system, type))
+						}
+						else {
+							return @yep(AST.VariableDeclarator([system], name, null, system, name))
+						}
+					}
+					else if @token == Token::NAMESPACE {
+						@commit()
+
+						return @reqExternNamespaceDeclaration(system, [system])
+					}
+					else {
+						@no('class', 'namespace')
+					}
+				}
+				Token::TUPLE => {
+					return @reqTupleStatement(@yes())
+				}
+				Token::VAR => {
+					var first = @yes()
+					var name = @reqIdentifier()
+
+					if @test(Token::COLON) {
+						@commit()
+
+						var type = @reqType()
+
+						return @yep(AST.VariableDeclarator([], name, type, first, type))
+					}
+					else {
+						return @yep(AST.VariableDeclarator([], name, null, first, name))
+					}
+				}
+			}
+
+			return NO
+		} # }}}
 		tryTypeEntity(): Event ~ SyntaxError { # {{{
 			var mut name = @tryIdentifier()
 
@@ -9061,7 +9288,7 @@ export namespace Parser {
 	export func parse(data: String) ~ SyntaxError { # {{{
 		var parser = new Parser(data)
 
-		return parser.reqModule()
+		return parser.parseModule()
 	} # }}}
 }
 

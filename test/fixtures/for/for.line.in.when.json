@@ -1,9 +1,9 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 11,
+      "kind": 12,
       "operator": {
         "kind": 3,
         "assignment": 6,
@@ -17,7 +17,7 @@
         }
       },
       "left": {
-        "kind": 54,
+        "kind": 52,
         "name": "heroes",
         "start": {
           "line": 1,
@@ -29,10 +29,10 @@
         }
       },
       "right": {
-        "kind": 4,
+        "kind": 5,
         "values": [
           {
-            "kind": 70,
+            "kind": 63,
             "value": "leto",
             "start": {
               "line": 1,
@@ -44,7 +44,7 @@
             }
           },
           {
-            "kind": 70,
+            "kind": 63,
             "value": "duncan",
             "start": {
               "line": 1,
@@ -56,7 +56,7 @@
             }
           },
           {
-            "kind": 70,
+            "kind": 63,
             "value": "goku",
             "start": {
               "line": 1,
@@ -88,11 +88,11 @@
       "attributes": []
     },
     {
-      "kind": 48,
+      "kind": 45,
       "attributes": [],
       "modifiers": [],
       "expression": {
-        "kind": 54,
+        "kind": 52,
         "name": "heroes",
         "start": {
           "line": 3,
@@ -112,7 +112,7 @@
         "column": 64
       },
       "value": {
-        "kind": 54,
+        "kind": 52,
         "name": "hero",
         "start": {
           "line": 3,
@@ -124,7 +124,7 @@
         }
       },
       "index": {
-        "kind": 54,
+        "kind": 52,
         "name": "index",
         "start": {
           "line": 3,
@@ -136,10 +136,10 @@
         }
       },
       "when": {
-        "kind": 23,
+        "kind": 24,
         "values": [
           {
-            "kind": 11,
+            "kind": 12,
             "operator": {
               "kind": 16,
               "modifiers": [],
@@ -161,7 +161,7 @@
               "column": 59
             },
             "left": {
-              "kind": 54,
+              "kind": 52,
               "name": "index",
               "start": {
                 "line": 3,
@@ -173,7 +173,7 @@
               }
             },
             "right": {
-              "kind": 80,
+              "kind": 74,
               "value": 2,
               "start": {
                 "line": 3,
@@ -198,7 +198,7 @@
             }
           },
           {
-            "kind": 80,
+            "kind": 74,
             "value": 0,
             "start": {
               "line": 3,
@@ -220,16 +220,16 @@
         }
       },
       "body": {
-        "kind": 16,
+        "kind": 17,
         "modifiers": [],
         "scope": {
           "kind": 3
         },
         "callee": {
-          "kind": 73,
+          "kind": 66,
           "modifiers": [],
           "object": {
-            "kind": 54,
+            "kind": 52,
             "name": "console",
             "start": {
               "line": 3,
@@ -241,7 +241,7 @@
             }
           },
           "property": {
-            "kind": 54,
+            "kind": 52,
             "name": "log",
             "start": {
               "line": 3,
@@ -263,7 +263,7 @@
         },
         "arguments": [
           {
-            "kind": 54,
+            "kind": 52,
             "name": "hero",
             "start": {
               "line": 3,

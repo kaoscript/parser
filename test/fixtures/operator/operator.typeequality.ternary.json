@@ -1,12 +1,12 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 56,
+      "kind": 54,
       "attributes": [],
       "condition": {
-        "kind": 25,
+        "kind": 26,
         "start": {
           "line": 1,
           "column": 4
@@ -16,7 +16,7 @@
           "column": 31
         },
         "condition": {
-          "kind": 11,
+          "kind": 12,
           "operator": {
             "kind": 24,
             "modifiers": [],
@@ -38,7 +38,7 @@
             "column": 19
           },
           "left": {
-            "kind": 54,
+            "kind": 52,
             "name": "value",
             "start": {
               "line": 1,
@@ -50,10 +50,10 @@
             }
           },
           "right": {
-            "kind": 124,
+            "kind": 120,
             "modifiers": [],
             "typeName": {
-              "kind": 54,
+              "kind": 52,
               "name": "string",
               "start": {
                 "line": 1,
@@ -75,7 +75,7 @@
           }
         },
         "whenTrue": {
-          "kind": 54,
+          "kind": 52,
           "name": "foo",
           "start": {
             "line": 1,
@@ -87,7 +87,7 @@
           }
         },
         "whenFalse": {
-          "kind": 54,
+          "kind": 52,
           "name": "bar",
           "start": {
             "line": 1,
@@ -100,7 +100,7 @@
         }
       },
       "whenTrue": {
-        "kind": 14,
+        "kind": 15,
         "attributes": [],
         "statements": [],
         "start": {

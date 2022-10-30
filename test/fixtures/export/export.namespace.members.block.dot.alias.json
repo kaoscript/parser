@@ -1,13 +1,13 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 79,
+      "kind": 73,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 54,
+        "kind": 52,
         "name": "NS",
         "start": {
           "line": 1,
@@ -20,16 +20,16 @@
       },
       "statements": [
         {
-          "kind": 36,
+          "kind": 38,
           "attributes": [],
           "declarations": [
             {
-              "kind": 37,
+              "kind": 30,
               "declaration": {
-                "kind": 51,
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "foo",
                   "start": {
                     "line": 2,
@@ -52,7 +52,7 @@
                 "modifiers": [],
                 "throws": [],
                 "body": {
-                  "kind": 14,
+                  "kind": 15,
                   "attributes": [],
                   "statements": [],
                   "start": {
@@ -85,16 +85,16 @@
           }
         },
         {
-          "kind": 36,
+          "kind": 38,
           "attributes": [],
           "declarations": [
             {
-              "kind": 37,
+              "kind": 30,
               "declaration": {
-                "kind": 51,
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "bar",
                   "start": {
                     "line": 4,
@@ -117,7 +117,7 @@
                 "modifiers": [],
                 "throws": [],
                 "body": {
-                  "kind": 14,
+                  "kind": 15,
                   "attributes": [],
                   "statements": [],
                   "start": {
@@ -150,16 +150,16 @@
           }
         },
         {
-          "kind": 36,
+          "kind": 38,
           "attributes": [],
           "declarations": [
             {
-              "kind": 37,
+              "kind": 30,
               "declaration": {
-                "kind": 51,
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "qux",
                   "start": {
                     "line": 6,
@@ -182,7 +182,7 @@
                 "modifiers": [],
                 "throws": [],
                 "body": {
-                  "kind": 14,
+                  "kind": 15,
                   "attributes": [],
                   "statements": [],
                   "start": {
@@ -225,16 +225,25 @@
       }
     },
     {
-      "kind": 36,
+      "kind": 38,
       "attributes": [],
       "declarations": [
         {
-          "kind": 39,
+          "kind": 72,
+          "modifiers": [],
+          "start": {
+            "line": 11,
+            "column": 2
+          },
+          "end": {
+            "line": 11,
+            "column": 17
+          },
           "internal": {
-            "kind": 73,
+            "kind": 66,
             "modifiers": [],
             "object": {
-              "kind": 54,
+              "kind": 52,
               "name": "NS",
               "start": {
                 "line": 11,
@@ -246,7 +255,7 @@
               }
             },
             "property": {
-              "kind": 54,
+              "kind": 52,
               "name": "foo",
               "start": {
                 "line": 11,
@@ -267,7 +276,7 @@
             }
           },
           "external": {
-            "kind": 54,
+            "kind": 52,
             "name": "nsFoo",
             "start": {
               "line": 11,
@@ -277,23 +286,24 @@
               "line": 11,
               "column": 17
             }
-          },
-          "start": {
-            "line": 11,
-            "column": 2
-          },
-          "end": {
-            "line": 11,
-            "column": 17
           }
         },
         {
-          "kind": 39,
+          "kind": 72,
+          "modifiers": [],
+          "start": {
+            "line": 12,
+            "column": 2
+          },
+          "end": {
+            "line": 12,
+            "column": 17
+          },
           "internal": {
-            "kind": 73,
+            "kind": 66,
             "modifiers": [],
             "object": {
-              "kind": 54,
+              "kind": 52,
               "name": "NS",
               "start": {
                 "line": 12,
@@ -305,7 +315,7 @@
               }
             },
             "property": {
-              "kind": 54,
+              "kind": 52,
               "name": "bar",
               "start": {
                 "line": 12,
@@ -326,7 +336,7 @@
             }
           },
           "external": {
-            "kind": 54,
+            "kind": 52,
             "name": "nsBar",
             "start": {
               "line": 12,
@@ -336,23 +346,24 @@
               "line": 12,
               "column": 17
             }
-          },
-          "start": {
-            "line": 12,
-            "column": 2
-          },
-          "end": {
-            "line": 12,
-            "column": 17
           }
         },
         {
-          "kind": 39,
+          "kind": 72,
+          "modifiers": [],
+          "start": {
+            "line": 13,
+            "column": 2
+          },
+          "end": {
+            "line": 13,
+            "column": 17
+          },
           "internal": {
-            "kind": 73,
+            "kind": 66,
             "modifiers": [],
             "object": {
-              "kind": 54,
+              "kind": 52,
               "name": "NS",
               "start": {
                 "line": 13,
@@ -364,7 +375,7 @@
               }
             },
             "property": {
-              "kind": 54,
+              "kind": 52,
               "name": "qux",
               "start": {
                 "line": 13,
@@ -385,7 +396,7 @@
             }
           },
           "external": {
-            "kind": 54,
+            "kind": 52,
             "name": "nsQux",
             "start": {
               "line": 13,
@@ -395,14 +406,6 @@
               "line": 13,
               "column": 17
             }
-          },
-          "start": {
-            "line": 13,
-            "column": 2
-          },
-          "end": {
-            "line": 13,
-            "column": 17
           }
         }
       ],

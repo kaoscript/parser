@@ -7,15 +7,25 @@ type U =
 	async func(value: String): String
 
 import 'foobar' {
-	foo(...) => f1
-	async bar()	=> b1
-	baz(...): T => b2
-	qux(): U => q1
+	foo(...)
+	async bar()
+	baz(...): T
+	qux(): U
+} => {
+	foo: f1
+	bar: b1
+	baz: b2
+	qux: q1
 }
 
 import 'barfoo' {
-	func foo(...) => f1
-	async func bar()	=> b1
-	func baz: T => b2
-	func qux(): U => q1
+	func foo(...)
+	async func bar()
+	func baz: T
+	func qux(): U
+} => {
+	foo: f1
+	bar: b1
+	baz: b2
+	qux: q1
 }

@@ -1,18 +1,18 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 36,
+      "kind": 38,
       "attributes": [],
       "declarations": [
         {
-          "kind": 37,
+          "kind": 30,
           "declaration": {
-            "kind": 51,
+            "kind": 48,
             "attributes": [],
             "name": {
-              "kind": 54,
+              "kind": 52,
               "name": "hello",
               "start": {
                 "line": 1,
@@ -35,7 +35,7 @@
             "modifiers": [],
             "throws": [],
             "body": {
-              "kind": 70,
+              "kind": 63,
               "value": "Hello :)",
               "start": {
                 "line": 1,
@@ -67,11 +67,11 @@
       }
     },
     {
-      "kind": 132,
+      "kind": 129,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 9,
+          "kind": 10,
           "start": {
             "line": 3,
             "column": 5
@@ -84,16 +84,16 @@
       ],
       "declarations": [
         {
-          "kind": 130,
+          "kind": 127,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 131,
+              "kind": 128,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 54,
+                "kind": 52,
                 "name": "bar",
                 "start": {
                   "line": 3,
@@ -123,7 +123,7 @@
             "column": 26
           },
           "value": {
-            "kind": 70,
+            "kind": 63,
             "value": "I'm bar!",
             "start": {
               "line": 3,
@@ -146,35 +146,12 @@
       }
     },
     {
-      "kind": 36,
+      "kind": 38,
       "attributes": [],
       "declarations": [
         {
-          "kind": 39,
-          "internal": {
-            "kind": 54,
-            "name": "bar",
-            "start": {
-              "line": 5,
-              "column": 8
-            },
-            "end": {
-              "line": 5,
-              "column": 11
-            }
-          },
-          "external": {
-            "kind": 54,
-            "name": "bar",
-            "start": {
-              "line": 5,
-              "column": 8
-            },
-            "end": {
-              "line": 5,
-              "column": 11
-            }
-          },
+          "kind": 72,
+          "modifiers": [],
           "start": {
             "line": 5,
             "column": 8
@@ -182,6 +159,18 @@
           "end": {
             "line": 5,
             "column": 11
+          },
+          "internal": {
+            "kind": 52,
+            "name": "bar",
+            "start": {
+              "line": 5,
+              "column": 8
+            },
+            "end": {
+              "line": 5,
+              "column": 11
+            }
           }
         }
       ],
@@ -195,13 +184,22 @@
       }
     },
     {
-      "kind": 36,
+      "kind": 38,
       "attributes": [],
       "declarations": [
         {
-          "kind": 39,
+          "kind": 72,
+          "modifiers": [],
+          "start": {
+            "line": 7,
+            "column": 8
+          },
+          "end": {
+            "line": 7,
+            "column": 18
+          },
           "internal": {
-            "kind": 54,
+            "kind": 52,
             "name": "bar",
             "start": {
               "line": 7,
@@ -213,7 +211,7 @@
             }
           },
           "external": {
-            "kind": 54,
+            "kind": 52,
             "name": "qux",
             "start": {
               "line": 7,
@@ -223,14 +221,6 @@
               "line": 7,
               "column": 18
             }
-          },
-          "start": {
-            "line": 7,
-            "column": 8
-          },
-          "end": {
-            "line": 7,
-            "column": 18
           }
         }
       ],

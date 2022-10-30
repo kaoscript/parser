@@ -1,13 +1,13 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 19,
+      "kind": 20,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 54,
+        "kind": 52,
         "name": "Rectangle",
         "start": {
           "line": 1,
@@ -20,11 +20,11 @@
       },
       "members": [
         {
-          "kind": 46,
+          "kind": 43,
           "attributes": [],
           "modifiers": [
             {
-              "kind": 24,
+              "kind": 27,
               "start": {
                 "line": 2,
                 "column": 2
@@ -36,7 +36,7 @@
             }
           ],
           "name": {
-            "kind": 54,
+            "kind": 52,
             "name": "color",
             "start": {
               "line": 2,
@@ -56,10 +56,10 @@
             "column": 22
           },
           "type": {
-            "kind": 124,
+            "kind": 120,
             "modifiers": [],
             "typeName": {
-              "kind": 54,
+              "kind": 52,
               "name": "String",
               "start": {
                 "line": 2,
@@ -81,11 +81,11 @@
           }
         },
         {
-          "kind": 74,
+          "kind": 67,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 54,
+            "kind": 52,
             "name": "constructor",
             "start": {
               "line": 3,
@@ -98,7 +98,7 @@
           },
           "parameters": [
             {
-              "kind": 86,
+              "kind": 80,
               "attributes": [],
               "modifiers": [],
               "start": {
@@ -110,7 +110,7 @@
                 "column": 30
               },
               "external": {
-                "kind": 54,
+                "kind": 52,
                 "name": "color",
                 "start": {
                   "line": 3,
@@ -122,9 +122,9 @@
                 }
               },
               "internal": {
-                "kind": 116,
+                "kind": 111,
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "color",
                   "start": {
                     "line": 3,
@@ -157,7 +157,7 @@
                 }
               },
               "defaultValue": {
-                "kind": 70,
+                "kind": 63,
                 "value": "black",
                 "start": {
                   "line": 3,
@@ -181,11 +181,11 @@
           "throws": []
         },
         {
-          "kind": 74,
+          "kind": 67,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 54,
+            "kind": 52,
             "name": "draw",
             "start": {
               "line": 5,
@@ -198,7 +198,7 @@
           },
           "parameters": [
             {
-              "kind": 86,
+              "kind": 80,
               "attributes": [],
               "modifiers": [],
               "start": {
@@ -210,7 +210,7 @@
                 "column": 13
               },
               "external": {
-                "kind": 54,
+                "kind": 52,
                 "name": "canvas",
                 "start": {
                   "line": 5,
@@ -222,7 +222,7 @@
                 }
               },
               "internal": {
-                "kind": 54,
+                "kind": 52,
                 "name": "canvas",
                 "start": {
                   "line": 5,
@@ -245,17 +245,17 @@
           },
           "throws": [],
           "body": {
-            "kind": 14,
+            "kind": 15,
             "attributes": [],
             "statements": [
               {
-                "kind": 98,
+                "kind": 93,
                 "attributes": [],
                 "value": {
-                  "kind": 115,
+                  "kind": 110,
                   "elements": [
                     {
-                      "kind": 70,
+                      "kind": 63,
                       "value": "I'm drawing a ",
                       "start": {
                         "line": 6,
@@ -267,9 +267,9 @@
                       }
                     },
                     {
-                      "kind": 116,
+                      "kind": 111,
                       "name": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "color",
                         "start": {
                           "line": 6,
@@ -290,7 +290,7 @@
                       }
                     },
                     {
-                      "kind": 70,
+                      "kind": 63,
                       "value": " rectangle.",
                       "start": {
                         "line": 6,

@@ -1,17 +1,17 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 59,
+      "kind": 56,
       "attributes": [],
       "declarations": [
         {
-          "kind": 60,
+          "kind": 57,
           "attributes": [],
           "modifiers": [],
           "source": {
-            "kind": 70,
+            "kind": 63,
             "value": "foobar",
             "start": {
               "line": 1,
@@ -24,13 +24,218 @@
           },
           "specifiers": [
             {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              "kind": 51,
+              "modifiers": [
+                {
+                  "kind": 20,
+                  "start": {
+                    "line": 8,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 5
+                  }
+                }
+              ],
+              "elements": [
+                {
+                  "kind": 72,
+                  "modifiers": [],
+                  "internal": {
+                    "kind": 75,
+                    "elements": [
+                      {
+                        "kind": 13,
+                        "name": {
+                          "kind": 52,
+                          "name": "foo",
+                          "start": {
+                            "line": 9,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 9,
+                            "column": 5
+                          }
+                        },
+                        "modifiers": [],
+                        "start": {
+                          "line": 9,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 9,
+                          "column": 9
+                        },
+                        "alias": {
+                          "kind": 52,
+                          "name": "f1",
+                          "start": {
+                            "line": 9,
+                            "column": 7
+                          },
+                          "end": {
+                            "line": 9,
+                            "column": 9
+                          }
+                        }
+                      },
+                      {
+                        "kind": 13,
+                        "name": {
+                          "kind": 52,
+                          "name": "bar",
+                          "start": {
+                            "line": 10,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 10,
+                            "column": 5
+                          }
+                        },
+                        "modifiers": [],
+                        "start": {
+                          "line": 10,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 10,
+                          "column": 9
+                        },
+                        "alias": {
+                          "kind": 52,
+                          "name": "b1",
+                          "start": {
+                            "line": 10,
+                            "column": 7
+                          },
+                          "end": {
+                            "line": 10,
+                            "column": 9
+                          }
+                        }
+                      },
+                      {
+                        "kind": 13,
+                        "name": {
+                          "kind": 52,
+                          "name": "baz",
+                          "start": {
+                            "line": 11,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 11,
+                            "column": 5
+                          }
+                        },
+                        "modifiers": [],
+                        "start": {
+                          "line": 11,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 11,
+                          "column": 9
+                        },
+                        "alias": {
+                          "kind": 52,
+                          "name": "b2",
+                          "start": {
+                            "line": 11,
+                            "column": 7
+                          },
+                          "end": {
+                            "line": 11,
+                            "column": 9
+                          }
+                        }
+                      },
+                      {
+                        "kind": 13,
+                        "name": {
+                          "kind": 52,
+                          "name": "qux",
+                          "start": {
+                            "line": 12,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 12,
+                            "column": 5
+                          }
+                        },
+                        "modifiers": [],
+                        "start": {
+                          "line": 12,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 12,
+                          "column": 9
+                        },
+                        "alias": {
+                          "kind": 52,
+                          "name": "q1",
+                          "start": {
+                            "line": 12,
+                            "column": 7
+                          },
+                          "end": {
+                            "line": 12,
+                            "column": 9
+                          }
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 8,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 13,
+                      "column": 2
+                    }
+                  },
+                  "start": {
+                    "line": 8,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 13,
+                    "column": 2
+                  }
+                }
+              ],
+              "start": {
+                "line": 8,
+                "column": 3
+              },
+              "end": {
+                "line": 13,
+                "column": 2
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 13,
+            "column": 2
+          },
+          "type": {
+            "kind": 119,
+            "attributes": [],
+            "types": [
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "foo",
                   "start": {
                     "line": 2,
@@ -51,11 +256,11 @@
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [
                       {
-                        "kind": 26,
+                        "kind": 29,
                         "arity": {
                           "min": 0,
                           "max": "Infinity"
@@ -83,35 +288,11 @@
                 "modifiers": [],
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "f1",
-                "start": {
-                  "line": 2,
-                  "column": 14
-                },
-                "end": {
-                  "line": 2,
-                  "column": 16
-                }
-              },
-              "start": {
-                "line": 2,
-                "column": 2
-              },
-              "end": {
-                "line": 2,
-                "column": 16
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "bar",
                   "start": {
                     "line": 3,
@@ -146,35 +327,11 @@
                 ],
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "b1",
-                "start": {
-                  "line": 3,
-                  "column": 17
-                },
-                "end": {
-                  "line": 3,
-                  "column": 19
-                }
-              },
-              "start": {
-                "line": 3,
-                "column": 2
-              },
-              "end": {
-                "line": 3,
-                "column": 19
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "baz",
                   "start": {
                     "line": 4,
@@ -195,7 +352,7 @@
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
@@ -207,7 +364,7 @@
                       "column": 19
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
                         "line": 4,
@@ -219,7 +376,7 @@
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
                         "line": 4,
@@ -231,10 +388,10 @@
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "Number",
                         "start": {
                           "line": 4,
@@ -258,10 +415,10 @@
                 ],
                 "modifiers": [],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "Number",
                     "start": {
                       "line": 4,
@@ -283,35 +440,11 @@
                 },
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "b2",
-                "start": {
-                  "line": 4,
-                  "column": 32
-                },
-                "end": {
-                  "line": 4,
-                  "column": 34
-                }
-              },
-              "start": {
-                "line": 4,
-                "column": 2
-              },
-              "end": {
-                "line": 4,
-                "column": 34
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "baz",
                   "start": {
                     "line": 5,
@@ -332,7 +465,7 @@
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
@@ -344,7 +477,7 @@
                       "column": 19
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
                         "line": 5,
@@ -356,7 +489,7 @@
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
                         "line": 5,
@@ -368,10 +501,10 @@
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "String",
                         "start": {
                           "line": 5,
@@ -395,10 +528,10 @@
                 ],
                 "modifiers": [],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "String",
                     "start": {
                       "line": 5,
@@ -420,35 +553,11 @@
                 },
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "baz",
-                "start": {
-                  "line": 5,
-                  "column": 2
-                },
-                "end": {
-                  "line": 5,
-                  "column": 5
-                }
-              },
-              "start": {
-                "line": 5,
-                "column": 2
-              },
-              "end": {
-                "line": 5,
-                "column": 28
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "qux",
                   "start": {
                     "line": 6,
@@ -469,7 +578,7 @@
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
@@ -481,7 +590,7 @@
                       "column": 25
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
                         "line": 6,
@@ -493,7 +602,7 @@
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
                         "line": 6,
@@ -505,10 +614,10 @@
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "Number",
                         "start": {
                           "line": 6,
@@ -544,10 +653,10 @@
                   }
                 ],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "Number",
                     "start": {
                       "line": 6,
@@ -569,35 +678,11 @@
                 },
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "q1",
-                "start": {
-                  "line": 6,
-                  "column": 38
-                },
-                "end": {
-                  "line": 6,
-                  "column": 40
-                }
-              },
-              "start": {
-                "line": 6,
-                "column": 2
-              },
-              "end": {
-                "line": 6,
-                "column": 40
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "qux",
                   "start": {
                     "line": 7,
@@ -618,7 +703,7 @@
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
@@ -630,7 +715,7 @@
                       "column": 25
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
                         "line": 7,
@@ -642,7 +727,7 @@
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
                         "line": 7,
@@ -654,10 +739,10 @@
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "String",
                         "start": {
                           "line": 7,
@@ -693,10 +778,10 @@
                   }
                 ],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "String",
                     "start": {
                       "line": 7,
@@ -717,36 +802,16 @@
                   }
                 },
                 "throws": []
-              },
-              "internal": {
-                "kind": 54,
-                "name": "qux",
-                "start": {
-                  "line": 7,
-                  "column": 8
-                },
-                "end": {
-                  "line": 7,
-                  "column": 11
-                }
-              },
-              "start": {
-                "line": 7,
-                "column": 2
-              },
-              "end": {
-                "line": 7,
-                "column": 34
               }
+            ],
+            "start": {
+              "line": 1,
+              "column": 17
+            },
+            "end": {
+              "line": 8,
+              "column": 2
             }
-          ],
-          "start": {
-            "line": 1,
-            "column": 8
-          },
-          "end": {
-            "line": 8,
-            "column": 2
           }
         }
       ],
@@ -755,84 +820,289 @@
         "column": 1
       },
       "end": {
-        "line": 8,
+        "line": 13,
         "column": 2
       }
     },
     {
-      "kind": 59,
+      "kind": 56,
       "attributes": [],
       "declarations": [
         {
-          "kind": 60,
+          "kind": 57,
           "attributes": [],
           "modifiers": [],
           "source": {
-            "kind": 70,
+            "kind": 63,
             "value": "barfoo",
             "start": {
-              "line": 10,
+              "line": 15,
               "column": 8
             },
             "end": {
-              "line": 10,
+              "line": 15,
               "column": 16
             }
           },
           "specifiers": [
             {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              "kind": 51,
+              "modifiers": [
+                {
+                  "kind": 20,
+                  "start": {
+                    "line": 22,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 22,
+                    "column": 5
+                  }
+                }
+              ],
+              "elements": [
+                {
+                  "kind": 72,
+                  "modifiers": [],
+                  "internal": {
+                    "kind": 75,
+                    "elements": [
+                      {
+                        "kind": 13,
+                        "name": {
+                          "kind": 52,
+                          "name": "foo",
+                          "start": {
+                            "line": 23,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 23,
+                            "column": 5
+                          }
+                        },
+                        "modifiers": [],
+                        "start": {
+                          "line": 23,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 23,
+                          "column": 9
+                        },
+                        "alias": {
+                          "kind": 52,
+                          "name": "f1",
+                          "start": {
+                            "line": 23,
+                            "column": 7
+                          },
+                          "end": {
+                            "line": 23,
+                            "column": 9
+                          }
+                        }
+                      },
+                      {
+                        "kind": 13,
+                        "name": {
+                          "kind": 52,
+                          "name": "bar",
+                          "start": {
+                            "line": 24,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 24,
+                            "column": 5
+                          }
+                        },
+                        "modifiers": [],
+                        "start": {
+                          "line": 24,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 24,
+                          "column": 9
+                        },
+                        "alias": {
+                          "kind": 52,
+                          "name": "b1",
+                          "start": {
+                            "line": 24,
+                            "column": 7
+                          },
+                          "end": {
+                            "line": 24,
+                            "column": 9
+                          }
+                        }
+                      },
+                      {
+                        "kind": 13,
+                        "name": {
+                          "kind": 52,
+                          "name": "baz",
+                          "start": {
+                            "line": 25,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 25,
+                            "column": 5
+                          }
+                        },
+                        "modifiers": [],
+                        "start": {
+                          "line": 25,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 25,
+                          "column": 9
+                        },
+                        "alias": {
+                          "kind": 52,
+                          "name": "b2",
+                          "start": {
+                            "line": 25,
+                            "column": 7
+                          },
+                          "end": {
+                            "line": 25,
+                            "column": 9
+                          }
+                        }
+                      },
+                      {
+                        "kind": 13,
+                        "name": {
+                          "kind": 52,
+                          "name": "qux",
+                          "start": {
+                            "line": 26,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 26,
+                            "column": 5
+                          }
+                        },
+                        "modifiers": [],
+                        "start": {
+                          "line": 26,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 26,
+                          "column": 9
+                        },
+                        "alias": {
+                          "kind": 52,
+                          "name": "q1",
+                          "start": {
+                            "line": 26,
+                            "column": 7
+                          },
+                          "end": {
+                            "line": 26,
+                            "column": 9
+                          }
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 22,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 27,
+                      "column": 2
+                    }
+                  },
+                  "start": {
+                    "line": 22,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 27,
+                    "column": 2
+                  }
+                }
+              ],
+              "start": {
+                "line": 22,
+                "column": 3
+              },
+              "end": {
+                "line": 27,
+                "column": 2
+              }
+            }
+          ],
+          "start": {
+            "line": 15,
+            "column": 8
+          },
+          "end": {
+            "line": 27,
+            "column": 2
+          },
+          "type": {
+            "kind": 119,
+            "attributes": [],
+            "types": [
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "foo",
                   "start": {
-                    "line": 11,
+                    "line": 16,
                     "column": 7
                   },
                   "end": {
-                    "line": 11,
+                    "line": 16,
                     "column": 10
                   }
                 },
                 "start": {
-                  "line": 11,
+                  "line": 16,
                   "column": 2
                 },
                 "end": {
-                  "line": 11,
+                  "line": 16,
                   "column": 15
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [
                       {
-                        "kind": 26,
+                        "kind": 29,
                         "arity": {
                           "min": 0,
                           "max": "Infinity"
                         },
                         "start": {
-                          "line": 11,
+                          "line": 16,
                           "column": 11
                         },
                         "end": {
-                          "line": 11,
+                          "line": 16,
                           "column": 14
                         }
                       }
                     ],
                     "start": {
-                      "line": 11,
+                      "line": 16,
                       "column": 11
                     },
                     "end": {
-                      "line": 11,
+                      "line": 16,
                       "column": 14
                     }
                   }
@@ -840,51 +1110,27 @@
                 "modifiers": [],
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "f1",
-                "start": {
-                  "line": 11,
-                  "column": 19
-                },
-                "end": {
-                  "line": 11,
-                  "column": 21
-                }
-              },
-              "start": {
-                "line": 11,
-                "column": 2
-              },
-              "end": {
-                "line": 11,
-                "column": 21
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "bar",
                   "start": {
-                    "line": 12,
+                    "line": 17,
                     "column": 13
                   },
                   "end": {
-                    "line": 12,
+                    "line": 17,
                     "column": 16
                   }
                 },
                 "start": {
-                  "line": 12,
+                  "line": 17,
                   "column": 2
                 },
                 "end": {
-                  "line": 12,
+                  "line": 17,
                   "column": 18
                 },
                 "parameters": [],
@@ -892,122 +1138,98 @@
                   {
                     "kind": 2,
                     "start": {
-                      "line": 12,
+                      "line": 17,
                       "column": 2
                     },
                     "end": {
-                      "line": 12,
+                      "line": 17,
                       "column": 7
                     }
                   }
                 ],
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "b1",
-                "start": {
-                  "line": 12,
-                  "column": 22
-                },
-                "end": {
-                  "line": 12,
-                  "column": 24
-                }
-              },
-              "start": {
-                "line": 12,
-                "column": 2
-              },
-              "end": {
-                "line": 12,
-                "column": 24
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "baz",
                   "start": {
-                    "line": 13,
+                    "line": 18,
                     "column": 7
                   },
                   "end": {
-                    "line": 13,
+                    "line": 18,
                     "column": 10
                   }
                 },
                 "start": {
-                  "line": 13,
+                  "line": 18,
                   "column": 2
                 },
                 "end": {
-                  "line": 13,
+                  "line": 18,
                   "column": 33
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
-                      "line": 13,
+                      "line": 18,
                       "column": 11
                     },
                     "end": {
-                      "line": 13,
+                      "line": 18,
                       "column": 24
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
-                        "line": 13,
+                        "line": 18,
                         "column": 11
                       },
                       "end": {
-                        "line": 13,
+                        "line": 18,
                         "column": 16
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
-                        "line": 13,
+                        "line": 18,
                         "column": 11
                       },
                       "end": {
-                        "line": 13,
+                        "line": 18,
                         "column": 16
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "Number",
                         "start": {
-                          "line": 13,
+                          "line": 18,
                           "column": 18
                         },
                         "end": {
-                          "line": 13,
+                          "line": 18,
                           "column": 24
                         }
                       },
                       "start": {
-                        "line": 13,
+                        "line": 18,
                         "column": 18
                       },
                       "end": {
-                        "line": 13,
+                        "line": 18,
                         "column": 24
                       }
                     }
@@ -1015,136 +1237,112 @@
                 ],
                 "modifiers": [],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "Number",
                     "start": {
-                      "line": 13,
+                      "line": 18,
                       "column": 27
                     },
                     "end": {
-                      "line": 13,
+                      "line": 18,
                       "column": 33
                     }
                   },
                   "start": {
-                    "line": 13,
+                    "line": 18,
                     "column": 27
                   },
                   "end": {
-                    "line": 13,
+                    "line": 18,
                     "column": 33
                   }
                 },
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "b2",
-                "start": {
-                  "line": 13,
-                  "column": 37
-                },
-                "end": {
-                  "line": 13,
-                  "column": 39
-                }
-              },
-              "start": {
-                "line": 13,
-                "column": 2
-              },
-              "end": {
-                "line": 13,
-                "column": 39
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "baz",
                   "start": {
-                    "line": 14,
+                    "line": 19,
                     "column": 7
                   },
                   "end": {
-                    "line": 14,
+                    "line": 19,
                     "column": 10
                   }
                 },
                 "start": {
-                  "line": 14,
+                  "line": 19,
                   "column": 2
                 },
                 "end": {
-                  "line": 14,
+                  "line": 19,
                   "column": 33
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
-                      "line": 14,
+                      "line": 19,
                       "column": 11
                     },
                     "end": {
-                      "line": 14,
+                      "line": 19,
                       "column": 24
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
-                        "line": 14,
+                        "line": 19,
                         "column": 11
                       },
                       "end": {
-                        "line": 14,
+                        "line": 19,
                         "column": 16
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
-                        "line": 14,
+                        "line": 19,
                         "column": 11
                       },
                       "end": {
-                        "line": 14,
+                        "line": 19,
                         "column": 16
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "String",
                         "start": {
-                          "line": 14,
+                          "line": 19,
                           "column": 18
                         },
                         "end": {
-                          "line": 14,
+                          "line": 19,
                           "column": 24
                         }
                       },
                       "start": {
-                        "line": 14,
+                        "line": 19,
                         "column": 18
                       },
                       "end": {
-                        "line": 14,
+                        "line": 19,
                         "column": 24
                       }
                     }
@@ -1152,136 +1350,112 @@
                 ],
                 "modifiers": [],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "String",
                     "start": {
-                      "line": 14,
+                      "line": 19,
                       "column": 27
                     },
                     "end": {
-                      "line": 14,
+                      "line": 19,
                       "column": 33
                     }
                   },
                   "start": {
-                    "line": 14,
+                    "line": 19,
                     "column": 27
                   },
                   "end": {
-                    "line": 14,
+                    "line": 19,
                     "column": 33
                   }
                 },
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "baz",
-                "start": {
-                  "line": 14,
-                  "column": 7
-                },
-                "end": {
-                  "line": 14,
-                  "column": 10
-                }
-              },
-              "start": {
-                "line": 14,
-                "column": 2
-              },
-              "end": {
-                "line": 14,
-                "column": 33
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "qux",
                   "start": {
-                    "line": 15,
+                    "line": 20,
                     "column": 13
                   },
                   "end": {
-                    "line": 15,
+                    "line": 20,
                     "column": 16
                   }
                 },
                 "start": {
-                  "line": 15,
+                  "line": 20,
                   "column": 2
                 },
                 "end": {
-                  "line": 15,
+                  "line": 20,
                   "column": 39
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
-                      "line": 15,
+                      "line": 20,
                       "column": 17
                     },
                     "end": {
-                      "line": 15,
+                      "line": 20,
                       "column": 30
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
-                        "line": 15,
+                        "line": 20,
                         "column": 17
                       },
                       "end": {
-                        "line": 15,
+                        "line": 20,
                         "column": 22
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
-                        "line": 15,
+                        "line": 20,
                         "column": 17
                       },
                       "end": {
-                        "line": 15,
+                        "line": 20,
                         "column": 22
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "Number",
                         "start": {
-                          "line": 15,
+                          "line": 20,
                           "column": 24
                         },
                         "end": {
-                          "line": 15,
+                          "line": 20,
                           "column": 30
                         }
                       },
                       "start": {
-                        "line": 15,
+                        "line": 20,
                         "column": 24
                       },
                       "end": {
-                        "line": 15,
+                        "line": 20,
                         "column": 30
                       }
                     }
@@ -1291,146 +1465,122 @@
                   {
                     "kind": 2,
                     "start": {
-                      "line": 15,
+                      "line": 20,
                       "column": 2
                     },
                     "end": {
-                      "line": 15,
+                      "line": 20,
                       "column": 7
                     }
                   }
                 ],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "Number",
                     "start": {
-                      "line": 15,
+                      "line": 20,
                       "column": 33
                     },
                     "end": {
-                      "line": 15,
+                      "line": 20,
                       "column": 39
                     }
                   },
                   "start": {
-                    "line": 15,
+                    "line": 20,
                     "column": 33
                   },
                   "end": {
-                    "line": 15,
+                    "line": 20,
                     "column": 39
                   }
                 },
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "q1",
-                "start": {
-                  "line": 15,
-                  "column": 43
-                },
-                "end": {
-                  "line": 15,
-                  "column": 45
-                }
-              },
-              "start": {
-                "line": 15,
-                "column": 2
-              },
-              "end": {
-                "line": 15,
-                "column": 45
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "qux",
                   "start": {
-                    "line": 16,
+                    "line": 21,
                     "column": 13
                   },
                   "end": {
-                    "line": 16,
+                    "line": 21,
                     "column": 16
                   }
                 },
                 "start": {
-                  "line": 16,
+                  "line": 21,
                   "column": 2
                 },
                 "end": {
-                  "line": 16,
+                  "line": 21,
                   "column": 39
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
-                      "line": 16,
+                      "line": 21,
                       "column": 17
                     },
                     "end": {
-                      "line": 16,
+                      "line": 21,
                       "column": 30
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
-                        "line": 16,
+                        "line": 21,
                         "column": 17
                       },
                       "end": {
-                        "line": 16,
+                        "line": 21,
                         "column": 22
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "value",
                       "start": {
-                        "line": 16,
+                        "line": 21,
                         "column": 17
                       },
                       "end": {
-                        "line": 16,
+                        "line": 21,
                         "column": 22
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "String",
                         "start": {
-                          "line": 16,
+                          "line": 21,
                           "column": 24
                         },
                         "end": {
-                          "line": 16,
+                          "line": 21,
                           "column": 30
                         }
                       },
                       "start": {
-                        "line": 16,
+                        "line": 21,
                         "column": 24
                       },
                       "end": {
-                        "line": 16,
+                        "line": 21,
                         "column": 30
                       }
                     }
@@ -1440,79 +1590,59 @@
                   {
                     "kind": 2,
                     "start": {
-                      "line": 16,
+                      "line": 21,
                       "column": 2
                     },
                     "end": {
-                      "line": 16,
+                      "line": 21,
                       "column": 7
                     }
                   }
                 ],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "String",
                     "start": {
-                      "line": 16,
+                      "line": 21,
                       "column": 33
                     },
                     "end": {
-                      "line": 16,
+                      "line": 21,
                       "column": 39
                     }
                   },
                   "start": {
-                    "line": 16,
+                    "line": 21,
                     "column": 33
                   },
                   "end": {
-                    "line": 16,
+                    "line": 21,
                     "column": 39
                   }
                 },
                 "throws": []
-              },
-              "internal": {
-                "kind": 54,
-                "name": "qux",
-                "start": {
-                  "line": 16,
-                  "column": 13
-                },
-                "end": {
-                  "line": 16,
-                  "column": 16
-                }
-              },
-              "start": {
-                "line": 16,
-                "column": 2
-              },
-              "end": {
-                "line": 16,
-                "column": 39
               }
+            ],
+            "start": {
+              "line": 15,
+              "column": 17
+            },
+            "end": {
+              "line": 22,
+              "column": 2
             }
-          ],
-          "start": {
-            "line": 10,
-            "column": 8
-          },
-          "end": {
-            "line": 17,
-            "column": 2
           }
         }
       ],
       "start": {
-        "line": 10,
+        "line": 15,
         "column": 1
       },
       "end": {
-        "line": 17,
+        "line": 27,
         "column": 2
       }
     }
@@ -1522,7 +1652,7 @@
     "column": 1
   },
   "end": {
-    "line": 17,
-    "column": 2
+    "line": 28,
+    "column": 1
   }
 }

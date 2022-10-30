@@ -261,6 +261,24 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func Argument(modifiers, name?, value, first, last) { # {{{
+			if name == null {
+				return location({
+					kind: NodeKind::Argument
+					modifiers
+					value: value.value
+				}, first, last)
+			}
+			else {
+				return location({
+					kind: NodeKind::Argument
+					modifiers
+					name: name.value
+					value: value.value
+				}, first, last)
+			}
+		} # }}}
+
 		func ArrayBinding(elements, first, last) { # {{{
 			return location({
 				kind: NodeKind::ArrayBinding
@@ -586,6 +604,13 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func DeclarationSpecifier(declaration) { # {{{
+			return location({
+				kind: NodeKind::DeclarationSpecifier
+				declaration: declaration.value
+			}, declaration)
+		} # }}}
+
 		func DestroyStatement(variable, first, last) { # {{{
 			return location({
 				kind: NodeKind::DestroyStatement
@@ -658,43 +683,6 @@ namespace AST {
 				attributes: [attribute.value for attribute in attributes]
 				declarations: [declarator.value for declarator in declarations]
 			}, first, last)
-		} # }}}
-
-		func ExportDeclarationSpecifier(declaration) { # {{{
-			return location({
-				kind: NodeKind::ExportDeclarationSpecifier
-				declaration: declaration.value
-			}, declaration)
-		} # }}}
-
-		func ExportExclusionSpecifier(exclusions, first, last) { # {{{
-			return location({
-				kind: NodeKind::ExportExclusionSpecifier
-				exclusions: [exclusion.value for exclusion in exclusions]
-			}, first, last)
-		} # }}}
-
-		func ExportNamedSpecifier(internal, external) { # {{{
-			return location({
-				kind: NodeKind::ExportNamedSpecifier
-				internal: internal.value
-				external: external.value
-			}, internal, external)
-		} # }}}
-
-		func ExportPropertiesSpecifier(object, properties, last) { # {{{
-			return location({
-				kind: NodeKind::ExportPropertiesSpecifier
-				object: object.value
-				properties: properties
-			}, object, last)
-		} # }}}
-
-		func ExportWildcardSpecifier(internal, end) { # {{{
-			return location({
-				kind: NodeKind::ExportWildcardSpecifier
-				internal: internal.value
-			}, internal, end)
 		} # }}}
 
 		func ExpressionStatement(expression) { # {{{
@@ -978,6 +966,20 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func GroupSpecifier(modifiers, elements, type?, first, last) { # {{{
+			var node = location({
+				kind: NodeKind::GroupSpecifier
+				modifiers: [modifier.value for var modifier in modifiers]
+				elements: [element.value for var element in elements]
+			}, first, last)
+
+			if type != null {
+				node.type = type.value
+			}
+
+			return node
+		} # }}}
+
 		func IfExpression(condition, whenTrue, whenFalse?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::IfExpression
@@ -1016,24 +1018,6 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func ImportArgument(modifiers, name?, value, first, last) { # {{{
-			if name == null {
-				return location({
-					kind: NodeKind::ImportArgument
-					modifiers
-					value: value.value
-				}, first, last)
-			}
-			else {
-				return location({
-					kind: NodeKind::ImportArgument
-					modifiers
-					name: name.value
-					value: value.value
-				}, first, last)
-			}
-		} # }}}
-
 		func ImportDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind::ImportDeclaration
@@ -1042,51 +1026,23 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func ImportDeclarator(attributes, modifiers, source, specifiers, arguments?, first, last) { # {{{
+		func ImportDeclarator(attributes, modifiers, source, arguments?, type?, specifiers, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::ImportDeclarator
-				attributes: [attribute.value for attribute in attributes]
+				attributes: [attribute.value for var attribute in attributes]
 				modifiers
 				source: source.value
-				specifiers: [specifier.value for specifier in specifiers]
+				specifiers: [specifier.value for var specifier in specifiers]
 			}, first, last)
 
 			if arguments != null {
 				node.arguments = arguments
 			}
-
-			return node
-		} # }}}
-
-		func ImportExclusionSpecifier(exclusions, first, last) { # {{{
-			return location({
-				kind: NodeKind::ImportExclusionSpecifier
-				attributes: []
-				exclusions: [exclusion.value for exclusion in exclusions]
-			}, first, last)
-		} # }}}
-
-		func ImportNamespaceSpecifier(internal, specifiers?, first, last) { # {{{
-			var node = location({
-				kind: NodeKind::ImportNamespaceSpecifier
-				attributes: []
-				internal: internal.value
-			}, first, last)
-
-			if specifiers != null {
-				node.specifiers = [specifier.value for specifier in specifiers]
+			if type != null {
+				node.type = type.value
 			}
 
 			return node
-		} # }}}
-
-		func ImportSpecifier(external, internal, first, last) { # {{{
-			return location({
-				kind: NodeKind::ImportSpecifier
-				attributes: []
-				external: external.value
-				internal: internal.value
-			}, first, last)
 		} # }}}
 
 		func Identifier(name, first) { # {{{
@@ -1298,13 +1254,35 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func NamedSpecifier(internal) { # {{{
+			return location({
+				kind: NodeKind::NamedSpecifier
+				modifiers: []
+				internal: internal.value
+			}, internal, internal)
+		} # }}}
+
+		func NamedSpecifier(modifiers, internal, external?, first, last) { # {{{
+			var node = location({
+				kind: NodeKind::NamedSpecifier
+				modifiers: [modifier.value for var modifier in modifiers]
+				internal: internal.value
+			}, first, last)
+
+			if ?external {
+				node.external = external.value
+			}
+
+			return node
+		} # }}}
+
 		func NamespaceDeclaration(attributes, modifiers, name, statements, first, last) { # {{{
 			return location({
 				kind: NodeKind::NamespaceDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
-				statements: [statement.value for statement in statements]
+				statements: [statement.value for var statement in statements]
 			}, first, last)
 		} # }}}
 
@@ -1447,6 +1425,15 @@ namespace AST {
 				modifiers: []
 				value: value.value
 			}, value, value)
+		} # }}}
+
+		func PropertiesSpecifier(modifiers, object, properties, first, last) { # {{{
+			return location({
+				kind: NodeKind::PropertiesSpecifier
+				modifiers: [modifier.value for var modifier in modifiers]
+				object: object.value
+				properties: [property.value for var property in properties]
+			}, first, last)
 		} # }}}
 
 		func PropertyDeclaration(attributes, modifiers, name, type?, defaultValue?, accessor?, mutator?, first, last) { # {{{
@@ -1829,8 +1816,8 @@ namespace AST {
 		func TupleField(attributes, modifiers, name?, type?, defaultValue?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::TupleField
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 			}, first, last)
 
 			if ?name {
@@ -1859,12 +1846,12 @@ namespace AST {
 		func TypeReference(modifiers, name, parameters?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::TypeReference
-				modifiers: [modifier.value for modifier in modifiers]
+				modifiers: [modifier.value for var modifier in modifiers]
 				typeName: name.value
 			}, first, last)
 
 			if parameters != null {
-				node.typeParameters = [parameter.value for parameter in parameters.value]
+				node.typeParameters = [parameter.value for var parameter in parameters.value]
 			}
 
 			return node
@@ -1877,6 +1864,21 @@ namespace AST {
 				name: name.value
 				type: type.value
 			}, first, last)
+		} # }}}
+
+		func TypeList(attributes, types, first, last) { # {{{
+			return location({
+				kind: NodeKind::TypeList
+				attributes: [attribute.value for var attribute in attributes]
+				types: [type.value for var type in types]
+			}, first, last)
+		} # }}}
+
+		func TypedSpecifier(type, first) { # {{{
+			return location({
+				kind: NodeKind::TypedSpecifier
+				type: type.value
+			}, first)
 		} # }}}
 
 		func UnaryExpression(operator, operand, first, last) { # {{{
@@ -1896,7 +1898,7 @@ namespace AST {
 		func UnionType(types, first, last) { # {{{
 			return location({
 				kind: NodeKind::UnionType
-				types: [type.value for type in types]
+				types: [type.value for var type in types]
 			}, first, last)
 		} # }}}
 

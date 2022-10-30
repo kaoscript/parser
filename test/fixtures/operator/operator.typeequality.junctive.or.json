@@ -1,12 +1,12 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 51,
+      "kind": 48,
       "attributes": [],
       "name": {
-        "kind": 54,
+        "kind": 52,
         "name": "foobar",
         "start": {
           "line": 1,
@@ -27,7 +27,7 @@
       },
       "parameters": [
         {
-          "kind": 86,
+          "kind": 80,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -39,7 +39,7 @@
             "column": 14
           },
           "external": {
-            "kind": 54,
+            "kind": 52,
             "name": "x",
             "start": {
               "line": 1,
@@ -51,7 +51,7 @@
             }
           },
           "internal": {
-            "kind": 54,
+            "kind": 52,
             "name": "x",
             "start": {
               "line": 1,
@@ -67,14 +67,14 @@
       "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 14,
+        "kind": 15,
         "attributes": [],
         "statements": [
           {
-            "kind": 56,
+            "kind": 54,
             "attributes": [],
             "condition": {
-              "kind": 11,
+              "kind": 12,
               "operator": {
                 "kind": 24,
                 "modifiers": [],
@@ -96,7 +96,7 @@
                 "column": 25
               },
               "left": {
-                "kind": 54,
+                "kind": 52,
                 "name": "x",
                 "start": {
                   "line": 2,
@@ -108,7 +108,7 @@
                 }
               },
               "right": {
-                "kind": 68,
+                "kind": 61,
                 "operator": {
                   "kind": 19,
                   "modifiers": [],
@@ -123,10 +123,10 @@
                 },
                 "operands": [
                   {
-                    "kind": 124,
+                    "kind": 120,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "Number",
                       "start": {
                         "line": 2,
@@ -147,10 +147,10 @@
                     }
                   },
                   {
-                    "kind": 124,
+                    "kind": 120,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "String",
                       "start": {
                         "line": 2,
@@ -182,7 +182,7 @@
               }
             },
             "whenTrue": {
-              "kind": 14,
+              "kind": 15,
               "attributes": [],
               "statements": [],
               "start": {

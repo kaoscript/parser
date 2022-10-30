@@ -13,10 +13,10 @@ else
 endif
 
 patch:
-	node ./scripts/patch.js
+	npx kaoscript ./scripts/patch.ks
 
 clean:
-	node_modules/.bin/kaoscript --clean
+	npx kaoscript --clean
 
 cls:
 	printf '\033[2J\033[3J\033[1;1H'

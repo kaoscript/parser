@@ -1,17 +1,27 @@
 import 'foobar' {
-	foo(...) => f1
-	async bar()	=> b1
-	baz(value: Number): Number => b2
+	foo(...)
+	async bar()
+	baz(value: Number): Number
 	baz(value: String): String
-	async qux(value: Number): Number => q1
+	async qux(value: Number): Number
 	async qux(value: String): String
+} => {
+	foo: f1
+	bar: b1
+	baz: b2
+	qux: q1
 }
 
 import 'barfoo' {
-	func foo(...) => f1
-	async func bar()	=> b1
-	func baz(value: Number): Number => b2
+	func foo(...)
+	async func bar()
+	func baz(value: Number): Number
 	func baz(value: String): String
-	async func qux(value: Number): Number => q1
+	async func qux(value: Number): Number
 	async func qux(value: String): String
+} => {
+	foo: f1
+	bar: b1
+	baz: b2
+	qux: q1
 }

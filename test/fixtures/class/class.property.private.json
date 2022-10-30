@@ -1,13 +1,13 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 19,
+      "kind": 20,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 54,
+        "kind": 52,
         "name": "Vector",
         "start": {
           "line": 1,
@@ -20,11 +20,11 @@
       },
       "members": [
         {
-          "kind": 46,
+          "kind": 43,
           "attributes": [],
           "modifiers": [
             {
-              "kind": 22,
+              "kind": 25,
               "start": {
                 "line": 2,
                 "column": 2
@@ -36,7 +36,7 @@
             }
           ],
           "name": {
-            "kind": 54,
+            "kind": 52,
             "name": "_x",
             "start": {
               "line": 2,
@@ -56,10 +56,10 @@
             "column": 20
           },
           "type": {
-            "kind": 124,
+            "kind": 120,
             "modifiers": [],
             "typeName": {
-              "kind": 54,
+              "kind": 52,
               "name": "Number",
               "start": {
                 "line": 2,
@@ -81,11 +81,11 @@
           }
         },
         {
-          "kind": 90,
+          "kind": 85,
           "attributes": [],
           "modifiers": [
             {
-              "kind": 24,
+              "kind": 27,
               "start": {
                 "line": 3,
                 "column": 2
@@ -97,7 +97,7 @@
             }
           ],
           "name": {
-            "kind": 54,
+            "kind": 52,
             "name": "x",
             "start": {
               "line": 3,
@@ -117,10 +117,10 @@
             "column": 3
           },
           "type": {
-            "kind": 124,
+            "kind": 120,
             "modifiers": [],
             "typeName": {
-              "kind": 54,
+              "kind": 52,
               "name": "Number",
               "start": {
                 "line": 3,
@@ -143,17 +143,17 @@
           "accessor": {
             "kind": 1,
             "body": {
-              "kind": 14,
+              "kind": 15,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 98,
+                  "kind": 93,
                   "attributes": [],
                   "value": {
-                    "kind": 73,
+                    "kind": 66,
                     "modifiers": [],
                     "object": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "this",
                       "start": {
                         "line": 5,
@@ -165,7 +165,7 @@
                       }
                     },
                     "property": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "_x",
                       "start": {
                         "line": 5,
@@ -214,13 +214,13 @@
             }
           },
           "mutator": {
-            "kind": 77,
+            "kind": 70,
             "body": {
-              "kind": 14,
+              "kind": 15,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 11,
+                  "kind": 12,
                   "operator": {
                     "kind": 3,
                     "assignment": 6,
@@ -234,10 +234,10 @@
                     }
                   },
                   "left": {
-                    "kind": 73,
+                    "kind": 66,
                     "modifiers": [],
                     "object": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "this",
                       "start": {
                         "line": 8,
@@ -249,7 +249,7 @@
                       }
                     },
                     "property": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "_x",
                       "start": {
                         "line": 8,
@@ -270,16 +270,16 @@
                     }
                   },
                   "right": {
-                    "kind": 16,
+                    "kind": 17,
                     "modifiers": [],
                     "scope": {
                       "kind": 3
                     },
                     "callee": {
-                      "kind": 73,
+                      "kind": 66,
                       "modifiers": [],
                       "object": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "Math",
                         "start": {
                           "line": 8,
@@ -291,7 +291,7 @@
                         }
                       },
                       "property": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "abs",
                         "start": {
                           "line": 8,
@@ -313,7 +313,7 @@
                     },
                     "arguments": [
                       {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "x",
                         "start": {
                           "line": 8,

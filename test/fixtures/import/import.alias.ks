@@ -1,7 +1,7 @@
-import 'module1' {
+import 'module1' for {
 	foo
 }
 
-import 'module2' {
+import 'module2' for {
 	foo => bar
 }

@@ -1,13 +1,13 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 132,
+      "kind": 129,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 9,
+          "kind": 10,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,16 @@
       ],
       "declarations": [
         {
-          "kind": 130,
+          "kind": 127,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 131,
+              "kind": 128,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 54,
+                "kind": 52,
                 "name": "foo",
                 "start": {
                   "line": 1,
@@ -59,7 +59,7 @@
             "column": 60
           },
           "value": {
-            "kind": 25,
+            "kind": 26,
             "start": {
               "line": 1,
               "column": 15
@@ -69,7 +69,7 @@
               "column": 60
             },
             "condition": {
-              "kind": 54,
+              "kind": 52,
               "name": "lang",
               "start": {
                 "line": 1,
@@ -81,10 +81,10 @@
               }
             },
             "whenTrue": {
-              "kind": 99,
+              "kind": 94,
               "expressions": [
                 {
-                  "kind": 11,
+                  "kind": 12,
                   "operator": {
                     "kind": 3,
                     "assignment": 6,
@@ -106,7 +106,7 @@
                     "column": 38
                   },
                   "left": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "bar",
                     "start": {
                       "line": 1,
@@ -118,7 +118,7 @@
                     }
                   },
                   "right": {
-                    "kind": 70,
+                    "kind": 63,
                     "value": "goodbye",
                     "start": {
                       "line": 1,
@@ -131,7 +131,7 @@
                   }
                 },
                 {
-                  "kind": 70,
+                  "kind": 63,
                   "value": "hello",
                   "start": {
                     "line": 1,
@@ -153,7 +153,7 @@
               }
             },
             "whenFalse": {
-              "kind": 70,
+              "kind": 63,
               "value": "bonjour",
               "start": {
                 "line": 1,

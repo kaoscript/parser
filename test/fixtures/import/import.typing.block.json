@@ -1,17 +1,17 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 59,
+      "kind": 56,
       "attributes": [],
       "declarations": [
         {
-          "kind": 60,
+          "kind": 57,
           "attributes": [],
           "modifiers": [],
           "source": {
-            "kind": 70,
+            "kind": 63,
             "value": "benchmark",
             "start": {
               "line": 2,
@@ -24,23 +24,49 @@
           },
           "specifiers": [
             {
-              "kind": 62,
-              "attributes": [],
-              "internal": {
-                "kind": 54,
-                "name": "Benchmark",
-                "start": {
-                  "line": 2,
-                  "column": 17
-                },
-                "end": {
-                  "line": 2,
-                  "column": 26
+              "kind": 51,
+              "modifiers": [
+                {
+                  "kind": 20,
+                  "start": {
+                    "line": 2,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 16
+                  }
                 }
-              },
+              ],
+              "elements": [
+                {
+                  "kind": 72,
+                  "modifiers": [],
+                  "internal": {
+                    "kind": 52,
+                    "name": "Benchmark",
+                    "start": {
+                      "line": 2,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 26
+                    }
+                  },
+                  "start": {
+                    "line": 2,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 26
+                  }
+                }
+              ],
               "start": {
                 "line": 2,
-                "column": 17
+                "column": 14
               },
               "end": {
                 "line": 2,
@@ -58,11 +84,11 @@
           }
         },
         {
-          "kind": 60,
+          "kind": 57,
           "attributes": [],
           "modifiers": [],
           "source": {
-            "kind": 70,
+            "kind": 63,
             "value": "fs",
             "start": {
               "line": 3,
@@ -84,11 +110,11 @@
           }
         },
         {
-          "kind": 60,
+          "kind": 57,
           "attributes": [],
           "modifiers": [],
           "source": {
-            "kind": 70,
+            "kind": 63,
             "value": "chevrotain",
             "start": {
               "line": 4,
@@ -99,15 +125,24 @@
               "column": 14
             }
           },
-          "specifiers": [
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+          "specifiers": [],
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 9,
+            "column": 3
+          },
+          "type": {
+            "kind": 119,
+            "attributes": [],
+            "types": [
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "createToken",
                   "start": {
                     "line": 5,
@@ -129,36 +164,12 @@
                 "modifiers": [],
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "createToken",
-                "start": {
-                  "line": 5,
-                  "column": 8
-                },
-                "end": {
-                  "line": 5,
-                  "column": 19
-                }
-              },
-              "start": {
-                "line": 5,
-                "column": 3
-              },
-              "end": {
-                "line": 5,
-                "column": 19
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 19,
+              {
+                "kind": 20,
                 "attributes": [],
                 "modifiers": [
                   {
-                    "kind": 27,
+                    "kind": 30,
                     "start": {
                       "line": 6,
                       "column": 3
@@ -170,7 +181,7 @@
                   }
                 ],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "Lexer",
                   "start": {
                     "line": 6,
@@ -191,36 +202,12 @@
                   "column": 21
                 }
               },
-              "internal": {
-                "kind": 54,
-                "name": "Lexer",
-                "start": {
-                  "line": 6,
-                  "column": 16
-                },
-                "end": {
-                  "line": 6,
-                  "column": 21
-                }
-              },
-              "start": {
-                "line": 6,
-                "column": 3
-              },
-              "end": {
-                "line": 6,
-                "column": 21
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 19,
+              {
+                "kind": 20,
                 "attributes": [],
                 "modifiers": [
                   {
-                    "kind": 27,
+                    "kind": 30,
                     "start": {
                       "line": 7,
                       "column": 3
@@ -232,7 +219,7 @@
                   }
                 ],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "Parser",
                   "start": {
                     "line": 7,
@@ -253,36 +240,12 @@
                   "column": 22
                 }
               },
-              "internal": {
-                "kind": 54,
-                "name": "Parser",
-                "start": {
-                  "line": 7,
-                  "column": 16
-                },
-                "end": {
-                  "line": 7,
-                  "column": 22
-                }
-              },
-              "start": {
-                "line": 7,
-                "column": 3
-              },
-              "end": {
-                "line": 7,
-                "column": 22
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 19,
+              {
+                "kind": 20,
                 "attributes": [],
                 "modifiers": [
                   {
-                    "kind": 27,
+                    "kind": 30,
                     "start": {
                       "line": 8,
                       "column": 3
@@ -294,7 +257,7 @@
                   }
                 ],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "Token",
                   "start": {
                     "line": 8,
@@ -314,36 +277,16 @@
                   "line": 8,
                   "column": 21
                 }
-              },
-              "internal": {
-                "kind": 54,
-                "name": "Token",
-                "start": {
-                  "line": 8,
-                  "column": 16
-                },
-                "end": {
-                  "line": 8,
-                  "column": 21
-                }
-              },
-              "start": {
-                "line": 8,
-                "column": 3
-              },
-              "end": {
-                "line": 8,
-                "column": 21
               }
+            ],
+            "start": {
+              "line": 4,
+              "column": 15
+            },
+            "end": {
+              "line": 9,
+              "column": 3
             }
-          ],
-          "start": {
-            "line": 4,
-            "column": 2
-          },
-          "end": {
-            "line": 9,
-            "column": 3
           }
         }
       ],

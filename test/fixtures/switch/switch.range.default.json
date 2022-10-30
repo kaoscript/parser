@@ -1,13 +1,13 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 132,
+      "kind": 129,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 9,
+          "kind": 10,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,16 @@
       ],
       "declarations": [
         {
-          "kind": 130,
+          "kind": 127,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 131,
+              "kind": 128,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 54,
+                "kind": 52,
                 "name": "temperature",
                 "start": {
                   "line": 1,
@@ -59,7 +59,7 @@
             "column": 25
           },
           "value": {
-            "kind": 80,
+            "kind": 74,
             "value": 83,
             "start": {
               "line": 1,
@@ -82,10 +82,10 @@
       }
     },
     {
-      "kind": 112,
+      "kind": 107,
       "attributes": [],
       "expression": {
-        "kind": 54,
+        "kind": 52,
         "name": "temperature",
         "start": {
           "line": 3,
@@ -98,18 +98,18 @@
       },
       "clauses": [
         {
-          "kind": 105,
+          "kind": 100,
           "body": {
-            "kind": 16,
+            "kind": 17,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 66,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 52,
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -121,7 +121,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 52,
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -143,7 +143,7 @@
             },
             "arguments": [
               {
-                "kind": 70,
+                "kind": 63,
                 "value": "Cold",
                 "start": {
                   "line": 4,
@@ -174,9 +174,9 @@
           },
           "conditions": [
             {
-              "kind": 109,
+              "kind": 104,
               "from": {
-                "kind": 80,
+                "kind": 74,
                 "value": 0,
                 "start": {
                   "line": 4,
@@ -188,7 +188,7 @@
                 }
               },
               "to": {
-                "kind": 80,
+                "kind": 74,
                 "value": 49,
                 "start": {
                   "line": 4,
@@ -212,18 +212,18 @@
           "bindings": []
         },
         {
-          "kind": 105,
+          "kind": 100,
           "body": {
-            "kind": 16,
+            "kind": 17,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 66,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 52,
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -235,7 +235,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 52,
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -257,7 +257,7 @@
             },
             "arguments": [
               {
-                "kind": 70,
+                "kind": 63,
                 "value": "Warm",
                 "start": {
                   "line": 5,
@@ -288,9 +288,9 @@
           },
           "conditions": [
             {
-              "kind": 109,
+              "kind": 104,
               "from": {
-                "kind": 80,
+                "kind": 74,
                 "value": 50,
                 "start": {
                   "line": 5,
@@ -302,7 +302,7 @@
                 }
               },
               "to": {
-                "kind": 80,
+                "kind": 74,
                 "value": 79,
                 "start": {
                   "line": 5,
@@ -326,18 +326,18 @@
           "bindings": []
         },
         {
-          "kind": 105,
+          "kind": 100,
           "body": {
-            "kind": 16,
+            "kind": 17,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 66,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 52,
                 "name": "console",
                 "start": {
                   "line": 6,
@@ -349,7 +349,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 52,
                 "name": "log",
                 "start": {
                   "line": 6,
@@ -371,7 +371,7 @@
             },
             "arguments": [
               {
-                "kind": 70,
+                "kind": 63,
                 "value": "Hot",
                 "start": {
                   "line": 6,
@@ -402,9 +402,9 @@
           },
           "conditions": [
             {
-              "kind": 109,
+              "kind": 104,
               "from": {
-                "kind": 80,
+                "kind": 74,
                 "value": 80,
                 "start": {
                   "line": 6,
@@ -416,7 +416,7 @@
                 }
               },
               "to": {
-                "kind": 80,
+                "kind": 74,
                 "value": 110,
                 "start": {
                   "line": 6,
@@ -440,18 +440,18 @@
           "bindings": []
         },
         {
-          "kind": 105,
+          "kind": 100,
           "body": {
-            "kind": 16,
+            "kind": 17,
             "modifiers": [],
             "scope": {
               "kind": 3
             },
             "callee": {
-              "kind": 73,
+              "kind": 66,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 52,
                 "name": "console",
                 "start": {
                   "line": 7,
@@ -463,7 +463,7 @@
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 52,
                 "name": "log",
                 "start": {
                   "line": 7,
@@ -485,7 +485,7 @@
             },
             "arguments": [
               {
-                "kind": 70,
+                "kind": 63,
                 "value": "Temperature out of range",
                 "start": {
                   "line": 7,

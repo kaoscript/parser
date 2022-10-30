@@ -1,17 +1,17 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 59,
+      "kind": 56,
       "attributes": [],
       "declarations": [
         {
-          "kind": 60,
+          "kind": 57,
           "attributes": [],
           "modifiers": [],
           "source": {
-            "kind": 70,
+            "kind": 63,
             "value": "path",
             "start": {
               "line": 1,
@@ -22,16 +22,25 @@
               "column": 14
             }
           },
-          "specifiers": [
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 131,
+          "specifiers": [],
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 7,
+            "column": 2
+          },
+          "type": {
+            "kind": 119,
+            "attributes": [],
+            "types": [
+              {
+                "kind": 128,
                 "attributes": [],
                 "modifiers": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "sep",
                   "start": {
                     "line": 2,
@@ -51,10 +60,10 @@
                   "column": 17
                 },
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "String",
                     "start": {
                       "line": 2,
@@ -75,35 +84,11 @@
                   }
                 }
               },
-              "internal": {
-                "kind": 54,
-                "name": "sep",
-                "start": {
-                  "line": 2,
-                  "column": 6
-                },
-                "end": {
-                  "line": 2,
-                  "column": 9
-                }
-              },
-              "start": {
-                "line": 2,
-                "column": 2
-              },
-              "end": {
-                "line": 2,
-                "column": 17
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "basename",
                   "start": {
                     "line": 3,
@@ -124,7 +109,7 @@
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
@@ -136,7 +121,7 @@
                       "column": 28
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "path",
                       "start": {
                         "line": 3,
@@ -148,7 +133,7 @@
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "path",
                       "start": {
                         "line": 3,
@@ -160,10 +145,10 @@
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "String",
                         "start": {
                           "line": 3,
@@ -187,10 +172,10 @@
                 ],
                 "modifiers": [],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "String",
                     "start": {
                       "line": 3,
@@ -212,35 +197,11 @@
                 },
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "basename",
-                "start": {
-                  "line": 3,
-                  "column": 7
-                },
-                "end": {
-                  "line": 3,
-                  "column": 15
-                }
-              },
-              "start": {
-                "line": 3,
-                "column": 2
-              },
-              "end": {
-                "line": 3,
-                "column": 37
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "dirname",
                   "start": {
                     "line": 4,
@@ -261,7 +222,7 @@
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
@@ -273,7 +234,7 @@
                       "column": 27
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "path",
                       "start": {
                         "line": 4,
@@ -285,7 +246,7 @@
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "path",
                       "start": {
                         "line": 4,
@@ -297,10 +258,10 @@
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "String",
                         "start": {
                           "line": 4,
@@ -324,10 +285,10 @@
                 ],
                 "modifiers": [],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "String",
                     "start": {
                       "line": 4,
@@ -349,35 +310,11 @@
                 },
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "dirname",
-                "start": {
-                  "line": 4,
-                  "column": 7
-                },
-                "end": {
-                  "line": 4,
-                  "column": 14
-                }
-              },
-              "start": {
-                "line": 4,
-                "column": 2
-              },
-              "end": {
-                "line": 4,
-                "column": 36
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "join",
                   "start": {
                     "line": 5,
@@ -398,11 +335,11 @@
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [
                       {
-                        "kind": 26,
+                        "kind": 29,
                         "arity": {
                           "min": 0,
                           "max": "Infinity"
@@ -426,7 +363,7 @@
                       "column": 28
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "paths",
                       "start": {
                         "line": 5,
@@ -438,7 +375,7 @@
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "paths",
                       "start": {
                         "line": 5,
@@ -450,10 +387,10 @@
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "String",
                         "start": {
                           "line": 5,
@@ -477,10 +414,10 @@
                 ],
                 "modifiers": [],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "String",
                     "start": {
                       "line": 5,
@@ -502,35 +439,11 @@
                 },
                 "throws": []
               },
-              "internal": {
-                "kind": 54,
-                "name": "join",
-                "start": {
-                  "line": 5,
-                  "column": 7
-                },
-                "end": {
-                  "line": 5,
-                  "column": 11
-                }
-              },
-              "start": {
-                "line": 5,
-                "column": 2
-              },
-              "end": {
-                "line": 5,
-                "column": 37
-              }
-            },
-            {
-              "kind": 64,
-              "attributes": [],
-              "external": {
-                "kind": 51,
+              {
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "relative",
                   "start": {
                     "line": 6,
@@ -551,7 +464,7 @@
                 },
                 "parameters": [
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
@@ -563,7 +476,7 @@
                       "column": 28
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "from",
                       "start": {
                         "line": 6,
@@ -575,7 +488,7 @@
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "from",
                       "start": {
                         "line": 6,
@@ -587,10 +500,10 @@
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "String",
                         "start": {
                           "line": 6,
@@ -612,7 +525,7 @@
                     }
                   },
                   {
-                    "kind": 86,
+                    "kind": 80,
                     "attributes": [],
                     "modifiers": [],
                     "start": {
@@ -624,7 +537,7 @@
                       "column": 40
                     },
                     "external": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "to",
                       "start": {
                         "line": 6,
@@ -636,7 +549,7 @@
                       }
                     },
                     "internal": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "to",
                       "start": {
                         "line": 6,
@@ -648,10 +561,10 @@
                       }
                     },
                     "type": {
-                      "kind": 124,
+                      "kind": 120,
                       "modifiers": [],
                       "typeName": {
-                        "kind": 54,
+                        "kind": 52,
                         "name": "String",
                         "start": {
                           "line": 6,
@@ -675,10 +588,10 @@
                 ],
                 "modifiers": [],
                 "type": {
-                  "kind": 124,
+                  "kind": 120,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 54,
+                    "kind": 52,
                     "name": "String",
                     "start": {
                       "line": 6,
@@ -699,36 +612,16 @@
                   }
                 },
                 "throws": []
-              },
-              "internal": {
-                "kind": 54,
-                "name": "relative",
-                "start": {
-                  "line": 6,
-                  "column": 7
-                },
-                "end": {
-                  "line": 6,
-                  "column": 15
-                }
-              },
-              "start": {
-                "line": 6,
-                "column": 2
-              },
-              "end": {
-                "line": 6,
-                "column": 49
               }
+            ],
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 7,
+              "column": 2
             }
-          ],
-          "start": {
-            "line": 1,
-            "column": 8
-          },
-          "end": {
-            "line": 7,
-            "column": 2
           }
         }
       ],

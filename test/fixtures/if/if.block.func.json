@@ -1,12 +1,12 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 51,
+      "kind": 48,
       "attributes": [],
       "name": {
-        "kind": 54,
+        "kind": 52,
         "name": "foo",
         "start": {
           "line": 1,
@@ -27,7 +27,7 @@
       },
       "parameters": [
         {
-          "kind": 86,
+          "kind": 80,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -39,7 +39,7 @@
             "column": 15
           },
           "external": {
-            "kind": 54,
+            "kind": 52,
             "name": "x",
             "start": {
               "line": 1,
@@ -51,7 +51,7 @@
             }
           },
           "internal": {
-            "kind": 54,
+            "kind": 52,
             "name": "x",
             "start": {
               "line": 1,
@@ -75,7 +75,7 @@
             }
           },
           "defaultValue": {
-            "kind": 80,
+            "kind": 74,
             "value": 5,
             "start": {
               "line": 1,
@@ -91,17 +91,17 @@
       "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 14,
+        "kind": 15,
         "attributes": [],
         "statements": [
           {
-            "kind": 56,
+            "kind": 54,
             "attributes": [],
             "condition": {
-              "kind": 23,
+              "kind": 24,
               "values": [
                 {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "x",
                   "start": {
                     "line": 2,
@@ -125,7 +125,7 @@
                   }
                 },
                 {
-                  "kind": 80,
+                  "kind": 74,
                   "value": 5,
                   "start": {
                     "line": 2,
@@ -147,20 +147,20 @@
               }
             },
             "whenTrue": {
-              "kind": 14,
+              "kind": 15,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 16,
+                  "kind": 17,
                   "modifiers": [],
                   "scope": {
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 73,
+                    "kind": 66,
                     "modifiers": [],
                     "object": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "console",
                       "start": {
                         "line": 3,
@@ -172,7 +172,7 @@
                       }
                     },
                     "property": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "log",
                       "start": {
                         "line": 3,
@@ -194,7 +194,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 70,
+                      "kind": 63,
                       "value": "GIVE FIVE!",
                       "start": {
                         "line": 3,
@@ -235,20 +235,20 @@
               "column": 3
             },
             "whenFalse": {
-              "kind": 14,
+              "kind": 15,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 16,
+                  "kind": 17,
                   "modifiers": [],
                   "scope": {
                     "kind": 3
                   },
                   "callee": {
-                    "kind": 73,
+                    "kind": 66,
                     "modifiers": [],
                     "object": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "console",
                       "start": {
                         "line": 6,
@@ -260,7 +260,7 @@
                       }
                     },
                     "property": {
-                      "kind": 54,
+                      "kind": 52,
                       "name": "log",
                       "start": {
                         "line": 6,
@@ -282,7 +282,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 70,
+                      "kind": 63,
                       "value": "BOO!",
                       "start": {
                         "line": 6,

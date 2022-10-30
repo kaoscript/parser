@@ -1,13 +1,13 @@
 {
-  "kind": 76,
+  "kind": 69,
   "attributes": [],
   "body": [
     {
-      "kind": 79,
+      "kind": 73,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 54,
+        "kind": 52,
         "name": "NS",
         "start": {
           "line": 1,
@@ -20,16 +20,16 @@
       },
       "statements": [
         {
-          "kind": 36,
+          "kind": 38,
           "attributes": [],
           "declarations": [
             {
-              "kind": 37,
+              "kind": 30,
               "declaration": {
-                "kind": 51,
+                "kind": 48,
                 "attributes": [],
                 "name": {
-                  "kind": 54,
+                  "kind": 52,
                   "name": "foo",
                   "start": {
                     "line": 2,
@@ -52,7 +52,7 @@
                 "modifiers": [],
                 "throws": [],
                 "body": {
-                  "kind": 14,
+                  "kind": 15,
                   "attributes": [],
                   "statements": [],
                   "start": {
@@ -95,13 +95,34 @@
       }
     },
     {
-      "kind": 36,
+      "kind": 38,
       "attributes": [],
       "declarations": [
         {
-          "kind": 41,
+          "kind": 72,
+          "modifiers": [
+            {
+              "kind": 35,
+              "start": {
+                "line": 6,
+                "column": 11
+              },
+              "end": {
+                "line": 6,
+                "column": 12
+              }
+            }
+          ],
+          "start": {
+            "line": 6,
+            "column": 8
+          },
+          "end": {
+            "line": 6,
+            "column": 12
+          },
           "internal": {
-            "kind": 54,
+            "kind": 52,
             "name": "NS",
             "start": {
               "line": 6,
@@ -111,14 +132,6 @@
               "line": 6,
               "column": 10
             }
-          },
-          "start": {
-            "line": 6,
-            "column": 8
-          },
-          "end": {
-            "line": 6,
-            "column": 12
           }
         }
       ],
