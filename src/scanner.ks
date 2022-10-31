@@ -736,9 +736,15 @@ namespace M {
 					return Token::IDENTIFIER
 				}
 			}
+			// tuple, type
 			else if c == 116 {
-				if that.scanIdentifier(true) == 'uple' {
+				var identifier = that.scanIdentifier(true)
+
+				if identifier == 'uple' {
 					return Token::TUPLE
+				}
+				else if identifier == 'ype' {
+					return Token::TYPE
 				}
 				else {
 					return Token::IDENTIFIER

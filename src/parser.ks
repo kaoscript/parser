@@ -2417,7 +2417,7 @@ export namespace Parser {
 					declarations.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
 				}
 				else {
-					var modifier = @yep(AST.Modifier(ModifierKind::Exclusion, first))
+					var modifier = @yep(AST.Modifier(ModifierKind::Wildcard, first))
 
 					declarations.push(@yep(AST.GroupSpecifier([modifier], [], null, modifier, modifier)))
 
@@ -3581,18 +3581,18 @@ export namespace Parser {
 				last = specifiers[specifiers.length - 1]
 			}
 			else if @token == Token::EQUALS_RIGHT_ANGLE {
-				var modifier = @yep(AST.Modifier(ModifierKind::Namespace, @yes()))
+				var modifier = @yep(AST.Modifier(ModifierKind::Alias, @yes()))
 
 				@submitNamedGroupSpecifier([modifier], null, specifiers)
 
 				last = specifiers[specifiers.length - 1]
 			}
 			else if @token == Token::FOR {
-				var modifier = @yep(AST.Modifier(ModifierKind::Namespace, @yes()))
+				var first = @yes()
 				var elements = []
 
 				if @test(Token::LEFT_CURLY) {
-					@commit().reqNL_1M()
+					@commit().NL_0M()
 
 					while @until(Token::RIGHT_CURLY) {
 						var type = @tryTypeDescriptive(TypeMode::NoIdentifier)
@@ -3644,7 +3644,7 @@ export namespace Parser {
 
 				last = elements[elements.length - 1]
 
-				specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
+				specifiers.push(@yep(AST.GroupSpecifier([], elements, null, first, last)))
 
 				last = specifiers[specifiers.length - 1]
 			}
@@ -3652,21 +3652,29 @@ export namespace Parser {
 				type = @reqTypeModule(@yes())
 
 				if @match(Token::EQUALS_RIGHT_ANGLE, Token::FOR) == Token::EQUALS_RIGHT_ANGLE {
-					var modifier = @yep(AST.Modifier(ModifierKind::Namespace, @yes()))
+					var modifier = @yep(AST.Modifier(ModifierKind::Alias, @yes()))
 
 					@submitNamedGroupSpecifier([modifier], null, specifiers)
 
 					last = specifiers[specifiers.length - 1]
 				}
 				else if @token == Token::FOR {
-					var modifier = @yep(AST.Modifier(ModifierKind::Namespace, @yes()))
+					@commit()
+
 					var elements = []
 
-					if @test(Token::LEFT_CURLY) {
+					if @test(Token::ASTERISK) {
+						var modifier = @yep(AST.Modifier(ModifierKind::Wildcard, @yes()))
+
+						specifiers.push(@yep(AST.GroupSpecifier([modifier], [], null, modifier, modifier)))
+
+						last = modifier
+					}
+					else if @test(Token::LEFT_CURLY) {
 						@commit().NL_0M()
 
 						while @until(Token::RIGHT_CURLY) {
-							@submitNamedSpecifier([modifier], specifiers)
+							@submitNamedSpecifier([], specifiers)
 
 							@reqNL_1M()
 						}
@@ -3676,12 +3684,12 @@ export namespace Parser {
 						last = @yes()
 					}
 					else {
-						@submitNamedSpecifier([modifier], specifiers)
+						@submitNamedSpecifier([], specifiers)
 
 						while @test(Token::COMMA) {
 							@commit()
 
-							@submitNamedSpecifier([modifier], specifiers)
+							@submitNamedSpecifier([], specifiers)
 						}
 					}
 
@@ -8377,6 +8385,9 @@ export namespace Parser {
 				}
 				Token::TUPLE => {
 					return @reqTupleStatement(@yes())
+				}
+				Token::TYPE => {
+					return @reqTypeStatement(@yes(), @reqIdentifier())
 				}
 				Token::VAR => {
 					var first = @yes()
