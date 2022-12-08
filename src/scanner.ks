@@ -203,7 +203,7 @@ var overhauls = {
 	[Token::STRING](data: String): String => data.slice(1, -1).replace(/(^|[^\\])\\('|")/g, '$1$2')
 }
 
-var regex: Dictionary<RegExp> = {
+var regex: Object<RegExp> = {
 	binary_number: /^0b[_0-1]+[a-zA-Z]*/
 	class_version: /^\d+(\.\d+(\.\d+)?)?/
 	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?(?:[eE][-+]?[_0-9]+)?(?:[a-zA-Z]*)/

@@ -5989,6 +5989,8 @@ export namespace Parser {
 				return type
 			}
 			else if #type.value {
+				// TODO
+				// @throw(...type.value)
 				@throw(...(type.value as Array<String>))
 			}
 			else {
