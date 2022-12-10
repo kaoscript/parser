@@ -1,2 +1,2 @@
-func foobar(x: Dictionary<Number>) {
+func foobar(x: Object<Number>) {
 }

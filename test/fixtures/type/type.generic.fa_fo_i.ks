@@ -1,2 +1,2 @@
-func foobar(x: Array<Dictionary<Number>>) {
+func foobar(x: Array<Object<Number>>) {
 }
