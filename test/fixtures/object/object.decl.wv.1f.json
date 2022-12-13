@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "foo",
                 "start": {
                   "line": 1,
@@ -60,6 +61,7 @@
           },
           "value": {
             "kind": 76,
+            "modifiers": [],
             "attributes": [],
             "properties": [
               {
@@ -76,6 +78,7 @@
                 },
                 "name": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "bar",
                   "start": {
                     "line": 2,
@@ -103,6 +106,7 @@
                       },
                       "external": {
                         "kind": 52,
+                        "modifiers": [],
                         "name": "name",
                         "start": {
                           "line": 2,
@@ -115,6 +119,7 @@
                       },
                       "internal": {
                         "kind": 52,
+                        "modifiers": [],
                         "name": "name",
                         "start": {
                           "line": 2,
@@ -126,10 +131,11 @@
                         }
                       },
                       "type": {
-                        "kind": 120,
+                        "kind": 121,
                         "modifiers": [],
                         "typeName": {
                           "kind": 52,
+                          "modifiers": [],
                           "name": "string",
                           "start": {
                             "line": 2,
@@ -167,6 +173,7 @@
                     "statements": [
                       {
                         "kind": 12,
+                        "modifiers": [],
                         "operator": {
                           "kind": 3,
                           "assignment": 6,
@@ -181,6 +188,7 @@
                         },
                         "left": {
                           "kind": 52,
+                          "modifiers": [],
                           "name": "n",
                           "start": {
                             "line": 3,
@@ -193,6 +201,7 @@
                         },
                         "right": {
                           "kind": 74,
+                          "modifiers": [],
                           "value": 0,
                           "start": {
                             "line": 3,

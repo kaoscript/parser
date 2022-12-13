@@ -8,6 +8,7 @@
       "modifiers": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "Greetings",
         "start": {
           "line": 1,
@@ -24,7 +25,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 25,
+              "kind": 26,
               "start": {
                 "line": 2,
                 "column": 2
@@ -37,6 +38,7 @@
           ],
           "name": {
             "kind": 52,
+            "modifiers": [],
             "name": "_message",
             "start": {
               "line": 3,
@@ -56,10 +58,11 @@
             "column": 24
           },
           "type": {
-            "kind": 120,
+            "kind": 121,
             "modifiers": [],
             "typeName": {
               "kind": 52,
+              "modifiers": [],
               "name": "String",
               "start": {
                 "line": 3,
@@ -81,6 +84,7 @@
           },
           "value": {
             "kind": 63,
+            "modifiers": [],
             "value": "",
             "start": {
               "line": 3,
@@ -98,6 +102,7 @@
           "modifiers": [],
           "name": {
             "kind": 52,
+            "modifiers": [],
             "name": "constructor",
             "start": {
               "line": 6,
@@ -123,6 +128,7 @@
               },
               "external": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "message",
                 "start": {
                   "line": 6,
@@ -135,6 +141,7 @@
               },
               "internal": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "message",
                 "start": {
                   "line": 6,
@@ -146,10 +153,10 @@
                 }
               },
               "type": {
-                "kind": 120,
+                "kind": 121,
                 "modifiers": [
                   {
-                    "kind": 21,
+                    "kind": 22,
                     "start": {
                       "line": 6,
                       "column": 29
@@ -162,6 +169,7 @@
                 ],
                 "typeName": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "String",
                   "start": {
                     "line": 6,
@@ -198,6 +206,7 @@
             "statements": [
               {
                 "kind": 12,
+                "modifiers": [],
                 "operator": {
                   "kind": 3,
                   "assignment": 6,
@@ -211,9 +220,11 @@
                   }
                 },
                 "left": {
-                  "kind": 111,
+                  "kind": 112,
+                  "modifiers": [],
                   "name": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "message",
                     "start": {
                       "line": 7,
@@ -245,9 +256,11 @@
                   },
                   "condition": {
                     "kind": 24,
+                    "modifiers": [],
                     "values": [
                       {
                         "kind": 52,
+                        "modifiers": [],
                         "name": "message",
                         "start": {
                           "line": 7,
@@ -272,6 +285,7 @@
                       },
                       {
                         "kind": 52,
+                        "modifiers": [],
                         "name": "null",
                         "start": {
                           "line": 7,
@@ -294,6 +308,7 @@
                   },
                   "whenTrue": {
                     "kind": 63,
+                    "modifiers": [],
                     "value": "Hello!",
                     "start": {
                       "line": 7,
@@ -306,6 +321,7 @@
                   },
                   "whenFalse": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "message",
                     "start": {
                       "line": 7,

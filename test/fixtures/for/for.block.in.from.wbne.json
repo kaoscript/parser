@@ -7,11 +7,12 @@
       "attributes": [],
       "declarations": [
         {
-          "kind": 128,
+          "kind": 129,
           "attributes": [],
           "modifiers": [],
           "name": {
             "kind": 52,
+            "modifiers": [],
             "name": "console",
             "start": {
               "line": 1,
@@ -47,6 +48,7 @@
                 },
                 "name": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "log",
                   "start": {
                     "line": 2,
@@ -65,7 +67,7 @@
                       "attributes": [],
                       "modifiers": [
                         {
-                          "kind": 29,
+                          "kind": 30,
                           "arity": {
                             "min": 0,
                             "max": "Infinity"
@@ -90,6 +92,7 @@
                       },
                       "external": {
                         "kind": 52,
+                        "modifiers": [],
                         "name": "args",
                         "start": {
                           "line": 2,
@@ -102,6 +105,7 @@
                       },
                       "internal": {
                         "kind": 52,
+                        "modifiers": [],
                         "name": "args",
                         "start": {
                           "line": 2,
@@ -149,6 +153,7 @@
     },
     {
       "kind": 12,
+      "modifiers": [],
       "operator": {
         "kind": 3,
         "assignment": 6,
@@ -163,6 +168,7 @@
       },
       "left": {
         "kind": 52,
+        "modifiers": [],
         "name": "heroes",
         "start": {
           "line": 5,
@@ -175,9 +181,11 @@
       },
       "right": {
         "kind": 5,
+        "modifiers": [],
         "values": [
           {
             "kind": 63,
+            "modifiers": [],
             "value": "leto",
             "start": {
               "line": 5,
@@ -190,6 +198,7 @@
           },
           {
             "kind": 63,
+            "modifiers": [],
             "value": "duncan",
             "start": {
               "line": 5,
@@ -202,6 +211,7 @@
           },
           {
             "kind": 63,
+            "modifiers": [],
             "value": "goku",
             "start": {
               "line": 5,
@@ -238,6 +248,7 @@
       "modifiers": [],
       "expression": {
         "kind": 52,
+        "modifiers": [],
         "name": "heroes",
         "start": {
           "line": 7,
@@ -258,6 +269,7 @@
       },
       "value": {
         "kind": 52,
+        "modifiers": [],
         "name": "hero",
         "start": {
           "line": 7,
@@ -270,6 +282,7 @@
       },
       "index": {
         "kind": 52,
+        "modifiers": [],
         "name": "index",
         "start": {
           "line": 7,
@@ -282,6 +295,7 @@
       },
       "from": {
         "kind": 74,
+        "modifiers": [],
         "value": 2,
         "start": {
           "line": 7,
@@ -307,6 +321,7 @@
               "modifiers": [],
               "object": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "console",
                 "start": {
                   "line": 8,
@@ -319,6 +334,7 @@
               },
               "property": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "log",
                 "start": {
                   "line": 8,
@@ -341,6 +357,7 @@
             "arguments": [
               {
                 "kind": 63,
+                "modifiers": [],
                 "value": "The hero at index %d is %s",
                 "start": {
                   "line": 8,
@@ -353,6 +370,7 @@
               },
               {
                 "kind": 52,
+                "modifiers": [],
                 "name": "index",
                 "start": {
                   "line": 8,
@@ -365,6 +383,7 @@
               },
               {
                 "kind": 52,
+                "modifiers": [],
                 "name": "hero",
                 "start": {
                   "line": 8,

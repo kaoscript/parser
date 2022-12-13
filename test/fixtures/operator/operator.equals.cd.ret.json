@@ -5,53 +5,58 @@
     {
       "kind": 54,
       "attributes": [],
-      "condition": {
-        "kind": 12,
-        "operator": {
-          "kind": 3,
-          "assignment": 16,
-          "start": {
-            "line": 1,
-            "column": 6
+      "conditions": [
+        {
+          "kind": 12,
+          "modifiers": [],
+          "operator": {
+            "kind": 3,
+            "assignment": 16,
+            "start": {
+              "line": 1,
+              "column": 6
+            },
+            "end": {
+              "line": 1,
+              "column": 8
+            }
           },
-          "end": {
-            "line": 1,
-            "column": 8
-          }
-        },
-        "start": {
-          "line": 1,
-          "column": 4
-        },
-        "end": {
-          "line": 1,
-          "column": 10
-        },
-        "left": {
-          "kind": 52,
-          "name": "x",
           "start": {
             "line": 1,
             "column": 4
           },
           "end": {
             "line": 1,
-            "column": 5
-          }
-        },
-        "right": {
-          "kind": 52,
-          "name": "y",
-          "start": {
-            "line": 1,
-            "column": 9
-          },
-          "end": {
-            "line": 1,
             "column": 10
+          },
+          "left": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 4
+            },
+            "end": {
+              "line": 1,
+              "column": 5
+            }
+          },
+          "right": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "y",
+            "start": {
+              "line": 1,
+              "column": 9
+            },
+            "end": {
+              "line": 1,
+              "column": 10
+            }
           }
         }
-      },
+      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],

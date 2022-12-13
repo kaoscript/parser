@@ -8,6 +8,7 @@
       "attributes": [],
       "variable": {
         "kind": 52,
+        "modifiers": [],
         "name": "x",
         "start": {
           "line": 1,
@@ -20,6 +21,7 @@
       },
       "from": {
         "kind": 74,
+        "modifiers": [],
         "value": 0,
         "start": {
           "line": 1,
@@ -30,16 +32,21 @@
           "column": 13
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
-      "til": {
+      "to": {
         "kind": 74,
+        "modifiers": [
+          {
+            "kind": 6,
+            "start": {
+              "line": 1,
+              "column": 14
+            },
+            "end": {
+              "line": 1,
+              "column": 17
+            }
+          }
+        ],
         "value": 10,
         "start": {
           "line": 1,
@@ -47,8 +54,16 @@
         },
         "end": {
           "line": 1,
-          "column": 20
+          "column": 17
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
       },
       "when": {
         "kind": 17,
@@ -58,6 +73,7 @@
         },
         "callee": {
           "kind": 52,
+          "modifiers": [],
           "name": "test",
           "start": {
             "line": 1,
@@ -71,6 +87,7 @@
         "arguments": [
           {
             "kind": 52,
+            "modifiers": [],
             "name": "x",
             "start": {
               "line": 1,

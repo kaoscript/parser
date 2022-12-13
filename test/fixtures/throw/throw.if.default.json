@@ -5,38 +5,51 @@
     {
       "kind": 54,
       "attributes": [],
-      "condition": {
-        "kind": 122,
-        "operator": {
-          "kind": 3,
-          "start": {
-            "line": 1,
-            "column": 35
-          },
-          "end": {
-            "line": 1,
-            "column": 36
-          }
-        },
-        "argument": {
-          "kind": 122,
+      "conditions": [
+        {
+          "kind": 123,
+          "modifiers": [],
           "operator": {
-            "kind": 1,
+            "kind": 3,
             "start": {
               "line": 1,
-              "column": 36
+              "column": 35
             },
             "end": {
               "line": 1,
-              "column": 37
+              "column": 36
             }
           },
           "argument": {
-            "kind": 52,
-            "name": "x",
+            "kind": 123,
+            "modifiers": [],
+            "operator": {
+              "kind": 1,
+              "start": {
+                "line": 1,
+                "column": 36
+              },
+              "end": {
+                "line": 1,
+                "column": 37
+              }
+            },
+            "argument": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "x",
+              "start": {
+                "line": 1,
+                "column": 37
+              },
+              "end": {
+                "line": 1,
+                "column": 38
+              }
+            },
             "start": {
               "line": 1,
-              "column": 37
+              "column": 36
             },
             "end": {
               "line": 1,
@@ -45,29 +58,23 @@
           },
           "start": {
             "line": 1,
-            "column": 36
+            "column": 35
           },
           "end": {
             "line": 1,
             "column": 38
           }
-        },
-        "start": {
-          "line": 1,
-          "column": 35
-        },
-        "end": {
-          "line": 1,
-          "column": 38
         }
-      },
+      ],
       "whenTrue": {
-        "kind": 112,
+        "kind": 113,
         "attributes": [],
         "value": {
           "kind": 28,
+          "modifiers": [],
           "class": {
             "kind": 52,
+            "modifiers": [],
             "name": "Error",
             "start": {
               "line": 1,
@@ -81,6 +88,7 @@
           "arguments": [
             {
               "kind": 63,
+              "modifiers": [],
               "value": "Not Defined",
               "start": {
                 "line": 1,

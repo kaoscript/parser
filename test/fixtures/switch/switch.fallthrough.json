@@ -7,6 +7,7 @@
       "attributes": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "foobar",
         "start": {
           "line": 1,
@@ -40,6 +41,7 @@
           },
           "external": {
             "kind": 52,
+            "modifiers": [],
             "name": "d",
             "start": {
               "line": 1,
@@ -52,6 +54,7 @@
           },
           "internal": {
             "kind": 52,
+            "modifiers": [],
             "name": "d",
             "start": {
               "line": 1,
@@ -71,10 +74,11 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 107,
+            "kind": 108,
             "attributes": [],
             "expression": {
               "kind": 52,
+              "modifiers": [],
               "name": "d",
               "start": {
                 "line": 2,
@@ -87,7 +91,7 @@
             },
             "clauses": [
               {
-                "kind": 100,
+                "kind": 101,
                 "body": {
                   "kind": 15,
                   "attributes": [],
@@ -125,6 +129,7 @@
                 "conditions": [
                   {
                     "kind": 63,
+                    "modifiers": [],
                     "value": "hour",
                     "start": {
                       "line": 3,
@@ -139,7 +144,7 @@
                 "bindings": []
               },
               {
-                "kind": 100,
+                "kind": 101,
                 "body": {
                   "kind": 15,
                   "attributes": [],
@@ -177,6 +182,7 @@
                 "conditions": [
                   {
                     "kind": 63,
+                    "modifiers": [],
                     "value": "minute",
                     "start": {
                       "line": 6,
@@ -191,7 +197,7 @@
                 "bindings": []
               },
               {
-                "kind": 100,
+                "kind": 101,
                 "body": {
                   "kind": 15,
                   "attributes": [],
@@ -216,6 +222,7 @@
                 "conditions": [
                   {
                     "kind": 63,
+                    "modifiers": [],
                     "value": "second",
                     "start": {
                       "line": 9,

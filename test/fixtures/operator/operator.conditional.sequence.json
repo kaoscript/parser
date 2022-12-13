@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "foo",
                 "start": {
                   "line": 1,
@@ -70,6 +71,7 @@
             },
             "condition": {
               "kind": 52,
+              "modifiers": [],
               "name": "lang",
               "start": {
                 "line": 1,
@@ -81,10 +83,12 @@
               }
             },
             "whenTrue": {
-              "kind": 94,
+              "kind": 95,
+              "modifiers": [],
               "expressions": [
                 {
                   "kind": 12,
+                  "modifiers": [],
                   "operator": {
                     "kind": 3,
                     "assignment": 6,
@@ -107,6 +111,7 @@
                   },
                   "left": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "bar",
                     "start": {
                       "line": 1,
@@ -119,6 +124,7 @@
                   },
                   "right": {
                     "kind": 63,
+                    "modifiers": [],
                     "value": "goodbye",
                     "start": {
                       "line": 1,
@@ -132,6 +138,7 @@
                 },
                 {
                   "kind": 63,
+                  "modifiers": [],
                   "value": "hello",
                   "start": {
                     "line": 1,
@@ -154,6 +161,7 @@
             },
             "whenFalse": {
               "kind": 63,
+              "modifiers": [],
               "value": "bonjour",
               "start": {
                 "line": 1,

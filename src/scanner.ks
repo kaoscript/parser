@@ -21,7 +21,6 @@ enum Token {
 	BITMASK
 	BREAK
 	BUT
-	BY
 	CARET
 	CARET_AT_LEFT_ROUND
 	CARET_CARET
@@ -40,12 +39,12 @@ enum Token {
 	CONTINUE
 	DECIMAL_NUMBER
 	DELETE
-	DESC
 	DISCLOSE
 	DO
 	DOT
 	DOT_DOT
 	DOT_DOT_DOT
+	DOWN
 	DYN
 	ELSE
 	ELSE_IF
@@ -145,6 +144,7 @@ enum Token {
 	QUESTION_QUESTION_EQUALS
 	RADIX_NUMBER
 	REGEXP
+	REPEAT
 	REQUIRE
 	REQUIRE_EXTERN
 	REQUIRE_IMPORT
@@ -157,12 +157,15 @@ enum Token {
 	RIGHT_ROUND
 	RIGHT_SQUARE
 	SEALED
+	SEMICOLON
 	SET
 	SLASH
 	SLASH_DOT
 	SLASH_DOT_EQUALS
 	SLASH_EQUALS
+	SPLIT
 	STATIC
+	STEP
 	STRING
 	STRUCT
 	SWITCH
@@ -173,10 +176,11 @@ enum Token {
 	TEMPLATE_VALUE
 	THEN
 	THROW
-	TIL
 	TILDE
 	TILDE_TILDE
+	TIMES
 	TO
+	TO_TILDE
 	TRY
 	TUPLE
 	TYPE
@@ -1798,10 +1802,21 @@ namespace M {
 					return Token::PASS
 				}
 			}
-			// return
+			// repeat, return
 			else if c == 114
 			{
 				if	that.charAt(1) == 101 &&
+					that.charAt(2) == 112 &&
+					that.charAt(3) == 101 &&
+					that.charAt(4) == 97 &&
+					that.charAt(5) == 116 &&
+					that.isBoundary(6)
+				{
+					that.next(6)
+
+					return Token::REPEAT
+				}
+				else if	that.charAt(1) == 101 &&
 					that.charAt(2) == 116 &&
 					that.charAt(3) == 117 &&
 					that.charAt(4) == 114 &&
@@ -2184,17 +2199,6 @@ var recognize = {
 			return false
 		}
 	} # }}}
-	`\(Token::BY)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if	c == 98 &&
-			that.charAt(1) == 121 &&
-			that.isBoundary(2)
-		{
-			return that.next(2)
-		}
-		else {
-			return false
-		}
-	} # }}}
 	`\(Token::CARET)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 94 && that.charAt(1) != 61 {
 			return that.next(1)
@@ -2265,19 +2269,6 @@ var recognize = {
 			return false
 		}
 	} # }}}
-	`\(Token::DESC)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if	c == 100 &&
-			that.charAt(1) == 101 &&
-			that.charAt(2) == 115 &&
-			that.charAt(3) == 99 &&
-			that.isBoundary(4)
-		{
-			return that.next(4)
-		}
-		else {
-			return false
-		}
-	} # }}}
 	`\(Token::DOT)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 46 && that.charAt(1) != 46 {
 			return that.next(1)
@@ -2297,6 +2288,19 @@ var recognize = {
 	`\(Token::DOT_DOT_DOT)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 46 && that.charAt(1) == 46 && that.charAt(2) == 46 {
 			return that.next(3)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::DOWN)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 100 &&
+			that.charAt(1) == 111 &&
+			that.charAt(2) == 119 &&
+			that.charAt(3) == 110 &&
+			that.isBoundary(4)
+		{
+			return that.next(4)
 		}
 		else {
 			return false
@@ -2896,6 +2900,21 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::REPEAT)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 114 &&
+			that.charAt(1) == 101 &&
+			that.charAt(2) == 112 &&
+			that.charAt(3) == 101 &&
+			that.charAt(4) == 97 &&
+			that.charAt(5) == 116 &&
+			that.isBoundary(6)
+		{
+			return that.next(6)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::RETURN)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if	c == 114 &&
 			that.charAt(1) == 101 &&
@@ -2943,6 +2962,14 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::SEMICOLON)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 59 {
+			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::SET)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if	c == 115 &&
 			that.charAt(1) == 101 &&
@@ -2950,6 +2977,33 @@ var recognize = {
 			that.isBoundary(3)
 		{
 			return that.next(3)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::SPLIT)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 115 &&
+			that.charAt(1) == 112 &&
+			that.charAt(2) == 108 &&
+			that.charAt(3) == 105 &&
+			that.charAt(4) == 116 &&
+			that.isBoundary(5)
+		{
+			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::STEP)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 115 &&
+			that.charAt(1) == 116 &&
+			that.charAt(2) == 101 &&
+			that.charAt(3) == 112 &&
+			that.isBoundary(4)
+		{
+			return that.next(4)
 		}
 		else {
 			return false
@@ -3042,18 +3096,6 @@ var recognize = {
 			return false
 		}
 	} # }}}
-	`\(Token::TIL)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if	c == 116 &&
-			that.charAt(1) == 105 &&
-			that.charAt(2) == 108 &&
-			that.isBoundary(3)
-		{
-			return that.next(3)
-		}
-		else {
-			return false
-		}
-	} # }}}
 	`\(Token::TILDE)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 126 {
 			return that.next(1)
@@ -3070,12 +3112,39 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::TIMES)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 116 &&
+			that.charAt(1) == 105 &&
+			that.charAt(2) == 109 &&
+			that.charAt(3) == 101 &&
+			that.charAt(4) == 115 &&
+			that.isBoundary(5)
+		{
+			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::TO)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if	c == 116 &&
 			that.charAt(1) == 111 &&
+			that.charAt(2) != 126 &&
 			that.isBoundary(2)
 		{
 			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::TO_TILDE)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 116 &&
+			that.charAt(1) == 111 &&
+			that.charAt(2) == 126 &&
+			that.isBoundary(3)
+		{
+			return that.next(3)
 		}
 		else {
 			return false

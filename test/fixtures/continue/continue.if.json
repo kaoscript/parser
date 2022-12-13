@@ -3,18 +3,19 @@
   "attributes": [],
   "body": [
     {
-      "kind": 130,
+      "kind": 131,
       "attributes": [],
       "condition": {
         "kind": 52,
-        "name": "true",
+        "modifiers": [],
+        "name": "false",
         "start": {
           "line": 1,
           "column": 7
         },
         "end": {
           "line": 1,
-          "column": 11
+          "column": 12
         }
       },
       "body": {
@@ -22,21 +23,48 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 16,
+            "kind": 54,
             "attributes": [],
+            "conditions": [
+              {
+                "kind": 52,
+                "modifiers": [],
+                "name": "foobar",
+                "start": {
+                  "line": 2,
+                  "column": 14
+                },
+                "end": {
+                  "line": 2,
+                  "column": 20
+                }
+              }
+            ],
+            "whenTrue": {
+              "kind": 27,
+              "attributes": [],
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 10
+              }
+            },
             "start": {
               "line": 2,
               "column": 2
             },
             "end": {
               "line": 2,
-              "column": 7
+              "column": 20
             }
           }
         ],
         "start": {
           "line": 1,
-          "column": 12
+          "column": 13
         },
         "end": {
           "line": 3,

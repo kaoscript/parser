@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "x",
                 "start": {
                   "line": 1,
@@ -60,6 +61,7 @@
           },
           "value": {
             "kind": 74,
+            "modifiers": [],
             "value": 3.14,
             "start": {
               "line": 1,
@@ -85,7 +87,7 @@
       "kind": 44,
       "modifiers": [
         {
-          "kind": 7,
+          "kind": 8,
           "start": {
             "line": 3,
             "column": 5
@@ -96,7 +98,7 @@
           }
         },
         {
-          "kind": 18,
+          "kind": 19,
           "start": {
             "line": 3,
             "column": 9
@@ -110,6 +112,7 @@
       "attributes": [],
       "variable": {
         "kind": 52,
+        "modifiers": [],
         "name": "x",
         "start": {
           "line": 3,
@@ -122,6 +125,7 @@
       },
       "from": {
         "kind": 74,
+        "modifiers": [],
         "value": 0,
         "start": {
           "line": 3,
@@ -132,16 +136,9 @@
           "column": 21
         }
       },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 4,
-        "column": 2
-      },
       "to": {
         "kind": 74,
+        "modifiers": [],
         "value": 10,
         "start": {
           "line": 3,
@@ -152,16 +149,25 @@
           "column": 27
         }
       },
-      "by": {
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 2
+      },
+      "step": {
         "kind": 74,
+        "modifiers": [],
         "value": 2,
         "start": {
           "line": 3,
-          "column": 31
+          "column": 33
         },
         "end": {
           "line": 3,
-          "column": 32
+          "column": 34
         }
       },
       "body": {
@@ -170,7 +176,7 @@
         "statements": [],
         "start": {
           "line": 3,
-          "column": 33
+          "column": 35
         },
         "end": {
           "line": 4,

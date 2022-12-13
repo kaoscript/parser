@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "x",
                 "start": {
                   "line": 1,
@@ -60,6 +61,7 @@
           },
           "value": {
             "kind": 74,
+            "modifiers": [],
             "value": 5,
             "start": {
               "line": 1,
@@ -84,55 +86,60 @@
     {
       "kind": 54,
       "attributes": [],
-      "condition": {
-        "kind": 24,
-        "values": [
-          {
-            "kind": 52,
-            "name": "x",
-            "start": {
-              "line": 3,
-              "column": 4
+      "conditions": [
+        {
+          "kind": 24,
+          "modifiers": [],
+          "values": [
+            {
+              "kind": 52,
+              "modifiers": [],
+              "name": "x",
+              "start": {
+                "line": 3,
+                "column": 4
+              },
+              "end": {
+                "line": 3,
+                "column": 5
+              }
             },
-            "end": {
-              "line": 3,
-              "column": 5
+            {
+              "kind": 6,
+              "modifiers": [],
+              "start": {
+                "line": 3,
+                "column": 6
+              },
+              "end": {
+                "line": 3,
+                "column": 8
+              }
+            },
+            {
+              "kind": 74,
+              "modifiers": [],
+              "value": 5,
+              "start": {
+                "line": 3,
+                "column": 9
+              },
+              "end": {
+                "line": 3,
+                "column": 10
+              }
             }
+          ],
+          "start": {
+            "line": 3,
+            "column": 4
           },
-          {
-            "kind": 6,
-            "modifiers": [],
-            "start": {
-              "line": 3,
-              "column": 6
-            },
-            "end": {
-              "line": 3,
-              "column": 8
-            }
-          },
-          {
-            "kind": 74,
-            "value": 5,
-            "start": {
-              "line": 3,
-              "column": 9
-            },
-            "end": {
-              "line": 3,
-              "column": 10
-            }
+          "end": {
+            "line": 3,
+            "column": 10
           }
-        ],
-        "start": {
-          "line": 3,
-          "column": 4
-        },
-        "end": {
-          "line": 3,
-          "column": 10
         }
-      },
+      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],

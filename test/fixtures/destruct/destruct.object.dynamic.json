@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "key",
                 "start": {
                   "line": 1,
@@ -60,6 +61,7 @@
           },
           "value": {
             "kind": 63,
+            "modifiers": [],
             "value": "qux",
             "start": {
               "line": 1,
@@ -82,11 +84,11 @@
       }
     },
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 3,
             "column": 5
@@ -99,12 +101,12 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
@@ -114,6 +116,7 @@
                     "kind": 13,
                     "name": {
                       "kind": 52,
+                      "modifiers": [],
                       "name": "key",
                       "start": {
                         "line": 3,
@@ -126,7 +129,7 @@
                     },
                     "modifiers": [
                       {
-                        "kind": 6,
+                        "kind": 7,
                         "start": {
                           "line": 3,
                           "column": 11
@@ -147,6 +150,7 @@
                     },
                     "alias": {
                       "kind": 52,
+                      "modifiers": [],
                       "name": "foo",
                       "start": {
                         "line": 3,
@@ -188,6 +192,7 @@
           },
           "value": {
             "kind": 76,
+            "modifiers": [],
             "attributes": [],
             "properties": [
               {
@@ -204,6 +209,7 @@
                 },
                 "name": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "qux",
                   "start": {
                     "line": 3,
@@ -216,6 +222,7 @@
                 },
                 "value": {
                   "kind": 63,
+                  "modifiers": [],
                   "value": "bar",
                   "start": {
                     "line": 3,
@@ -259,6 +266,7 @@
         "modifiers": [],
         "object": {
           "kind": 52,
+          "modifiers": [],
           "name": "console",
           "start": {
             "line": 5,
@@ -271,6 +279,7 @@
         },
         "property": {
           "kind": 52,
+          "modifiers": [],
           "name": "log",
           "start": {
             "line": 5,
@@ -293,6 +302,7 @@
       "arguments": [
         {
           "kind": 52,
+          "modifiers": [],
           "name": "foo",
           "start": {
             "line": 5,

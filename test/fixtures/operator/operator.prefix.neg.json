@@ -5,40 +5,44 @@
     {
       "kind": 54,
       "attributes": [],
-      "condition": {
-        "kind": 122,
-        "operator": {
-          "kind": 3,
+      "conditions": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "operator": {
+            "kind": 3,
+            "start": {
+              "line": 1,
+              "column": 4
+            },
+            "end": {
+              "line": 1,
+              "column": 5
+            }
+          },
+          "argument": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "test",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 9
+            }
+          },
           "start": {
             "line": 1,
             "column": 4
           },
           "end": {
             "line": 1,
-            "column": 5
-          }
-        },
-        "argument": {
-          "kind": 52,
-          "name": "test",
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 1,
             "column": 9
           }
-        },
-        "start": {
-          "line": 1,
-          "column": 4
-        },
-        "end": {
-          "line": 1,
-          "column": 9
         }
-      },
+      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],

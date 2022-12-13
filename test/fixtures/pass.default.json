@@ -5,18 +5,21 @@
     {
       "kind": 54,
       "attributes": [],
-      "condition": {
-        "kind": 52,
-        "name": "test",
-        "start": {
-          "line": 1,
-          "column": 4
-        },
-        "end": {
-          "line": 1,
-          "column": 8
+      "conditions": [
+        {
+          "kind": 52,
+          "modifiers": [],
+          "name": "test",
+          "start": {
+            "line": 1,
+            "column": 4
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
         }
-      },
+      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],

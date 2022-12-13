@@ -5,18 +5,21 @@
     {
       "kind": 54,
       "attributes": [],
-      "condition": {
-        "kind": 52,
-        "name": "test",
-        "start": {
-          "line": 1,
-          "column": 4
-        },
-        "end": {
-          "line": 1,
-          "column": 8
+      "conditions": [
+        {
+          "kind": 52,
+          "modifiers": [],
+          "name": "test",
+          "start": {
+            "line": 1,
+            "column": 4
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
         }
-      },
+      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [
@@ -24,6 +27,7 @@
             "kind": 8,
             "declaration": {
               "kind": 52,
+              "modifiers": [],
               "name": "foo",
               "start": {
                 "line": 2,
@@ -65,18 +69,21 @@
       "whenFalse": {
         "kind": 54,
         "attributes": [],
-        "condition": {
-          "kind": 52,
-          "name": "ytest",
-          "start": {
-            "line": 4,
-            "column": 9
-          },
-          "end": {
-            "line": 4,
-            "column": 14
+        "conditions": [
+          {
+            "kind": 52,
+            "modifiers": [],
+            "name": "ytest",
+            "start": {
+              "line": 4,
+              "column": 9
+            },
+            "end": {
+              "line": 4,
+              "column": 14
+            }
           }
-        },
+        ],
         "whenTrue": {
           "kind": 15,
           "attributes": [
@@ -84,6 +91,7 @@
               "kind": 8,
               "declaration": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "bar",
                 "start": {
                   "line": 5,
@@ -129,6 +137,7 @@
               "kind": 8,
               "declaration": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "qux",
                 "start": {
                   "line": 8,

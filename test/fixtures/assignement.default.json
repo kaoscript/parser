@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 18,
+          "kind": 19,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "foo",
                 "start": {
                   "line": 1,
@@ -49,10 +50,11 @@
                 "column": 20
               },
               "type": {
-                "kind": 120,
+                "kind": 121,
                 "modifiers": [],
                 "typeName": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "string",
                   "start": {
                     "line": 1,
@@ -84,6 +86,7 @@
           },
           "value": {
             "kind": 63,
+            "modifiers": [],
             "value": "bar",
             "start": {
               "line": 1,
@@ -107,6 +110,7 @@
     },
     {
       "kind": 12,
+      "modifiers": [],
       "operator": {
         "kind": 3,
         "assignment": 6,
@@ -121,6 +125,7 @@
       },
       "left": {
         "kind": 52,
+        "modifiers": [],
         "name": "foo",
         "start": {
           "line": 3,
@@ -133,6 +138,7 @@
       },
       "right": {
         "kind": 63,
+        "modifiers": [],
         "value": "qux",
         "start": {
           "line": 3,

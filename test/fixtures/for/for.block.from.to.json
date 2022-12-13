@@ -8,6 +8,7 @@
       "attributes": [],
       "variable": {
         "kind": 52,
+        "modifiers": [],
         "name": "x",
         "start": {
           "line": 1,
@@ -20,6 +21,7 @@
       },
       "from": {
         "kind": 74,
+        "modifiers": [],
         "value": 0,
         "start": {
           "line": 1,
@@ -30,16 +32,9 @@
           "column": 13
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
       "to": {
         "kind": 74,
+        "modifiers": [],
         "value": 10,
         "start": {
           "line": 1,
@@ -50,16 +45,25 @@
           "column": 19
         }
       },
-      "by": {
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
+      },
+      "step": {
         "kind": 74,
+        "modifiers": [],
         "value": 2,
         "start": {
           "line": 1,
-          "column": 23
+          "column": 25
         },
         "end": {
           "line": 1,
-          "column": 24
+          "column": 26
         }
       },
       "body": {
@@ -68,7 +72,7 @@
         "statements": [],
         "start": {
           "line": 1,
-          "column": 25
+          "column": 27
         },
         "end": {
           "line": 2,

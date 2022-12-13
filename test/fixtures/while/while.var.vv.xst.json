@@ -7,11 +7,12 @@
       "attributes": [],
       "declarations": [
         {
-          "kind": 128,
+          "kind": 129,
           "attributes": [],
           "modifiers": [],
           "name": {
             "kind": 52,
+            "modifiers": [],
             "name": "console",
             "start": {
               "line": 1,
@@ -46,6 +47,7 @@
       "attributes": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "foobar",
         "start": {
           "line": 3,
@@ -79,6 +81,7 @@
           },
           "external": {
             "kind": 52,
+            "modifiers": [],
             "name": "text",
             "start": {
               "line": 3,
@@ -91,6 +94,7 @@
           },
           "internal": {
             "kind": 52,
+            "modifiers": [],
             "name": "text",
             "start": {
               "line": 3,
@@ -102,10 +106,11 @@
             }
           },
           "type": {
-            "kind": 120,
+            "kind": 121,
             "modifiers": [],
             "typeName": {
               "kind": 52,
+              "modifiers": [],
               "name": "String",
               "start": {
                 "line": 3,
@@ -134,14 +139,14 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 130,
+            "kind": 131,
             "attributes": [],
             "condition": {
-              "kind": 127,
+              "kind": 128,
               "attributes": [],
               "modifiers": [
                 {
-                  "kind": 14,
+                  "kind": 15,
                   "start": {
                     "line": 4,
                     "column": 12
@@ -154,11 +159,12 @@
               ],
               "variables": [
                 {
-                  "kind": 128,
+                  "kind": 129,
                   "attributes": [],
                   "modifiers": [],
                   "name": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "data",
                     "start": {
                       "line": 4,
@@ -207,6 +213,7 @@
                 },
                 "callee": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "quxbaz",
                   "start": {
                     "line": 4,
@@ -220,6 +227,7 @@
                 "arguments": [
                   {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "text",
                     "start": {
                       "line": 4,
@@ -256,6 +264,7 @@
                     "modifiers": [],
                     "object": {
                       "kind": 52,
+                      "modifiers": [],
                       "name": "console",
                       "start": {
                         "line": 5,
@@ -268,6 +277,7 @@
                     },
                     "property": {
                       "kind": 52,
+                      "modifiers": [],
                       "name": "log",
                       "start": {
                         "line": 5,
@@ -289,10 +299,11 @@
                   },
                   "arguments": [
                     {
-                      "kind": 110,
+                      "kind": 111,
                       "elements": [
                         {
                           "kind": 52,
+                          "modifiers": [],
                           "name": "data",
                           "start": {
                             "line": 5,
@@ -359,6 +370,7 @@
       "attributes": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "quxbaz",
         "start": {
           "line": 9,
@@ -392,6 +404,7 @@
           },
           "external": {
             "kind": 52,
+            "modifiers": [],
             "name": "text",
             "start": {
               "line": 9,
@@ -404,6 +417,7 @@
           },
           "internal": {
             "kind": 52,
+            "modifiers": [],
             "name": "text",
             "start": {
               "line": 9,
@@ -415,10 +429,11 @@
             }
           },
           "type": {
-            "kind": 120,
+            "kind": 121,
             "modifiers": [],
             "typeName": {
               "kind": 52,
+              "modifiers": [],
               "name": "String",
               "start": {
                 "line": 9,
@@ -442,10 +457,11 @@
       ],
       "modifiers": [],
       "type": {
-        "kind": 120,
+        "kind": 121,
         "modifiers": [],
         "typeName": {
           "kind": 52,
+          "modifiers": [],
           "name": "String",
           "start": {
             "line": 9,
@@ -468,6 +484,7 @@
       "throws": [],
       "body": {
         "kind": 52,
+        "modifiers": [],
         "name": "text",
         "start": {
           "line": 9,

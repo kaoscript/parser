@@ -3,7 +3,7 @@
   "attributes": [],
   "body": [
     {
-      "kind": 95,
+      "kind": 96,
       "command": "/usr/bin/env kaoscript",
       "start": {
         "line": 1,
@@ -19,11 +19,12 @@
       "attributes": [],
       "declarations": [
         {
-          "kind": 128,
+          "kind": 129,
           "attributes": [],
           "modifiers": [],
           "name": {
             "kind": 52,
+            "modifiers": [],
             "name": "console",
             "start": {
               "line": 3,
@@ -64,6 +65,7 @@
         "modifiers": [],
         "object": {
           "kind": 52,
+          "modifiers": [],
           "name": "console",
           "start": {
             "line": 5,
@@ -76,6 +78,7 @@
         },
         "property": {
           "kind": 52,
+          "modifiers": [],
           "name": "log",
           "start": {
             "line": 5,
@@ -98,6 +101,7 @@
       "arguments": [
         {
           "kind": 63,
+          "modifiers": [],
           "value": "Hello World!",
           "start": {
             "line": 5,

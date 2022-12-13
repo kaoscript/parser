@@ -5,57 +5,62 @@
     {
       "kind": 54,
       "attributes": [],
-      "condition": {
-        "kind": 24,
-        "values": [
-          {
-            "kind": 52,
-            "name": "lang",
-            "start": {
-              "line": 1,
-              "column": 11
+      "conditions": [
+        {
+          "kind": 24,
+          "modifiers": [],
+          "values": [
+            {
+              "kind": 52,
+              "modifiers": [],
+              "name": "lang",
+              "start": {
+                "line": 1,
+                "column": 11
+              },
+              "end": {
+                "line": 1,
+                "column": 15
+              }
             },
-            "end": {
-              "line": 1,
-              "column": 15
+            {
+              "kind": 6,
+              "modifiers": [],
+              "start": {
+                "line": 1,
+                "column": 16
+              },
+              "end": {
+                "line": 1,
+                "column": 18
+              }
+            },
+            {
+              "kind": 63,
+              "modifiers": [],
+              "value": "en",
+              "start": {
+                "line": 1,
+                "column": 19
+              },
+              "end": {
+                "line": 1,
+                "column": 23
+              }
             }
+          ],
+          "start": {
+            "line": 1,
+            "column": 11
           },
-          {
-            "kind": 6,
-            "modifiers": [],
-            "start": {
-              "line": 1,
-              "column": 16
-            },
-            "end": {
-              "line": 1,
-              "column": 18
-            }
-          },
-          {
-            "kind": 63,
-            "value": "en",
-            "start": {
-              "line": 1,
-              "column": 19
-            },
-            "end": {
-              "line": 1,
-              "column": 23
-            }
+          "end": {
+            "line": 1,
+            "column": 23
           }
-        ],
-        "start": {
-          "line": 1,
-          "column": 11
-        },
-        "end": {
-          "line": 1,
-          "column": 23
         }
-      },
+      ],
       "whenTrue": {
-        "kind": 93,
+        "kind": 94,
         "attributes": [],
         "start": {
           "line": 1,

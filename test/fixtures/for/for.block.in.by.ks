@@ -1,5 +1,5 @@
 heroes = ['leto', 'duncan', 'goku']
 
-for hero in heroes by 2 {
+for hero in heroes step 2 {
 	console.log(hero)
 }

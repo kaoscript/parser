@@ -7,6 +7,7 @@
       "attributes": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "trace_build_age_with_reification",
         "start": {
           "line": 1,
@@ -23,21 +24,22 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 129,
+            "kind": 130,
             "attributes": [],
             "modifiers": [],
             "declarations": [
               {
-                "kind": 127,
+                "kind": 128,
                 "attributes": [],
                 "modifiers": [],
                 "variables": [
                   {
-                    "kind": 128,
+                    "kind": 129,
                     "attributes": [],
                     "modifiers": [],
                     "name": {
                       "kind": 52,
+                      "modifiers": [],
                       "name": "buildTime",
                       "start": {
                         "line": 2,
@@ -77,6 +79,7 @@
                     "modifiers": [],
                     "object": {
                       "kind": 52,
+                      "modifiers": [],
                       "name": "Math",
                       "start": {
                         "line": 2,
@@ -89,6 +92,7 @@
                     },
                     "property": {
                       "kind": 52,
+                      "modifiers": [],
                       "name": "floor",
                       "start": {
                         "line": 2,
@@ -111,6 +115,7 @@
                   "arguments": [
                     {
                       "kind": 12,
+                      "modifiers": [],
                       "operator": {
                         "kind": 4,
                         "modifiers": [],
@@ -151,6 +156,7 @@
                               "modifiers": [],
                               "object": {
                                 "kind": 52,
+                                "modifiers": [],
                                 "name": "Date",
                                 "start": {
                                   "line": 2,
@@ -163,6 +169,7 @@
                               },
                               "property": {
                                 "kind": 52,
+                                "modifiers": [],
                                 "name": "now",
                                 "start": {
                                   "line": 2,
@@ -194,6 +201,7 @@
                           },
                           "property": {
                             "kind": 52,
+                            "modifiers": [],
                             "name": "getTime",
                             "start": {
                               "line": 2,
@@ -225,6 +233,7 @@
                       },
                       "right": {
                         "kind": 74,
+                        "modifiers": [],
                         "value": 1000,
                         "start": {
                           "line": 2,
@@ -300,6 +309,7 @@
                 "kind": 1,
                 "expression": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "buildTime",
                   "start": {
                     "line": 6,

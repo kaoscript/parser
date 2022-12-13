@@ -7,6 +7,7 @@
       "attributes": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "foobar",
         "start": {
           "line": 1,
@@ -40,6 +41,7 @@
           },
           "external": {
             "kind": 52,
+            "modifiers": [],
             "name": "x",
             "start": {
               "line": 1,
@@ -52,6 +54,7 @@
           },
           "internal": {
             "kind": 52,
+            "modifiers": [],
             "name": "x",
             "start": {
               "line": 1,
@@ -68,6 +71,7 @@
       "throws": [
         {
           "kind": 52,
+          "modifiers": [],
           "name": "Error",
           "start": {
             "line": 1,
@@ -86,27 +90,31 @@
           {
             "kind": 54,
             "attributes": [],
-            "condition": {
-              "kind": 52,
-              "name": "x",
-              "start": {
-                "line": 2,
-                "column": 5
-              },
-              "end": {
-                "line": 2,
-                "column": 6
+            "conditions": [
+              {
+                "kind": 52,
+                "modifiers": [],
+                "name": "x",
+                "start": {
+                  "line": 2,
+                  "column": 5
+                },
+                "end": {
+                  "line": 2,
+                  "column": 6
+                }
               }
-            },
+            ],
             "whenTrue": {
               "kind": 15,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 93,
+                  "kind": 94,
                   "attributes": [],
                   "value": {
                     "kind": 74,
+                    "modifiers": [],
                     "value": 42,
                     "start": {
                       "line": 3,
@@ -149,12 +157,14 @@
               "attributes": [],
               "statements": [
                 {
-                  "kind": 112,
+                  "kind": 113,
                   "attributes": [],
                   "value": {
                     "kind": 28,
+                    "modifiers": [],
                     "class": {
                       "kind": 52,
+                      "modifiers": [],
                       "name": "Error",
                       "start": {
                         "line": 6,
@@ -168,6 +178,7 @@
                     "arguments": [
                       {
                         "kind": 63,
+                        "modifiers": [],
                         "value": "foobar",
                         "start": {
                           "line": 6,
@@ -222,59 +233,63 @@
     {
       "kind": 54,
       "attributes": [],
-      "condition": {
-        "kind": 114,
-        "modifiers": [],
-        "argument": {
-          "kind": 17,
+      "conditions": [
+        {
+          "kind": 115,
           "modifiers": [],
-          "scope": {
-            "kind": 3
-          },
-          "callee": {
-            "kind": 52,
-            "name": "foobar",
+          "argument": {
+            "kind": 17,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "foobar",
+              "start": {
+                "line": 10,
+                "column": 8
+              },
+              "end": {
+                "line": 10,
+                "column": 14
+              }
+            },
+            "arguments": [
+              {
+                "kind": 52,
+                "modifiers": [],
+                "name": "true",
+                "start": {
+                  "line": 10,
+                  "column": 15
+                },
+                "end": {
+                  "line": 10,
+                  "column": 19
+                }
+              }
+            ],
             "start": {
               "line": 10,
               "column": 8
             },
             "end": {
               "line": 10,
-              "column": 14
+              "column": 20
             }
           },
-          "arguments": [
-            {
-              "kind": 52,
-              "name": "true",
-              "start": {
-                "line": 10,
-                "column": 15
-              },
-              "end": {
-                "line": 10,
-                "column": 19
-              }
-            }
-          ],
           "start": {
             "line": 10,
-            "column": 8
+            "column": 4
           },
           "end": {
             "line": 10,
             "column": 20
           }
-        },
-        "start": {
-          "line": 10,
-          "column": 4
-        },
-        "end": {
-          "line": 10,
-          "column": 20
         }
-      },
+      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],

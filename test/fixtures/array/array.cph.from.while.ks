@@ -1,1 +1,1 @@
-a = [i for i from 0 til 10 while foo(i) when bar(i)]
+a = [i for i from 0 to~ 10 while foo(i) when bar(i)]

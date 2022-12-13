@@ -3,11 +3,12 @@
   "attributes": [],
   "body": [
     {
-      "kind": 116,
+      "kind": 117,
       "attributes": [],
       "modifiers": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "Pair",
         "start": {
           "line": 1,
@@ -20,7 +21,7 @@
       },
       "fields": [
         {
-          "kind": 117,
+          "kind": 118,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -32,10 +33,11 @@
             "column": 18
           },
           "type": {
-            "kind": 120,
+            "kind": 121,
             "modifiers": [],
             "typeName": {
               "kind": 52,
+              "modifiers": [],
               "name": "String",
               "start": {
                 "line": 1,
@@ -57,7 +59,7 @@
           }
         },
         {
-          "kind": 117,
+          "kind": 118,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -69,10 +71,11 @@
             "column": 26
           },
           "type": {
-            "kind": 120,
+            "kind": 121,
             "modifiers": [],
             "typeName": {
               "kind": 52,
+              "modifiers": [],
               "name": "Number",
               "start": {
                 "line": 1,
@@ -104,11 +107,12 @@
       }
     },
     {
-      "kind": 116,
+      "kind": 117,
       "attributes": [],
       "modifiers": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "Triple",
         "start": {
           "line": 3,
@@ -121,7 +125,7 @@
       },
       "fields": [
         {
-          "kind": 117,
+          "kind": 118,
           "attributes": [],
           "modifiers": [],
           "start": {
@@ -133,10 +137,11 @@
             "column": 21
           },
           "type": {
-            "kind": 120,
+            "kind": 121,
             "modifiers": [],
             "typeName": {
               "kind": 52,
+              "modifiers": [],
               "name": "Boolean",
               "start": {
                 "line": 3,
@@ -168,6 +173,7 @@
       },
       "extends": {
         "kind": 52,
+        "modifiers": [],
         "name": "Pair",
         "start": {
           "line": 3,
@@ -180,21 +186,22 @@
       }
     },
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "triple",
                 "start": {
                   "line": 5,
@@ -231,6 +238,7 @@
             },
             "callee": {
               "kind": 52,
+              "modifiers": [],
               "name": "Triple",
               "start": {
                 "line": 5,
@@ -244,6 +252,7 @@
             "arguments": [
               {
                 "kind": 63,
+                "modifiers": [],
                 "value": "x",
                 "start": {
                   "line": 5,
@@ -256,6 +265,7 @@
               },
               {
                 "kind": 74,
+                "modifiers": [],
                 "value": 0.1,
                 "start": {
                   "line": 5,
@@ -268,6 +278,7 @@
               },
               {
                 "kind": 52,
+                "modifiers": [],
                 "name": "true",
                 "start": {
                   "line": 5,
@@ -310,6 +321,7 @@
         "modifiers": [],
         "object": {
           "kind": 52,
+          "modifiers": [],
           "name": "console",
           "start": {
             "line": 7,
@@ -322,6 +334,7 @@
         },
         "property": {
           "kind": 52,
+          "modifiers": [],
           "name": "log",
           "start": {
             "line": 7,
@@ -347,6 +360,7 @@
           "modifiers": [],
           "object": {
             "kind": 52,
+            "modifiers": [],
             "name": "triple",
             "start": {
               "line": 7,
@@ -359,6 +373,7 @@
           },
           "property": {
             "kind": 52,
+            "modifiers": [],
             "name": "0",
             "start": {
               "line": 7,
@@ -383,6 +398,7 @@
           "modifiers": [],
           "object": {
             "kind": 52,
+            "modifiers": [],
             "name": "triple",
             "start": {
               "line": 7,
@@ -395,6 +411,7 @@
           },
           "property": {
             "kind": 52,
+            "modifiers": [],
             "name": "1",
             "start": {
               "line": 7,
@@ -419,6 +436,7 @@
           "modifiers": [],
           "object": {
             "kind": 52,
+            "modifiers": [],
             "name": "triple",
             "start": {
               "line": 7,
@@ -431,6 +449,7 @@
           },
           "property": {
             "kind": 52,
+            "modifiers": [],
             "name": "2",
             "start": {
               "line": 7,

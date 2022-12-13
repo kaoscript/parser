@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "pair",
                 "start": {
                   "line": 1,
@@ -60,9 +61,11 @@
           },
           "value": {
             "kind": 5,
+            "modifiers": [],
             "values": [
               {
                 "kind": 74,
+                "modifiers": [],
                 "value": 2,
                 "start": {
                   "line": 1,
@@ -75,6 +78,7 @@
               },
               {
                 "kind": 74,
+                "modifiers": [],
                 "value": -2,
                 "start": {
                   "line": 1,
@@ -107,10 +111,11 @@
       }
     },
     {
-      "kind": 107,
+      "kind": 108,
       "attributes": [],
       "expression": {
         "kind": 52,
+        "modifiers": [],
         "name": "pair",
         "start": {
           "line": 3,
@@ -123,7 +128,7 @@
       },
       "clauses": [
         {
-          "kind": 100,
+          "kind": 101,
           "body": {
             "kind": 17,
             "modifiers": [],
@@ -135,6 +140,7 @@
               "modifiers": [],
               "object": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -147,6 +153,7 @@
               },
               "property": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -169,6 +176,7 @@
             "arguments": [
               {
                 "kind": 63,
+                "modifiers": [],
                 "value": "These are twins",
                 "start": {
                   "line": 4,
@@ -215,6 +223,7 @@
                   },
                   "name": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "x",
                     "start": {
                       "line": 4,
@@ -239,6 +248,7 @@
                   },
                   "name": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "y",
                     "start": {
                       "line": 4,
@@ -263,9 +273,11 @@
           ],
           "filter": {
             "kind": 24,
+            "modifiers": [],
             "values": [
               {
                 "kind": 52,
+                "modifiers": [],
                 "name": "x",
                 "start": {
                   "line": 4,
@@ -290,6 +302,7 @@
               },
               {
                 "kind": 52,
+                "modifiers": [],
                 "name": "y",
                 "start": {
                   "line": 4,
@@ -312,7 +325,7 @@
           }
         },
         {
-          "kind": 100,
+          "kind": 101,
           "body": {
             "kind": 17,
             "modifiers": [],
@@ -324,6 +337,7 @@
               "modifiers": [],
               "object": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "console",
                 "start": {
                   "line": 5,
@@ -336,6 +350,7 @@
               },
               "property": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "log",
                 "start": {
                   "line": 5,
@@ -358,6 +373,7 @@
             "arguments": [
               {
                 "kind": 63,
+                "modifiers": [],
                 "value": "Antimatter, kaboom!",
                 "start": {
                   "line": 5,
@@ -404,6 +420,7 @@
                   },
                   "name": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "x",
                     "start": {
                       "line": 5,
@@ -428,6 +445,7 @@
                   },
                   "name": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "y",
                     "start": {
                       "line": 5,
@@ -452,9 +470,11 @@
           ],
           "filter": {
             "kind": 24,
+            "modifiers": [],
             "values": [
               {
                 "kind": 12,
+                "modifiers": [],
                 "operator": {
                   "kind": 1,
                   "modifiers": [],
@@ -477,6 +497,7 @@
                 },
                 "left": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "x",
                   "start": {
                     "line": 5,
@@ -489,6 +510,7 @@
                 },
                 "right": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "y",
                   "start": {
                     "line": 5,
@@ -514,6 +536,7 @@
               },
               {
                 "kind": 74,
+                "modifiers": [],
                 "value": 0,
                 "start": {
                   "line": 5,
@@ -536,7 +559,7 @@
           }
         },
         {
-          "kind": 100,
+          "kind": 101,
           "body": {
             "kind": 17,
             "modifiers": [],
@@ -548,6 +571,7 @@
               "modifiers": [],
               "object": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "console",
                 "start": {
                   "line": 6,
@@ -560,6 +584,7 @@
               },
               "property": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "log",
                 "start": {
                   "line": 6,
@@ -582,6 +607,7 @@
             "arguments": [
               {
                 "kind": 63,
+                "modifiers": [],
                 "value": "The first one is odd",
                 "start": {
                   "line": 6,
@@ -628,6 +654,7 @@
                   },
                   "name": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "x",
                     "start": {
                       "line": 6,
@@ -664,9 +691,11 @@
           ],
           "filter": {
             "kind": 24,
+            "modifiers": [],
             "values": [
               {
                 "kind": 12,
+                "modifiers": [],
                 "operator": {
                   "kind": 16,
                   "modifiers": [],
@@ -689,6 +718,7 @@
                 },
                 "left": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "x",
                   "start": {
                     "line": 6,
@@ -701,6 +731,7 @@
                 },
                 "right": {
                   "kind": 74,
+                  "modifiers": [],
                   "value": 2,
                   "start": {
                     "line": 6,
@@ -726,6 +757,7 @@
               },
               {
                 "kind": 74,
+                "modifiers": [],
                 "value": 1,
                 "start": {
                   "line": 6,
@@ -748,7 +780,7 @@
           }
         },
         {
-          "kind": 100,
+          "kind": 101,
           "body": {
             "kind": 17,
             "modifiers": [],
@@ -760,6 +792,7 @@
               "modifiers": [],
               "object": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "console",
                 "start": {
                   "line": 7,
@@ -772,6 +805,7 @@
               },
               "property": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "log",
                 "start": {
                   "line": 7,
@@ -794,6 +828,7 @@
             "arguments": [
               {
                 "kind": 63,
+                "modifiers": [],
                 "value": "No correlation...",
                 "start": {
                   "line": 7,

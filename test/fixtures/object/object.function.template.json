@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "foo",
                 "start": {
                   "line": 1,
@@ -60,6 +61,7 @@
           },
           "value": {
             "kind": 76,
+            "modifiers": [],
             "attributes": [],
             "properties": [
               {
@@ -75,10 +77,11 @@
                   "column": 3
                 },
                 "name": {
-                  "kind": 110,
+                  "kind": 111,
                   "elements": [
                     {
                       "kind": 52,
+                      "modifiers": [],
                       "name": "bar",
                       "start": {
                         "line": 2,
@@ -116,6 +119,7 @@
                       },
                       "external": {
                         "kind": 52,
+                        "modifiers": [],
                         "name": "name",
                         "start": {
                           "line": 2,
@@ -128,6 +132,7 @@
                       },
                       "internal": {
                         "kind": 52,
+                        "modifiers": [],
                         "name": "name",
                         "start": {
                           "line": 2,
@@ -139,10 +144,11 @@
                         }
                       },
                       "type": {
-                        "kind": 120,
+                        "kind": 121,
                         "modifiers": [],
                         "typeName": {
                           "kind": 52,
+                          "modifiers": [],
                           "name": "String",
                           "start": {
                             "line": 2,
@@ -179,10 +185,11 @@
                     "attributes": [],
                     "statements": [
                       {
-                        "kind": 93,
+                        "kind": 94,
                         "attributes": [],
                         "value": {
                           "kind": 52,
+                          "modifiers": [],
                           "name": "name",
                           "start": {
                             "line": 3,

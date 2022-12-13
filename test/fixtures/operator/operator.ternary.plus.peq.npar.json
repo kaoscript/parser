@@ -4,6 +4,7 @@
   "body": [
     {
       "kind": 12,
+      "modifiers": [],
       "operator": {
         "kind": 3,
         "assignment": 1,
@@ -26,6 +27,7 @@
       },
       "left": {
         "kind": 52,
+        "modifiers": [],
         "name": "foo",
         "start": {
           "line": 1,
@@ -48,6 +50,7 @@
         },
         "condition": {
           "kind": 52,
+          "modifiers": [],
           "name": "bar",
           "start": {
             "line": 1,
@@ -60,6 +63,7 @@
         },
         "whenTrue": {
           "kind": 74,
+          "modifiers": [],
           "value": 42,
           "start": {
             "line": 1,
@@ -72,6 +76,7 @@
         },
         "whenFalse": {
           "kind": 74,
+          "modifiers": [],
           "value": 24,
           "start": {
             "line": 1,

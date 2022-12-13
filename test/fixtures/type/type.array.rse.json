@@ -7,6 +7,7 @@
       "attributes": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "foobar",
         "start": {
           "line": 1,
@@ -40,6 +41,7 @@
           },
           "external": {
             "kind": 52,
+            "modifiers": [],
             "name": "x",
             "start": {
               "line": 1,
@@ -52,6 +54,7 @@
           },
           "internal": {
             "kind": 52,
+            "modifiers": [],
             "name": "x",
             "start": {
               "line": 1,
@@ -78,7 +81,7 @@
               "kind": 86,
               "modifiers": [
                 {
-                  "kind": 29,
+                  "kind": 30,
                   "arity": {
                     "min": 0,
                     "max": "Infinity"
@@ -102,10 +105,11 @@
                 "column": 26
               },
               "type": {
-                "kind": 120,
+                "kind": 121,
                 "modifiers": [],
                 "typeName": {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "String",
                   "start": {
                     "line": 1,

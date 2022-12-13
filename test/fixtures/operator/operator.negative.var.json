@@ -7,6 +7,7 @@
       "attributes": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "foo",
         "start": {
           "line": 1,
@@ -40,6 +41,7 @@
           },
           "external": {
             "kind": 52,
+            "modifiers": [],
             "name": "x",
             "start": {
               "line": 1,
@@ -52,6 +54,7 @@
           },
           "internal": {
             "kind": 52,
+            "modifiers": [],
             "name": "x",
             "start": {
               "line": 1,
@@ -77,6 +80,7 @@
           },
           "external": {
             "kind": 52,
+            "modifiers": [],
             "name": "y",
             "start": {
               "line": 1,
@@ -89,6 +93,7 @@
           },
           "internal": {
             "kind": 52,
+            "modifiers": [],
             "name": "y",
             "start": {
               "line": 1,
@@ -110,49 +115,54 @@
           {
             "kind": 54,
             "attributes": [],
-            "condition": {
-              "kind": 122,
-              "operator": {
-                "kind": 3,
+            "conditions": [
+              {
+                "kind": 123,
+                "modifiers": [],
+                "operator": {
+                  "kind": 3,
+                  "start": {
+                    "line": 2,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 6
+                  }
+                },
+                "argument": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "x",
+                  "start": {
+                    "line": 2,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 7
+                  }
+                },
                 "start": {
                   "line": 2,
                   "column": 5
                 },
                 "end": {
                   "line": 2,
-                  "column": 6
-                }
-              },
-              "argument": {
-                "kind": 52,
-                "name": "x",
-                "start": {
-                  "line": 2,
-                  "column": 6
-                },
-                "end": {
-                  "line": 2,
                   "column": 7
                 }
-              },
-              "start": {
-                "line": 2,
-                "column": 5
-              },
-              "end": {
-                "line": 2,
-                "column": 7
               }
-            },
+            ],
             "whenTrue": {
               "kind": 15,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 93,
+                  "kind": 94,
                   "attributes": [],
                   "value": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "y",
                     "start": {
                       "line": 3,
@@ -195,10 +205,11 @@
               "attributes": [],
               "statements": [
                 {
-                  "kind": 93,
+                  "kind": 94,
                   "attributes": [],
                   "value": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "x",
                     "start": {
                       "line": 6,

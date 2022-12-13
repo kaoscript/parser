@@ -310,6 +310,7 @@ namespace AST {
 		func ArrayComprehension(expression, loop, first, last) { # {{{
 			return location({
 				kind: NodeKind::ArrayComprehension
+				modifiers: []
 				body: expression.value
 				loop: loop.value
 			}, first, last)
@@ -318,6 +319,7 @@ namespace AST {
 		func ArrayExpression(values, first, last) { # {{{
 			return location({
 				kind: NodeKind::ArrayExpression
+				modifiers: []
 				values: [value.value for value in values]
 			}, first, last)
 		} # }}}
@@ -439,6 +441,7 @@ namespace AST {
 		func BinaryExpression(operator) { # {{{
 			return location({
 				kind: NodeKind::BinaryExpression
+				modifiers: []
 				operator: operator.value
 			}, operator)
 		} # }}}
@@ -446,6 +449,7 @@ namespace AST {
 		func BinaryExpression(left, operator, right, first = left, last = right) { # {{{
 			return location({
 				kind: NodeKind::BinaryExpression
+				modifiers: []
 				operator: operator.value
 				left: left.value
 				right: right.value
@@ -553,6 +557,7 @@ namespace AST {
 		func ComparisonExpression(values) { # {{{
 			return location({
 				kind: NodeKind::ComparisonExpression
+				modifiers: []
 				values
 			}, values[0], values[values.length - 1])
 		} # }}}
@@ -573,6 +578,7 @@ namespace AST {
 		func ConditionalExpression(condition, whenTrue, whenFalse) { # {{{
 			return location({
 				kind: NodeKind::ConditionalExpression
+				modifiers: []
 				condition: condition.value
 				whenTrue: whenTrue.value
 				whenFalse: whenFalse.value
@@ -589,6 +595,7 @@ namespace AST {
 		func CreateExpression(class, arguments, first, last) { # {{{
 			return location({
 				kind: NodeKind::CreateExpression
+				modifiers: []
 				class: class.value
 				arguments: [argument.value for argument in arguments.value]
 			}, first, last)
@@ -649,6 +656,7 @@ namespace AST {
 		func EnumExpression(enum, member) { # {{{
 			return location({
 				kind: NodeKind::EnumExpression
+				modifiers: []
 				enum: enum.value
 				member: member.value
 			}, enum, member)
@@ -740,23 +748,18 @@ namespace AST {
 			return node
 		} # }}}
 
-		func ForFromStatement(modifiers, variable, from, til?, to?, by?, until?, while?, when?, first, last) { # {{{
+		func ForFromStatement(modifiers, variable, from, to?, step?, until?, while?, when?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::ForFromStatement
 				modifiers
 				attributes: []
 				variable: variable.value
 				from: from.value
+				to: to.value
 			}, first, last)
 
-			if til != null {
-				node.til = til.value
-			}
-			else if to != null {
-				node.to = to.value
-			}
-			if by != null {
-				node.by = by.value
+			if step != null {
+				node.step = step.value
 			}
 
 			if until != null {
@@ -773,7 +776,7 @@ namespace AST {
 			return node
 		} # }}}
 
-		func ForInStatement(modifiers, value, type, index, expression, from?, til?, to?, by?, until?, while?, when?, first, last) { # {{{
+		func ForInStatement(modifiers, value, type, index, expression, from?, to?, step?, split?, until?, while?, when?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::ForInStatement
 				attributes: []
@@ -794,14 +797,14 @@ namespace AST {
 			if from != null {
 				node.from = from.value
 			}
-			if til != null {
-				node.til = til.value
-			}
-			else if to != null {
+			if to != null {
 				node.to = to.value
 			}
-			if by != null {
-				node.by = by.value
+			if step != null {
+				node.step = step.value
+			}
+			if split != null {
+				node.split = split.value
 			}
 
 			if until != null {
@@ -818,32 +821,22 @@ namespace AST {
 			return node
 		} # }}}
 
-		func ForRangeStatement(modifiers, value, index, from?, then?, til?, to?, by?, until?, while?, when?, first, last) { # {{{
+		func ForRangeStatement(modifiers, value, index, from, to, step?, until?, while?, when?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::ForRangeStatement
 				attributes: []
 				modifiers
 				value: value.value
+				from: from.value
+				to: to.value
 			}, first, last)
 
 			if index.ok {
 				node.index = index.value
 			}
 
-			if from != null {
-				node.from = from.value
-			}
-			else if then != null {
-				node.then = then.value
-			}
-			if til != null {
-				node.til = til.value
-			}
-			else if to != null {
-				node.to = to.value
-			}
-			if by != null {
-				node.by = by.value
+			if step != null {
+				node.step = step.value
 			}
 
 			if until != null {
@@ -994,11 +987,11 @@ namespace AST {
 			return node
 		} # }}}
 
-		func IfStatement(condition, whenTrue, whenFalse?, first, last) { # {{{
+		func IfStatement(conditions: Array, whenTrue, whenFalse?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::IfStatement
 				attributes: []
-				condition: condition.value
+				conditions: [condition.value for condition in conditions]
 				whenTrue: whenTrue.value
 			}, first, last)
 
@@ -1048,6 +1041,7 @@ namespace AST {
 		func Identifier(name, first) { # {{{
 			return location({
 				kind: NodeKind::Identifier
+				modifiers: []
 				name: name
 			}, first)
 		} # }}}
@@ -1079,6 +1073,7 @@ namespace AST {
 		func JunctionExpression(operator, operands) { # {{{
 			return location({
 				kind: NodeKind::JunctionExpression
+				modifiers: []
 				operator: operator.value
 				operands
 			}, operands[0], operands[operands.length - 1])
@@ -1092,10 +1087,7 @@ namespace AST {
 				body: body.value
 			}, first, last)
 
-			if modifiers == null {
-				node.modifiers = []
-			}
-			else {
+			if modifiers != null {
 				node.modifiers = [modifier.value for modifier in modifiers]
 			}
 
@@ -1116,6 +1108,7 @@ namespace AST {
 		func Literal(value, first, last? = null) { # {{{
 			return location({
 				kind: NodeKind::Literal
+				modifiers: []
 				value: value
 			}, first, last)
 		} # }}}
@@ -1289,6 +1282,7 @@ namespace AST {
 		func NumericExpression(value, first) { # {{{
 			return location({
 				kind: NodeKind::NumericExpression
+				modifiers: []
 				value: value
 			}, first)
 		} # }}}
@@ -1321,6 +1315,7 @@ namespace AST {
 		func ObjectExpression(attributes, properties, first, last) { # {{{
 			return location({
 				kind: NodeKind::ObjectExpression
+				modifiers: []
 				attributes: [attribute.value for attribute in attributes]
 				properties: [property.value for property in properties]
 			}, first, last)
@@ -1499,8 +1494,25 @@ namespace AST {
 		func RegularExpression(value, first) { # {{{
 			return location({
 				kind: NodeKind::RegularExpression
+				modifiers: []
 				value: value
 			}, first)
+		} # }}}
+
+		func RepeatStatement(expression?, body?, first, last) { # {{{
+			var node = location({
+				kind: NodeKind::RepeatStatement
+				attributes: []
+			}, first, last)
+
+			if ?expression {
+				node.expression = expression.value
+			}
+			if ?body {
+				node.body = body.value
+			}
+
+			return node
 		} # }}}
 
 		func RequireDeclaration(attributes, declarations, first, last) { # {{{
@@ -1568,6 +1580,7 @@ namespace AST {
 		func SequenceExpression(expressions, first, last) { # {{{
 			return location({
 				kind: NodeKind::SequenceExpression
+				modifiers: []
 				expressions: [expression.value for expression in expressions]
 			}, first, last)
 		} # }}}
@@ -1746,6 +1759,7 @@ namespace AST {
 		func ThisExpression(name, first, last) { # {{{
 			return location({
 				kind: NodeKind::ThisExpression
+				modifiers: []
 				name: name.value
 			}, first, last)
 		} # }}}
@@ -1884,6 +1898,7 @@ namespace AST {
 		func UnaryExpression(operator, operand, first, last) { # {{{
 			return location({
 				kind: NodeKind::UnaryExpression
+				modifiers: []
 				operator: operator.value
 				argument: operand.value
 			}, first, last)

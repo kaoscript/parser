@@ -10,6 +10,7 @@
       },
       "callee": {
         "kind": 52,
+        "modifiers": [],
         "name": "foo",
         "start": {
           "line": 1,
@@ -38,6 +39,7 @@
               },
               "external": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "x",
                 "start": {
                   "line": 1,
@@ -50,6 +52,7 @@
               },
               "internal": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "x",
                 "start": {
                   "line": 1,
@@ -75,6 +78,7 @@
               },
               "external": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "y",
                 "start": {
                   "line": 1,
@@ -87,6 +91,7 @@
               },
               "internal": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "y",
                 "start": {
                   "line": 1,
@@ -126,10 +131,11 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 93,
+                "kind": 94,
                 "attributes": [],
                 "value": {
                   "kind": 12,
+                  "modifiers": [],
                   "operator": {
                     "kind": 17,
                     "modifiers": [],
@@ -152,6 +158,7 @@
                   },
                   "left": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "x",
                     "start": {
                       "line": 2,
@@ -164,6 +171,7 @@
                   },
                   "right": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "y",
                     "start": {
                       "line": 2,

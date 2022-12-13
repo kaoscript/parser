@@ -1,1 +1,1 @@
-a = [i for i from 0 to 10 by 2 until foo(i)]
+a = [i for i from 0 to 10 step 2 until foo(i)]

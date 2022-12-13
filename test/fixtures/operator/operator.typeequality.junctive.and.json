@@ -7,6 +7,7 @@
       "attributes": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "foobar",
         "start": {
           "line": 1,
@@ -40,6 +41,7 @@
           },
           "external": {
             "kind": 52,
+            "modifiers": [],
             "name": "x",
             "start": {
               "line": 1,
@@ -52,6 +54,7 @@
           },
           "internal": {
             "kind": 52,
+            "modifiers": [],
             "name": "x",
             "start": {
               "line": 1,
@@ -73,61 +76,75 @@
           {
             "kind": 54,
             "attributes": [],
-            "condition": {
-              "kind": 12,
-              "operator": {
-                "kind": 24,
+            "conditions": [
+              {
+                "kind": 12,
                 "modifiers": [],
-                "start": {
-                  "line": 2,
-                  "column": 7
+                "operator": {
+                  "kind": 24,
+                  "modifiers": [],
+                  "start": {
+                    "line": 2,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 9
+                  }
                 },
-                "end": {
-                  "line": 2,
-                  "column": 9
-                }
-              },
-              "start": {
-                "line": 2,
-                "column": 5
-              },
-              "end": {
-                "line": 2,
-                "column": 25
-              },
-              "left": {
-                "kind": 52,
-                "name": "x",
                 "start": {
                   "line": 2,
                   "column": 5
                 },
                 "end": {
                   "line": 2,
-                  "column": 6
-                }
-              },
-              "right": {
-                "kind": 61,
-                "operator": {
-                  "kind": 2,
+                  "column": 25
+                },
+                "left": {
+                  "kind": 52,
                   "modifiers": [],
+                  "name": "x",
                   "start": {
                     "line": 2,
-                    "column": 17
+                    "column": 5
                   },
                   "end": {
                     "line": 2,
-                    "column": 18
+                    "column": 6
                   }
                 },
-                "operands": [
-                  {
-                    "kind": 120,
+                "right": {
+                  "kind": 61,
+                  "modifiers": [],
+                  "operator": {
+                    "kind": 2,
                     "modifiers": [],
-                    "typeName": {
-                      "kind": 52,
-                      "name": "Number",
+                    "start": {
+                      "line": 2,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 18
+                    }
+                  },
+                  "operands": [
+                    {
+                      "kind": 121,
+                      "modifiers": [],
+                      "typeName": {
+                        "kind": 52,
+                        "modifiers": [],
+                        "name": "Number",
+                        "start": {
+                          "line": 2,
+                          "column": 10
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 16
+                        }
+                      },
                       "start": {
                         "line": 2,
                         "column": 10
@@ -137,21 +154,22 @@
                         "column": 16
                       }
                     },
-                    "start": {
-                      "line": 2,
-                      "column": 10
-                    },
-                    "end": {
-                      "line": 2,
-                      "column": 16
-                    }
-                  },
-                  {
-                    "kind": 120,
-                    "modifiers": [],
-                    "typeName": {
-                      "kind": 52,
-                      "name": "String",
+                    {
+                      "kind": 121,
+                      "modifiers": [],
+                      "typeName": {
+                        "kind": 52,
+                        "modifiers": [],
+                        "name": "String",
+                        "start": {
+                          "line": 2,
+                          "column": 19
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 25
+                        }
+                      },
                       "start": {
                         "line": 2,
                         "column": 19
@@ -160,27 +178,19 @@
                         "line": 2,
                         "column": 25
                       }
-                    },
-                    "start": {
-                      "line": 2,
-                      "column": 19
-                    },
-                    "end": {
-                      "line": 2,
-                      "column": 25
                     }
+                  ],
+                  "start": {
+                    "line": 2,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 25
                   }
-                ],
-                "start": {
-                  "line": 2,
-                  "column": 10
-                },
-                "end": {
-                  "line": 2,
-                  "column": 25
                 }
               }
-            },
+            ],
             "whenTrue": {
               "kind": 15,
               "attributes": [],

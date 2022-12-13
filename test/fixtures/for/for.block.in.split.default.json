@@ -1,0 +1,378 @@
+{
+  "kind": 69,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 12,
+      "modifiers": [],
+      "operator": {
+        "kind": 3,
+        "assignment": 6,
+        "start": {
+          "line": 1,
+          "column": 8
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      },
+      "left": {
+        "kind": 52,
+        "modifiers": [],
+        "name": "heroes",
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 7
+        }
+      },
+      "right": {
+        "kind": 5,
+        "modifiers": [],
+        "values": [
+          {
+            "kind": 74,
+            "modifiers": [],
+            "value": 0,
+            "start": {
+              "line": 1,
+              "column": 11
+            },
+            "end": {
+              "line": 1,
+              "column": 12
+            }
+          },
+          {
+            "kind": 63,
+            "modifiers": [],
+            "value": "leto",
+            "start": {
+              "line": 1,
+              "column": 14
+            },
+            "end": {
+              "line": 1,
+              "column": 20
+            }
+          },
+          {
+            "kind": 74,
+            "modifiers": [],
+            "value": 1,
+            "start": {
+              "line": 1,
+              "column": 22
+            },
+            "end": {
+              "line": 1,
+              "column": 23
+            }
+          },
+          {
+            "kind": 63,
+            "modifiers": [],
+            "value": "duncan",
+            "start": {
+              "line": 1,
+              "column": 25
+            },
+            "end": {
+              "line": 1,
+              "column": 33
+            }
+          },
+          {
+            "kind": 74,
+            "modifiers": [],
+            "value": 2,
+            "start": {
+              "line": 1,
+              "column": 35
+            },
+            "end": {
+              "line": 1,
+              "column": 36
+            }
+          },
+          {
+            "kind": 63,
+            "modifiers": [],
+            "value": "goku",
+            "start": {
+              "line": 1,
+              "column": 38
+            },
+            "end": {
+              "line": 1,
+              "column": 44
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 10
+        },
+        "end": {
+          "line": 1,
+          "column": 45
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 45
+      },
+      "attributes": []
+    },
+    {
+      "kind": 45,
+      "attributes": [],
+      "modifiers": [
+        {
+          "kind": 8,
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        },
+        {
+          "kind": 15,
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        }
+      ],
+      "expression": {
+        "kind": 52,
+        "modifiers": [],
+        "name": "heroes",
+        "start": {
+          "line": 3,
+          "column": 29
+        },
+        "end": {
+          "line": 3,
+          "column": 35
+        }
+      },
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
+      },
+      "value": {
+        "kind": 3,
+        "elements": [
+          {
+            "kind": 13,
+            "modifiers": [],
+            "start": {
+              "line": 3,
+              "column": 10
+            },
+            "end": {
+              "line": 3,
+              "column": 15
+            },
+            "name": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "index",
+              "start": {
+                "line": 3,
+                "column": 10
+              },
+              "end": {
+                "line": 3,
+                "column": 15
+              }
+            }
+          },
+          {
+            "kind": 13,
+            "modifiers": [],
+            "start": {
+              "line": 3,
+              "column": 17
+            },
+            "end": {
+              "line": 3,
+              "column": 21
+            },
+            "name": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "name",
+              "start": {
+                "line": 3,
+                "column": 17
+              },
+              "end": {
+                "line": 3,
+                "column": 21
+              }
+            }
+          }
+        ],
+        "start": {
+          "line": 3,
+          "column": 9
+        },
+        "end": {
+          "line": 3,
+          "column": 22
+        }
+      },
+      "index": {
+        "kind": 52,
+        "modifiers": [],
+        "name": "i",
+        "start": {
+          "line": 3,
+          "column": 24
+        },
+        "end": {
+          "line": 3,
+          "column": 25
+        }
+      },
+      "split": {
+        "kind": 74,
+        "modifiers": [],
+        "value": 2,
+        "start": {
+          "line": 3,
+          "column": 42
+        },
+        "end": {
+          "line": 3,
+          "column": 43
+        }
+      },
+      "body": {
+        "kind": 15,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 17,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 66,
+              "modifiers": [],
+              "object": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "console",
+                "start": {
+                  "line": 4,
+                  "column": 2
+                },
+                "end": {
+                  "line": 4,
+                  "column": 9
+                }
+              },
+              "property": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "log",
+                "start": {
+                  "line": 4,
+                  "column": 10
+                },
+                "end": {
+                  "line": 4,
+                  "column": 13
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 13
+              }
+            },
+            "arguments": [
+              {
+                "kind": 52,
+                "modifiers": [],
+                "name": "name",
+                "start": {
+                  "line": 4,
+                  "column": 14
+                },
+                "end": {
+                  "line": 4,
+                  "column": 18
+                }
+              },
+              {
+                "kind": 52,
+                "modifiers": [],
+                "name": "index",
+                "start": {
+                  "line": 4,
+                  "column": 20
+                },
+                "end": {
+                  "line": 4,
+                  "column": 25
+                }
+              }
+            ],
+            "start": {
+              "line": 4,
+              "column": 2
+            },
+            "end": {
+              "line": 4,
+              "column": 26
+            },
+            "attributes": []
+          }
+        ],
+        "start": {
+          "line": 3,
+          "column": 44
+        },
+        "end": {
+          "line": 5,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 2
+  }
+}

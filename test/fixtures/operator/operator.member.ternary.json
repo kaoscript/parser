@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "m",
                 "start": {
                   "line": 1,
@@ -60,6 +61,7 @@
           },
           "value": {
             "kind": 63,
+            "modifiers": [],
             "value": "qux",
             "start": {
               "line": 1,
@@ -82,11 +84,11 @@
       }
     },
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 2,
             "column": 5
@@ -99,16 +101,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "qux",
                 "start": {
                   "line": 2,
@@ -149,6 +152,7 @@
             },
             "condition": {
               "kind": 52,
+              "modifiers": [],
               "name": "foo",
               "start": {
                 "line": 2,
@@ -161,9 +165,11 @@
             },
             "whenTrue": {
               "kind": 5,
+              "modifiers": [],
               "values": [
                 {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "m",
                   "start": {
                     "line": 2,
@@ -186,6 +192,7 @@
             },
             "whenFalse": {
               "kind": 52,
+              "modifiers": [],
               "name": "m",
               "start": {
                 "line": 2,

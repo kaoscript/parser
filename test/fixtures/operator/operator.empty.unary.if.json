@@ -7,11 +7,12 @@
       "attributes": [],
       "declarations": [
         {
-          "kind": 128,
+          "kind": 129,
           "attributes": [],
           "modifiers": [],
           "name": {
             "kind": 52,
+            "modifiers": [],
             "name": "foo",
             "start": {
               "line": 1,
@@ -44,40 +45,44 @@
     {
       "kind": 54,
       "attributes": [],
-      "condition": {
-        "kind": 122,
-        "operator": {
-          "kind": 5,
+      "conditions": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "operator": {
+            "kind": 5,
+            "start": {
+              "line": 3,
+              "column": 4
+            },
+            "end": {
+              "line": 3,
+              "column": 5
+            }
+          },
+          "argument": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "foo",
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "end": {
+              "line": 3,
+              "column": 8
+            }
+          },
           "start": {
             "line": 3,
             "column": 4
           },
           "end": {
             "line": 3,
-            "column": 5
-          }
-        },
-        "argument": {
-          "kind": 52,
-          "name": "foo",
-          "start": {
-            "line": 3,
-            "column": 5
-          },
-          "end": {
-            "line": 3,
             "column": 8
           }
-        },
-        "start": {
-          "line": 3,
-          "column": 4
-        },
-        "end": {
-          "line": 3,
-          "column": 8
         }
-      },
+      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],
@@ -93,6 +98,7 @@
               "modifiers": [],
               "object": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "console",
                 "start": {
                   "line": 4,
@@ -105,6 +111,7 @@
               },
               "property": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "log",
                 "start": {
                   "line": 4,
@@ -127,6 +134,7 @@
             "arguments": [
               {
                 "kind": 52,
+                "modifiers": [],
                 "name": "foo",
                 "start": {
                   "line": 4,
@@ -170,40 +178,44 @@
     {
       "kind": 54,
       "attributes": [],
-      "condition": {
-        "kind": 122,
-        "operator": {
-          "kind": 5,
+      "conditions": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "operator": {
+            "kind": 5,
+            "start": {
+              "line": 7,
+              "column": 21
+            },
+            "end": {
+              "line": 7,
+              "column": 22
+            }
+          },
+          "argument": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "foo",
+            "start": {
+              "line": 7,
+              "column": 22
+            },
+            "end": {
+              "line": 7,
+              "column": 25
+            }
+          },
           "start": {
             "line": 7,
             "column": 21
           },
           "end": {
             "line": 7,
-            "column": 22
-          }
-        },
-        "argument": {
-          "kind": 52,
-          "name": "foo",
-          "start": {
-            "line": 7,
-            "column": 22
-          },
-          "end": {
-            "line": 7,
             "column": 25
           }
-        },
-        "start": {
-          "line": 7,
-          "column": 21
-        },
-        "end": {
-          "line": 7,
-          "column": 25
         }
-      },
+      ],
       "whenTrue": {
         "kind": 17,
         "modifiers": [],
@@ -215,6 +227,7 @@
           "modifiers": [],
           "object": {
             "kind": 52,
+            "modifiers": [],
             "name": "console",
             "start": {
               "line": 7,
@@ -227,6 +240,7 @@
           },
           "property": {
             "kind": 52,
+            "modifiers": [],
             "name": "log",
             "start": {
               "line": 7,
@@ -249,6 +263,7 @@
         "arguments": [
           {
             "kind": 52,
+            "modifiers": [],
             "name": "foo",
             "start": {
               "line": 7,

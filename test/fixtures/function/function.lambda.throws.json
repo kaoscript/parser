@@ -7,6 +7,7 @@
       "attributes": [],
       "name": {
         "kind": 52,
+        "modifiers": [],
         "name": "foobar",
         "start": {
           "line": 1,
@@ -33,7 +34,7 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 93,
+            "kind": 94,
             "attributes": [],
             "value": {
               "kind": 62,
@@ -53,6 +54,7 @@
                   },
                   "external": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "x",
                     "start": {
                       "line": 2,
@@ -65,6 +67,7 @@
                   },
                   "internal": {
                     "kind": 52,
+                    "modifiers": [],
                     "name": "x",
                     "start": {
                       "line": 2,
@@ -82,12 +85,14 @@
                 "attributes": [],
                 "statements": [
                   {
-                    "kind": 112,
+                    "kind": 113,
                     "attributes": [],
                     "value": {
                       "kind": 28,
+                      "modifiers": [],
                       "class": {
                         "kind": 52,
+                        "modifiers": [],
                         "name": "Error",
                         "start": {
                           "line": 3,
@@ -138,6 +143,7 @@
               "throws": [
                 {
                   "kind": 52,
+                  "modifiers": [],
                   "name": "Error",
                   "start": {
                     "line": 2,

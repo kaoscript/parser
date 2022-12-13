@@ -3,11 +3,11 @@
   "attributes": [],
   "body": [
     {
-      "kind": 129,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
-          "kind": 11,
+          "kind": 12,
           "start": {
             "line": 1,
             "column": 5
@@ -20,16 +20,17 @@
       ],
       "declarations": [
         {
-          "kind": 127,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 128,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "text",
                 "start": {
                   "line": 1,
@@ -70,6 +71,7 @@
             },
             "condition": {
               "kind": 12,
+              "modifiers": [],
               "operator": {
                 "kind": 2,
                 "modifiers": [],
@@ -92,6 +94,7 @@
               },
               "left": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "foo",
                 "start": {
                   "line": 1,
@@ -104,6 +107,7 @@
               },
               "right": {
                 "kind": 52,
+                "modifiers": [],
                 "name": "bar",
                 "start": {
                   "line": 1,
@@ -117,6 +121,7 @@
             },
             "whenTrue": {
               "kind": 63,
+              "modifiers": [],
               "value": "hello",
               "start": {
                 "line": 1,
@@ -129,6 +134,7 @@
             },
             "whenFalse": {
               "kind": 63,
+              "modifiers": [],
               "value": "bonjour",
               "start": {
                 "line": 1,
