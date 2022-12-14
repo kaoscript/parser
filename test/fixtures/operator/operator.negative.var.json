@@ -115,44 +115,6 @@
           {
             "kind": 54,
             "attributes": [],
-            "conditions": [
-              {
-                "kind": 123,
-                "modifiers": [],
-                "operator": {
-                  "kind": 3,
-                  "start": {
-                    "line": 2,
-                    "column": 5
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 6
-                  }
-                },
-                "argument": {
-                  "kind": 52,
-                  "modifiers": [],
-                  "name": "x",
-                  "start": {
-                    "line": 2,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 7
-                  }
-                },
-                "start": {
-                  "line": 2,
-                  "column": 5
-                },
-                "end": {
-                  "line": 2,
-                  "column": 7
-                }
-              }
-            ],
             "whenTrue": {
               "kind": 15,
               "attributes": [],
@@ -199,6 +161,42 @@
             "end": {
               "line": 7,
               "column": 3
+            },
+            "condition": {
+              "kind": 123,
+              "modifiers": [],
+              "operator": {
+                "kind": 3,
+                "start": {
+                  "line": 2,
+                  "column": 5
+                },
+                "end": {
+                  "line": 2,
+                  "column": 6
+                }
+              },
+              "argument": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "x",
+                "start": {
+                  "line": 2,
+                  "column": 6
+                },
+                "end": {
+                  "line": 2,
+                  "column": 7
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 5
+              },
+              "end": {
+                "line": 2,
+                "column": 7
+              }
             },
             "whenFalse": {
               "kind": 15,

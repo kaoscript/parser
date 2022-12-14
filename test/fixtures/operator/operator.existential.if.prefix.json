@@ -45,44 +45,6 @@
     {
       "kind": 54,
       "attributes": [],
-      "conditions": [
-        {
-          "kind": 123,
-          "modifiers": [],
-          "operator": {
-            "kind": 1,
-            "start": {
-              "line": 3,
-              "column": 4
-            },
-            "end": {
-              "line": 3,
-              "column": 5
-            }
-          },
-          "argument": {
-            "kind": 52,
-            "modifiers": [],
-            "name": "foo",
-            "start": {
-              "line": 3,
-              "column": 5
-            },
-            "end": {
-              "line": 3,
-              "column": 8
-            }
-          },
-          "start": {
-            "line": 3,
-            "column": 4
-          },
-          "end": {
-            "line": 3,
-            "column": 8
-          }
-        }
-      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],
@@ -173,49 +135,47 @@
       "end": {
         "line": 5,
         "column": 2
+      },
+      "condition": {
+        "kind": 123,
+        "modifiers": [],
+        "operator": {
+          "kind": 1,
+          "start": {
+            "line": 3,
+            "column": 4
+          },
+          "end": {
+            "line": 3,
+            "column": 5
+          }
+        },
+        "argument": {
+          "kind": 52,
+          "modifiers": [],
+          "name": "foo",
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 8
+          }
+        },
+        "start": {
+          "line": 3,
+          "column": 4
+        },
+        "end": {
+          "line": 3,
+          "column": 8
+        }
       }
     },
     {
       "kind": 54,
       "attributes": [],
-      "conditions": [
-        {
-          "kind": 123,
-          "modifiers": [],
-          "operator": {
-            "kind": 1,
-            "start": {
-              "line": 7,
-              "column": 21
-            },
-            "end": {
-              "line": 7,
-              "column": 22
-            }
-          },
-          "argument": {
-            "kind": 52,
-            "modifiers": [],
-            "name": "foo",
-            "start": {
-              "line": 7,
-              "column": 22
-            },
-            "end": {
-              "line": 7,
-              "column": 25
-            }
-          },
-          "start": {
-            "line": 7,
-            "column": 21
-          },
-          "end": {
-            "line": 7,
-            "column": 25
-          }
-        }
-      ],
       "whenTrue": {
         "kind": 17,
         "modifiers": [],
@@ -291,6 +251,42 @@
       "end": {
         "line": 7,
         "column": 25
+      },
+      "condition": {
+        "kind": 123,
+        "modifiers": [],
+        "operator": {
+          "kind": 1,
+          "start": {
+            "line": 7,
+            "column": 21
+          },
+          "end": {
+            "line": 7,
+            "column": 22
+          }
+        },
+        "argument": {
+          "kind": 52,
+          "modifiers": [],
+          "name": "foo",
+          "start": {
+            "line": 7,
+            "column": 22
+          },
+          "end": {
+            "line": 7,
+            "column": 25
+          }
+        },
+        "start": {
+          "line": 7,
+          "column": 21
+        },
+        "end": {
+          "line": 7,
+          "column": 25
+        }
       }
     }
   ],

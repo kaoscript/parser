@@ -174,60 +174,6 @@
                 "body": {
                   "kind": 54,
                   "attributes": [],
-                  "conditions": [
-                    {
-                      "kind": 24,
-                      "modifiers": [],
-                      "values": [
-                        {
-                          "kind": 52,
-                          "modifiers": [],
-                          "name": "y",
-                          "start": {
-                            "line": 4,
-                            "column": 21
-                          },
-                          "end": {
-                            "line": 4,
-                            "column": 22
-                          }
-                        },
-                        {
-                          "kind": 6,
-                          "modifiers": [],
-                          "start": {
-                            "line": 4,
-                            "column": 23
-                          },
-                          "end": {
-                            "line": 4,
-                            "column": 25
-                          }
-                        },
-                        {
-                          "kind": 74,
-                          "modifiers": [],
-                          "value": 0,
-                          "start": {
-                            "line": 4,
-                            "column": 26
-                          },
-                          "end": {
-                            "line": 4,
-                            "column": 27
-                          }
-                        }
-                      ],
-                      "start": {
-                        "line": 4,
-                        "column": 21
-                      },
-                      "end": {
-                        "line": 4,
-                        "column": 27
-                      }
-                    }
-                  ],
                   "whenTrue": {
                     "kind": 94,
                     "attributes": [],
@@ -260,6 +206,58 @@
                   "end": {
                     "line": 4,
                     "column": 27
+                  },
+                  "condition": {
+                    "kind": 24,
+                    "modifiers": [],
+                    "values": [
+                      {
+                        "kind": 52,
+                        "modifiers": [],
+                        "name": "y",
+                        "start": {
+                          "line": 4,
+                          "column": 21
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 22
+                        }
+                      },
+                      {
+                        "kind": 6,
+                        "modifiers": [],
+                        "start": {
+                          "line": 4,
+                          "column": 23
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 25
+                        }
+                      },
+                      {
+                        "kind": 74,
+                        "modifiers": [],
+                        "value": 0,
+                        "start": {
+                          "line": 4,
+                          "column": 26
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 27
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 4,
+                      "column": 21
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 27
+                    }
                   }
                 },
                 "start": {

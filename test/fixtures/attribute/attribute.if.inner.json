@@ -5,21 +5,6 @@
     {
       "kind": 54,
       "attributes": [],
-      "conditions": [
-        {
-          "kind": 52,
-          "modifiers": [],
-          "name": "test",
-          "start": {
-            "line": 1,
-            "column": 4
-          },
-          "end": {
-            "line": 1,
-            "column": 8
-          }
-        }
-      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [
@@ -66,24 +51,22 @@
         "line": 9,
         "column": 2
       },
+      "condition": {
+        "kind": 52,
+        "modifiers": [],
+        "name": "test",
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 8
+        }
+      },
       "whenFalse": {
         "kind": 54,
         "attributes": [],
-        "conditions": [
-          {
-            "kind": 52,
-            "modifiers": [],
-            "name": "ytest",
-            "start": {
-              "line": 4,
-              "column": 9
-            },
-            "end": {
-              "line": 4,
-              "column": 14
-            }
-          }
-        ],
         "whenTrue": {
           "kind": 15,
           "attributes": [
@@ -129,6 +112,19 @@
         "end": {
           "line": 9,
           "column": 2
+        },
+        "condition": {
+          "kind": 52,
+          "modifiers": [],
+          "name": "ytest",
+          "start": {
+            "line": 4,
+            "column": 9
+          },
+          "end": {
+            "line": 4,
+            "column": 14
+          }
         },
         "whenFalse": {
           "kind": 15,

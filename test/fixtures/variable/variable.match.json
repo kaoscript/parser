@@ -5,113 +5,6 @@
     {
       "kind": 54,
       "attributes": [],
-      "conditions": [
-        {
-          "kind": 12,
-          "modifiers": [],
-          "operator": {
-            "kind": 3,
-            "assignment": 7,
-            "start": {
-              "line": 2,
-              "column": 10
-            },
-            "end": {
-              "line": 2,
-              "column": 12
-            }
-          },
-          "start": {
-            "line": 2,
-            "column": 4
-          },
-          "end": {
-            "line": 2,
-            "column": 83
-          },
-          "left": {
-            "kind": 52,
-            "modifiers": [],
-            "name": "match",
-            "start": {
-              "line": 2,
-              "column": 4
-            },
-            "end": {
-              "line": 2,
-              "column": 9
-            }
-          },
-          "right": {
-            "kind": 17,
-            "modifiers": [],
-            "scope": {
-              "kind": 3
-            },
-            "callee": {
-              "kind": 66,
-              "modifiers": [],
-              "object": {
-                "kind": 89,
-                "modifiers": [],
-                "value": "/^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/",
-                "start": {
-                  "line": 2,
-                  "column": 13
-                },
-                "end": {
-                  "line": 2,
-                  "column": 71
-                }
-              },
-              "property": {
-                "kind": 52,
-                "modifiers": [],
-                "name": "exec",
-                "start": {
-                  "line": 2,
-                  "column": 72
-                },
-                "end": {
-                  "line": 2,
-                  "column": 76
-                }
-              },
-              "start": {
-                "line": 2,
-                "column": 13
-              },
-              "end": {
-                "line": 2,
-                "column": 76
-              }
-            },
-            "arguments": [
-              {
-                "kind": 52,
-                "modifiers": [],
-                "name": "color",
-                "start": {
-                  "line": 2,
-                  "column": 77
-                },
-                "end": {
-                  "line": 2,
-                  "column": 82
-                }
-              }
-            ],
-            "start": {
-              "line": 2,
-              "column": 13
-            },
-            "end": {
-              "line": 2,
-              "column": 83
-            }
-          }
-        }
-      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],
@@ -973,6 +866,111 @@
       "end": {
         "line": 7,
         "column": 2
+      },
+      "condition": {
+        "kind": 12,
+        "modifiers": [],
+        "operator": {
+          "kind": 3,
+          "assignment": 7,
+          "start": {
+            "line": 2,
+            "column": 10
+          },
+          "end": {
+            "line": 2,
+            "column": 12
+          }
+        },
+        "start": {
+          "line": 2,
+          "column": 4
+        },
+        "end": {
+          "line": 2,
+          "column": 83
+        },
+        "left": {
+          "kind": 52,
+          "modifiers": [],
+          "name": "match",
+          "start": {
+            "line": 2,
+            "column": 4
+          },
+          "end": {
+            "line": 2,
+            "column": 9
+          }
+        },
+        "right": {
+          "kind": 17,
+          "modifiers": [],
+          "scope": {
+            "kind": 3
+          },
+          "callee": {
+            "kind": 66,
+            "modifiers": [],
+            "object": {
+              "kind": 89,
+              "modifiers": [],
+              "value": "/^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/",
+              "start": {
+                "line": 2,
+                "column": 13
+              },
+              "end": {
+                "line": 2,
+                "column": 71
+              }
+            },
+            "property": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "exec",
+              "start": {
+                "line": 2,
+                "column": 72
+              },
+              "end": {
+                "line": 2,
+                "column": 76
+              }
+            },
+            "start": {
+              "line": 2,
+              "column": 13
+            },
+            "end": {
+              "line": 2,
+              "column": 76
+            }
+          },
+          "arguments": [
+            {
+              "kind": 52,
+              "modifiers": [],
+              "name": "color",
+              "start": {
+                "line": 2,
+                "column": 77
+              },
+              "end": {
+                "line": 2,
+                "column": 82
+              }
+            }
+          ],
+          "start": {
+            "line": 2,
+            "column": 13
+          },
+          "end": {
+            "line": 2,
+            "column": 83
+          }
+        }
       }
     }
   ],

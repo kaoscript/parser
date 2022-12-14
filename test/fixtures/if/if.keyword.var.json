@@ -11,7 +11,7 @@
         "statements": [],
         "start": {
           "line": 1,
-          "column": 12
+          "column": 13
         },
         "end": {
           "line": 2,
@@ -27,18 +27,32 @@
         "column": 2
       },
       "condition": {
-        "kind": 12,
+        "kind": 66,
         "modifiers": [],
-        "operator": {
-          "kind": 3,
-          "assignment": 6,
+        "object": {
+          "kind": 52,
+          "modifiers": [],
+          "name": "var",
           "start": {
             "line": 1,
-            "column": 7
+            "column": 4
           },
           "end": {
             "line": 1,
+            "column": 7
+          }
+        },
+        "property": {
+          "kind": 52,
+          "modifiers": [],
+          "name": "test",
+          "start": {
+            "line": 1,
             "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 12
           }
         },
         "start": {
@@ -47,33 +61,7 @@
         },
         "end": {
           "line": 1,
-          "column": 11
-        },
-        "left": {
-          "kind": 52,
-          "modifiers": [],
-          "name": "x",
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 1,
-            "column": 6
-          }
-        },
-        "right": {
-          "kind": 52,
-          "modifiers": [],
-          "name": "y",
-          "start": {
-            "line": 1,
-            "column": 9
-          },
-          "end": {
-            "line": 1,
-            "column": 10
-          }
+          "column": 12
         }
       }
     }

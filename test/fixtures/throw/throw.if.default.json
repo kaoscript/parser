@@ -5,67 +5,6 @@
     {
       "kind": 54,
       "attributes": [],
-      "conditions": [
-        {
-          "kind": 123,
-          "modifiers": [],
-          "operator": {
-            "kind": 3,
-            "start": {
-              "line": 1,
-              "column": 35
-            },
-            "end": {
-              "line": 1,
-              "column": 36
-            }
-          },
-          "argument": {
-            "kind": 123,
-            "modifiers": [],
-            "operator": {
-              "kind": 1,
-              "start": {
-                "line": 1,
-                "column": 36
-              },
-              "end": {
-                "line": 1,
-                "column": 37
-              }
-            },
-            "argument": {
-              "kind": 52,
-              "modifiers": [],
-              "name": "x",
-              "start": {
-                "line": 1,
-                "column": 37
-              },
-              "end": {
-                "line": 1,
-                "column": 38
-              }
-            },
-            "start": {
-              "line": 1,
-              "column": 36
-            },
-            "end": {
-              "line": 1,
-              "column": 38
-            }
-          },
-          "start": {
-            "line": 1,
-            "column": 35
-          },
-          "end": {
-            "line": 1,
-            "column": 38
-          }
-        }
-      ],
       "whenTrue": {
         "kind": 113,
         "attributes": [],
@@ -125,6 +64,65 @@
       "end": {
         "line": 1,
         "column": 38
+      },
+      "condition": {
+        "kind": 123,
+        "modifiers": [],
+        "operator": {
+          "kind": 3,
+          "start": {
+            "line": 1,
+            "column": 35
+          },
+          "end": {
+            "line": 1,
+            "column": 36
+          }
+        },
+        "argument": {
+          "kind": 123,
+          "modifiers": [],
+          "operator": {
+            "kind": 1,
+            "start": {
+              "line": 1,
+              "column": 36
+            },
+            "end": {
+              "line": 1,
+              "column": 37
+            }
+          },
+          "argument": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 37
+            },
+            "end": {
+              "line": 1,
+              "column": 38
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 36
+          },
+          "end": {
+            "line": 1,
+            "column": 38
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 35
+        },
+        "end": {
+          "line": 1,
+          "column": 38
+        }
       }
     }
   ],

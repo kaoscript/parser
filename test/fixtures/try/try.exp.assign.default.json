@@ -90,21 +90,6 @@
           {
             "kind": 54,
             "attributes": [],
-            "conditions": [
-              {
-                "kind": 52,
-                "modifiers": [],
-                "name": "x",
-                "start": {
-                  "line": 2,
-                  "column": 5
-                },
-                "end": {
-                  "line": 2,
-                  "column": 6
-                }
-              }
-            ],
             "whenTrue": {
               "kind": 15,
               "attributes": [],
@@ -151,6 +136,19 @@
             "end": {
               "line": 7,
               "column": 3
+            },
+            "condition": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "x",
+              "start": {
+                "line": 2,
+                "column": 5
+              },
+              "end": {
+                "line": 2,
+                "column": 6
+              }
             },
             "whenFalse": {
               "kind": 15,

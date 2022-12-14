@@ -5,125 +5,6 @@
     {
       "kind": 54,
       "attributes": [],
-      "conditions": [
-        {
-          "kind": 24,
-          "modifiers": [],
-          "values": [
-            {
-              "kind": 52,
-              "modifiers": [],
-              "name": "color",
-              "start": {
-                "line": 1,
-                "column": 4
-              },
-              "end": {
-                "line": 1,
-                "column": 9
-              }
-            },
-            {
-              "kind": 6,
-              "modifiers": [],
-              "start": {
-                "line": 1,
-                "column": 10
-              },
-              "end": {
-                "line": 1,
-                "column": 12
-              }
-            },
-            {
-              "kind": 61,
-              "modifiers": [],
-              "operator": {
-                "kind": 19,
-                "modifiers": [],
-                "start": {
-                  "line": 1,
-                  "column": 21
-                },
-                "end": {
-                  "line": 1,
-                  "column": 22
-                }
-              },
-              "operands": [
-                {
-                  "kind": 63,
-                  "modifiers": [],
-                  "value": "white",
-                  "start": {
-                    "line": 1,
-                    "column": 13
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 20
-                  }
-                },
-                {
-                  "kind": 63,
-                  "modifiers": [],
-                  "value": "black",
-                  "start": {
-                    "line": 1,
-                    "column": 23
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 30
-                  }
-                },
-                {
-                  "kind": 63,
-                  "modifiers": [],
-                  "value": "gray",
-                  "start": {
-                    "line": 1,
-                    "column": 33
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 39
-                  }
-                },
-                {
-                  "kind": 63,
-                  "modifiers": [],
-                  "value": "grey",
-                  "start": {
-                    "line": 1,
-                    "column": 42
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 48
-                  }
-                }
-              ],
-              "start": {
-                "line": 1,
-                "column": 13
-              },
-              "end": {
-                "line": 1,
-                "column": 48
-              }
-            }
-          ],
-          "start": {
-            "line": 1,
-            "column": 4
-          },
-          "end": {
-            "line": 1,
-            "column": 48
-          }
-        }
-      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],
@@ -144,6 +25,123 @@
       "end": {
         "line": 2,
         "column": 2
+      },
+      "condition": {
+        "kind": 24,
+        "modifiers": [],
+        "values": [
+          {
+            "kind": 52,
+            "modifiers": [],
+            "name": "color",
+            "start": {
+              "line": 1,
+              "column": 4
+            },
+            "end": {
+              "line": 1,
+              "column": 9
+            }
+          },
+          {
+            "kind": 6,
+            "modifiers": [],
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 12
+            }
+          },
+          {
+            "kind": 61,
+            "modifiers": [],
+            "operator": {
+              "kind": 19,
+              "modifiers": [],
+              "start": {
+                "line": 1,
+                "column": 21
+              },
+              "end": {
+                "line": 1,
+                "column": 22
+              }
+            },
+            "operands": [
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "white",
+                "start": {
+                  "line": 1,
+                  "column": 13
+                },
+                "end": {
+                  "line": 1,
+                  "column": 20
+                }
+              },
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "black",
+                "start": {
+                  "line": 1,
+                  "column": 23
+                },
+                "end": {
+                  "line": 1,
+                  "column": 30
+                }
+              },
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "gray",
+                "start": {
+                  "line": 1,
+                  "column": 33
+                },
+                "end": {
+                  "line": 1,
+                  "column": 39
+                }
+              },
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "grey",
+                "start": {
+                  "line": 1,
+                  "column": 42
+                },
+                "end": {
+                  "line": 1,
+                  "column": 48
+                }
+              }
+            ],
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 48
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 48
+        }
       }
     }
   ],

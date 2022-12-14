@@ -90,21 +90,6 @@
           {
             "kind": 54,
             "attributes": [],
-            "conditions": [
-              {
-                "kind": 52,
-                "modifiers": [],
-                "name": "x",
-                "start": {
-                  "line": 2,
-                  "column": 5
-                },
-                "end": {
-                  "line": 2,
-                  "column": 6
-                }
-              }
-            ],
             "whenTrue": {
               "kind": 15,
               "attributes": [],
@@ -151,6 +136,19 @@
             "end": {
               "line": 7,
               "column": 3
+            },
+            "condition": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "x",
+              "start": {
+                "line": 2,
+                "column": 5
+              },
+              "end": {
+                "line": 2,
+                "column": 6
+              }
             },
             "whenFalse": {
               "kind": 15,
@@ -233,63 +231,6 @@
     {
       "kind": 54,
       "attributes": [],
-      "conditions": [
-        {
-          "kind": 115,
-          "modifiers": [],
-          "argument": {
-            "kind": 17,
-            "modifiers": [],
-            "scope": {
-              "kind": 3
-            },
-            "callee": {
-              "kind": 52,
-              "modifiers": [],
-              "name": "foobar",
-              "start": {
-                "line": 10,
-                "column": 8
-              },
-              "end": {
-                "line": 10,
-                "column": 14
-              }
-            },
-            "arguments": [
-              {
-                "kind": 52,
-                "modifiers": [],
-                "name": "true",
-                "start": {
-                  "line": 10,
-                  "column": 15
-                },
-                "end": {
-                  "line": 10,
-                  "column": 19
-                }
-              }
-            ],
-            "start": {
-              "line": 10,
-              "column": 8
-            },
-            "end": {
-              "line": 10,
-              "column": 20
-            }
-          },
-          "start": {
-            "line": 10,
-            "column": 4
-          },
-          "end": {
-            "line": 10,
-            "column": 20
-          }
-        }
-      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],
@@ -310,6 +251,61 @@
       "end": {
         "line": 13,
         "column": 2
+      },
+      "condition": {
+        "kind": 115,
+        "modifiers": [],
+        "argument": {
+          "kind": 17,
+          "modifiers": [],
+          "scope": {
+            "kind": 3
+          },
+          "callee": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "foobar",
+            "start": {
+              "line": 10,
+              "column": 8
+            },
+            "end": {
+              "line": 10,
+              "column": 14
+            }
+          },
+          "arguments": [
+            {
+              "kind": 52,
+              "modifiers": [],
+              "name": "true",
+              "start": {
+                "line": 10,
+                "column": 15
+              },
+              "end": {
+                "line": 10,
+                "column": 19
+              }
+            }
+          ],
+          "start": {
+            "line": 10,
+            "column": 8
+          },
+          "end": {
+            "line": 10,
+            "column": 20
+          }
+        },
+        "start": {
+          "line": 10,
+          "column": 4
+        },
+        "end": {
+          "line": 10,
+          "column": 20
+        }
       },
       "whenFalse": {
         "kind": 15,

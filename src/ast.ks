@@ -119,7 +119,7 @@ namespace AST {
 		var precedences = {}
 		var mut precedenceList = []
 
-		for i from 1 til operations.length by 2 {
+		for i from 1 to~ operations.length step 2 {
 			if operations[i].kind == NodeKind::ConditionalExpression {
 				if ?precedences[CONDITIONAL_PRECEDENCE] {
 					precedences[CONDITIONAL_PRECEDENCE] += 1
@@ -154,7 +154,7 @@ namespace AST {
 		for var precedence in precedenceList {
 			count = precedences[precedence]
 
-			for k from 1 til operations.length by 2 while count > 0 {
+			for k from 1 to~ operations.length step 2 while count > 0 {
 				if operations[k].kind == NodeKind::ConditionalExpression {
 					if precedence == CONDITIONAL_PRECEDENCE {
 						count -= 1
@@ -987,13 +987,20 @@ namespace AST {
 			return node
 		} # }}}
 
-		func IfStatement(conditions: Array, whenTrue, whenFalse?, first, last) { # {{{
+		func IfStatement(condition?, declaration?, whenTrue, whenFalse?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::IfStatement
 				attributes: []
-				conditions: [condition.value for condition in conditions]
 				whenTrue: whenTrue.value
 			}, first, last)
+
+			if condition != null {
+				node.condition = condition.value
+			}
+
+			if declaration != null {
+				node.declaration = declaration.value
+			}
 
 			if whenFalse != null {
 				node.whenFalse = whenFalse.value

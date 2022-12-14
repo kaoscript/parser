@@ -121,69 +121,6 @@
               {
                 "kind": 54,
                 "attributes": [],
-                "conditions": [
-                  {
-                    "kind": 123,
-                    "modifiers": [],
-                    "operator": {
-                      "kind": 1,
-                      "start": {
-                        "line": 3,
-                        "column": 6
-                      },
-                      "end": {
-                        "line": 3,
-                        "column": 7
-                      }
-                    },
-                    "argument": {
-                      "kind": 66,
-                      "modifiers": [],
-                      "object": {
-                        "kind": 52,
-                        "modifiers": [],
-                        "name": "data",
-                        "start": {
-                          "line": 3,
-                          "column": 7
-                        },
-                        "end": {
-                          "line": 3,
-                          "column": 11
-                        }
-                      },
-                      "property": {
-                        "kind": 52,
-                        "modifiers": [],
-                        "name": "components",
-                        "start": {
-                          "line": 3,
-                          "column": 12
-                        },
-                        "end": {
-                          "line": 3,
-                          "column": 22
-                        }
-                      },
-                      "start": {
-                        "line": 3,
-                        "column": 7
-                      },
-                      "end": {
-                        "line": 3,
-                        "column": 22
-                      }
-                    },
-                    "start": {
-                      "line": 3,
-                      "column": 6
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 22
-                    }
-                  }
-                ],
                 "whenTrue": {
                   "kind": 15,
                   "attributes": [],
@@ -1499,6 +1436,67 @@
                 "end": {
                   "line": 32,
                   "column": 4
+                },
+                "condition": {
+                  "kind": 123,
+                  "modifiers": [],
+                  "operator": {
+                    "kind": 1,
+                    "start": {
+                      "line": 3,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 7
+                    }
+                  },
+                  "argument": {
+                    "kind": 66,
+                    "modifiers": [],
+                    "object": {
+                      "kind": 52,
+                      "modifiers": [],
+                      "name": "data",
+                      "start": {
+                        "line": 3,
+                        "column": 7
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 11
+                      }
+                    },
+                    "property": {
+                      "kind": 52,
+                      "modifiers": [],
+                      "name": "components",
+                      "start": {
+                        "line": 3,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 22
+                      }
+                    },
+                    "start": {
+                      "line": 3,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 22
+                    }
+                  },
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 22
+                  }
                 },
                 "whenFalse": {
                   "kind": 15,

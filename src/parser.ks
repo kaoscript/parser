@@ -1123,7 +1123,7 @@ export namespace Parser {
 
 				var condition = @reqExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.IfStatement([condition], @yep(AST.BreakStatement(first)), null, first, condition))
+				return @yep(AST.IfStatement(condition, null, @yep(AST.BreakStatement(first)), null, first, condition))
 			}
 			else if @token == Token::UNLESS {
 				@commit()
@@ -1812,7 +1812,7 @@ export namespace Parser {
 
 				var condition = @reqExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.IfStatement([condition], @yep(AST.ContinueStatement(first)), null, first, condition))
+				return @yep(AST.IfStatement(condition, null, @yep(AST.ContinueStatement(first)), null, first, condition))
 			}
 			else if @token == Token::UNLESS {
 				@commit()
@@ -2618,7 +2618,7 @@ export namespace Parser {
 
 				var condition = @reqExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.IfStatement([condition], expression, null, expression, condition))
+				return @yep(AST.IfStatement(condition, null, expression, null, expression, condition))
 			}
 			else if @token == Token::REPEAT {
 				@commit().NL_0M()
@@ -3225,7 +3225,7 @@ export namespace Parser {
 						return @yep(AST.ReturnStatement(@yep(AST.IfExpression(condition, expression, whenFalse, expression, whenFalse)), expression, whenFalse))
 					}
 					else if @token == Token::NEWLINE || @token == Token::EOF {
-						return @yep(AST.IfStatement([condition], @yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
+						return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
 					}
 					else {
 						@throw()
@@ -3289,7 +3289,8 @@ export namespace Parser {
 			}
 		} # }}}
 		reqIfStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var conditions = []
+			var mut condition: Event? = null
+			var mut declaration: Event? = null
 
 			if @test(Token::VAR) {
 				var mark = @mark()
@@ -3327,33 +3328,33 @@ export namespace Parser {
 						var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
 						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
-						conditions.push(@yep(AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression)))
+						declaration = @yep(AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression))
 					}
 					else {
 						var operator = @reqConditionAssignment()
 						var expression = @reqExpression(ExpressionMode::Default, fMode)
 
-						conditions.push(@yep(AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression)))
+						declaration = @yep(AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression))
+					}
+
+					@NL_0M()
+
+					if @test(Token::SEMICOLON) {
+						@commit().NL_0M()
+
+						condition = @reqExpression(ExpressionMode::NoAnonymousFunction, fMode)
 					}
 				}
 				else {
 					@rollback(mark)
 
-					conditions.push(@reqExpression(ExpressionMode::NoAnonymousFunction, fMode))
-				}
-
-				@NL_0M()
-
-				if @test(Token::SEMICOLON) {
-					@commit().NL_0M()
-
-					conditions.push(@reqExpression(ExpressionMode::NoAnonymousFunction, fMode))
+					condition = @reqExpression(ExpressionMode::NoAnonymousFunction, fMode)
 				}
 			}
 			else {
 				@NL_0M()
 
-				conditions.push(@reqExpression(ExpressionMode::NoAnonymousFunction, fMode))
+				condition = @reqExpression(ExpressionMode::NoAnonymousFunction, fMode)
 			}
 
 			@NL_0M()
@@ -3372,23 +3373,23 @@ export namespace Parser {
 
 					var whenFalse = @reqIfStatement(position, fMode)
 
-					return @yep(AST.IfStatement(conditions, whenTrue, whenFalse, first, whenFalse))
+					return @yep(AST.IfStatement(condition, declaration, whenTrue, whenFalse, first, whenFalse))
 				}
 				else if @token == Token::ELSE {
 					@commit().NL_0M()
 
 					var whenFalse = @reqBlock(NO, fMode)
 
-					return @yep(AST.IfStatement(conditions, whenTrue, whenFalse, first, whenFalse))
+					return @yep(AST.IfStatement(condition, declaration, whenTrue, whenFalse, first, whenFalse))
 				}
 				else {
 					@rollback(mark)
 
-					return @yep(AST.IfStatement(conditions, whenTrue, null, first, whenTrue))
+					return @yep(AST.IfStatement(condition, declaration, whenTrue, null, first, whenTrue))
 				}
 			}
 			else {
-				return @yep(AST.IfStatement(conditions, whenTrue, null, first, whenTrue))
+				return @yep(AST.IfStatement(condition, declaration, whenTrue, null, first, whenTrue))
 			}
 		} # }}}
 		reqImplementMemberList(members): Void ~ SyntaxError { # {{{
@@ -5195,7 +5196,7 @@ export namespace Parser {
 
 				var condition = @reqExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.IfStatement([condition], @yep(AST.ReturnStatement(first)), null, first, condition))
+				return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(first)), null, first, condition))
 			}
 			else if @token == Token::NEWLINE || @token == Token::EOF {
 				return @yep(AST.ReturnStatement(first))
@@ -5227,7 +5228,7 @@ export namespace Parser {
 						return @yep(AST.ReturnStatement(@yep(AST.IfExpression(condition, expression, whenFalse, expression, whenFalse)), first, whenFalse))
 					}
 					else if @token == Token::NEWLINE || @token == Token::EOF {
-						return @yep(AST.IfStatement([condition], @yep(AST.ReturnStatement(expression, first, expression)), null, first, condition))
+						return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(expression, first, expression)), null, first, condition))
 					}
 					else {
 						@throw()
@@ -5879,7 +5880,7 @@ export namespace Parser {
 					return @yep(AST.ThrowStatement(@yep(AST.IfExpression(condition, expression, whenFalse, expression, whenFalse)), first, whenFalse))
 				}
 				else if @token == Token::NEWLINE || @token == Token::EOF {
-					return @yep(AST.IfStatement([condition], @yep(AST.ThrowStatement(expression, first, expression)), null, first, condition))
+					return @yep(AST.IfStatement(condition, null, @yep(AST.ThrowStatement(expression, first, expression)), null, first, condition))
 				}
 				else {
 					@throw()
@@ -7780,7 +7781,7 @@ export namespace Parser {
 					var floating = literals[1]
 					var dyn power = 1
 
-					for var i from 0 til floating.length {
+					for var i from 0 to~ floating.length {
 						power *= radix
 
 						value += parseInt(floating[i], radix) / power
@@ -7804,7 +7805,7 @@ export namespace Parser {
 					var floating = literals[1]
 					var dyn power = 1
 
-					for var i from 0 til floating.length {
+					for var i from 0 to~ floating.length {
 						power *= radix
 
 						value += parseInt(floating[i], radix) / power

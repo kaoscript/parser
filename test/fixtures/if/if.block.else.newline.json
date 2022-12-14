@@ -86,60 +86,6 @@
     {
       "kind": 54,
       "attributes": [],
-      "conditions": [
-        {
-          "kind": 24,
-          "modifiers": [],
-          "values": [
-            {
-              "kind": 52,
-              "modifiers": [],
-              "name": "x",
-              "start": {
-                "line": 3,
-                "column": 4
-              },
-              "end": {
-                "line": 3,
-                "column": 5
-              }
-            },
-            {
-              "kind": 6,
-              "modifiers": [],
-              "start": {
-                "line": 3,
-                "column": 6
-              },
-              "end": {
-                "line": 3,
-                "column": 8
-              }
-            },
-            {
-              "kind": 74,
-              "modifiers": [],
-              "value": 3,
-              "start": {
-                "line": 3,
-                "column": 9
-              },
-              "end": {
-                "line": 3,
-                "column": 10
-              }
-            }
-          ],
-          "start": {
-            "line": 3,
-            "column": 4
-          },
-          "end": {
-            "line": 3,
-            "column": 10
-          }
-        }
-      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],
@@ -160,6 +106,58 @@
       "end": {
         "line": 8,
         "column": 2
+      },
+      "condition": {
+        "kind": 24,
+        "modifiers": [],
+        "values": [
+          {
+            "kind": 52,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 3,
+              "column": 4
+            },
+            "end": {
+              "line": 3,
+              "column": 5
+            }
+          },
+          {
+            "kind": 6,
+            "modifiers": [],
+            "start": {
+              "line": 3,
+              "column": 6
+            },
+            "end": {
+              "line": 3,
+              "column": 8
+            }
+          },
+          {
+            "kind": 74,
+            "modifiers": [],
+            "value": 3,
+            "start": {
+              "line": 3,
+              "column": 9
+            },
+            "end": {
+              "line": 3,
+              "column": 10
+            }
+          }
+        ],
+        "start": {
+          "line": 3,
+          "column": 4
+        },
+        "end": {
+          "line": 3,
+          "column": 10
+        }
       },
       "whenFalse": {
         "kind": 15,
