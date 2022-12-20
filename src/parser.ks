@@ -316,12 +316,29 @@ export namespace Parser {
 			@throw(']')
 		} # }}}
 		altForExpressionFrom(modifiers, variable: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var from = @reqExpression(ExpressionMode::Default, fMode)
+			var late from: Event
+			if @token == Token::FROM_TILDE {
+				var modifier = @yep(AST.Modifier(ModifierKind::Ballpark, @yes()))
+
+				from = @reqExpression(ExpressionMode::Default, fMode)
+
+				AST.pushModifier(from.value, modifier)
+			}
+			else {
+				@commit()
+
+				from = @reqExpression(ExpressionMode::Default, fMode)
+			}
 
 			@NL_0M()
 
-			if @test(Token::DOWN) {
+			if @match(Token::DOWN, Token::UP) == Token::DOWN {
 				modifiers.push(AST.Modifier(ModifierKind::Descending, @yes()))
+
+				@NL_0M()
+			}
+			else if @token == Token::UP {
+				modifiers.push(AST.Modifier(ModifierKind::Ascending, @yes()))
 
 				@NL_0M()
 			}
@@ -331,21 +348,19 @@ export namespace Parser {
 				@commit()
 
 				to = @reqExpression(ExpressionMode::Default, fMode)
-
-				@NL_0M()
 			}
 			else if @token == Token::TO_TILDE {
-				modifier = @yep(AST.Modifier(ModifierKind::Ballpark, @yes()))
+				var modifier = @yep(AST.Modifier(ModifierKind::Ballpark, @yes()))
 
 				to = @reqExpression(ExpressionMode::Default, fMode)
 
 				AST.pushModifier(to.value, modifier)
-
-				@NL_0M()
 			}
 			else {
 				@throw('to', 'to~')
 			}
+
+			@NL_0M()
 
 			var mut step: Event? = null
 			if @test(Token::STEP) {
@@ -386,19 +401,35 @@ export namespace Parser {
 			@NL_0M()
 
 			var mut from: Event? = null
-			if @test(Token::FROM) {
+			if @match(Token::FROM, Token::FROM_TILDE) == Token::FROM {
 				@commit()
 
 				from = @reqExpression(ExpressionMode::Default, fMode)
 
 				@NL_0M()
 			}
+			else if @token == Token::FROM_TILDE {
+				modifier = @yep(AST.Modifier(ModifierKind::Ballpark, @yes()))
 
-			var mut desc: Event? = null
-			if @test(Token::DOWN) {
-				desc = @yes()
+				from = @reqExpression(ExpressionMode::Default, fMode)
 
-				modifiers.push(AST.Modifier(ModifierKind::Descending, desc))
+				AST.pushModifier(from.value, modifier)
+
+				@NL_0M()
+			}
+
+			var mut order: Event? = null
+			if @match(Token::DOWN, Token::UP) == Token::DOWN {
+				order = @yes()
+
+				modifiers.push(AST.Modifier(ModifierKind::Descending, order))
+
+				@NL_0M()
+			}
+			else if @token == Token::UP {
+				order = @yes()
+
+				modifiers.push(AST.Modifier(ModifierKind::Ascending, order))
 
 				@NL_0M()
 			}
@@ -463,7 +494,7 @@ export namespace Parser {
 				when = @relocate(@reqExpression(ExpressionMode::Default, fMode), first, null)
 			}
 
-			return @yep(AST.ForInStatement(modifiers, value, type, index, expression, from, to, step, split, until, while, when, first, when ?? while ?? until ?? split ?? step ?? to ?? desc ?? from ?? expression))
+			return @yep(AST.ForInStatement(modifiers, value, type, index, expression, from, to, step, split, until, while, when, first, when ?? while ?? until ?? split ?? step ?? to ?? order ?? from ?? expression))
 		} # }}}
 		altForExpressionInRange(modifiers, value: Event, type: Event, index: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var operand = @tryRangeOperand(ExpressionMode::Default, fMode)
@@ -3152,9 +3183,7 @@ export namespace Parser {
 				}
 			}
 			else {
-				if @match(Token::FROM, Token::IN, Token::OF) == Token::FROM {
-					@commit()
-
+				if @match(Token::FROM, Token::FROM_TILDE, Token::IN, Token::OF) == Token::FROM | Token::FROM_TILDE {
 					return @altForExpressionFrom(modifiers, identifier1, first, fMode)
 				}
 				else if @token == Token::IN {
@@ -3182,7 +3211,7 @@ export namespace Parser {
 			statement.value.body = block.value
 			@relocate(statement, null, block)
 
-			if statement.value.kind == NodeKind::ForInStatement | NodeKind::ForOfStatement {
+			if statement.value.kind == NodeKind::ForFromStatement | NodeKind::ForInStatement | NodeKind::ForOfStatement {
 				var mark = @mark()
 
 				@commit().NL_0M()

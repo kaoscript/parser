@@ -71,6 +71,7 @@ enum Token {
 	FINALLY
 	FOR
 	FROM
+	FROM_TILDE
 	FUNC
 	GET
 	HASH
@@ -187,6 +188,7 @@ enum Token {
 	UNDERSCORE
 	UNLESS
 	UNTIL
+	UP
 	VAR
 	WHEN
 	WHILE
@@ -2447,9 +2449,24 @@ var recognize = {
 			that.charAt(1) == 114 &&
 			that.charAt(2) == 111 &&
 			that.charAt(3) == 109 &&
+			that.charAt(4) != 126 &&
 			that.isBoundary(4)
 		{
 			return that.next(4)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::FROM_TILDE)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 102 &&
+			that.charAt(1) == 114 &&
+			that.charAt(2) == 111 &&
+			that.charAt(3) == 109 &&
+			that.charAt(4) == 126 &&
+			that.isBoundary(5)
+		{
+			return that.next(5)
 		}
 		else {
 			return false
@@ -3194,6 +3211,17 @@ var recognize = {
 			that.isBoundary(5)
 		{
 			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::UP)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 117 &&
+			that.charAt(1) == 112 &&
+			that.isBoundary(2)
+		{
+			return that.next(2)
 		}
 		else {
 			return false
