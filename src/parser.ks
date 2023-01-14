@@ -4611,12 +4611,6 @@ export namespace Parser {
 				return operand
 			}
 			} # }}}
-		reqMatchStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqOperation(ExpressionMode::Default, fMode)
-			var clauses = @reqMatchCaseList(fMode)
-
-			return @yep(AST.MatchStatement(expression, clauses, first, clauses))
-		} # }}}
 		reqNameIB(): Event ~ SyntaxError { # {{{
 			if @match(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::IDENTIFIER {
 				return @reqIdentifier()
@@ -5685,7 +5679,7 @@ export namespace Parser {
 					}
 				}
 				Token::MATCH => {
-					statement = @reqMatchStatement(@yes(), fMode)
+					statement = @tryMatchStatement(@yes(), fMode)
 				}
 				Token::NAMESPACE => {
 					statement = @tryNamespaceStatement(@yes())
@@ -7761,13 +7755,24 @@ export namespace Parser {
 
 			var expression = @tryOperation(eMode, fMode)
 
-			unless expression.ok {
+			unless expression.ok && @test(Token::LEFT_CURLY) {
 				return NO
 			}
 
 			var clauses = @reqMatchCaseList(fMode)
 
 			return @yep(AST.MatchExpression(expression, clauses, first, clauses))
+		} # }}}
+		tryMatchStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var expression = @tryOperation(ExpressionMode::Default, fMode)
+
+			unless expression.ok && @test(Token::LEFT_CURLY) {
+				return NO
+			}
+
+			var clauses = @reqMatchCaseList(fMode)
+
+			return @yep(AST.MatchStatement(expression, clauses, first, clauses))
 		} # }}}
 		tryMethodReturns(isAllowingAuto: Boolean = true): Event? ~ SyntaxError { # {{{
 			var mark = @mark()
