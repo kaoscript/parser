@@ -708,38 +708,38 @@ export namespace Parser {
 
 				@stackOuterAttributes(attrs)
 
-				switch @matchM(M.MODULE_STATEMENT) {
-					Token::DISCLOSE => {
+				match @matchM(M.MODULE_STATEMENT) {
+					Token::DISCLOSE {
 						statement = @reqDiscloseStatement(@yes()).value
 					}
-					Token::EXPORT => {
+					Token::EXPORT {
 						statement = @reqExportStatement(@yes()).value
 					}
-					Token::EXTERN => {
+					Token::EXTERN {
 						statement = @reqExternStatement(@yes()).value
 					}
-					Token::EXTERN_IMPORT => {
+					Token::EXTERN_IMPORT {
 						statement = @reqExternOrImportStatement(@yes()).value
 					}
-					Token::EXTERN_REQUIRE => {
+					Token::EXTERN_REQUIRE {
 						statement = @reqExternOrRequireStatement(@yes()).value
 					}
-					Token::INCLUDE => {
+					Token::INCLUDE {
 						statement = @reqIncludeStatement(@yes()).value
 					}
-					Token::INCLUDE_AGAIN => {
+					Token::INCLUDE_AGAIN {
 						statement = @reqIncludeAgainStatement(@yes()).value
 					}
-					Token::REQUIRE => {
+					Token::REQUIRE {
 						statement = @reqRequireStatement(@yes()).value
 					}
-					Token::REQUIRE_EXTERN => {
+					Token::REQUIRE_EXTERN {
 						statement = @reqRequireOrExternStatement(@yes()).value
 					}
-					Token::REQUIRE_IMPORT => {
+					Token::REQUIRE_IMPORT {
 						statement = @reqRequireOrImportStatement(@yes()).value
 					}
-					=> {
+					else {
 						statement = @reqStatement(FunctionMode::Function).value
 					}
 				}
@@ -2219,8 +2219,8 @@ export namespace Parser {
 			return @yep(AST.EnumDeclaration(attributes, modifiers, name, type, members, first, @yes()))
 		} # }}}
 		reqExportDeclarator(): Event ~ SyntaxError { # {{{
-			switch @matchM(M.EXPORT_STATEMENT) {
-				Token::ABSTRACT => {
+			match @matchM(M.EXPORT_STATEMENT) {
+				Token::ABSTRACT {
 					var first = @yes()
 
 					if @test(Token::CLASS) {
@@ -2234,7 +2234,7 @@ export namespace Parser {
 						@throw('class')
 					}
 				}
-				Token::ASYNC => {
+				Token::ASYNC {
 					var first = @reqIdentifier()
 
 					if @test(Token::FUNC) {
@@ -2248,16 +2248,16 @@ export namespace Parser {
 						return @reqExportIdentifier(first)
 					}
 				}
-				Token::BITMASK => {
+				Token::BITMASK {
 					return @yep(AST.DeclarationSpecifier(@reqBitmaskStatement(@yes())))
 				}
-				Token::CLASS => {
+				Token::CLASS {
 					return @yep(AST.DeclarationSpecifier(@reqClassStatement(@yes())))
 				}
-				Token::ENUM => {
+				Token::ENUM {
 					return @yep(AST.DeclarationSpecifier(@reqEnumStatement(@yes())))
 				}
-				Token::FINAL => {
+				Token::FINAL {
 					var first = @yes()
 					var modifiers = [@yep(AST.Modifier(ModifierKind::Immutable, first))]
 
@@ -2282,13 +2282,13 @@ export namespace Parser {
 						@throw('class')
 					}
 				}
-				Token::FUNC => {
+				Token::FUNC {
 					return @yep(AST.DeclarationSpecifier(@reqFunctionStatement(@yes())))
 				}
-				Token::IDENTIFIER => {
+				Token::IDENTIFIER {
 					return @reqExportIdentifier(@reqIdentifier())
 				}
-				Token::MACRO => {
+				Token::MACRO {
 					if @mode !~ ParserMode::MacroExpression {
 						return @yep(AST.DeclarationSpecifier(@tryMacroStatement(@yes())))
 					}
@@ -2296,10 +2296,10 @@ export namespace Parser {
 						return @yep(AST.DeclarationSpecifier(@reqMacroExpression(@yes())))
 					}
 				}
-				Token::NAMESPACE => {
+				Token::NAMESPACE {
 					return @yep(AST.DeclarationSpecifier(@tryNamespaceStatement(@yes())))
 				}
-				Token::SEALED => {
+				Token::SEALED {
 					var first = @yes()
 					var modifiers = [@yep(AST.Modifier(ModifierKind::Sealed, first))]
 
@@ -2324,19 +2324,19 @@ export namespace Parser {
 						@throw('class')
 					}
 				}
-				Token::STRUCT => {
+				Token::STRUCT {
 					return @yep(AST.DeclarationSpecifier(@reqStructStatement(@yes())))
 				}
-				Token::TUPLE => {
+				Token::TUPLE {
 					return @yep(AST.DeclarationSpecifier(@reqTupleStatement(@yes())))
 				}
-				Token::TYPE => {
+				Token::TYPE {
 					return @yep(AST.DeclarationSpecifier(@reqTypeStatement(@yes(), @reqIdentifier())))
 				}
-				Token::VAR => {
+				Token::VAR {
 					return @yep(AST.DeclarationSpecifier(@reqVarStatement(@yes(), ExpressionMode::NoAwait, FunctionMode::Function)))
 				}
-				=> {
+				else {
 					@throw()
 				}
 			}
@@ -4101,15 +4101,15 @@ export namespace Parser {
 			}
 
 			while true {
-				switch @matchM(M.MACRO) {
-					Token::EOF => {
+				match @matchM(M.MACRO) {
+					Token::EOF {
 						if history.length == 0 && terminator !~ MacroTerminator::NEWLINE {
 							@throw()
 						}
 
 						break
 					}
-					Token::HASH_LEFT_ROUND => {
+					Token::HASH_LEFT_ROUND {
 						addLiteral()
 
 						var first = @yes()
@@ -4119,7 +4119,7 @@ export namespace Parser {
 
 						elements.push(@yep(AST.MacroElementExpression(expression, null, first, @yes())))
 					}
-					Token::HASH_A_LEFT_ROUND => {
+					Token::HASH_A_LEFT_ROUND {
 						addLiteral()
 
 						var reification = AST.Modifier(ReificationKind::Argument, @yes())
@@ -4129,7 +4129,7 @@ export namespace Parser {
 
 						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
 					}
-					Token::HASH_E_LEFT_ROUND => {
+					Token::HASH_E_LEFT_ROUND {
 						addLiteral()
 
 						var reification = AST.Modifier(ReificationKind::Expression, @yes())
@@ -4139,7 +4139,7 @@ export namespace Parser {
 
 						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
 					}
-					Token::HASH_J_LEFT_ROUND => {
+					Token::HASH_J_LEFT_ROUND {
 						addLiteral()
 
 						var reification = AST.Modifier(ReificationKind::Join, @yes())
@@ -4159,7 +4159,7 @@ export namespace Parser {
 
 						elements.push(@yep(ast))
 					}
-					Token::HASH_S_LEFT_ROUND => {
+					Token::HASH_S_LEFT_ROUND {
 						addLiteral()
 
 						var reification = AST.Modifier(ReificationKind::Statement, @yes())
@@ -4169,7 +4169,7 @@ export namespace Parser {
 
 						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
 					}
-					Token::HASH_W_LEFT_ROUND => {
+					Token::HASH_W_LEFT_ROUND {
 						addLiteral()
 
 						var reification = AST.Modifier(ReificationKind::Write, @yes())
@@ -4179,20 +4179,20 @@ export namespace Parser {
 
 						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
 					}
-					Token::INVALID => {
+					Token::INVALID {
 						addToLiteral()
 					}
-					Token::LEFT_CURLY => {
+					Token::LEFT_CURLY {
 						addToLiteral()
 
 						history.unshift(Token::RIGHT_CURLY)
 					}
-					Token::LEFT_ROUND => {
+					Token::LEFT_ROUND {
 						addToLiteral()
 
 						history.unshift(Token::RIGHT_ROUND)
 					}
-					Token::NEWLINE => {
+					Token::NEWLINE {
 						if history.length == 0 && terminator ~~ MacroTerminator::NEWLINE {
 							break
 						}
@@ -4204,7 +4204,7 @@ export namespace Parser {
 							@scanner.skip()
 						}
 					}
-					Token::RIGHT_CURLY => {
+					Token::RIGHT_CURLY {
 						if history.length == 0 {
 							if terminator !~ MacroTerminator::RIGHT_CURLY {
 								addToLiteral()
@@ -4221,7 +4221,7 @@ export namespace Parser {
 							}
 						}
 					}
-					Token::RIGHT_ROUND => {
+					Token::RIGHT_ROUND {
 						if history.length == 0 {
 							if terminator !~ MacroTerminator::RIGHT_ROUND {
 								addToLiteral()
@@ -4351,14 +4351,14 @@ export namespace Parser {
 			return @yep(bindings)
 		} # }}}
 		reqMatchBindingValue(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			switch @match(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
-				Token::LEFT_CURLY => {
+			match @match(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+				Token::LEFT_CURLY {
 					return @reqDestructuringObject(@yes(), DestructuringMode::Nil, fMode)
 				}
-				Token::LEFT_SQUARE => {
+				Token::LEFT_SQUARE {
 					return @reqDestructuringArray(@yes(), DestructuringMode::Nil, fMode)
 				}
-				=> {
+				else {
 					var name = @reqIdentifier()
 
 					if @test(Token::AS) {
@@ -4375,17 +4375,17 @@ export namespace Parser {
 			}
 		} # }}}
 		reqMatchCaseExpression(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			switch @match(Token::RETURN, Token::THROW) {
-				Token::RETURN => {
+			match @match(Token::RETURN, Token::THROW) {
+				Token::RETURN {
 					return @reqReturnStatement(@yes(), fMode)
 				}
-				Token::THROW => {
+				Token::THROW {
 					var first = @yes()
 					var expression = @reqExpression(ExpressionMode::Default, fMode)
 
 					return @yep(AST.ThrowStatement(expression, first, expression))
 				}
-				=> {
+				else {
 					return @reqExpression(ExpressionMode::Default, fMode)
 				}
 			}
@@ -4486,17 +4486,17 @@ export namespace Parser {
 			return @yes(clauses)
 		} # }}}
 		reqMatchCondition(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			switch @match(Token::LEFT_CURLY, Token::LEFT_SQUARE, Token::IS, Token::COLON) {
-				Token::COLON => {
+			match @match(Token::LEFT_CURLY, Token::LEFT_SQUARE, Token::IS, Token::COLON) {
+				Token::COLON {
 					throw new Error('Not Implemented')
 				}
-				Token::IS => {
+				Token::IS {
 					var first = @yes()
 					var type = @reqType()
 
 					return @yep(AST.MatchConditionType(type, first, type))
 				}
-				Token::LEFT_CURLY => {
+				Token::LEFT_CURLY {
 					var dyn first = @yes()
 
 					var members = []
@@ -4533,7 +4533,7 @@ export namespace Parser {
 
 					return @yep(AST.MatchConditionObject(members, first, @yes()))
 				}
-				Token::LEFT_SQUARE => {
+				Token::LEFT_SQUARE {
 					var dyn first = @yes()
 
 					var values = []
@@ -4569,7 +4569,7 @@ export namespace Parser {
 
 					return @yep(AST.MatchConditionArray(values, first, @yes()))
 				}
-				=> {
+				else {
 					return @reqMatchConditionValue(fMode)
 				}
 			}
@@ -5349,14 +5349,14 @@ export namespace Parser {
 			operand = @reqUnaryOperand(operand, eMode, fMode)
 
 			var dyn operator
-			switch @matchM(M.POSTFIX_OPERATOR) {
-				Token::EXCLAMATION_EXCLAMATION => {
+			match @matchM(M.POSTFIX_OPERATOR) {
+				Token::EXCLAMATION_EXCLAMATION {
 					operator = @yep(AST.UnaryOperator(UnaryOperatorKind::ForcedTypeCasting, @yes()))
 				}
-				Token::EXCLAMATION_QUESTION => {
+				Token::EXCLAMATION_QUESTION {
 					operator = @yep(AST.UnaryOperator(UnaryOperatorKind::NullableTypeCasting, @yes()))
 				}
-				=> {
+				else {
 					return operand
 				}
 			}
@@ -5364,26 +5364,26 @@ export namespace Parser {
 			return @reqPostfixedOperand(@yep(AST.UnaryExpression(operator, operand, operand, operator)), eMode, fMode)
 		} # }}}
 		reqPrefixedOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			switch @matchM(M.PREFIX_OPERATOR) {
-				Token::DOT_DOT_DOT => {
+			match @matchM(M.PREFIX_OPERATOR) {
+				Token::DOT_DOT_DOT {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind::Spread, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
 				}
-				Token::EXCLAMATION => {
+				Token::EXCLAMATION {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind::Negation, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
 				}
-				Token::HASH => {
+				Token::HASH {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind::NonEmpty, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
 				}
-				Token::MINUS => {
+				Token::MINUS {
 					var first = @yes()
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
@@ -5398,13 +5398,13 @@ export namespace Parser {
 						return @yep(AST.UnaryExpression(operator, operand, operator, operand))
 					}
 				}
-				Token::QUESTION => {
+				Token::QUESTION {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind::Existential, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
 				}
-				=> {
+				else {
 					return @reqPostfixedOperand(null, eMode, fMode)
 				}
 			}
@@ -5577,8 +5577,8 @@ export namespace Parser {
 
 			var dyn statement = NO
 
-			switch @matchM(M.STATEMENT) {
-				Token::ABSTRACT => {
+			match @matchM(M.STATEMENT) {
+				Token::ABSTRACT {
 					var first = @yes()
 
 					if @test(Token::CLASS) {
@@ -5592,7 +5592,7 @@ export namespace Parser {
 						statement = NO
 					}
 				}
-				Token::ASYNC => {
+				Token::ASYNC {
 					var first = @yes()
 
 					if @test(Token::FUNC) {
@@ -5606,31 +5606,31 @@ export namespace Parser {
 						statement = NO
 					}
 				}
-				Token::BITMASK => {
+				Token::BITMASK {
 					statement = @reqBitmaskStatement(@yes())
 				}
-				Token::BREAK => {
+				Token::BREAK {
 					statement = @reqBreakStatement(@yes(), fMode)
 				}
-				Token::CLASS => {
+				Token::CLASS {
 					statement = @tryClassStatement(@yes())
 				}
-				Token::CONTINUE => {
+				Token::CONTINUE {
 					statement = @reqContinueStatement(@yes(), fMode)
 				}
-				Token::DELETE => {
+				Token::DELETE {
 					statement = @tryDestroyStatement(@yes(), fMode)
 				}
-				Token::DO => {
+				Token::DO {
 					statement = @reqDoStatement(@yes(), fMode)
 				}
-				Token::ENUM => {
+				Token::ENUM {
 					statement = @reqEnumStatement(@yes())
 				}
-				Token::FALLTHROUGH => {
+				Token::FALLTHROUGH {
 					statement = @reqFallthroughStatement(@yes())
 				}
-				Token::FINAL => {
+				Token::FINAL {
 					var first = @yes()
 					var modifiers = [@yep(AST.Modifier(ModifierKind::Immutable, first))]
 
@@ -5655,22 +5655,22 @@ export namespace Parser {
 						statement = NO
 					}
 				}
-				Token::FOR => {
+				Token::FOR {
 					statement = @reqForStatement(@yes(), fMode)
 				}
-				Token::FUNC => {
+				Token::FUNC {
 					statement = @reqFunctionStatement(@yes())
 				}
-				Token::IF => {
+				Token::IF {
 					statement = @reqIfStatement(@yes(), fMode)
 				}
-				Token::IMPL => {
+				Token::IMPL {
 					statement = @reqImplementStatement(@yes())
 				}
-				Token::IMPORT => {
+				Token::IMPORT {
 					statement = @reqImportStatement(@yes())
 				}
-				Token::MACRO => {
+				Token::MACRO {
 					if @mode !~ ParserMode::MacroExpression {
 						statement = @tryMacroStatement(@yes())
 					}
@@ -5678,22 +5678,22 @@ export namespace Parser {
 						statement = @reqMacroExpression(@yes())
 					}
 				}
-				Token::MATCH => {
+				Token::MATCH {
 					statement = @tryMatchStatement(@yes(), fMode)
 				}
-				Token::NAMESPACE => {
+				Token::NAMESPACE {
 					statement = @tryNamespaceStatement(@yes())
 				}
-				Token::PASS => {
+				Token::PASS {
 					statement = @reqPassStatement(@yes())
 				}
-				Token::REPEAT => {
+				Token::REPEAT {
 					statement = @reqRepeatStatement(@yes(), fMode)
 				}
-				Token::RETURN => {
+				Token::RETURN {
 					statement = @reqReturnStatement(@yes(), fMode)
 				}
-				Token::SEALED => {
+				Token::SEALED {
 					var first = @yes()
 					var modifiers = [@yep(AST.Modifier(ModifierKind::Sealed, first))]
 
@@ -5718,34 +5718,34 @@ export namespace Parser {
 						statement = NO
 					}
 				}
-				Token::STRUCT => {
+				Token::STRUCT {
 					statement = @reqStructStatement(@yes())
 				}
-				Token::THROW => {
+				Token::THROW {
 					statement = @reqThrowStatement(@yes(), fMode)
 				}
-				Token::TRY => {
+				Token::TRY {
 					statement = @reqTryStatement(@yes(), fMode)
 				}
-				Token::TUPLE => {
+				Token::TUPLE {
 					statement = @reqTupleStatement(@yes())
 				}
-				Token::TYPE => {
+				Token::TYPE {
 					statement = @tryTypeStatement(@yes())
 				}
-				Token::UNLESS => {
+				Token::UNLESS {
 					statement = @reqUnlessStatement(@yes(), fMode)
 				}
-				Token::UNTIL => {
+				Token::UNTIL {
 					statement = @tryUntilStatement(@yes(), fMode)
 				}
-				Token::VAR => {
+				Token::VAR {
 					statement = @tryVarStatement(@yes(), ExpressionMode::Default, fMode)
 				}
-				Token::WHILE => {
+				Token::WHILE {
 					statement = @tryWhileStatement(@yes(), fMode)
 				}
-				Token::WITH => {
+				Token::WITH {
 					statement = @tryWithStatement(@yes(), fMode)
 				}
 			}
@@ -6346,51 +6346,51 @@ export namespace Parser {
 			var dyn expression, mark, first
 
 			while true {
-				switch @matchM(M.OPERAND_JUNCTION) {
-					Token::ASTERISK_ASTERISK_LEFT_ROUND => {
+				match @matchM(M.OPERAND_JUNCTION) {
+					Token::ASTERISK_ASTERISK_LEFT_ROUND {
 						@commit()
 
 						value = @yep(AST.CallExpression([], AST.Scope(ScopeKind::Null), value, @reqArgumentList(fMode), value, @yes()))
 					}
-					Token::ASTERISK_DOLLAR_LEFT_ROUND => {
+					Token::ASTERISK_DOLLAR_LEFT_ROUND {
 						@commit()
 
 						var arguments = @reqArgumentList(fMode)
 
 						value = @yep(AST.CallExpression([], AST.Scope(ScopeKind::Argument, arguments.value.shift()), value, arguments, value, @yes()))
 					}
-					Token::CARET_AT_LEFT_ROUND => {
+					Token::CARET_AT_LEFT_ROUND {
 						@commit()
 
 						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind::This), value, @reqArgumentList(fMode), value, @yes()))
 					}
-					Token::CARET_CARET_LEFT_ROUND => {
+					Token::CARET_CARET_LEFT_ROUND {
 						@commit()
 
 						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind::Null), value, @reqArgumentList(fMode), value, @yes()))
 					}
-					Token::CARET_DOLLAR_LEFT_ROUND => {
+					Token::CARET_DOLLAR_LEFT_ROUND {
 						@commit()
 
 						var arguments = @reqArgumentList(fMode)
 
 						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind::Argument, arguments.value.shift()), value, arguments, value, @yes()))
 					}
-					Token::COLON => {
+					Token::COLON {
 						first = @yes()
 
 						expression = @reqIdentifier()
 
 						value = @yep(AST.BinaryExpression(value, @yep(AST.BinaryOperator(BinaryOperatorKind::TypeCasting, first)), @yep(AST.TypeReference(expression)), value, expression))
 					}
-					Token::COLON_COLON => {
+					Token::COLON_COLON {
 						@commit()
 
 						expression = @reqIdentifier()
 
 						value = @yep(AST.EnumExpression(value, expression))
 					}
-					Token::COLON_EXCLAMATION => {
+					Token::COLON_EXCLAMATION {
 						first = @yes()
 
 						var operator = @yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Forced, first)], BinaryOperatorKind::TypeCasting, first))
@@ -6399,7 +6399,7 @@ export namespace Parser {
 
 						value = @yep(AST.BinaryExpression(value, operator, @yep(AST.TypeReference(expression)), value, expression))
 					}
-					Token::COLON_QUESTION => {
+					Token::COLON_QUESTION {
 						first = @yes()
 
 						var operator = @yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Nullable, first)], BinaryOperatorKind::TypeCasting, first))
@@ -6408,17 +6408,17 @@ export namespace Parser {
 
 						value = @yep(AST.BinaryExpression(value, operator, @yep(AST.TypeReference(expression)), value, expression))
 					}
-					Token::DOT => {
+					Token::DOT {
 						@commit()
 
 						value = @yep(AST.MemberExpression([], value, @reqNumeralIdentifier()))
 					}
-					Token::EXCLAMATION_LEFT_ROUND => {
+					Token::EXCLAMATION_LEFT_ROUND {
 						@commit()
 
 						value = @yep(AST.CallMacroExpression(value, @reqArgumentList(fMode), value, @yes()))
 					}
-					Token::LEFT_SQUARE => {
+					Token::LEFT_SQUARE {
 						var modifiers = [AST.Modifier(ModifierKind::Computed, @yes())]
 
 						expression = @reqExpression(ExpressionMode::Default, fMode)
@@ -6429,12 +6429,12 @@ export namespace Parser {
 
 						value = @yep(AST.MemberExpression(modifiers, value, expression, value, @yes()))
 					}
-					Token::LEFT_ROUND => {
+					Token::LEFT_ROUND {
 						@commit()
 
 						value = @yep(AST.CallExpression([], value, @reqArgumentList(fMode), value, @yes()))
 					}
-					Token::NEWLINE => {
+					Token::NEWLINE {
 						mark = @mark()
 
 						@commit().NL_0M()
@@ -6450,19 +6450,19 @@ export namespace Parser {
 							break
 						}
 					}
-					Token::QUESTION_DOT => {
+					Token::QUESTION_DOT {
 						var modifiers = [AST.Modifier(ModifierKind::Nullable, @yes())]
 
 						expression = @reqIdentifier()
 
 						value = @yep(AST.MemberExpression(modifiers, value, expression, value, expression))
 					}
-					Token::QUESTION_LEFT_ROUND => {
+					Token::QUESTION_LEFT_ROUND {
 						var modifiers = [AST.Modifier(ModifierKind::Nullable, @yes())]
 
 						value = @yep(AST.CallExpression(modifiers, AST.Scope(ScopeKind::This), value, @reqArgumentList(fMode), value, @yes()))
 					}
-					Token::QUESTION_LEFT_SQUARE => {
+					Token::QUESTION_LEFT_SQUARE {
 						var position = @yes()
 						var modifiers = [AST.Modifier(ModifierKind::Nullable, position), AST.Modifier(ModifierKind::Computed, position)]
 
@@ -6474,10 +6474,10 @@ export namespace Parser {
 
 						value = @yep(AST.MemberExpression(modifiers, value, expression, value, @yes()))
 					}
-					Token::TEMPLATE_BEGIN => {
+					Token::TEMPLATE_BEGIN {
 						value = @yep(AST.TaggedTemplateExpression(value, @reqTemplateExpression(@yes(), fMode), value, @yes()))
 					}
-					=> {
+					else {
 						break
 					}
 				}
@@ -6601,8 +6601,8 @@ export namespace Parser {
 		submitEnumMember(attributes: Array, modifiers: Array, identifier: Event, token: Token?, members: Array): Void ~ SyntaxError { # {{{
 			var first = attributes[0] ?? modifiers[0] ?? identifier
 
-			switch token ?? @match(Token::EQUALS, Token::LEFT_ROUND)  {
-				Token::EQUALS => {
+			match token ?? @match(Token::EQUALS, Token::LEFT_ROUND)  {
+				Token::EQUALS {
 					if @mode ~~ ParserMode::Typing {
 						@throw()
 					}
@@ -6615,10 +6615,10 @@ export namespace Parser {
 
 					@reqNL_1M()
 				}
-				Token::LEFT_ROUND => {
+				Token::LEFT_ROUND {
 					members.push(@reqEnumMethod(attributes, modifiers, identifier, first).value)
 				}
-				when token == null => {
+				when token == null {
 					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, null, first, identifier))
 
 					@reqNL_1M()
@@ -6676,62 +6676,62 @@ export namespace Parser {
 			return NO
 		} # }}}
 		tryAssignementOperator(): Event ~ SyntaxError { # {{{
-			switch @matchM(M.ASSIGNEMENT_OPERATOR) {
-				Token::AMPERSAND_AMPERSAND_EQUALS => {
+			match @matchM(M.ASSIGNEMENT_OPERATOR) {
+				Token::AMPERSAND_AMPERSAND_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::And, @yes()))
 				}
-				Token::ASTERISK_EQUALS => {
+				Token::ASTERISK_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Multiplication, @yes()))
 				}
-				Token::CARET_CARET_EQUALS => {
+				Token::CARET_CARET_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Xor, @yes()))
 				}
-				Token::EQUALS => {
+				Token::EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Equals, @yes()))
 				}
-				Token::EXCLAMATION_HASH_EQUALS => {
+				Token::EXCLAMATION_HASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Empty, @yes()))
 				}
-				Token::EXCLAMATION_QUESTION_EQUALS => {
+				Token::EXCLAMATION_QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::NonExistential, @yes()))
 				}
-				Token::HASH_EQUALS => {
+				Token::HASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::NonEmpty, @yes()))
 				}
-				Token::HASH_HASH_EQUALS => {
+				Token::HASH_HASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::EmptyCoalescing, @yes()))
 				}
-				Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS => {
+				Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::LeftShift, @yes()))
 				}
-				Token::LEFT_ANGLE_MINUS => {
+				Token::LEFT_ANGLE_MINUS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Return, @yes()))
 				}
-				Token::MINUS_EQUALS => {
+				Token::MINUS_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Subtraction, @yes()))
 				}
-				Token::PERCENT_EQUALS => {
+				Token::PERCENT_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Modulo, @yes()))
 				}
-				Token::PIPE_PIPE_EQUALS => {
+				Token::PIPE_PIPE_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Or, @yes()))
 				}
-				Token::PLUS_EQUALS => {
+				Token::PLUS_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Addition, @yes()))
 				}
-				Token::QUESTION_EQUALS => {
+				Token::QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Existential, @yes()))
 				}
-				Token::QUESTION_QUESTION_EQUALS => {
+				Token::QUESTION_QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::NullCoalescing, @yes()))
 				}
-				Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS => {
+				Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::RightShift, @yes()))
 				}
-				Token::SLASH_DOT_EQUALS => {
+				Token::SLASH_DOT_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Quotient, @yes()))
 				}
-				Token::SLASH_EQUALS => {
+				Token::SLASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Division, @yes()))
 				}
 			}
@@ -6841,128 +6841,128 @@ export namespace Parser {
 			}
 		} # }}}
 		tryBinaryOperator(): Event ~ SyntaxError { # {{{
-			switch @matchM(M.BINARY_OPERATOR) {
-				Token::AMPERSAND_AMPERSAND => {
+			match @matchM(M.BINARY_OPERATOR) {
+				Token::AMPERSAND_AMPERSAND {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::And, @yes()))
 				}
-				Token::AMPERSAND_AMPERSAND_EQUALS => {
+				Token::AMPERSAND_AMPERSAND_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::And, @yes()))
 				}
-				Token::ASTERISK => {
+				Token::ASTERISK {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Multiplication, @yes()))
 				}
-				Token::ASTERISK_EQUALS => {
+				Token::ASTERISK_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Multiplication, @yes()))
 				}
-				Token::CARET_CARET => {
+				Token::CARET_CARET {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Xor, @yes()))
 				}
-				Token::CARET_CARET_EQUALS => {
+				Token::CARET_CARET_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Xor, @yes()))
 				}
-				Token::EQUALS => {
+				Token::EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Equals, @yes()))
 				}
-				Token::EQUALS_EQUALS => {
+				Token::EQUALS_EQUALS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Equality, @yes()))
 				}
-				Token::EXCLAMATION_EQUALS => {
+				Token::EXCLAMATION_EQUALS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Inequality, @yes()))
 				}
-				Token::EXCLAMATION_HASH_EQUALS => {
+				Token::EXCLAMATION_HASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Empty, @yes()))
 				}
-				Token::EXCLAMATION_QUESTION_EQUALS => {
+				Token::EXCLAMATION_QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::NonExistential, @yes()))
 				}
-				Token::EXCLAMATION_TILDE => {
+				Token::EXCLAMATION_TILDE {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Mismatch, @yes()))
 				}
-				Token::HASH_EQUALS => {
+				Token::HASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::NonEmpty, @yes()))
 				}
-				Token::HASH_HASH => {
+				Token::HASH_HASH {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::EmptyCoalescing, @yes()))
 				}
-				Token::HASH_HASH_EQUALS => {
+				Token::HASH_HASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::EmptyCoalescing, @yes()))
 				}
-				Token::LEFT_ANGLE => {
+				Token::LEFT_ANGLE {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::LessThan, @yes()))
 				}
-				Token::LEFT_ANGLE_EQUALS => {
+				Token::LEFT_ANGLE_EQUALS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::LessThanOrEqual, @yes()))
 				}
-				Token::LEFT_ANGLE_LEFT_ANGLE => {
+				Token::LEFT_ANGLE_LEFT_ANGLE {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::LeftShift, @yes()))
 				}
-				Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS => {
+				Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::LeftShift, @yes()))
 				}
-				Token::LEFT_ANGLE_MINUS => {
+				Token::LEFT_ANGLE_MINUS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Return, @yes()))
 				}
-				Token::MINUS => {
+				Token::MINUS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Subtraction, @yes()))
 				}
-				Token::MINUS_EQUALS => {
+				Token::MINUS_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Subtraction, @yes()))
 				}
-				Token::MINUS_RIGHT_ANGLE => {
+				Token::MINUS_RIGHT_ANGLE {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Imply, @yes()))
 				}
-				Token::PERCENT => {
+				Token::PERCENT {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Modulo, @yes()))
 				}
-				Token::PERCENT_EQUALS => {
+				Token::PERCENT_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Modulo, @yes()))
 				}
-				Token::PIPE_PIPE => {
+				Token::PIPE_PIPE {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Or, @yes()))
 				}
-				Token::PIPE_PIPE_EQUALS => {
+				Token::PIPE_PIPE_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Or, @yes()))
 				}
-				Token::PLUS => {
+				Token::PLUS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Addition, @yes()))
 				}
-				Token::PLUS_EQUALS => {
+				Token::PLUS_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Addition, @yes()))
 				}
-				Token::QUESTION_EQUALS => {
+				Token::QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Existential, @yes()))
 				}
-				Token::QUESTION_QUESTION => {
+				Token::QUESTION_QUESTION {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::NullCoalescing, @yes()))
 				}
-				Token::QUESTION_QUESTION_EQUALS => {
+				Token::QUESTION_QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::NullCoalescing, @yes()))
 				}
-				Token::RIGHT_ANGLE => {
+				Token::RIGHT_ANGLE {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::GreaterThan, @yes()))
 				}
-				Token::RIGHT_ANGLE_EQUALS => {
+				Token::RIGHT_ANGLE_EQUALS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::GreaterThanOrEqual, @yes()))
 				}
-				Token::RIGHT_ANGLE_RIGHT_ANGLE => {
+				Token::RIGHT_ANGLE_RIGHT_ANGLE {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::RightShift, @yes()))
 				}
-				Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS => {
+				Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::RightShift, @yes()))
 				}
-				Token::SLASH => {
+				Token::SLASH {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Division, @yes()))
 				}
-				Token::SLASH_DOT => {
+				Token::SLASH_DOT {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Quotient, @yes()))
 				}
-				Token::SLASH_DOT_EQUALS => {
+				Token::SLASH_DOT_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Quotient, @yes()))
 				}
-				Token::SLASH_EQUALS => {
+				Token::SLASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind::Division, @yes()))
 				}
-				Token::TILDE_TILDE => {
+				Token::TILDE_TILDE {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Match, @yes()))
 				}
 			}
@@ -7718,17 +7718,17 @@ export namespace Parser {
 			}
 		} # }}}
 		tryJunctionOperator(): Event ~ SyntaxError { # {{{
-			switch @matchM(M.JUNCTION_OPERATOR) {
-				Token::AMPERSAND => {
+			match @matchM(M.JUNCTION_OPERATOR) {
+				Token::AMPERSAND {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::And, @yes()))
 				}
-				Token::CARET => {
+				Token::CARET {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Xor, @yes()))
 				}
-				Token::PIPE => {
+				Token::PIPE {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::Or, @yes()))
 				}
-				=> {
+				else {
 					return NO
 				}
 			}
@@ -8443,8 +8443,8 @@ export namespace Parser {
 			return @tryTypeLimited(modifiers)
 		} # }}}
 		tryTypeDescriptive(tMode: TypeMode = TypeMode::Default): Event ~ SyntaxError { # {{{
-			switch @matchM(M.DESCRIPTIVE_TYPE) {
-				Token::ABSTRACT => {
+			match @matchM(M.DESCRIPTIVE_TYPE) {
+				Token::ABSTRACT {
 					var abstract = @yep(AST.Modifier(ModifierKind::Abstract, @yes()))
 
 					if @test(Token::CLASS) {
@@ -8456,7 +8456,7 @@ export namespace Parser {
 						@no('class')
 					}
 				}
-				Token::ASYNC => {
+				Token::ASYNC {
 					var first = @reqIdentifier()
 					var modifiers = [@yep(AST.Modifier(ModifierKind::Async, first))]
 
@@ -8475,20 +8475,20 @@ export namespace Parser {
 						}
 					}
 				}
-				Token::BITMASK => {
+				Token::BITMASK {
 					with @mode += ParserMode::Typing {
 						return @reqBitmaskStatement(@yes())
 					}
 				}
-				Token::CLASS => {
+				Token::CLASS {
 					return @reqExternClassDeclaration(@yes(), [])
 				}
-				Token::ENUM => {
+				Token::ENUM {
 					with @mode += ParserMode::Typing {
 						return @reqEnumStatement(@yes())
 					}
 				}
-				Token::EXPORT => {
+				Token::EXPORT {
 					if tMode == TypeMode::Module {
 						return NO
 					}
@@ -8496,7 +8496,7 @@ export namespace Parser {
 						return @reqExportModule(@yes())
 					}
 				}
-				Token::FINAL => {
+				Token::FINAL {
 					var first = @yes()
 					var modifiers = [@yep(AST.Modifier(ModifierKind::Immutable, first))]
 
@@ -8521,11 +8521,11 @@ export namespace Parser {
 						@no('class')
 					}
 				}
-				Token::FUNC => {
+				Token::FUNC {
 					var first = @yes()
 					return @reqExternFunctionDeclaration([], first)
 				}
-				Token::IDENTIFIER => {
+				Token::IDENTIFIER {
 					if tMode == TypeMode::NoIdentifier {
 						return NO
 					}
@@ -8533,10 +8533,10 @@ export namespace Parser {
 						return @reqExternVariableDeclarator(@reqIdentifier())
 					}
 				}
-				Token::NAMESPACE => {
+				Token::NAMESPACE {
 					return @reqExternNamespaceDeclaration(@yes(), [])
 				}
-				Token::SEALED => {
+				Token::SEALED {
 					var sealed = @yep(AST.Modifier(ModifierKind::Sealed, @yes()))
 
 					if @matchM(M.DESCRIPTIVE_TYPE) == Token::ABSTRACT {
@@ -8579,10 +8579,10 @@ export namespace Parser {
 						@no('class', 'namespace')
 					}
 				}
-				Token::STRUCT => {
+				Token::STRUCT {
 					return @reqStructStatement(@yes())
 				}
-				Token::SYSTEM => {
+				Token::SYSTEM {
 					var system = @yep(AST.Modifier(ModifierKind::System, @yes()))
 
 					if @matchM(M.DESCRIPTIVE_TYPE) == Token::CLASS {
@@ -8613,13 +8613,13 @@ export namespace Parser {
 						@no('class', 'namespace')
 					}
 				}
-				Token::TUPLE => {
+				Token::TUPLE {
 					return @reqTupleStatement(@yes())
 				}
-				Token::TYPE => {
+				Token::TYPE {
 					return @reqTypeStatement(@yes(), @reqIdentifier())
 				}
-				Token::VAR => {
+				Token::VAR {
 					var first = @yes()
 					var name = @reqIdentifier()
 
@@ -8755,27 +8755,27 @@ export namespace Parser {
 			}
 		} # }}}
 		tryTypeOperator(): Event ~ SyntaxError { # {{{
-			switch @matchM(M.TYPE_OPERATOR) {
-				Token::AS => {
+			match @matchM(M.TYPE_OPERATOR) {
+				Token::AS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::TypeCasting, @yes()))
 				}
-				Token::AS_EXCLAMATION => {
+				Token::AS_EXCLAMATION {
 					var position = @yes()
 
 					return @yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Forced, position)], BinaryOperatorKind::TypeCasting, position))
 				}
-				Token::AS_QUESTION => {
+				Token::AS_QUESTION {
 					var position = @yes()
 
 					return @yep(AST.BinaryOperator([AST.Modifier(ModifierKind::Nullable, position)], BinaryOperatorKind::TypeCasting, position))
 				}
-				Token::IS => {
+				Token::IS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::TypeEquality, @yes()))
 				}
-				Token::IS_NOT => {
+				Token::IS_NOT {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind::TypeInequality, @yes()))
 				}
-				=> {
+				else {
 					return NO
 				}
 			}
@@ -9406,44 +9406,44 @@ export namespace Parser {
 
 			var late operator: Event
 
-			switch @matchM(M.ASSIGNEMENT_OPERATOR) {
-				Token::AMPERSAND_AMPERSAND_EQUALS => {
+			match @matchM(M.ASSIGNEMENT_OPERATOR) {
+				Token::AMPERSAND_AMPERSAND_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::And, @yes()))
 				}
-				Token::ASTERISK_EQUALS => {
+				Token::ASTERISK_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Multiplication, @yes()))
 				}
-				Token::CARET_CARET_EQUALS => {
+				Token::CARET_CARET_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Xor, @yes()))
 				}
-				Token::EQUALS => {
+				Token::EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Equals, @yes()))
 				}
-				Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS => {
+				Token::LEFT_ANGLE_LEFT_ANGLE_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::LeftShift, @yes()))
 				}
-				Token::MINUS_EQUALS => {
+				Token::MINUS_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Subtraction, @yes()))
 				}
-				Token::PERCENT_EQUALS => {
+				Token::PERCENT_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Modulo, @yes()))
 				}
-				Token::PIPE_PIPE_EQUALS => {
+				Token::PIPE_PIPE_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Or, @yes()))
 				}
-				Token::PLUS_EQUALS => {
+				Token::PLUS_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Addition, @yes()))
 				}
-				Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS => {
+				Token::RIGHT_ANGLE_RIGHT_ANGLE_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::RightShift, @yes()))
 				}
-				Token::SLASH_DOT_EQUALS => {
+				Token::SLASH_DOT_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Quotient, @yes()))
 				}
-				Token::SLASH_EQUALS => {
+				Token::SLASH_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Division, @yes()))
 				}
-				=> {
+				else {
 					@throw('=', '+=', '-=', '*=', '/=', '/.=', '%=', '&&=', '||=', '^^=', '<<=', '>>=')
 				}
 			}

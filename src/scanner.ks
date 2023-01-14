@@ -195,11 +195,11 @@ enum Token {
 	WITH
 
 	toString(): String { # {{{
-		switch this {
+		match this {
 			RIGHT_CURLY => return '}'
 			RIGHT_ROUND => return ')'
 			RIGHT_SQUARE => return ']'
-			=> return ''
+			else => return ''
 		}
 	} # }}}
 }
