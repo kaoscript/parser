@@ -1,0 +1,827 @@
+{
+  "kind": 78,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 130,
+      "attributes": [],
+      "modifiers": [
+        {
+          "kind": 13,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
+      "declarations": [
+        {
+          "kind": 128,
+          "attributes": [],
+          "modifiers": [],
+          "variables": [
+            {
+              "kind": 129,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "temperature",
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 20
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 25
+          },
+          "value": {
+            "kind": 83,
+            "modifiers": [],
+            "value": 54,
+            "start": {
+              "line": 1,
+              "column": 23
+            },
+            "end": {
+              "line": 1,
+              "column": 25
+            }
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 25
+      }
+    },
+    {
+      "kind": 73,
+      "attributes": [],
+      "expression": {
+        "kind": 52,
+        "modifiers": [],
+        "name": "temperature",
+        "start": {
+          "line": 3,
+          "column": 7
+        },
+        "end": {
+          "line": 3,
+          "column": 18
+        }
+      },
+      "clauses": [
+        {
+          "kind": 66,
+          "body": {
+            "kind": 17,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "console",
+                "start": {
+                  "line": 4,
+                  "column": 38
+                },
+                "end": {
+                  "line": 4,
+                  "column": 45
+                }
+              },
+              "property": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "log",
+                "start": {
+                  "line": 4,
+                  "column": 46
+                },
+                "end": {
+                  "line": 4,
+                  "column": 49
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 38
+              },
+              "end": {
+                "line": 4,
+                "column": 49
+              }
+            },
+            "arguments": [
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "Cold and even",
+                "start": {
+                  "line": 4,
+                  "column": 50
+                },
+                "end": {
+                  "line": 4,
+                  "column": 65
+                }
+              }
+            ],
+            "start": {
+              "line": 4,
+              "column": 38
+            },
+            "end": {
+              "line": 4,
+              "column": 66
+            }
+          },
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 66
+          },
+          "conditions": [
+            {
+              "kind": 70,
+              "from": {
+                "kind": 83,
+                "modifiers": [],
+                "value": 0,
+                "start": {
+                  "line": 4,
+                  "column": 2
+                },
+                "end": {
+                  "line": 4,
+                  "column": 3
+                }
+              },
+              "to": {
+                "kind": 83,
+                "modifiers": [],
+                "value": 49,
+                "start": {
+                  "line": 4,
+                  "column": 5
+                },
+                "end": {
+                  "line": 4,
+                  "column": 7
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 7
+              }
+            }
+          ],
+          "bindings": [],
+          "filter": {
+            "kind": 24,
+            "modifiers": [],
+            "values": [
+              {
+                "kind": 12,
+                "modifiers": [],
+                "operator": {
+                  "kind": 16,
+                  "modifiers": [],
+                  "start": {
+                    "line": 4,
+                    "column": 26
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 27
+                  }
+                },
+                "start": {
+                  "line": 4,
+                  "column": 14
+                },
+                "end": {
+                  "line": 4,
+                  "column": 29
+                },
+                "left": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "temperature",
+                  "start": {
+                    "line": 4,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 25
+                  }
+                },
+                "right": {
+                  "kind": 83,
+                  "modifiers": [],
+                  "value": 2,
+                  "start": {
+                    "line": 4,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 29
+                  }
+                }
+              },
+              {
+                "kind": 6,
+                "modifiers": [],
+                "start": {
+                  "line": 4,
+                  "column": 30
+                },
+                "end": {
+                  "line": 4,
+                  "column": 32
+                }
+              },
+              {
+                "kind": 83,
+                "modifiers": [],
+                "value": 0,
+                "start": {
+                  "line": 4,
+                  "column": 33
+                },
+                "end": {
+                  "line": 4,
+                  "column": 34
+                }
+              }
+            ],
+            "start": {
+              "line": 4,
+              "column": 14
+            },
+            "end": {
+              "line": 4,
+              "column": 34
+            }
+          }
+        },
+        {
+          "kind": 66,
+          "body": {
+            "kind": 17,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "console",
+                "start": {
+                  "line": 5,
+                  "column": 38
+                },
+                "end": {
+                  "line": 5,
+                  "column": 45
+                }
+              },
+              "property": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "log",
+                "start": {
+                  "line": 5,
+                  "column": 46
+                },
+                "end": {
+                  "line": 5,
+                  "column": 49
+                }
+              },
+              "start": {
+                "line": 5,
+                "column": 38
+              },
+              "end": {
+                "line": 5,
+                "column": 49
+              }
+            },
+            "arguments": [
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "Warm and even",
+                "start": {
+                  "line": 5,
+                  "column": 50
+                },
+                "end": {
+                  "line": 5,
+                  "column": 65
+                }
+              }
+            ],
+            "start": {
+              "line": 5,
+              "column": 38
+            },
+            "end": {
+              "line": 5,
+              "column": 66
+            }
+          },
+          "start": {
+            "line": 5,
+            "column": 2
+          },
+          "end": {
+            "line": 5,
+            "column": 66
+          },
+          "conditions": [
+            {
+              "kind": 70,
+              "from": {
+                "kind": 83,
+                "modifiers": [],
+                "value": 50,
+                "start": {
+                  "line": 5,
+                  "column": 2
+                },
+                "end": {
+                  "line": 5,
+                  "column": 4
+                }
+              },
+              "to": {
+                "kind": 83,
+                "modifiers": [],
+                "value": 79,
+                "start": {
+                  "line": 5,
+                  "column": 6
+                },
+                "end": {
+                  "line": 5,
+                  "column": 8
+                }
+              },
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 8
+              }
+            }
+          ],
+          "bindings": [],
+          "filter": {
+            "kind": 24,
+            "modifiers": [],
+            "values": [
+              {
+                "kind": 12,
+                "modifiers": [],
+                "operator": {
+                  "kind": 16,
+                  "modifiers": [],
+                  "start": {
+                    "line": 5,
+                    "column": 26
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 27
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 14
+                },
+                "end": {
+                  "line": 5,
+                  "column": 29
+                },
+                "left": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "temperature",
+                  "start": {
+                    "line": 5,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 25
+                  }
+                },
+                "right": {
+                  "kind": 83,
+                  "modifiers": [],
+                  "value": 2,
+                  "start": {
+                    "line": 5,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 29
+                  }
+                }
+              },
+              {
+                "kind": 6,
+                "modifiers": [],
+                "start": {
+                  "line": 5,
+                  "column": 30
+                },
+                "end": {
+                  "line": 5,
+                  "column": 32
+                }
+              },
+              {
+                "kind": 83,
+                "modifiers": [],
+                "value": 0,
+                "start": {
+                  "line": 5,
+                  "column": 33
+                },
+                "end": {
+                  "line": 5,
+                  "column": 34
+                }
+              }
+            ],
+            "start": {
+              "line": 5,
+              "column": 14
+            },
+            "end": {
+              "line": 5,
+              "column": 34
+            }
+          }
+        },
+        {
+          "kind": 66,
+          "body": {
+            "kind": 17,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "console",
+                "start": {
+                  "line": 6,
+                  "column": 39
+                },
+                "end": {
+                  "line": 6,
+                  "column": 46
+                }
+              },
+              "property": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "log",
+                "start": {
+                  "line": 6,
+                  "column": 47
+                },
+                "end": {
+                  "line": 6,
+                  "column": 50
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 39
+              },
+              "end": {
+                "line": 6,
+                "column": 50
+              }
+            },
+            "arguments": [
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "Hot and even",
+                "start": {
+                  "line": 6,
+                  "column": 51
+                },
+                "end": {
+                  "line": 6,
+                  "column": 65
+                }
+              }
+            ],
+            "start": {
+              "line": 6,
+              "column": 39
+            },
+            "end": {
+              "line": 6,
+              "column": 66
+            }
+          },
+          "start": {
+            "line": 6,
+            "column": 2
+          },
+          "end": {
+            "line": 6,
+            "column": 66
+          },
+          "conditions": [
+            {
+              "kind": 70,
+              "from": {
+                "kind": 83,
+                "modifiers": [],
+                "value": 80,
+                "start": {
+                  "line": 6,
+                  "column": 2
+                },
+                "end": {
+                  "line": 6,
+                  "column": 4
+                }
+              },
+              "to": {
+                "kind": 83,
+                "modifiers": [],
+                "value": 110,
+                "start": {
+                  "line": 6,
+                  "column": 6
+                },
+                "end": {
+                  "line": 6,
+                  "column": 9
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 9
+              }
+            }
+          ],
+          "bindings": [],
+          "filter": {
+            "kind": 24,
+            "modifiers": [],
+            "values": [
+              {
+                "kind": 12,
+                "modifiers": [],
+                "operator": {
+                  "kind": 16,
+                  "modifiers": [],
+                  "start": {
+                    "line": 6,
+                    "column": 27
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 28
+                  }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 15
+                },
+                "end": {
+                  "line": 6,
+                  "column": 30
+                },
+                "left": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "temperature",
+                  "start": {
+                    "line": 6,
+                    "column": 15
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 26
+                  }
+                },
+                "right": {
+                  "kind": 83,
+                  "modifiers": [],
+                  "value": 2,
+                  "start": {
+                    "line": 6,
+                    "column": 29
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 30
+                  }
+                }
+              },
+              {
+                "kind": 6,
+                "modifiers": [],
+                "start": {
+                  "line": 6,
+                  "column": 31
+                },
+                "end": {
+                  "line": 6,
+                  "column": 33
+                }
+              },
+              {
+                "kind": 83,
+                "modifiers": [],
+                "value": 0,
+                "start": {
+                  "line": 6,
+                  "column": 34
+                },
+                "end": {
+                  "line": 6,
+                  "column": 35
+                }
+              }
+            ],
+            "start": {
+              "line": 6,
+              "column": 15
+            },
+            "end": {
+              "line": 6,
+              "column": 35
+            }
+          }
+        },
+        {
+          "kind": 66,
+          "body": {
+            "kind": 17,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "console",
+                "start": {
+                  "line": 7,
+                  "column": 17
+                },
+                "end": {
+                  "line": 7,
+                  "column": 24
+                }
+              },
+              "property": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "log",
+                "start": {
+                  "line": 7,
+                  "column": 25
+                },
+                "end": {
+                  "line": 7,
+                  "column": 28
+                }
+              },
+              "start": {
+                "line": 7,
+                "column": 17
+              },
+              "end": {
+                "line": 7,
+                "column": 28
+              }
+            },
+            "arguments": [
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "Temperature out of range or odd",
+                "start": {
+                  "line": 7,
+                  "column": 29
+                },
+                "end": {
+                  "line": 7,
+                  "column": 62
+                }
+              }
+            ],
+            "start": {
+              "line": 7,
+              "column": 17
+            },
+            "end": {
+              "line": 7,
+              "column": 63
+            }
+          },
+          "start": {
+            "line": 7,
+            "column": 2
+          },
+          "end": {
+            "line": 7,
+            "column": 63
+          },
+          "conditions": [],
+          "bindings": []
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 8,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 8,
+    "column": 2
+  }
+}

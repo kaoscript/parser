@@ -110,6 +110,7 @@ enum Token {
 	LEFT_ROUND
 	LEFT_SQUARE
 	MACRO
+	MATCH
 	MINUS
 	MINUS_EQUALS
 	MINUS_RIGHT_ANGLE
@@ -169,7 +170,6 @@ enum Token {
 	STEP
 	STRING
 	STRUCT
-	SWITCH
 	SYSTEM
 	TEMPLATE_BEGIN
 	TEMPLATE_ELEMENT
@@ -1759,7 +1759,7 @@ namespace M {
 					return Token::LATEINIT
 				}
 			}
-			// macro
+			// macro, match
 			else if c == 109
 			{
 				if	that.charAt(1) == 97 &&
@@ -1771,6 +1771,16 @@ namespace M {
 					that.next(5)
 
 					return Token::MACRO
+				}
+				else if that.charAt(1) == 97 &&
+					that.charAt(2) == 116 &&
+					that.charAt(3) == 99 &&
+					that.charAt(4) == 104 &&
+					that.isBoundary(5)
+				{
+					that.next(5)
+
+					return Token::MATCH
 				}
 			}
 			// namespace
@@ -1830,7 +1840,7 @@ namespace M {
 					return Token::RETURN
 				}
 			}
-			// sealed, struct, switch
+			// sealed, struct
 			else if c == 115
 			{
 				if	that.charAt(1) == 101 &&
@@ -1854,17 +1864,6 @@ namespace M {
 					that.next(6)
 
 					return Token::STRUCT
-				}
-				else if that.charAt(1) == 119 &&
-					that.charAt(2) == 105 &&
-					that.charAt(3) == 116 &&
-					that.charAt(4) == 99 &&
-					that.charAt(5) == 104 &&
-					that.isBoundary(6)
-				{
-					that.next(6)
-
-					return Token::SWITCH
 				}
 			}
 			// throw, try, tuple, type
@@ -2688,6 +2687,20 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::MATCH)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 109 &&
+			that.charAt(1) == 97 &&
+			that.charAt(2) == 116 &&
+			that.charAt(3) == 99 &&
+			that.charAt(4) == 104 &&
+			that.isSpace(5)
+		{
+			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::MINUS)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 45 && that.charAt(1) != 61 {
 			return that.next(1)
@@ -3055,21 +3068,6 @@ var recognize = {
 
 		return false
 	} # }}}
-	`\(Token::SWITCH)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if	c == 115 &&
-			that.charAt(1) == 119 &&
-			that.charAt(2) == 105 &&
-			that.charAt(3) == 116 &&
-			that.charAt(4) == 99 &&
-			that.charAt(5) == 104 &&
-			that.isBoundary(6)
-		{
-			return that.next(6)
-		}
-		else {
-			return false
-		}
-	} # }}}
 	`\(Token::TEMPLATE_BEGIN)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 96 {
 			return that.next(1)
@@ -3326,6 +3324,11 @@ class Scanner {
 		return c == 9 || c == 10 || c == 13 || c == 32 || !((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == 95 || c == 36)
 	} # }}}
 	isEOF(): Boolean => @eof
+	isSpace(d: Number): Boolean { # {{{
+		var c = @data.charCodeAt(@index + d)
+
+		return c == 9 || c == 10 || c == 13 || c == 32
+	} # }}}
 	line(): @line
 	mark(): Marker => Marker( # {{{
 		eof: @eof

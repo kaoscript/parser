@@ -1,0 +1,806 @@
+{
+  "kind": 78,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 130,
+      "attributes": [],
+      "modifiers": [
+        {
+          "kind": 20,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
+      "declarations": [
+        {
+          "kind": 128,
+          "attributes": [],
+          "modifiers": [],
+          "variables": [
+            {
+              "kind": 129,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "view",
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 13
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 21
+              },
+              "type": {
+                "kind": 121,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "UIView",
+                  "start": {
+                    "line": 1,
+                    "column": 15
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 21
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 15
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21
+                }
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 21
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 21
+      }
+    },
+    {
+      "kind": 73,
+      "attributes": [],
+      "expression": {
+        "kind": 52,
+        "modifiers": [],
+        "name": "view",
+        "start": {
+          "line": 3,
+          "column": 7
+        },
+        "end": {
+          "line": 3,
+          "column": 11
+        }
+      },
+      "clauses": [
+        {
+          "kind": 66,
+          "body": {
+            "kind": 17,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "console",
+                "start": {
+                  "line": 4,
+                  "column": 27
+                },
+                "end": {
+                  "line": 4,
+                  "column": 34
+                }
+              },
+              "property": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "log",
+                "start": {
+                  "line": 4,
+                  "column": 35
+                },
+                "end": {
+                  "line": 4,
+                  "column": 38
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 27
+              },
+              "end": {
+                "line": 4,
+                "column": 38
+              }
+            },
+            "arguments": [
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "It's an image view",
+                "start": {
+                  "line": 4,
+                  "column": 39
+                },
+                "end": {
+                  "line": 4,
+                  "column": 59
+                }
+              }
+            ],
+            "start": {
+              "line": 4,
+              "column": 27
+            },
+            "end": {
+              "line": 4,
+              "column": 60
+            }
+          },
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 4,
+            "column": 60
+          },
+          "conditions": [
+            {
+              "kind": 71,
+              "type": {
+                "kind": 121,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "UIImageView",
+                  "start": {
+                    "line": 4,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 16
+                  }
+                },
+                "start": {
+                  "line": 4,
+                  "column": 5
+                },
+                "end": {
+                  "line": 4,
+                  "column": 16
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 16
+              }
+            }
+          ],
+          "bindings": []
+        },
+        {
+          "kind": 66,
+          "body": {
+            "kind": 17,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "console",
+                "start": {
+                  "line": 5,
+                  "column": 40
+                },
+                "end": {
+                  "line": 5,
+                  "column": 47
+                }
+              },
+              "property": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "log",
+                "start": {
+                  "line": 5,
+                  "column": 48
+                },
+                "end": {
+                  "line": 5,
+                  "column": 51
+                }
+              },
+              "start": {
+                "line": 5,
+                "column": 40
+              },
+              "end": {
+                "line": 5,
+                "column": 51
+              }
+            },
+            "arguments": [
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "It's a label",
+                "start": {
+                  "line": 5,
+                  "column": 52
+                },
+                "end": {
+                  "line": 5,
+                  "column": 66
+                }
+              }
+            ],
+            "start": {
+              "line": 5,
+              "column": 40
+            },
+            "end": {
+              "line": 5,
+              "column": 67
+            }
+          },
+          "start": {
+            "line": 5,
+            "column": 2
+          },
+          "end": {
+            "line": 5,
+            "column": 67
+          },
+          "conditions": [
+            {
+              "kind": 71,
+              "type": {
+                "kind": 121,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "UILabel",
+                  "start": {
+                    "line": 5,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 12
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 5
+                },
+                "end": {
+                  "line": 5,
+                  "column": 12
+                }
+              },
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 5,
+                "column": 12
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "kind": 74,
+              "name": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "label",
+                "start": {
+                  "line": 5,
+                  "column": 19
+                },
+                "end": {
+                  "line": 5,
+                  "column": 24
+                }
+              },
+              "type": {
+                "kind": 121,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "UILabel",
+                  "start": {
+                    "line": 5,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 35
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 28
+                },
+                "end": {
+                  "line": 5,
+                  "column": 35
+                }
+              },
+              "start": {
+                "line": 5,
+                "column": 19
+              },
+              "end": {
+                "line": 5,
+                "column": 35
+              }
+            }
+          ]
+        },
+        {
+          "kind": 66,
+          "body": {
+            "kind": 15,
+            "attributes": [],
+            "statements": [
+              {
+                "kind": 130,
+                "attributes": [],
+                "modifiers": [
+                  {
+                    "kind": 13,
+                    "start": {
+                      "line": 7,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 10
+                    }
+                  }
+                ],
+                "declarations": [
+                  {
+                    "kind": 128,
+                    "attributes": [],
+                    "modifiers": [],
+                    "variables": [
+                      {
+                        "kind": 129,
+                        "attributes": [],
+                        "modifiers": [],
+                        "name": {
+                          "kind": 52,
+                          "modifiers": [],
+                          "name": "sectionCount",
+                          "start": {
+                            "line": 7,
+                            "column": 11
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 23
+                          }
+                        },
+                        "start": {
+                          "line": 7,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 23
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 7,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 49
+                    },
+                    "value": {
+                      "kind": 17,
+                      "modifiers": [],
+                      "scope": {
+                        "kind": 3
+                      },
+                      "callee": {
+                        "kind": 75,
+                        "modifiers": [],
+                        "object": {
+                          "kind": 52,
+                          "modifiers": [],
+                          "name": "tblv",
+                          "start": {
+                            "line": 7,
+                            "column": 26
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 30
+                          }
+                        },
+                        "property": {
+                          "kind": 52,
+                          "modifiers": [],
+                          "name": "numberOfSections",
+                          "start": {
+                            "line": 7,
+                            "column": 31
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 47
+                          }
+                        },
+                        "start": {
+                          "line": 7,
+                          "column": 26
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 47
+                        }
+                      },
+                      "arguments": [],
+                      "start": {
+                        "line": 7,
+                        "column": 26
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 49
+                      }
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 7,
+                  "column": 3
+                },
+                "end": {
+                  "line": 7,
+                  "column": 49
+                }
+              },
+              {
+                "kind": 17,
+                "modifiers": [],
+                "scope": {
+                  "kind": 3
+                },
+                "callee": {
+                  "kind": 75,
+                  "modifiers": [],
+                  "object": {
+                    "kind": 52,
+                    "modifiers": [],
+                    "name": "console",
+                    "start": {
+                      "line": 8,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 10
+                    }
+                  },
+                  "property": {
+                    "kind": 52,
+                    "modifiers": [],
+                    "name": "log",
+                    "start": {
+                      "line": 8,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 14
+                    }
+                  },
+                  "start": {
+                    "line": 8,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 14
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 63,
+                    "modifiers": [],
+                    "value": "It's a table view with \\(sectionCount) sections",
+                    "start": {
+                      "line": 8,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 64
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 8,
+                  "column": 3
+                },
+                "end": {
+                  "line": 8,
+                  "column": 65
+                },
+                "attributes": []
+              }
+            ],
+            "start": {
+              "line": 6,
+              "column": 42
+            },
+            "end": {
+              "line": 9,
+              "column": 3
+            }
+          },
+          "start": {
+            "line": 6,
+            "column": 2
+          },
+          "end": {
+            "line": 9,
+            "column": 3
+          },
+          "conditions": [
+            {
+              "kind": 71,
+              "type": {
+                "kind": 121,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "UITableView",
+                  "start": {
+                    "line": 6,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 16
+                  }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 5
+                },
+                "end": {
+                  "line": 6,
+                  "column": 16
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 16
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "kind": 74,
+              "name": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "tblv",
+                "start": {
+                  "line": 6,
+                  "column": 22
+                },
+                "end": {
+                  "line": 6,
+                  "column": 26
+                }
+              },
+              "type": {
+                "kind": 121,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "UITableView",
+                  "start": {
+                    "line": 6,
+                    "column": 30
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 41
+                  }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 30
+                },
+                "end": {
+                  "line": 6,
+                  "column": 41
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 22
+              },
+              "end": {
+                "line": 6,
+                "column": 41
+              }
+            }
+          ]
+        },
+        {
+          "kind": 66,
+          "body": {
+            "kind": 17,
+            "modifiers": [],
+            "scope": {
+              "kind": 3
+            },
+            "callee": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "console",
+                "start": {
+                  "line": 10,
+                  "column": 19
+                },
+                "end": {
+                  "line": 10,
+                  "column": 26
+                }
+              },
+              "property": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "log",
+                "start": {
+                  "line": 10,
+                  "column": 27
+                },
+                "end": {
+                  "line": 10,
+                  "column": 30
+                }
+              },
+              "start": {
+                "line": 10,
+                "column": 19
+              },
+              "end": {
+                "line": 10,
+                "column": 30
+              }
+            },
+            "arguments": [
+              {
+                "kind": 63,
+                "modifiers": [],
+                "value": "It's some other UIView or subclass",
+                "start": {
+                  "line": 10,
+                  "column": 31
+                },
+                "end": {
+                  "line": 10,
+                  "column": 67
+                }
+              }
+            ],
+            "start": {
+              "line": 10,
+              "column": 19
+            },
+            "end": {
+              "line": 10,
+              "column": 68
+            }
+          },
+          "start": {
+            "line": 10,
+            "column": 2
+          },
+          "end": {
+            "line": 10,
+            "column": 68
+          },
+          "conditions": [],
+          "bindings": []
+        }
+      ],
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 11,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 11,
+    "column": 2
+  }
+}

@@ -1045,7 +1045,7 @@ export namespace Parser {
 			else if @rollback(mark) && (expression = @tryFunctionExpression(eMode, fMode)).ok {
 				return expression
 			}
-			else if @rollback(mark) && (expression = @trySwitchExpression(eMode, fMode)).ok {
+			else if @rollback(mark) && (expression = @tryMatchExpression(eMode, fMode)).ok {
 				return expression
 			}
 			else if @rollback(mark) && (expression = @tryTryExpression(eMode, fMode)).ok {
@@ -4339,6 +4339,284 @@ export namespace Parser {
 
 			return @yep(AST.MacroDeclaration(attributes, name, parameters, body, first, body))
 		} # }}}
+		reqMatchBinding(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var bindings = [@reqMatchBindingValue(fMode)]
+
+			while @test(Token::COMMA) {
+				@commit()
+
+				bindings.push(@reqMatchBindingValue(fMode))
+			}
+
+			return @yep(bindings)
+		} # }}}
+		reqMatchBindingValue(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			switch @match(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+				Token::LEFT_CURLY => {
+					return @reqDestructuringObject(@yes(), DestructuringMode::Nil, fMode)
+				}
+				Token::LEFT_SQUARE => {
+					return @reqDestructuringArray(@yes(), DestructuringMode::Nil, fMode)
+				}
+				=> {
+					var name = @reqIdentifier()
+
+					if @test(Token::AS) {
+						@commit()
+
+						var type = @reqType()
+
+						return @yep(AST.MatchTypeCasting(name, type))
+					}
+					else {
+						return name
+					}
+				}
+			}
+		} # }}}
+		reqMatchCaseExpression(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			switch @match(Token::RETURN, Token::THROW) {
+				Token::RETURN => {
+					return @reqReturnStatement(@yes(), fMode)
+				}
+				Token::THROW => {
+					var first = @yes()
+					var expression = @reqExpression(ExpressionMode::Default, fMode)
+
+					return @yep(AST.ThrowStatement(expression, first, expression))
+				}
+				=> {
+					return @reqExpression(ExpressionMode::Default, fMode)
+				}
+			}
+		} # }}}
+		reqMatchCaseList(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			@NL_0M()
+
+			unless @test(Token::LEFT_CURLY) {
+				@throw('{')
+			}
+
+			@commit().NL_0M()
+
+			var clauses = []
+
+			var dyn conditions, bindings, filter, body, first
+			until @test(Token::RIGHT_CURLY) {
+				first = conditions = bindings = filter = null
+
+				if @test(Token::ELSE) {
+					first = @yes()
+
+					if @test(Token::LEFT_CURLY) {
+						body = @reqBlock(@yes(), fMode)
+					}
+					else if @test(Token::EQUALS_RIGHT_ANGLE) {
+						@commit()
+
+						body = @reqMatchCaseExpression(fMode)
+					}
+					else {
+						@throw('=>', '{')
+					}
+				}
+				else {
+					if !@test(Token::WITH, Token::WHEN) {
+						first = @reqMatchCondition(fMode)
+
+						conditions = [first]
+
+						while @test(Token::COMMA) {
+							@commit()
+
+							conditions.push(@reqMatchCondition(fMode))
+						}
+
+						@NL_0M()
+					}
+
+					if @test(Token::WITH) {
+						if ?first {
+							@commit()
+						}
+						else {
+							first = @yes()
+						}
+
+						bindings = @reqMatchBinding(fMode)
+
+						@NL_0M()
+					}
+
+					if @test(Token::WHEN) {
+						if ?first {
+							@commit()
+						}
+						else {
+							first = @yes()
+						}
+
+						filter = @reqExpression(ExpressionMode::NoAnonymousFunction, fMode)
+
+						@NL_0M()
+					}
+
+					if @test(Token::LEFT_CURLY) {
+						body = @reqBlock(@yes(), fMode)
+					}
+					else if @test(Token::EQUALS_RIGHT_ANGLE) {
+						@commit()
+
+						body = @reqMatchCaseExpression(fMode)
+					}
+					else {
+						@throw('=>', '{')
+					}
+				}
+
+				@reqNL_1M()
+
+				clauses.push(AST.MatchClause(conditions, bindings, filter, body, first!?, body))
+			}
+
+			unless @test(Token::RIGHT_CURLY) {
+				@throw('}')
+			}
+
+			return @yes(clauses)
+		} # }}}
+		reqMatchCondition(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			switch @match(Token::LEFT_CURLY, Token::LEFT_SQUARE, Token::IS, Token::COLON) {
+				Token::COLON => {
+					throw new Error('Not Implemented')
+				}
+				Token::IS => {
+					var first = @yes()
+					var type = @reqType()
+
+					return @yep(AST.MatchConditionType(type, first, type))
+				}
+				Token::LEFT_CURLY => {
+					var dyn first = @yes()
+
+					var members = []
+
+					if !@test(Token::RIGHT_CURLY) {
+						var dyn name
+
+						while true {
+							name = @reqIdentifier()
+
+							if @test(Token::COLON) {
+								@commit()
+
+								var value = @reqMatchConditionValue(fMode)
+
+								members.push(@yep(AST.ObjectMember([], [], name, null, value, name, value)))
+							}
+							else {
+								members.push(@yep(AST.ObjectMember([], [], name, null, null, name, name)))
+							}
+
+							if @test(Token::COMMA) {
+								@commit()
+							}
+							else {
+								break
+							}
+						}
+					}
+
+					unless @test(Token::RIGHT_CURLY) {
+						@throw('}')
+					}
+
+					return @yep(AST.MatchConditionObject(members, first, @yes()))
+				}
+				Token::LEFT_SQUARE => {
+					var dyn first = @yes()
+
+					var values = []
+
+					until @test(Token::RIGHT_SQUARE) {
+						if @test(Token::UNDERSCORE) {
+							values.push(@yep(AST.OmittedExpression([], @yes())))
+						}
+						else if @test(Token::DOT_DOT_DOT) {
+							modifier = AST.Modifier(ModifierKind::Rest, @yes())
+
+							values.push(@yep(AST.OmittedExpression([modifier], modifier)))
+						}
+						else {
+							values.push(@reqMatchConditionValue(fMode))
+						}
+
+						if @test(Token::COMMA) {
+							@commit()
+
+							if @test(Token::RIGHT_SQUARE) {
+								values.push(@yep(AST.OmittedExpression([], @yep())))
+							}
+						}
+						else {
+							break
+						}
+					}
+
+					unless @test(Token::RIGHT_SQUARE) {
+						@throw(']')
+					}
+
+					return @yep(AST.MatchConditionArray(values, first, @yes()))
+				}
+				=> {
+					return @reqMatchConditionValue(fMode)
+				}
+			}
+		} # }}}
+		reqMatchConditionValue(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+
+			if @match(Token::LEFT_ANGLE, Token::DOT_DOT) == Token::DOT_DOT {
+				@commit()
+
+				if @test(Token::LEFT_ANGLE) {
+					@commit()
+
+					return @yep(AST.MatchConditionRangeFI(operand, @reqPrefixedOperand(ExpressionMode::Default, fMode)))
+				}
+				else {
+					return @yep(AST.MatchConditionRangeFO(operand, @reqPrefixedOperand(ExpressionMode::Default, fMode)))
+				}
+			}
+			else if @token == Token::LEFT_ANGLE {
+				@commit()
+
+				unless @test(Token::DOT_DOT) {
+					@throw('..')
+				}
+
+				@commit()
+
+				if @test(Token::LEFT_ANGLE) {
+					@commit()
+
+					return @yep(AST.MatchConditionRangeTI(operand, @reqPrefixedOperand(ExpressionMode::Default, fMode)))
+				}
+				else {
+					return @yep(AST.MatchConditionRangeTO(operand, @reqPrefixedOperand(ExpressionMode::Default, fMode)))
+				}
+			}
+			else {
+				return operand
+			}
+			} # }}}
+		reqMatchStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var expression = @reqOperation(ExpressionMode::Default, fMode)
+			var clauses = @reqMatchCaseList(fMode)
+
+			return @yep(AST.MatchStatement(expression, clauses, first, clauses))
+		} # }}}
 		reqNameIB(): Event ~ SyntaxError { # {{{
 			if @match(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::IDENTIFIER {
 				return @reqIdentifier()
@@ -5406,6 +5684,9 @@ export namespace Parser {
 						statement = @reqMacroExpression(@yes())
 					}
 				}
+				Token::MATCH => {
+					statement = @reqMatchStatement(@yes(), fMode)
+				}
 				Token::NAMESPACE => {
 					statement = @tryNamespaceStatement(@yes())
 				}
@@ -5445,9 +5726,6 @@ export namespace Parser {
 				}
 				Token::STRUCT => {
 					statement = @reqStructStatement(@yes())
-				}
-				Token::SWITCH => {
-					statement = @reqSwitchStatement(@yes(), fMode)
 				}
 				Token::THROW => {
 					statement = @reqThrowStatement(@yes(), fMode)
@@ -5589,275 +5867,6 @@ export namespace Parser {
 			}
 
 			return @yep(AST.StructDeclaration(attributes, [], name, extends, elements, first, last))
-		} # }}}
-		reqSwitchBinding(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var bindings = [@reqSwitchBindingValue(fMode)]
-
-			while @test(Token::COMMA) {
-				@commit()
-
-				bindings.push(@reqSwitchBindingValue(fMode))
-			}
-
-			return @yep(bindings)
-		} # }}}
-		reqSwitchBindingValue(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			switch @match(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
-				Token::LEFT_CURLY => {
-					return @reqDestructuringObject(@yes(), DestructuringMode::Nil, fMode)
-				}
-				Token::LEFT_SQUARE => {
-					return @reqDestructuringArray(@yes(), DestructuringMode::Nil, fMode)
-				}
-				=> {
-					var name = @reqIdentifier()
-
-					if @test(Token::AS) {
-						@commit()
-
-						var type = @reqType()
-
-						return @yep(AST.SwitchTypeCasting(name, type))
-					}
-					else {
-						return name
-					}
-				}
-			}
-		} # }}}
-		reqSwitchCaseExpression(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			switch @match(Token::LEFT_CURLY, Token::RETURN, Token::THROW) {
-				Token::LEFT_CURLY => {
-					return @reqBlock(@yes(), fMode)
-				}
-				Token::RETURN => {
-					return @reqReturnStatement(@yes(), fMode)
-				}
-				Token::THROW => {
-					var first = @yes()
-					var expression = @reqExpression(ExpressionMode::Default, fMode)
-
-					return @yep(AST.ThrowStatement(expression, first, expression))
-				}
-				=> {
-					return @reqExpression(ExpressionMode::Default, fMode)
-				}
-			}
-		} # }}}
-		reqSwitchCaseList(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			@NL_0M()
-
-			unless @test(Token::LEFT_CURLY) {
-				@throw('{')
-			}
-
-			@commit().NL_0M()
-
-			var clauses = []
-
-			var dyn conditions, bindings, filter, body, first
-			until @test(Token::RIGHT_CURLY) {
-				first = conditions = bindings = filter = null
-
-				if @test(Token::EQUALS_RIGHT_ANGLE) {
-					first = @yes()
-					body = @reqSwitchCaseExpression(fMode)
-				}
-				else {
-					if @test(Token::UNDERSCORE) {
-						first = @yes()
-					}
-					else if !@test(Token::WITH, Token::WHEN) {
-						first = @reqSwitchCondition(fMode)
-
-						conditions = [first]
-
-						while @test(Token::COMMA) {
-							@commit()
-
-							conditions.push(@reqSwitchCondition(fMode))
-						}
-
-						@NL_0M()
-					}
-
-					if @test(Token::WITH) {
-						if first == null {
-							first = @yes()
-						}
-						else {
-							@commit()
-						}
-
-						bindings = @reqSwitchBinding(fMode)
-
-						@NL_0M()
-					}
-
-					if @test(Token::WHEN) {
-						if first == null {
-							first = @yes()
-						}
-						else {
-							@commit()
-						}
-
-						filter = @reqExpression(ExpressionMode::NoAnonymousFunction, fMode)
-
-						@NL_0M()
-					}
-
-					unless @test(Token::EQUALS_RIGHT_ANGLE) {
-						@throw('=>')
-					}
-
-					@commit()
-
-					body = @reqSwitchCaseExpression(fMode)
-				}
-
-				@reqNL_1M()
-
-				clauses.push(AST.SwitchClause(conditions, bindings, filter, body, first!?, body))
-			}
-
-			unless @test(Token::RIGHT_CURLY) {
-				@throw('}')
-			}
-
-			return @yes(clauses)
-		} # }}}
-		reqSwitchCondition(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			switch @match(Token::LEFT_CURLY, Token::LEFT_SQUARE, Token::IS, Token::COLON) {
-				Token::COLON => {
-					throw new Error('Not Implemented')
-				}
-				Token::IS => {
-					var first = @yes()
-					var type = @reqType()
-
-					return @yep(AST.SwitchConditionType(type, first, type))
-				}
-				Token::LEFT_CURLY => {
-					var dyn first = @yes()
-
-					var members = []
-
-					if !@test(Token::RIGHT_CURLY) {
-						var dyn name
-
-						while true {
-							name = @reqIdentifier()
-
-							if @test(Token::COLON) {
-								@commit()
-
-								var value = @reqSwitchConditionValue(fMode)
-
-								members.push(@yep(AST.ObjectMember([], [], name, null, value, name, value)))
-							}
-							else {
-								members.push(@yep(AST.ObjectMember([], [], name, null, null, name, name)))
-							}
-
-							if @test(Token::COMMA) {
-								@commit()
-							}
-							else {
-								break
-							}
-						}
-					}
-
-					unless @test(Token::RIGHT_CURLY) {
-						@throw('}')
-					}
-
-					return @yep(AST.SwitchConditionObject(members, first, @yes()))
-				}
-				Token::LEFT_SQUARE => {
-					var dyn first = @yes()
-
-					var values = []
-
-					until @test(Token::RIGHT_SQUARE) {
-						if @test(Token::UNDERSCORE) {
-							values.push(@yep(AST.OmittedExpression([], @yes())))
-						}
-						else if @test(Token::DOT_DOT_DOT) {
-							modifier = AST.Modifier(ModifierKind::Rest, @yes())
-
-							values.push(@yep(AST.OmittedExpression([modifier], modifier)))
-						}
-						else {
-							values.push(@reqSwitchConditionValue(fMode))
-						}
-
-						if @test(Token::COMMA) {
-							@commit()
-
-							if @test(Token::RIGHT_SQUARE) {
-								values.push(@yep(AST.OmittedExpression([], @yep())))
-							}
-						}
-						else {
-							break
-						}
-					}
-
-					unless @test(Token::RIGHT_SQUARE) {
-						@throw(']')
-					}
-
-					return @yep(AST.SwitchConditionArray(values, first, @yes()))
-				}
-				=> {
-					return @reqSwitchConditionValue(fMode)
-				}
-			}
-		} # }}}
-		reqSwitchConditionValue(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
-
-			if @match(Token::LEFT_ANGLE, Token::DOT_DOT) == Token::DOT_DOT {
-				@commit()
-
-				if @test(Token::LEFT_ANGLE) {
-					@commit()
-
-					return @yep(AST.SwitchConditionRangeFI(operand, @reqPrefixedOperand(ExpressionMode::Default, fMode)))
-				}
-				else {
-					return @yep(AST.SwitchConditionRangeFO(operand, @reqPrefixedOperand(ExpressionMode::Default, fMode)))
-				}
-			}
-			else if @token == Token::LEFT_ANGLE {
-				@commit()
-
-				unless @test(Token::DOT_DOT) {
-					@throw('..')
-				}
-
-				@commit()
-
-				if @test(Token::LEFT_ANGLE) {
-					@commit()
-
-					return @yep(AST.SwitchConditionRangeTI(operand, @reqPrefixedOperand(ExpressionMode::Default, fMode)))
-				}
-				else {
-					return @yep(AST.SwitchConditionRangeTO(operand, @reqPrefixedOperand(ExpressionMode::Default, fMode)))
-				}
-			}
-			else {
-				return operand
-			}
-			} # }}}
-		reqSwitchStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqOperation(ExpressionMode::Default, fMode)
-			var clauses = @reqSwitchCaseList(fMode)
-
-			return @yep(AST.SwitchStatement(expression, clauses, first, clauses))
 		} # }}}
 		reqTemplateExpression(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var elements = []
@@ -7743,6 +7752,23 @@ export namespace Parser {
 
 			return @yep(AST.MacroDeclaration([], name, parameters, body, first, body))
 		} # }}}
+		tryMatchExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			unless @test(Token::MATCH) {
+				return NO
+			}
+
+			var first = @yes()
+
+			var expression = @tryOperation(eMode, fMode)
+
+			unless expression.ok {
+				return NO
+			}
+
+			var clauses = @reqMatchCaseList(fMode)
+
+			return @yep(AST.MatchExpression(expression, clauses, first, clauses))
+		} # }}}
 		tryMethodReturns(isAllowingAuto: Boolean = true): Event? ~ SyntaxError { # {{{
 			var mark = @mark()
 
@@ -7911,6 +7937,14 @@ export namespace Parser {
 				return @tryNumber()
 			}
 		} # }}}
+		tryOperation(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			try {
+				return @reqOperation(eMode, fMode)
+			}
+			catch {
+				return NO
+			}
+		} # }}}
 		tryParameterAssignment(valued: Boolean): Event ~ SyntaxError { # {{{
 			return NO unless valued
 
@@ -7980,18 +8014,6 @@ export namespace Parser {
 			}
 
 			return NO
-		} # }}}
-		trySwitchExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			unless @test(Token::SWITCH) {
-				return NO
-			}
-
-			var first = @yes()
-
-			var expression = @reqOperation(eMode, fMode)
-			var clauses = @reqSwitchCaseList(fMode)
-
-			return @yep(AST.SwitchExpression(expression, clauses, first, clauses))
 		} # }}}
 		tryTryExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			unless @test(Token::TRY) {

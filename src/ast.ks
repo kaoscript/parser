@@ -1169,6 +1169,112 @@ namespace AST {
 			}, first)
 		} # }}}
 
+		func MatchClause(conditions?, bindings?, filter?, body, first, last) { # {{{
+			var node = location({
+				kind: NodeKind::MatchClause
+				body: body.value
+			}, first, last)
+
+			if conditions == null {
+				node.conditions = []
+			}
+			else {
+				node.conditions = [condition.value for condition in conditions]
+			}
+
+			if bindings == null {
+				node.bindings = []
+			}
+			else {
+				node.bindings = [binding.value for binding in bindings.value]
+			}
+
+			if filter != null {
+				node.filter = filter.value
+			}
+
+			return node
+		} # }}}
+
+		func MatchConditionArray(values, first, last) { # {{{
+			return location({
+				kind: NodeKind::MatchConditionArray
+				values: [value.value for value in values]
+			}, first, last)
+		} # }}}
+
+		func MatchConditionObject(members, first, last) { # {{{
+			return location({
+				kind: NodeKind::MatchConditionObject
+				members: [member.value for member in members]
+			}, first, last)
+		} # }}}
+
+		func MatchConditionRangeFI(from, til) { # {{{
+			return location({
+				kind: NodeKind::MatchConditionRange
+				from: from.value
+				til: til.value
+			}, from, til)
+		} # }}}
+
+		func MatchConditionRangeFO(from, to) { # {{{
+			return location({
+				kind: NodeKind::MatchConditionRange
+				from: from.value
+				to: to.value
+			}, from, to)
+		} # }}}
+
+		func MatchConditionRangeTI(then, til) { # {{{
+			return location({
+				kind: NodeKind::MatchConditionRange
+				then: then.value
+				til: til.value
+			}, then, til)
+		} # }}}
+
+		func MatchConditionRangeTO(then, to) { # {{{
+			return location({
+				kind: NodeKind::MatchConditionRange
+				then: then.value
+				to: to.value
+			}, then, to)
+		} # }}}
+
+		func MatchConditionType(type, first, last) { # {{{
+			return location({
+				kind: NodeKind::MatchConditionType
+				type: type.value
+			}, first, last)
+		} # }}}
+
+		func MatchExpression(expression, clauses, first, last) { # {{{
+			return location({
+				kind: NodeKind::MatchExpression
+				attributes: []
+				expression: expression.value
+				clauses: [clause for clause in clauses.value]
+			}, first, last)
+		} # }}}
+
+		func MatchStatement(expression, clauses, first, last) { # {{{
+			return location({
+				kind: NodeKind::MatchStatement
+				attributes: []
+				expression: expression.value
+				clauses: [clause for clause in clauses.value]
+			}, first, last)
+		} # }}}
+
+		func MatchTypeCasting(name, type) { # {{{
+			return location({
+				kind: NodeKind::MatchTypeCasting
+				name: name.value
+				type: type.value
+			}, name, type)
+		} # }}}
+
 		func MemberExpression(modifiers, object, property, first = object, last = property) { # {{{
 			return location({
 				kind: NodeKind::MemberExpression
@@ -1640,112 +1746,6 @@ namespace AST {
 			}
 
 			return node
-		} # }}}
-
-		func SwitchClause(conditions?, bindings?, filter?, body, first, last) { # {{{
-			var node = location({
-				kind: NodeKind::SwitchClause
-				body: body.value
-			}, first, last)
-
-			if conditions == null {
-				node.conditions = []
-			}
-			else {
-				node.conditions = [condition.value for condition in conditions]
-			}
-
-			if bindings == null {
-				node.bindings = []
-			}
-			else {
-				node.bindings = [binding.value for binding in bindings.value]
-			}
-
-			if filter != null {
-				node.filter = filter.value
-			}
-
-			return node
-		} # }}}
-
-		func SwitchConditionArray(values, first, last) { # {{{
-			return location({
-				kind: NodeKind::SwitchConditionArray
-				values: [value.value for value in values]
-			}, first, last)
-		} # }}}
-
-		func SwitchConditionObject(members, first, last) { # {{{
-			return location({
-				kind: NodeKind::SwitchConditionObject
-				members: [member.value for member in members]
-			}, first, last)
-		} # }}}
-
-		func SwitchConditionRangeFI(from, til) { # {{{
-			return location({
-				kind: NodeKind::SwitchConditionRange
-				from: from.value
-				til: til.value
-			}, from, til)
-		} # }}}
-
-		func SwitchConditionRangeFO(from, to) { # {{{
-			return location({
-				kind: NodeKind::SwitchConditionRange
-				from: from.value
-				to: to.value
-			}, from, to)
-		} # }}}
-
-		func SwitchConditionRangeTI(then, til) { # {{{
-			return location({
-				kind: NodeKind::SwitchConditionRange
-				then: then.value
-				til: til.value
-			}, then, til)
-		} # }}}
-
-		func SwitchConditionRangeTO(then, to) { # {{{
-			return location({
-				kind: NodeKind::SwitchConditionRange
-				then: then.value
-				to: to.value
-			}, then, to)
-		} # }}}
-
-		func SwitchConditionType(type, first, last) { # {{{
-			return location({
-				kind: NodeKind::SwitchConditionType
-				type: type.value
-			}, first, last)
-		} # }}}
-
-		func SwitchExpression(expression, clauses, first, last) { # {{{
-			return location({
-				kind: NodeKind::SwitchExpression
-				attributes: []
-				expression: expression.value
-				clauses: [clause for clause in clauses.value]
-			}, first, last)
-		} # }}}
-
-		func SwitchStatement(expression, clauses, first, last) { # {{{
-			return location({
-				kind: NodeKind::SwitchStatement
-				attributes: []
-				expression: expression.value
-				clauses: [clause for clause in clauses.value]
-			}, first, last)
-		} # }}}
-
-		func SwitchTypeCasting(name, type) { # {{{
-			return location({
-				kind: NodeKind::SwitchTypeCasting
-				name: name.value
-				type: type.value
-			}, name, type)
 		} # }}}
 
 		func TaggedTemplateExpression(tag, template, first, last) { # {{{
