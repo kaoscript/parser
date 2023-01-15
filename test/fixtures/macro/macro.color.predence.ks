@@ -9,7 +9,7 @@ export class Color {
 	}
 }
 
-Color.registerSpace!({
+Color.registerSpace({
 	name: 'FBQ'
 	formatters: {
 		foo(t1, t2, t3) => t1 + (t2 - t1) * (2 / 3 - t3) * 6

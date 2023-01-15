@@ -43,7 +43,7 @@ export class Color {
 	}
 }
 
-Color.registerSpace!({
+Color.registerSpace({
 	name: 'srgb'
 	alias: ['rgb']
 	components: {

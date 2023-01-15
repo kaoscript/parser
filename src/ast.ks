@@ -511,14 +511,6 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func CallMacroExpression(callee, arguments, first, last) { # {{{
-			return location({
-				kind: NodeKind::CallMacroExpression
-				callee: callee.value
-				arguments: [argument.value for argument in arguments.value]
-			}, first, last)
-		} # }}}
-
 		func CatchClause(binding?, type?, body, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::CatchClause

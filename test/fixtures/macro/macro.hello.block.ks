@@ -4,4 +4,4 @@ macro sayHello() {
 	}
 }
 
-sayHello!()
+sayHello()

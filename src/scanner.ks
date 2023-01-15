@@ -57,7 +57,6 @@ enum Token {
 	EXCLAMATION_EQUALS
 	EXCLAMATION_EXCLAMATION
 	EXCLAMATION_HASH_EQUALS
-	EXCLAMATION_LEFT_ROUND
 	EXCLAMATION_QUESTION
 	EXCLAMATION_QUESTION_EQUALS
 	EXCLAMATION_TILDE
@@ -1347,13 +1346,6 @@ namespace M {
 				that.nextLine(1)
 
 				return Token::NEWLINE
-			}
-			else if c == 33 { // !
-				if that.charAt(1) == 40 {
-					that.next(2)
-
-					return Token::EXCLAMATION_LEFT_ROUND
-				}
 			}
 			else if c == 40 { // (
 				that.next(1)

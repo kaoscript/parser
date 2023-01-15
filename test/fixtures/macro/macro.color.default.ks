@@ -33,7 +33,7 @@ class Color {
 	}
 }
 
-Color.registerSpace!({
+Color.registerSpace({
 	name: Space::SRGB
 	alias: [Space::RGB]
 	components: {

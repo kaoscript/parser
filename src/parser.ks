@@ -6413,11 +6413,6 @@ export namespace Parser {
 
 						value = @yep(AST.MemberExpression([], value, @reqNumeralIdentifier()))
 					}
-					Token::EXCLAMATION_LEFT_ROUND {
-						@commit()
-
-						value = @yep(AST.CallMacroExpression(value, @reqArgumentList(fMode), value, @yes()))
-					}
 					Token::LEFT_SQUARE {
 						var modifiers = [AST.Modifier(ModifierKind::Computed, @yes())]
 
