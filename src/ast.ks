@@ -1136,12 +1136,7 @@ namespace AST {
 				expression: expression.value
 			}, first, last)
 
-			if reification == null {
-				node.reification = {
-					kind: ReificationKind::Expression
-				}
-			}
-			else {
+			if reification != null {
 				node.reification = reification
 			}
 
