@@ -113,6 +113,10 @@ enum Token {
 	MINUS
 	MINUS_EQUALS
 	MINUS_RIGHT_ANGLE
+	ML_BACKQUOTE
+	ML_DOUBLE_QUOTE
+	ML_SINGLE_QUOTE
+	ML_TILDE
 	MUT
 	NAMESPACE
 	NEW
@@ -221,7 +225,7 @@ var regex: Object<RegExp> = {
 	regex: /^=?(?:[^\n\r\*\\\/\[]|\\[^\n\r]|\[(?:[^\n\r\]\\]|\\[^\n\r])*\])(?:[^\n\r\\\/\[]|\\[^\n\r]|\[(?:[^\n\r\]\\]|\\[^\n\r])*\])*\/[gmi]*/
 	resource: /(^\s*\r?\n\s*)|(^\})|(^\s*\/\/[^\r\n]*\r?\n\s*)|(^\s*\/\*)|(^\S+)/
 	single_quote: /^([^\\']|\\.)*\'/
-	template: /^(?:[^`\\]|\\\\|\\(?!\())+/
+	template: /^(?:[^`\\\r\n]|\\\\|\\(?!\())+/
 }
 
 namespace M {
@@ -1253,7 +1257,12 @@ namespace M {
 				return Token::EOF
 			}
 			else if c == 34 { // "
-				if var match ?= regex.double_quote.exec(that.substringAt(1)) {
+				if that.charAt(1) == 34 && that.charAt(2) == 34 {
+					that.next(3)
+
+					return Token::ML_DOUBLE_QUOTE
+				}
+				else if var match ?= regex.double_quote.exec(that.substringAt(1)) {
 					that.next(match[0].length + 1)
 
 					return Token::STRING
@@ -1265,7 +1274,12 @@ namespace M {
 				return Token::IDENTIFIER
 			}
 			else if c == 39 { // '
-				if match ?= regex.single_quote.exec(that.substringAt(1)) {
+				if that.charAt(1) == 39 && that.charAt(2) == 39 {
+					that.next(3)
+
+					return Token::ML_SINGLE_QUOTE
+				}
+				else if match ?= regex.single_quote.exec(that.substringAt(1)) {
 					that.next(match[0].length + 1)
 
 					return Token::STRING
@@ -1304,9 +1318,16 @@ namespace M {
 				return Token::IDENTIFIER
 			}
 			else if c == 96 { // `
-				that.next(1)
+				if that.charAt(1) == 96 && that.charAt(2) == 96 {
+					that.next(3)
 
-				return Token::TEMPLATE_BEGIN
+					return Token::ML_BACKQUOTE
+				}
+				else {
+					that.next(1)
+
+					return Token::TEMPLATE_BEGIN
+				}
 			}
 			else if c == 110 { // n
 				if that.scanIdentifier(true) == 'ew' {
@@ -1325,6 +1346,13 @@ namespace M {
 				that.next(1)
 
 				return Token::LEFT_CURLY
+			}
+			else if c == 126 { // ~
+				if that.charAt(1) == 126 && that.charAt(2) == 126 {
+					that.next(3)
+
+					return Token::ML_TILDE
+				}
 			}
 
 			return Token::INVALID
@@ -1966,12 +1994,12 @@ namespace M {
 		func TEMPLATE(that: Scanner, mut index: Number): Token { # {{{
 			var dyn c = that._data.charCodeAt(index)
 
-			if c == 92 && that._data.charCodeAt(index + 1) == 40 {
+			if c == 92 && that._data.charCodeAt(index + 1) == 40 { // \(
 				that.next(2)
 
 				return Token::TEMPLATE_ELEMENT
 			}
-			else if c == 96 {
+			else if c == 96 { // )
 				return Token::TEMPLATE_END
 			}
 			else if match ?= regex.template.exec(that._data.substr(index)) {
@@ -2701,6 +2729,38 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::ML_BACKQUOTE)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 96 && that.charAt(1) == 96 && that.charAt(2) == 96 {
+			return that.next(3)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::ML_DOUBLE_QUOTE)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 34 && that.charAt(1) == 34 && that.charAt(2) == 34 {
+			return that.next(3)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::ML_SINGLE_QUOTE)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 39 && that.charAt(1) == 39 && that.charAt(2) == 39 {
+			return that.next(3)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::ML_TILDE)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 126 && that.charAt(1) == 126 && that.charAt(2) == 126 {
+			return that.next(3)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::MUT)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if	c == 109 &&
 			that.charAt(1) == 117 &&
@@ -3047,7 +3107,7 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token::STRING)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 34 {
+		if c == 34 { // "
 			if match ?= regex.double_quote.exec(that.substringAt(1)) {
 				return that.next(match[0].length + 1)
 			}
@@ -3409,7 +3469,7 @@ class Scanner {
 
 				return text
 			}
-			else if c == 10 || c == 13 {
+			else if c == 10 | 13 {
 				var text = @data.substring(@index, index)
 
 				@nextColumn += index - @index
@@ -3419,6 +3479,29 @@ class Scanner {
 			}
 
 			index += 1
+		}
+
+		@eof()
+
+		return ''
+	} # }}}
+	readIndent(): String { # {{{
+		var mut index = @index
+
+		while index < @length {
+			var c = @data.charCodeAt(index)
+
+			if c == 9 | 32 {
+				index += 1
+			}
+			else {
+				var text = @data.substring(@index, index)
+
+				@nextColumn += index - @index
+				@nextIndex = @index = index
+
+				return text
+			}
 		}
 
 		@eof()

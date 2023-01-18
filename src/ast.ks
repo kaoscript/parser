@@ -1104,12 +1104,18 @@ namespace AST {
 			return node
 		} # }}}
 
-		func Literal(value, first, last? = null) { # {{{
-			return location({
+		func Literal(modifiers?, value, first, last? = null) { # {{{
+			var node = location({
 				kind: NodeKind::Literal
 				modifiers: []
 				value: value
 			}, first, last)
+
+			if modifiers != null {
+				node.modifiers = [modifier.value for modifier in modifiers]
+			}
+
+			return node
 		} # }}}
 
 		func MacroDeclaration(attributes, name, parameters, body, first, last) { # {{{
@@ -1743,11 +1749,18 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func TemplateExpression(elements, first, last) { # {{{
-			return location({
+		func TemplateExpression(modifiers?, elements, first, last?) { # {{{
+			var node = location({
 				kind: NodeKind::TemplateExpression
+				modifiers: []
 				elements: [element.value for element in elements]
 			}, first, last)
+
+			if modifiers != null {
+				node.modifiers = [modifier.value for modifier in modifiers]
+			}
+
+			return node
 		} # }}}
 
 		func ThisExpression(name, first, last) { # {{{

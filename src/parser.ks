@@ -116,11 +116,11 @@ export namespace Parser {
 		commit(): this { # {{{
 			@token = @scanner.commit()
 		} # }}}
-		error(message: String): SyntaxError { # {{{
+		error(message: String, lineNumber: Number = @scanner.line(), columnNumber: Number = @scanner.column()): SyntaxError { # {{{
 			var error = new SyntaxError(message)
 
-			error.lineNumber = @scanner.line()
-			error.columnNumber = @scanner.column()
+			error.lineNumber = lineNumber
+			error.columnNumber = columnNumber
 
 			return error
 		} # }}}
@@ -4611,6 +4611,273 @@ export namespace Parser {
 				return operand
 			}
 			} # }}}
+		reqMultiLineString(first: Event, delimiter: Token): Event ~ SyntaxError { # {{{
+			if @test(Token::NEWLINE) {
+				@commit()
+			}
+			else {
+				@throw('NewLine')
+			}
+
+			var lines = []
+			var mut last: Event
+			var mut baseIndent: String = ''
+
+			repeat {
+				var currentIndent = @scanner.readIndent()
+
+				if @test(delimiter) {
+					baseIndent = currentIndent
+
+					last = @yes()
+
+					break
+				}
+				else if @token == Token::EOF {
+					@throw(delimiter == Token::ML_DOUBLE_QUOTE ? '"""' : "'''")
+				}
+				else {
+					lines.push(currentIndent, @scanner.readLine())
+
+					if @test(Token::NEWLINE) {
+						@commit()
+					}
+					else {
+						@throw('NewLine')
+					}
+				}
+			}
+
+			var mut value = ''
+
+			if #baseIndent {
+				for var [indent, line], index in lines split 2 {
+					if index > 0 {
+						value += '\n'
+					}
+
+					if #line {
+						if indent.startsWith(baseIndent) {
+							value += indent.substr(baseIndent.length) + line
+						}
+						else {
+							throw @error(`Unexpected indentation`, first.start!?.line + (index / 2) + 1, 1)
+						}
+					}
+				}
+			}
+			else {
+				for var [indent, line], index in lines split 2 {
+					if index > 0 {
+						value += '\n'
+					}
+
+					value += indent + line
+				}
+			}
+
+			var modifiers = [@yep(AST.Modifier(ModifierKind::MultiLine, first, last))]
+
+			return @yep(AST.Literal(modifiers, value, first, last))
+		} # }}}
+		reqMultiLineTemplate(first: Event, fMode: FunctionMode, delimiter: Token): Event ~ SyntaxError { # {{{
+			if @test(Token::NEWLINE) {
+				@commit()
+			}
+			else {
+				@throw('NewLine')
+			}
+
+			var lines = []
+			var mut last: Event
+			var mut baseIndent: String = ''
+
+			repeat {
+				var currentIndent = @scanner.readIndent()
+
+				if @test(delimiter) {
+					baseIndent = currentIndent
+
+					last = @yes()
+
+					break
+				}
+				else if @token == Token::EOF {
+					@throw(delimiter == Token::ML_BACKQUOTE ? '```' : '~~~')
+				}
+				else {
+					var line = [currentIndent]
+
+					repeat {
+						if @matchM(M.TEMPLATE) == Token::TEMPLATE_ELEMENT {
+							@commit()
+
+							line.push(@reqExpression(ExpressionMode::Default, fMode))
+
+							unless @test(Token::RIGHT_ROUND) {
+								@throw(')')
+							}
+
+							@commit()
+						}
+						else if @token == Token::TEMPLATE_VALUE {
+							line.push(@yep(AST.Literal(null, @scanner.value(), @yes())))
+						}
+						else {
+							break
+						}
+					}
+
+					if @test(Token::NEWLINE) {
+						lines.push(line)
+
+						@commit()
+					}
+					else {
+						@throw('NewLine')
+					}
+				}
+			}
+
+			var elements = []
+
+			if #lines {
+				if #baseIndent {
+					var firstLine = first.start!?.line + 1
+					var mut previous = null
+
+					for var [indent, first, ...rest], index in lines {
+						if index > 0 {
+							if !?previous {
+								previous = AST.Literal(null, '\n', Position(
+									line: firstLine
+									column: 1
+								), Position(
+									line: firstLine
+									column: 2
+								))
+
+								elements.push(previous)
+							}
+							else if previous.kind == NodeKind::Literal {
+								previous.value += '\n'
+								previous.end.column += 1
+							}
+							else {
+								previous = AST.Literal(null, '\n', Position(
+									line: previous.end.line:Number
+									column: previous.end.column:Number + 1
+								), Position(
+									line: previous.end.line:Number
+									column: previous.end.column:Number + 2
+								))
+
+								elements.push(previous)
+							}
+						}
+
+						if ?first {
+							unless indent.startsWith(baseIndent) {
+								throw @error(`Unexpected indentation`, first.line:Number + index + 1, 1)
+							}
+
+							if var value #= indent.substr(baseIndent.length) {
+								if !?previous {
+									previous = AST.Literal(null, value, Position(
+										line: firstLine
+										column: baseIndent.length
+									), Position(
+										line: firstLine
+										column: indent.length
+									))
+
+									elements.push(previous)
+								}
+								else if previous.kind == NodeKind::Literal {
+									previous.value += value
+									previous.end.line += 1
+									previous.end.column += indent.length
+								}
+								else {
+									previous = AST.Literal(null, value, Position(
+										line: previous.end.line:Number + 1
+										column: baseIndent.length
+									), Position(
+										line: previous.end.line:Number + 1
+										column: indent.length
+									))
+
+									elements.push(previous)
+								}
+							}
+
+							if ?previous && first.value.kind == NodeKind::Literal {
+								previous.value += first.value.value
+								previous.end = first.value.end
+							}
+							else {
+								elements.push(first)
+							}
+
+							if #rest {
+								elements.push(...rest)
+
+								previous = rest[rest.length - 1].value
+							}
+							else {
+								previous = first.value
+							}
+						}
+					}
+				}
+				else {
+					elements.push(...lines[0].slice(1))
+
+					if lines.length > 1 {
+						var mut previous = elements[elements.length - 1].value
+
+						for var [indent, first, ...rest], index in lines from 1 {
+							if previous.kind == NodeKind::Literal {
+								previous.value += '\n'
+								previous.end.column += 1
+							}
+							else {
+								previous = AST.Literal(null, '\n', Position(
+									line: previous.end.line:Number
+									column: previous.end.column:Number + 1
+								), Position(
+									line: previous.end.line:Number
+									column: previous.end.column:Number + 2
+								))
+
+								elements.push(previous)
+							}
+
+							if first.value.kind == NodeKind::Literal {
+								previous.value += first.value.value
+								previous.end = first.value.end
+							}
+							else {
+								elements.push(first)
+							}
+
+							if #rest {
+								elements.push(...rest)
+
+								previous = rest[rest.length - 1].value
+							}
+							else {
+								previous = first.value
+							}
+						}
+					}
+				}
+			}
+
+			var modifiers = [@yep(AST.Modifier(ModifierKind::MultiLine, first, last))]
+
+			return @yep(AST.TemplateExpression(modifiers, elements, first, last))
+		} # }}}
 		reqNameIB(): Event ~ SyntaxError { # {{{
 			if @match(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) == Token::IDENTIFIER {
 				return @reqIdentifier()
@@ -5766,7 +6033,7 @@ export namespace Parser {
 		} # }}}
 		reqString(): Event ~ SyntaxError { # {{{
 			if @test(Token::STRING) {
-				return @yep(AST.Literal(@value(), @yes()))
+				return @yep(AST.Literal(null, @value(), @yes()))
 			}
 			else {
 				@throw('String')
@@ -5865,7 +6132,7 @@ export namespace Parser {
 		reqTemplateExpression(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var elements = []
 
-			while true {
+			repeat {
 				if @matchM(M.TEMPLATE) == Token::TEMPLATE_ELEMENT {
 					@commit()
 
@@ -5878,7 +6145,7 @@ export namespace Parser {
 					@commit()
 				}
 				else if @token == Token::TEMPLATE_VALUE {
-					elements.push(@yep(AST.Literal(@scanner.value(), @yes())))
+					elements.push(@yep(AST.Literal(null, @scanner.value(), @yes())))
 				}
 				else {
 					break
@@ -5889,7 +6156,7 @@ export namespace Parser {
 				@throw('`')
 			}
 
-			return @yep(AST.TemplateExpression(elements, first, @yes()))
+			return @yep(AST.TemplateExpression(null, elements, first, @yes()))
 		} # }}}
 		reqThisExpression(mut first: Event): Event ~ SyntaxError { # {{{
 			var identifier = @reqIdentifier()
@@ -7913,6 +8180,16 @@ export namespace Parser {
 			else if @token == Token::LEFT_SQUARE {
 				return @reqArray(@yes(), fMode)
 			}
+			else if @token == Token::ML_BACKQUOTE | Token::ML_TILDE {
+				var delimiter = @token
+
+				return @reqMultiLineTemplate(@yes(), fMode, delimiter)
+			}
+			else if @token == Token::ML_DOUBLE_QUOTE | Token::ML_SINGLE_QUOTE {
+				var delimiter = @token
+
+				return @reqMultiLineString(@yes(), delimiter)
+			}
 			else if @token == Token::NEW {
 				var first = @yep(AST.Identifier(@scanner.value(), @yes()))
 
@@ -7928,7 +8205,7 @@ export namespace Parser {
 				return @yep(AST.RegularExpression(@scanner.value(), @yes()))
 			}
 			else if @token == Token::STRING {
-				return @yep(AST.Literal(@value(), @yes()))
+				return @yep(AST.Literal(null, @value(), @yes()))
 			}
 			else if @token == Token::TEMPLATE_BEGIN {
 				return @reqTemplateExpression(@yes(), fMode)
