@@ -315,6 +315,25 @@ export namespace Parser {
 
 			@throw(']')
 		} # }}}
+		altConditional(expression: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			if @match(Token::IF, Token::UNLESS) == Token::IF {
+				@commit()
+
+				var condition = @reqExpression(ExpressionMode::Default, fMode)
+
+				return @yep(AST.IfExpression(condition, expression, null, expression, condition))
+			}
+			else if @token == Token::UNLESS {
+				@commit()
+
+				var condition = @reqExpression(ExpressionMode::Default, fMode)
+
+				return @yep(AST.UnlessExpression(condition, expression, expression, condition))
+			}
+			else {
+				return expression
+			}
+		} # }}}
 		altForExpressionFrom(modifiers, variable: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var late from: Event
 			if @token == Token::FROM_TILDE {
@@ -861,16 +880,20 @@ export namespace Parser {
 					else if @test(Token::COLON) {
 						var first = @yes()
 
+						var late expression
+
 						if fMode == FunctionMode::Method && @test(Token::AT) {
 							var alias = @reqThisExpression(@yes())
 
-							arguments.push(@yep(AST.NamedArgument(@yep(alias.value.name), alias, first, alias)))
+							expression = @yep(AST.NamedArgument(@yep(alias.value.name), alias, first, alias))
 						}
 						else {
 							var identifier = @reqIdentifier()
 
-							arguments.push(@yep(AST.NamedArgument(identifier, identifier, first, identifier)))
+							expression = @yep(AST.NamedArgument(identifier, identifier, first, identifier))
 						}
+
+						arguments.push(@altConditional(expression, fMode))
 					}
 					else {
 						var argument = @reqExpression(null, fMode, MacroTerminator::List)
@@ -880,8 +903,9 @@ export namespace Parser {
 								@commit()
 
 								var value = @reqExpression(null, fMode, MacroTerminator::List)
+								var expression = @yep(AST.NamedArgument(argument, value))
 
-								arguments.push(@yep(AST.NamedArgument(argument, value)))
+								arguments.push(@altConditional(expression, fMode))
 							}
 							else {
 								arguments.push(argument)
@@ -5096,7 +5120,7 @@ export namespace Parser {
 				}
 			}
 
-			var dyn name
+			var late name
 			if @match(Token::AT, Token::DOT_DOT_DOT, Token::IDENTIFIER, Token::LEFT_SQUARE, Token::STRING, Token::TEMPLATE_BEGIN) == Token::IDENTIFIER {
 				name = @reqIdentifier()
 			}
@@ -5110,15 +5134,17 @@ export namespace Parser {
 				name = @reqTemplateExpression(@yes(), fMode)
 			}
 			else if fMode == FunctionMode::Method && @token == Token::AT {
-				name = @reqThisExpression(@yes())
+				var name = @reqThisExpression(@yes())
+				var expression = @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
 
-				return @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
+				return @altConditional(expression, fMode)
 			}
 			else if @token == Token::DOT_DOT_DOT {
 				var operator = @yep(AST.UnaryOperator(UnaryOperatorKind::Spread, @yes()))
 				var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+				var expression = @yep(AST.UnaryExpression(operator, operand, operator, operand))
 
-				return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+				return @altConditional(expression, fMode)
 			}
 			else {
 				@throw('Identifier', 'String', 'Template', 'Computed Property Name')
@@ -5128,8 +5154,9 @@ export namespace Parser {
 				@commit()
 
 				var value = @reqExpression(null, fMode, MacroTerminator::Object)
+				var expression = @yep(AST.ObjectMember(attributes, [], name, null, value, first ?? name, value))
 
-				return @yep(AST.ObjectMember(attributes, [], name, null, value, first ?? name, value))
+				return @altConditional(expression, fMode)
 			}
 			else if @test(Token::LEFT_ROUND) {
 				var parameters = @reqFunctionParameterList(fMode)
@@ -5139,8 +5166,13 @@ export namespace Parser {
 
 				return @yep(AST.ObjectMember(attributes, [], name, null, @yep(AST.FunctionExpression(parameters, null, type, throws, body, parameters, body)), first ?? name, body))
 			}
+			else if name.value.kind == NodeKind::Identifier {
+				var expression = @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
+
+				return @altConditional(expression, fMode)
+			}
 			else {
-				return @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
+				@throw(':', '(')
 			}
 		} # }}}
 		reqOperand(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
