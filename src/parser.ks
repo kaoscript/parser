@@ -779,6 +779,45 @@ export namespace Parser {
 
 			return AST.TypeList(attributes, types, attributes[0] ?? types[0], types[types.length - 1])
 		} # }}}
+		parseStatements(mode: FunctionMode) ~ SyntaxError { # {{{
+			var first = @yep()
+			var attributes = []
+			var body = []
+
+			var dyn attrs = []
+			var dyn statement
+
+			@NL_0M()
+
+			while !@scanner.isEOF() {
+				if @stackInnerAttributes(attributes) {
+					continue
+				}
+
+				@stackOuterAttributes(attrs)
+
+				var statement = @reqStatement(mode).value
+
+				AST.pushAttributes(statement, attrs)
+
+				body.push(statement)
+
+				@NL_0M()
+			}
+
+			var last = @yep()
+
+			unless @scanner.isEOF() {
+				@throw('EOF')
+			}
+
+			return {
+				attributes: [attribute.value for attribute in attributes]
+				body
+				start: first.start
+				end: last.end
+			}
+		} # }}}
 		reqAccessModifiers(modifiers: Array<Event>): Array<Event> ~ SyntaxError { # {{{
 			if @match(Token::PRIVATE, Token::PROTECTED, Token::PUBLIC, Token::INTERNAL) == Token::PRIVATE {
 				modifiers.push(@yep(AST.Modifier(ModifierKind::Private, @yes())))
@@ -9798,11 +9837,24 @@ export namespace Parser {
 		} # }}}
 	}
 
-	export func parse(data: String) ~ SyntaxError { # {{{
+	func parse(data: String) ~ SyntaxError { # {{{
 		var parser = new Parser(data)
 
 		return parser.parseModule()
 	} # }}}
+
+	func parseStatements(data: String, mode: FunctionMode) ~ SyntaxError { # {{{
+		var parser = new Parser(data)
+
+		return parser.parseStatements(mode)
+	} # }}}
+
+	export {
+		FunctionMode
+
+		parse
+		parseStatements
+	}
 }
 
 export Parser.parse
