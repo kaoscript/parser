@@ -1213,21 +1213,54 @@ export namespace Parser {
 		} # }}}
 		reqBreakStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @match(Token::IF, Token::UNLESS) == Token::IF {
-				@commit()
+				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @tryExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.IfStatement(condition, null, @yep(AST.BreakStatement(first)), null, first, condition))
+				if condition.ok {
+					return @yep(AST.IfStatement(condition, null, @yep(AST.BreakStatement(null, first, first)), null, first, condition))
+				}
+				else {
+					return @yep(AST.IfStatement(condition, null, @yep(AST.BreakStatement(label, first, label)), null, first, condition))
+				}
 			}
 			else if @token == Token::UNLESS {
-				@commit()
+				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @tryExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(first)), first, condition))
+				if condition.ok {
+					return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(null, first, first)), first, condition))
+				}
+				else {
+					return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(label, first, label)), first, condition))
+				}
 			}
 			else {
-				return @yep(AST.BreakStatement(first))
+				var label = @tryIdentifier()
+
+				if label.ok {
+					if @match(Token::IF, Token::UNLESS) == Token::IF {
+						@commit()
+
+						var condition = @reqExpression(ExpressionMode::Default, fMode)
+
+						return @yep(AST.IfStatement(condition, null, @yep(AST.BreakStatement(label, first, label)), null, first, condition))
+					}
+					else if @token == Token::UNLESS {
+						@commit()
+
+						var condition = @reqExpression(ExpressionMode::Default, fMode)
+
+						return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(label, first, label)), first, condition))
+					}
+					else {
+						return @yep(AST.BreakStatement(label, first, label))
+					}
+				}
+				else {
+					return @yep(AST.BreakStatement(null, first, first))
+				}
 			}
 		} # }}}
 		reqCatchOnClause(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -1902,21 +1935,54 @@ export namespace Parser {
 		} # }}}
 		reqContinueStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @match(Token::IF, Token::UNLESS) == Token::IF {
-				@commit()
+				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @tryExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.IfStatement(condition, null, @yep(AST.ContinueStatement(first)), null, first, condition))
+				if condition.ok {
+					return @yep(AST.IfStatement(condition, null, @yep(AST.ContinueStatement(null, first, first)), null, first, condition))
+				}
+				else {
+					return @yep(AST.IfStatement(condition, null, @yep(AST.ContinueStatement(label, first, label)), null, first, condition))
+				}
 			}
 			else if @token == Token::UNLESS {
-				@commit()
+				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @tryExpression(ExpressionMode::Default, fMode)
 
-				return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(first)), first, condition))
+				if condition.ok {
+					return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(null, first, first)), first, condition))
+				}
+				else {
+					return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(label, first, label)), first, condition))
+				}
 			}
 			else {
-				return @yep(AST.ContinueStatement(first))
+				var label = @tryIdentifier()
+
+				if label.ok {
+					if @match(Token::IF, Token::UNLESS) == Token::IF {
+						@commit()
+
+						var condition = @reqExpression(ExpressionMode::Default, fMode)
+
+						return @yep(AST.IfStatement(condition, null, @yep(AST.ContinueStatement(label, first, label)), null, first, condition))
+					}
+					else if @token == Token::UNLESS {
+						@commit()
+
+						var condition = @reqExpression(ExpressionMode::Default, fMode)
+
+						return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(label, first, label)), first, condition))
+					}
+					else {
+						return @yep(AST.ContinueStatement(label, first, label))
+					}
+				}
+				else {
+					return @yep(AST.ContinueStatement(null, first, first))
+				}
 			}
 		} # }}}
 		reqDestructuringArray(mut first: Event, dMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -5947,6 +6013,9 @@ export namespace Parser {
 				Token::BITMASK {
 					statement = @reqBitmaskStatement(@yes())
 				}
+				Token::BLOCK {
+					statement = @tryBlockStatement(@yes(), fMode)
+				}
 				Token::BREAK {
 					statement = @reqBreakStatement(@yes(), fMode)
 				}
@@ -7309,6 +7378,21 @@ export namespace Parser {
 			catch {
 				return NO
 			}
+		} # }}}
+		tryBlockStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var label = @tryIdentifier()
+
+			unless label.ok {
+				return NO
+			}
+
+			unless @test(Token::LEFT_CURLY) {
+				@throw('{')
+			}
+
+			var body = @reqBlock(@yes(), fMode)
+
+			return @yep(AST.BlockStatement(label, body, first, body))
 		} # }}}
 		tryClassMember(attributes, modifiers, staticModifier: Event?, staticMark: Marker, finalModifier: Event?, finalMark: Marker, mut first: Event?) ~ SyntaxError { # {{{
 			if staticModifier.ok {

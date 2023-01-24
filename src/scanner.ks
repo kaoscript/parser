@@ -19,6 +19,7 @@ enum Token {
 	BACKSLASH
 	BINARY_NUMBER
 	BITMASK
+	BLOCK
 	BREAK
 	BUT
 	CARET
@@ -1596,7 +1597,7 @@ namespace M {
 					return Token::AUTO
 				}
 			}
-			// bitmask, break
+			// bitmask, block, break
 			else if	c == 98
 			{
 				if	that.charAt(1) == 105 &&
@@ -1610,6 +1611,16 @@ namespace M {
 					that.next(7)
 
 					return Token::BITMASK
+				}
+				else if	that.charAt(1) == 108 &&
+						that.charAt(2) == 111 &&
+						that.charAt(3) == 99 &&
+						that.charAt(4) == 107 &&
+						that.isBoundary(5)
+				{
+					that.next(5)
+
+					return Token::BLOCK
 				}
 				else if	that.charAt(1) == 114 &&
 						that.charAt(2) == 101 &&

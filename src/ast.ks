@@ -494,11 +494,21 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func BreakStatement(first) { # {{{
+		func BlockStatement(label, body, first, last) { # {{{
+			return location({
+				kind: NodeKind::BlockStatement
+				attributes: []
+				label: label.value
+				body: body.value
+			}, first, last)
+		} # }}}
+
+		func BreakStatement(label?, first, last) { # {{{
 			return location({
 				kind: NodeKind::BreakStatement
 				attributes: []
-			}, first)
+				label: label.value if ?label
+			}, first, last)
 		} # }}}
 
 		func CallExpression(modifiers, scope = { kind: ScopeKind::This }, callee, arguments, first, last) { # {{{
@@ -577,11 +587,12 @@ namespace AST {
 			}, condition, whenFalse)
 		} # }}}
 
-		func ContinueStatement(first) { # {{{
+		func ContinueStatement(label?, first, last) { # {{{
 			return location({
 				kind: NodeKind::ContinueStatement
 				attributes: []
-			}, first)
+				label: label.value if ?label
+			}, first, last)
 		} # }}}
 
 		func CreateExpression(class, arguments, first, last) { # {{{
