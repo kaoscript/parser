@@ -1271,14 +1271,6 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func MatchTypeCasting(name, type) { # {{{
-			return location({
-				kind: NodeKind::MatchTypeCasting
-				name: name.value
-				type: type.value
-			}, name, type)
-		} # }}}
-
 		func MemberExpression(modifiers, object, property, first = object, last = property) { # {{{
 			return location({
 				kind: NodeKind::MemberExpression

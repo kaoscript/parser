@@ -1543,6 +1543,11 @@ namespace M {
 
 					return Token::DOT_DOT_DOT
 				}
+				else {
+					that.next(1)
+
+					return Token::DOT
+				}
 			}
 			else if c == 63 { // ?
 				if that.charAt(1) != 9 & 32 {
@@ -2219,6 +2224,20 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::BREAK)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 98 &&
+			that.charAt(1) == 114 &&
+			that.charAt(2) == 101 &&
+			that.charAt(3) == 97 &&
+			that.charAt(4) == 107 &&
+			that.isBoundary(5)
+		{
+			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::BUT)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if	c == 98 &&
 			that.charAt(1) == 117 &&
@@ -2261,6 +2280,28 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token::CLASS)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 99 &&
+			that.charAt(1) == 108 &&
+			that.charAt(2) == 97 &&
+			that.charAt(3) == 115 &&
+			that.charAt(4) == 115 &&
+			that.isBoundary(5)
+		{
+			return that.next(5)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::CLASS_VERSION)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if match ?= regex.class_version.exec(that.substringAt(0)) {
+			return that.next(match[0].length)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token::COLON)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 58 {
 			c = that.charAt(1)
@@ -2279,23 +2320,18 @@ var recognize = {
 			return false
 		}
 	} # }}}
-	`\(Token::CLASS)`(that: Scanner, mut c: Number): Boolean { # {{{
+	`\(Token::CONTINUE)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if	c == 99 &&
-			that.charAt(1) == 108 &&
-			that.charAt(2) == 97 &&
-			that.charAt(3) == 115 &&
-			that.charAt(4) == 115 &&
-			that.isBoundary(5)
+			that.charAt(1) == 111 &&
+			that.charAt(2) == 110 &&
+			that.charAt(3) == 116 &&
+			that.charAt(4) == 105 &&
+			that.charAt(5) == 110 &&
+			that.charAt(6) == 117 &&
+			that.charAt(7) == 101 &&
+			that.isBoundary(8)
 		{
-			return that.next(5)
-		}
-		else {
-			return false
-		}
-	} # }}}
-	`\(Token::CLASS_VERSION)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if match ?= regex.class_version.exec(that.substringAt(0)) {
-			return that.next(match[0].length)
+			return that.next(8)
 		}
 		else {
 			return false
@@ -2861,6 +2897,19 @@ var recognize = {
 			that.isBoundary(9)
 		{
 			return that.next(9)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token::PASS)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 112 &&
+			that.charAt(1) == 97 &&
+			that.charAt(2) == 115 &&
+			that.charAt(3) == 115 &&
+			that.isBoundary(4)
+		{
+			return that.next(4)
 		}
 		else {
 			return false
