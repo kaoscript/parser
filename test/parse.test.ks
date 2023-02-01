@@ -21,6 +21,18 @@ import {
 }
 
 var DEBUG = process.env.DEBUG == '1' || process.env.DEBUG == 'true' || process.env.DEBUG == 'on'
+var SKIP_KIND = process.env.SKIP_KIND == '1' || process.env.SKIP_KIND == 'true' || process.env.SKIP_KIND == 'on'
+
+func unescapeKind(key, value) { # {{{
+	if key == 'kind' {
+		return 0
+	}
+	else {
+		return unescapeJSON(key, value)
+	}
+} # }}}
+
+var unescape = SKIP_KIND ? unescapeKind : unescapeJSON
 
 var mut testings = []
 
@@ -120,7 +132,7 @@ func prepare(file) { # {{{
 			}
 
 			try {
-				expect(JSON.parse(JSON.stringify(data, escapeJSON), unescapeJSON)).to.eql(JSON.parse(json, unescapeJSON))
+				expect(JSON.parse(JSON.stringify(data, escapeJSON), unescape)).to.eql(JSON.parse(json, unescape))
 			}
 			catch ex {
 				if DEBUG {

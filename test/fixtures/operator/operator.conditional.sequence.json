@@ -1,9 +1,9 @@
 {
-  "kind": 76,
+  "kind": 77,
   "attributes": [],
   "body": [
     {
-      "kind": 128,
+      "kind": 131,
       "attributes": [],
       "modifiers": [
         {
@@ -20,16 +20,16 @@
       ],
       "declarations": [
         {
-          "kind": 126,
+          "kind": 129,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 127,
+              "kind": 130,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 52,
+                "kind": 53,
                 "modifiers": [],
                 "name": "foo",
                 "start": {
@@ -70,7 +70,7 @@
               "column": 60
             },
             "condition": {
-              "kind": 52,
+              "kind": 53,
               "modifiers": [],
               "name": "lang",
               "start": {
@@ -83,7 +83,7 @@
               }
             },
             "whenTrue": {
-              "kind": 102,
+              "kind": 106,
               "modifiers": [],
               "expressions": [
                 {
@@ -110,7 +110,7 @@
                     "column": 38
                   },
                   "left": {
-                    "kind": 52,
+                    "kind": 53,
                     "modifiers": [],
                     "name": "bar",
                     "start": {
@@ -123,7 +123,7 @@
                     }
                   },
                   "right": {
-                    "kind": 63,
+                    "kind": 64,
                     "modifiers": [],
                     "value": "goodbye",
                     "start": {
@@ -137,7 +137,7 @@
                   }
                 },
                 {
-                  "kind": 63,
+                  "kind": 64,
                   "modifiers": [],
                   "value": "hello",
                   "start": {
@@ -160,7 +160,7 @@
               }
             },
             "whenFalse": {
-              "kind": 63,
+              "kind": 64,
               "modifiers": [],
               "value": "bonjour",
               "start": {

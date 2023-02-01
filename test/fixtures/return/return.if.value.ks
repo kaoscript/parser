@@ -1,1 +1,1 @@
-return 'hello' if lang == 'en' else 'bonjour'
+return 'hello' if lang == 'en'

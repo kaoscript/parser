@@ -11,7 +11,7 @@ enum ANSIColor {
 }
 
 func color(fg: ANSIColor, bg: ANSIColor): String {
-	var dyn fg_code = match fg {
+	var fg_code = match fg {
 		black => 30
 		red => 31
 		green => 32
@@ -23,7 +23,7 @@ func color(fg: ANSIColor, bg: ANSIColor): String {
 		else => 39
 	}
 
-	var dyn bg_code = match bg {
+	var bg_code = match bg {
 		black => 40
 		red => 41
 		green => 42

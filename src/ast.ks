@@ -638,6 +638,16 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func DisruptiveExpression(operator: Event, condition: Event, mainExpression: Event, disruptedExpression: Event, first, last) { # {{{
+			return location({
+				kind: NodeKind::DisruptiveExpression
+				operator: operator.value
+				condition: condition.value
+				mainExpression: mainExpression.value
+				disruptedExpression: disruptedExpression.value
+			}, first, last)
+		} # }}}
+
 		func DoUntilStatement(condition, body, first, last) { # {{{
 			return location({
 				kind: NodeKind::DoUntilStatement
@@ -976,15 +986,20 @@ namespace AST {
 			return node
 		} # }}}
 
-		func IfExpression(condition, whenTrue, whenFalse?, first, last) { # {{{
+		func IfExpression(condition?, declaration?, whenTrue, whenFalse, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::IfExpression
-				condition: condition.value
+				attributes: []
 				whenTrue: whenTrue.value
+				whenFalse: whenFalse.value
 			}, first, last)
 
-			if whenFalse != null {
-				node.whenFalse = whenFalse.value
+			if condition != null {
+				node.condition = condition.value
+			}
+
+			if declaration != null {
+				node.declaration = declaration.value
 			}
 
 			return node
@@ -1523,6 +1538,21 @@ namespace AST {
 			return node
 		} # }}}
 
+		func PickStatement(first) { # {{{
+			return location({
+				kind: NodeKind::PickStatement
+				attributes: []
+			}, first, first)
+		} # }}}
+
+		func PickStatement(value, first, last) { # {{{
+			return location({
+				kind: NodeKind::PickStatement
+				attributes: []
+				value: value.value
+			}, first, last)
+		} # }}}
+
 		func PositionalArgument(value) { # {{{
 			return location({
 				kind: NodeKind::PositionalArgument
@@ -1600,6 +1630,13 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func Reference(name: String, first) { # {{{
+			return location({
+				kind: NodeKind::Reference
+				name
+			}, first)
+		} # }}}
+
 		func RegularExpression(value, first) { # {{{
 			return location({
 				kind: NodeKind::RegularExpression
@@ -1656,6 +1693,22 @@ namespace AST {
 					max: max
 				}
 			}, first, last)
+		} # }}}
+
+		func RestrictiveExpression(operator: Event, condition: Event, expression: Event, first, last) { # {{{
+			return location({
+				kind: NodeKind::RestrictiveExpression
+				operator: operator.value
+				condition: condition.value
+				expression: expression.value
+			}, first, last)
+		} # }}}
+
+		func RestrictiveOperator(operator: RestrictiveOperatorKind, first) { # {{{
+			return location({
+				kind: operator
+				modifiers: []
+			}, first)
 		} # }}}
 
 		func ReturnStatement(first) { # {{{
@@ -1924,14 +1977,6 @@ namespace AST {
 			return location({
 				kind: NodeKind::UnionType
 				types: [type.value for var type in types]
-			}, first, last)
-		} # }}}
-
-		func UnlessExpression(condition, whenFalse, first, last) { # {{{
-			return location({
-				kind: NodeKind::UnlessExpression
-				condition: condition.value
-				whenFalse: whenFalse.value
 			}, first, last)
 		} # }}}
 

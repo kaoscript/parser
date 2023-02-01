@@ -1,66 +1,15 @@
 {
-  "kind": 76,
+  "kind": 77,
   "attributes": [],
   "body": [
     {
-      "kind": 101,
+      "kind": 55,
       "attributes": [],
-      "value": {
-        "kind": 53,
-        "condition": {
-          "kind": 24,
-          "modifiers": [],
-          "values": [
-            {
-              "kind": 52,
-              "modifiers": [],
-              "name": "lang",
-              "start": {
-                "line": 1,
-                "column": 19
-              },
-              "end": {
-                "line": 1,
-                "column": 23
-              }
-            },
-            {
-              "kind": 6,
-              "modifiers": [],
-              "start": {
-                "line": 1,
-                "column": 24
-              },
-              "end": {
-                "line": 1,
-                "column": 26
-              }
-            },
-            {
-              "kind": 63,
-              "modifiers": [],
-              "value": "en",
-              "start": {
-                "line": 1,
-                "column": 27
-              },
-              "end": {
-                "line": 1,
-                "column": 31
-              }
-            }
-          ],
-          "start": {
-            "line": 1,
-            "column": 19
-          },
-          "end": {
-            "line": 1,
-            "column": 31
-          }
-        },
-        "whenTrue": {
-          "kind": 63,
+      "whenTrue": {
+        "kind": 105,
+        "attributes": [],
+        "value": {
+          "kind": 64,
           "modifiers": [],
           "value": "hello",
           "start": {
@@ -74,24 +23,11 @@
         },
         "start": {
           "line": 1,
-          "column": 8
+          "column": 1
         },
         "end": {
           "line": 1,
-          "column": 46
-        },
-        "whenFalse": {
-          "kind": 63,
-          "modifiers": [],
-          "value": "bonjour",
-          "start": {
-            "line": 1,
-            "column": 37
-          },
-          "end": {
-            "line": 1,
-            "column": 46
-          }
+          "column": 15
         }
       },
       "start": {
@@ -100,7 +36,59 @@
       },
       "end": {
         "line": 1,
-        "column": 46
+        "column": 31
+      },
+      "condition": {
+        "kind": 24,
+        "modifiers": [],
+        "values": [
+          {
+            "kind": 53,
+            "modifiers": [],
+            "name": "lang",
+            "start": {
+              "line": 1,
+              "column": 19
+            },
+            "end": {
+              "line": 1,
+              "column": 23
+            }
+          },
+          {
+            "kind": 6,
+            "modifiers": [],
+            "start": {
+              "line": 1,
+              "column": 24
+            },
+            "end": {
+              "line": 1,
+              "column": 26
+            }
+          },
+          {
+            "kind": 64,
+            "modifiers": [],
+            "value": "en",
+            "start": {
+              "line": 1,
+              "column": 27
+            },
+            "end": {
+              "line": 1,
+              "column": 31
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 19
+        },
+        "end": {
+          "line": 1,
+          "column": 31
+        }
       }
     }
   ],
@@ -110,6 +98,6 @@
   },
   "end": {
     "line": 1,
-    "column": 46
+    "column": 31
   }
 }

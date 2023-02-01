@@ -63,10 +63,12 @@ export namespace Parser {
 	bitmask ExpressionMode {
 		Default
 		Arrow
+		EndOfLine
 		ImplicitMember
 		NoAnonymousFunction
 		NoAwait
 		NoObject
+		NoRestriction
 		WithMacro
 	}
 
@@ -93,6 +95,7 @@ export namespace Parser {
 
 	bitmask ParserMode {
 		Default
+		InlineStatement
 		MacroExpression
 		Typing
 	}
@@ -108,9 +111,9 @@ export namespace Parser {
 
 	class Parser {
 		private {
-			_mode: ParserMode	= ParserMode::Default
-			_scanner: Scanner
-			_token: Token?
+			@mode: ParserMode	= ParserMode::Default
+			@scanner: Scanner
+			@token: Token?
 		}
 		constructor(data: String) ~ SyntaxError { # {{{
 			@scanner = new Scanner(data)
@@ -128,7 +131,7 @@ export namespace Parser {
 		} # }}}
 		mark(): Marker => @scanner.mark()
 		match(...tokens: Token): Token => @token <- @scanner.match(...tokens)
-		matchM(matcher: Function): Token => @token <- @scanner.matchM(matcher)
+		matchM(matcher: Function, mode? = null): Token => @token <- @scanner.matchM(matcher, mode)
 		matchNS(...tokens: Token): Token => @token <- @scanner.matchNS(...tokens)
 		no(...expecteds: String): Event => Event( # {{{
 			ok: false
@@ -316,25 +319,6 @@ export namespace Parser {
 			while true
 
 			@throw(']')
-		} # }}}
-		altConditional(expression: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			if @match(Token::IF, Token::UNLESS) == Token::IF {
-				@commit()
-
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
-
-				return @yep(AST.IfExpression(condition, expression, null, expression, condition))
-			}
-			else if @token == Token::UNLESS {
-				@commit()
-
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
-
-				return @yep(AST.UnlessExpression(condition, expression, expression, condition))
-			}
-			else {
-				return expression
-			}
 		} # }}}
 		altForExpressionFrom(modifiers, variable: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var late from: Event
@@ -618,6 +602,24 @@ export namespace Parser {
 
 			return @yep(AST.ForRangeStatement(modifiers, value, index, from, to, filter, until, while, when, first, when ?? while ?? until ?? filter ?? to ?? from))
 		} # }}}
+		altRestrictiveExpression(expression: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var mark = @mark()
+
+			if @test(Token::IF, Token::UNLESS) {
+				var kind = @token == Token::IF ? RestrictiveOperatorKind::If : RestrictiveOperatorKind::Unless
+				var operator = @yep(AST.RestrictiveOperator(kind, @yes()))
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::EndOfLine, fMode)
+
+				if @test(Token::NEWLINE) || @token == Token::EOF {
+					return @yep(AST.RestrictiveExpression(operator, condition, expression, expression, condition))
+				}
+				else {
+					@rollback(mark)
+				}
+			}
+
+			return expression
+		} # }}}
 		isAmbiguousIdentifier(result: AmbiguityResult): Boolean ~ SyntaxError { # {{{
 			if @test(Token::IDENTIFIER) {
 				result.token = null
@@ -895,7 +897,7 @@ export namespace Parser {
 							expression = @yep(AST.NamedArgument(identifier, identifier, first, identifier))
 						}
 
-						arguments.push(@altConditional(expression, fMode))
+						arguments.push(@altRestrictiveExpression(expression, fMode))
 					}
 					else {
 						var argument = @reqExpression(ExpressionMode::ImplicitMember, fMode, MacroTerminator::List)
@@ -907,7 +909,7 @@ export namespace Parser {
 								var value = @reqExpression(ExpressionMode::ImplicitMember, fMode, MacroTerminator::List)
 								var expression = @yep(AST.NamedArgument(argument, value))
 
-								arguments.push(@altConditional(expression, fMode))
+								arguments.push(@altRestrictiveExpression(expression, fMode))
 							}
 							else {
 								arguments.push(argument)
@@ -1110,6 +1112,9 @@ export namespace Parser {
 			else if @rollback(mark) && (expression = @tryFunctionExpression(eMode, fMode)).ok {
 				return expression
 			}
+			else if @rollback(mark) && (expression = @tryIfExpression(eMode, fMode)).ok {
+				return expression
+			}
 			else if @rollback(mark) && (expression = @tryMatchExpression(eMode, fMode)).ok {
 				return expression
 			}
@@ -1217,25 +1222,25 @@ export namespace Parser {
 			if @match(Token::IF, Token::UNLESS) == Token::IF {
 				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @tryExpression(ExpressionMode::Default, fMode)
+				var condition = @tryExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 				if condition.ok {
 					return @yep(AST.IfStatement(condition, null, @yep(AST.BreakStatement(null, first, first)), null, first, condition))
 				}
 				else {
-					return @yep(AST.IfStatement(condition, null, @yep(AST.BreakStatement(label, first, label)), null, first, condition))
+					return @yep(AST.BreakStatement(label, first, label))
 				}
 			}
 			else if @token == Token::UNLESS {
 				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @tryExpression(ExpressionMode::Default, fMode)
+				var condition = @tryExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 				if condition.ok {
 					return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(null, first, first)), first, condition))
 				}
 				else {
-					return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(label, first, label)), first, condition))
+					return @yep(AST.BreakStatement(label, first, label))
 				}
 			}
 			else {
@@ -1245,14 +1250,14 @@ export namespace Parser {
 					if @match(Token::IF, Token::UNLESS) == Token::IF {
 						@commit()
 
-						var condition = @reqExpression(ExpressionMode::Default, fMode)
+						var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 						return @yep(AST.IfStatement(condition, null, @yep(AST.BreakStatement(label, first, label)), null, first, condition))
 					}
 					else if @token == Token::UNLESS {
 						@commit()
 
-						var condition = @reqExpression(ExpressionMode::Default, fMode)
+						var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 						return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(label, first, label)), first, condition))
 					}
@@ -1939,25 +1944,25 @@ export namespace Parser {
 			if @match(Token::IF, Token::UNLESS) == Token::IF {
 				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @tryExpression(ExpressionMode::Default, fMode)
+				var condition = @tryExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 				if condition.ok {
 					return @yep(AST.IfStatement(condition, null, @yep(AST.ContinueStatement(null, first, first)), null, first, condition))
 				}
 				else {
-					return @yep(AST.IfStatement(condition, null, @yep(AST.ContinueStatement(label, first, label)), null, first, condition))
+					return @yep(AST.ContinueStatement(label, first, label))
 				}
 			}
 			else if @token == Token::UNLESS {
 				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @tryExpression(ExpressionMode::Default, fMode)
+				var condition = @tryExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 				if condition.ok {
 					return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(null, first, first)), first, condition))
 				}
 				else {
-					return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(label, first, label)), first, condition))
+					return @yep(AST.ContinueStatement(label, first, label))
 				}
 			}
 			else {
@@ -1967,14 +1972,14 @@ export namespace Parser {
 					if @match(Token::IF, Token::UNLESS) == Token::IF {
 						@commit()
 
-						var condition = @reqExpression(ExpressionMode::Default, fMode)
+						var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 						return @yep(AST.IfStatement(condition, null, @yep(AST.ContinueStatement(label, first, label)), null, first, condition))
 					}
 					else if @token == Token::UNLESS {
 						@commit()
 
-						var condition = @reqExpression(ExpressionMode::Default, fMode)
+						var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 						return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(label, first, label)), first, condition))
 					}
@@ -2769,7 +2774,7 @@ export namespace Parser {
 			return @reqOperation(eMode, fMode)
 		} # }}}
 		reqExpressionStatement(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqExpression(ExpressionMode::Default, fMode)
+			var expression = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 			if @match(Token::FOR, Token::IF, Token::REPEAT, Token::UNLESS) == Token::FOR {
 				var statement = @reqForExpression(@yes(), fMode)
@@ -2783,14 +2788,14 @@ export namespace Parser {
 			else if @token == Token::IF {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 				return @yep(AST.IfStatement(condition, null, expression, null, expression, condition))
 			}
 			else if @token == Token::REPEAT {
 				@commit().NL_0M()
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 				unless @test(Token::TIMES) {
 					@throw('times')
@@ -2801,7 +2806,7 @@ export namespace Parser {
 			else if @token == Token::UNLESS {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 				return @yep(AST.UnlessStatement(condition, expression, expression, condition))
 			}
@@ -3375,31 +3380,19 @@ export namespace Parser {
 			else if @token == Token::EQUALS_RIGHT_ANGLE {
 				@commit().NL_0M()
 
-				var expression = @reqExpression(ExpressionMode::Default, fMode)
+				var expression = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 				if @match(Token::IF, Token::UNLESS) == Token::IF {
 					@commit()
 
-					var condition = @reqExpression(ExpressionMode::Default, fMode)
+					var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
-					if @match(Token::ELSE, Token::NEWLINE) == Token::ELSE {
-						@commit()
-
-						var whenFalse = @reqExpression(ExpressionMode::Default, fMode)
-
-						return @yep(AST.ReturnStatement(@yep(AST.IfExpression(condition, expression, whenFalse, expression, whenFalse)), expression, whenFalse))
-					}
-					else if @token == Token::NEWLINE || @token == Token::EOF {
-						return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
-					}
-					else {
-						@throw()
-					}
+					return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
 				}
 				else if @token == Token::UNLESS {
 					@commit()
 
-					var condition = @reqExpression(ExpressionMode::Default, fMode)
+					var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 					return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(expression, expression, expression)), expression, condition))
 				}
@@ -5245,14 +5238,14 @@ export namespace Parser {
 				var name = @reqThisExpression(@yes())
 				var expression = @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
 
-				return @altConditional(expression, fMode)
+				return @altRestrictiveExpression(expression, fMode)
 			}
 			else if @token == Token::DOT_DOT_DOT {
 				var operator = @yep(AST.UnaryOperator(UnaryOperatorKind::Spread, @yes()))
 				var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
 				var expression = @yep(AST.UnaryExpression(operator, operand, operator, operand))
 
-				return @altConditional(expression, fMode)
+				return @altRestrictiveExpression(expression, fMode)
 			}
 			else {
 				@throw('Identifier', 'String', 'Template', 'Computed Property Name')
@@ -5264,7 +5257,7 @@ export namespace Parser {
 				var value = @reqExpression(ExpressionMode::ImplicitMember, fMode, MacroTerminator::Object)
 				var expression = @yep(AST.ObjectMember(attributes, [], name, null, value, first ?? name, value))
 
-				return @altConditional(expression, fMode)
+				return @altRestrictiveExpression(expression, fMode)
 			}
 			else if @test(Token::LEFT_ROUND) {
 				var parameters = @reqFunctionParameterList(fMode)
@@ -5277,7 +5270,7 @@ export namespace Parser {
 			else if name.value.kind == NodeKind::Identifier {
 				var expression = @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
 
-				return @altConditional(expression, fMode)
+				return @altRestrictiveExpression(expression, fMode)
 			}
 			else {
 				@throw(':', '(')
@@ -5319,7 +5312,7 @@ export namespace Parser {
 
 			var mut type = false
 
-			while true {
+			repeat {
 				mark = @mark()
 
 				@NL_0M()
@@ -5791,6 +5784,27 @@ export namespace Parser {
 		reqPassStatement(first: Event): Event ~ SyntaxError { # {{{
 			return @yep(AST.PassStatement(first))
 		} # }}}
+		reqPickStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var expression = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
+
+			if @match(Token::IF, Token::UNLESS) == Token::IF {
+				@commit()
+
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
+
+				return @yep(AST.IfStatement(condition, null, @yep(AST.PickStatement(expression, first, expression)), null, first, condition))
+			}
+			else if @token == Token::UNLESS {
+				@commit()
+
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
+
+				return @yep(AST.UnlessStatement(condition, @yep(AST.PickStatement(expression, first, expression)), first, condition))
+			}
+			else {
+				return @yep(AST.PickStatement(expression, first, expression))
+			}
+		} # }}}
 		reqPostfixedOperand(mut operand: Event?, mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			operand = @reqUnaryOperand(operand, eMode, fMode)
 
@@ -5812,8 +5826,8 @@ export namespace Parser {
 		reqPrefixedOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mark = @mark()
 
-			match @matchM(M.PREFIX_OPERATOR) {
-				Token::DOT when eMode ~~ ExpressionMode::ImplicitMember {
+			match @matchM(M.PREFIX_OPERATOR, eMode) {
+				Token::DOT {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind::Implicit, @yes()))
 					var operand = @tryIdentifier()
 
@@ -5951,61 +5965,59 @@ export namespace Parser {
 		} # }}}
 		reqReturnStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @match(Token::IF, Token::UNLESS, Token::NEWLINE) == Token::IF {
+				var mark = @mark()
+
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
-				return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(first)), null, first, condition))
+				if @test(Token::NEWLINE) || @token == Token::EOF {
+					return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(first)), null, first, condition))
+				}
+				else {
+					@rollback(mark)
+				}
 			}
 			else if @token == Token::NEWLINE || @token == Token::EOF {
 				return @yep(AST.ReturnStatement(first))
 			}
 			else if @token == Token::UNLESS {
+				var mark = @mark()
+
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
-				return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(first)), first, condition))
-			}
-			else {
-				var expression = @tryExpression(ExpressionMode::Default, fMode)
-
-				unless expression.ok {
-					return NO
-				}
-
-				if @match(Token::IF, Token::UNLESS, Token::NEWLINE) == Token::IF {
-					@commit()
-
-					var condition = @reqExpression(ExpressionMode::Default, fMode)
-
-					if @match(Token::ELSE, Token::NEWLINE) == Token::ELSE {
-						@commit()
-
-						var whenFalse = @reqExpression(ExpressionMode::Default, fMode)
-
-						return @yep(AST.ReturnStatement(@yep(AST.IfExpression(condition, expression, whenFalse, expression, whenFalse)), first, whenFalse))
-					}
-					else if @token == Token::NEWLINE || @token == Token::EOF {
-						return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(expression, first, expression)), null, first, condition))
-					}
-					else {
-						@throw()
-					}
-				}
-				else if @token == Token::NEWLINE || @token == Token::EOF {
-					return @yep(AST.ReturnStatement(expression, first, expression))
-				}
-				else if @token == Token::UNLESS {
-					@commit()
-
-					var condition = @reqExpression(ExpressionMode::Default, fMode)
-
-					return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(expression, first, expression)), first, condition))
+				if @test(Token::NEWLINE) || @token == Token::EOF {
+					return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(first)), first, condition))
 				}
 				else {
-					@throw()
+					@rollback(mark)
 				}
+			}
+
+			var expression = @tryExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
+
+			unless expression.ok {
+				return NO
+			}
+
+			if @match(Token::IF, Token::UNLESS) == Token::IF {
+				@commit()
+
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
+
+				return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(expression, first, expression)), null, first, condition))
+			}
+			else if @token == Token::UNLESS {
+				@commit()
+
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
+
+				return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(expression, first, expression)), first, condition))
+			}
+			else {
+				return @yep(AST.ReturnStatement(expression, first, expression))
 			}
 		} # }}}
 		reqSeparator(token: Token): Void ~ SyntaxError { # {{{
@@ -6035,7 +6047,7 @@ export namespace Parser {
 
 			var dyn statement = NO
 
-			match @matchM(M.STATEMENT) {
+			match @matchM(M.STATEMENT, @mode) {
 				Token::ABSTRACT {
 					var first = @yes()
 
@@ -6147,6 +6159,9 @@ export namespace Parser {
 				}
 				Token::PASS {
 					statement = @reqPassStatement(@yes())
+				}
+				Token::PICK {
+					statement = @reqPickStatement(@yes(), fMode)
 				}
 				Token::REPEAT {
 					statement = @reqRepeatStatement(@yes(), fMode)
@@ -6358,39 +6373,24 @@ export namespace Parser {
 			return @yep(AST.ThisExpression(identifier, first, identifier))
 		} # }}}
 		reqThrowStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqExpression(ExpressionMode::Default, fMode)
+			var expression = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
-			if @match(Token::IF, Token::UNLESS, Token::NEWLINE) == Token::IF {
+			if @match(Token::IF, Token::UNLESS) == Token::IF {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
-				if @match(Token::ELSE, Token::NEWLINE) == Token::ELSE {
-					@commit()
-
-					var whenFalse = @reqExpression(ExpressionMode::Default, fMode)
-
-					return @yep(AST.ThrowStatement(@yep(AST.IfExpression(condition, expression, whenFalse, expression, whenFalse)), first, whenFalse))
-				}
-				else if @token == Token::NEWLINE || @token == Token::EOF {
-					return @yep(AST.IfStatement(condition, null, @yep(AST.ThrowStatement(expression, first, expression)), null, first, condition))
-				}
-				else {
-					@throw()
-				}
-			}
-			else if @token == Token::NEWLINE || @token == Token::EOF {
-				return @yep(AST.ThrowStatement(expression, first, expression))
+				return @yep(AST.IfStatement(condition, null, @yep(AST.ThrowStatement(expression, first, expression)), null, first, condition))
 			}
 			else if @token == Token::UNLESS {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoRestriction, fMode)
 
 				return @yep(AST.UnlessStatement(condition, @yep(AST.ThrowStatement(expression, first, expression)), first, condition))
 			}
 			else {
-				@throw()
+				return @yep(AST.ThrowStatement(expression, first, expression))
 			}
 		} # }}}
 		reqTryCatchClause(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -6804,6 +6804,10 @@ export namespace Parser {
 				value = @reqOperand(eMode, fMode)
 			}
 
+			// TODO
+			// var mut broken: [Event, Event]? = null
+			var mut broken: Event[]? = null
+
 			var dyn expression, mark, first
 
 			repeat {
@@ -6891,6 +6895,10 @@ export namespace Parser {
 						value = @yep(AST.CallExpression([], value, @reqArgumentList(fMode), value, @yes()))
 					}
 					Token::NEWLINE {
+						if eMode ~~ ExpressionMode::EndOfLine {
+							break
+						}
+
 						mark = @mark()
 
 						@commit().NL_0M()
@@ -6909,6 +6917,8 @@ export namespace Parser {
 									return oldValue
 								}
 							}
+
+							broken = [oldValue, value]
 						}
 						else {
 							@rollback(mark)
@@ -6945,6 +6955,56 @@ export namespace Parser {
 					}
 					else {
 						break
+					}
+				}
+
+				if eMode !~ ExpressionMode::NoRestriction || ?broken {
+					mark = @mark()
+
+					if @test(Token::IF, Token::UNLESS) {
+						var kind = @token == Token::IF ? RestrictiveOperatorKind::If : RestrictiveOperatorKind::Unless
+						var operator = @yep(AST.RestrictiveOperator(kind, @yes()))
+						var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::EndOfLine, fMode)
+
+						if @test(Token::NEWLINE) || @token == Token::EOF {
+							// TODO
+							// if var [mainExpression, disruptedExpression] ?= broken {
+							if ?broken {
+								var mainExpression = broken[0]
+								var disruptedExpression = broken[1]
+
+								disruptedExpression.value.object = AST.Reference('main', disruptedExpression.value.object)
+
+								value = @yep(AST.DisruptiveExpression(operator, condition, mainExpression, value, mainExpression, condition))
+
+								if eMode !~ ExpressionMode::Arrow {
+									mark = @mark()
+
+									@commit().NL_0M()
+
+									if @test(Token::DOT) {
+										@commit()
+
+										var oldValue = value
+
+										value = @yep(AST.MemberExpression([], value, @reqIdentifier()))
+
+										broken = [oldValue, value]
+									}
+									else {
+										@rollback(mark)
+
+										break
+									}
+								}
+							}
+							else {
+								return @yep(AST.RestrictiveExpression(operator, condition, value, value, condition))
+							}
+						}
+						else {
+							@rollback(mark)
+						}
 					}
 				}
 			}
@@ -7259,7 +7319,7 @@ export namespace Parser {
 
 				@NL_0M()
 
-				var expression = @reqExpression(ExpressionMode::Default + ExpressionMode::ImplicitMember, fMode)
+				var expression = @reqExpression(ExpressionMode::Default + ExpressionMode::ImplicitMember + ExpressionMode::NoRestriction, fMode)
 
 				statement = @yep(AST.BinaryExpression(identifier, @yep(AST.AssignmentOperator(AssignmentOperatorKind::Equals, equals)), expression, identifier, expression))
 			}
@@ -7267,30 +7327,7 @@ export namespace Parser {
 				return NO
 			}
 
-			if @match(Token::IF, Token::UNLESS) == Token::IF {
-				var first = @yes()
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
-
-				if @test(Token::ELSE) {
-					@commit()
-
-					var whenFalse = @reqExpression(ExpressionMode::Default, fMode)
-
-					statement.value.right = AST.IfExpression(condition, @yep(statement.value.right), whenFalse, first, whenFalse)
-
-					@relocate(statement, statement, whenFalse)
-				}
-				else {
-					statement = @yep(AST.IfExpression(condition, statement, null, statement, condition))
-				}
-			}
-			else if @token == Token::UNLESS {
-				@commit()
-
-				var condition = @reqExpression(ExpressionMode::Default, fMode)
-
-				statement = @yep(AST.UnlessExpression(condition, statement, statement, condition))
-			}
+			statement = @altRestrictiveExpression(statement, fMode)
 
 			return @yep(AST.ExpressionStatement(statement))
 		} # }}}
@@ -7891,7 +7928,6 @@ export namespace Parser {
 
 			// if @match(Token::LEFT_ANGLE, Token::LEFT_SQUARE) == Token::LEFT_ANGLE {
 			// 	var generic = @reqTypeGeneric(@yes())
-
 			// 	class = @yep(AST.TypeReference([], class, generic, class, generic))
 			// }
 
@@ -8198,6 +8234,118 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
+		tryIfExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			unless @test(Token::IF) {
+				return NO
+			}
+
+			var first = @yes()
+
+			@mode += ParserMode::InlineStatement
+
+			var mark = @mark()
+
+			var mut condition: Event? = null
+			var mut declaration: Event? = null
+
+			if @test(Token::VAR) {
+				var mark = @mark()
+				var first = @yes()
+
+				var modifiers = []
+				if @test(Token::MUT) {
+					modifiers.push(@yep(AST.Modifier(ModifierKind::Mutable, @yes())))
+				}
+				else {
+					modifiers.push(@yep(AST.Modifier(ModifierKind::Immutable, @yes())))
+				}
+
+				if @test(Token::IDENTIFIER, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+					var variable = @reqTypedVariable(fMode)
+
+					if @test(Token::COMMA) {
+						var variables = [variable]
+
+						do {
+							@commit()
+
+							variables.push(@reqTypedVariable(fMode))
+						}
+						while @test(Token::COMMA)
+
+						var operator = @reqConditionAssignment()
+
+						unless @test(Token::AWAIT) {
+							@throw('await')
+						}
+
+						@commit()
+
+						var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
+
+						declaration = @yep(AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression))
+					}
+					else {
+						var operator = @reqConditionAssignment()
+						var expression = @reqExpression(ExpressionMode::Default + ExpressionMode::ImplicitMember, fMode)
+
+						declaration = @yep(AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression))
+					}
+
+					@NL_0M()
+
+					if @test(Token::SEMICOLON) {
+						@commit().NL_0M()
+
+						condition = @reqExpression(ExpressionMode::NoAnonymousFunction, fMode)
+					}
+				}
+				else {
+					@rollback(mark)
+
+					condition = @tryExpression(ExpressionMode::NoAnonymousFunction, fMode)
+				}
+			}
+			else {
+				@NL_0M()
+
+				condition = @tryExpression(ExpressionMode::NoAnonymousFunction, fMode)
+			}
+
+			unless ?declaration || condition.ok {
+				return NO
+			}
+
+			@NL_0M()
+
+			unless @test(Token::LEFT_CURLY) {
+				@rollback(mark)
+
+				return NO
+			}
+
+			var whenTrue = @reqBlock(NO, fMode)
+
+			@commit().NL_0M()
+
+			unless @test(Token::ELSE) {
+				@throw('else')
+			}
+
+			@commit().NL_0M()
+
+			var whenFalse = @tryIfExpression(eMode, fMode)
+
+			if whenFalse.ok {
+				return @yep(AST.IfExpression(condition, declaration, whenTrue, whenFalse, first, whenFalse))
+			}
+			else {
+				var whenFalse = @reqBlock(NO, fMode)
+
+				return @yep(AST.IfExpression(condition, declaration, whenTrue, whenFalse, first, whenFalse))
+			}
+		} # }}}
 		tryJunctionOperator(): Event ~ SyntaxError { # {{{
 			match @matchM(M.JUNCTION_OPERATOR) {
 				Token::AMPERSAND {
@@ -8240,7 +8388,11 @@ export namespace Parser {
 				return NO
 			}
 
+			@mode += ParserMode::InlineStatement
+
 			var clauses = @reqMatchCaseList(fMode)
+
+			@mode -= ParserMode::InlineStatement
 
 			return @yep(AST.MatchExpression(expression, clauses, first, clauses))
 		} # }}}

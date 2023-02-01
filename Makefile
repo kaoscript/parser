@@ -33,6 +33,7 @@ local:
 	npm publish
 
 dev: export DEBUG = 1
+dev: export SKIP_KIND = 0
 dev:
 	@# clear terminal
 	@make cls
