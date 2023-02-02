@@ -620,6 +620,57 @@ export namespace Parser {
 
 			return expression
 		} # }}}
+		altTypeContainer(mut type: Event, nullable: Boolean = true): Event ~ SyntaxError { # {{{
+			var mut mark = @mark()
+
+			while @testNS(Token::QUESTION, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+				if @token == Token::QUESTION {
+					var modifier = @yep(AST.Modifier(ModifierKind::Nullable, @yes()))
+
+					if !@testNS(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
+						@rollback(mark)
+
+						break
+					}
+
+					AST.pushModifier(type.value, modifier)
+				}
+
+				if @token == Token::LEFT_CURLY {
+					@commit()
+
+					unless @test(Token::RIGHT_CURLY) {
+						@throw('}')
+					}
+
+					var property = @yep(AST.PropertyType([], null, type, type, type))
+
+					type = @yep(AST.ObjectType([], [], property, property, @yes()))
+				}
+				else {
+					@commit()
+
+					unless @test(Token::RIGHT_SQUARE) {
+						@throw(']')
+					}
+
+					var property = @yep(AST.PropertyType([], null, type, type, type))
+
+					type = @yep(AST.ArrayType([], [], property, property, @yes()))
+				}
+
+				mark = @mark()
+			}
+
+			if nullable && @testNS(Token::QUESTION) {
+				var modifier = @yep(AST.Modifier(ModifierKind::Nullable, @yes()))
+
+				return @yep(AST.pushModifier(type.value, modifier))
+			}
+			else {
+				return type
+			}
+		} # }}}
 		isAmbiguousIdentifier(result: AmbiguityResult): Boolean ~ SyntaxError { # {{{
 			if @test(Token::IDENTIFIER) {
 				result.token = null
@@ -6663,9 +6714,14 @@ export namespace Parser {
 			}
 		} # }}}
 		reqTypeLimited(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
-			var type = @tryTypeLimited(modifiers, nullable)
+			var type = @tryTypeLimited(modifiers)
 
-			return type.ok ? type : NO
+			if type.ok {
+				return @altTypeContainer(type, nullable)
+			}
+			else {
+				return NO
+			}
 		} # }}}
 		reqTypeEntity(): Event ~ SyntaxError { # {{{
 			var mut name = @reqIdentifier()
@@ -8983,7 +9039,9 @@ export namespace Parser {
 					@throw('}')
 				}
 
-				return @yep(AST.ObjectType([], properties, rest, first, @yes()))
+				var type = @yep(AST.ObjectType([], properties, rest, first, @yes()))
+
+				return @altTypeContainer(type)
 			}
 
 			if @test(Token::LEFT_SQUARE) {
@@ -9045,7 +9103,9 @@ export namespace Parser {
 					@throw(']')
 				}
 
-				return @yep(AST.ArrayType([], properties, rest, first, @yes()))
+				var type = @yep(AST.ArrayType([], properties, rest, first, @yes()))
+
+				return @altTypeContainer(type)
 			}
 
 			var mark = @mark()
@@ -9063,7 +9123,9 @@ export namespace Parser {
 					var type = @tryFunctionReturns(false)
 					var throws = @tryFunctionThrows()
 
-					return @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, async, throws ?? type ?? parameters))
+					var func = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, async, throws ?? type ?? parameters))
+
+					return @altTypeContainer(func)
 				}
 
 				@rollback(mark)
@@ -9077,13 +9139,22 @@ export namespace Parser {
 					var type = @tryFunctionReturns(false)
 					var throws = @tryFunctionThrows()
 
-					return @yep(AST.FunctionExpression(parameters, null, type, throws, null, first, throws ?? type ?? parameters))
+					var func = @yep(AST.FunctionExpression(parameters, null, type, throws, null, first, throws ?? type ?? parameters))
+
+					return @altTypeContainer(func)
 				}
 
 				@rollback(mark)
 			}
 
-			return @tryTypeLimited(modifiers)
+			var type = @tryTypeLimited(modifiers)
+
+			if type.ok {
+				return @altTypeContainer(type)
+			}
+			else {
+				return NO
+			}
 		} # }}}
 		tryTypeDescriptive(tMode: TypeMode = TypeMode::Default): Event ~ SyntaxError { # {{{
 			match @matchM(M.DESCRIPTIVE_TYPE) {
@@ -9301,7 +9372,7 @@ export namespace Parser {
 
 			return @yep(AST.TypeReference([], name, null, name, name))
 		} # }}}
-		tryTypeLimited(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
+		tryTypeLimited(modifiers: Array = []): Event ~ SyntaxError { # {{{
 			if @test(Token::LEFT_ROUND) {
 				var parameters = @reqFunctionParameterList(FunctionMode::Function, DestructuringMode::EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
@@ -9346,56 +9417,7 @@ export namespace Parser {
 				last = generic = @yes(types, first)
 			}
 
-			var mut genMarker = @mark()
-			var mut type = @yep(AST.TypeReference(modifiers, name, generic, first, last))
-
-			while @testNS(Token::QUESTION, Token::LEFT_CURLY, Token::LEFT_SQUARE) {
-				if @token == Token::QUESTION {
-					var modifier = @yep(AST.Modifier(ModifierKind::Nullable, @yes()))
-
-					if !@testNS(Token::LEFT_CURLY, Token::LEFT_SQUARE) {
-						@rollback(genMarker)
-
-						break
-					}
-
-					AST.pushModifier(type.value, modifier)
-				}
-
-				if @token == Token::LEFT_CURLY {
-					@commit()
-
-					unless @test(Token::RIGHT_CURLY) {
-						@throw('}')
-					}
-
-					var property = @yep(AST.PropertyType([], null, type, type, type))
-
-					type = @yep(AST.ObjectType([], [], property, property, @yes()))
-				}
-				else {
-					@commit()
-
-					unless @test(Token::RIGHT_SQUARE) {
-						@throw(']')
-					}
-
-					var property = @yep(AST.PropertyType([], null, type, type, type))
-
-					type = @yep(AST.ArrayType([], [], property, property, @yes()))
-				}
-
-				genMarker = @mark()
-			}
-
-			if nullable && @testNS(Token::QUESTION) {
-				var modifier = @yep(AST.Modifier(ModifierKind::Nullable, @yes()))
-
-				return @yep(AST.pushModifier(type.value, modifier))
-			}
-			else {
-				return type
-			}
+			return @yep(AST.TypeReference(modifiers, name, generic, first, last))
 		} # }}}
 		tryTypeOperator(): Event ~ SyntaxError { # {{{
 			match @matchM(M.TYPE_OPERATOR) {
