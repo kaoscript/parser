@@ -3,13 +3,14 @@
 
 extern {
 	__dirname: String
-	console
 	JSON
 	process
 
 	func describe(...)
 	func it(...)
 }
+
+include '../src/util.ks'
 
 import {
 	'..'					for parse

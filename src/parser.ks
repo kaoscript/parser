@@ -6704,9 +6704,7 @@ export namespace Parser {
 				return type
 			}
 			else if #type.value {
-				// TODO
-				// @throw(...type.value)
-				@throw(...(type.value as Array<String>))
+				@throw(...type.value)
 			}
 			else {
 				@throw('type')
@@ -6859,9 +6857,7 @@ export namespace Parser {
 				value = @reqOperand(eMode, fMode)
 			}
 
-			// TODO
-			// var mut broken: [Event, Event]? = null
-			var mut broken: Event[]? = null
+			var mut broken: [Event, Event]? = null
 
 			var dyn expression, mark, first
 
@@ -7022,12 +7018,7 @@ export namespace Parser {
 						var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::EndOfLine, fMode)
 
 						if @test(Token::NEWLINE) || @token == Token::EOF {
-							// TODO
-							// if var [mainExpression, disruptedExpression] ?= broken {
-							if ?broken {
-								var mainExpression = broken[0]
-								var disruptedExpression = broken[1]
-
+							if var [mainExpression, disruptedExpression] ?= broken {
 								disruptedExpression.value.object = AST.Reference('main', disruptedExpression.value.object)
 
 								value = @yep(AST.DisruptiveExpression(operator, condition, mainExpression, value, mainExpression, condition))
@@ -9166,7 +9157,7 @@ export namespace Parser {
 						return @reqExternClassDeclaration(abstract, [abstract])
 					}
 					else {
-						@no('class')
+						return @no('class')
 					}
 				}
 				Token::ASYNC {
@@ -9227,11 +9218,11 @@ export namespace Parser {
 							return @reqExternClassDeclaration(first, modifiers)
 						}
 						else {
-							@no('class')
+							return @no('class')
 						}
 					}
 					else {
-						@no('class')
+						return @no('class')
 					}
 				}
 				Token::FUNC {
@@ -9261,7 +9252,7 @@ export namespace Parser {
 							return @reqExternClassDeclaration(sealed, [sealed, abstract])
 						}
 						else {
-							@no('class')
+							return @no('class')
 						}
 					}
 					else if @token == Token::CLASS {
@@ -9289,7 +9280,7 @@ export namespace Parser {
 						return @reqExternNamespaceDeclaration(sealed, [sealed])
 					}
 					else {
-						@no('class', 'namespace')
+						return @no('class', 'namespace')
 					}
 				}
 				Token::STRUCT {
@@ -9323,7 +9314,7 @@ export namespace Parser {
 						return @reqExternNamespaceDeclaration(system, [system])
 					}
 					else {
-						@no('class', 'namespace')
+						return @no('class', 'namespace')
 					}
 				}
 				Token::TUPLE {

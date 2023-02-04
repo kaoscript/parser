@@ -19,6 +19,7 @@ disclose Array {
 	push(...elements?): Number
 	shift(): Any?
 	slice(begin: Number = 0, end: Number = -1): Array
+	some(callback): Boolean
 	sort(compare: Function = null): Array
 	unshift(...elements?): Number
 }
@@ -43,6 +44,7 @@ disclose String {
 	replace(pattern: RegExp | String, replacement: Function | String): String
 	slice(beginIndex: Number, endIndex: Number = -1): String
 	split(separator: RegExp | String = null, limit: Number = -1): Array<String>
+	startsWith(search: String, position: Number = 0): Boolean
 	substr(start: Number, length: Number = -1): String
 	substring(indexStart: Number, indexEnd: Number = -1): String
 }

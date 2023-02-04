@@ -2,9 +2,10 @@
 #![error(off)]
 
 extern {
-	console
 	process
 }
+
+include '../src/util.ks'
 
 import {
 	'kaoscript/register'

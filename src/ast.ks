@@ -504,22 +504,11 @@ namespace AST {
 		} # }}}
 
 		func BreakStatement(label?, first, last) { # {{{
-			// TODO!
-			// return location({
-			// 	kind: NodeKind::BreakStatement
-			// 	attributes: []
-			// 	label: label.value if ?label
-			// }, first, last)
-			var node = location({
+			return location({
 				kind: NodeKind::BreakStatement
 				attributes: []
+				label: label.value if ?label
 			}, first, last)
-
-			if ?label {
-				node.label = label.value
-			}
-
-			return node
 		} # }}}
 
 		func CallExpression(modifiers, scope = { kind: ScopeKind::This }, callee, arguments, first, last) { # {{{
@@ -599,22 +588,11 @@ namespace AST {
 		} # }}}
 
 		func ContinueStatement(label?, first, last) { # {{{
-			// TODO!
-			// return location({
-			// 	kind: NodeKind::ContinueStatement
-			// 	attributes: []
-			// 	label: label.value if ?label
-			// }, first, last)
-			var node = location({
+			return location({
 				kind: NodeKind::ContinueStatement
 				attributes: []
+				label: label.value if ?label
 			}, first, last)
-
-			if ?label {
-				node.label = label.value
-			}
-
-			return node
 		} # }}}
 
 		func CreateExpression(class, arguments, first, last) { # {{{
