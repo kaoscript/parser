@@ -2805,9 +2805,7 @@ export namespace Parser {
 			return @yep(AST.ExportDeclaration(attributes, declarations, first, last))
 		} # }}}
 		reqExpression(mut eMode: ExpressionMode?, fMode: FunctionMode, terminator: MacroTerminator? = null): Event ~ SyntaxError { # {{{
-			// TODO
-			// if eMode == null | ExpressionMode::ImplicitMember {
-			if eMode == null || eMode == ExpressionMode::ImplicitMember {
+			if eMode == null | ExpressionMode::ImplicitMember {
 				if @mode ~~ ParserMode::MacroExpression &&
 					@scanner.test(Token::IDENTIFIER) &&
 					@scanner.value() == 'macro'
@@ -5305,7 +5303,7 @@ export namespace Parser {
 			if @test(Token::COLON) {
 				@commit()
 
-				var value = @reqExpression(ExpressionMode::ImplicitMember, fMode, MacroTerminator::Object)
+				var value = @reqExpression(ExpressionMode::ImplicitMember + ExpressionMode::NoRestriction, fMode, MacroTerminator::Object)
 				var expression = @yep(AST.ObjectMember(attributes, [], name, null, value, first ?? name, value))
 
 				return @altRestrictiveExpression(expression, fMode)
@@ -5328,8 +5326,9 @@ export namespace Parser {
 			}
 		} # }}}
 		reqOperand(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			// TODO remove =
-			if (value = @tryOperand(eMode, fMode)).ok {
+			var value = @tryOperand(eMode, fMode)
+
+			if value.ok {
 				return value
 			}
 			else {
