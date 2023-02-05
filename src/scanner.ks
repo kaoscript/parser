@@ -1404,6 +1404,11 @@ namespace M {
 
 					return Token::DOT
 				}
+				else if that.charAt(1) == 46 && that.charAt(2) != 46 & 9 & 32 {
+					that.next(2)
+
+					return Token::DOT_DOT
+				}
 			}
 			else if c == 58 { // :
 				c = that.charAt(1)

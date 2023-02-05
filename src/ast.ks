@@ -521,6 +521,15 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func CascadeExpression(modifiers, object, expressions, first, last) { # {{{
+			return location({
+				kind: NodeKind::CascadeExpression
+				modifiers
+				object: object.value
+				expressions: [expression.value for var expression in expressions]
+			}, first, last)
+		} # }}}
+
 		func CatchClause(binding?, type?, body, first, last) { # {{{
 			var node = location({
 				kind: NodeKind::CatchClause

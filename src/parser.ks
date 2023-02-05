@@ -63,13 +63,16 @@ export namespace Parser {
 	bitmask ExpressionMode {
 		Default
 		Arrow
-		EndOfLine
 		ImplicitMember
 		NoAnonymousFunction
 		NoAwait
+		NoInlineCascade
+		NoMultiLine
 		NoObject
 		NoRestriction
 		WithMacro
+
+		InlineOnly			= Default + NoInlineCascade + NoMultiLine
 	}
 
 	enum FunctionMode {
@@ -502,7 +505,7 @@ export namespace Parser {
 			return @yep(AST.ForInStatement(modifiers, value, type, index, expression, from, to, step, split, until, while, when, first, when ?? while ?? until ?? split ?? step ?? to ?? order ?? from ?? expression))
 		} # }}}
 		altForExpressionInRange(modifiers, value: Event, type: Event, index: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var operand = @tryRangeOperand(ExpressionMode::Default, fMode)
+			var operand = @tryRangeOperand(ExpressionMode::InlineOnly, fMode)
 
 			if operand.ok {
 				if @test(Token::LEFT_ANGLE, Token::DOT_DOT) {
@@ -524,7 +527,7 @@ export namespace Parser {
 						modifier = @yep(AST.Modifier(ModifierKind::Ballpark, @yes()))
 					}
 
-					var to = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+					var to = @reqPrefixedOperand(ExpressionMode::InlineOnly, fMode)
 
 					if ?modifier {
 						AST.pushModifier(to.value, modifier)
@@ -534,7 +537,7 @@ export namespace Parser {
 					if @test(Token::DOT_DOT) {
 						@commit()
 
-						step = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+						step = @reqPrefixedOperand(ExpressionMode::InlineOnly, fMode)
 					}
 
 					return @altForExpressionRange(modifiers, value, index, operand, to, step, first, fMode)
@@ -608,7 +611,7 @@ export namespace Parser {
 			if @test(Token::IF, Token::UNLESS) {
 				var kind = @token == Token::IF ? RestrictiveOperatorKind::If : RestrictiveOperatorKind::Unless
 				var operator = @yep(AST.RestrictiveOperator(kind, @yes()))
-				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::EndOfLine, fMode)
+				var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoMultiLine, fMode)
 
 				if @test(Token::NEWLINE) || @token == Token::EOF {
 					return @yep(AST.RestrictiveExpression(operator, condition, expression, expression, condition))
@@ -991,7 +994,7 @@ export namespace Parser {
 
 			var mark = @mark()
 
-			var dyn operand = @tryRangeOperand(ExpressionMode::Default, fMode)
+			var dyn operand = @tryRangeOperand(ExpressionMode::InlineOnly, fMode)
 
 			if operand.ok && (@match(Token::LEFT_ANGLE, Token::DOT_DOT) == Token::LEFT_ANGLE || @token == Token::DOT_DOT) {
 				var then = @token == Token::LEFT_ANGLE
@@ -1013,13 +1016,13 @@ export namespace Parser {
 					@commit()
 				}
 
-				var toOperand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+				var toOperand = @reqPrefixedOperand(ExpressionMode::InlineOnly, fMode)
 
 				var dyn byOperand
 				if @test(Token::DOT_DOT) {
 					@commit()
 
-					byOperand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+					byOperand = @reqPrefixedOperand(ExpressionMode::InlineOnly, fMode)
 				}
 
 				unless @test(Token::RIGHT_SQUARE) {
@@ -1320,6 +1323,97 @@ export namespace Parser {
 					return @yep(AST.BreakStatement(null, first, first))
 				}
 			}
+		} # }}}
+		reqCascadeExpression(object: Event, eMode: ExpressionMode, fMode: FunctionMode, restrictive: Boolean): Event ~ SyntaxError { # {{{
+			var mode = eMode + ExpressionMode::ImplicitMember + ExpressionMode::NoMultiLine
+			var reference =  @yep(AST.Reference('main', object))
+			var expressions = []
+
+			repeat {
+				@commit()
+
+				var mut value = @yep(AST.MemberExpression([], reference, @reqIdentifier()))
+
+				var mut operand = @reqUnaryOperand(value, eMode + ExpressionMode::NoMultiLine, fMode)
+
+				var mut mark = @mark()
+
+				@NL_0M()
+
+				var operator = @tryAssignementOperator()
+
+				if operator.ok {
+					var values = [operand.value, AST.BinaryExpression(operator)]
+
+					@NL_0M()
+
+					operand = @reqBinaryOperand(mode, fMode)
+
+					values.push(operand.value)
+
+					repeat {
+						mark = @mark()
+
+						@NL_0M()
+
+						var operator = @tryBinaryOperator()
+
+						if operator.ok {
+							values.push(AST.BinaryExpression(operator))
+
+							@NL_0M()
+
+							values.push(@reqBinaryOperand(mode, fMode).value)
+						}
+						else {
+							@rollback(mark)
+
+							break
+						}
+					}
+
+					operand = @yep(AST.reorderExpression(values))
+
+					expressions.push(
+						if restrictive || #expressions {
+							pick @altRestrictiveExpression(operand, fMode)
+						}
+						else {
+							pick operand
+						}
+					)
+
+					mark = @mark()
+				}
+				else {
+					@rollback(mark)
+
+					expressions.push(
+						if restrictive || #expressions {
+							pick @altRestrictiveExpression(operand, fMode)
+						}
+						else {
+							pick operand
+						}
+					)
+				}
+
+				unless @test(Token::NEWLINE) {
+					@rollback(mark)
+
+					break
+				}
+
+				@commit().NL_0M()
+
+				unless @test(Token::DOT_DOT) {
+					@rollback(mark)
+
+					break
+				}
+			}
+
+			return @yep(AST.CascadeExpression([], object, expressions, object, expressions[expressions.length - 1]))
 		} # }}}
 		reqCatchOnClause(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var type = @reqIdentifier()
@@ -4203,8 +4297,10 @@ export namespace Parser {
 
 			return @yep(AST.IncludeAgainDeclaration(attributes, declarations, first, last))
 		} # }}}
-		reqJunctionExpression(operator, eMode, fMode, values, type: Boolean) ~ SyntaxError { # {{{
+		reqJunctionExpression(operator: Event, mut eMode: ExpressionMode, fMode: FunctionMode, values: Event[], type: Boolean) ~ SyntaxError { # {{{
 			@NL_0M()
+
+			eMode += ExpressionMode::ImplicitMember
 
 			var operands = [values.pop()]
 
@@ -4779,7 +4875,7 @@ export namespace Parser {
 			}
 		} # }}}
 		reqMatchConditionValue(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var eMode = ExpressionMode::Default + ExpressionMode::ImplicitMember
+			var eMode = ExpressionMode::InlineOnly + ExpressionMode::ImplicitMember
 			var operand = @reqPrefixedOperand(eMode, fMode)
 			var mut operator = NO
 
@@ -5793,42 +5889,33 @@ export namespace Parser {
 			}
 		} # }}}
 		reqParenthesis(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			if @test(Token::NEWLINE) {
-				@commit().NL_0M()
+			@NL_0M()
 
-				var expression = @reqExpression(null, fMode, MacroTerminator::Parenthesis)
+			var expressions = [@reqExpression(null, fMode, MacroTerminator::List)]
+
+			@NL_0M()
+
+			while @test(Token::COMMA) {
+				@commit()
+
+				expressions.push(@reqExpression(null, fMode, MacroTerminator::List))
 
 				@NL_0M()
+			}
 
-				unless @test(Token::RIGHT_ROUND) {
-					@throw(')')
-				}
+			unless @test(Token::RIGHT_ROUND) {
+				@throw(')')
+			}
+
+			if expressions.length == 1 {
+				var expression = expressions[0]
 
 				@relocate(expression, first, @yes())
 
 				return expression
 			}
 			else {
-				var expressions = [@reqExpression(null, fMode, MacroTerminator::List)]
-
-				while @test(Token::COMMA) {
-					@commit()
-
-					expressions.push(@reqExpression(null, fMode, MacroTerminator::List))
-				}
-
-				unless @test(Token::RIGHT_ROUND) {
-					@throw(')')
-				}
-
-				if expressions.length == 1 {
-					@relocate(expressions[0], first, @yes())
-
-					return expressions[0]
-				}
-				else {
-					return @yep(AST.SequenceExpression(expressions, first, @yes()))
-				}
+				return @yep(AST.SequenceExpression(expressions, first, @yes()))
 			}
 		} # }}}
 		reqPassStatement(first: Event): Event ~ SyntaxError { # {{{
@@ -6929,6 +7016,13 @@ export namespace Parser {
 
 						value = @yep(AST.MemberExpression([], value, @reqNumeralIdentifier()))
 					}
+					Token::DOT_DOT {
+						if eMode ~~ ExpressionMode::NoInlineCascade {
+							break
+						}
+
+						value = @reqCascadeExpression(value, eMode, fMode, false)
+					}
 					Token::LEFT_SQUARE {
 						var modifiers = [AST.Modifier(ModifierKind::Computed, @yes())]
 
@@ -6946,7 +7040,7 @@ export namespace Parser {
 						value = @yep(AST.CallExpression([], value, @reqArgumentList(fMode), value, @yes()))
 					}
 					Token::NEWLINE {
-						if eMode ~~ ExpressionMode::EndOfLine {
+						if eMode ~~ ExpressionMode::NoMultiLine {
 							break
 						}
 
@@ -6954,7 +7048,10 @@ export namespace Parser {
 
 						@commit().NL_0M()
 
-						if @test(Token::DOT) {
+						if @test(Token::DOT_DOT) {
+							value = @reqCascadeExpression(value, eMode, fMode, true)
+						}
+						else if @test(Token::DOT) {
 							@commit()
 
 							var oldValue = value
@@ -7015,7 +7112,7 @@ export namespace Parser {
 					if @test(Token::IF, Token::UNLESS) {
 						var kind = @token == Token::IF ? RestrictiveOperatorKind::If : RestrictiveOperatorKind::Unless
 						var operator = @yep(AST.RestrictiveOperator(kind, @yes()))
-						var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::EndOfLine, fMode)
+						var condition = @reqExpression(ExpressionMode::Default + ExpressionMode::NoMultiLine, fMode)
 
 						if @test(Token::NEWLINE) || @token == Token::EOF {
 							if var [mainExpression, disruptedExpression] ?= broken {

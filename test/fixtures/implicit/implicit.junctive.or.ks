@@ -1,0 +1,2 @@
+if mode == .Foo | .Bar {
+}
