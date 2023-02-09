@@ -1231,10 +1231,10 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func MatchConditionObject(members, first, last) { # {{{
+		func MatchConditionObject(properties, first, last) { # {{{
 			return location({
 				kind: NodeKind::MatchConditionObject
-				members: [member.value for member in members]
+				properties: [property.value for property in properties]
 			}, first, last)
 		} # }}}
 
@@ -1286,11 +1286,12 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func MatchStatement(expression, clauses, first, last) { # {{{
+		func MatchStatement(expression?, declaration?, clauses, first, last) { # {{{
 			return location({
 				kind: NodeKind::MatchStatement
 				attributes: []
-				expression: expression.value
+				expression: expression.value if ?expression
+				declaration: declaration.value if ?declaration
 				clauses: [clause for clause in clauses.value]
 			}, first, last)
 		} # }}}

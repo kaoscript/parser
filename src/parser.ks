@@ -4799,7 +4799,7 @@ export namespace Parser {
 				Token::LEFT_CURLY {
 					var dyn first = @yes()
 
-					var members = []
+					var properties = []
 
 					if !@test(Token::RIGHT_CURLY) {
 						var dyn name
@@ -4812,10 +4812,10 @@ export namespace Parser {
 
 								var value = @reqMatchConditionValue(fMode)
 
-								members.push(@yep(AST.ObjectMember([], [], name, null, value, name, value)))
+								properties.push(@yep(AST.ObjectMember([], [], name, null, value, name, value)))
 							}
 							else {
-								members.push(@yep(AST.ObjectMember([], [], name, null, null, name, name)))
+								properties.push(@yep(AST.ObjectMember([], [], name, null, null, name, name)))
 							}
 
 							if @test(Token::COMMA) {
@@ -4831,7 +4831,7 @@ export namespace Parser {
 						@throw('}')
 					}
 
-					return @yep(AST.MatchConditionObject(members, first, @yes()))
+					return @yep(AST.MatchConditionObject(properties, first, @yes()))
 				}
 				Token::LEFT_SQUARE {
 					var dyn first = @yes()
@@ -8540,15 +8540,94 @@ export namespace Parser {
 			return @yep(AST.MatchExpression(expression, clauses, first, clauses))
 		} # }}}
 		tryMatchStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @tryOperation(ExpressionMode::Default, fMode)
+			var mut expression: Event? = null
+			var mut declaration: Event? = null
 
-			unless expression.ok && @test(Token::LEFT_CURLY) {
+			if @test(Token::VAR) {
+				var mark = @mark()
+				var firstVar = @yes()
+
+				var modifiers = []
+				if @test(Token::MUT) {
+					modifiers.push(@yep(AST.Modifier(ModifierKind::Mutable, @yes())))
+				}
+				else {
+					modifiers.push(@yep(AST.Modifier(ModifierKind::Immutable, @yes())))
+				}
+
+				if @test(Token::IDENTIFIER) {
+					var variable = @reqTypedVariable(fMode)
+
+					if @test(Token::COMMA) {
+						var variables = [variable]
+
+						do {
+							@commit()
+
+							variables.push(@reqTypedVariable(fMode))
+						}
+						while @test(Token::COMMA)
+
+						var late operator: Event
+
+						if @test(Token::EQUALS) {
+							operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Existential, @yes()))
+						}
+						else {
+							@throw('=')
+						}
+
+						unless @test(Token::AWAIT) {
+							@throw('await')
+						}
+
+						@commit()
+
+						var operand = @reqPrefixedOperand(ExpressionMode::Default, fMode)
+						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
+
+						declaration = @yep(AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression))
+					}
+					else {
+						var late operator: Event
+
+						if @test(Token::EQUALS) {
+							operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind::Existential, @yes()))
+						}
+						else {
+							@throw('=')
+						}
+
+						var expression = @reqOperation(ExpressionMode::Default + ExpressionMode::ImplicitMember, fMode)
+
+						declaration = @yep(AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression))
+					}
+				}
+				else {
+					@rollback(mark)
+
+					expression = @tryOperation(ExpressionMode::Default, fMode)
+
+					unless expression.ok {
+						return NO
+					}
+				}
+			}
+			else {
+				expression = @tryOperation(ExpressionMode::Default, fMode)
+
+				unless expression.ok {
+					return NO
+				}
+			}
+
+			unless @test(Token::LEFT_CURLY) {
 				return NO
 			}
 
 			var clauses = @reqMatchCaseList(fMode)
 
-			return @yep(AST.MatchStatement(expression, clauses, first, clauses))
+			return @yep(AST.MatchStatement(expression, declaration, clauses, first, clauses))
 		} # }}}
 		tryMethodReturns(isAllowingAuto: Boolean = true): Event? ~ SyntaxError { # {{{
 			var mark = @mark()
