@@ -5758,7 +5758,7 @@ export namespace Parser {
 				var operator = @tryParameterAssignment(valued)
 
 				if operator.ok {
-					var defaultValue = @reqExpression(ExpressionMode.Default, fMode)
+					var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
 
 					return @yep(AST.Parameter(attributes, modifiers, external, internal, type, operator, defaultValue, first, defaultValue))
 				}
@@ -5773,7 +5773,7 @@ export namespace Parser {
 				var operator = @tryParameterAssignment(valued)
 
 				if operator.ok {
-					var defaultValue = @reqExpression(ExpressionMode.Default, fMode)
+					var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
 
 					return @yep(AST.Parameter(attributes, modifiers, external, internal, null, operator, defaultValue, first, defaultValue))
 				}
@@ -5785,7 +5785,7 @@ export namespace Parser {
 					var operator = @tryParameterAssignment(valued)
 
 					if operator.ok {
-						var defaultValue = @reqExpression(ExpressionMode.Default, fMode)
+						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
 
 						return @yep(AST.Parameter(attributes, modifiers, external, internal, null, operator, defaultValue, first, defaultValue))
 					}
@@ -8564,7 +8564,7 @@ export namespace Parser {
 						var late operator: Event
 
 						if @test(Token.EQUALS) {
-							operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
+							operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
 						}
 						else {
 							@throw('=')
@@ -8585,7 +8585,7 @@ export namespace Parser {
 						var late operator: Event
 
 						if @test(Token.EQUALS) {
-							operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
+							operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
 						}
 						else {
 							@throw('=')
