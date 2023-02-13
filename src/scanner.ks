@@ -3429,10 +3429,12 @@ class Scanner {
 			return Token.INVALID
 		}
 	} # }}}
-	endPosition(): Position => Position( # {{{
-		line: @nextLine
-		column: @nextColumn
-	) # }}}
+	endPosition(): Position { # {{{
+		return new Position(
+			line: @nextLine
+			column: @nextColumn
+		)
+	} # }}}
 	eof(): Token { # {{{
 		@eof = true
 
@@ -3450,12 +3452,14 @@ class Scanner {
 		return c == 9 || c == 10 || c == 13 || c == 32
 	} # }}}
 	line(): @line
-	mark(): Marker => Marker( # {{{
-		eof: @eof
-		index: @index
-		line: @line
-		column: @column
-	) # }}}
+	mark(): Marker { # {{{
+		return new Marker(
+			eof: @eof
+			index: @index
+			line: @line
+			column: @column
+		)
+	} # }}}
 	match(...tokens: Token): Token { # {{{
 		if @eof {
 			return Token.EOF
@@ -3513,16 +3517,18 @@ class Scanner {
 
 		return true
 	} # }}}
-	position(): Range => Range( # {{{
-		start: Position(
-			line: @line
-			column: @column
+	position(): Range { # {{{
+		return new Range( # {{{
+			start: new Position(
+				line: @line
+				column: @column
+			)
+			end: new Position(
+				line: @nextLine
+				column: @nextColumn
+			)
 		)
-		end: Position(
-			line: @nextLine
-			column: @nextColumn
-		)
-	) # }}}
+	} # }}}
 	readLine(): String { # {{{
 		var mut index = @index
 
@@ -4096,10 +4102,12 @@ class Scanner {
 
 		return -1
 	} # }}}
-	startPosition(): Position => Position( # {{{
-		line: @line
-		column: @column
-	) # }}}
+	startPosition(): Position { # {{{
+		return new Position(
+			line: @line
+			column: @column
+		)
+	} # }}}
 	substringAt(d: Number): String => @data.substring(@index + d)
 	test(token: Token): Boolean { # {{{
 		if @eof {

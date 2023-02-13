@@ -109,8 +109,8 @@ export namespace Parser {
 		NoIdentifier
 	}
 
-	var NO = Event(ok: false)
-	var YES = Event(ok: true)
+	var NO = new Event(ok: false)
+	var YES = new Event(ok: true)
 
 	class Parser {
 		private {
@@ -136,10 +136,12 @@ export namespace Parser {
 		match(...tokens: Token): Token => @token <- @scanner.match(...tokens)
 		matchM(matcher: Function, mode? = null): Token => @token <- @scanner.matchM(matcher, mode)
 		matchNS(...tokens: Token): Token => @token <- @scanner.matchNS(...tokens)
-		no(...expecteds: String): Event => Event( # {{{
-			ok: false
-			value: expecteds
-		) # }}}
+		no(...expecteds: String): Event { # {{{
+			return new Event(
+				ok: false
+				value: expecteds
+			)
+		} # }}}
 		position(): Range => @scanner.position()
 		printDebug(prefix: String? = null): Void { # {{{
 			if ?prefix {
@@ -197,14 +199,14 @@ export namespace Parser {
 		yep(): Event { # {{{
 			var position = @scanner.position()
 
-			return Event(
+			return new Event(
 				ok: true
 				start: position.start
 				end: position.end
 			)
 		} # }}}
 		yep(value): Event { # {{{
-			return Event(
+			return new Event(
 				ok: true
 				value: value
 				start: value.start
@@ -212,7 +214,7 @@ export namespace Parser {
 			)
 		} # }}}
 		yep(value, first, last): Event { # {{{
-			return Event(
+			return new Event(
 				ok: true
 				value: value
 				start: first.start
@@ -224,7 +226,7 @@ export namespace Parser {
 
 			@commit()
 
-			return Event(
+			return new Event(
 				ok: true
 				start: position.start
 				end: position.end
@@ -236,7 +238,7 @@ export namespace Parser {
 
 			@commit()
 
-			return Event(
+			return new Event(
 				ok: true
 				value: value
 				start: start
@@ -248,7 +250,7 @@ export namespace Parser {
 
 			@commit()
 
-			return Event(
+			return new Event(
 				ok: true
 				value: value
 				start: first.start
@@ -2362,7 +2364,7 @@ export namespace Parser {
 		reqEnumMember(members: Array): Void ~ SyntaxError { # {{{
 			var attributes = @stackOuterAttributes([])
 			var modifiers = []
-			var result = AmbiguityResult()
+			var result = new AmbiguityResult()
 
 			if @isAmbiguousAccessModifierForEnum(modifiers, result) {
 				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members)
@@ -5058,10 +5060,10 @@ export namespace Parser {
 					for var [indent, first, ...rest], index in lines {
 						if index > 0 {
 							if !?previous {
-								previous = AST.Literal(null, '\n', Position(
+								previous = AST.Literal(null, '\n', new Position(
 									line: firstLine
 									column: 1
-								), Position(
+								), new Position(
 									line: firstLine
 									column: 2
 								))
@@ -5073,10 +5075,10 @@ export namespace Parser {
 								previous.end.column += 1
 							}
 							else {
-								previous = AST.Literal(null, '\n', Position(
+								previous = AST.Literal(null, '\n', new Position(
 									line: previous.end.line:Number
 									column: previous.end.column:Number + 1
-								), Position(
+								), new Position(
 									line: previous.end.line:Number
 									column: previous.end.column:Number + 2
 								))
@@ -5092,10 +5094,10 @@ export namespace Parser {
 
 							if var value #= indent.substr(baseIndent.length) {
 								if !?previous {
-									previous = AST.Literal(null, value, Position(
+									previous = AST.Literal(null, value, new Position(
 										line: firstLine
 										column: baseIndent.length
-									), Position(
+									), new Position(
 										line: firstLine
 										column: indent.length
 									))
@@ -5108,10 +5110,10 @@ export namespace Parser {
 									previous.end.column += indent.length
 								}
 								else {
-									previous = AST.Literal(null, value, Position(
+									previous = AST.Literal(null, value, new Position(
 										line: previous.end.line:Number + 1
 										column: baseIndent.length
-									), Position(
+									), new Position(
 										line: previous.end.line:Number + 1
 										column: indent.length
 									))
@@ -5151,10 +5153,10 @@ export namespace Parser {
 								previous.end.column += 1
 							}
 							else {
-								previous = AST.Literal(null, '\n', Position(
+								previous = AST.Literal(null, '\n', new Position(
 									line: previous.end.line:Number
 									column: previous.end.column:Number + 1
-								), Position(
+								), new Position(
 									line: previous.end.line:Number
 									column: previous.end.column:Number + 2
 								))
