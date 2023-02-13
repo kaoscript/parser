@@ -630,14 +630,6 @@ namespace AST {
 			}, declaration)
 		} # }}}
 
-		func DestroyStatement(variable, first, last) { # {{{
-			return location({
-				kind: NodeKind.DestroyStatement
-				attributes: []
-				variable: variable.value
-			}, first, last)
-		} # }}}
-
 		func DiscloseDeclaration(name, members, first, last) { # {{{
 			return location({
 				kind: NodeKind.DiscloseDeclaration
@@ -672,6 +664,14 @@ namespace AST {
 				attributes: []
 				condition: condition.value
 				body: body.value
+			}, first, last)
+		} # }}}
+
+		func DropStatement(variable, first, last) { # {{{
+			return location({
+				kind: NodeKind.DropStatement
+				attributes: []
+				variable: variable.value
 			}, first, last)
 		} # }}}
 

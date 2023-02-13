@@ -6228,11 +6228,11 @@ export namespace Parser {
 				Token.CONTINUE {
 					statement = @reqContinueStatement(@yes(), fMode)
 				}
-				Token.DELETE {
-					statement = @tryDestroyStatement(@yes(), fMode)
-				}
 				Token.DO {
 					statement = @reqDoStatement(@yes(), fMode)
+				}
+				Token.DROP {
+					statement = @tryDropStatement(@yes(), fMode)
 				}
 				Token.ENUM {
 					statement = @reqEnumStatement(@yes())
@@ -8076,16 +8076,6 @@ export namespace Parser {
 				return @yep(AST.CreateExpression(class, @yep([]), first, class))
 			}
 		} # }}}
-		tryDestroyStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var variable = @tryVariableName(fMode)
-
-			if variable.ok {
-				return @yep(AST.DestroyStatement(variable, first, variable))
-			}
-			else {
-				return NO
-			}
-		} # }}}
 		tryDestructuring(fMode): Event ~ SyntaxError { # {{{
 			if @match(Token.LEFT_CURLY, Token.LEFT_SQUARE) == Token.LEFT_CURLY {
 				try {
@@ -8131,6 +8121,16 @@ export namespace Parser {
 				return @reqDestructuringObject(first, dMode, fMode)
 			}
 			catch {
+				return NO
+			}
+		} # }}}
+		tryDropStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var variable = @tryVariableName(fMode)
+
+			if variable.ok {
+				return @yep(AST.DropStatement(variable, first, variable))
+			}
+			else {
 				return NO
 			}
 		} # }}}

@@ -38,13 +38,13 @@ enum Token {
 	COMMA
 	CONTINUE
 	DECIMAL_NUMBER
-	DELETE
 	DISCLOSE
 	DO
 	DOT
 	DOT_DOT
 	DOT_DOT_DOT
 	DOWN
+	DROP
 	DYN
 	ELSE
 	ELSE_IF
@@ -1665,7 +1665,7 @@ namespace M {
 					return Token.CONTINUE
 				}
 			}
-			// do
+			// do, drop
 			else if	c == 100
 			{
 				if 	that.charAt(1) == 111 &&
@@ -1675,16 +1675,14 @@ namespace M {
 
 					return Token.DO
 				}
-				else if	that.charAt(1) == 101 &&
-					that.charAt(2) == 108 &&
-					that.charAt(3) == 101 &&
-					that.charAt(4) == 116 &&
-					that.charAt(5) == 101 &&
-					that.isBoundary(6)
+				else if	that.charAt(1) == 114 &&
+					that.charAt(2) == 111 &&
+					that.charAt(3) == 112 &&
+					that.isBoundary(4)
 				{
-					that.next(6)
+					that.next(4)
 
-					return Token.DELETE
+					return Token.DROP
 				}
 			}
 			// enum
