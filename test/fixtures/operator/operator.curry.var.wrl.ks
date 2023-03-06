@@ -1,0 +1,1 @@
+var writeAppLogWithBreak = writeAppLog^^(..., '\n---')

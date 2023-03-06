@@ -1,0 +1,1 @@
+var addOne = add^^(1, ^)

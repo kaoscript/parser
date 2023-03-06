@@ -1554,6 +1554,14 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func PlaceholderArgument(modifiers, index?, first, last) { # {{{
+			return location({
+				kind: NodeKind.PlaceholderArgument
+				modifiers: [modifier.value for var modifier in modifiers]
+				index: index.value if ?index
+			}, first, last)
+		} # }}}
+
 		func PositionalArgument(value) { # {{{
 			return location({
 				kind: NodeKind.PositionalArgument

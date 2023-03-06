@@ -63,6 +63,7 @@ export namespace Parser {
 	bitmask ExpressionMode {
 		Default
 		Arrow
+		Curry
 		ImplicitMember
 		NoAnonymousFunction
 		NoAwait
@@ -134,7 +135,11 @@ export namespace Parser {
 		} # }}}
 		mark(): Marker => @scanner.mark()
 		match(...tokens: Token): Token => @token <- @scanner.match(...tokens)
-		matchM(matcher: Function, mode? = null): Token => @token <- @scanner.matchM(matcher, mode)
+		matchM(matcher: Function, eMode: ExpressionMode? = null, fMode: FunctionMode? = null): Token { # {{{
+			@token = @scanner.matchM(matcher, eMode, fMode, @mode)
+
+			return @token
+		} # }}}
 		matchNS(...tokens: Token): Token => @token <- @scanner.matchNS(...tokens)
 		no(...expecteds: String): Event { # {{{
 			return new Event(
@@ -913,7 +918,7 @@ export namespace Parser {
 
 			return modifiers
 		} # }}}
-		reqArgumentList(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqArgumentList(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
 			if @test(Token.RIGHT_ROUND) {
@@ -921,6 +926,7 @@ export namespace Parser {
 			}
 			else {
 				var arguments = []
+				var mut argument: Event = NO
 
 				while @until(Token.RIGHT_ROUND) {
 					if @test(Token.BACKSLASH) {
@@ -929,12 +935,26 @@ export namespace Parser {
 						if fMode == FunctionMode.Method && @test(Token.AT) {
 							var alias = @reqThisExpression(@yes())
 
-							arguments.push(@yep(AST.PositionalArgument(alias)))
+							argument = @yep(AST.PositionalArgument(alias))
 						}
 						else {
 							var identifier = @reqIdentifier()
 
-							arguments.push(@yep(AST.PositionalArgument(identifier)))
+							argument = @yep(AST.PositionalArgument(identifier))
+						}
+					}
+					// TODO!
+					// else if eMode ~~ .Curry && @test(.CARET) {
+					else if eMode ~~ ExpressionMode.Curry && @test(Token.CARET) {
+						var first = @yes()
+
+						if @testNS(Token.NUMERAL) {
+							var index = @yep(AST.NumericExpression(parseInt(@scanner.value(), 10), @yes()))
+
+							argument = @yep(AST.PlaceholderArgument([], index, first, index))
+						}
+						else {
+							argument = @yep(AST.PlaceholderArgument([], null, first, first))
 						}
 					}
 					else if @test(Token.COLON) {
@@ -953,16 +973,64 @@ export namespace Parser {
 							expression = @yep(AST.NamedArgument(identifier, identifier, first, identifier))
 						}
 
-						arguments.push(@altRestrictiveExpression(expression, fMode))
+						argument = @altRestrictiveExpression(expression, fMode)
+					}
+					else if eMode ~~ ExpressionMode.Curry && @test(Token.DOT_DOT_DOT) {
+						var mark = @mark()
+						var modifier = @yep(AST.Modifier(ModifierKind.Rest, @yes()))
+
+						if @testNS(Token.COMMA, Token.NEWLINE, Token.RIGHT_ROUND) {
+							argument = @yep(AST.PlaceholderArgument([modifier], null, modifier, modifier))
+						}
+						else {
+							@rollback(mark)
+						}
+					}
+
+					if argument.ok {
+						arguments.push(argument)
 					}
 					else {
-						var argument = @reqExpression(ExpressionMode.ImplicitMember, fMode, MacroTerminator.List)
+						argument = @reqExpression(ExpressionMode.ImplicitMember, fMode, MacroTerminator.List)
 
 						if argument.value.kind == NodeKind.Identifier {
 							if @test(Token.COLON) {
 								@commit()
 
-								var value = @reqExpression(ExpressionMode.ImplicitMember, fMode, MacroTerminator.List)
+								// TODO!
+								// var value = if eMode ~~ ExpressionMode.Curry && @test(Token.CARET) {
+								// 	var first = @yes()
+
+								// 	if @testNS(Token.NUMERAL) {
+								// 		var index = @yep(AST.NumericExpression(parseInt(@scanner.value(), 10), @yes()))
+
+								// 		pick @yep(AST.PlaceholderArgument([], index, first, index))
+								// 	}
+								// 	else {
+								// 		pick @yep(AST.PlaceholderArgument([], null, first, first))
+								// 	}
+								// }
+								// else {
+								// 	pick @reqExpression(eMode + ExpressionMode.ImplicitMember, fMode, MacroTerminator.List)
+								// }
+								var late value
+
+								if eMode ~~ ExpressionMode.Curry && @test(Token.CARET) {
+									var first = @yes()
+
+									if @testNS(Token.NUMERAL) {
+										var index = @yep(AST.NumericExpression(parseInt(@scanner.value(), 10), @yes()))
+
+										value = @yep(AST.PlaceholderArgument([], index, first, index))
+									}
+									else {
+										value = @yep(AST.PlaceholderArgument([], null, first, first))
+									}
+								}
+								else {
+									value = @reqExpression(ExpressionMode.ImplicitMember, fMode, MacroTerminator.List)
+								}
+
 								var expression = @yep(AST.NamedArgument(argument, value))
 
 								arguments.push(@altRestrictiveExpression(expression, fMode))
@@ -982,6 +1050,8 @@ export namespace Parser {
 					else {
 						break
 					}
+
+					argument = NO
 				}
 
 				@throw(')') unless @test(Token.RIGHT_ROUND)
@@ -6186,7 +6256,7 @@ export namespace Parser {
 
 			var dyn statement = NO
 
-			match @matchM(M.STATEMENT, @mode) {
+			match @matchM(M.STATEMENT) {
 				Token.ABSTRACT {
 					var first = @yes()
 
@@ -6952,32 +7022,24 @@ export namespace Parser {
 
 			repeat {
 				match @matchM(M.OPERAND_JUNCTION) {
-					Token.ASTERISK_ASTERISK_LEFT_ROUND {
-						@commit()
-
-						value = @yep(AST.CallExpression([], AST.Scope(ScopeKind.Null), value, @reqArgumentList(fMode), value, @yes()))
-					}
 					Token.ASTERISK_DOLLAR_LEFT_ROUND {
 						@commit()
 
-						var arguments = @reqArgumentList(fMode)
+						var arguments = @reqArgumentList(eMode, fMode)
 
 						value = @yep(AST.CallExpression([], AST.Scope(ScopeKind.Argument, arguments.value.shift()), value, arguments, value, @yes()))
-					}
-					Token.CARET_AT_LEFT_ROUND {
-						@commit()
-
-						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind.This), value, @reqArgumentList(fMode), value, @yes()))
 					}
 					Token.CARET_CARET_LEFT_ROUND {
 						@commit()
 
-						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind.Null), value, @reqArgumentList(fMode), value, @yes()))
+						var arguments = @reqArgumentList(eMode + ExpressionMode.Curry, fMode)
+
+						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind.This), value, arguments, value, @yes()))
 					}
 					Token.CARET_DOLLAR_LEFT_ROUND {
 						@commit()
 
-						var arguments = @reqArgumentList(fMode)
+						var arguments = @reqArgumentList(eMode + ExpressionMode.Curry, fMode)
 
 						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind.Argument, arguments.value.shift()), value, arguments, value, @yes()))
 					}
@@ -7032,7 +7094,7 @@ export namespace Parser {
 					Token.LEFT_ROUND {
 						@commit()
 
-						value = @yep(AST.CallExpression([], value, @reqArgumentList(fMode), value, @yes()))
+						value = @yep(AST.CallExpression([], value, @reqArgumentList(eMode, fMode), value, @yes()))
 					}
 					Token.NEWLINE {
 						if eMode ~~ ExpressionMode.NoMultiLine {
@@ -7079,7 +7141,7 @@ export namespace Parser {
 					Token.QUESTION_LEFT_ROUND {
 						var modifiers = [AST.Modifier(ModifierKind.Nullable, @yes())]
 
-						value = @yep(AST.CallExpression(modifiers, AST.Scope(ScopeKind.This), value, @reqArgumentList(fMode), value, @yes()))
+						value = @yep(AST.CallExpression(modifiers, AST.Scope(ScopeKind.This), value, @reqArgumentList(eMode, fMode), value, @yes()))
 					}
 					Token.QUESTION_LEFT_SQUARE {
 						var position = @yes()
@@ -8037,11 +8099,11 @@ export namespace Parser {
 
 			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
 		} # }}}
-		tryCreateExpression(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryCreateExpression(mut first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @test(Token.LEFT_ROUND) {
 				@commit()
 
-				var class = @reqExpression(ExpressionMode.Default, fMode)
+				var class = @reqExpression(eMode, fMode)
 
 				unless @test(Token.RIGHT_ROUND) {
 					@throw(')')
@@ -8055,7 +8117,7 @@ export namespace Parser {
 
 				@commit()
 
-				return @yep(AST.CreateExpression(class, @reqArgumentList(fMode), first, @yes()))
+				return @yep(AST.CreateExpression(class, @reqArgumentList(eMode, fMode), first, @yes()))
 			}
 
 			var dyn class = @tryVariableName(fMode)
@@ -8072,7 +8134,7 @@ export namespace Parser {
 			if @test(Token.LEFT_ROUND) {
 				@commit()
 
-				return @yep(AST.CreateExpression(class, @reqArgumentList(fMode), first, @yes()))
+				return @yep(AST.CreateExpression(class, @reqArgumentList(eMode, fMode), first, @yes()))
 			}
 			else {
 				return @yep(AST.CreateExpression(class, @yep([]), first, class))
@@ -8753,53 +8815,60 @@ export namespace Parser {
 			}
 		} # }}}
 		tryOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			if @matchM(M.OPERAND) == Token.AT && fMode == FunctionMode.Method {
-				return @reqThisExpression(@yes())
-			}
-			else if @token == Token.IDENTIFIER {
-				return @yep(AST.Identifier(@scanner.value(), @yes()))
-			}
-			else if @token == Token.LEFT_CURLY {
-				return @reqObject(@yes(), fMode)
-			}
-			else if @token == Token.LEFT_ROUND {
-				return @tryParenthesis(@yes(), fMode)
-			}
-			else if @token == Token.LEFT_SQUARE {
-				return @reqArray(@yes(), fMode)
-			}
-			else if @token == Token.ML_BACKQUOTE | Token.ML_TILDE {
-				var delimiter = @token
+			match @matchM(M.OPERAND, eMode, fMode) {
+				.AT {
+					return @reqThisExpression(@yes())
+				}
+				.IDENTIFIER {
+					return @yep(AST.Identifier(@scanner.value(), @yes()))
+				}
+				.LEFT_CURLY {
+					return @reqObject(@yes(), fMode)
+				}
+				.LEFT_ROUND {
+					return @tryParenthesis(@yes(), fMode)
+				}
+				.LEFT_SQUARE {
+					return @reqArray(@yes(), fMode)
+				}
+				.ML_BACKQUOTE | .ML_TILDE {
+					// TODO!
+					// var delimiter = @token
+					var delimiter = @token!?
 
-				return @reqMultiLineTemplate(@yes(), fMode, delimiter)
-			}
-			else if @token == Token.ML_DOUBLE_QUOTE | Token.ML_SINGLE_QUOTE {
-				var delimiter = @token
+					return @reqMultiLineTemplate(@yes(), fMode, delimiter)
+				}
+				.ML_DOUBLE_QUOTE | .ML_SINGLE_QUOTE {
+					// TODO!
+					// var delimiter = @token
+					var delimiter = @token!?
 
-				return @reqMultiLineString(@yes(), delimiter)
-			}
-			else if @token == Token.NEW {
-				var first = @yep(AST.Identifier(@scanner.value(), @yes()))
+					return @reqMultiLineString(@yes(), delimiter)
+				}
+				.NEW {
+					var first = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var operand = @tryCreateExpression(first, fMode)
-				if operand.ok {
-					return operand
+					var operand = @tryCreateExpression(first, eMode, fMode)
+					if operand.ok {
+						return operand
+					}
+					else {
+						return first
+					}
+				}
+				.REGEXP {
+					return @yep(AST.RegularExpression(@scanner.value(), @yes()))
+				}
+				.STRING {
+					return @yep(AST.Literal(null, @value(), @yes()))
+				}
+				.TEMPLATE_BEGIN {
+					return @reqTemplateExpression(@yes(), fMode)
 				}
 				else {
-					return first
+					return @tryNumber()
 				}
-			}
-			else if @token == Token.REGEXP {
-				return @yep(AST.RegularExpression(@scanner.value(), @yes()))
-			}
-			else if @token == Token.STRING {
-				return @yep(AST.Literal(null, @value(), @yes()))
-			}
-			else if @token == Token.TEMPLATE_BEGIN {
-				return @reqTemplateExpression(@yes(), fMode)
-			}
-			else {
-				return @tryNumber()
+
 			}
 		} # }}}
 		tryOperation(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{

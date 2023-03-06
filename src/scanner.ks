@@ -8,7 +8,6 @@ enum Token {
 	AS_EXCLAMATION
 	AS_QUESTION
 	ASTERISK
-	ASTERISK_ASTERISK_LEFT_ROUND
 	ASTERISK_DOLLAR_LEFT_ROUND
 	ASTERISK_EQUALS
 	ASYNC
@@ -23,7 +22,6 @@ enum Token {
 	BREAK
 	BUT
 	CARET
-	CARET_AT_LEFT_ROUND
 	CARET_CARET
 	CARET_CARET_CARET
 	CARET_CARET_EQUALS
@@ -231,7 +229,7 @@ var regex: Object<RegExp> = {
 
 namespace M {
 	export {
-		func ASSIGNEMENT_OPERATOR(that: Scanner, index: Number, mode?): Token { # {{{
+		func ASSIGNEMENT_OPERATOR(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that.skip(index)
 
 			if c == -1 {
@@ -364,7 +362,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func BINARY_OPERATOR(that: Scanner, index: Number, mode?): Token { # {{{
+		func BINARY_OPERATOR(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that.skip(index)
 
 			if c == -1 {
@@ -654,7 +652,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func DESCRIPTIVE_TYPE(that: Scanner, index: Number, mode?): Token { # {{{
+		func DESCRIPTIVE_TYPE(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that.skip(index)
 
 			if c == -1 {
@@ -778,7 +776,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func EXPORT_STATEMENT(that: Scanner, index: Number, mode?): Token { # {{{
+		func EXPORT_STATEMENT(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that.skip(index)
 
 			if c == -1 {
@@ -913,7 +911,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func JUNCTION_OPERATOR(that: Scanner, index: Number, mode?): Token { # {{{
+		func JUNCTION_OPERATOR(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that.skip(index)
 
 			if c == -1 {
@@ -944,7 +942,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func MACRO(that: Scanner, mut index: Number, mode?): Token { # {{{
+		func MACRO(that: Scanner, mut index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that._data.charCodeAt(index)
 
 			if c == 13 && that.charAt(1) == 10 {
@@ -1046,7 +1044,7 @@ namespace M {
 			}
 		} # }}}
 
-		func MODULE_STATEMENT(that: Scanner, index: Number, mode?): Token { # {{{
+		func MODULE_STATEMENT(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var mut c = that.skip(index)
 
 			if c == -1 {
@@ -1203,7 +1201,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func NUMBER(that: Scanner, index: Number, mode?): Token { # {{{
+		func NUMBER(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that.skip(index)
 
 			if c == -1 {
@@ -1251,7 +1249,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func OPERAND(that: Scanner, index: Number, mode?): Token { # {{{
+		func OPERAND(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that.skip(index)
 
 			if c == -1 {
@@ -1299,9 +1297,11 @@ namespace M {
 				}
 			}
 			else if c == 64 { // @
-				that.next(1)
+				if fMode == FunctionMode.Method {
+					that.next(1)
 
-				return Token.AT
+					return Token.AT
+				}
 			}
 			else if c >= 65 && c <= 90 { // A-Z
 				that.scanIdentifier(false)
@@ -1359,7 +1359,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func OPERAND_JUNCTION(that: Scanner, index: Number, mode?): Token { # {{{
+		func OPERAND_JUNCTION(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn p = that._data.charCodeAt(index - 1)
 			var dyn c = that._data.charCodeAt(index)
 
@@ -1389,11 +1389,6 @@ namespace M {
 						that.next(3)
 
 						return Token.ASTERISK_DOLLAR_LEFT_ROUND
-					}
-					else if c == 42 {
-						that.next(3)
-
-						return Token.ASTERISK_ASTERISK_LEFT_ROUND
 					}
 				}
 			}
@@ -1462,11 +1457,6 @@ namespace M {
 
 						return Token.CARET_DOLLAR_LEFT_ROUND
 					}
-					else if c == 64 {
-						that.next(3)
-
-						return Token.CARET_AT_LEFT_ROUND
-					}
 					else if c == 94 {
 						that.next(3)
 
@@ -1483,7 +1473,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func POSTFIX_OPERATOR(that: Scanner, index: Number, mode?): Token { # {{{
+		func POSTFIX_OPERATOR(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn p = that._data.charCodeAt(index - 1)
 			var dyn c = that._data.charCodeAt(index)
 
@@ -1506,7 +1496,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func PREFIX_OPERATOR(that: Scanner, index: Number, mode?): Token { # {{{
+		func PREFIX_OPERATOR(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that.skip(index)
 
 			if c == -1 {
@@ -1543,7 +1533,7 @@ namespace M {
 
 					return Token.DOT_DOT_DOT
 				}
-				else if mode ~~ ExpressionMode.ImplicitMember {
+				else if eMode ~~ ExpressionMode.ImplicitMember {
 					that.next(1)
 
 					return Token.DOT
@@ -1560,7 +1550,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func STATEMENT(that: Scanner, index: Number, mode?): Token { # {{{
+		func STATEMENT(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that.skip(index)
 
 			if c == -1 {
@@ -1847,7 +1837,7 @@ namespace M {
 
 					return Token.PASS
 				}
-				else if mode ~~ ParserMode.InlineStatement &&
+				else if pMode ~~ ParserMode.InlineStatement &&
 					that.charAt(1) == 105 &&
 					that.charAt(2) == 99 &&
 					that.charAt(3) == 107 &&
@@ -2015,7 +2005,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func TEMPLATE(that: Scanner, mut index: Number, mode?): Token { # {{{
+		func TEMPLATE(that: Scanner, mut index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that._data.charCodeAt(index)
 
 			if c == 92 && that._data.charCodeAt(index + 1) == 40 { // \(
@@ -2035,7 +2025,7 @@ namespace M {
 			return Token.INVALID
 		} # }}}
 
-		func TYPE_OPERATOR(that: Scanner, index: Number, mode?): Token { # {{{
+		func TYPE_OPERATOR(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that.skip(index)
 
 			if c == -1 {
@@ -2840,7 +2830,7 @@ var recognize = {
 	} # }}}
 	`\(Token.NUMERAL)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if 48 <= c <= 57 {
-			var dyn i = 1
+			var mut i = 1
 
 			while 48 <= that.charAt(i) <= 57 {
 				i += 1
@@ -3480,12 +3470,12 @@ class Scanner {
 			return Token.INVALID
 		}
 	} # }}}
-	matchM(matcher: Function, mode?): Token { # {{{
+	matchM(matcher: Function, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 		if @eof {
 			return Token.EOF
 		}
 		else {
-			return matcher(this, @index, mode)
+			return matcher(this, @index, eMode, fMode, pMode)
 		}
 	} # }}}
 	matchNS(...tokens: Token): Token { # {{{
@@ -3518,7 +3508,7 @@ class Scanner {
 		return true
 	} # }}}
 	position(): Range { # {{{
-		return new Range( # {{{
+		return new Range(
 			start: new Position(
 				line: @line
 				column: @column

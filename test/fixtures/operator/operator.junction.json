@@ -45,7 +45,7 @@
       "kind": 18,
       "modifiers": [],
       "scope": {
-        "kind": 3
+        "kind": 2
       },
       "callee": {
         "kind": 53,
@@ -203,7 +203,7 @@
         }
       ],
       "scope": {
-        "kind": 3
+        "kind": 2
       },
       "callee": {
         "kind": 53,
@@ -393,94 +393,6 @@
       "attributes": []
     },
     {
-      "kind": 30,
-      "modifiers": [],
-      "scope": {
-        "kind": 3
-      },
-      "callee": {
-        "kind": 53,
-        "modifiers": [],
-        "name": "foo",
-        "start": {
-          "line": 17,
-          "column": 1
-        },
-        "end": {
-          "line": 17,
-          "column": 4
-        }
-      },
-      "arguments": [
-        {
-          "kind": 53,
-          "modifiers": [],
-          "name": "bar",
-          "start": {
-            "line": 17,
-            "column": 7
-          },
-          "end": {
-            "line": 17,
-            "column": 10
-          }
-        }
-      ],
-      "start": {
-        "line": 17,
-        "column": 1
-      },
-      "end": {
-        "line": 17,
-        "column": 11
-      },
-      "attributes": []
-    },
-    {
-      "kind": 18,
-      "modifiers": [],
-      "scope": {
-        "kind": 2
-      },
-      "callee": {
-        "kind": 53,
-        "modifiers": [],
-        "name": "foo",
-        "start": {
-          "line": 19,
-          "column": 1
-        },
-        "end": {
-          "line": 19,
-          "column": 4
-        }
-      },
-      "arguments": [
-        {
-          "kind": 53,
-          "modifiers": [],
-          "name": "bar",
-          "start": {
-            "line": 19,
-            "column": 7
-          },
-          "end": {
-            "line": 19,
-            "column": 10
-          }
-        }
-      ],
-      "start": {
-        "line": 19,
-        "column": 1
-      },
-      "end": {
-        "line": 19,
-        "column": 11
-      },
-      "attributes": []
-    },
-    {
       "kind": 18,
       "modifiers": [],
       "scope": {
@@ -490,11 +402,11 @@
           "modifiers": [],
           "name": "bar",
           "start": {
-            "line": 21,
+            "line": 17,
             "column": 7
           },
           "end": {
-            "line": 21,
+            "line": 17,
             "column": 10
           }
         }
@@ -504,21 +416,21 @@
         "modifiers": [],
         "name": "foo",
         "start": {
-          "line": 21,
+          "line": 17,
           "column": 1
         },
         "end": {
-          "line": 21,
+          "line": 17,
           "column": 4
         }
       },
       "arguments": [],
       "start": {
-        "line": 21,
+        "line": 17,
         "column": 1
       },
       "end": {
-        "line": 21,
+        "line": 17,
         "column": 11
       },
       "attributes": []
@@ -530,11 +442,11 @@
         "kind": 23,
         "modifiers": [],
         "start": {
-          "line": 23,
+          "line": 19,
           "column": 4
         },
         "end": {
-          "line": 23,
+          "line": 19,
           "column": 5
         }
       },
@@ -543,45 +455,45 @@
         "modifiers": [],
         "name": "foo",
         "start": {
-          "line": 23,
+          "line": 19,
           "column": 1
         },
         "end": {
-          "line": 23,
+          "line": 19,
           "column": 4
         }
       },
       "right": {
-        "kind": 123,
+        "kind": 124,
         "modifiers": [],
         "typeName": {
           "kind": 53,
           "modifiers": [],
           "name": "bar",
           "start": {
-            "line": 23,
+            "line": 19,
             "column": 5
           },
           "end": {
-            "line": 23,
+            "line": 19,
             "column": 8
           }
         },
         "start": {
-          "line": 23,
+          "line": 19,
           "column": 5
         },
         "end": {
-          "line": 23,
+          "line": 19,
           "column": 8
         }
       },
       "start": {
-        "line": 23,
+        "line": 19,
         "column": 1
       },
       "end": {
-        "line": 23,
+        "line": 19,
         "column": 8
       },
       "attributes": []
@@ -592,7 +504,7 @@
     "column": 1
   },
   "end": {
-    "line": 23,
+    "line": 19,
     "column": 8
   }
 }
