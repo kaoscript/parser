@@ -25,7 +25,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 29,
+              "kind": 30,
               "start": {
                 "line": 2,
                 "column": 2
@@ -36,7 +36,7 @@
               }
             },
             {
-              "kind": 37,
+              "kind": 38,
               "start": {
                 "line": 3,
                 "column": 3
@@ -116,20 +116,13 @@
               "kind": 88,
               "attributes": [],
               "modifiers": [],
-              "start": {
-                "line": 5,
-                "column": 14
-              },
-              "end": {
-                "line": 5,
-                "column": 29
-              },
               "internal": {
                 "kind": 83,
                 "elements": [
                   {
                     "kind": 13,
-                    "name": {
+                    "modifiers": [],
+                    "external": {
                       "kind": 53,
                       "modifiers": [],
                       "name": "msg",
@@ -142,16 +135,7 @@
                         "column": 18
                       }
                     },
-                    "modifiers": [],
-                    "start": {
-                      "line": 5,
-                      "column": 15
-                    },
-                    "end": {
-                      "line": 5,
-                      "column": 28
-                    },
-                    "alias": {
+                    "internal": {
                       "kind": 115,
                       "modifiers": [],
                       "name": {
@@ -160,21 +144,29 @@
                         "name": "message",
                         "start": {
                           "line": 5,
-                          "column": 21
+                          "column": 22
                         },
                         "end": {
                           "line": 5,
-                          "column": 28
+                          "column": 29
                         }
                       },
                       "start": {
                         "line": 5,
-                        "column": 20
+                        "column": 21
                       },
                       "end": {
                         "line": 5,
-                        "column": 28
+                        "column": 29
                       }
+                    },
+                    "start": {
+                      "line": 5,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 29
                     }
                   }
                 ],
@@ -184,8 +176,16 @@
                 },
                 "end": {
                   "line": 5,
-                  "column": 29
+                  "column": 30
                 }
+              },
+              "start": {
+                "line": 5,
+                "column": 14
+              },
+              "end": {
+                "line": 5,
+                "column": 30
               }
             }
           ],
@@ -195,7 +195,7 @@
           },
           "end": {
             "line": 5,
-            "column": 30
+            "column": 31
           },
           "throws": []
         }

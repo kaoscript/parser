@@ -25,7 +25,7 @@
           "attributes": [],
           "modifiers": [
             {
-              "kind": 29,
+              "kind": 30,
               "start": {
                 "line": 2,
                 "column": 2
@@ -36,7 +36,7 @@
               }
             },
             {
-              "kind": 37,
+              "kind": 38,
               "start": {
                 "line": 3,
                 "column": 3
@@ -116,20 +116,26 @@
               "kind": 88,
               "attributes": [],
               "modifiers": [],
-              "start": {
-                "line": 5,
-                "column": 14
-              },
-              "end": {
-                "line": 5,
-                "column": 24
-              },
               "internal": {
                 "kind": 83,
                 "elements": [
                   {
                     "kind": 13,
-                    "name": {
+                    "modifiers": [],
+                    "external": {
+                      "kind": 53,
+                      "modifiers": [],
+                      "name": "message",
+                      "start": {
+                        "line": 5,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 23
+                      }
+                    },
+                    "internal": {
                       "kind": 115,
                       "modifiers": [],
                       "name": {
@@ -154,7 +160,6 @@
                         "column": 23
                       }
                     },
-                    "modifiers": [],
                     "start": {
                       "line": 5,
                       "column": 15
@@ -173,6 +178,14 @@
                   "line": 5,
                   "column": 24
                 }
+              },
+              "start": {
+                "line": 5,
+                "column": 14
+              },
+              "end": {
+                "line": 5,
+                "column": 24
               }
             }
           ],

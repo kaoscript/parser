@@ -12,10 +12,10 @@ import 'foobar' {
 	baz(...): T
 	qux(): U
 } => {
-	foo: f1
-	bar: b1
-	baz: b2
-	qux: q1
+	foo % f1
+	bar % b1
+	baz % b2
+	qux % q1
 }
 
 import 'barfoo' {
@@ -24,8 +24,8 @@ import 'barfoo' {
 	func baz: T
 	func qux(): U
 } => {
-	foo: f1
-	bar: b1
-	baz: b2
-	qux: q1
+	foo % f1
+	bar % b1
+	baz % b2
+	qux % q1
 }

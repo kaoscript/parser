@@ -6,10 +6,10 @@ import 'foobar' {
 	async qux(value: Number): Number
 	async qux(value: String): String
 } => {
-	foo: f1
-	bar: b1
-	baz: b2
-	qux: q1
+	foo % f1
+	bar % b1
+	baz % b2
+	qux % q1
 }
 
 import 'barfoo' {
@@ -20,8 +20,8 @@ import 'barfoo' {
 	async func qux(value: Number): Number
 	async func qux(value: String): String
 } => {
-	foo: f1
-	bar: b1
-	baz: b2
-	qux: q1
+	foo % f1
+	bar % b1
+	baz % b2
+	qux % q1
 }

@@ -4,8 +4,8 @@ import 'chevrotain' {
 	sealed class Parser
 	sealed class Token
 } => {
-	createToken: createChevrotainToken
-	Lexer: ChevrotainLexer
-	Parser: ChevrotainParser
-	Token: ChevrotainToken
+	createToken % createChevrotainToken
+	Lexer % ChevrotainLexer
+	Parser % ChevrotainParser
+	Token % ChevrotainToken
 }

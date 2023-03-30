@@ -286,25 +286,15 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func ArrayBindingElement(modifiers, name?, type?, defaultValue?, first, last) { # {{{
-			var node = location({
+		func ArrayBindingElement(modifiers, name?, type?, operator?, defaultValue?, first, last) { # {{{
+			return location({
 				kind: NodeKind.BindingElement
 				modifiers
+				name: name.value if ?name
+				type: type.value if ?type
+				operator: operator.value if ?operator
+				defaultValue: defaultValue.value if ?defaultValue
 			}, first, last)
-
-			if ?name {
-				node.name = name.value
-			}
-
-			if ?type {
-				node.type = type.value
-			}
-
-			if ?defaultValue {
-				node.defaultValue = defaultValue.value
-			}
-
-			return node
 		} # }}}
 
 		func ArrayComprehension(expression, loop, first, last) { # {{{
@@ -583,6 +573,7 @@ namespace AST {
 		func ConditionalExpression(first) { # {{{
 			return location({
 				kind: NodeKind.ConditionalExpression
+				modifiers: []
 			}, first)
 		} # }}}
 
@@ -1419,22 +1410,16 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func ObjectBindingElement(modifiers, name, alias?, defaultValue?, first, last) { # {{{
-			var node = location({
+		func ObjectBindingElement(modifiers, external?, internal?, type?, operator?, defaultValue?, first, last) { # {{{
+			return location({
 				kind: NodeKind.BindingElement
-				name: name.value
 				modifiers
+				external: external.value if ?external
+				internal: internal.value if ?internal
+				type: type.value if ?type
+				operator: operator.value if ?operator
+				defaultValue: defaultValue.value if ?defaultValue
 			}, first, last)
-
-			if ?alias {
-				node.alias = alias.value
-			}
-
-			if ?defaultValue {
-				node.defaultValue = defaultValue.value
-			}
-
-			return node
 		} # }}}
 
 		func ObjectExpression(attributes, properties, first, last) { # {{{
@@ -1514,29 +1499,16 @@ namespace AST {
 		} # }}}
 
 		func Parameter(attributes, modifiers, external?, internal?, type?, operator?, defaultValue?, first, last) { # {{{
-			var node = location({
+			return location({
 				kind: NodeKind.Parameter
 				attributes: [attribute.value for var attribute in attributes]
-				modifiers: modifiers
+				modifiers
+				external: external.value if ?external
+				internal: internal.value if ?internal
+				type: type.value if ?type
+				operator: operator.value if ?operator
+				defaultValue: defaultValue.value if ?defaultValue
 			}, first, last)
-
-			if external != null {
-				node.external = external.value
-			}
-			if internal != null {
-				node.internal = internal.value
-			}
-			if type != null {
-				node.type = type.value
-			}
-			if operator != null {
-				node.operator = operator.value
-			}
-			if defaultValue != null {
-				node.defaultValue = defaultValue.value
-			}
-
-			return node
 		} # }}}
 
 		func PickStatement(first) { # {{{

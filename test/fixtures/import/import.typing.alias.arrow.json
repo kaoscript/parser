@@ -48,7 +48,8 @@
                     "elements": [
                       {
                         "kind": 13,
-                        "name": {
+                        "modifiers": [],
+                        "external": {
                           "kind": 53,
                           "modifiers": [],
                           "name": "createToken",
@@ -61,32 +62,32 @@
                             "column": 13
                           }
                         },
-                        "modifiers": [],
+                        "internal": {
+                          "kind": 53,
+                          "modifiers": [],
+                          "name": "createChevrotainToken",
+                          "start": {
+                            "line": 7,
+                            "column": 16
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 37
+                          }
+                        },
                         "start": {
                           "line": 7,
                           "column": 2
                         },
                         "end": {
                           "line": 7,
-                          "column": 36
-                        },
-                        "alias": {
-                          "kind": 53,
-                          "modifiers": [],
-                          "name": "createChevrotainToken",
-                          "start": {
-                            "line": 7,
-                            "column": 15
-                          },
-                          "end": {
-                            "line": 7,
-                            "column": 36
-                          }
+                          "column": 37
                         }
                       },
                       {
                         "kind": 13,
-                        "name": {
+                        "modifiers": [],
+                        "external": {
                           "kind": 53,
                           "modifiers": [],
                           "name": "Lexer",
@@ -99,32 +100,32 @@
                             "column": 7
                           }
                         },
-                        "modifiers": [],
+                        "internal": {
+                          "kind": 53,
+                          "modifiers": [],
+                          "name": "ChevrotainLexer",
+                          "start": {
+                            "line": 8,
+                            "column": 10
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 25
+                          }
+                        },
                         "start": {
                           "line": 8,
                           "column": 2
                         },
                         "end": {
                           "line": 8,
-                          "column": 24
-                        },
-                        "alias": {
-                          "kind": 53,
-                          "modifiers": [],
-                          "name": "ChevrotainLexer",
-                          "start": {
-                            "line": 8,
-                            "column": 9
-                          },
-                          "end": {
-                            "line": 8,
-                            "column": 24
-                          }
+                          "column": 25
                         }
                       },
                       {
                         "kind": 13,
-                        "name": {
+                        "modifiers": [],
+                        "external": {
                           "kind": 53,
                           "modifiers": [],
                           "name": "Parser",
@@ -137,32 +138,32 @@
                             "column": 8
                           }
                         },
-                        "modifiers": [],
+                        "internal": {
+                          "kind": 53,
+                          "modifiers": [],
+                          "name": "ChevrotainParser",
+                          "start": {
+                            "line": 9,
+                            "column": 11
+                          },
+                          "end": {
+                            "line": 9,
+                            "column": 27
+                          }
+                        },
                         "start": {
                           "line": 9,
                           "column": 2
                         },
                         "end": {
                           "line": 9,
-                          "column": 26
-                        },
-                        "alias": {
-                          "kind": 53,
-                          "modifiers": [],
-                          "name": "ChevrotainParser",
-                          "start": {
-                            "line": 9,
-                            "column": 10
-                          },
-                          "end": {
-                            "line": 9,
-                            "column": 26
-                          }
+                          "column": 27
                         }
                       },
                       {
                         "kind": 13,
-                        "name": {
+                        "modifiers": [],
+                        "external": {
                           "kind": 53,
                           "modifiers": [],
                           "name": "Token",
@@ -175,27 +176,26 @@
                             "column": 7
                           }
                         },
-                        "modifiers": [],
+                        "internal": {
+                          "kind": 53,
+                          "modifiers": [],
+                          "name": "ChevrotainToken",
+                          "start": {
+                            "line": 10,
+                            "column": 10
+                          },
+                          "end": {
+                            "line": 10,
+                            "column": 25
+                          }
+                        },
                         "start": {
                           "line": 10,
                           "column": 2
                         },
                         "end": {
                           "line": 10,
-                          "column": 24
-                        },
-                        "alias": {
-                          "kind": 53,
-                          "modifiers": [],
-                          "name": "ChevrotainToken",
-                          "start": {
-                            "line": 10,
-                            "column": 9
-                          },
-                          "end": {
-                            "line": 10,
-                            "column": 24
-                          }
+                          "column": 25
                         }
                       }
                     ],
@@ -272,7 +272,7 @@
                 "attributes": [],
                 "modifiers": [
                   {
-                    "kind": 34,
+                    "kind": 35,
                     "start": {
                       "line": 3,
                       "column": 2
@@ -311,7 +311,7 @@
                 "attributes": [],
                 "modifiers": [
                   {
-                    "kind": 34,
+                    "kind": 35,
                     "start": {
                       "line": 4,
                       "column": 2
@@ -350,7 +350,7 @@
                 "attributes": [],
                 "modifiers": [
                   {
-                    "kind": 34,
+                    "kind": 35,
                     "start": {
                       "line": 5,
                       "column": 2

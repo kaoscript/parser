@@ -1,0 +1,1 @@
+type Foobar = Number | String | Array<Number | String> | Null

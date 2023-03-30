@@ -211,11 +211,11 @@
                 "name": "console",
                 "start": {
                   "line": 7,
-                  "column": 31
+                  "column": 32
                 },
                 "end": {
                   "line": 7,
-                  "column": 38
+                  "column": 39
                 }
               },
               "property": {
@@ -224,20 +224,20 @@
                 "name": "log",
                 "start": {
                   "line": 7,
-                  "column": 39
+                  "column": 40
                 },
                 "end": {
                   "line": 7,
-                  "column": 42
+                  "column": 43
                 }
               },
               "start": {
                 "line": 7,
-                "column": 31
+                "column": 32
               },
               "end": {
                 "line": 7,
-                "column": 42
+                "column": 43
               }
             },
             "arguments": [
@@ -251,11 +251,11 @@
                     "value": "qux: ",
                     "start": {
                       "line": 7,
-                      "column": 44
+                      "column": 45
                     },
                     "end": {
                       "line": 7,
-                      "column": 49
+                      "column": 50
                     }
                   },
                   {
@@ -264,31 +264,31 @@
                     "name": "n",
                     "start": {
                       "line": 7,
-                      "column": 51
+                      "column": 52
                     },
                     "end": {
                       "line": 7,
-                      "column": 52
+                      "column": 53
                     }
                   }
                 ],
                 "start": {
                   "line": 7,
-                  "column": 43
+                  "column": 44
                 },
                 "end": {
                   "line": 7,
-                  "column": 54
+                  "column": 55
                 }
               }
             ],
             "start": {
               "line": 7,
-              "column": 31
+              "column": 32
             },
             "end": {
               "line": 7,
-              "column": 55
+              "column": 56
             }
           },
           "start": {
@@ -297,7 +297,7 @@
           },
           "end": {
             "line": 7,
-            "column": 55
+            "column": 56
           },
           "conditions": [
             {
@@ -359,7 +359,8 @@
               "elements": [
                 {
                   "kind": 13,
-                  "name": {
+                  "modifiers": [],
+                  "external": {
                     "kind": 53,
                     "modifiers": [],
                     "name": "qux",
@@ -372,27 +373,26 @@
                       "column": 20
                     }
                   },
-                  "modifiers": [],
+                  "internal": {
+                    "kind": 53,
+                    "modifiers": [],
+                    "name": "n",
+                    "start": {
+                      "line": 7,
+                      "column": 23
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 24
+                    }
+                  },
                   "start": {
                     "line": 7,
                     "column": 17
                   },
                   "end": {
                     "line": 7,
-                    "column": 23
-                  },
-                  "alias": {
-                    "kind": 53,
-                    "modifiers": [],
-                    "name": "n",
-                    "start": {
-                      "line": 7,
-                      "column": 22
-                    },
-                    "end": {
-                      "line": 7,
-                      "column": 23
-                    }
+                    "column": 24
                   }
                 }
               ],
@@ -402,7 +402,7 @@
               },
               "end": {
                 "line": 7,
-                "column": 24
+                "column": 25
               }
             }
           ]

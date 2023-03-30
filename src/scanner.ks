@@ -235,6 +235,22 @@ namespace M {
 			if c == -1 {
 				return Token.EOF
 			}
+			else if c == 33 { // !
+				if that.charAt(2) == 61 {
+					c = that.charAt(1)
+
+					if c == 61 {
+						that.next(3)
+
+						return Token.EXCLAMATION_HASH_EQUALS
+					}
+					else if c == 63 {
+						that.next(3)
+
+						return Token.EXCLAMATION_QUESTION_EQUALS
+					}
+				}
+			}
 			else if c == 35 { // #
 				c = that.charAt(1)
 
@@ -2445,6 +2461,14 @@ var recognize = {
 	`\(Token.EXCLAMATION)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 33 {
 			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token.EXCLAMATION_QUESTION)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 33 && that.charAt(1) == 63 {
+			return that.next(2)
 		}
 		else {
 			return false
