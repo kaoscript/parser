@@ -1038,38 +1038,20 @@ export namespace Parser {
 							if @test(Token.COLON) {
 								@commit()
 
-								// TODO!
-								// var value = if eMode ~~ ExpressionMode.Curry && @test(Token.CARET) {
-								// 	var first = @yes()
-
-								// 	if @testNS(Token.NUMERAL) {
-								// 		var index = @yep(AST.NumericExpression(parseInt(@scanner.value(), 10), @yes()))
-
-								// 		pick @yep(AST.PlaceholderArgument([], index, first, index))
-								// 	}
-								// 	else {
-								// 		pick @yep(AST.PlaceholderArgument([], null, first, first))
-								// 	}
-								// }
-								// else {
-								// 	pick @reqExpression(eMode + ExpressionMode.ImplicitMember, fMode, MacroTerminator.List)
-								// }
-								var late value
-
-								if eMode ~~ ExpressionMode.Curry && @test(Token.CARET) {
+								var value = if eMode ~~ ExpressionMode.Curry && @test(Token.CARET) {
 									var first = @yes()
 
 									if @testNS(Token.NUMERAL) {
 										var index = @yep(AST.NumericExpression(parseInt(@scanner.value(), 10), @yes()))
 
-										value = @yep(AST.PlaceholderArgument([], index, first, index))
+										pick @yep(AST.PlaceholderArgument([], index, first, index))
 									}
 									else {
-										value = @yep(AST.PlaceholderArgument([], null, first, first))
+										pick @yep(AST.PlaceholderArgument([], null, first, first))
 									}
 								}
 								else {
-									value = @reqExpression(ExpressionMode.ImplicitMember, fMode, MacroTerminator.List)
+									pick @reqExpression(ExpressionMode.ImplicitMember, fMode, MacroTerminator.List)
 								}
 
 								var expression = @yep(AST.NamedArgument(argument, value))
@@ -4987,9 +4969,7 @@ export namespace Parser {
 			return @yep(bindings)
 		} # }}}
 		reqMatchBindingValue(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			// TODO!
-			// var dMode: DestructuringMode = .RECURSION + .TYPE
-			var dMode = DestructuringMode.RECURSION + DestructuringMode.TYPE
+			var dMode: DestructuringMode = .RECURSION + .TYPE
 
 			match @match(Token.LEFT_CURLY, Token.LEFT_SQUARE) {
 				Token.LEFT_CURLY {
@@ -5421,7 +5401,7 @@ export namespace Parser {
 					var firstLine = first.start!?.line + 1
 					var mut previous = null
 
-					for var [indent, first, ...rest], index in lines {
+					for var [indent, first?, ...rest], index in lines {
 						if index > 0 {
 							if !?previous {
 								previous = AST.Literal(null, '\n', new Position(
@@ -9162,15 +9142,11 @@ export namespace Parser {
 					return @reqArray(@yes(), fMode)
 				}
 				.ML_BACKQUOTE | .ML_TILDE {
-					// TODO!
-					// var delimiter = @token
 					var delimiter = @token!?
 
 					return @reqMultiLineTemplate(@yes(), fMode, delimiter)
 				}
 				.ML_DOUBLE_QUOTE | .ML_SINGLE_QUOTE {
-					// TODO!
-					// var delimiter = @token
 					var delimiter = @token!?
 
 					return @reqMultiLineString(@yes(), delimiter)
