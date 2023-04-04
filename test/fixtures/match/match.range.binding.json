@@ -1,12 +1,12 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 49,
+      "kind": 50,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "age",
         "start": {
@@ -29,10 +29,10 @@
       "parameters": [],
       "modifiers": [],
       "type": {
-        "kind": 124,
+        "kind": 125,
         "modifiers": [],
         "typeName": {
-          "kind": 53,
+          "kind": 54,
           "modifiers": [],
           "name": "int",
           "start": {
@@ -55,7 +55,7 @@
       },
       "throws": [],
       "body": {
-        "kind": 82,
+        "kind": 83,
         "modifiers": [],
         "value": 15,
         "start": {
@@ -69,10 +69,10 @@
       }
     },
     {
-      "kind": 49,
+      "kind": 50,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "main",
         "start": {
@@ -100,7 +100,7 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 73,
+            "kind": 74,
             "attributes": [],
             "expression": {
               "kind": 18,
@@ -109,7 +109,7 @@
                 "kind": 2
               },
               "callee": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "age",
                 "start": {
@@ -133,80 +133,92 @@
             },
             "clauses": [
               {
-                "kind": 67,
+                "kind": 68,
                 "body": {
-                  "kind": 18,
-                  "modifiers": [],
-                  "scope": {
-                    "kind": 2
-                  },
-                  "callee": {
-                    "kind": 74,
+                  "kind": 43,
+                  "attributes": [],
+                  "expression": {
+                    "kind": 18,
                     "modifiers": [],
-                    "object": {
-                      "kind": 53,
+                    "scope": {
+                      "kind": 2
+                    },
+                    "callee": {
+                      "kind": 75,
                       "modifiers": [],
-                      "name": "console",
+                      "object": {
+                        "kind": 54,
+                        "modifiers": [],
+                        "name": "console",
+                        "start": {
+                          "line": 5,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 19
+                        }
+                      },
+                      "property": {
+                        "kind": 54,
+                        "modifiers": [],
+                        "name": "log",
+                        "start": {
+                          "line": 5,
+                          "column": 20
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 23
+                        }
+                      },
                       "start": {
                         "line": 5,
                         "column": 12
                       },
                       "end": {
                         "line": 5,
-                        "column": 19
-                      }
-                    },
-                    "property": {
-                      "kind": 53,
-                      "modifiers": [],
-                      "name": "log",
-                      "start": {
-                        "line": 5,
-                        "column": 20
-                      },
-                      "end": {
-                        "line": 5,
                         "column": 23
                       }
                     },
+                    "arguments": [
+                      {
+                        "kind": 115,
+                        "modifiers": [],
+                        "elements": [
+                          {
+                            "kind": 65,
+                            "modifiers": [],
+                            "value": "I'm not born yet I guess",
+                            "start": {
+                              "line": 5,
+                              "column": 25
+                            },
+                            "end": {
+                              "line": 5,
+                              "column": 49
+                            }
+                          }
+                        ],
+                        "start": {
+                          "line": 5,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 50
+                        }
+                      }
+                    ],
                     "start": {
                       "line": 5,
                       "column": 12
                     },
                     "end": {
                       "line": 5,
-                      "column": 23
+                      "column": 51
                     }
                   },
-                  "arguments": [
-                    {
-                      "kind": 114,
-                      "modifiers": [],
-                      "elements": [
-                        {
-                          "kind": 64,
-                          "modifiers": [],
-                          "value": "I'm not born yet I guess",
-                          "start": {
-                            "line": 5,
-                            "column": 25
-                          },
-                          "end": {
-                            "line": 5,
-                            "column": 49
-                          }
-                        }
-                      ],
-                      "start": {
-                        "line": 5,
-                        "column": 24
-                      },
-                      "end": {
-                        "line": 5,
-                        "column": 50
-                      }
-                    }
-                  ],
                   "start": {
                     "line": 5,
                     "column": 12
@@ -226,7 +238,7 @@
                 },
                 "conditions": [
                   {
-                    "kind": 82,
+                    "kind": 83,
                     "modifiers": [],
                     "value": 0,
                     "start": {
@@ -242,93 +254,105 @@
                 "bindings": []
               },
               {
-                "kind": 67,
+                "kind": 68,
                 "body": {
-                  "kind": 18,
-                  "modifiers": [],
-                  "scope": {
-                    "kind": 2
-                  },
-                  "callee": {
-                    "kind": 74,
+                  "kind": 43,
+                  "attributes": [],
+                  "expression": {
+                    "kind": 18,
                     "modifiers": [],
-                    "object": {
-                      "kind": 53,
+                    "scope": {
+                      "kind": 2
+                    },
+                    "callee": {
+                      "kind": 75,
                       "modifiers": [],
-                      "name": "console",
+                      "object": {
+                        "kind": 54,
+                        "modifiers": [],
+                        "name": "console",
+                        "start": {
+                          "line": 6,
+                          "column": 23
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 30
+                        }
+                      },
+                      "property": {
+                        "kind": 54,
+                        "modifiers": [],
+                        "name": "log",
+                        "start": {
+                          "line": 6,
+                          "column": 31
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 34
+                        }
+                      },
                       "start": {
                         "line": 6,
                         "column": 23
                       },
                       "end": {
                         "line": 6,
-                        "column": 30
-                      }
-                    },
-                    "property": {
-                      "kind": 53,
-                      "modifiers": [],
-                      "name": "log",
-                      "start": {
-                        "line": 6,
-                        "column": 31
-                      },
-                      "end": {
-                        "line": 6,
                         "column": 34
                       }
                     },
+                    "arguments": [
+                      {
+                        "kind": 115,
+                        "modifiers": [],
+                        "elements": [
+                          {
+                            "kind": 65,
+                            "modifiers": [],
+                            "value": "I'm a child of age ",
+                            "start": {
+                              "line": 6,
+                              "column": 36
+                            },
+                            "end": {
+                              "line": 6,
+                              "column": 55
+                            }
+                          },
+                          {
+                            "kind": 54,
+                            "modifiers": [],
+                            "name": "n",
+                            "start": {
+                              "line": 6,
+                              "column": 57
+                            },
+                            "end": {
+                              "line": 6,
+                              "column": 58
+                            }
+                          }
+                        ],
+                        "start": {
+                          "line": 6,
+                          "column": 35
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 60
+                        }
+                      }
+                    ],
                     "start": {
                       "line": 6,
                       "column": 23
                     },
                     "end": {
                       "line": 6,
-                      "column": 34
+                      "column": 61
                     }
                   },
-                  "arguments": [
-                    {
-                      "kind": 114,
-                      "modifiers": [],
-                      "elements": [
-                        {
-                          "kind": 64,
-                          "modifiers": [],
-                          "value": "I'm a child of age ",
-                          "start": {
-                            "line": 6,
-                            "column": 36
-                          },
-                          "end": {
-                            "line": 6,
-                            "column": 55
-                          }
-                        },
-                        {
-                          "kind": 53,
-                          "modifiers": [],
-                          "name": "n",
-                          "start": {
-                            "line": 6,
-                            "column": 57
-                          },
-                          "end": {
-                            "line": 6,
-                            "column": 58
-                          }
-                        }
-                      ],
-                      "start": {
-                        "line": 6,
-                        "column": 35
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 60
-                      }
-                    }
-                  ],
                   "start": {
                     "line": 6,
                     "column": 23
@@ -348,9 +372,9 @@
                 },
                 "conditions": [
                   {
-                    "kind": 70,
+                    "kind": 71,
                     "from": {
-                      "kind": 82,
+                      "kind": 83,
                       "modifiers": [],
                       "value": 1,
                       "start": {
@@ -363,7 +387,7 @@
                       }
                     },
                     "to": {
-                      "kind": 82,
+                      "kind": 83,
                       "modifiers": [],
                       "value": 12,
                       "start": {
@@ -387,11 +411,11 @@
                 ],
                 "bindings": [
                   {
-                    "kind": 131,
+                    "kind": 132,
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 53,
+                      "kind": 54,
                       "modifiers": [],
                       "name": "n",
                       "start": {
@@ -415,93 +439,105 @@
                 ]
               },
               {
-                "kind": 67,
+                "kind": 68,
                 "body": {
-                  "kind": 18,
-                  "modifiers": [],
-                  "scope": {
-                    "kind": 2
-                  },
-                  "callee": {
-                    "kind": 74,
+                  "kind": 43,
+                  "attributes": [],
+                  "expression": {
+                    "kind": 18,
                     "modifiers": [],
-                    "object": {
-                      "kind": 53,
+                    "scope": {
+                      "kind": 2
+                    },
+                    "callee": {
+                      "kind": 75,
                       "modifiers": [],
-                      "name": "console",
+                      "object": {
+                        "kind": 54,
+                        "modifiers": [],
+                        "name": "console",
+                        "start": {
+                          "line": 7,
+                          "column": 23
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 30
+                        }
+                      },
+                      "property": {
+                        "kind": 54,
+                        "modifiers": [],
+                        "name": "log",
+                        "start": {
+                          "line": 7,
+                          "column": 31
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 34
+                        }
+                      },
                       "start": {
                         "line": 7,
                         "column": 23
                       },
                       "end": {
                         "line": 7,
-                        "column": 30
-                      }
-                    },
-                    "property": {
-                      "kind": 53,
-                      "modifiers": [],
-                      "name": "log",
-                      "start": {
-                        "line": 7,
-                        "column": 31
-                      },
-                      "end": {
-                        "line": 7,
                         "column": 34
                       }
                     },
+                    "arguments": [
+                      {
+                        "kind": 115,
+                        "modifiers": [],
+                        "elements": [
+                          {
+                            "kind": 65,
+                            "modifiers": [],
+                            "value": "I'm a teen of age ",
+                            "start": {
+                              "line": 7,
+                              "column": 36
+                            },
+                            "end": {
+                              "line": 7,
+                              "column": 54
+                            }
+                          },
+                          {
+                            "kind": 54,
+                            "modifiers": [],
+                            "name": "n",
+                            "start": {
+                              "line": 7,
+                              "column": 56
+                            },
+                            "end": {
+                              "line": 7,
+                              "column": 57
+                            }
+                          }
+                        ],
+                        "start": {
+                          "line": 7,
+                          "column": 35
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 59
+                        }
+                      }
+                    ],
                     "start": {
                       "line": 7,
                       "column": 23
                     },
                     "end": {
                       "line": 7,
-                      "column": 34
+                      "column": 60
                     }
                   },
-                  "arguments": [
-                    {
-                      "kind": 114,
-                      "modifiers": [],
-                      "elements": [
-                        {
-                          "kind": 64,
-                          "modifiers": [],
-                          "value": "I'm a teen of age ",
-                          "start": {
-                            "line": 7,
-                            "column": 36
-                          },
-                          "end": {
-                            "line": 7,
-                            "column": 54
-                          }
-                        },
-                        {
-                          "kind": 53,
-                          "modifiers": [],
-                          "name": "n",
-                          "start": {
-                            "line": 7,
-                            "column": 56
-                          },
-                          "end": {
-                            "line": 7,
-                            "column": 57
-                          }
-                        }
-                      ],
-                      "start": {
-                        "line": 7,
-                        "column": 35
-                      },
-                      "end": {
-                        "line": 7,
-                        "column": 59
-                      }
-                    }
-                  ],
                   "start": {
                     "line": 7,
                     "column": 23
@@ -521,9 +557,9 @@
                 },
                 "conditions": [
                   {
-                    "kind": 70,
+                    "kind": 71,
                     "from": {
-                      "kind": 82,
+                      "kind": 83,
                       "modifiers": [],
                       "value": 13,
                       "start": {
@@ -536,7 +572,7 @@
                       }
                     },
                     "to": {
-                      "kind": 82,
+                      "kind": 83,
                       "modifiers": [],
                       "value": 19,
                       "start": {
@@ -560,11 +596,11 @@
                 ],
                 "bindings": [
                   {
-                    "kind": 131,
+                    "kind": 132,
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 53,
+                      "kind": 54,
                       "modifiers": [],
                       "name": "n",
                       "start": {
@@ -588,93 +624,105 @@
                 ]
               },
               {
-                "kind": 67,
+                "kind": 68,
                 "body": {
-                  "kind": 18,
-                  "modifiers": [],
-                  "scope": {
-                    "kind": 2
-                  },
-                  "callee": {
-                    "kind": 74,
+                  "kind": 43,
+                  "attributes": [],
+                  "expression": {
+                    "kind": 18,
                     "modifiers": [],
-                    "object": {
-                      "kind": 53,
+                    "scope": {
+                      "kind": 2
+                    },
+                    "callee": {
+                      "kind": 75,
                       "modifiers": [],
-                      "name": "console",
+                      "object": {
+                        "kind": 54,
+                        "modifiers": [],
+                        "name": "console",
+                        "start": {
+                          "line": 8,
+                          "column": 16
+                        },
+                        "end": {
+                          "line": 8,
+                          "column": 23
+                        }
+                      },
+                      "property": {
+                        "kind": 54,
+                        "modifiers": [],
+                        "name": "log",
+                        "start": {
+                          "line": 8,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 8,
+                          "column": 27
+                        }
+                      },
                       "start": {
                         "line": 8,
                         "column": 16
                       },
                       "end": {
                         "line": 8,
-                        "column": 23
-                      }
-                    },
-                    "property": {
-                      "kind": 53,
-                      "modifiers": [],
-                      "name": "log",
-                      "start": {
-                        "line": 8,
-                        "column": 24
-                      },
-                      "end": {
-                        "line": 8,
                         "column": 27
                       }
                     },
+                    "arguments": [
+                      {
+                        "kind": 115,
+                        "modifiers": [],
+                        "elements": [
+                          {
+                            "kind": 65,
+                            "modifiers": [],
+                            "value": "I'm an old person of age ",
+                            "start": {
+                              "line": 8,
+                              "column": 29
+                            },
+                            "end": {
+                              "line": 8,
+                              "column": 54
+                            }
+                          },
+                          {
+                            "kind": 54,
+                            "modifiers": [],
+                            "name": "n",
+                            "start": {
+                              "line": 8,
+                              "column": 56
+                            },
+                            "end": {
+                              "line": 8,
+                              "column": 57
+                            }
+                          }
+                        ],
+                        "start": {
+                          "line": 8,
+                          "column": 28
+                        },
+                        "end": {
+                          "line": 8,
+                          "column": 59
+                        }
+                      }
+                    ],
                     "start": {
                       "line": 8,
                       "column": 16
                     },
                     "end": {
                       "line": 8,
-                      "column": 27
+                      "column": 60
                     }
                   },
-                  "arguments": [
-                    {
-                      "kind": 114,
-                      "modifiers": [],
-                      "elements": [
-                        {
-                          "kind": 64,
-                          "modifiers": [],
-                          "value": "I'm an old person of age ",
-                          "start": {
-                            "line": 8,
-                            "column": 29
-                          },
-                          "end": {
-                            "line": 8,
-                            "column": 54
-                          }
-                        },
-                        {
-                          "kind": 53,
-                          "modifiers": [],
-                          "name": "n",
-                          "start": {
-                            "line": 8,
-                            "column": 56
-                          },
-                          "end": {
-                            "line": 8,
-                            "column": 57
-                          }
-                        }
-                      ],
-                      "start": {
-                        "line": 8,
-                        "column": 28
-                      },
-                      "end": {
-                        "line": 8,
-                        "column": 59
-                      }
-                    }
-                  ],
                   "start": {
                     "line": 8,
                     "column": 16
@@ -695,11 +743,11 @@
                 "conditions": [],
                 "bindings": [
                   {
-                    "kind": 131,
+                    "kind": 132,
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 53,
+                      "kind": 54,
                       "modifiers": [],
                       "name": "n",
                       "start": {

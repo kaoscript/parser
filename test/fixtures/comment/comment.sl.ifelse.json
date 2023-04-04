@@ -1,49 +1,61 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 55,
+      "kind": 56,
       "attributes": [],
       "whenTrue": {
         "kind": 15,
         "attributes": [],
         "statements": [
           {
-            "kind": 12,
-            "modifiers": [],
-            "operator": {
-              "kind": 3,
-              "assignment": 6,
-              "start": {
-                "line": 3,
-                "column": 6
-              },
-              "end": {
-                "line": 3,
-                "column": 7
-              }
-            },
-            "left": {
-              "kind": 53,
+            "kind": 43,
+            "attributes": [],
+            "expression": {
+              "kind": 12,
               "modifiers": [],
-              "name": "qux",
+              "operator": {
+                "kind": 3,
+                "assignment": 6,
+                "start": {
+                  "line": 3,
+                  "column": 6
+                },
+                "end": {
+                  "line": 3,
+                  "column": 7
+                }
+              },
+              "left": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "qux",
+                "start": {
+                  "line": 3,
+                  "column": 2
+                },
+                "end": {
+                  "line": 3,
+                  "column": 5
+                }
+              },
+              "right": {
+                "kind": 83,
+                "modifiers": [],
+                "value": 1,
+                "start": {
+                  "line": 3,
+                  "column": 8
+                },
+                "end": {
+                  "line": 3,
+                  "column": 9
+                }
+              },
               "start": {
                 "line": 3,
                 "column": 2
-              },
-              "end": {
-                "line": 3,
-                "column": 5
-              }
-            },
-            "right": {
-              "kind": 82,
-              "modifiers": [],
-              "value": 1,
-              "start": {
-                "line": 3,
-                "column": 8
               },
               "end": {
                 "line": 3,
@@ -57,8 +69,7 @@
             "end": {
               "line": 3,
               "column": 9
-            },
-            "attributes": []
+            }
           }
         ],
         "start": {
@@ -79,7 +90,7 @@
         "column": 2
       },
       "condition": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "foo",
         "start": {
@@ -92,47 +103,59 @@
         }
       },
       "whenFalse": {
-        "kind": 55,
+        "kind": 56,
         "attributes": [],
         "whenTrue": {
           "kind": 15,
           "attributes": [],
           "statements": [
             {
-              "kind": 12,
-              "modifiers": [],
-              "operator": {
-                "kind": 3,
-                "assignment": 6,
-                "start": {
-                  "line": 7,
-                  "column": 6
-                },
-                "end": {
-                  "line": 7,
-                  "column": 7
-                }
-              },
-              "left": {
-                "kind": 53,
+              "kind": 43,
+              "attributes": [],
+              "expression": {
+                "kind": 12,
                 "modifiers": [],
-                "name": "qux",
+                "operator": {
+                  "kind": 3,
+                  "assignment": 6,
+                  "start": {
+                    "line": 7,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 7
+                  }
+                },
+                "left": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "qux",
+                  "start": {
+                    "line": 7,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 5
+                  }
+                },
+                "right": {
+                  "kind": 83,
+                  "modifiers": [],
+                  "value": 2,
+                  "start": {
+                    "line": 7,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 9
+                  }
+                },
                 "start": {
                   "line": 7,
                   "column": 2
-                },
-                "end": {
-                  "line": 7,
-                  "column": 5
-                }
-              },
-              "right": {
-                "kind": 82,
-                "modifiers": [],
-                "value": 2,
-                "start": {
-                  "line": 7,
-                  "column": 8
                 },
                 "end": {
                   "line": 7,
@@ -146,8 +169,7 @@
               "end": {
                 "line": 7,
                 "column": 9
-              },
-              "attributes": []
+              }
             }
           ],
           "start": {
@@ -168,7 +190,7 @@
           "column": 2
         },
         "condition": {
-          "kind": 53,
+          "kind": 54,
           "modifiers": [],
           "name": "bar",
           "start": {
@@ -185,40 +207,52 @@
           "attributes": [],
           "statements": [
             {
-              "kind": 12,
-              "modifiers": [],
-              "operator": {
-                "kind": 3,
-                "assignment": 6,
-                "start": {
-                  "line": 11,
-                  "column": 6
-                },
-                "end": {
-                  "line": 11,
-                  "column": 7
-                }
-              },
-              "left": {
-                "kind": 53,
+              "kind": 43,
+              "attributes": [],
+              "expression": {
+                "kind": 12,
                 "modifiers": [],
-                "name": "qux",
+                "operator": {
+                  "kind": 3,
+                  "assignment": 6,
+                  "start": {
+                    "line": 11,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 11,
+                    "column": 7
+                  }
+                },
+                "left": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "qux",
+                  "start": {
+                    "line": 11,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 11,
+                    "column": 5
+                  }
+                },
+                "right": {
+                  "kind": 83,
+                  "modifiers": [],
+                  "value": 3,
+                  "start": {
+                    "line": 11,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 11,
+                    "column": 9
+                  }
+                },
                 "start": {
                   "line": 11,
                   "column": 2
-                },
-                "end": {
-                  "line": 11,
-                  "column": 5
-                }
-              },
-              "right": {
-                "kind": 82,
-                "modifiers": [],
-                "value": 3,
-                "start": {
-                  "line": 11,
-                  "column": 8
                 },
                 "end": {
                   "line": 11,
@@ -232,8 +266,7 @@
               "end": {
                 "line": 11,
                 "column": 9
-              },
-              "attributes": []
+              }
             }
           ],
           "start": {

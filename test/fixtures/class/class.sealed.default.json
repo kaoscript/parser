@@ -1,5 +1,5 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
@@ -19,7 +19,7 @@
         }
       ],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "Greetings",
         "start": {
@@ -33,7 +33,7 @@
       },
       "members": [
         {
-          "kind": 44,
+          "kind": 45,
           "attributes": [],
           "modifiers": [
             {
@@ -49,7 +49,7 @@
             }
           ],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "_message",
             "start": {
@@ -70,10 +70,10 @@
             "column": 24
           },
           "type": {
-            "kind": 124,
+            "kind": 125,
             "modifiers": [],
             "typeName": {
-              "kind": 53,
+              "kind": 54,
               "modifiers": [],
               "name": "String",
               "start": {
@@ -95,7 +95,7 @@
             }
           },
           "value": {
-            "kind": 64,
+            "kind": 65,
             "modifiers": [],
             "value": "",
             "start": {
@@ -109,11 +109,11 @@
           }
         },
         {
-          "kind": 75,
+          "kind": 76,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "constructor",
             "start": {
@@ -140,39 +140,51 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 18,
-                "modifiers": [],
-                "scope": {
-                  "kind": 2
-                },
-                "callee": {
-                  "kind": 53,
+                "kind": 43,
+                "attributes": [],
+                "expression": {
+                  "kind": 18,
                   "modifiers": [],
-                  "name": "this",
+                  "scope": {
+                    "kind": 2
+                  },
+                  "callee": {
+                    "kind": 54,
+                    "modifiers": [],
+                    "name": "this",
+                    "start": {
+                      "line": 7,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 7
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "kind": 65,
+                      "modifiers": [],
+                      "value": "Hello!",
+                      "start": {
+                        "line": 7,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 16
+                      }
+                    }
+                  ],
                   "start": {
                     "line": 7,
                     "column": 3
                   },
                   "end": {
                     "line": 7,
-                    "column": 7
+                    "column": 17
                   }
                 },
-                "arguments": [
-                  {
-                    "kind": 64,
-                    "modifiers": [],
-                    "value": "Hello!",
-                    "start": {
-                      "line": 7,
-                      "column": 8
-                    },
-                    "end": {
-                      "line": 7,
-                      "column": 16
-                    }
-                  }
-                ],
                 "start": {
                   "line": 7,
                   "column": 3
@@ -180,8 +192,7 @@
                 "end": {
                   "line": 7,
                   "column": 17
-                },
-                "attributes": []
+                }
               }
             ],
             "start": {
@@ -195,11 +206,11 @@
           }
         },
         {
-          "kind": 75,
+          "kind": 76,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "constructor",
             "start": {
@@ -213,11 +224,11 @@
           },
           "parameters": [
             {
-              "kind": 88,
+              "kind": 89,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "message",
                 "start": {
@@ -230,10 +241,10 @@
                 }
               },
               "internal": {
-                "kind": 115,
+                "kind": 116,
                 "modifiers": [],
                 "name": {
-                  "kind": 53,
+                  "kind": 54,
                   "modifiers": [],
                   "name": "message",
                   "start": {
@@ -275,11 +286,11 @@
           "throws": []
         },
         {
-          "kind": 75,
+          "kind": 76,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "greet",
             "start": {
@@ -293,11 +304,11 @@
           },
           "parameters": [
             {
-              "kind": 88,
+              "kind": 89,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "name",
                 "start": {
@@ -310,7 +321,7 @@
                 }
               },
               "internal": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "name",
                 "start": {
@@ -323,10 +334,10 @@
                 }
               },
               "type": {
-                "kind": 124,
+                "kind": 125,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 53,
+                  "kind": 54,
                   "modifiers": [],
                   "name": "String",
                   "start": {
@@ -371,17 +382,17 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 106,
+                "kind": 107,
                 "attributes": [],
                 "value": {
-                  "kind": 114,
+                  "kind": 115,
                   "modifiers": [],
                   "elements": [
                     {
-                      "kind": 115,
+                      "kind": 116,
                       "modifiers": [],
                       "name": {
-                        "kind": 53,
+                        "kind": 54,
                         "modifiers": [],
                         "name": "message",
                         "start": {
@@ -403,7 +414,7 @@
                       }
                     },
                     {
-                      "kind": 64,
+                      "kind": 65,
                       "modifiers": [],
                       "value": "\\nIt's nice to meet you",
                       "start": {
@@ -416,7 +427,7 @@
                       }
                     },
                     {
-                      "kind": 53,
+                      "kind": 54,
                       "modifiers": [],
                       "name": "name",
                       "start": {
@@ -429,7 +440,7 @@
                       }
                     },
                     {
-                      "kind": 64,
+                      "kind": 65,
                       "modifiers": [],
                       "value": ".",
                       "start": {

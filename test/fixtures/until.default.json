@@ -1,16 +1,16 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 128,
+      "kind": 129,
       "attributes": [],
       "condition": {
         "kind": 25,
         "modifiers": [],
         "values": [
           {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "supply",
             "start": {
@@ -35,7 +35,7 @@
             }
           },
           {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "demand",
             "start": {
@@ -62,25 +62,37 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 18,
-            "modifiers": [],
-            "scope": {
-              "kind": 2
-            },
-            "callee": {
-              "kind": 53,
+            "kind": 43,
+            "attributes": [],
+            "expression": {
+              "kind": 18,
               "modifiers": [],
-              "name": "sell",
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "sell",
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 6
+                }
+              },
+              "arguments": [],
               "start": {
                 "line": 2,
                 "column": 2
               },
               "end": {
                 "line": 2,
-                "column": 6
+                "column": 8
               }
             },
-            "arguments": [],
             "start": {
               "line": 2,
               "column": 2
@@ -88,8 +100,7 @@
             "end": {
               "line": 2,
               "column": 8
-            },
-            "attributes": []
+            }
           }
         ],
         "start": {

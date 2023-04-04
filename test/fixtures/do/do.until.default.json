@@ -1,5 +1,5 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
@@ -10,7 +10,7 @@
         "modifiers": [],
         "values": [
           {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "supply",
             "start": {
@@ -35,7 +35,7 @@
             }
           },
           {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "demand",
             "start": {
@@ -62,25 +62,37 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 18,
-            "modifiers": [],
-            "scope": {
-              "kind": 2
-            },
-            "callee": {
-              "kind": 53,
+            "kind": 43,
+            "attributes": [],
+            "expression": {
+              "kind": 18,
               "modifiers": [],
-              "name": "sell",
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "sell",
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 6
+                }
+              },
+              "arguments": [],
               "start": {
                 "line": 2,
                 "column": 2
               },
               "end": {
                 "line": 2,
-                "column": 6
+                "column": 8
               }
             },
-            "arguments": [],
             "start": {
               "line": 2,
               "column": 2
@@ -88,8 +100,7 @@
             "end": {
               "line": 2,
               "column": 8
-            },
-            "attributes": []
+            }
           }
         ],
         "start": {
@@ -111,21 +122,21 @@
       }
     },
     {
-      "kind": 132,
+      "kind": 133,
       "attributes": [],
       "modifiers": [],
       "declarations": [
         {
-          "kind": 130,
+          "kind": 131,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 131,
+              "kind": 132,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "price",
                 "start": {
@@ -156,7 +167,7 @@
             "column": 15
           },
           "value": {
-            "kind": 82,
+            "kind": 83,
             "modifiers": [],
             "value": 42,
             "start": {

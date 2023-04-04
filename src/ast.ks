@@ -286,11 +286,11 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func ArrayBindingElement(modifiers, name?, type?, operator?, defaultValue?, first, last) { # {{{
+		func ArrayBindingElement(modifiers, internal?, type?, operator?, defaultValue?, first, last) { # {{{
 			return location({
 				kind: NodeKind.BindingElement
 				modifiers
-				name: name.value if ?name
+				internal: internal.value if ?internal
 				type: type.value if ?type
 				operator: operator.value if ?operator
 				defaultValue: defaultValue.value if ?defaultValue
@@ -698,9 +698,11 @@ namespace AST {
 		} # }}}
 
 		func ExpressionStatement(expression) { # {{{
-			expression.value.attributes = []
-
-			return expression.value
+			return location({
+				kind: NodeKind.ExpressionStatement
+				attributes: []
+				expression: expression.value
+			}, expression)
 		} # }}}
 
 		func ExternDeclaration(attributes, declarations, first, last) { # {{{
@@ -1627,19 +1629,12 @@ namespace AST {
 		} # }}}
 
 		func RepeatStatement(expression?, body?, first, last) { # {{{
-			var node = location({
+			return location({
 				kind: NodeKind.RepeatStatement
 				attributes: []
+				expression: expression.value if ?expression
+				body: body.value if ?body
 			}, first, last)
-
-			if ?expression {
-				node.expression = expression.value
-			}
-			if ?body {
-				node.body = body.value
-			}
-
-			return node
 		} # }}}
 
 		func RequireDeclaration(attributes, declarations, first, last) { # {{{

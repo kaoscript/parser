@@ -1,40 +1,52 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 29,
-      "modifiers": [],
-      "class": {
-        "kind": 18,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 29,
         "modifiers": [],
-        "scope": {
-          "kind": 2
-        },
-        "callee": {
-          "kind": 53,
+        "class": {
+          "kind": 18,
           "modifiers": [],
-          "name": "foo",
+          "scope": {
+            "kind": 2
+          },
+          "callee": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "foo",
+            "start": {
+              "line": 1,
+              "column": 6
+            },
+            "end": {
+              "line": 1,
+              "column": 9
+            }
+          },
+          "arguments": [],
           "start": {
             "line": 1,
             "column": 6
           },
           "end": {
             "line": 1,
-            "column": 9
+            "column": 11
           }
         },
         "arguments": [],
         "start": {
           "line": 1,
-          "column": 6
+          "column": 1
         },
         "end": {
           "line": 1,
-          "column": 11
+          "column": 14
         }
       },
-      "arguments": [],
       "start": {
         "line": 1,
         "column": 1
@@ -42,8 +54,7 @@
       "end": {
         "line": 1,
         "column": 14
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

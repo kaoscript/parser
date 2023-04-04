@@ -1,108 +1,186 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 33,
-      "operator": {
-        "kind": 1,
-        "modifiers": [],
-        "start": {
-          "line": 4,
-          "column": 9
-        },
-        "end": {
-          "line": 4,
-          "column": 15
-        }
-      },
-      "condition": {
-        "kind": 25,
-        "modifiers": [],
-        "values": [
-          {
-            "kind": 53,
-            "modifiers": [],
-            "name": "x",
-            "start": {
-              "line": 4,
-              "column": 16
-            },
-            "end": {
-              "line": 4,
-              "column": 17
-            }
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 33,
+        "operator": {
+          "kind": 1,
+          "modifiers": [],
+          "start": {
+            "line": 4,
+            "column": 9
           },
-          {
-            "kind": 6,
-            "modifiers": [],
-            "start": {
-              "line": 4,
-              "column": 18
-            },
-            "end": {
-              "line": 4,
-              "column": 20
-            }
-          },
-          {
-            "kind": 82,
-            "modifiers": [],
-            "value": 0,
-            "start": {
-              "line": 4,
-              "column": 21
-            },
-            "end": {
-              "line": 4,
-              "column": 22
-            }
+          "end": {
+            "line": 4,
+            "column": 15
           }
-        ],
-        "start": {
-          "line": 4,
-          "column": 16
         },
-        "end": {
-          "line": 4,
-          "column": 22
-        }
-      },
-      "mainExpression": {
-        "kind": 74,
-        "modifiers": [],
-        "object": {
+        "condition": {
+          "kind": 25,
+          "modifiers": [],
+          "values": [
+            {
+              "kind": 54,
+              "modifiers": [],
+              "name": "x",
+              "start": {
+                "line": 4,
+                "column": 16
+              },
+              "end": {
+                "line": 4,
+                "column": 17
+              }
+            },
+            {
+              "kind": 6,
+              "modifiers": [],
+              "start": {
+                "line": 4,
+                "column": 18
+              },
+              "end": {
+                "line": 4,
+                "column": 20
+              }
+            },
+            {
+              "kind": 83,
+              "modifiers": [],
+              "value": 0,
+              "start": {
+                "line": 4,
+                "column": 21
+              },
+              "end": {
+                "line": 4,
+                "column": 22
+              }
+            }
+          ],
+          "start": {
+            "line": 4,
+            "column": 16
+          },
+          "end": {
+            "line": 4,
+            "column": 22
+          }
+        },
+        "mainExpression": {
+          "kind": 75,
+          "modifiers": [],
+          "object": {
+            "kind": 18,
+            "modifiers": [],
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "foo",
+                "start": {
+                  "line": 1,
+                  "column": 1
+                },
+                "end": {
+                  "line": 1,
+                  "column": 4
+                }
+              },
+              "property": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "foo",
+                "start": {
+                  "line": 2,
+                  "column": 3
+                },
+                "end": {
+                  "line": 2,
+                  "column": 6
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 2,
+                "column": 6
+              }
+            },
+            "arguments": [],
+            "start": {
+              "line": 1,
+              "column": 1
+            },
+            "end": {
+              "line": 2,
+              "column": 8
+            }
+          },
+          "property": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "qux",
+            "start": {
+              "line": 3,
+              "column": 3
+            },
+            "end": {
+              "line": 3,
+              "column": 6
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 6
+          }
+        },
+        "disruptedExpression": {
           "kind": 18,
           "modifiers": [],
           "scope": {
             "kind": 2
           },
           "callee": {
-            "kind": 74,
+            "kind": 75,
             "modifiers": [],
             "object": {
-              "kind": 53,
-              "modifiers": [],
-              "name": "foo",
+              "kind": 100,
+              "name": "main",
               "start": {
                 "line": 1,
                 "column": 1
               },
               "end": {
-                "line": 1,
-                "column": 4
+                "line": 3,
+                "column": 6
               }
             },
             "property": {
-              "kind": 53,
+              "kind": 54,
               "modifiers": [],
-              "name": "foo",
+              "name": "bar",
               "start": {
-                "line": 2,
+                "line": 4,
                 "column": 3
               },
               "end": {
-                "line": 2,
+                "line": 4,
                 "column": 6
               }
             },
@@ -111,7 +189,7 @@
               "column": 1
             },
             "end": {
-              "line": 2,
+              "line": 4,
               "column": 6
             }
           },
@@ -121,83 +199,17 @@
             "column": 1
           },
           "end": {
-            "line": 2,
+            "line": 4,
             "column": 8
           }
         },
-        "property": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "qux",
-          "start": {
-            "line": 3,
-            "column": 3
-          },
-          "end": {
-            "line": 3,
-            "column": 6
-          }
-        },
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 3,
-          "column": 6
-        }
-      },
-      "disruptedExpression": {
-        "kind": 18,
-        "modifiers": [],
-        "scope": {
-          "kind": 2
-        },
-        "callee": {
-          "kind": 74,
-          "modifiers": [],
-          "object": {
-            "kind": 99,
-            "name": "main",
-            "start": {
-              "line": 1,
-              "column": 1
-            },
-            "end": {
-              "line": 3,
-              "column": 6
-            }
-          },
-          "property": {
-            "kind": 53,
-            "modifiers": [],
-            "name": "bar",
-            "start": {
-              "line": 4,
-              "column": 3
-            },
-            "end": {
-              "line": 4,
-              "column": 6
-            }
-          },
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 4,
-            "column": 6
-          }
-        },
-        "arguments": [],
         "start": {
           "line": 1,
           "column": 1
         },
         "end": {
           "line": 4,
-          "column": 8
+          "column": 22
         }
       },
       "start": {
@@ -207,8 +219,7 @@
       "end": {
         "line": 4,
         "column": 22
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

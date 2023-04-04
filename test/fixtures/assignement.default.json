@@ -1,9 +1,9 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 132,
+      "kind": 133,
       "attributes": [],
       "modifiers": [
         {
@@ -20,16 +20,16 @@
       ],
       "declarations": [
         {
-          "kind": 130,
+          "kind": 131,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 131,
+              "kind": 132,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "foo",
                 "start": {
@@ -50,10 +50,10 @@
                 "column": 20
               },
               "type": {
-                "kind": 124,
+                "kind": 125,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 53,
+                  "kind": 54,
                   "modifiers": [],
                   "name": "string",
                   "start": {
@@ -85,7 +85,7 @@
             "column": 28
           },
           "value": {
-            "kind": 64,
+            "kind": 65,
             "modifiers": [],
             "value": "bar",
             "start": {
@@ -109,40 +109,52 @@
       }
     },
     {
-      "kind": 12,
-      "modifiers": [],
-      "operator": {
-        "kind": 3,
-        "assignment": 6,
-        "start": {
-          "line": 3,
-          "column": 5
-        },
-        "end": {
-          "line": 3,
-          "column": 6
-        }
-      },
-      "left": {
-        "kind": 53,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 12,
         "modifiers": [],
-        "name": "foo",
+        "operator": {
+          "kind": 3,
+          "assignment": 6,
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 6
+          }
+        },
+        "left": {
+          "kind": 54,
+          "modifiers": [],
+          "name": "foo",
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 4
+          }
+        },
+        "right": {
+          "kind": 65,
+          "modifiers": [],
+          "value": "qux",
+          "start": {
+            "line": 3,
+            "column": 7
+          },
+          "end": {
+            "line": 3,
+            "column": 12
+          }
+        },
         "start": {
           "line": 3,
           "column": 1
-        },
-        "end": {
-          "line": 3,
-          "column": 4
-        }
-      },
-      "right": {
-        "kind": 64,
-        "modifiers": [],
-        "value": "qux",
-        "start": {
-          "line": 3,
-          "column": 7
         },
         "end": {
           "line": 3,
@@ -156,8 +168,7 @@
       "end": {
         "line": 3,
         "column": 12
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

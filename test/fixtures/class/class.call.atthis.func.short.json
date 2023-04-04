@@ -1,5 +1,5 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
@@ -7,7 +7,7 @@
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "Foobar",
         "start": {
@@ -21,11 +21,11 @@
       },
       "members": [
         {
-          "kind": 75,
+          "kind": 76,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "foobar",
             "start": {
@@ -52,46 +52,33 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 18,
-                "modifiers": [],
-                "scope": {
-                  "kind": 2
-                },
-                "callee": {
-                  "kind": 53,
+                "kind": 43,
+                "attributes": [],
+                "expression": {
+                  "kind": 18,
                   "modifiers": [],
-                  "name": "foobar",
-                  "start": {
-                    "line": 3,
-                    "column": 3
+                  "scope": {
+                    "kind": 2
                   },
-                  "end": {
-                    "line": 3,
-                    "column": 9
-                  }
-                },
-                "arguments": [
-                  {
-                    "kind": 79,
+                  "callee": {
+                    "kind": 54,
                     "modifiers": [],
-                    "name": {
-                      "kind": 53,
-                      "modifiers": [],
-                      "name": "value",
-                      "start": {
-                        "line": 3,
-                        "column": 12
-                      },
-                      "end": {
-                        "line": 3,
-                        "column": 17
-                      }
+                    "name": "foobar",
+                    "start": {
+                      "line": 3,
+                      "column": 3
                     },
-                    "value": {
-                      "kind": 115,
+                    "end": {
+                      "line": 3,
+                      "column": 9
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "kind": 80,
                       "modifiers": [],
                       "name": {
-                        "kind": 53,
+                        "kind": 54,
                         "modifiers": [],
                         "name": "value",
                         "start": {
@@ -103,25 +90,50 @@
                           "column": 17
                         }
                       },
+                      "value": {
+                        "kind": 116,
+                        "modifiers": [],
+                        "name": {
+                          "kind": 54,
+                          "modifiers": [],
+                          "name": "value",
+                          "start": {
+                            "line": 3,
+                            "column": 12
+                          },
+                          "end": {
+                            "line": 3,
+                            "column": 17
+                          }
+                        },
+                        "start": {
+                          "line": 3,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 17
+                        }
+                      },
                       "start": {
                         "line": 3,
-                        "column": 11
+                        "column": 10
                       },
                       "end": {
                         "line": 3,
                         "column": 17
                       }
-                    },
-                    "start": {
-                      "line": 3,
-                      "column": 10
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 17
                     }
+                  ],
+                  "start": {
+                    "line": 3,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 18
                   }
-                ],
+                },
                 "start": {
                   "line": 3,
                   "column": 3
@@ -129,8 +141,7 @@
                 "end": {
                   "line": 3,
                   "column": 18
-                },
-                "attributes": []
+                }
               }
             ],
             "start": {

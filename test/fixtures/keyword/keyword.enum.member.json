@@ -1,23 +1,23 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 132,
+      "kind": 133,
       "attributes": [],
       "modifiers": [],
       "declarations": [
         {
-          "kind": 130,
+          "kind": 131,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 131,
+              "kind": 132,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "enum",
                 "start": {
@@ -48,7 +48,7 @@
             "column": 13
           },
           "value": {
-            "kind": 82,
+            "kind": 83,
             "modifiers": [],
             "value": 0,
             "start": {
@@ -72,50 +72,62 @@
       }
     },
     {
-      "kind": 18,
-      "modifiers": [],
-      "scope": {
-        "kind": 2
-      },
-      "callee": {
-        "kind": 74,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 18,
         "modifiers": [],
-        "object": {
-          "kind": 53,
+        "scope": {
+          "kind": 2
+        },
+        "callee": {
+          "kind": 75,
           "modifiers": [],
-          "name": "enum",
+          "object": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "enum",
+            "start": {
+              "line": 3,
+              "column": 1
+            },
+            "end": {
+              "line": 3,
+              "column": 5
+            }
+          },
+          "property": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "toString",
+            "start": {
+              "line": 3,
+              "column": 6
+            },
+            "end": {
+              "line": 3,
+              "column": 14
+            }
+          },
           "start": {
             "line": 3,
             "column": 1
           },
           "end": {
             "line": 3,
-            "column": 5
-          }
-        },
-        "property": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "toString",
-          "start": {
-            "line": 3,
-            "column": 6
-          },
-          "end": {
-            "line": 3,
             "column": 14
           }
         },
+        "arguments": [],
         "start": {
           "line": 3,
           "column": 1
         },
         "end": {
           "line": 3,
-          "column": 14
+          "column": 16
         }
       },
-      "arguments": [],
       "start": {
         "line": 3,
         "column": 1
@@ -123,8 +135,7 @@
       "end": {
         "line": 3,
         "column": 16
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

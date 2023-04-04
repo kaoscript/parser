@@ -1,82 +1,94 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 12,
-      "modifiers": [],
-      "operator": {
-        "kind": 3,
-        "assignment": 6,
-        "start": {
-          "line": 1,
-          "column": 8
-        },
-        "end": {
-          "line": 1,
-          "column": 9
-        }
-      },
-      "left": {
-        "kind": 53,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 12,
         "modifiers": [],
-        "name": "heroes",
+        "operator": {
+          "kind": 3,
+          "assignment": 6,
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 9
+          }
+        },
+        "left": {
+          "kind": 54,
+          "modifiers": [],
+          "name": "heroes",
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 7
+          }
+        },
+        "right": {
+          "kind": 5,
+          "modifiers": [],
+          "values": [
+            {
+              "kind": 65,
+              "modifiers": [],
+              "value": "leto",
+              "start": {
+                "line": 1,
+                "column": 11
+              },
+              "end": {
+                "line": 1,
+                "column": 17
+              }
+            },
+            {
+              "kind": 65,
+              "modifiers": [],
+              "value": "duncan",
+              "start": {
+                "line": 1,
+                "column": 19
+              },
+              "end": {
+                "line": 1,
+                "column": 27
+              }
+            },
+            {
+              "kind": 65,
+              "modifiers": [],
+              "value": "goku",
+              "start": {
+                "line": 1,
+                "column": 29
+              },
+              "end": {
+                "line": 1,
+                "column": 35
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 36
+          }
+        },
         "start": {
           "line": 1,
           "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 7
-        }
-      },
-      "right": {
-        "kind": 5,
-        "modifiers": [],
-        "values": [
-          {
-            "kind": 64,
-            "modifiers": [],
-            "value": "leto",
-            "start": {
-              "line": 1,
-              "column": 11
-            },
-            "end": {
-              "line": 1,
-              "column": 17
-            }
-          },
-          {
-            "kind": 64,
-            "modifiers": [],
-            "value": "duncan",
-            "start": {
-              "line": 1,
-              "column": 19
-            },
-            "end": {
-              "line": 1,
-              "column": 27
-            }
-          },
-          {
-            "kind": 64,
-            "modifiers": [],
-            "value": "goku",
-            "start": {
-              "line": 1,
-              "column": 29
-            },
-            "end": {
-              "line": 1,
-              "column": 35
-            }
-          }
-        ],
-        "start": {
-          "line": 1,
-          "column": 10
         },
         "end": {
           "line": 1,
@@ -90,291 +102,302 @@
       "end": {
         "line": 1,
         "column": 36
-      },
-      "attributes": []
+      }
     },
     {
-      "kind": 12,
-      "modifiers": [],
-      "operator": {
-        "kind": 3,
-        "assignment": 6,
-        "start": {
-          "line": 3,
-          "column": 12
-        },
-        "end": {
-          "line": 3,
-          "column": 13
-        }
-      },
-      "left": {
-        "kind": 53,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 12,
         "modifiers": [],
-        "name": "evenHeroes",
-        "start": {
-          "line": 3,
-          "column": 1
-        },
-        "end": {
-          "line": 3,
-          "column": 11
-        }
-      },
-      "right": {
-        "kind": 4,
-        "modifiers": [],
-        "body": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "hero",
+        "operator": {
+          "kind": 3,
+          "assignment": 6,
           "start": {
             "line": 3,
-            "column": 15
+            "column": 12
           },
           "end": {
             "line": 3,
-            "column": 19
+            "column": 13
           }
         },
-        "loop": {
-          "kind": 46,
-          "attributes": [],
+        "left": {
+          "kind": 54,
           "modifiers": [],
-          "expression": {
-            "kind": 53,
-            "modifiers": [],
-            "name": "heroes",
-            "start": {
-              "line": 3,
-              "column": 39
-            },
-            "end": {
-              "line": 3,
-              "column": 45
-            }
-          },
+          "name": "evenHeroes",
           "start": {
             "line": 3,
-            "column": 20
+            "column": 1
           },
           "end": {
             "line": 3,
-            "column": 102
-          },
-          "value": {
-            "kind": 53,
+            "column": 11
+          }
+        },
+        "right": {
+          "kind": 4,
+          "modifiers": [],
+          "body": {
+            "kind": 54,
             "modifiers": [],
             "name": "hero",
             "start": {
               "line": 3,
-              "column": 24
+              "column": 15
             },
             "end": {
               "line": 3,
-              "column": 28
+              "column": 19
             }
           },
-          "index": {
-            "kind": 53,
+          "loop": {
+            "kind": 47,
+            "attributes": [],
             "modifiers": [],
-            "name": "index",
+            "expression": {
+              "kind": 54,
+              "modifiers": [],
+              "name": "heroes",
+              "start": {
+                "line": 3,
+                "column": 39
+              },
+              "end": {
+                "line": 3,
+                "column": 45
+              }
+            },
             "start": {
               "line": 3,
-              "column": 30
+              "column": 20
             },
             "end": {
               "line": 3,
-              "column": 35
-            }
-          },
-          "from": {
-            "kind": 82,
-            "modifiers": [],
-            "value": 1,
-            "start": {
-              "line": 3,
-              "column": 51
+              "column": 102
             },
-            "end": {
-              "line": 3,
-              "column": 52
-            }
-          },
-          "to": {
-            "kind": 82,
-            "modifiers": [
-              {
-                "kind": 7,
+            "value": {
+              "kind": 54,
+              "modifiers": [],
+              "name": "hero",
+              "start": {
+                "line": 3,
+                "column": 24
+              },
+              "end": {
+                "line": 3,
+                "column": 28
+              }
+            },
+            "index": {
+              "kind": 54,
+              "modifiers": [],
+              "name": "index",
+              "start": {
+                "line": 3,
+                "column": 30
+              },
+              "end": {
+                "line": 3,
+                "column": 35
+              }
+            },
+            "from": {
+              "kind": 83,
+              "modifiers": [],
+              "value": 1,
+              "start": {
+                "line": 3,
+                "column": 51
+              },
+              "end": {
+                "line": 3,
+                "column": 52
+              }
+            },
+            "to": {
+              "kind": 83,
+              "modifiers": [
+                {
+                  "kind": 7,
+                  "start": {
+                    "line": 3,
+                    "column": 53
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 56
+                  }
+                }
+              ],
+              "value": -1,
+              "start": {
+                "line": 3,
+                "column": 57
+              },
+              "end": {
+                "line": 3,
+                "column": 56
+              }
+            },
+            "while": {
+              "kind": 18,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "foo",
                 "start": {
                   "line": 3,
-                  "column": 53
+                  "column": 66
                 },
                 "end": {
                   "line": 3,
-                  "column": 56
+                  "column": 69
                 }
-              }
-            ],
-            "value": -1,
-            "start": {
-              "line": 3,
-              "column": 57
-            },
-            "end": {
-              "line": 3,
-              "column": 56
-            }
-          },
-          "while": {
-            "kind": 18,
-            "modifiers": [],
-            "scope": {
-              "kind": 2
-            },
-            "callee": {
-              "kind": 53,
-              "modifiers": [],
-              "name": "foo",
+              },
+              "arguments": [
+                {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "hero",
+                  "start": {
+                    "line": 3,
+                    "column": 70
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 74
+                  }
+                },
+                {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "index",
+                  "start": {
+                    "line": 3,
+                    "column": 76
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 81
+                  }
+                }
+              ],
               "start": {
                 "line": 3,
                 "column": 66
               },
               "end": {
                 "line": 3,
-                "column": 69
+                "column": 82
               }
             },
-            "arguments": [
-              {
-                "kind": 53,
-                "modifiers": [],
-                "name": "hero",
-                "start": {
-                  "line": 3,
-                  "column": 70
-                },
-                "end": {
-                  "line": 3,
-                  "column": 74
-                }
-              },
-              {
-                "kind": 53,
-                "modifiers": [],
-                "name": "index",
-                "start": {
-                  "line": 3,
-                  "column": 76
-                },
-                "end": {
-                  "line": 3,
-                  "column": 81
-                }
-              }
-            ],
-            "start": {
-              "line": 3,
-              "column": 66
-            },
-            "end": {
-              "line": 3,
-              "column": 82
-            }
-          },
-          "when": {
-            "kind": 25,
-            "modifiers": [],
-            "values": [
-              {
-                "kind": 12,
-                "modifiers": [],
-                "operator": {
-                  "kind": 16,
+            "when": {
+              "kind": 25,
+              "modifiers": [],
+              "values": [
+                {
+                  "kind": 12,
                   "modifiers": [],
-                  "start": {
-                    "line": 3,
-                    "column": 94
+                  "operator": {
+                    "kind": 16,
+                    "modifiers": [],
+                    "start": {
+                      "line": 3,
+                      "column": 94
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 95
+                    }
                   },
-                  "end": {
-                    "line": 3,
-                    "column": 95
-                  }
-                },
-                "start": {
-                  "line": 3,
-                  "column": 88
-                },
-                "end": {
-                  "line": 3,
-                  "column": 97
-                },
-                "left": {
-                  "kind": 53,
-                  "modifiers": [],
-                  "name": "index",
                   "start": {
                     "line": 3,
                     "column": 88
                   },
                   "end": {
                     "line": 3,
-                    "column": 93
+                    "column": 97
+                  },
+                  "left": {
+                    "kind": 54,
+                    "modifiers": [],
+                    "name": "index",
+                    "start": {
+                      "line": 3,
+                      "column": 88
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 93
+                    }
+                  },
+                  "right": {
+                    "kind": 83,
+                    "modifiers": [],
+                    "value": 2,
+                    "start": {
+                      "line": 3,
+                      "column": 96
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 97
+                    }
                   }
                 },
-                "right": {
-                  "kind": 82,
+                {
+                  "kind": 6,
                   "modifiers": [],
-                  "value": 2,
                   "start": {
                     "line": 3,
-                    "column": 96
+                    "column": 98
                   },
                   "end": {
                     "line": 3,
-                    "column": 97
+                    "column": 100
+                  }
+                },
+                {
+                  "kind": 83,
+                  "modifiers": [],
+                  "value": 0,
+                  "start": {
+                    "line": 3,
+                    "column": 101
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 102
                   }
                 }
+              ],
+              "start": {
+                "line": 3,
+                "column": 83
               },
-              {
-                "kind": 6,
-                "modifiers": [],
-                "start": {
-                  "line": 3,
-                  "column": 98
-                },
-                "end": {
-                  "line": 3,
-                  "column": 100
-                }
-              },
-              {
-                "kind": 82,
-                "modifiers": [],
-                "value": 0,
-                "start": {
-                  "line": 3,
-                  "column": 101
-                },
-                "end": {
-                  "line": 3,
-                  "column": 102
-                }
+              "end": {
+                "line": 3,
+                "column": 102
               }
-            ],
-            "start": {
-              "line": 3,
-              "column": 83
-            },
-            "end": {
-              "line": 3,
-              "column": 102
             }
+          },
+          "start": {
+            "line": 3,
+            "column": 14
+          },
+          "end": {
+            "line": 3,
+            "column": 103
           }
         },
         "start": {
           "line": 3,
-          "column": 14
+          "column": 1
         },
         "end": {
           "line": 3,
@@ -388,8 +411,7 @@
       "end": {
         "line": 3,
         "column": 103
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

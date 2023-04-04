@@ -1,12 +1,12 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 65,
+      "kind": 66,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -24,85 +24,97 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 66,
+            "kind": 43,
             "attributes": [],
-            "elements": [
-              {
-                "kind": 1,
-                "expression": {
-                  "kind": 5,
-                  "modifiers": [],
-                  "values": [
-                    {
-                      "kind": 64,
-                      "modifiers": [],
-                      "value": "foobar()",
-                      "start": {
-                        "line": 2,
-                        "column": 12
+            "expression": {
+              "kind": 67,
+              "attributes": [],
+              "elements": [
+                {
+                  "kind": 1,
+                  "expression": {
+                    "kind": 5,
+                    "modifiers": [],
+                    "values": [
+                      {
+                        "kind": 65,
+                        "modifiers": [],
+                        "value": "foobar()",
+                        "start": {
+                          "line": 2,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 22
+                        }
                       },
-                      "end": {
-                        "line": 2,
-                        "column": 22
+                      {
+                        "kind": 65,
+                        "modifiers": [],
+                        "value": "quxbaz()",
+                        "start": {
+                          "line": 2,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 34
+                        }
                       }
+                    ],
+                    "start": {
+                      "line": 2,
+                      "column": 11
                     },
-                    {
-                      "kind": 64,
-                      "modifiers": [],
-                      "value": "quxbaz()",
-                      "start": {
-                        "line": 2,
-                        "column": 24
-                      },
-                      "end": {
-                        "line": 2,
-                        "column": 34
-                      }
+                    "end": {
+                      "line": 2,
+                      "column": 35
                     }
-                  ],
-                  "start": {
-                    "line": 2,
-                    "column": 11
                   },
-                  "end": {
-                    "line": 2,
-                    "column": 35
-                  }
-                },
-                "start": {
-                  "line": 2,
-                  "column": 8
-                },
-                "end": {
-                  "line": 2,
-                  "column": 44
-                },
-                "reification": {
-                  "kind": 3,
                   "start": {
                     "line": 2,
                     "column": 8
                   },
                   "end": {
                     "line": 2,
-                    "column": 11
-                  }
-                },
-                "separator": {
-                  "kind": 64,
-                  "modifiers": [],
-                  "value": " && ",
-                  "start": {
-                    "line": 2,
-                    "column": 37
+                    "column": 44
                   },
-                  "end": {
-                    "line": 2,
-                    "column": 43
+                  "reification": {
+                    "kind": 3,
+                    "start": {
+                      "line": 2,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 11
+                    }
+                  },
+                  "separator": {
+                    "kind": 65,
+                    "modifiers": [],
+                    "value": " && ",
+                    "start": {
+                      "line": 2,
+                      "column": 37
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 43
+                    }
                   }
                 }
+              ],
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 44
               }
-            ],
+            },
             "start": {
               "line": 2,
               "column": 2

@@ -1,13 +1,13 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 134,
+      "kind": 135,
       "attributes": [],
       "variables": [
         {
-          "kind": 130,
+          "kind": 131,
           "attributes": [],
           "modifiers": [
             {
@@ -24,11 +24,11 @@
           ],
           "variables": [
             {
-              "kind": 131,
+              "kind": 132,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "file",
                 "start": {
@@ -68,7 +68,7 @@
                 "kind": 2
               },
               "callee": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "open",
                 "start": {
@@ -106,21 +106,21 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 132,
+            "kind": 133,
             "attributes": [],
             "modifiers": [],
             "declarations": [
               {
-                "kind": 130,
+                "kind": 131,
                 "attributes": [],
                 "modifiers": [],
                 "variables": [
                   {
-                    "kind": 131,
+                    "kind": 132,
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 53,
+                      "kind": 54,
                       "modifiers": [],
                       "name": "text",
                       "start": {
@@ -160,10 +160,10 @@
                       "kind": 2
                     },
                     "callee": {
-                      "kind": 74,
+                      "kind": 75,
                       "modifiers": [],
                       "object": {
-                        "kind": 53,
+                        "kind": 54,
                         "modifiers": [],
                         "name": "file",
                         "start": {
@@ -176,7 +176,7 @@
                         }
                       },
                       "property": {
-                        "kind": 53,
+                        "kind": 54,
                         "modifiers": [],
                         "name": "readText",
                         "start": {
@@ -250,50 +250,62 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 18,
-            "modifiers": [],
-            "scope": {
-              "kind": 2
-            },
-            "callee": {
-              "kind": 74,
+            "kind": 43,
+            "attributes": [],
+            "expression": {
+              "kind": 18,
               "modifiers": [],
-              "object": {
-                "kind": 53,
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 75,
                 "modifiers": [],
-                "name": "file",
+                "object": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "file",
+                  "start": {
+                    "line": 5,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 6
+                  }
+                },
+                "property": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "close",
+                  "start": {
+                    "line": 5,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 12
+                  }
+                },
                 "start": {
                   "line": 5,
                   "column": 2
                 },
                 "end": {
                   "line": 5,
-                  "column": 6
-                }
-              },
-              "property": {
-                "kind": 53,
-                "modifiers": [],
-                "name": "close",
-                "start": {
-                  "line": 5,
-                  "column": 7
-                },
-                "end": {
-                  "line": 5,
                   "column": 12
                 }
               },
+              "arguments": [],
               "start": {
                 "line": 5,
                 "column": 2
               },
               "end": {
                 "line": 5,
-                "column": 12
+                "column": 14
               }
             },
-            "arguments": [],
             "start": {
               "line": 5,
               "column": 2
@@ -301,8 +313,7 @@
             "end": {
               "line": 5,
               "column": 14
-            },
-            "attributes": []
+            }
           }
         ],
         "start": {

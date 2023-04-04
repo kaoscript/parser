@@ -1,12 +1,12 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 49,
+      "kind": 50,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -29,7 +29,7 @@
       "parameters": [],
       "modifiers": [],
       "type": {
-        "kind": 124,
+        "kind": 125,
         "modifiers": [
           {
             "kind": 25,
@@ -44,7 +44,7 @@
           }
         ],
         "typeName": {
-          "kind": 53,
+          "kind": 54,
           "modifiers": [],
           "name": "Number",
           "start": {
@@ -81,78 +81,90 @@
       }
     },
     {
-      "kind": 18,
-      "modifiers": [],
-      "scope": {
-        "kind": 2
-      },
-      "callee": {
-        "kind": 53,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 18,
         "modifiers": [],
-        "name": "call",
-        "start": {
-          "line": 4,
-          "column": 1
+        "scope": {
+          "kind": 2
         },
-        "end": {
-          "line": 4,
-          "column": 5
-        }
-      },
-      "arguments": [
-        {
-          "kind": 126,
+        "callee": {
+          "kind": 54,
           "modifiers": [],
-          "operator": {
-            "kind": 7,
-            "start": {
-              "line": 4,
-              "column": 14
-            },
-            "end": {
-              "line": 4,
-              "column": 16
-            }
+          "name": "call",
+          "start": {
+            "line": 4,
+            "column": 1
           },
-          "argument": {
-            "kind": 18,
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "arguments": [
+          {
+            "kind": 127,
             "modifiers": [],
-            "scope": {
-              "kind": 2
+            "operator": {
+              "kind": 7,
+              "start": {
+                "line": 4,
+                "column": 14
+              },
+              "end": {
+                "line": 4,
+                "column": 16
+              }
             },
-            "callee": {
-              "kind": 53,
+            "argument": {
+              "kind": 18,
               "modifiers": [],
-              "name": "foobar",
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "foobar",
+                "start": {
+                  "line": 4,
+                  "column": 6
+                },
+                "end": {
+                  "line": 4,
+                  "column": 12
+                }
+              },
+              "arguments": [],
               "start": {
                 "line": 4,
                 "column": 6
               },
               "end": {
                 "line": 4,
-                "column": 12
+                "column": 14
               }
             },
-            "arguments": [],
             "start": {
               "line": 4,
               "column": 6
             },
             "end": {
               "line": 4,
-              "column": 14
+              "column": 16
             }
-          },
-          "start": {
-            "line": 4,
-            "column": 6
-          },
-          "end": {
-            "line": 4,
-            "column": 16
           }
+        ],
+        "start": {
+          "line": 4,
+          "column": 1
+        },
+        "end": {
+          "line": 4,
+          "column": 17
         }
-      ],
+      },
       "start": {
         "line": 4,
         "column": 1
@@ -160,8 +172,7 @@
       "end": {
         "line": 4,
         "column": 17
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

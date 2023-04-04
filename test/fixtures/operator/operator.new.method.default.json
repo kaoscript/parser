@@ -1,65 +1,77 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 18,
-      "modifiers": [],
-      "scope": {
-        "kind": 2
-      },
-      "callee": {
-        "kind": 74,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 18,
         "modifiers": [],
-        "object": {
-          "kind": 29,
+        "scope": {
+          "kind": 2
+        },
+        "callee": {
+          "kind": 75,
           "modifiers": [],
-          "class": {
-            "kind": 53,
+          "object": {
+            "kind": 29,
             "modifiers": [],
-            "name": "Shape",
+            "class": {
+              "kind": 54,
+              "modifiers": [],
+              "name": "Shape",
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 10
+              }
+            },
+            "arguments": [],
             "start": {
               "line": 1,
-              "column": 5
+              "column": 1
             },
             "end": {
               "line": 1,
-              "column": 10
+              "column": 12
             }
           },
-          "arguments": [],
+          "property": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "draw",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 17
+            }
+          },
           "start": {
             "line": 1,
             "column": 1
           },
           "end": {
             "line": 1,
-            "column": 12
-          }
-        },
-        "property": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "draw",
-          "start": {
-            "line": 1,
-            "column": 13
-          },
-          "end": {
-            "line": 1,
             "column": 17
           }
         },
+        "arguments": [],
         "start": {
           "line": 1,
           "column": 1
         },
         "end": {
           "line": 1,
-          "column": 17
+          "column": 19
         }
       },
-      "arguments": [],
       "start": {
         "line": 1,
         "column": 1
@@ -67,8 +79,7 @@
       "end": {
         "line": 1,
         "column": 19
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

@@ -1,12 +1,12 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 49,
+      "kind": 50,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "test",
         "start": {
@@ -28,12 +28,12 @@
       },
       "parameters": [
         {
-          "kind": 88,
+          "kind": 89,
           "attributes": [
             {
               "kind": 8,
               "declaration": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "retain",
                 "start": {
@@ -57,7 +57,7 @@
           ],
           "modifiers": [],
           "external": {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "done",
             "start": {
@@ -70,7 +70,7 @@
             }
           },
           "internal": {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "done",
             "start": {
@@ -99,25 +99,37 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 18,
-            "modifiers": [],
-            "scope": {
-              "kind": 2
-            },
-            "callee": {
-              "kind": 53,
+            "kind": 43,
+            "attributes": [],
+            "expression": {
+              "kind": 18,
               "modifiers": [],
-              "name": "done",
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "done",
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 6
+                }
+              },
+              "arguments": [],
               "start": {
                 "line": 2,
                 "column": 2
               },
               "end": {
                 "line": 2,
-                "column": 6
+                "column": 8
               }
             },
-            "arguments": [],
             "start": {
               "line": 2,
               "column": 2
@@ -125,8 +137,7 @@
             "end": {
               "line": 2,
               "column": 8
-            },
-            "attributes": []
+            }
           }
         ],
         "start": {

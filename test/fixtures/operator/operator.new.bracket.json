@@ -1,61 +1,73 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 29,
-      "modifiers": [],
-      "class": {
-        "kind": 74,
-        "modifiers": [
-          {
-            "kind": 8,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 29,
+        "modifiers": [],
+        "class": {
+          "kind": 75,
+          "modifiers": [
+            {
+              "kind": 8,
+              "start": {
+                "line": 1,
+                "column": 8
+              },
+              "end": {
+                "line": 1,
+                "column": 9
+              }
+            }
+          ],
+          "object": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "foo",
             "start": {
               "line": 1,
-              "column": 8
+              "column": 5
             },
             "end": {
               "line": 1,
-              "column": 9
+              "column": 8
             }
-          }
-        ],
-        "object": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "foo",
+          },
+          "property": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "bar",
+            "start": {
+              "line": 1,
+              "column": 9
+            },
+            "end": {
+              "line": 1,
+              "column": 12
+            }
+          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
             "line": 1,
-            "column": 8
+            "column": 13
           }
         },
-        "property": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "bar",
-          "start": {
-            "line": 1,
-            "column": 9
-          },
-          "end": {
-            "line": 1,
-            "column": 12
-          }
-        },
+        "arguments": [],
         "start": {
           "line": 1,
-          "column": 5
+          "column": 1
         },
         "end": {
           "line": 1,
-          "column": 13
+          "column": 15
         }
       },
-      "arguments": [],
       "start": {
         "line": 1,
         "column": 1
@@ -63,8 +75,7 @@
       "end": {
         "line": 1,
         "column": 15
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

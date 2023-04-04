@@ -1,169 +1,136 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 19,
-      "modifiers": [],
-      "object": {
-        "kind": 18,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 19,
         "modifiers": [],
-        "scope": {
-          "kind": 2
-        },
-        "callee": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "getAddress",
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 1,
-            "column": 11
-          }
-        },
-        "arguments": [],
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 13
-        }
-      },
-      "expressions": [
-        {
+        "object": {
           "kind": 18,
           "modifiers": [],
           "scope": {
             "kind": 2
           },
           "callee": {
-            "kind": 74,
+            "kind": 54,
             "modifiers": [],
-            "object": {
-              "kind": 99,
-              "name": "main",
+            "name": "getAddress",
+            "start": {
+              "line": 1,
+              "column": 1
+            },
+            "end": {
+              "line": 1,
+              "column": 11
+            }
+          },
+          "arguments": [],
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 13
+          }
+        },
+        "expressions": [
+          {
+            "kind": 18,
+            "modifiers": [],
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 100,
+                "name": "main",
+                "start": {
+                  "line": 1,
+                  "column": 1
+                },
+                "end": {
+                  "line": 1,
+                  "column": 13
+                }
+              },
+              "property": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "setStreet",
+                "start": {
+                  "line": 2,
+                  "column": 5
+                },
+                "end": {
+                  "line": 2,
+                  "column": 14
+                }
+              },
               "start": {
                 "line": 1,
                 "column": 1
-              },
-              "end": {
-                "line": 1,
-                "column": 13
-              }
-            },
-            "property": {
-              "kind": 53,
-              "modifiers": [],
-              "name": "setStreet",
-              "start": {
-                "line": 2,
-                "column": 5
               },
               "end": {
                 "line": 2,
                 "column": 14
               }
             },
+            "arguments": [
+              {
+                "kind": 65,
+                "modifiers": [],
+                "value": "Elm",
+                "start": {
+                  "line": 2,
+                  "column": 15
+                },
+                "end": {
+                  "line": 2,
+                  "column": 20
+                }
+              },
+              {
+                "kind": 65,
+                "modifiers": [],
+                "value": "13a",
+                "start": {
+                  "line": 2,
+                  "column": 22
+                },
+                "end": {
+                  "line": 2,
+                  "column": 27
+                }
+              }
+            ],
             "start": {
               "line": 1,
               "column": 1
             },
             "end": {
               "line": 2,
-              "column": 14
+              "column": 28
             }
           },
-          "arguments": [
-            {
-              "kind": 64,
-              "modifiers": [],
-              "value": "Elm",
-              "start": {
-                "line": 2,
-                "column": 15
-              },
-              "end": {
-                "line": 2,
-                "column": 20
-              }
-            },
-            {
-              "kind": 64,
-              "modifiers": [],
-              "value": "13a",
-              "start": {
-                "line": 2,
-                "column": 22
-              },
-              "end": {
-                "line": 2,
-                "column": 27
-              }
-            }
-          ],
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 2,
-            "column": 28
-          }
-        },
-        {
-          "kind": 12,
-          "modifiers": [],
-          "operator": {
-            "kind": 3,
-            "assignment": 6,
-            "start": {
-              "line": 3,
-              "column": 10
-            },
-            "end": {
-              "line": 3,
-              "column": 11
-            }
-          },
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 3,
-            "column": 22
-          },
-          "left": {
-            "kind": 74,
+          {
+            "kind": 12,
             "modifiers": [],
-            "object": {
-              "kind": 99,
-              "name": "main",
-              "start": {
-                "line": 1,
-                "column": 1
-              },
-              "end": {
-                "line": 1,
-                "column": 13
-              }
-            },
-            "property": {
-              "kind": 53,
-              "modifiers": [],
-              "name": "city",
+            "operator": {
+              "kind": 3,
+              "assignment": 6,
               "start": {
                 "line": 3,
-                "column": 5
+                "column": 10
               },
               "end": {
                 "line": 3,
-                "column": 9
+                "column": 11
               }
             },
             "start": {
@@ -172,203 +139,248 @@
             },
             "end": {
               "line": 3,
-              "column": 9
-            }
-          },
-          "right": {
-            "kind": 64,
-            "modifiers": [],
-            "value": "Carthage",
-            "start": {
-              "line": 3,
-              "column": 12
-            },
-            "end": {
-              "line": 3,
               "column": 22
-            }
-          }
-        },
-        {
-          "kind": 12,
-          "modifiers": [],
-          "operator": {
-            "kind": 3,
-            "assignment": 6,
-            "start": {
-              "line": 4,
-              "column": 11
             },
-            "end": {
-              "line": 4,
-              "column": 12
-            }
-          },
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 4,
-            "column": 22
-          },
-          "left": {
-            "kind": 74,
-            "modifiers": [],
-            "object": {
-              "kind": 99,
-              "name": "main",
+            "left": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 100,
+                "name": "main",
+                "start": {
+                  "line": 1,
+                  "column": 1
+                },
+                "end": {
+                  "line": 1,
+                  "column": 13
+                }
+              },
+              "property": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "city",
+                "start": {
+                  "line": 3,
+                  "column": 5
+                },
+                "end": {
+                  "line": 3,
+                  "column": 9
+                }
+              },
               "start": {
                 "line": 1,
                 "column": 1
               },
               "end": {
-                "line": 1,
-                "column": 13
+                "line": 3,
+                "column": 9
               }
             },
-            "property": {
-              "kind": 53,
+            "right": {
+              "kind": 65,
               "modifiers": [],
-              "name": "state",
+              "value": "Carthage",
+              "start": {
+                "line": 3,
+                "column": 12
+              },
+              "end": {
+                "line": 3,
+                "column": 22
+              }
+            }
+          },
+          {
+            "kind": 12,
+            "modifiers": [],
+            "operator": {
+              "kind": 3,
+              "assignment": 6,
               "start": {
                 "line": 4,
-                "column": 5
+                "column": 11
+              },
+              "end": {
+                "line": 4,
+                "column": 12
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 1
+            },
+            "end": {
+              "line": 4,
+              "column": 22
+            },
+            "left": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 100,
+                "name": "main",
+                "start": {
+                  "line": 1,
+                  "column": 1
+                },
+                "end": {
+                  "line": 1,
+                  "column": 13
+                }
+              },
+              "property": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "state",
+                "start": {
+                  "line": 4,
+                  "column": 5
+                },
+                "end": {
+                  "line": 4,
+                  "column": 10
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 1
               },
               "end": {
                 "line": 4,
                 "column": 10
               }
             },
-            "start": {
-              "line": 1,
-              "column": 1
-            },
-            "end": {
-              "line": 4,
-              "column": 10
+            "right": {
+              "kind": 65,
+              "modifiers": [],
+              "value": "Eurasia",
+              "start": {
+                "line": 4,
+                "column": 13
+              },
+              "end": {
+                "line": 4,
+                "column": 22
+              }
             }
           },
-          "right": {
-            "kind": 64,
+          {
+            "kind": 18,
             "modifiers": [],
-            "value": "Eurasia",
-            "start": {
-              "line": 4,
-              "column": 13
+            "scope": {
+              "kind": 2
             },
-            "end": {
-              "line": 4,
-              "column": 22
-            }
-          }
-        },
-        {
-          "kind": 18,
-          "modifiers": [],
-          "scope": {
-            "kind": 2
-          },
-          "callee": {
-            "kind": 74,
-            "modifiers": [],
-            "object": {
-              "kind": 99,
-              "name": "main",
+            "callee": {
+              "kind": 75,
+              "modifiers": [],
+              "object": {
+                "kind": 100,
+                "name": "main",
+                "start": {
+                  "line": 1,
+                  "column": 1
+                },
+                "end": {
+                  "line": 1,
+                  "column": 13
+                }
+              },
+              "property": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "zip",
+                "start": {
+                  "line": 5,
+                  "column": 5
+                },
+                "end": {
+                  "line": 5,
+                  "column": 8
+                }
+              },
               "start": {
                 "line": 1,
                 "column": 1
-              },
-              "end": {
-                "line": 1,
-                "column": 13
-              }
-            },
-            "property": {
-              "kind": 53,
-              "modifiers": [],
-              "name": "zip",
-              "start": {
-                "line": 5,
-                "column": 5
               },
               "end": {
                 "line": 5,
                 "column": 8
               }
             },
-            "start": {
-              "line": 1,
-              "column": 1
-            },
-            "end": {
-              "line": 5,
-              "column": 8
-            }
-          },
-          "arguments": [
-            {
-              "kind": 82,
-              "modifiers": [],
-              "value": 66666,
-              "start": {
-                "line": 5,
-                "column": 9
-              },
-              "end": {
-                "line": 5,
-                "column": 14
-              }
-            },
-            {
-              "kind": 79,
-              "modifiers": [],
-              "name": {
-                "kind": 53,
+            "arguments": [
+              {
+                "kind": 83,
                 "modifiers": [],
-                "name": "extended",
+                "value": 66666,
+                "start": {
+                  "line": 5,
+                  "column": 9
+                },
+                "end": {
+                  "line": 5,
+                  "column": 14
+                }
+              },
+              {
+                "kind": 80,
+                "modifiers": [],
+                "name": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "extended",
+                  "start": {
+                    "line": 5,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 24
+                  }
+                },
+                "value": {
+                  "kind": 83,
+                  "modifiers": [],
+                  "value": 6666,
+                  "start": {
+                    "line": 5,
+                    "column": 26
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 30
+                  }
+                },
                 "start": {
                   "line": 5,
                   "column": 16
                 },
                 "end": {
                   "line": 5,
-                  "column": 24
-                }
-              },
-              "value": {
-                "kind": 82,
-                "modifiers": [],
-                "value": 6666,
-                "start": {
-                  "line": 5,
-                  "column": 26
-                },
-                "end": {
-                  "line": 5,
                   "column": 30
                 }
-              },
-              "start": {
-                "line": 5,
-                "column": 16
-              },
-              "end": {
-                "line": 5,
-                "column": 30
               }
+            ],
+            "start": {
+              "line": 1,
+              "column": 1
+            },
+            "end": {
+              "line": 5,
+              "column": 31
             }
-          ],
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 5,
-            "column": 31
           }
+        ],
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 31
         }
-      ],
+      },
       "start": {
         "line": 1,
         "column": 1
@@ -376,8 +388,7 @@
       "end": {
         "line": 5,
         "column": 31
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

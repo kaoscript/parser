@@ -1,12 +1,12 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 65,
+      "kind": 66,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "sayHello",
         "start": {
@@ -20,22 +20,34 @@
       },
       "parameters": [],
       "body": {
-        "kind": 66,
+        "kind": 43,
         "attributes": [],
-        "elements": [
-          {
-            "kind": 2,
-            "value": "console.log('Hello!')",
-            "start": {
-              "line": 1,
-              "column": 21
-            },
-            "end": {
-              "line": 1,
-              "column": 42
+        "expression": {
+          "kind": 67,
+          "attributes": [],
+          "elements": [
+            {
+              "kind": 2,
+              "value": "console.log('Hello!')",
+              "start": {
+                "line": 1,
+                "column": 21
+              },
+              "end": {
+                "line": 1,
+                "column": 42
+              }
             }
+          ],
+          "start": {
+            "line": 1,
+            "column": 18
+          },
+          "end": {
+            "line": 1,
+            "column": 42
           }
-        ],
+        },
         "start": {
           "line": 1,
           "column": 18
@@ -55,25 +67,37 @@
       }
     },
     {
-      "kind": 18,
-      "modifiers": [],
-      "scope": {
-        "kind": 2
-      },
-      "callee": {
-        "kind": 53,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 18,
         "modifiers": [],
-        "name": "sayHello",
+        "scope": {
+          "kind": 2
+        },
+        "callee": {
+          "kind": 54,
+          "modifiers": [],
+          "name": "sayHello",
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 9
+          }
+        },
+        "arguments": [],
         "start": {
           "line": 3,
           "column": 1
         },
         "end": {
           "line": 3,
-          "column": 9
+          "column": 11
         }
       },
-      "arguments": [],
       "start": {
         "line": 3,
         "column": 1
@@ -81,8 +105,7 @@
       "end": {
         "line": 3,
         "column": 11
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

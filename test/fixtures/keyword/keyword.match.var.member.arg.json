@@ -1,107 +1,119 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 18,
-      "modifiers": [],
-      "scope": {
-        "kind": 2
-      },
-      "callee": {
-        "kind": 74,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 18,
         "modifiers": [],
-        "object": {
-          "kind": 53,
+        "scope": {
+          "kind": 2
+        },
+        "callee": {
+          "kind": 75,
           "modifiers": [],
-          "name": "console",
+          "object": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "console",
+            "start": {
+              "line": 1,
+              "column": 1
+            },
+            "end": {
+              "line": 1,
+              "column": 8
+            }
+          },
+          "property": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "log",
+            "start": {
+              "line": 1,
+              "column": 9
+            },
+            "end": {
+              "line": 1,
+              "column": 12
+            }
+          },
           "start": {
             "line": 1,
             "column": 1
           },
           "end": {
             "line": 1,
-            "column": 8
-          }
-        },
-        "property": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "log",
-          "start": {
-            "line": 1,
-            "column": 9
-          },
-          "end": {
-            "line": 1,
             "column": 12
           }
         },
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 12
-        }
-      },
-      "arguments": [
-        {
-          "kind": 18,
-          "modifiers": [],
-          "scope": {
-            "kind": 2
-          },
-          "callee": {
-            "kind": 74,
+        "arguments": [
+          {
+            "kind": 18,
             "modifiers": [],
-            "object": {
-              "kind": 53,
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 75,
               "modifiers": [],
-              "name": "match",
+              "object": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "match",
+                "start": {
+                  "line": 1,
+                  "column": 13
+                },
+                "end": {
+                  "line": 1,
+                  "column": 18
+                }
+              },
+              "property": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "toString",
+                "start": {
+                  "line": 1,
+                  "column": 19
+                },
+                "end": {
+                  "line": 1,
+                  "column": 27
+                }
+              },
               "start": {
                 "line": 1,
                 "column": 13
               },
               "end": {
                 "line": 1,
-                "column": 18
-              }
-            },
-            "property": {
-              "kind": 53,
-              "modifiers": [],
-              "name": "toString",
-              "start": {
-                "line": 1,
-                "column": 19
-              },
-              "end": {
-                "line": 1,
                 "column": 27
               }
             },
+            "arguments": [],
             "start": {
               "line": 1,
               "column": 13
             },
             "end": {
               "line": 1,
-              "column": 27
+              "column": 29
             }
-          },
-          "arguments": [],
-          "start": {
-            "line": 1,
-            "column": 13
-          },
-          "end": {
-            "line": 1,
-            "column": 29
           }
+        ],
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 30
         }
-      ],
+      },
       "start": {
         "line": 1,
         "column": 1
@@ -109,8 +121,7 @@
       "end": {
         "line": 1,
         "column": 30
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

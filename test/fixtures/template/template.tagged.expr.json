@@ -1,184 +1,196 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 18,
-      "modifiers": [],
-      "scope": {
-        "kind": 2
-      },
-      "callee": {
-        "kind": 74,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 18,
         "modifiers": [],
-        "object": {
-          "kind": 53,
+        "scope": {
+          "kind": 2
+        },
+        "callee": {
+          "kind": 75,
           "modifiers": [],
-          "name": "console",
+          "object": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "console",
+            "start": {
+              "line": 1,
+              "column": 1
+            },
+            "end": {
+              "line": 1,
+              "column": 8
+            }
+          },
+          "property": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "log",
+            "start": {
+              "line": 1,
+              "column": 9
+            },
+            "end": {
+              "line": 1,
+              "column": 12
+            }
+          },
           "start": {
             "line": 1,
             "column": 1
           },
           "end": {
             "line": 1,
-            "column": 8
-          }
-        },
-        "property": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "log",
-          "start": {
-            "line": 1,
-            "column": 9
-          },
-          "end": {
-            "line": 1,
             "column": 12
           }
         },
-        "start": {
-          "line": 1,
-          "column": 1
-        },
-        "end": {
-          "line": 1,
-          "column": 12
-        }
-      },
-      "arguments": [
-        {
-          "kind": 113,
-          "tag": {
-            "kind": 18,
-            "modifiers": [],
-            "scope": {
-              "kind": 2
-            },
-            "callee": {
-              "kind": 74,
+        "arguments": [
+          {
+            "kind": 114,
+            "tag": {
+              "kind": 18,
               "modifiers": [],
-              "object": {
-                "kind": 53,
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 75,
                 "modifiers": [],
-                "name": "foo",
+                "object": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "foo",
+                  "start": {
+                    "line": 1,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 16
+                  }
+                },
+                "property": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "bar",
+                  "start": {
+                    "line": 1,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 20
+                  }
+                },
                 "start": {
                   "line": 1,
                   "column": 13
                 },
                 "end": {
                   "line": 1,
-                  "column": 16
-                }
-              },
-              "property": {
-                "kind": 53,
-                "modifiers": [],
-                "name": "bar",
-                "start": {
-                  "line": 1,
-                  "column": 17
-                },
-                "end": {
-                  "line": 1,
                   "column": 20
                 }
               },
+              "arguments": [],
               "start": {
                 "line": 1,
                 "column": 13
               },
               "end": {
                 "line": 1,
-                "column": 20
+                "column": 22
               }
             },
-            "arguments": [],
+            "template": {
+              "kind": 115,
+              "modifiers": [],
+              "elements": [
+                {
+                  "kind": 65,
+                  "modifiers": [],
+                  "value": "That ",
+                  "start": {
+                    "line": 1,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 28
+                  }
+                },
+                {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "person",
+                  "start": {
+                    "line": 1,
+                    "column": 31
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 37
+                  }
+                },
+                {
+                  "kind": 65,
+                  "modifiers": [],
+                  "value": " is a ",
+                  "start": {
+                    "line": 1,
+                    "column": 39
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 45
+                  }
+                },
+                {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "age",
+                  "start": {
+                    "line": 1,
+                    "column": 48
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 51
+                  }
+                }
+              ],
+              "start": {
+                "line": 1,
+                "column": 22
+              },
+              "end": {
+                "line": 1,
+                "column": 54
+              }
+            },
             "start": {
               "line": 1,
               "column": 13
             },
             "end": {
               "line": 1,
-              "column": 22
-            }
-          },
-          "template": {
-            "kind": 114,
-            "modifiers": [],
-            "elements": [
-              {
-                "kind": 64,
-                "modifiers": [],
-                "value": "That ",
-                "start": {
-                  "line": 1,
-                  "column": 23
-                },
-                "end": {
-                  "line": 1,
-                  "column": 28
-                }
-              },
-              {
-                "kind": 53,
-                "modifiers": [],
-                "name": "person",
-                "start": {
-                  "line": 1,
-                  "column": 31
-                },
-                "end": {
-                  "line": 1,
-                  "column": 37
-                }
-              },
-              {
-                "kind": 64,
-                "modifiers": [],
-                "value": " is a ",
-                "start": {
-                  "line": 1,
-                  "column": 39
-                },
-                "end": {
-                  "line": 1,
-                  "column": 45
-                }
-              },
-              {
-                "kind": 53,
-                "modifiers": [],
-                "name": "age",
-                "start": {
-                  "line": 1,
-                  "column": 48
-                },
-                "end": {
-                  "line": 1,
-                  "column": 51
-                }
-              }
-            ],
-            "start": {
-              "line": 1,
-              "column": 22
-            },
-            "end": {
-              "line": 1,
               "column": 54
             }
-          },
-          "start": {
-            "line": 1,
-            "column": 13
-          },
-          "end": {
-            "line": 1,
-            "column": 54
           }
+        ],
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 55
         }
-      ],
+      },
       "start": {
         "line": 1,
         "column": 1
@@ -186,8 +198,7 @@
       "end": {
         "line": 1,
         "column": 55
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

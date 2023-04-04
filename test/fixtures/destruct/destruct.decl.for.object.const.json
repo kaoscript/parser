@@ -1,9 +1,9 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 46,
+      "kind": 47,
       "attributes": [],
       "modifiers": [
         {
@@ -30,7 +30,7 @@
         }
       ],
       "expression": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "foo",
         "start": {
@@ -51,13 +51,13 @@
         "column": 2
       },
       "value": {
-        "kind": 83,
+        "kind": 84,
         "elements": [
           {
             "kind": 13,
             "modifiers": [],
-            "external": {
-              "kind": 53,
+            "internal": {
+              "kind": 54,
               "modifiers": [],
               "name": "bar",
               "start": {
@@ -81,8 +81,8 @@
           {
             "kind": 13,
             "modifiers": [],
-            "external": {
-              "kind": 53,
+            "internal": {
+              "kind": 54,
               "modifiers": [],
               "name": "baz",
               "start": {

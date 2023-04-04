@@ -1,9 +1,9 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 132,
+      "kind": 133,
       "attributes": [],
       "modifiers": [
         {
@@ -20,16 +20,16 @@
       ],
       "declarations": [
         {
-          "kind": 130,
+          "kind": 131,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 131,
+              "kind": 132,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 53,
+                "kind": 54,
                 "modifiers": [],
                 "name": "number",
                 "start": {
@@ -60,7 +60,7 @@
             "column": 20
           },
           "value": {
-            "kind": 82,
+            "kind": 83,
             "modifiers": [],
             "value": 13,
             "start": {
@@ -84,10 +84,10 @@
       }
     },
     {
-      "kind": 73,
+      "kind": 74,
       "attributes": [],
       "expression": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "number",
         "start": {
@@ -101,70 +101,82 @@
       },
       "clauses": [
         {
-          "kind": 67,
+          "kind": 68,
           "body": {
             "kind": 15,
             "attributes": [],
             "statements": [
               {
-                "kind": 18,
-                "modifiers": [],
-                "scope": {
-                  "kind": 2
-                },
-                "callee": {
-                  "kind": 74,
+                "kind": 43,
+                "attributes": [],
+                "expression": {
+                  "kind": 18,
                   "modifiers": [],
-                  "object": {
-                    "kind": 53,
+                  "scope": {
+                    "kind": 2
+                  },
+                  "callee": {
+                    "kind": 75,
                     "modifiers": [],
-                    "name": "console",
+                    "object": {
+                      "kind": 54,
+                      "modifiers": [],
+                      "name": "console",
+                      "start": {
+                        "line": 5,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 10
+                      }
+                    },
+                    "property": {
+                      "kind": 54,
+                      "modifiers": [],
+                      "name": "log",
+                      "start": {
+                        "line": 5,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 14
+                      }
+                    },
                     "start": {
                       "line": 5,
                       "column": 3
                     },
                     "end": {
                       "line": 5,
-                      "column": 10
-                    }
-                  },
-                  "property": {
-                    "kind": 53,
-                    "modifiers": [],
-                    "name": "log",
-                    "start": {
-                      "line": 5,
-                      "column": 11
-                    },
-                    "end": {
-                      "line": 5,
                       "column": 14
                     }
                   },
+                  "arguments": [
+                    {
+                      "kind": 65,
+                      "modifiers": [],
+                      "value": "Ain't special",
+                      "start": {
+                        "line": 5,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 30
+                      }
+                    }
+                  ],
                   "start": {
                     "line": 5,
                     "column": 3
                   },
                   "end": {
                     "line": 5,
-                    "column": 14
+                    "column": 31
                   }
                 },
-                "arguments": [
-                  {
-                    "kind": 64,
-                    "modifiers": [],
-                    "value": "Ain't special",
-                    "start": {
-                      "line": 5,
-                      "column": 15
-                    },
-                    "end": {
-                      "line": 5,
-                      "column": 30
-                    }
-                  }
-                ],
                 "start": {
                   "line": 5,
                   "column": 3
@@ -172,8 +184,7 @@
                 "end": {
                   "line": 5,
                   "column": 31
-                },
-                "attributes": []
+                }
               }
             ],
             "start": {

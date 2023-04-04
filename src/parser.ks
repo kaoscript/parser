@@ -2566,6 +2566,11 @@ export namespace Parser {
 				}
 			}
 
+			if !?internal {
+				internal = external
+				external = null
+			}
+
 			if dMode ~~ DestructuringMode.TYPE {
 				if atthis {
 					if @test(Token.EXCLAMATION_QUESTION) {
@@ -2590,10 +2595,10 @@ export namespace Parser {
 						if operator.ok {
 							var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
 
-							return @yep(AST.ObjectBindingElement(modifiers, external, internal, type, operator, defaultValue, first ?? external, defaultValue))
+							return @yep(AST.ObjectBindingElement(modifiers, external, internal, type, operator, defaultValue, first ?? external ?? internal, defaultValue))
 						}
 						else {
-							return @yep(AST.ObjectBindingElement(modifiers, external, internal, type, null, null, first ?? external, type ?? internal ?? external))
+							return @yep(AST.ObjectBindingElement(modifiers, external, internal, type, null, null, first ?? external ?? internal, type ?? internal ?? external))
 						}
 					}
 					else if !rest && @test(Token.QUESTION) {
@@ -2604,7 +2609,7 @@ export namespace Parser {
 						var operator = @reqDefaultAssignmentOperator()
 						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
 
-						return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, operator, defaultValue, first ?? external, defaultValue))
+						return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, operator, defaultValue, first ?? external ?? internal, defaultValue))
 					}
 				}
 
@@ -2614,11 +2619,11 @@ export namespace Parser {
 					if operator.ok {
 						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
 
-						return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, operator, defaultValue, first ?? external, defaultValue))
+						return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, operator, defaultValue, first ?? external ?? internal, defaultValue))
 					}
 				}
 
-				return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, null, null, first ?? external, internal ?? external ?? first))
+				return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, null, null, first ?? external ?? internal, internal ?? external ?? first))
 			}
 
 			if (!rest || ?internal) && dMode ~~ DestructuringMode.DEFAULT {
@@ -2627,7 +2632,7 @@ export namespace Parser {
 
 					modifiers.push(modifier)
 
-					return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, null, null, first ?? external, modifier))
+					return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, null, null, first ?? external ?? internal, modifier))
 				}
 				else {
 					var operator = @tryDefaultAssignmentOperator(true)
@@ -2635,12 +2640,12 @@ export namespace Parser {
 					if operator.ok {
 						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
 
-						return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, operator, defaultValue, first ?? external, defaultValue))
+						return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, operator, defaultValue, first ?? external ?? internal, defaultValue))
 					}
 				}
 			}
 
-			return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, null, null, first ?? external, internal ?? external ?? first))
+			return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, null, null, first ?? external ?? internal, internal ?? external ?? first))
 		} # }}}
 		reqDiscloseStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
@@ -3251,7 +3256,7 @@ export namespace Parser {
 			if @match(Token.FOR, Token.IF, Token.REPEAT, Token.UNLESS) == Token.FOR {
 				var statement = @reqForExpression(@yes(), fMode)
 
-				statement.value.body = expression.value
+				statement.value.body = AST.ExpressionStatement(expression)
 
 				@relocate(statement, expression, null)
 
@@ -3262,25 +3267,26 @@ export namespace Parser {
 
 				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
-				return @yep(AST.IfStatement(condition, null, expression, null, expression, condition))
+				return @yep(AST.IfStatement(condition, null, @yep(AST.ExpressionStatement(expression)), null, expression, condition))
 			}
 			else if @token == Token.REPEAT {
 				@commit().NL_0M()
 
 				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var block =  @yep(AST.ExpressionStatement(expression))
 
 				unless @test(Token.TIMES) {
 					@throw('times')
 				}
 
-				return @yep(AST.RepeatStatement(condition, expression, expression, @yes()))
+				return @yep(AST.RepeatStatement(condition, block, block, @yes()))
 			}
 			else if @token == Token.UNLESS {
 				@commit()
 
 				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
-				return @yep(AST.UnlessStatement(condition, expression, expression, condition))
+				return @yep(AST.UnlessStatement(condition, @yep(AST.ExpressionStatement(expression)), expression, condition))
 			}
 			else if expression.value.kind == NodeKind.DisruptiveExpression && !@isComputed(expression.value.mainExpression) {
 				unless @replaceReference(expression.value.disruptedExpression, 'main', expression.value.mainExpression) {
@@ -3288,7 +3294,7 @@ export namespace Parser {
 				}
 
 				var condition = @yep(expression.value.condition)
-				var block =  @yep(expression.value.disruptedExpression)
+				var block =  @yep(AST.ExpressionStatement(@yep(expression.value.disruptedExpression)))
 
 				if expression.value.operator.kind == RestrictiveOperatorKind.If {
 					return @yep(AST.IfStatement(condition, null, block, null, block, condition))
@@ -4932,7 +4938,9 @@ export namespace Parser {
 				return body
 			}
 			else if @token == Token.EQUALS_RIGHT_ANGLE {
-				return @reqMacroExpression(@yes())
+				var expression = @reqMacroExpression(@yes())
+
+				return @yep(AST.ExpressionStatement(expression))
 			}
 			else {
 				@throw('{', '=>')
@@ -5035,7 +5043,14 @@ export namespace Parser {
 					return @yep(AST.ThrowStatement(expression, first, expression))
 				}
 				else {
-					return @reqExpression(ExpressionMode.Default + ExpressionMode.Arrow, fMode)
+					var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.Arrow, fMode)
+
+					if @mode ~~ ParserMode.InlineStatement {
+						return @yep(AST.PickStatement(expression, expression, expression))
+					}
+					else {
+						return @yep(AST.ExpressionStatement(expression))
+					}
 				}
 			}
 		} # }}}
@@ -6640,7 +6655,9 @@ export namespace Parser {
 						statement = @tryMacroStatement(@yes())
 					}
 					else {
-						statement = @reqMacroExpression(@yes())
+						var expression = @reqMacroExpression(@yes())
+
+						statement = @yep(AST.ExpressionStatement(expression))
 					}
 				}
 				Token.MATCH {

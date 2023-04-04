@@ -1,12 +1,12 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 65,
+      "kind": 66,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "times_five",
         "start": {
@@ -20,11 +20,11 @@
       },
       "parameters": [
         {
-          "kind": 88,
+          "kind": 89,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "e",
             "start": {
@@ -37,7 +37,7 @@
             }
           },
           "internal": {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "e",
             "start": {
@@ -60,46 +60,58 @@
         }
       ],
       "body": {
-        "kind": 66,
+        "kind": 43,
         "attributes": [],
-        "elements": [
-          {
-            "kind": 2,
-            "value": "5 * ",
-            "start": {
-              "line": 1,
-              "column": 24
-            },
-            "end": {
-              "line": 1,
-              "column": 28
-            }
-          },
-          {
-            "kind": 1,
-            "expression": {
-              "kind": 53,
-              "modifiers": [],
-              "name": "e",
+        "expression": {
+          "kind": 67,
+          "attributes": [],
+          "elements": [
+            {
+              "kind": 2,
+              "value": "5 * ",
               "start": {
                 "line": 1,
-                "column": 30
+                "column": 24
               },
               "end": {
                 "line": 1,
-                "column": 31
+                "column": 28
               }
             },
-            "start": {
-              "line": 1,
-              "column": 28
-            },
-            "end": {
-              "line": 1,
-              "column": 32
+            {
+              "kind": 1,
+              "expression": {
+                "kind": 54,
+                "modifiers": [],
+                "name": "e",
+                "start": {
+                  "line": 1,
+                  "column": 30
+                },
+                "end": {
+                  "line": 1,
+                  "column": 31
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 28
+              },
+              "end": {
+                "line": 1,
+                "column": 32
+              }
             }
+          ],
+          "start": {
+            "line": 1,
+            "column": 21
+          },
+          "end": {
+            "line": 1,
+            "column": 32
           }
-        ],
+        },
         "start": {
           "line": 1,
           "column": 21

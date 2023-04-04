@@ -1,12 +1,12 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 65,
+      "kind": 66,
       "attributes": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "trace_build_age_with_reification",
         "start": {
@@ -24,21 +24,21 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 132,
+            "kind": 133,
             "attributes": [],
             "modifiers": [],
             "declarations": [
               {
-                "kind": 130,
+                "kind": 131,
                 "attributes": [],
                 "modifiers": [],
                 "variables": [
                   {
-                    "kind": 131,
+                    "kind": 132,
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 53,
+                      "kind": 54,
                       "modifiers": [],
                       "name": "buildTime",
                       "start": {
@@ -75,10 +75,10 @@
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 74,
+                    "kind": 75,
                     "modifiers": [],
                     "object": {
-                      "kind": 53,
+                      "kind": 54,
                       "modifiers": [],
                       "name": "Math",
                       "start": {
@@ -91,7 +91,7 @@
                       }
                     },
                     "property": {
-                      "kind": 53,
+                      "kind": 54,
                       "modifiers": [],
                       "name": "floor",
                       "start": {
@@ -143,7 +143,7 @@
                           "kind": 2
                         },
                         "callee": {
-                          "kind": 74,
+                          "kind": 75,
                           "modifiers": [],
                           "object": {
                             "kind": 18,
@@ -152,10 +152,10 @@
                               "kind": 2
                             },
                             "callee": {
-                              "kind": 74,
+                              "kind": 75,
                               "modifiers": [],
                               "object": {
-                                "kind": 53,
+                                "kind": 54,
                                 "modifiers": [],
                                 "name": "Date",
                                 "start": {
@@ -168,7 +168,7 @@
                                 }
                               },
                               "property": {
-                                "kind": 53,
+                                "kind": 54,
                                 "modifiers": [],
                                 "name": "now",
                                 "start": {
@@ -200,7 +200,7 @@
                             }
                           },
                           "property": {
-                            "kind": 53,
+                            "kind": 54,
                             "modifiers": [],
                             "name": "getTime",
                             "start": {
@@ -232,7 +232,7 @@
                         }
                       },
                       "right": {
-                        "kind": 82,
+                        "kind": 83,
                         "modifiers": [],
                         "value": 1000,
                         "start": {
@@ -267,114 +267,126 @@
             }
           },
           {
-            "kind": 66,
+            "kind": 43,
             "attributes": [],
-            "elements": [
-              {
-                "kind": 2,
-                "value": "var runTime = Math.floor(Date.now().getTime() / 1000)",
-                "start": {
-                  "line": 5,
-                  "column": 3
-                },
-                "end": {
-                  "line": 5,
-                  "column": 56
-                }
-              },
-              {
-                "kind": 3,
-                "start": {
-                  "line": 5,
-                  "column": 56
-                },
-                "end": {
-                  "line": 6,
-                  "column": 1
-                }
-              },
-              {
-                "kind": 2,
-                "value": "var age = runTime - ",
-                "start": {
-                  "line": 6,
-                  "column": 3
-                },
-                "end": {
-                  "line": 6,
-                  "column": 23
-                }
-              },
-              {
-                "kind": 1,
-                "expression": {
-                  "kind": 53,
-                  "modifiers": [],
-                  "name": "buildTime",
+            "expression": {
+              "kind": 67,
+              "attributes": [],
+              "elements": [
+                {
+                  "kind": 2,
+                  "value": "var runTime = Math.floor(Date.now().getTime() / 1000)",
                   "start": {
-                    "line": 6,
-                    "column": 25
+                    "line": 5,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 56
+                  }
+                },
+                {
+                  "kind": 3,
+                  "start": {
+                    "line": 5,
+                    "column": 56
                   },
                   "end": {
                     "line": 6,
-                    "column": 34
+                    "column": 1
                   }
                 },
-                "start": {
-                  "line": 6,
-                  "column": 23
+                {
+                  "kind": 2,
+                  "value": "var age = runTime - ",
+                  "start": {
+                    "line": 6,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 23
+                  }
                 },
-                "end": {
-                  "line": 6,
-                  "column": 35
+                {
+                  "kind": 1,
+                  "expression": {
+                    "kind": 54,
+                    "modifiers": [],
+                    "name": "buildTime",
+                    "start": {
+                      "line": 6,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 34
+                    }
+                  },
+                  "start": {
+                    "line": 6,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 35
+                  }
+                },
+                {
+                  "kind": 3,
+                  "start": {
+                    "line": 6,
+                    "column": 35
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 1
+                  }
+                },
+                {
+                  "kind": 3,
+                  "start": {
+                    "line": 7,
+                    "column": 1
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 1
+                  }
+                },
+                {
+                  "kind": 2,
+                  "value": "console.log(`Right now it's \\(runTime), and this build is \\(age) seconds old`)",
+                  "start": {
+                    "line": 8,
+                    "column": 3
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 81
+                  }
+                },
+                {
+                  "kind": 3,
+                  "start": {
+                    "line": 8,
+                    "column": 81
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 1
+                  }
                 }
+              ],
+              "start": {
+                "line": 4,
+                "column": 2
               },
-              {
-                "kind": 3,
-                "start": {
-                  "line": 6,
-                  "column": 35
-                },
-                "end": {
-                  "line": 7,
-                  "column": 1
-                }
-              },
-              {
-                "kind": 3,
-                "start": {
-                  "line": 7,
-                  "column": 1
-                },
-                "end": {
-                  "line": 8,
-                  "column": 1
-                }
-              },
-              {
-                "kind": 2,
-                "value": "console.log(`Right now it's \\(runTime), and this build is \\(age) seconds old`)",
-                "start": {
-                  "line": 8,
-                  "column": 3
-                },
-                "end": {
-                  "line": 8,
-                  "column": 81
-                }
-              },
-              {
-                "kind": 3,
-                "start": {
-                  "line": 8,
-                  "column": 81
-                },
-                "end": {
-                  "line": 9,
-                  "column": 1
-                }
+              "end": {
+                "line": 9,
+                "column": 3
               }
-            ],
+            },
             "start": {
               "line": 4,
               "column": 2

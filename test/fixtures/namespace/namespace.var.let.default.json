@@ -1,5 +1,5 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
@@ -7,11 +7,11 @@
       "attributes": [],
       "declarations": [
         {
-          "kind": 131,
+          "kind": 132,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 53,
+            "kind": 54,
             "modifiers": [],
             "name": "console",
             "start": {
@@ -43,11 +43,11 @@
       }
     },
     {
-      "kind": 81,
+      "kind": 82,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "Float",
         "start": {
@@ -61,7 +61,7 @@
       },
       "statements": [
         {
-          "kind": 132,
+          "kind": 133,
           "attributes": [],
           "modifiers": [
             {
@@ -78,16 +78,16 @@
           ],
           "declarations": [
             {
-              "kind": 130,
+              "kind": 131,
               "attributes": [],
               "modifiers": [],
               "variables": [
                 {
-                  "kind": 131,
+                  "kind": 132,
                   "attributes": [],
                   "modifiers": [],
                   "name": {
-                    "kind": 53,
+                    "kind": 54,
                     "modifiers": [],
                     "name": "PI",
                     "start": {
@@ -108,10 +108,10 @@
                     "column": 20
                   },
                   "type": {
-                    "kind": 124,
+                    "kind": 125,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 53,
+                      "kind": 54,
                       "modifiers": [],
                       "name": "Number",
                       "start": {
@@ -143,7 +143,7 @@
                 "column": 27
               },
               "value": {
-                "kind": 82,
+                "kind": 83,
                 "modifiers": [],
                 "value": 3.14,
                 "start": {
@@ -167,7 +167,7 @@
           }
         },
         {
-          "kind": 132,
+          "kind": 133,
           "attributes": [],
           "modifiers": [
             {
@@ -184,16 +184,16 @@
           ],
           "declarations": [
             {
-              "kind": 130,
+              "kind": 131,
               "attributes": [],
               "modifiers": [],
               "variables": [
                 {
-                  "kind": 131,
+                  "kind": 132,
                   "attributes": [],
                   "modifiers": [],
                   "name": {
-                    "kind": 53,
+                    "kind": 54,
                     "modifiers": [],
                     "name": "name",
                     "start": {
@@ -214,10 +214,10 @@
                     "column": 22
                   },
                   "type": {
-                    "kind": 124,
+                    "kind": 125,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 53,
+                      "kind": 54,
                       "modifiers": [],
                       "name": "String",
                       "start": {
@@ -249,7 +249,7 @@
                 "column": 31
               },
               "value": {
-                "kind": 64,
+                "kind": 65,
                 "modifiers": [],
                 "value": "john",
                 "start": {
@@ -283,89 +283,101 @@
       }
     },
     {
-      "kind": 18,
-      "modifiers": [],
-      "scope": {
-        "kind": 2
-      },
-      "callee": {
-        "kind": 74,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 18,
         "modifiers": [],
-        "object": {
-          "kind": 53,
+        "scope": {
+          "kind": 2
+        },
+        "callee": {
+          "kind": 75,
           "modifiers": [],
-          "name": "console",
+          "object": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "console",
+            "start": {
+              "line": 8,
+              "column": 1
+            },
+            "end": {
+              "line": 8,
+              "column": 8
+            }
+          },
+          "property": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "log",
+            "start": {
+              "line": 8,
+              "column": 9
+            },
+            "end": {
+              "line": 8,
+              "column": 12
+            }
+          },
           "start": {
             "line": 8,
             "column": 1
           },
           "end": {
             "line": 8,
-            "column": 8
-          }
-        },
-        "property": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "log",
-          "start": {
-            "line": 8,
-            "column": 9
-          },
-          "end": {
-            "line": 8,
             "column": 12
           }
         },
-        "start": {
-          "line": 8,
-          "column": 1
-        },
-        "end": {
-          "line": 8,
-          "column": 12
-        }
-      },
-      "arguments": [
-        {
-          "kind": 74,
-          "modifiers": [],
-          "object": {
-            "kind": 53,
+        "arguments": [
+          {
+            "kind": 75,
             "modifiers": [],
-            "name": "Float",
+            "object": {
+              "kind": 54,
+              "modifiers": [],
+              "name": "Float",
+              "start": {
+                "line": 8,
+                "column": 13
+              },
+              "end": {
+                "line": 8,
+                "column": 18
+              }
+            },
+            "property": {
+              "kind": 54,
+              "modifiers": [],
+              "name": "PI",
+              "start": {
+                "line": 8,
+                "column": 19
+              },
+              "end": {
+                "line": 8,
+                "column": 21
+              }
+            },
             "start": {
               "line": 8,
               "column": 13
             },
             "end": {
               "line": 8,
-              "column": 18
-            }
-          },
-          "property": {
-            "kind": 53,
-            "modifiers": [],
-            "name": "PI",
-            "start": {
-              "line": 8,
-              "column": 19
-            },
-            "end": {
-              "line": 8,
               "column": 21
             }
-          },
-          "start": {
-            "line": 8,
-            "column": 13
-          },
-          "end": {
-            "line": 8,
-            "column": 21
           }
+        ],
+        "start": {
+          "line": 8,
+          "column": 1
+        },
+        "end": {
+          "line": 8,
+          "column": 22
         }
-      ],
+      },
       "start": {
         "line": 8,
         "column": 1
@@ -373,107 +385,118 @@
       "end": {
         "line": 8,
         "column": 22
-      },
-      "attributes": []
+      }
     },
     {
-      "kind": 18,
-      "modifiers": [],
-      "scope": {
-        "kind": 2
-      },
-      "callee": {
-        "kind": 74,
+      "kind": 43,
+      "attributes": [],
+      "expression": {
+        "kind": 18,
         "modifiers": [],
-        "object": {
-          "kind": 53,
+        "scope": {
+          "kind": 2
+        },
+        "callee": {
+          "kind": 75,
           "modifiers": [],
-          "name": "console",
+          "object": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "console",
+            "start": {
+              "line": 9,
+              "column": 1
+            },
+            "end": {
+              "line": 9,
+              "column": 8
+            }
+          },
+          "property": {
+            "kind": 54,
+            "modifiers": [],
+            "name": "log",
+            "start": {
+              "line": 9,
+              "column": 9
+            },
+            "end": {
+              "line": 9,
+              "column": 12
+            }
+          },
           "start": {
             "line": 9,
             "column": 1
           },
           "end": {
             "line": 9,
-            "column": 8
-          }
-        },
-        "property": {
-          "kind": 53,
-          "modifiers": [],
-          "name": "log",
-          "start": {
-            "line": 9,
-            "column": 9
-          },
-          "end": {
-            "line": 9,
             "column": 12
           }
         },
-        "start": {
-          "line": 9,
-          "column": 1
-        },
-        "end": {
-          "line": 9,
-          "column": 12
-        }
-      },
-      "arguments": [
-        {
-          "kind": 114,
-          "modifiers": [],
-          "elements": [
-            {
-              "kind": 74,
-              "modifiers": [],
-              "object": {
-                "kind": 53,
+        "arguments": [
+          {
+            "kind": 115,
+            "modifiers": [],
+            "elements": [
+              {
+                "kind": 75,
                 "modifiers": [],
-                "name": "Float",
+                "object": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "Float",
+                  "start": {
+                    "line": 9,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 21
+                  }
+                },
+                "property": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "name",
+                  "start": {
+                    "line": 9,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 26
+                  }
+                },
                 "start": {
                   "line": 9,
                   "column": 16
                 },
                 "end": {
                   "line": 9,
-                  "column": 21
-                }
-              },
-              "property": {
-                "kind": 53,
-                "modifiers": [],
-                "name": "name",
-                "start": {
-                  "line": 9,
-                  "column": 22
-                },
-                "end": {
-                  "line": 9,
                   "column": 26
                 }
-              },
-              "start": {
-                "line": 9,
-                "column": 16
-              },
-              "end": {
-                "line": 9,
-                "column": 26
               }
+            ],
+            "start": {
+              "line": 9,
+              "column": 13
+            },
+            "end": {
+              "line": 9,
+              "column": 28
             }
-          ],
-          "start": {
-            "line": 9,
-            "column": 13
-          },
-          "end": {
-            "line": 9,
-            "column": 28
           }
+        ],
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 29
         }
-      ],
+      },
       "start": {
         "line": 9,
         "column": 1
@@ -481,8 +504,7 @@
       "end": {
         "line": 9,
         "column": 29
-      },
-      "attributes": []
+      }
     }
   ],
   "start": {

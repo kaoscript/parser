@@ -1,9 +1,9 @@
 {
-  "kind": 77,
+  "kind": 78,
   "attributes": [],
   "body": [
     {
-      "kind": 46,
+      "kind": 47,
       "attributes": [],
       "modifiers": [
         {
@@ -30,7 +30,7 @@
         }
       ],
       "expression": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "heroes",
         "start": {
@@ -51,7 +51,7 @@
         "column": 2
       },
       "value": {
-        "kind": 53,
+        "kind": 54,
         "modifiers": [],
         "name": "hero",
         "start": {
@@ -68,64 +68,76 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 18,
-            "modifiers": [],
-            "scope": {
-              "kind": 2
-            },
-            "callee": {
-              "kind": 74,
+            "kind": 43,
+            "attributes": [],
+            "expression": {
+              "kind": 18,
               "modifiers": [],
-              "object": {
-                "kind": 53,
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 75,
                 "modifiers": [],
-                "name": "console",
+                "object": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "console",
+                  "start": {
+                    "line": 2,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 9
+                  }
+                },
+                "property": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "log",
+                  "start": {
+                    "line": 2,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 13
+                  }
+                },
                 "start": {
                   "line": 2,
                   "column": 2
                 },
                 "end": {
                   "line": 2,
-                  "column": 9
-                }
-              },
-              "property": {
-                "kind": 53,
-                "modifiers": [],
-                "name": "log",
-                "start": {
-                  "line": 2,
-                  "column": 10
-                },
-                "end": {
-                  "line": 2,
                   "column": 13
                 }
               },
+              "arguments": [
+                {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "hero",
+                  "start": {
+                    "line": 2,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 18
+                  }
+                }
+              ],
               "start": {
                 "line": 2,
                 "column": 2
               },
               "end": {
                 "line": 2,
-                "column": 13
+                "column": 19
               }
             },
-            "arguments": [
-              {
-                "kind": 53,
-                "modifiers": [],
-                "name": "hero",
-                "start": {
-                  "line": 2,
-                  "column": 14
-                },
-                "end": {
-                  "line": 2,
-                  "column": 18
-                }
-              }
-            ],
             "start": {
               "line": 2,
               "column": 2
@@ -133,8 +145,7 @@
             "end": {
               "line": 2,
               "column": 19
-            },
-            "attributes": []
+            }
           }
         ],
         "start": {
@@ -151,64 +162,76 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 18,
-            "modifiers": [],
-            "scope": {
-              "kind": 2
-            },
-            "callee": {
-              "kind": 74,
+            "kind": 43,
+            "attributes": [],
+            "expression": {
+              "kind": 18,
               "modifiers": [],
-              "object": {
-                "kind": 53,
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 75,
                 "modifiers": [],
-                "name": "console",
+                "object": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "console",
+                  "start": {
+                    "line": 5,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 9
+                  }
+                },
+                "property": {
+                  "kind": 54,
+                  "modifiers": [],
+                  "name": "log",
+                  "start": {
+                    "line": 5,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 13
+                  }
+                },
                 "start": {
                   "line": 5,
                   "column": 2
                 },
                 "end": {
                   "line": 5,
-                  "column": 9
-                }
-              },
-              "property": {
-                "kind": 53,
-                "modifiers": [],
-                "name": "log",
-                "start": {
-                  "line": 5,
-                  "column": 10
-                },
-                "end": {
-                  "line": 5,
                   "column": 13
                 }
               },
+              "arguments": [
+                {
+                  "kind": 65,
+                  "modifiers": [],
+                  "value": "no heroes",
+                  "start": {
+                    "line": 5,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 25
+                  }
+                }
+              ],
               "start": {
                 "line": 5,
                 "column": 2
               },
               "end": {
                 "line": 5,
-                "column": 13
+                "column": 26
               }
             },
-            "arguments": [
-              {
-                "kind": 64,
-                "modifiers": [],
-                "value": "no heroes",
-                "start": {
-                  "line": 5,
-                  "column": 14
-                },
-                "end": {
-                  "line": 5,
-                  "column": 25
-                }
-              }
-            ],
             "start": {
               "line": 5,
               "column": 2
@@ -216,8 +239,7 @@
             "end": {
               "line": 5,
               "column": 26
-            },
-            "attributes": []
+            }
           }
         ],
         "start": {
