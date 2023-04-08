@@ -2346,83 +2346,63 @@ export namespace Parser {
 				}
 			}
 
-			if dMode ~~ DestructuringMode.TYPE {
-				if atthis {
-					if @test(Token.EXCLAMATION_QUESTION) {
-						modifiers.push(AST.Modifier(ModifierKind.NonNullable, @yes()))
-					}
+			if atthis {
+				if @test(Token.EXCLAMATION_QUESTION) {
+					modifiers.push(AST.Modifier(ModifierKind.NonNullable, @yes()))
 				}
-				else {
-					var mut required = false
+			}
+			else {
+				var mut required = false
 
-					if ?name && dMode ~~ DestructuringMode.DEFAULT && @test(Token.EXCLAMATION) {
-						modifiers.push(AST.Modifier(ModifierKind.Required, @yes()))
+				if ?name && dMode ~~ DestructuringMode.DEFAULT && @test(Token.EXCLAMATION) {
+					modifiers.push(AST.Modifier(ModifierKind.Required, @yes()))
 
-						required = true
-					}
-
-					if @test(Token.COLON) {
-						@commit()
-
-						var type = @reqTypeLimited()
-						var operator = @tryDefaultAssignmentOperator(true)
-
-						if operator.ok {
-							var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
-
-							return @yep(AST.ArrayBindingElement(modifiers, name, type, operator, defaultValue, first ?? name, defaultValue))
-						}
-						else {
-							return @yep(AST.ArrayBindingElement(modifiers, name, type, null, null, first ?? name, type ?? name))
-						}
-					}
-					else if !rest && @test(Token.QUESTION) {
-						var modifier = AST.Modifier(ModifierKind.Nullable, @yes())
-
-						modifiers.push(modifier)
-
-						if !?name {
-							return @yep(AST.ArrayBindingElement(modifiers, null, null, null, null, first, modifier))
-						}
-					}
-
-					if required {
-						var operator = @reqDefaultAssignmentOperator()
-						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
-
-						return @yep(AST.ArrayBindingElement(modifiers, name, null, operator, defaultValue, first ?? name, defaultValue))
-					}
+					required = true
 				}
 
-				if ?name && dMode ~~ DestructuringMode.DEFAULT {
+				if dMode ~~ DestructuringMode.TYPE && @test(Token.COLON) {
+					@commit()
+
+					var type = @reqTypeLimited()
 					var operator = @tryDefaultAssignmentOperator(true)
 
 					if operator.ok {
 						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
 
-						return @yep(AST.ArrayBindingElement(modifiers, name, null, operator, defaultValue, first ?? name, defaultValue))
+						return @yep(AST.ArrayBindingElement(modifiers, name, type, operator, defaultValue, first ?? name, defaultValue))
+					}
+					else if required {
+						@throw('=', '??=', '##=')
+					}
+					else {
+						return @yep(AST.ArrayBindingElement(modifiers, name, type, null, null, first ?? name, type ?? name))
 					}
 				}
-
-				return @yep(AST.ArrayBindingElement(modifiers, name, null, null, null, first ?? name, name ?? first))
-			}
-
-			if ?name && dMode ~~ DestructuringMode.DEFAULT {
-				if !rest && @test(Token.QUESTION) {
+				else if @test(Token.QUESTION) {
 					var modifier = AST.Modifier(ModifierKind.Nullable, @yes())
 
 					modifiers.push(modifier)
 
-					return @yep(AST.ArrayBindingElement(modifiers, name, null, null, null, first ?? name, modifier))
-				}
-				else {
-					var operator = @tryDefaultAssignmentOperator(true)
-
-					if operator.ok {
-						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
-
-						return @yep(AST.ArrayBindingElement(modifiers, name, null, operator, defaultValue, first ?? name, defaultValue))
+					if !?name {
+						return @yep(AST.ArrayBindingElement(modifiers, null, null, null, null, first, modifier))
 					}
+				}
+
+				if required {
+					var operator = @reqDefaultAssignmentOperator()
+					var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+
+					return @yep(AST.ArrayBindingElement(modifiers, name, null, operator, defaultValue, first ?? name, defaultValue))
+				}
+			}
+
+			if ?name && dMode ~~ DestructuringMode.DEFAULT {
+				var operator = @tryDefaultAssignmentOperator(true)
+
+				if operator.ok {
+					var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+
+					return @yep(AST.ArrayBindingElement(modifiers, name, null, operator, defaultValue, first ?? name, defaultValue))
 				}
 			}
 
@@ -3724,6 +3704,7 @@ export namespace Parser {
 		} # }}}
 		reqForExpression(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var modifiers = []
+			var mut declaration = false
 
 			var mark = @mark()
 
@@ -3747,6 +3728,7 @@ export namespace Parser {
 
 					if @test(Token.FROM, Token.IN, Token.OF) {
 						modifiers.push(AST.Modifier(ModifierKind.Declarative, first), modifier)
+						declaration = true
 
 						@rollback(mark2)
 					}
@@ -3756,19 +3738,22 @@ export namespace Parser {
 				}
 				else {
 					modifiers.push(AST.Modifier(ModifierKind.Declarative, first), modifier)
+					declaration = true
 				}
 			}
 
 
-			var dyn identifier1 = NO
-			var dyn type1 = NO
-			var dyn identifier2 = NO
-			var dyn destructuring = NO
+			var mut identifier1 = NO
+			var mut type1 = NO
+			var mut identifier2 = NO
+			var mut destructuring = NO
 
 			if @test(Token.UNDERSCORE) {
 				@commit()
 			}
-			else if !(destructuring = @tryDestructuring(fMode)).ok {
+			// TODO!
+			// else if !(destructuring = @tryDestructuring(declaration ? .Declaration : null, fMode)).ok {
+			else if !(destructuring = @tryDestructuring(declaration ? DestructuringMode.Declaration : null, fMode)).ok {
 				identifier1 = @reqIdentifier()
 
 				if @test(Token.COLON) {
@@ -5797,7 +5782,7 @@ export namespace Parser {
 
 			var dyn operand, operator
 
-			if (operand = @tryDestructuring(fMode)).ok {
+			if (operand = @tryDestructuring(null, fMode)).ok {
 				@NL_0M()
 
 				if (operator = @tryAssignementOperator()).ok {
@@ -8467,15 +8452,24 @@ export namespace Parser {
 
 			return NO
 		} # }}}
-		tryDestructuring(fMode): Event ~ SyntaxError { # {{{
+		tryDestructuring(mut dMode: DestructuringMode?, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			if !?dMode {
+				if fMode == FunctionMode.Method {
+					dMode = DestructuringMode.Expression + DestructuringMode.THIS_ALIAS
+				}
+				else {
+					dMode = DestructuringMode.Expression
+				}
+			}
+
 			if @match(Token.LEFT_CURLY, Token.LEFT_SQUARE) == Token.LEFT_CURLY {
 				try {
-					return @reqDestructuringObject(@yes(), DestructuringMode.Expression, fMode)
+					return @reqDestructuringObject(@yes(), dMode, fMode)
 				}
 			}
 			else if @token == Token.LEFT_SQUARE {
 				try {
-					return @reqDestructuringArray(@yes(), DestructuringMode.Expression, fMode)
+					return @reqDestructuringArray(@yes(), dMode, fMode)
 				}
 			}
 
