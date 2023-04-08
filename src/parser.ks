@@ -5401,7 +5401,7 @@ export namespace Parser {
 					var firstLine = first.start!?.line + 1
 					var mut previous = null
 
-					for var [indent, first?, ...rest], index in lines {
+					for var [indent, first? = null, ...rest], index in lines {
 						if index > 0 {
 							if !?previous {
 								previous = AST.Literal(null, '\n', new Position(
@@ -5491,7 +5491,7 @@ export namespace Parser {
 					if lines.length > 1 {
 						var mut previous = elements[elements.length - 1].value
 
-						for var [indent, first, ...rest], index in lines from 1 {
+						for var [indent, first? = null, ...rest], index in lines from 1 {
 							if previous.kind == NodeKind.Literal {
 								previous.value += '\n'
 								previous.end.column += 1
@@ -5508,21 +5508,23 @@ export namespace Parser {
 								elements.push(previous)
 							}
 
-							if first.value.kind == NodeKind.Literal {
-								previous.value += first.value.value
-								previous.end = first.value.end
-							}
-							else {
-								elements.push(first)
-							}
+							if ?first {
+								if first.value.kind == NodeKind.Literal {
+									previous.value += first.value.value
+									previous.end = first.value.end
+								}
+								else {
+									elements.push(first)
+								}
 
-							if #rest {
-								elements.push(...rest)
+								if #rest {
+									elements.push(...rest)
 
-								previous = rest[rest.length - 1].value
-							}
-							else {
-								previous = first.value
+									previous = rest[rest.length - 1].value
+								}
+								else {
+									previous = first.value
+								}
 							}
 						}
 					}
