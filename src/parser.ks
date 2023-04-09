@@ -5469,18 +5469,24 @@ export namespace Parser {
 							if ?previous && first.value.kind == NodeKind.Literal {
 								previous.value += first.value.value
 								previous.end = first.value.end
+
+								if #rest {
+									elements.push(...rest)
+
+									previous = rest[rest.length - 1].value
+								}
 							}
 							else {
 								elements.push(first)
-							}
 
-							if #rest {
-								elements.push(...rest)
+								if #rest {
+									elements.push(...rest)
 
-								previous = rest[rest.length - 1].value
-							}
-							else {
-								previous = first.value
+									previous = rest[rest.length - 1].value
+								}
+								else {
+									previous = first.value
+								}
 							}
 						}
 					}
