@@ -1,4 +1,4 @@
-var p = new Point()
+var p = Point.new()
 
 p..log('start')
 	..x = x

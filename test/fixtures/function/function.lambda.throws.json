@@ -1,12 +1,12 @@
 {
-  "kind": 78,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 50,
+      "kind": 48,
       "attributes": [],
       "name": {
-        "kind": 54,
+        "kind": 52,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -34,18 +34,18 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 107,
+            "kind": 105,
             "attributes": [],
             "value": {
-              "kind": 64,
+              "kind": 62,
               "modifiers": [],
               "parameters": [
                 {
-                  "kind": 89,
+                  "kind": 87,
                   "attributes": [],
                   "modifiers": [],
                   "external": {
-                    "kind": 54,
+                    "kind": 52,
                     "modifiers": [],
                     "name": "x",
                     "start": {
@@ -58,7 +58,7 @@
                     }
                   },
                   "internal": {
-                    "kind": 54,
+                    "kind": 52,
                     "modifiers": [],
                     "name": "x",
                     "start": {
@@ -85,18 +85,46 @@
                 "attributes": [],
                 "statements": [
                   {
-                    "kind": 117,
+                    "kind": 115,
                     "attributes": [],
                     "value": {
-                      "kind": 29,
+                      "kind": 18,
                       "modifiers": [],
-                      "class": {
-                        "kind": 54,
+                      "scope": {
+                        "kind": 2
+                      },
+                      "callee": {
+                        "kind": 73,
                         "modifiers": [],
-                        "name": "Error",
+                        "object": {
+                          "kind": 52,
+                          "modifiers": [],
+                          "name": "Error",
+                          "start": {
+                            "line": 3,
+                            "column": 9
+                          },
+                          "end": {
+                            "line": 3,
+                            "column": 14
+                          }
+                        },
+                        "property": {
+                          "kind": 52,
+                          "modifiers": [],
+                          "name": "new",
+                          "start": {
+                            "line": 3,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 3,
+                            "column": 18
+                          }
+                        },
                         "start": {
                           "line": 3,
-                          "column": 13
+                          "column": 9
                         },
                         "end": {
                           "line": 3,
@@ -142,7 +170,7 @@
               },
               "throws": [
                 {
-                  "kind": 54,
+                  "kind": 52,
                   "modifiers": [],
                   "name": "Error",
                   "start": {

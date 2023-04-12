@@ -1,13 +1,13 @@
 {
-  "kind": 78,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 82,
+      "kind": 80,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 54,
+        "kind": 52,
         "modifiers": [],
         "name": "qux",
         "start": {
@@ -25,7 +25,7 @@
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 54,
+            "kind": 52,
             "modifiers": [],
             "name": "Foobar",
             "start": {
@@ -39,7 +39,7 @@
           },
           "members": [
             {
-              "kind": 45,
+              "kind": 43,
               "attributes": [],
               "modifiers": [
                 {
@@ -55,7 +55,7 @@
                 }
               ],
               "name": {
-                "kind": 54,
+                "kind": 52,
                 "modifiers": [],
                 "name": "_name",
                 "start": {
@@ -76,10 +76,10 @@
                 "column": 17
               },
               "type": {
-                "kind": 125,
+                "kind": 123,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 54,
+                  "kind": 52,
                   "modifiers": [],
                   "name": "String",
                   "start": {
@@ -102,11 +102,11 @@
               }
             },
             {
-              "kind": 76,
+              "kind": 74,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 54,
+                "kind": 52,
                 "modifiers": [],
                 "name": "constructor",
                 "start": {
@@ -120,11 +120,11 @@
               },
               "parameters": [
                 {
-                  "kind": 89,
+                  "kind": 87,
                   "attributes": [],
                   "modifiers": [],
                   "external": {
-                    "kind": 54,
+                    "kind": 52,
                     "modifiers": [],
                     "name": "name",
                     "start": {
@@ -137,10 +137,10 @@
                     }
                   },
                   "internal": {
-                    "kind": 116,
+                    "kind": 114,
                     "modifiers": [],
                     "name": {
-                      "kind": 54,
+                      "kind": 52,
                       "modifiers": [],
                       "name": "name",
                       "start": {
@@ -174,7 +174,7 @@
                     }
                   },
                   "defaultValue": {
-                    "kind": 65,
+                    "kind": 63,
                     "modifiers": [],
                     "value": "john",
                     "start": {
@@ -227,21 +227,21 @@
       }
     },
     {
-      "kind": 133,
+      "kind": 131,
       "attributes": [],
       "modifiers": [],
       "declarations": [
         {
-          "kind": 131,
+          "kind": 129,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 132,
+              "kind": 130,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 54,
+                "kind": 52,
                 "modifiers": [],
                 "name": "x",
                 "start": {
@@ -272,31 +272,59 @@
             "column": 25
           },
           "value": {
-            "kind": 29,
+            "kind": 18,
             "modifiers": [],
-            "class": {
-              "kind": 75,
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 73,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 73,
                 "modifiers": [],
-                "name": "qux",
+                "object": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "qux",
+                  "start": {
+                    "line": 10,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 12
+                  }
+                },
+                "property": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "Foobar",
+                  "start": {
+                    "line": 10,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 19
+                  }
+                },
                 "start": {
                   "line": 10,
-                  "column": 13
+                  "column": 9
                 },
                 "end": {
                   "line": 10,
-                  "column": 16
+                  "column": 19
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 52,
                 "modifiers": [],
-                "name": "Foobar",
+                "name": "new",
                 "start": {
                   "line": 10,
-                  "column": 17
+                  "column": 20
                 },
                 "end": {
                   "line": 10,
@@ -305,7 +333,7 @@
               },
               "start": {
                 "line": 10,
-                "column": 13
+                "column": 9
               },
               "end": {
                 "line": 10,

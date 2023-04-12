@@ -42,7 +42,6 @@ enum Token {
 	DOT_DOT
 	DOT_DOT_DOT
 	DOWN
-	DROP
 	DYN
 	ELSE
 	ELSE_IF
@@ -117,7 +116,6 @@ enum Token {
 	ML_TILDE
 	MUT
 	NAMESPACE
-	NEW
 	NEWLINE
 	NUMERAL
 	OCTAL_NUMBER
@@ -1346,14 +1344,6 @@ namespace M {
 					return Token.TEMPLATE_BEGIN
 				}
 			}
-			else if c == 110 { // n
-				if that.scanIdentifier(true) == 'ew' {
-					return Token.NEW
-				}
-				else {
-					return Token.IDENTIFIER
-				}
-			}
 			else if c >= 97 && c <= 122 { // a-z
 				that.scanIdentifier(false)
 
@@ -1671,7 +1661,7 @@ namespace M {
 					return Token.CONTINUE
 				}
 			}
-			// do, drop
+			// do
 			else if	c == 100
 			{
 				if 	that.charAt(1) == 111 &&
@@ -1680,15 +1670,6 @@ namespace M {
 					that.next(2)
 
 					return Token.DO
-				}
-				else if	that.charAt(1) == 114 &&
-					that.charAt(2) == 111 &&
-					that.charAt(3) == 112 &&
-					that.isBoundary(4)
-				{
-					that.next(4)
-
-					return Token.DROP
 				}
 			}
 			// enum

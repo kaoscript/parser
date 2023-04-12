@@ -5,7 +5,7 @@ class Shape {
 	}
 
 	static {
-		makeRectangle(color: string): Shape => new Shape('rectangle', color)
+		makeRectangle(color: string): Shape => Shape.new('rectangle', color)
 	}
 
 	constructor(@type, @color)

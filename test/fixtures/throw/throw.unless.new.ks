@@ -1,1 +1,1 @@
-throw new Error('Not Defined') unless ?x
+throw Error.new('Not Defined') unless ?x

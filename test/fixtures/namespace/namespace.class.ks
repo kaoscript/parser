@@ -7,4 +7,4 @@ namespace qux {
 	}
 }
 
-var x = new qux.Foobar()
+var x = qux.Foobar.new()

@@ -6,7 +6,7 @@ class Shape {
 	constructor(@color)
 
 	draw(canvas): string {
-		throw new Error('Not Implemented')
+		throw Error.new('Not Implemented')
 	}
 }
 
@@ -20,6 +20,6 @@ class Rectangle extends Shape {
 	}
 }
 
-var r = new Rectangle('black')
+var r = Rectangle.new('black')
 
 expect(r.draw()).to.equal('I\'m drawing a black rectangle.')

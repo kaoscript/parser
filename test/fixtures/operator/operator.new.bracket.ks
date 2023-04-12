@@ -1,1 +1,1 @@
-new foo[bar]()
+foo[bar].new()

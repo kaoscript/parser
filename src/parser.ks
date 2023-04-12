@@ -6594,9 +6594,6 @@ export namespace Parser {
 				Token.DO {
 					statement = @reqDoStatement(@yes(), fMode)
 				}
-				Token.DROP {
-					statement = @tryDropStatement(@yes(), fMode)
-				}
 				Token.ENUM {
 					statement = @reqEnumStatement(@yes())
 				}
@@ -8396,47 +8393,6 @@ export namespace Parser {
 
 			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
 		} # }}}
-		tryCreateExpression(mut first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			if @test(Token.LEFT_ROUND) {
-				@commit()
-
-				var class = @reqExpression(eMode, fMode)
-
-				unless @test(Token.RIGHT_ROUND) {
-					@throw(')')
-				}
-
-				@commit()
-
-				unless @test(Token.LEFT_ROUND) {
-					@throw('(')
-				}
-
-				@commit()
-
-				return @yep(AST.CreateExpression(class, @reqArgumentList(eMode, fMode), first, @yes()))
-			}
-
-			var dyn class = @tryVariableName(fMode)
-
-			unless class.ok {
-				return NO
-			}
-
-			// if @match(Token.LEFT_ANGLE, Token.LEFT_SQUARE) == Token.LEFT_ANGLE {
-			// 	var generic = @reqTypeGeneric(@yes())
-			// 	class = @yep(AST.TypeReference([], class, generic, class, generic))
-			// }
-
-			if @test(Token.LEFT_ROUND) {
-				@commit()
-
-				return @yep(AST.CreateExpression(class, @reqArgumentList(eMode, fMode), first, @yes()))
-			}
-			else {
-				return @yep(AST.CreateExpression(class, @yep([]), first, class))
-			}
-		} # }}}
 		tryDefaultAssignmentOperator(typed: Boolean): Event ~ SyntaxError { # {{{
 			if typed {
 				if @test(Token.EQUALS) {
@@ -8514,16 +8470,6 @@ export namespace Parser {
 				return @reqDestructuringObject(first, dMode, fMode)
 			}
 			catch {
-				return NO
-			}
-		} # }}}
-		tryDropStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var variable = @tryVariableName(fMode)
-
-			if variable.ok {
-				return @yep(AST.DropStatement(variable, first, variable))
-			}
-			else {
 				return NO
 			}
 		} # }}}
@@ -9169,17 +9115,6 @@ export namespace Parser {
 					var delimiter = @token!?
 
 					return @reqMultiLineString(@yes(), delimiter)
-				}
-				.NEW {
-					var first = @yep(AST.Identifier(@scanner.value(), @yes()))
-
-					var operand = @tryCreateExpression(first, eMode, fMode)
-					if operand.ok {
-						return operand
-					}
-					else {
-						return first
-					}
 				}
 				.REGEXP {
 					return @yep(AST.RegularExpression(@scanner.value(), @yes()))

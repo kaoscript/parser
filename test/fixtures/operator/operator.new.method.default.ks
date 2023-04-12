@@ -1,1 +1,1 @@
-new Shape().draw()
+Shape.new().draw()

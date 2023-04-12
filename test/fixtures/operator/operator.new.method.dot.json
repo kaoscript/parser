@@ -1,9 +1,9 @@
 {
-  "kind": 78,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 41,
       "attributes": [],
       "expression": {
         "kind": 18,
@@ -12,47 +12,91 @@
           "kind": 2
         },
         "callee": {
-          "kind": 75,
+          "kind": 73,
           "modifiers": [],
           "object": {
-            "kind": 29,
+            "kind": 18,
             "modifiers": [],
-            "class": {
-              "kind": 75,
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 73,
               "modifiers": [],
               "object": {
-                "kind": 54,
+                "kind": 18,
                 "modifiers": [],
-                "name": "pack",
+                "scope": {
+                  "kind": 2
+                },
+                "callee": {
+                  "kind": 73,
+                  "modifiers": [],
+                  "object": {
+                    "kind": 52,
+                    "modifiers": [],
+                    "name": "pack",
+                    "start": {
+                      "line": 1,
+                      "column": 1
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 5
+                    }
+                  },
+                  "property": {
+                    "kind": 52,
+                    "modifiers": [],
+                    "name": "Shape",
+                    "start": {
+                      "line": 1,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 11
+                    }
+                  },
+                  "start": {
+                    "line": 1,
+                    "column": 1
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 11
+                  }
+                },
+                "arguments": [],
                 "start": {
                   "line": 1,
-                  "column": 5
+                  "column": 1
                 },
                 "end": {
                   "line": 1,
-                  "column": 9
+                  "column": 13
                 }
               },
               "property": {
-                "kind": 54,
+                "kind": 52,
                 "modifiers": [],
-                "name": "Shape",
+                "name": "draw",
                 "start": {
                   "line": 1,
-                  "column": 10
+                  "column": 14
                 },
                 "end": {
                   "line": 1,
-                  "column": 15
+                  "column": 18
                 }
               },
               "start": {
                 "line": 1,
-                "column": 5
+                "column": 1
               },
               "end": {
                 "line": 1,
-                "column": 15
+                "column": 18
               }
             },
             "arguments": [],
@@ -62,20 +106,20 @@
             },
             "end": {
               "line": 1,
-              "column": 17
+              "column": 20
             }
           },
           "property": {
-            "kind": 54,
+            "kind": 52,
             "modifiers": [],
-            "name": "draw",
+            "name": "new",
             "start": {
               "line": 1,
-              "column": 18
+              "column": 21
             },
             "end": {
               "line": 1,
-              "column": 22
+              "column": 24
             }
           },
           "start": {
@@ -84,7 +128,7 @@
           },
           "end": {
             "line": 1,
-            "column": 22
+            "column": 24
           }
         },
         "arguments": [],
@@ -94,7 +138,7 @@
         },
         "end": {
           "line": 1,
-          "column": 24
+          "column": 26
         }
       },
       "start": {
@@ -103,7 +147,7 @@
       },
       "end": {
         "line": 1,
-        "column": 24
+        "column": 26
       }
     }
   ],
@@ -113,6 +157,6 @@
   },
   "end": {
     "line": 1,
-    "column": 24
+    "column": 26
   }
 }

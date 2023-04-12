@@ -16,6 +16,6 @@ class Greetings {
 	}
 }
 
-var hello = new Greetings('Hello world!')
+var hello = Greetings.new('Hello world!')
 
 expect(hello.greet('miss White')).to.equal('Hello world!\nIt\'s nice to meet you, miss White.')

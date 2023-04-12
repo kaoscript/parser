@@ -1,23 +1,51 @@
 {
-  "kind": 78,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 56,
+      "kind": 54,
       "attributes": [],
       "whenTrue": {
-        "kind": 117,
+        "kind": 115,
         "attributes": [],
         "value": {
-          "kind": 29,
+          "kind": 18,
           "modifiers": [],
-          "class": {
-            "kind": 54,
+          "scope": {
+            "kind": 2
+          },
+          "callee": {
+            "kind": 73,
             "modifiers": [],
-            "name": "Error",
+            "object": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "Error",
+              "start": {
+                "line": 1,
+                "column": 7
+              },
+              "end": {
+                "line": 1,
+                "column": 12
+              }
+            },
+            "property": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "new",
+              "start": {
+                "line": 1,
+                "column": 13
+              },
+              "end": {
+                "line": 1,
+                "column": 16
+              }
+            },
             "start": {
               "line": 1,
-              "column": 11
+              "column": 7
             },
             "end": {
               "line": 1,
@@ -26,7 +54,7 @@
           },
           "arguments": [
             {
-              "kind": 65,
+              "kind": 63,
               "modifiers": [],
               "value": "Not Defined",
               "start": {
@@ -66,7 +94,7 @@
         "column": 38
       },
       "condition": {
-        "kind": 127,
+        "kind": 125,
         "modifiers": [],
         "operator": {
           "kind": 4,
@@ -80,7 +108,7 @@
           }
         },
         "argument": {
-          "kind": 127,
+          "kind": 125,
           "modifiers": [],
           "operator": {
             "kind": 1,
@@ -94,7 +122,7 @@
             }
           },
           "argument": {
-            "kind": 54,
+            "kind": 52,
             "modifiers": [],
             "name": "x",
             "start": {

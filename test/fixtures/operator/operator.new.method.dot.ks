@@ -1,1 +1,1 @@
-new pack.Shape().draw()
+pack.Shape().draw().new()

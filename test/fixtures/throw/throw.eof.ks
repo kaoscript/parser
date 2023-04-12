@@ -1,1 +1,1 @@
-throw new Error('Not Implemented')
+throw Error.new('Not Implemented')

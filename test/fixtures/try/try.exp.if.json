@@ -1,12 +1,12 @@
 {
-  "kind": 78,
+  "kind": 76,
   "attributes": [],
   "body": [
     {
-      "kind": 50,
+      "kind": 48,
       "attributes": [],
       "name": {
-        "kind": 54,
+        "kind": 52,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -28,11 +28,11 @@
       },
       "parameters": [
         {
-          "kind": 89,
+          "kind": 87,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 54,
+            "kind": 52,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -45,7 +45,7 @@
             }
           },
           "internal": {
-            "kind": 54,
+            "kind": 52,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -70,7 +70,7 @@
       "modifiers": [],
       "throws": [
         {
-          "kind": 54,
+          "kind": 52,
           "modifiers": [],
           "name": "Error",
           "start": {
@@ -88,17 +88,17 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 56,
+            "kind": 54,
             "attributes": [],
             "whenTrue": {
               "kind": 15,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 107,
+                  "kind": 105,
                   "attributes": [],
                   "value": {
-                    "kind": 83,
+                    "kind": 81,
                     "modifiers": [],
                     "value": 42,
                     "start": {
@@ -138,7 +138,7 @@
               "column": 3
             },
             "condition": {
-              "kind": 54,
+              "kind": 52,
               "modifiers": [],
               "name": "x",
               "start": {
@@ -155,18 +155,46 @@
               "attributes": [],
               "statements": [
                 {
-                  "kind": 117,
+                  "kind": 115,
                   "attributes": [],
                   "value": {
-                    "kind": 29,
+                    "kind": 18,
                     "modifiers": [],
-                    "class": {
-                      "kind": 54,
+                    "scope": {
+                      "kind": 2
+                    },
+                    "callee": {
+                      "kind": 73,
                       "modifiers": [],
-                      "name": "Error",
+                      "object": {
+                        "kind": 52,
+                        "modifiers": [],
+                        "name": "Error",
+                        "start": {
+                          "line": 6,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 14
+                        }
+                      },
+                      "property": {
+                        "kind": 52,
+                        "modifiers": [],
+                        "name": "new",
+                        "start": {
+                          "line": 6,
+                          "column": 15
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 18
+                        }
+                      },
                       "start": {
                         "line": 6,
-                        "column": 13
+                        "column": 9
                       },
                       "end": {
                         "line": 6,
@@ -175,7 +203,7 @@
                     },
                     "arguments": [
                       {
-                        "kind": 65,
+                        "kind": 63,
                         "modifiers": [],
                         "value": "foobar",
                         "start": {
@@ -229,7 +257,7 @@
       }
     },
     {
-      "kind": 56,
+      "kind": 54,
       "attributes": [],
       "whenTrue": {
         "kind": 15,
@@ -253,7 +281,7 @@
         "column": 2
       },
       "condition": {
-        "kind": 119,
+        "kind": 117,
         "modifiers": [],
         "argument": {
           "kind": 18,
@@ -262,7 +290,7 @@
             "kind": 2
           },
           "callee": {
-            "kind": 54,
+            "kind": 52,
             "modifiers": [],
             "name": "foobar",
             "start": {
@@ -276,7 +304,7 @@
           },
           "arguments": [
             {
-              "kind": 54,
+              "kind": 52,
               "modifiers": [],
               "name": "true",
               "start": {

@@ -595,15 +595,6 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func CreateExpression(class, arguments, first, last) { # {{{
-			return location({
-				kind: NodeKind.CreateExpression
-				modifiers: []
-				class: class.value
-				arguments: [argument.value for argument in arguments.value]
-			}, first, last)
-		} # }}}
-
 		func CurryExpression(scope, callee, arguments, first, last) { # {{{
 			return location({
 				kind: NodeKind.CurryExpression
@@ -655,14 +646,6 @@ namespace AST {
 				attributes: []
 				condition: condition.value
 				body: body.value
-			}, first, last)
-		} # }}}
-
-		func DropStatement(variable, first, last) { # {{{
-			return location({
-				kind: NodeKind.DropStatement
-				attributes: []
-				variable: variable.value
 			}, first, last)
 		} # }}}
 

@@ -1,1 +1,1 @@
-new (foo())()
+foo().new()
