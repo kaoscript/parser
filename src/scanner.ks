@@ -3425,7 +3425,7 @@ class Scanner {
 		}
 	} # }}}
 	endPosition(): Position { # {{{
-		return new Position(
+		return Position.new(
 			line: @nextLine
 			column: @nextColumn
 		)
@@ -3448,7 +3448,7 @@ class Scanner {
 	} # }}}
 	line(): @line
 	mark(): Marker { # {{{
-		return new Marker(
+		return Marker.new(
 			eof: @eof
 			index: @index
 			line: @line
@@ -3513,12 +3513,12 @@ class Scanner {
 		return true
 	} # }}}
 	position(): Range { # {{{
-		return new Range(
-			start: new Position(
+		return Range.new(
+			start: Position.new(
 				line: @line
 				column: @column
 			)
-			end: new Position(
+			end: Position.new(
 				line: @nextLine
 				column: @nextColumn
 			)
@@ -4098,7 +4098,7 @@ class Scanner {
 		return -1
 	} # }}}
 	startPosition(): Position { # {{{
-		return new Position(
+		return Position.new(
 			line: @line
 			column: @column
 		)
