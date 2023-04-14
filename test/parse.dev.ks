@@ -28,7 +28,7 @@ var args = process.argv.slice(3)
 var success = []
 var errors = []
 
-var mocha = new Mocha({
+var mocha = Mocha.new({
 	reporter: EmptyReporter
 })
 mocha.checkLeaks()

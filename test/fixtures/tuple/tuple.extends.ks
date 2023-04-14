@@ -1,6 +1,6 @@
-tuple Pair(String, Number)
+tuple Pair [ :String, :Number ]
 
-tuple Triple(Boolean) extends Pair
+tuple Triple extends Pair [ :Boolean ]
 
 var triple = Triple('x', 0.1, true)
 

@@ -1,7 +1,7 @@
-tuple Pair {
+tuple Pair [
 	x: String	= ''
 	y: Number	= 0
-}
+]
 
 var dyn pair = Pair('x', 0.1)
 

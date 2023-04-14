@@ -6243,7 +6243,7 @@ export namespace Parser {
 			var operator = @tryDefaultAssignmentOperator(true)
 
 			if operator.ok {
-				var defaultValue = @reqExpression(ExpressionMode.Default, fMode)
+				var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
 
 				return @yep(AST.Parameter(attributes, modifiers, external ?? @yep(name.value.name), name, null, operator, defaultValue, first ?? name, defaultValue))
 			}
@@ -6997,98 +6997,55 @@ export namespace Parser {
 				extends = @reqIdentifier()
 			}
 
-			if extends == null && @test(Token.LEFT_ROUND) {
-				var first = @yes()
-
-				@NL_0M()
+			if @test(Token.LEFT_SQUARE) {
+				@commit().NL_0M()
 
 				@stackInnerAttributes(attributes)
 
-				until @test(Token.RIGHT_ROUND) {
-					var mut first = null
-
-					var attributes = @stackOuterAttributes([])
-					if attributes.length != 0 {
-						first = attributes[0]
-					}
-
-					var type = @reqType()
-
-					if @test(Token.EQUALS) {
-						@commit()
-
-						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, FunctionMode.Function)
-
-						elements.push(AST.TupleField(attributes, [], null, type, defaultValue, first ?? type, defaultValue))
-					}
-					else {
-						elements.push(AST.TupleField(attributes, [], null, type, null, first ?? type, type))
-					}
-
-					if @match(Token.COMMA, Token.NEWLINE) == Token.COMMA {
-						@commit().NL_0M()
-					}
-					else if @token == Token.NEWLINE {
-						@commit().NL_0M()
-
-						if @test(Token.COMMA) {
-							@commit().NL_0M()
-						}
-					}
-					else {
-						break
-					}
-				}
-
-				unless @test(Token.RIGHT_ROUND) {
-					@throw(')')
-				}
-
-				last = @yes()
-
-				if @test(Token.EXTENDS) {
-					@commit()
-
-					last = extends = @reqIdentifier()
-				}
-			}
-			else if @test(Token.LEFT_CURLY) {
-				var first = @yes()
-
-				@NL_0M()
-
-				modifiers.push(@yep(AST.Modifier(ModifierKind.Named, first)))
-
-				@stackInnerAttributes(attributes)
-
-				until @test(Token.RIGHT_CURLY) {
-					var mut first = null
-
-					var attributes = @stackOuterAttributes([])
-					if attributes.length != 0 {
-						first = attributes[0]
-					}
-
+				until @test(Token.RIGHT_SQUARE) {
 					var modifiers = []
-
-					var name = @reqIdentifier()
-
-					var mut last = name
-
+					var mut name = null
 					var mut type = null
+					var mut first = null
+					var mut last = null
+
+					var attributes = @stackOuterAttributes([])
+					if attributes.length != 0 {
+						first = attributes[0]
+					}
+
 					if @test(Token.COLON) {
-						@commit()
+						if ?first {
+							@commit()
+						}
+						else {
+							first = @yes()
+						}
 
 						type = @reqType()
 
-						last = name
+						last = type
 					}
-					else if @test(Token.QUESTION) {
-						var modifier = @yep(AST.Modifier(ModifierKind.Nullable, @yes()))
+					else {
+						name = @reqIdentifier()
 
-						modifiers.push(modifier)
+						if @test(Token.COLON) {
+							@commit()
 
-						last = modifier
+							type = @reqType()
+
+							last = type
+						}
+						else if @test(Token.QUESTION) {
+							var modifier = @yep(AST.Modifier(ModifierKind.Nullable, @yes()))
+
+							modifiers.push(modifier)
+
+							last = modifier
+						}
+						else {
+							last = name
+						}
 					}
 
 					var dyn defaultValue = null
@@ -7117,7 +7074,7 @@ export namespace Parser {
 					}
 				}
 
-				unless @test(Token.RIGHT_CURLY) {
+				unless @test(Token.RIGHT_SQUARE) {
 					@throw(']')
 				}
 

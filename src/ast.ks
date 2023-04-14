@@ -1850,25 +1850,14 @@ namespace AST {
 		} # }}}
 
 		func TupleField(attributes, modifiers, name?, type?, defaultValue?, first, last) { # {{{
-			var node = location({
+			return location({
 				kind: NodeKind.TupleField
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
+				name: name.value if ?name
+				type: type.value if ?type
+				defaultValue: defaultValue.value if ?defaultValue
 			}, first, last)
-
-			if ?name {
-				node.name = name.value
-			}
-
-			if ?type {
-				node.type = type.value
-			}
-
-			if ?defaultValue {
-				node.defaultValue = defaultValue.value
-			}
-
-			return node
 		} # }}}
 
 		func TypeReference(name) { # {{{

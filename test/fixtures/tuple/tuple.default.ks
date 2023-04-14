@@ -1,4 +1,4 @@
-tuple Pair(String, Number)
+tuple Pair [ :String, :Number ]
 
 var dyn pair = Pair('x', 0.1)
 

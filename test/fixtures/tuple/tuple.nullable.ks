@@ -1,1 +1,1 @@
-tuple Pair(String?, Number?)
+tuple Pair [ :String?, :Number? ]
