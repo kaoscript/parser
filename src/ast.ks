@@ -82,6 +82,13 @@ namespace AST {
 
 	var CONDITIONAL_PRECEDENCE = 4
 
+	func location(descriptor, start: Position, end: Position) { # {{{
+		descriptor.start = start
+		descriptor.end = end
+
+		return descriptor
+	} # }}}
+
 	func location(descriptor, firstToken, lastToken? = null) { # {{{
 		if lastToken == null {
 			if !?descriptor.start {
@@ -1107,17 +1114,11 @@ namespace AST {
 		} # }}}
 
 		func Literal(modifiers?, value, first, last? = null) { # {{{
-			var node = location({
+			return location({
 				kind: NodeKind.Literal
-				modifiers: []
-				value: value
+				modifiers: ?modifiers ? [modifier.value for modifier in modifiers] : []
+				value
 			}, first, last)
-
-			if modifiers != null {
-				node.modifiers = [modifier.value for modifier in modifiers]
-			}
-
-			return node
 		} # }}}
 
 		func MacroDeclaration(attributes, name, parameters, body, first, last) { # {{{
