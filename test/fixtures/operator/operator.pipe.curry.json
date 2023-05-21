@@ -1,0 +1,281 @@
+{
+  "kind": 76,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 41,
+      "attributes": [],
+      "expression": {
+        "kind": 12,
+        "modifiers": [],
+        "operator": {
+          "kind": 8,
+          "modifiers": [],
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 3,
+            "column": 5
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 36
+        },
+        "left": {
+          "kind": 12,
+          "modifiers": [],
+          "operator": {
+            "kind": 8,
+            "modifiers": [],
+            "start": {
+              "line": 2,
+              "column": 3
+            },
+            "end": {
+              "line": 2,
+              "column": 5
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 2,
+            "column": 25
+          },
+          "left": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "elements",
+            "start": {
+              "line": 1,
+              "column": 1
+            },
+            "end": {
+              "line": 1,
+              "column": 9
+            }
+          },
+          "right": {
+            "kind": 18,
+            "modifiers": [],
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "map",
+              "start": {
+                "line": 2,
+                "column": 6
+              },
+              "end": {
+                "line": 2,
+                "column": 9
+              }
+            },
+            "arguments": [
+              {
+                "kind": 116,
+                "modifiers": [],
+                "start": {
+                  "line": 2,
+                  "column": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 11
+                }
+              },
+              {
+                "kind": 29,
+                "modifiers": [],
+                "scope": {
+                  "kind": 2
+                },
+                "callee": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "add",
+                  "start": {
+                    "line": 2,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 16
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 90,
+                    "modifiers": [],
+                    "start": {
+                      "line": 2,
+                      "column": 19
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 20
+                    }
+                  },
+                  {
+                    "kind": 81,
+                    "modifiers": [],
+                    "value": 1,
+                    "start": {
+                      "line": 2,
+                      "column": 22
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 23
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 2,
+                  "column": 13
+                },
+                "end": {
+                  "line": 2,
+                  "column": 24
+                }
+              }
+            ],
+            "start": {
+              "line": 2,
+              "column": 6
+            },
+            "end": {
+              "line": 2,
+              "column": 25
+            }
+          }
+        },
+        "right": {
+          "kind": 18,
+          "modifiers": [],
+          "scope": {
+            "kind": 2
+          },
+          "callee": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "filter",
+            "start": {
+              "line": 3,
+              "column": 6
+            },
+            "end": {
+              "line": 3,
+              "column": 12
+            }
+          },
+          "arguments": [
+            {
+              "kind": 116,
+              "modifiers": [],
+              "start": {
+                "line": 3,
+                "column": 13
+              },
+              "end": {
+                "line": 3,
+                "column": 14
+              }
+            },
+            {
+              "kind": 29,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "greaterThan",
+                "start": {
+                  "line": 3,
+                  "column": 16
+                },
+                "end": {
+                  "line": 3,
+                  "column": 27
+                }
+              },
+              "arguments": [
+                {
+                  "kind": 90,
+                  "modifiers": [],
+                  "start": {
+                    "line": 3,
+                    "column": 30
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 31
+                  }
+                },
+                {
+                  "kind": 81,
+                  "modifiers": [],
+                  "value": 5,
+                  "start": {
+                    "line": 3,
+                    "column": 33
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 34
+                  }
+                }
+              ],
+              "start": {
+                "line": 3,
+                "column": 16
+              },
+              "end": {
+                "line": 3,
+                "column": 35
+              }
+            }
+          ],
+          "start": {
+            "line": 3,
+            "column": 6
+          },
+          "end": {
+            "line": 3,
+            "column": 36
+          }
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 36
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 3,
+    "column": 36
+  }
+}

@@ -10,6 +10,9 @@ enum Token {
 	ASTERISK
 	ASTERISK_DOLLAR_LEFT_ROUND
 	ASTERISK_EQUALS
+	ASTERISK_PIPE_RIGHT_ANGLE
+	ASTERISK_PIPE_RIGHT_ANGLE_HASH
+	ASTERISK_PIPE_RIGHT_ANGLE_QUESTION
 	ASYNC
 	AT
 	ATTRIBUTE_IDENTIFIER
@@ -79,6 +82,8 @@ enum Token {
 	HASH_HASH
 	HASH_HASH_EQUALS
 	HASH_J_LEFT_ROUND
+	HASH_LEFT_ANGLE_PIPE
+	HASH_LEFT_ANGLE_PIPE_ASTERISK
 	HASH_LEFT_ROUND
 	HASH_LEFT_SQUARE
 	HASH_S_LEFT_ROUND
@@ -102,6 +107,8 @@ enum Token {
 	LEFT_ANGLE_LEFT_ANGLE
 	LEFT_ANGLE_LEFT_ANGLE_EQUALS
 	LEFT_ANGLE_MINUS
+	LEFT_ANGLE_PIPE
+	LEFT_ANGLE_PIPE_ASTERISK
 	LEFT_CURLY
 	LEFT_ROUND
 	LEFT_SQUARE
@@ -128,6 +135,9 @@ enum Token {
 	PERCENT_EQUALS
 	PICK
 	PIPE
+	PIPE_RIGHT_ANGLE
+	PIPE_RIGHT_ANGLE_HASH
+	PIPE_RIGHT_ANGLE_QUESTION
 	PIPE_PIPE
 	PIPE_PIPE_EQUALS
 	PLUS
@@ -139,6 +149,8 @@ enum Token {
 	QUESTION
 	QUESTION_EQUALS
 	QUESTION_DOT
+	QUESTION_LEFT_ANGLE_PIPE
+	QUESTION_LEFT_ANGLE_PIPE_ASTERISK
 	QUESTION_LEFT_ROUND
 	QUESTION_LEFT_SQUARE
 	QUESTION_OPERATOR
@@ -421,6 +433,20 @@ namespace M {
 						return Token.HASH_HASH
 					}
 				}
+				else if c == 60 && that.charAt(2) == 124 {
+					if fMode !~ FunctionMode.NoPipeline {
+						if that.charAt(3) == 42 {
+							that.next(4)
+
+							return Token.HASH_LEFT_ANGLE_PIPE_ASTERISK
+						}
+						else {
+							that.next(3)
+
+							return Token.HASH_LEFT_ANGLE_PIPE
+						}
+					}
+				}
 				else if c == 61 {
 					that.next(2)
 
@@ -456,10 +482,33 @@ namespace M {
 				}
 			}
 			else if c == 42 { // *
-				if that.charAt(1) == 61 {
+				c = that.charAt(1)
+
+				if c == 61 {
 					that.next(2)
 
 					return Token.ASTERISK_EQUALS
+				}
+				else if c == 124 && that.charAt(2) == 62 {
+					if fMode !~ FunctionMode.NoPipeline {
+						c = that.charAt(3)
+
+						if c == 35 {
+							that.next(4)
+
+							return Token.ASTERISK_PIPE_RIGHT_ANGLE_HASH
+						}
+						else if c == 63 {
+							that.next(4)
+
+							return Token.ASTERISK_PIPE_RIGHT_ANGLE_QUESTION
+						}
+						else {
+							that.next(3)
+
+							return Token.ASTERISK_PIPE_RIGHT_ANGLE
+						}
+					}
 				}
 				else {
 					that.next(1)
@@ -551,6 +600,20 @@ namespace M {
 
 					return Token.LEFT_ANGLE_EQUALS
 				}
+				else if c == 124 {
+					if fMode !~ FunctionMode.NoPipeline {
+						if that.charAt(2) == 42 {
+							that.next(3)
+
+							return Token.LEFT_ANGLE_PIPE_ASTERISK
+						}
+						else {
+							that.next(2)
+
+							return Token.LEFT_ANGLE_PIPE
+						}
+					}
+				}
 				else {
 					that.next(1)
 
@@ -600,7 +663,21 @@ namespace M {
 			else if c == 63 { // ?
 				c = that.charAt(1)
 
-				if c == 61 {
+				if c == 60 && that.charAt(2) == 124 {
+					if fMode !~ FunctionMode.NoPipeline {
+						if that.charAt(3) == 42 {
+							that.next(4)
+
+							return Token.QUESTION_LEFT_ANGLE_PIPE_ASTERISK
+						}
+						else {
+							that.next(3)
+
+							return Token.QUESTION_LEFT_ANGLE_PIPE
+						}
+					}
+				}
+				else if c == 61 {
 					that.next(2)
 
 					return Token.QUESTION_EQUALS
@@ -642,7 +719,28 @@ namespace M {
 			else if c == 124 { // |
 				c = that.charAt(1)
 
-				if c == 124 {
+				if c == 62 {
+					if fMode !~ FunctionMode.NoPipeline {
+						c = that.charAt(2)
+
+						if c == 35 {
+							that.next(3)
+
+							return Token.PIPE_RIGHT_ANGLE_HASH
+						}
+						else if c == 63 {
+							that.next(3)
+
+							return Token.PIPE_RIGHT_ANGLE_QUESTION
+						}
+						else {
+							that.next(2)
+
+							return Token.PIPE_RIGHT_ANGLE
+						}
+					}
+				}
+				else if c == 124 {
 					if that.charAt(2) == 61 {
 						that.next(3)
 
@@ -946,7 +1044,7 @@ namespace M {
 				}
 			}
 			else if c == 124 { // |
-				if that.charAt(1) != 124 {
+				if that.charAt(1) != 62 & 124 {
 					that.next(1)
 
 					return Token.PIPE
@@ -1311,7 +1409,7 @@ namespace M {
 				}
 			}
 			else if c == 64 { // @
-				if fMode == FunctionMode.Method {
+				if fMode ~~ FunctionMode.Method {
 					that.next(1)
 
 					return Token.AT
@@ -1388,10 +1486,10 @@ namespace M {
 				return Token.LEFT_ROUND
 			}
 			else if c == 42 { // *
-				if that.charAt(2) == 40 {
-					c = that.charAt(1)
+				c = that.charAt(1)
 
-					if c == 36 {
+				if c == 36 {
+					if that.charAt(2) == 40 {
 						that.next(3)
 
 						return Token.ASTERISK_DOLLAR_LEFT_ROUND
@@ -1550,6 +1648,13 @@ namespace M {
 					that.next(1)
 
 					return Token.QUESTION
+				}
+			}
+			else if c == 95 { // _
+				if that.isBoundary(1) {
+					that.next(1)
+
+					return Token.UNDERSCORE
 				}
 			}
 
@@ -3227,7 +3332,7 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token.TILDE)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 126 {
+		if c == 126 && that.charAt(1) != 61 & 126 {
 			return that.next(1)
 		}
 		else {
@@ -3521,6 +3626,30 @@ class Scanner {
 			end: Position.new(
 				line: @nextLine
 				column: @nextColumn
+			)
+		)
+	} # }}}
+	position(start: Number): Range { # {{{
+		return Range.new(
+			start: Position.new(
+				line: @line
+				column: @column + start
+			)
+			end: Position.new(
+				line: @nextLine
+				column: @nextColumn
+			)
+		)
+	} # }}}
+	position(start: Number, length: Number): Range { # {{{
+		return Range.new(
+			start: Position.new(
+				line: @line
+				column: @column + start
+			)
+			end: Position.new(
+				line: @line
+				column: @column + start + length
 			)
 		)
 	} # }}}

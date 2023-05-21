@@ -1,0 +1,316 @@
+{
+  "kind": 76,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 132,
+      "attributes": [],
+      "modifiers": [],
+      "declarations": [
+        {
+          "kind": 130,
+          "attributes": [],
+          "modifiers": [],
+          "variables": [
+            {
+              "kind": 131,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "newScore",
+                "start": {
+                  "line": 1,
+                  "column": 5
+                },
+                "end": {
+                  "line": 1,
+                  "column": 13
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 13
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 76
+          },
+          "value": {
+            "kind": 12,
+            "modifiers": [],
+            "operator": {
+              "kind": 8,
+              "modifiers": [],
+              "start": {
+                "line": 1,
+                "column": 52
+              },
+              "end": {
+                "line": 1,
+                "column": 54
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 1,
+              "column": 76
+            },
+            "left": {
+              "kind": 12,
+              "modifiers": [],
+              "operator": {
+                "kind": 8,
+                "modifiers": [],
+                "start": {
+                  "line": 1,
+                  "column": 39
+                },
+                "end": {
+                  "line": 1,
+                  "column": 41
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 16
+              },
+              "end": {
+                "line": 1,
+                "column": 51
+              },
+              "left": {
+                "kind": 12,
+                "modifiers": [],
+                "operator": {
+                  "kind": 8,
+                  "modifiers": [],
+                  "start": {
+                    "line": 1,
+                    "column": 29
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 31
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 16
+                },
+                "end": {
+                  "line": 1,
+                  "column": 38
+                },
+                "left": {
+                  "kind": 73,
+                  "modifiers": [],
+                  "object": {
+                    "kind": 52,
+                    "modifiers": [],
+                    "name": "person",
+                    "start": {
+                      "line": 1,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 22
+                    }
+                  },
+                  "property": {
+                    "kind": 52,
+                    "modifiers": [],
+                    "name": "score",
+                    "start": {
+                      "line": 1,
+                      "column": 23
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 28
+                    }
+                  },
+                  "start": {
+                    "line": 1,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 28
+                  }
+                },
+                "right": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "double",
+                  "start": {
+                    "line": 1,
+                    "column": 32
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 38
+                  }
+                }
+              },
+              "right": {
+                "kind": 18,
+                "modifiers": [],
+                "scope": {
+                  "kind": 2
+                },
+                "callee": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "add",
+                  "start": {
+                    "line": 1,
+                    "column": 42
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 45
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 81,
+                    "modifiers": [],
+                    "value": 7,
+                    "start": {
+                      "line": 1,
+                      "column": 46
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 47
+                    }
+                  },
+                  {
+                    "kind": 116,
+                    "modifiers": [],
+                    "start": {
+                      "line": 1,
+                      "column": 49
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 50
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 1,
+                  "column": 42
+                },
+                "end": {
+                  "line": 1,
+                  "column": 51
+                }
+              }
+            },
+            "right": {
+              "kind": 18,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "boundScore",
+                "start": {
+                  "line": 1,
+                  "column": 55
+                },
+                "end": {
+                  "line": 1,
+                  "column": 65
+                }
+              },
+              "arguments": [
+                {
+                  "kind": 81,
+                  "modifiers": [],
+                  "value": 0,
+                  "start": {
+                    "line": 1,
+                    "column": 66
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 67
+                  }
+                },
+                {
+                  "kind": 81,
+                  "modifiers": [],
+                  "value": 100,
+                  "start": {
+                    "line": 1,
+                    "column": 69
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 72
+                  }
+                },
+                {
+                  "kind": 116,
+                  "modifiers": [],
+                  "start": {
+                    "line": 1,
+                    "column": 74
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 75
+                  }
+                }
+              ],
+              "start": {
+                "line": 1,
+                "column": 55
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            }
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 76
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 1,
+    "column": 76
+  }
+}

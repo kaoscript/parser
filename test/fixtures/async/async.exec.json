@@ -84,17 +84,17 @@
       }
     },
     {
-      "kind": 131,
+      "kind": 132,
       "attributes": [],
       "modifiers": [],
       "declarations": [
         {
-          "kind": 129,
+          "kind": 130,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 130,
+              "kind": 131,
               "attributes": [],
               "modifiers": [],
               "name": {
@@ -120,7 +120,7 @@
               }
             },
             {
-              "kind": 130,
+              "kind": 131,
               "attributes": [],
               "modifiers": [],
               "name": {
@@ -157,6 +157,60 @@
           "value": {
             "kind": 11,
             "modifiers": [],
+            "variables": [
+              {
+                "kind": 131,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "stdout",
+                  "start": {
+                    "line": 3,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 11
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 5
+                },
+                "end": {
+                  "line": 3,
+                  "column": 11
+                }
+              },
+              {
+                "kind": 131,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "stderr",
+                  "start": {
+                    "line": 3,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 19
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 13
+                },
+                "end": {
+                  "line": 3,
+                  "column": 19
+                }
+              }
+            ],
             "operation": {
               "kind": 18,
               "modifiers": [],
@@ -207,61 +261,7 @@
             "end": {
               "line": 3,
               "column": 37
-            },
-            "variables": [
-              {
-                "kind": 130,
-                "attributes": [],
-                "modifiers": [],
-                "name": {
-                  "kind": 52,
-                  "modifiers": [],
-                  "name": "stdout",
-                  "start": {
-                    "line": 3,
-                    "column": 5
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 11
-                  }
-                },
-                "start": {
-                  "line": 3,
-                  "column": 5
-                },
-                "end": {
-                  "line": 3,
-                  "column": 11
-                }
-              },
-              {
-                "kind": 130,
-                "attributes": [],
-                "modifiers": [],
-                "name": {
-                  "kind": 52,
-                  "modifiers": [],
-                  "name": "stderr",
-                  "start": {
-                    "line": 3,
-                    "column": 13
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 19
-                  }
-                },
-                "start": {
-                  "line": 3,
-                  "column": 13
-                },
-                "end": {
-                  "line": 3,
-                  "column": 19
-                }
-              }
-            ]
+            }
           }
         }
       ],

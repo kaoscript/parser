@@ -1,0 +1,295 @@
+{
+  "kind": 76,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 132,
+      "attributes": [],
+      "modifiers": [],
+      "declarations": [
+        {
+          "kind": 130,
+          "attributes": [],
+          "modifiers": [],
+          "variables": [
+            {
+              "kind": 131,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "bits",
+                "start": {
+                  "line": 1,
+                  "column": 5
+                },
+                "end": {
+                  "line": 1,
+                  "column": 9
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 9
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 79
+          },
+          "value": {
+            "kind": 12,
+            "modifiers": [],
+            "operator": {
+              "kind": 1,
+              "modifiers": [],
+              "start": {
+                "line": 1,
+                "column": 25
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 79
+            },
+            "left": {
+              "kind": 73,
+              "modifiers": [],
+              "object": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "FooBits",
+                "start": {
+                  "line": 1,
+                  "column": 12
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19
+                }
+              },
+              "property": {
+                "kind": 52,
+                "modifiers": [],
+                "name": "Bit0",
+                "start": {
+                  "line": 1,
+                  "column": 20
+                },
+                "end": {
+                  "line": 1,
+                  "column": 24
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 12
+              },
+              "end": {
+                "line": 1,
+                "column": 24
+              }
+            },
+            "right": {
+              "kind": 27,
+              "modifiers": [],
+              "start": {
+                "line": 1,
+                "column": 27
+              },
+              "end": {
+                "line": 1,
+                "column": 79
+              },
+              "condition": {
+                "kind": 12,
+                "modifiers": [],
+                "operator": {
+                  "kind": 16,
+                  "modifiers": [],
+                  "start": {
+                    "line": 1,
+                    "column": 33
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 35
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 28
+                },
+                "end": {
+                  "line": 1,
+                  "column": 48
+                },
+                "left": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "main",
+                  "start": {
+                    "line": 1,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 32
+                  }
+                },
+                "right": {
+                  "kind": 73,
+                  "modifiers": [],
+                  "object": {
+                    "kind": 52,
+                    "modifiers": [],
+                    "name": "FooBits",
+                    "start": {
+                      "line": 1,
+                      "column": 36
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 43
+                    }
+                  },
+                  "property": {
+                    "kind": 52,
+                    "modifiers": [],
+                    "name": "BitA",
+                    "start": {
+                      "line": 1,
+                      "column": 44
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 48
+                    }
+                  },
+                  "start": {
+                    "line": 1,
+                    "column": 36
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 48
+                  }
+                }
+              },
+              "whenTrue": {
+                "kind": 73,
+                "modifiers": [],
+                "object": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "FooBits",
+                  "start": {
+                    "line": 1,
+                    "column": 51
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 58
+                  }
+                },
+                "property": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "BitB",
+                  "start": {
+                    "line": 1,
+                    "column": 59
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 63
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 51
+                },
+                "end": {
+                  "line": 1,
+                  "column": 63
+                }
+              },
+              "whenFalse": {
+                "kind": 73,
+                "modifiers": [],
+                "object": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "FooBits",
+                  "start": {
+                    "line": 1,
+                    "column": 66
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 73
+                  }
+                },
+                "property": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "BitC",
+                  "start": {
+                    "line": 1,
+                    "column": 74
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 78
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 66
+                },
+                "end": {
+                  "line": 1,
+                  "column": 78
+                }
+              }
+            }
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 79
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 1,
+    "column": 79
+  }
+}

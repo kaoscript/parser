@@ -4,9 +4,11 @@ namespace AST {
 		[BinaryOperatorKind.Addition]: false
 		[BinaryOperatorKind.And]: false
 		[BinaryOperatorKind.Assignment]: false
+		[BinaryOperatorKind.BackwardPipeline]: false
 		[BinaryOperatorKind.Division]: false
 		[BinaryOperatorKind.Equality]: true
 		[BinaryOperatorKind.EmptyCoalescing]: false
+		[BinaryOperatorKind.ForwardPipeline]: false
 		[BinaryOperatorKind.GreaterThan]: true
 		[BinaryOperatorKind.GreaterThanOrEqual]: true
 		[BinaryOperatorKind.Imply]: false
@@ -54,9 +56,11 @@ namespace AST {
 		[BinaryOperatorKind.Addition]: 13
 		[BinaryOperatorKind.And]: 6
 		[BinaryOperatorKind.Assignment]: 3
+		[BinaryOperatorKind.BackwardPipeline]: 20
 		[BinaryOperatorKind.Division]: 14
 		[BinaryOperatorKind.Equality]: 8
 		[BinaryOperatorKind.EmptyCoalescing]: 15
+		[BinaryOperatorKind.ForwardPipeline]: 16
 		[BinaryOperatorKind.GreaterThan]: 8
 		[BinaryOperatorKind.GreaterThanOrEqual]: 8
 		[BinaryOperatorKind.Imply]: 5
@@ -77,6 +81,10 @@ namespace AST {
 		[BinaryOperatorKind.TypeEquality]: 8
 		[BinaryOperatorKind.TypeInequality]: 8
 		[BinaryOperatorKind.Xor]: 5
+	}
+
+	var $rtl = {
+		[BinaryOperatorKind.BackwardPipeline]: true
 	}
 	# }}}
 
@@ -184,69 +192,101 @@ namespace AST {
 					}
 				}
 				else if $precedence[operations[k].operator.kind] == precedence {
-					count -= 1
+					if operations[k].kind == NodeKind.BinaryExpression && $rtl[operations[k].operator.kind] {
+						var mut end = operations.length - 1
 
-					operator = operations[k]
-
-					if operator.kind == NodeKind.BinaryExpression {
-						left = operations[k - 1]
-
-						if left.kind == NodeKind.BinaryExpression && operator.operator.kind == left.operator.kind && $polyadic[operator.operator.kind] {
-							operator.kind = NodeKind.PolyadicExpression
-							operator.start = left.start
-							operator.end = operations[k + 1].end
-
-							operator.operands = [left.left, left.right, operations[k + 1]]
+						for var i from k + 2 to~ operations.length step 2 {
+							if !$rtl[operations[i].operator.kind] {
+								end = i - 1
+							}
 						}
-						else if left.kind == NodeKind.PolyadicExpression && operator.operator.kind == left.operator.kind {
-							left.operands.push(operations[k + 1])
-							left.end = operations[k + 1].end
 
-							operator = left
+						var mut c = 0
+
+						for var i from end - 1 down to k step 2 {
+							operator = operations[i]
+
+							operator.left = operations[i - 1]
+							operator.right = operations[i + 1]
+
+							operator.start = operator.left.start
+							operator.end = operator.right.end
+
+							operations[i - 1] = operator
+
+							count -= 1
+							c += 2
 						}
-						else if $comparison[operator.operator.kind] {
-							if left.kind == NodeKind.ComparisonExpression {
-								left.values.push(operator.operator, operations[k + 1])
+
+						operations.splice(k, c)
+
+						k -= c
+					}
+					else {
+						count -= 1
+
+						operator = operations[k]
+
+						if operator.kind == NodeKind.BinaryExpression {
+							left = operations[k - 1]
+
+							if left.kind == NodeKind.BinaryExpression && operator.operator.kind == left.operator.kind && $polyadic[operator.operator.kind] {
+								operator.kind = NodeKind.PolyadicExpression
+								operator.start = left.start
+								operator.end = operations[k + 1].end
+
+								operator.operands = [left.left, left.right, operations[k + 1]]
+							}
+							else if left.kind == NodeKind.PolyadicExpression && operator.operator.kind == left.operator.kind {
+								left.operands.push(operations[k + 1])
 								left.end = operations[k + 1].end
 
 								operator = left
 							}
+							else if $comparison[operator.operator.kind] {
+								if left.kind == NodeKind.ComparisonExpression {
+									left.values.push(operator.operator, operations[k + 1])
+									left.end = operations[k + 1].end
+
+									operator = left
+								}
+								else {
+									operator = ComparisonExpression([left, operator.operator, operations[k + 1]])
+								}
+							}
+							else if left.kind == NodeKind.BinaryExpression && operator.operator.kind == BinaryOperatorKind.Assignment && left.operator.kind == BinaryOperatorKind.Assignment && operator.operator.assignment == left.operator.assignment {
+								operator.left = left.right
+								operator.right = operations[k + 1]
+
+								operator.start = operator.left.start
+								operator.end = operator.right.end
+
+								left.right = operator
+
+								left.end = left.right.end
+
+								operator = left
+							}
 							else {
-								operator = ComparisonExpression([left, operator.operator, operations[k + 1]])
+								operator.left = left
+								operator.right = operations[k + 1]
+
+								operator.start = operator.left.start
+								operator.end = operator.right.end
 							}
 						}
-						else if left.kind == NodeKind.BinaryExpression && operator.operator.kind == BinaryOperatorKind.Assignment && left.operator.kind == BinaryOperatorKind.Assignment && operator.operator.assignment == left.operator.assignment {
-							operator.left = left.right
-							operator.right = operations[k + 1]
-
-							operator.start = operator.left.start
-							operator.end = operator.right.end
-
-							left.right = operator
-
-							left.end = left.right.end
-
-							operator = left
-						}
 						else {
-							operator.left = left
+							operator.left = operations[k - 1]
 							operator.right = operations[k + 1]
 
 							operator.start = operator.left.start
 							operator.end = operator.right.end
 						}
+
+						operations.splice(k - 1, 3, operator)
+
+						k -= 2
 					}
-					else {
-						operator.left = operations[k - 1]
-						operator.right = operations[k + 1]
-
-						operator.start = operator.left.start
-						operator.end = operator.right.end
-					}
-
-					operations.splice(k - 1, 3, operator)
-
-					k -= 2
 				}
 			}
 		}
@@ -421,18 +461,13 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func AwaitExpression(modifiers, variables?, operand, first, last) { # {{{
-			var node = location({
+		func AwaitExpression(modifiers, variables?, operand?, first, last) { # {{{
+			return location({
 				kind: NodeKind.AwaitExpression
 				modifiers
-				operation: operand.value
+				variables: [variable.value for variable in variables] if ?variables
+				operation: operand.value if ?operand
 			}, first, last)
-
-			if variables != null {
-				node.variables = [variable.value for variable in variables]
-			}
-
-			return node
 		} # }}}
 
 		func BinaryExpression(operator) { # {{{
@@ -1264,11 +1299,11 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func MemberExpression(modifiers, object, property, first = object, last = property) { # {{{
+		func MemberExpression(modifiers, object?, property, first = object, last = property) { # {{{
 			return location({
 				kind: NodeKind.MemberExpression
 				modifiers
-				object: object.value
+				object: object.value if ?object
 				property: property.value
 			}, first, last)
 		} # }}}
@@ -1800,6 +1835,13 @@ namespace AST {
 				attributes: []
 				value: value.value
 			}, first, last)
+		} # }}}
+
+		func TopicReference(modifiers = [], first) { # {{{
+			return location({
+				kind: NodeKind.TopicReference
+				modifiers
+			}, first)
 		} # }}}
 
 		func TryExpression(modifiers, operand, defaultValue?, first, last) { # {{{

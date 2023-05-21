@@ -3,7 +3,7 @@
   "attributes": [],
   "body": [
     {
-      "kind": 131,
+      "kind": 132,
       "attributes": [],
       "modifiers": [
         {
@@ -20,12 +20,12 @@
       ],
       "declarations": [
         {
-          "kind": 129,
+          "kind": 130,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 130,
+              "kind": 131,
               "attributes": [],
               "modifiers": [],
               "name": {
@@ -51,7 +51,7 @@
               }
             },
             {
-              "kind": 130,
+              "kind": 131,
               "attributes": [],
               "modifiers": [],
               "name": {
@@ -88,6 +88,60 @@
           "value": {
             "kind": 11,
             "modifiers": [],
+            "variables": [
+              {
+                "kind": 131,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "a",
+                  "start": {
+                    "line": 1,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 10
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 10
+                }
+              },
+              {
+                "kind": 131,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "b",
+                  "start": {
+                    "line": 1,
+                    "column": 12
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 13
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 12
+                },
+                "end": {
+                  "line": 1,
+                  "column": 13
+                }
+              }
+            ],
             "operation": {
               "kind": 18,
               "modifiers": [],
@@ -124,61 +178,7 @@
             "end": {
               "line": 1,
               "column": 27
-            },
-            "variables": [
-              {
-                "kind": 130,
-                "attributes": [],
-                "modifiers": [],
-                "name": {
-                  "kind": 52,
-                  "modifiers": [],
-                  "name": "a",
-                  "start": {
-                    "line": 1,
-                    "column": 9
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 10
-                  }
-                },
-                "start": {
-                  "line": 1,
-                  "column": 9
-                },
-                "end": {
-                  "line": 1,
-                  "column": 10
-                }
-              },
-              {
-                "kind": 130,
-                "attributes": [],
-                "modifiers": [],
-                "name": {
-                  "kind": 52,
-                  "modifiers": [],
-                  "name": "b",
-                  "start": {
-                    "line": 1,
-                    "column": 12
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 13
-                  }
-                },
-                "start": {
-                  "line": 1,
-                  "column": 12
-                },
-                "end": {
-                  "line": 1,
-                  "column": 13
-                }
-              }
-            ]
+            }
           }
         }
       ],
