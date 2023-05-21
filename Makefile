@@ -39,6 +39,6 @@ dev:
 	@make cls
 
 	@# tests
-	npx kaoscript test/parse.dev.ks "parse operator.pipe.expr.array.te"
+	npx kaoscript test/parse.dev.ks "parse test"
 
 .PHONY: test coverage

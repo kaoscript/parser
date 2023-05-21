@@ -5459,7 +5459,7 @@ export namespace Parser {
 									column: 2
 								))
 
-								elements.push(previous)
+								elements.push(@yep(previous))
 							}
 							else if previous.kind == NodeKind.Literal {
 								previous.value += '\n'
@@ -5474,7 +5474,7 @@ export namespace Parser {
 									column: previous.end.column:Number + 2
 								))
 
-								elements.push(previous)
+								elements.push(@yep(previous))
 							}
 						}
 
@@ -5493,7 +5493,7 @@ export namespace Parser {
 										column: indent.length
 									))
 
-									elements.push(previous)
+									elements.push(@yep(previous))
 								}
 								else if previous.kind == NodeKind.Literal {
 									previous.value += value
@@ -5509,7 +5509,7 @@ export namespace Parser {
 										column: indent.length
 									))
 
-									elements.push(previous)
+									elements.push(@yep(previous))
 								}
 							}
 
@@ -5558,7 +5558,7 @@ export namespace Parser {
 									column: previous.end.column:Number + 2
 								))
 
-								elements.push(previous)
+								elements.push(@yep(previous))
 							}
 
 							if ?first {
