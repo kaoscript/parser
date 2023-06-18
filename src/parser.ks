@@ -2156,19 +2156,19 @@ export namespace Parser {
 			if @test(Token.EXTENDS) {
 				@commit()
 
-				extends = @reqIdentifier()
+				extends = @reqIdentifierOrMember()
+			}
 
-				if @testNS(Token.DOT) {
-					var dyn property
+			var implements = []
+			if @test(Token.IMPLEMENTS) {
+				@commit()
 
-					do {
-						@commit()
+				implements.push(@reqIdentifierOrMember())
 
-						property = @reqIdentifier()
+				while @test(Token.COMMA) {
+					@commit()
 
-						extends = @yep(AST.MemberExpression([], extends, property))
-					}
-					while @testNS(Token.DOT)
+					implements.push(@reqIdentifierOrMember())
 				}
 			}
 
@@ -2193,7 +2193,7 @@ export namespace Parser {
 				@throw('}')
 			}
 
-			return @yep(AST.ClassDeclaration(attributes, name, version, extends, modifiers, members, first, @yes()))
+			return @yep(AST.ClassDeclaration(attributes, name, version, extends, implements, modifiers, members, first, @yes()))
 		} # }}}
 		reqClassVariable(attributes, modifiers, mut bits: ClassBits, name: Event?, mut first: Event?): Event ~ SyntaxError { # {{{
 			var variable = @tryClassVariable(attributes, modifiers, bits, name, null, first)
@@ -3345,6 +3345,19 @@ export namespace Parser {
 				extends = @reqIdentifier()
 			}
 
+			var implements = []
+			if @test(Token.IMPLEMENTS) {
+				@commit()
+
+				implements.push(@reqIdentifierOrMember())
+
+				while @test(Token.COMMA) {
+					@commit()
+
+					implements.push(@reqIdentifierOrMember())
+				}
+			}
+
 			if @test(Token.LEFT_CURLY) {
 				@commit().NL_0M()
 
@@ -3363,10 +3376,10 @@ export namespace Parser {
 					@throw('}')
 				}
 
-				return @yep(AST.ClassDeclaration(attributes, name, null, extends, modifiers, members, first, @yes()))
+				return @yep(AST.ClassDeclaration(attributes, name, null, extends, implements, modifiers, members, first, @yes()))
 			}
 			else {
-				return @yep(AST.ClassDeclaration([], name, null, extends, modifiers, [], first, extends ?? generic ?? name))
+				return @yep(AST.ClassDeclaration([], name, null, extends, implements, modifiers, [], first, extends ?? generic ?? name))
 			}
 		} # }}}
 		reqExternClassField(attributes, modifiers, name: Event, type: Event?, mut first: Event): Event ~ SyntaxError { # {{{
@@ -3971,6 +3984,22 @@ export namespace Parser {
 				@throw('Identifier')
 			}
 		} # }}}
+		reqIdentifierOrMember(): Event ~ SyntaxError { # {{{
+			var mut name = @reqIdentifier()
+
+			if @testNS(Token.DOT) {
+				do {
+					@commit()
+
+					var property = @reqIdentifier()
+
+					name = @yep(AST.MemberExpression([], name, property))
+				}
+				while @testNS(Token.DOT)
+			}
+
+			return name
+		} # }}}
 		reqIfStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mut condition: Event? = null
 			var mut declaration: Event? = null
@@ -4268,7 +4297,21 @@ export namespace Parser {
 			members.push(member)
 		} # }}}
 		reqImplementStatement(mut first: Event): Event ~ SyntaxError { # {{{
-			var variable = @reqIdentifier()
+			var late interface: Event?
+			var late variable: Event
+
+			var identifier = @reqIdentifierOrMember()
+
+			if @test(Token.FOR) {
+				@commit()
+
+				interface = identifier
+				variable = @reqIdentifierOrMember()
+			}
+			else {
+				interface = null
+				variable = identifier
+			}
 
 			if @test(Token.LEFT_ANGLE) {
 				@reqTypeGeneric(@yes())
@@ -4295,7 +4338,7 @@ export namespace Parser {
 				@throw('}')
 			}
 
-			return @yep(AST.ImplementDeclaration(attributes, variable, members, first, @yes()))
+			return @yep(AST.ImplementDeclaration(attributes, variable, interface, members, first, @yes()))
 		} # }}}
 		reqImportDeclarator(): Event ~ SyntaxError { # {{{
 			var source = @reqString()
@@ -6884,6 +6927,19 @@ export namespace Parser {
 				extends = @reqIdentifier()
 			}
 
+			var implements = []
+			if @test(Token.IMPLEMENTS) {
+				@commit()
+
+				implements.push(@reqIdentifierOrMember())
+
+				while @test(Token.COMMA) {
+					@commit()
+
+					implements.push(@reqIdentifierOrMember())
+				}
+			}
+
 			if @test(Token.LEFT_CURLY) {
 				var first = @yes()
 
@@ -6954,7 +7010,7 @@ export namespace Parser {
 				last = @yes()
 			}
 
-			return @yep(AST.StructDeclaration(attributes, [], name, extends, elements, first, last))
+			return @yep(AST.StructDeclaration(attributes, [], name, extends, implements, elements, first, last))
 		} # }}}
 		reqTemplateExpression(mut first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var elements = []
@@ -7116,6 +7172,19 @@ export namespace Parser {
 				extends = @reqIdentifier()
 			}
 
+			var implements = []
+			if @test(Token.IMPLEMENTS) {
+				@commit()
+
+				implements.push(@reqIdentifierOrMember())
+
+				while @test(Token.COMMA) {
+					@commit()
+
+					implements.push(@reqIdentifierOrMember())
+				}
+			}
+
 			if @test(Token.LEFT_SQUARE) {
 				@commit().NL_0M()
 
@@ -7200,7 +7269,7 @@ export namespace Parser {
 				last = @yes()
 			}
 
-			return @yep(AST.TupleDeclaration(attributes, modifiers, name, extends, elements, first, last))
+			return @yep(AST.TupleDeclaration(attributes, modifiers, name, extends, implements, elements, first, last))
 		} # }}}
 		reqType(modifiers: Array = [], multiline: Boolean = false): Event ~ SyntaxError { # {{{
 			var type = @tryType(modifiers, multiline)
@@ -7246,18 +7315,7 @@ export namespace Parser {
 			}
 		} # }}}
 		reqTypeEntity(): Event ~ SyntaxError { # {{{
-			var mut name = @reqIdentifier()
-
-			if @testNS(Token.DOT) {
-				do {
-					@commit()
-
-					var property = @reqIdentifier()
-
-					name = @yep(AST.MemberExpression([], name, property))
-				}
-				while @testNS(Token.DOT)
-			}
+			var name = @reqIdentifierOrMember()
 
 			return @yep(AST.TypeReference([], name, null, name, name))
 		} # }}}
@@ -8845,6 +8903,24 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
+		tryIdentifierOrMember(): Event ~ SyntaxError { # {{{
+			var mut name = @tryIdentifier()
+
+			return NO unless name.ok
+
+			if @testNS(Token.DOT) {
+				do {
+					@commit()
+
+					var property = @reqIdentifier()
+
+					name = @yep(AST.MemberExpression([], name, property))
+				}
+				while @testNS(Token.DOT)
+			}
+
+			return name
+		} # }}}
 		tryIfExpression(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			unless @test(Token.IF) {
 				return NO
@@ -9775,20 +9851,9 @@ export namespace Parser {
 				return @altTypeContainer(func)
 			}
 
-			var mut name = @tryIdentifier()
+			var name = @tryIdentifierOrMember()
 
 			return NO unless name.ok
-
-			if @testNS(Token.DOT) {
-				do {
-					@commit()
-
-					var property = @reqIdentifier()
-
-					name = @yep(AST.MemberExpression([], name, property))
-				}
-				while @testNS(Token.DOT)
-			}
 
 			var first = modifiers[0] ?? name
 			var mut last = name
@@ -10012,22 +10077,9 @@ export namespace Parser {
 			return NO
 		} # }}}
 		tryTypeEntity(): Event ~ SyntaxError { # {{{
-			var mut name = @tryIdentifier()
+			var name = @tryIdentifierOrMember()
 
 			return NO unless name.ok
-
-			if @testNS(Token.DOT) {
-				do {
-					@commit()
-
-					var property = @tryIdentifier()
-
-					return NO unless property.ok
-
-					name = @yep(AST.MemberExpression([], name, property))
-				}
-				while @testNS(Token.DOT)
-			}
 
 			return @yep(AST.TypeReference([], name, null, name, name))
 		} # }}}
@@ -10040,20 +10092,9 @@ export namespace Parser {
 				return @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
 			}
 
-			var mut name = @tryIdentifier()
+			var name = @tryIdentifierOrMember()
 
 			return NO unless name.ok
-
-			if @testNS(Token.DOT) {
-				do {
-					@commit()
-
-					var property = @reqIdentifier()
-
-					name = @yep(AST.MemberExpression([], name, property))
-				}
-				while @testNS(Token.DOT)
-			}
 
 			var first = modifiers[0] ?? name
 			var mut last = name

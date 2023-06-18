@@ -1,0 +1,239 @@
+{
+  "kind": 76,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 122,
+      "attributes": [],
+      "name": {
+        "kind": 52,
+        "modifiers": [],
+        "name": "Shape",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 11
+        }
+      },
+      "type": {
+        "kind": 85,
+        "modifiers": [],
+        "properties": [
+          {
+            "kind": 95,
+            "modifiers": [],
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 16
+            },
+            "name": {
+              "kind": 52,
+              "modifiers": [],
+              "name": "draw",
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 6
+              }
+            },
+            "type": {
+              "kind": 49,
+              "parameters": [],
+              "start": {
+                "line": 2,
+                "column": 6
+              },
+              "end": {
+                "line": 2,
+                "column": 16
+              },
+              "modifiers": [],
+              "type": {
+                "kind": 124,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "String",
+                  "start": {
+                    "line": 2,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 16
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 16
+                }
+              },
+              "throws": []
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 14
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      }
+    },
+    {
+      "kind": 21,
+      "attributes": [],
+      "modifiers": [],
+      "name": {
+        "kind": 52,
+        "modifiers": [],
+        "name": "Rectangle",
+        "start": {
+          "line": 5,
+          "column": 7
+        },
+        "end": {
+          "line": 5,
+          "column": 16
+        }
+      },
+      "implements": [
+        {
+          "kind": 52,
+          "modifiers": [],
+          "name": "Shape",
+          "start": {
+            "line": 5,
+            "column": 28
+          },
+          "end": {
+            "line": 5,
+            "column": 33
+          }
+        }
+      ],
+      "members": [
+        {
+          "kind": 74,
+          "attributes": [],
+          "modifiers": [
+            {
+              "kind": 29,
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 10
+              }
+            }
+          ],
+          "name": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "draw",
+            "start": {
+              "line": 6,
+              "column": 11
+            },
+            "end": {
+              "line": 6,
+              "column": 15
+            }
+          },
+          "parameters": [],
+          "start": {
+            "line": 6,
+            "column": 2
+          },
+          "end": {
+            "line": 8,
+            "column": 3
+          },
+          "throws": [],
+          "body": {
+            "kind": 15,
+            "attributes": [],
+            "statements": [
+              {
+                "kind": 105,
+                "attributes": [],
+                "value": {
+                  "kind": 63,
+                  "modifiers": [],
+                  "value": "rectangle",
+                  "start": {
+                    "line": 7,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 21
+                  }
+                },
+                "start": {
+                  "line": 7,
+                  "column": 3
+                },
+                "end": {
+                  "line": 7,
+                  "column": 21
+                }
+              }
+            ],
+            "start": {
+              "line": 6,
+              "column": 18
+            },
+            "end": {
+              "line": 8,
+              "column": 3
+            }
+          }
+        }
+      ],
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 9,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 9,
+    "column": 2
+  }
+}

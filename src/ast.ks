@@ -549,7 +549,7 @@ namespace AST {
 				modifiers
 				scope
 				callee: callee.value
-				arguments: [argument.value for argument in arguments.value]
+				arguments: [argument.value for var argument in arguments.value]
 			}, first, last)
 		} # }}}
 
@@ -578,23 +578,17 @@ namespace AST {
 			return node
 		} # }}}
 
-		func ClassDeclaration(attributes, modifiers, name, version?, extends?, members, first, last) { # {{{
-			var node = location({
+		func ClassDeclaration(attributes, modifiers, name, version?, extends?, implements, members, first, last) { # {{{
+			return location({
 				kind: NodeKind.ClassDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
-				members: [member.value for member in members]
+				version: version.value if ?version
+				extends: extends.value if ?extends
+				implements: [implement.value for var implement in implements] if #implements
+				members: [member.value for var member in members]
 			}, first, last)
-
-			if version != null {
-				node.version = version.value
-			}
-			if extends != null {
-				node.extends = extends.value
-			}
-
-			return node
 		} # }}}
 
 		func ComparisonExpression(values) { # {{{
@@ -1045,12 +1039,13 @@ namespace AST {
 			return node
 		} # }}}
 
-		func ImplementDeclaration(attributes, variable, properties, first, last) { # {{{
+		func ImplementDeclaration(attributes, variable, interface?, properties, first, last) { # {{{
 			return location({
 				kind: NodeKind.ImplementDeclaration
-				attributes: [attribute.value for attribute in attributes]
+				attributes: [attribute.value for var attribute in attributes]
 				variable: variable.value
-				properties: [property.value for property in properties]
+				interface: interface.value if ?interface
+				properties: [property.value for var property in properties]
 			}, first, last)
 		} # }}}
 
@@ -1757,20 +1752,16 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func StructDeclaration(attributes, modifiers, name, extends?, fields, first, last) { # {{{
-			var node = location({
+		func StructDeclaration(attributes, modifiers, name, extends?, implements, fields, first, last) { # {{{
+			return location({
 				kind: NodeKind.StructDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
+				extends: extends.value if ?extends
+				implements: [implement.value for var implement in implements] if #implements
 				fields
 			}, first, last)
-
-			if extends != null {
-				node.extends = extends.value
-			}
-
-			return node
 		} # }}}
 
 		func StructField(attributes, modifiers, name, type?, defaultValue?, first, last) { # {{{
@@ -1876,20 +1867,16 @@ namespace AST {
 			return node
 		} # }}}
 
-		func TupleDeclaration(attributes, modifiers, name, extends?, fields, first, last) { # {{{
-			var node = location({
+		func TupleDeclaration(attributes, modifiers, name, extends?, implements, fields, first, last) { # {{{
+			return location({
 				kind: NodeKind.TupleDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
+				extends: extends.value if ?extends
+				implements: [implement.value for var implement in implements] if #implements
 				fields
 			}, first, last)
-
-			if extends != null {
-				node.extends = extends.value
-			}
-
-			return node
 		} # }}}
 
 		func TupleField(attributes, modifiers, name?, type?, defaultValue?, first, last) { # {{{

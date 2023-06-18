@@ -92,6 +92,7 @@ enum Token {
 	IDENTIFIER
 	IF
 	IMPL
+	IMPLEMENTS
 	IMPORT
 	IMPORT_LITERAL
 	IN
@@ -2740,6 +2741,25 @@ var recognize = {
 			that.isBoundary(2)
 		{
 			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token.IMPLEMENTS)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 105 &&
+			that.charAt(1) == 109 &&
+			that.charAt(2) == 112 &&
+			that.charAt(3) == 108 &&
+			that.charAt(4) == 101 &&
+			that.charAt(5) == 109 &&
+			that.charAt(6) == 101 &&
+			that.charAt(7) == 110 &&
+			that.charAt(8) == 116 &&
+			that.charAt(9) == 115 &&
+			that.isBoundary(10)
+		{
+			return that.next(10)
 		}
 		else {
 			return false
