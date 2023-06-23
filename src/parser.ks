@@ -1087,14 +1087,14 @@ export namespace Parser {
 									if @testNS(Token.NUMERAL) {
 										var index = @yep(AST.NumericExpression(parseInt(@scanner.value(), 10), @yes()))
 
-										pick @yep(AST.PlaceholderArgument([], index, first, index))
+										set @yep(AST.PlaceholderArgument([], index, first, index))
 									}
 									else {
-										pick @yep(AST.PlaceholderArgument([], null, first, first))
+										set @yep(AST.PlaceholderArgument([], null, first, first))
 									}
 								}
 								else {
-									pick @reqExpression(subEMode, fMode, MacroTerminator.List)
+									set @reqExpression(subEMode, fMode, MacroTerminator.List)
 								}
 
 								var expression = @yep(AST.NamedArgument(argument, value))
@@ -1514,10 +1514,10 @@ export namespace Parser {
 
 					expressions.push(
 						if restrictive || #expressions {
-							pick @altRestrictiveExpression(operand, fMode)
+							set @altRestrictiveExpression(operand, fMode)
 						}
 						else {
-							pick operand
+							set operand
 						}
 					)
 
@@ -1528,10 +1528,10 @@ export namespace Parser {
 
 					expressions.push(
 						if restrictive || #expressions {
-							pick @altRestrictiveExpression(operand, fMode)
+							set @altRestrictiveExpression(operand, fMode)
 						}
 						else {
-							pick operand
+							set operand
 						}
 					)
 				}
@@ -5121,7 +5121,7 @@ export namespace Parser {
 					var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.Arrow, fMode)
 
 					if @mode ~~ ParserMode.InlineStatement {
-						return @yep(AST.PickStatement(expression, expression, expression))
+						return @yep(AST.SetStatement(expression, expression, expression))
 					}
 					else {
 						return @yep(AST.ExpressionStatement(expression))
@@ -6425,27 +6425,6 @@ export namespace Parser {
 		reqPassStatement(first: Event): Event ~ SyntaxError { # {{{
 			return @yep(AST.PassStatement(first))
 		} # }}}
-		reqPickStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
-
-			if @match(Token.IF, Token.UNLESS) == Token.IF {
-				@commit()
-
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
-
-				return @yep(AST.IfStatement(condition, null, @yep(AST.PickStatement(expression, first, expression)), null, first, condition))
-			}
-			else if @token == Token.UNLESS {
-				@commit()
-
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
-
-				return @yep(AST.UnlessStatement(condition, @yep(AST.PickStatement(expression, first, expression)), first, condition))
-			}
-			else {
-				return @yep(AST.PickStatement(expression, first, expression))
-			}
-		} # }}}
 		reqPostfixedOperand(mut operand: Event?, mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			operand = @reqUnaryOperand(operand, eMode, fMode)
 
@@ -6704,6 +6683,27 @@ export namespace Parser {
 				@throw(',', token.toString(), 'NewLine')
 			}
 		} # }}}
+		reqSetStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+
+			if @match(Token.IF, Token.UNLESS) == Token.IF {
+				@commit()
+
+				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+
+				return @yep(AST.IfStatement(condition, null, @yep(AST.SetStatement(expression, first, expression)), null, first, condition))
+			}
+			else if @token == Token.UNLESS {
+				@commit()
+
+				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+
+				return @yep(AST.UnlessStatement(condition, @yep(AST.SetStatement(expression, first, expression)), first, condition))
+			}
+			else {
+				return @yep(AST.SetStatement(expression, first, expression))
+			}
+		} # }}}
 		reqStatement(fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mark = @mark()
 
@@ -6821,8 +6821,8 @@ export namespace Parser {
 				Token.PASS {
 					statement = @reqPassStatement(@yes())
 				}
-				Token.PICK {
-					statement = @reqPickStatement(@yes(), fMode)
+				Token.SET {
+					statement = @reqSetStatement(@yes(), fMode)
 				}
 				Token.REPEAT {
 					statement = @reqRepeatStatement(@yes(), fMode)
@@ -8775,10 +8775,10 @@ export namespace Parser {
 				@commit()
 
 				var body = if @test(Token.LEFT_CURLY) {
-					pick @tryBlock(fMode)
+					set @tryBlock(fMode)
 				}
 				else {
-					pick @tryExpression(eMode + ExpressionMode.NoObject, fMode)
+					set @tryExpression(eMode + ExpressionMode.NoObject, fMode)
 				}
 
 				return NO unless body.ok
@@ -8797,10 +8797,10 @@ export namespace Parser {
 				var parameters = @yep([@yep(AST.Parameter(name))], name, name)
 
 				var body = if @test(Token.LEFT_CURLY) {
-					pick @tryBlock(fMode)
+					set @tryBlock(fMode)
 				}
 				else {
-					pick @tryExpression(eMode + ExpressionMode.NoObject, fMode)
+					set @tryExpression(eMode + ExpressionMode.NoObject, fMode)
 				}
 
 				return NO unless body.ok

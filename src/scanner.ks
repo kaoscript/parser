@@ -134,7 +134,6 @@ enum Token {
 	PASS
 	PERCENT
 	PERCENT_EQUALS
-	PICK
 	PIPE
 	PIPE_RIGHT_ANGLE
 	PIPE_RIGHT_ANGLE_HASH
@@ -1928,7 +1927,7 @@ namespace M {
 					return Token.NAMESPACE
 				}
 			}
-			// pass, pick
+			// pass
 			else if c == 112
 			{
 				if	that.charAt(1) == 97 &&
@@ -1939,16 +1938,6 @@ namespace M {
 					that.next(4)
 
 					return Token.PASS
-				}
-				else if pMode ~~ ParserMode.InlineStatement &&
-					that.charAt(1) == 105 &&
-					that.charAt(2) == 99 &&
-					that.charAt(3) == 107 &&
-					that.isBoundary(4)
-				{
-					that.next(4)
-
-					return Token.PICK
 				}
 			}
 			// repeat, return
@@ -1990,6 +1979,15 @@ namespace M {
 					that.next(6)
 
 					return Token.SEALED
+				}
+				else if pMode ~~ ParserMode.InlineStatement &&
+					that.charAt(1) == 101 &&
+					that.charAt(2) == 116 &&
+					that.isBoundary(3)
+				{
+					that.next(3)
+
+					return Token.SET
 				}
 				else if that.charAt(1) == 116 &&
 					that.charAt(2) == 114 &&

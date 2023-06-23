@@ -1527,21 +1527,6 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func PickStatement(first) { # {{{
-			return location({
-				kind: NodeKind.PickStatement
-				attributes: []
-			}, first, first)
-		} # }}}
-
-		func PickStatement(value, first, last) { # {{{
-			return location({
-				kind: NodeKind.PickStatement
-				attributes: []
-				value: value.value
-			}, first, last)
-		} # }}}
-
 		func PlaceholderArgument(modifiers, index?, first, last) { # {{{
 			return location({
 				kind: NodeKind.PlaceholderArgument
@@ -1734,6 +1719,21 @@ namespace AST {
 				kind: NodeKind.SequenceExpression
 				modifiers: []
 				expressions: [expression.value for expression in expressions]
+			}, first, last)
+		} # }}}
+
+		func SetStatement(first) { # {{{
+			return location({
+				kind: NodeKind.SetStatement
+				attributes: []
+			}, first, first)
+		} # }}}
+
+		func SetStatement(value, first, last) { # {{{
+			return location({
+				kind: NodeKind.SetStatement
+				attributes: []
+				value: value.value
 			}, first, last)
 		} # }}}
 
