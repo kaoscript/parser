@@ -218,6 +218,19 @@
           "column": 13
         }
       },
+      "extends": {
+        "kind": 52,
+        "modifiers": [],
+        "name": "Foobar",
+        "start": {
+          "line": 7,
+          "column": 22
+        },
+        "end": {
+          "line": 7,
+          "column": 28
+        }
+      },
       "members": [
         {
           "kind": 74,
@@ -346,19 +359,6 @@
       "end": {
         "line": 11,
         "column": 2
-      },
-      "extends": {
-        "kind": 52,
-        "modifiers": [],
-        "name": "Foobar",
-        "start": {
-          "line": 7,
-          "column": 22
-        },
-        "end": {
-          "line": 7,
-          "column": 28
-        }
       }
     }
   ],

@@ -5789,7 +5789,7 @@ export namespace Parser {
 					var throws = @tryFunctionThrows()
 					var body = @reqFunctionBody(fMode)
 
-					return @yep(AST.ObjectMember(attributes, [], name, null, @yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, parameters, body)), first ?? async ?? name, body))
+					return @yep(AST.ObjectMember(attributes, [], name, null, @yep(AST.LambdaExpression(parameters, modifiers, type, throws, body, parameters, body)), first ?? async ?? name, body))
 				}
 				else {
 					@rollback(marker)
@@ -5840,7 +5840,7 @@ export namespace Parser {
 				var throws = @tryFunctionThrows()
 				var body = @reqFunctionBody(fMode)
 
-				return @yep(AST.ObjectMember(attributes, [], name, null, @yep(AST.FunctionExpression(parameters, null, type, throws, body, parameters, body)), first ?? name, body))
+				return @yep(AST.ObjectMember(attributes, [], name, null, @yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body)), first ?? name, body))
 			}
 			else if name.value.kind == NodeKind.Identifier {
 				var expression = @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))

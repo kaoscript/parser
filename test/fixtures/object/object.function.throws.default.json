@@ -90,7 +90,8 @@
                   }
                 },
                 "value": {
-                  "kind": 49,
+                  "kind": 62,
+                  "modifiers": [],
                   "parameters": [
                     {
                       "kind": 87,
@@ -157,6 +158,19 @@
                       }
                     }
                   ],
+                  "body": {
+                    "kind": 15,
+                    "attributes": [],
+                    "statements": [],
+                    "start": {
+                      "line": 2,
+                      "column": 34
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 3
+                    }
+                  },
                   "start": {
                     "line": 2,
                     "column": 5
@@ -165,7 +179,6 @@
                     "line": 3,
                     "column": 3
                   },
-                  "modifiers": [],
                   "throws": [
                     {
                       "kind": 52,
@@ -180,20 +193,7 @@
                         "column": 33
                       }
                     }
-                  ],
-                  "body": {
-                    "kind": 15,
-                    "attributes": [],
-                    "statements": [],
-                    "start": {
-                      "line": 2,
-                      "column": 34
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 3
-                    }
-                  }
+                  ]
                 }
               }
             ],

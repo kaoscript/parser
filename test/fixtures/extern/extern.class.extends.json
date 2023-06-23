@@ -118,6 +118,19 @@
               "column": 17
             }
           },
+          "extends": {
+            "kind": 52,
+            "modifiers": [],
+            "name": "Foo",
+            "start": {
+              "line": 5,
+              "column": 26
+            },
+            "end": {
+              "line": 5,
+              "column": 29
+            }
+          },
           "members": [
             {
               "kind": 74,
@@ -180,19 +193,6 @@
           "end": {
             "line": 7,
             "column": 2
-          },
-          "extends": {
-            "kind": 52,
-            "modifiers": [],
-            "name": "Foo",
-            "start": {
-              "line": 5,
-              "column": 26
-            },
-            "end": {
-              "line": 5,
-              "column": 29
-            }
           }
         }
       ],
