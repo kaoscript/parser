@@ -115,6 +115,19 @@ export namespace Parser {
 		NoIdentifier
 	}
 
+	var ESCAPES = {
+		'0': 0x0
+		'\'': 0x27
+		'\"': 0x22
+		'\\': 0x5C
+		'n': 0x0A
+		'r': 0x0D
+		'v': 0x0B
+		't': 0x09
+		'b': 0x08
+		'f': 0x0C
+	}
+
 	var NO = Event.new(ok: false)
 	var YES = Event.new(ok: true)
 
@@ -9228,6 +9241,20 @@ export namespace Parser {
 		tryNumber(): Event ~ SyntaxError { # {{{
 			if @matchM(M.NUMBER) == Token.BINARY_NUMBER {
 				return @yep(AST.NumericExpression(parseInt(@scanner.value().slice(2).replace(/\_/g, ''), 2), @yes()))
+			}
+			else if @token == Token.CHARACTER_NUMBER {
+				var value = @scanner.value()
+
+				if value.length == 4 {
+					var number = value.charCodeAt(2)
+
+					return @yep(AST.NumericExpression(number, @yes()))
+				}
+				else {
+					var number = ESCAPES[value[3]]
+
+					return @yep(AST.NumericExpression(number, @yes()))
+				}
 			}
 			else if @token == Token.OCTAL_NUMBER {
 				var radix = 8

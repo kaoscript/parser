@@ -134,7 +134,7 @@ namespace AST {
 		var precedences = {}
 		var mut precedenceList = []
 
-		for i from 1 to~ operations.length step 2 {
+		for var mut i from 1 to~ operations.length step 2 {
 			if operations[i].kind == NodeKind.ConditionalExpression {
 				if ?precedences[CONDITIONAL_PRECEDENCE] {
 					precedences[CONDITIONAL_PRECEDENCE] += 1
@@ -161,7 +161,7 @@ namespace AST {
 			}
 		}
 
-		precedenceList = precedenceList.sort(func(a, b) {
+		precedenceList.sort(func(a, b) {
 			return b - a
 		})
 

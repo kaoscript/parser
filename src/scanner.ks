@@ -31,6 +31,7 @@ enum Token {
 	CARET_CARET_LEFT_ROUND
 	CARET_DOLLAR_LEFT_ROUND
 	CATCH
+	CHARACTER_NUMBER
 	CLASS
 	CLASS_VERSION
 	COLON
@@ -223,6 +224,7 @@ var overhauls = {
 
 var regex: Object<RegExp> = {
 	binary_number: /^0b[_0-1]+[a-zA-Z]*/
+	character_number: /^0'(?:[^\r\n]|\\[0'"\\nrvtbf])'/
 	class_version: /^\d+(\.\d+(\.\d+)?)?/
 	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?(?:[eE][-+]?[_0-9]+)?(?:[a-zA-Z]*)/
 	dot_number: /^\.[_0-9]+(?:[eE][-+]?[_0-9]+|[a-zA-Z]*)/
@@ -1328,7 +1330,7 @@ namespace M {
 					return Token.DECIMAL_NUMBER
 				}
 			}
-			else if c >= 48 && c <= 57 { // 0 - 9
+			else if c == 48 { // 0
 				var dyn substr = that._data.substr(that._index)
 
 				if match ?= regex.binary_number.exec(substr) {
@@ -1346,7 +1348,21 @@ namespace M {
 
 					return Token.HEX_NUMBER
 				}
-				else if match ?= regex.radix_number.exec(substr) {
+				else if match ?= regex.character_number.exec(substr) {
+					that.next(match[0].length)
+
+					return Token.CHARACTER_NUMBER
+				}
+				else if match ?= regex.decimal_number.exec(substr) {
+					that.next(match[0].length)
+
+					return Token.DECIMAL_NUMBER
+				}
+			}
+			else if c >= 49 && c <= 57 { // 1 - 9
+				var dyn substr = that._data.substr(that._index)
+
+				if match ?= regex.radix_number.exec(substr) {
 					that.next(match[0].length)
 
 					return Token.RADIX_NUMBER
