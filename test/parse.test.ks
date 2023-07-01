@@ -13,12 +13,12 @@ extern {
 include '../src/util.ks'
 
 import {
-	'..'					for parse
-	'@kaoscript/chai'		for expect
-	'fs'
-	'kaoscript/src/fs.js'	for escapeJSON, unescapeJSON
-	'klaw-sync'				=> klaw
-	'path'
+	'..'						for parse
+	'node:fs'
+	'node:path'
+	'npm:@kaoscript/chai'		for expect
+	'npm:kaoscript/src/fs.js'	for escapeJSON, unescapeJSON
+	'npm:klaw-sync'				=> klaw
 }
 
 var DEBUG = process.env.DEBUG == '1' || process.env.DEBUG == 'true' || process.env.DEBUG == 'on'

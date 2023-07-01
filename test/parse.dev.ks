@@ -8,8 +8,8 @@ extern {
 include '../src/util.ks'
 
 import {
-	'kaoscript/register'
-	'mocha' => Mocha
+	'npm:kaoscript/register.js'
+	'npm:mocha' => Mocha
 }
 
 func logSuccess(str) {

@@ -9,16 +9,16 @@
  **/
 #![error(ignore(Error))]
 
-import '@kaoscript/ast'
+import 'npm:@kaoscript/ast'
 
 export namespace Parser {
 	include {
-		'./util'
+		'./util.ks'
 
-		'./types'
+		'./types.ks'
 
-		'./ast'
-		'./scanner'
+		'./ast.ks'
+		'./scanner.ks'
 	}
 
 	struct AmbiguityResult {
