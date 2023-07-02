@@ -1058,22 +1058,15 @@ namespace AST {
 		} # }}}
 
 		func ImportDeclarator(attributes, modifiers, source, arguments?, type?, specifiers, first, last) { # {{{
-			var node = location({
+			return location({
 				kind: NodeKind.ImportDeclarator
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers
 				source: source.value
+				arguments: arguments if ?arguments
+				type: type.value if ?type
 				specifiers: [specifier.value for var specifier in specifiers]
 			}, first, last)
-
-			if arguments != null {
-				node.arguments = arguments
-			}
-			if type != null {
-				node.type = type.value
-			}
-
-			return node
 		} # }}}
 
 		func Identifier(name, first) { # {{{
@@ -1388,17 +1381,12 @@ namespace AST {
 		} # }}}
 
 		func NamedSpecifier(modifiers, internal, external?, first, last) { # {{{
-			var node = location({
+			return location({
 				kind: NodeKind.NamedSpecifier
 				modifiers: [modifier.value for var modifier in modifiers]
 				internal: internal.value
+				external: external.value if ?external
 			}, first, last)
-
-			if ?external {
-				node.external = external.value
-			}
-
-			return node
 		} # }}}
 
 		func NamespaceDeclaration(attributes, modifiers, name, statements, first, last) { # {{{

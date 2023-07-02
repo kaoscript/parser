@@ -109,7 +109,7 @@ export namespace Parser {
 		Typing
 	}
 
-	enum TypeMode {
+	bitmask TypeMode {
 		Default
 		Module
 		NoIdentifier
@@ -2301,6 +2301,26 @@ export namespace Parser {
 
 			@throw('=', '??=', '##=')
 		} # }}}
+		reqDestructuring(mut dMode: DestructuringMode?, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			if !?dMode {
+				if fMode ~~ FunctionMode.Method {
+					dMode = DestructuringMode.Expression + DestructuringMode.THIS_ALIAS
+				}
+				else {
+					dMode = DestructuringMode.Expression
+				}
+			}
+
+			if @match(Token.LEFT_CURLY, Token.LEFT_SQUARE) == Token.LEFT_CURLY {
+				return @reqDestructuringObject(@yes(), dMode, fMode)
+			}
+			else if @token == Token.LEFT_SQUARE {
+				return @reqDestructuringArray(@yes(), dMode, fMode)
+			}
+			else {
+				@throw('{', '[')
+			}
+		} # }}}
 		reqDestructuringArray(mut first: Event, dMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
@@ -4431,57 +4451,105 @@ export namespace Parser {
 			var mut type = null
 			var specifiers = []
 
-			if @match(Token.BUT, Token.EQUALS_RIGHT_ANGLE, Token.FOR, Token.LEFT_CURLY) == Token.BUT {
-				var modifier = @yep(AST.Modifier(ModifierKind.Exclusion, @yes()))
-				var elements = []
+			match @match(Token.BUT, Token.EQUALS_RIGHT_ANGLE, Token.FOR, Token.LEFT_CURLY) {
+				.BUT {
+					var modifier = @yep(AST.Modifier(ModifierKind.Exclusion, @yes()))
+					var elements = []
 
-				if @test(Token.LEFT_CURLY) {
-					@commit().NL_0M()
+					if @test(Token.LEFT_CURLY) {
+						@commit().NL_0M()
 
-					until @test(Token.RIGHT_CURLY) {
+						until @test(Token.RIGHT_CURLY) {
+							elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
+
+							@reqNL_1M()
+						}
+
+						unless @test(Token.RIGHT_CURLY) {
+							@throw('}')
+						}
+
+						last = @yes()
+					}
+					else {
 						elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
 
-						@reqNL_1M()
+						while @test(Token.COMMA) {
+							@commit()
+
+							elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
+						}
+
+						last = elements[elements.length - 1]
 					}
 
-					unless @test(Token.RIGHT_CURLY) {
-						@throw('}')
-					}
+					specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
 
-					last = @yes()
+					last = specifiers[specifiers.length - 1]
 				}
-				else {
-					elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
+				.EQUALS_RIGHT_ANGLE {
+					var modifier = @yep(AST.Modifier(ModifierKind.Alias, @yes()))
+					type = @tryTypeDescriptive(TypeMode.Module + TypeMode.NoIdentifier)
 
-					while @test(Token.COMMA) {
+					if type.ok {
+						specifiers.push(@yep(AST.NamedSpecifier([modifier], @yep(type.value.name), null, modifier, type)))
+
+						last = type
+					}
+					else {
+						type = null
+
+						var elements = []
+						var identifier = @reqIdentifier()
+
+						elements.push(@yep(AST.NamedSpecifier(identifier)))
+
+						if @test(Token.COMMA) {
+							@commit()
+
+							var element = @reqDestructuring(DestructuringMode.Nil, FunctionMode.Function)
+
+							elements.push(@yep(AST.NamedSpecifier(element)))
+						}
+
+						last = elements[elements.length - 1]
+
+						specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
+					}
+				}
+				.FOR {
+					var first = @yes()
+					var elements = []
+
+					if @test(Token.LEFT_CURLY) {
+						@commit().NL_0M()
+
+						while @until(Token.RIGHT_CURLY) {
+							var type = @tryTypeDescriptive(TypeMode.Module + TypeMode.NoIdentifier)
+
+							if type.ok {
+								if @test(Token.EQUALS_RIGHT_ANGLE) {
+									@commit()
+
+									@submitNamedGroupSpecifier([], type, elements)
+								}
+								else {
+									elements.push(@yep(AST.TypedSpecifier(type, type)))
+								}
+							}
+							else {
+								@submitNamedSpecifier([], elements)
+							}
+
+							@reqNL_1M()
+						}
+
+						@throw('}') unless @test(Token.RIGHT_CURLY)
+
 						@commit()
-
-						elements.push(@yep(AST.NamedSpecifier(@reqIdentifier())))
 					}
-
-					last = elements[elements.length - 1]
-				}
-
-				specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
-
-				last = specifiers[specifiers.length - 1]
-			}
-			else if @token == Token.EQUALS_RIGHT_ANGLE {
-				var modifier = @yep(AST.Modifier(ModifierKind.Alias, @yes()))
-
-				@submitNamedGroupSpecifier([modifier], null, specifiers)
-
-				last = specifiers[specifiers.length - 1]
-			}
-			else if @token == Token.FOR {
-				var first = @yes()
-				var elements = []
-
-				if @test(Token.LEFT_CURLY) {
-					@commit().NL_0M()
-
-					while @until(Token.RIGHT_CURLY) {
-						var type = @tryTypeDescriptive(TypeMode.NoIdentifier)
+					else {
+						var type = @tryTypeDescriptive(TypeMode.Module + TypeMode.NoIdentifier)
 
 						if type.ok {
 							if @test(Token.EQUALS_RIGHT_ANGLE) {
@@ -4495,94 +4563,83 @@ export namespace Parser {
 						}
 						else {
 							@submitNamedSpecifier([], elements)
-						}
 
-						@reqNL_1M()
+							while @test(Token.COMMA) {
+								@commit()
+
+								@submitNamedSpecifier([], elements)
+							}
+						}
 					}
 
-					@throw('}') unless @test(Token.RIGHT_CURLY)
+					last = elements[elements.length - 1]
 
-					@commit()
+					specifiers.push(@yep(AST.GroupSpecifier([], elements, null, first, last)))
+
+					last = specifiers[specifiers.length - 1]
 				}
-				else {
-					var type = @tryTypeDescriptive(TypeMode.NoIdentifier)
+				.LEFT_CURLY {
+					type = @reqTypeModule(@yes())
 
-					if type.ok {
-						if @test(Token.EQUALS_RIGHT_ANGLE) {
+					if @match(Token.EQUALS_RIGHT_ANGLE, Token.FOR) == Token.EQUALS_RIGHT_ANGLE {
+						var modifier = @yep(AST.Modifier(ModifierKind.Alias, @yes()))
+						var elements = []
+						var identifier = @reqIdentifier()
+
+						elements.push(@yep(AST.NamedSpecifier(identifier)))
+
+						if @test(Token.COMMA) {
 							@commit()
 
-							@submitNamedGroupSpecifier([], type, elements)
+							var element = @reqDestructuring(DestructuringMode.Nil, FunctionMode.Function)
+
+							elements.push(@yep(AST.NamedSpecifier(element)))
+						}
+
+						last = elements[elements.length - 1]
+
+						specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
+					}
+					else if @token == Token.FOR {
+						@commit()
+
+						var elements = []
+
+						if @test(Token.ASTERISK) {
+							var modifier = @yep(AST.Modifier(ModifierKind.Wildcard, @yes()))
+
+							specifiers.push(@yep(AST.GroupSpecifier([modifier], [], null, modifier, modifier)))
+
+							last = modifier
+						}
+						else if @test(Token.LEFT_CURLY) {
+							@commit().NL_0M()
+
+							while @until(Token.RIGHT_CURLY) {
+								@submitNamedSpecifier([], specifiers)
+
+								@reqNL_1M()
+							}
+
+							@throw('}') unless @test(Token.RIGHT_CURLY)
+
+							last = @yes()
 						}
 						else {
-							elements.push(@yep(AST.TypedSpecifier(type, type)))
-						}
-					}
-					else {
-						@submitNamedSpecifier([], elements)
-
-						while @test(Token.COMMA) {
-							@commit()
-
-							@submitNamedSpecifier([], elements)
-						}
-					}
-				}
-
-				last = elements[elements.length - 1]
-
-				specifiers.push(@yep(AST.GroupSpecifier([], elements, null, first, last)))
-
-				last = specifiers[specifiers.length - 1]
-			}
-			else if @token == Token.LEFT_CURLY {
-				type = @reqTypeModule(@yes())
-
-				if @match(Token.EQUALS_RIGHT_ANGLE, Token.FOR) == Token.EQUALS_RIGHT_ANGLE {
-					var modifier = @yep(AST.Modifier(ModifierKind.Alias, @yes()))
-
-					@submitNamedGroupSpecifier([modifier], null, specifiers)
-
-					last = specifiers[specifiers.length - 1]
-				}
-				else if @token == Token.FOR {
-					@commit()
-
-					var elements = []
-
-					if @test(Token.ASTERISK) {
-						var modifier = @yep(AST.Modifier(ModifierKind.Wildcard, @yes()))
-
-						specifiers.push(@yep(AST.GroupSpecifier([modifier], [], null, modifier, modifier)))
-
-						last = modifier
-					}
-					else if @test(Token.LEFT_CURLY) {
-						@commit().NL_0M()
-
-						while @until(Token.RIGHT_CURLY) {
 							@submitNamedSpecifier([], specifiers)
 
-							@reqNL_1M()
+							while @test(Token.COMMA) {
+								@commit()
+
+								@submitNamedSpecifier([], specifiers)
+							}
 						}
 
-						@throw('}') unless @test(Token.RIGHT_CURLY)
-
-						last = @yes()
+						last = specifiers[specifiers.length - 1]
 					}
 					else {
-						@submitNamedSpecifier([], specifiers)
-
-						while @test(Token.COMMA) {
-							@commit()
-
-							@submitNamedSpecifier([], specifiers)
-						}
+						last = type
 					}
-
-					last = specifiers[specifiers.length - 1]
-				}
-				else {
-					last = type
 				}
 			}
 
@@ -9954,7 +10011,7 @@ export namespace Parser {
 					}
 				}
 				Token.EXPORT {
-					if tMode == TypeMode.Module {
+					if tMode ~~ TypeMode.Module {
 						return NO
 					}
 					else {
@@ -9991,7 +10048,7 @@ export namespace Parser {
 					return @reqExternFunctionDeclaration([], first)
 				}
 				Token.IDENTIFIER {
-					if tMode == TypeMode.NoIdentifier {
+					if tMode ~~ TypeMode.NoIdentifier {
 						return NO
 					}
 					else {
