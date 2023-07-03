@@ -7,9 +7,9 @@ extern {
 }
 
 import {
-	'fs'
-	'klaw-sync' => klaw
-	'path'
+	'node:fs'
+	'node:path'
+	'npm:klaw-sync' => klaw
 
 	'..' for parse
 }

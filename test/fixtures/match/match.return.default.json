@@ -131,6 +131,21 @@
             "clauses": [
               {
                 "kind": 66,
+                "conditions": [
+                  {
+                    "kind": 81,
+                    "modifiers": [],
+                    "value": -1,
+                    "start": {
+                      "line": 3,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 5
+                    }
+                  }
+                ],
                 "body": {
                   "kind": 41,
                   "attributes": [],
@@ -163,26 +178,25 @@
                 "end": {
                   "line": 3,
                   "column": 10
-                },
+                }
+              },
+              {
+                "kind": 66,
                 "conditions": [
                   {
                     "kind": 81,
                     "modifiers": [],
-                    "value": -1,
+                    "value": 42,
                     "start": {
-                      "line": 3,
+                      "line": 4,
                       "column": 3
                     },
                     "end": {
-                      "line": 3,
+                      "line": 4,
                       "column": 5
                     }
                   }
                 ],
-                "bindings": []
-              },
-              {
-                "kind": 66,
                 "body": {
                   "kind": 104,
                   "attributes": [],
@@ -215,26 +229,11 @@
                 "end": {
                   "line": 4,
                   "column": 17
-                },
-                "conditions": [
-                  {
-                    "kind": 81,
-                    "modifiers": [],
-                    "value": 42,
-                    "start": {
-                      "line": 4,
-                      "column": 3
-                    },
-                    "end": {
-                      "line": 4,
-                      "column": 5
-                    }
-                  }
-                ],
-                "bindings": []
+                }
               },
               {
                 "kind": 66,
+                "conditions": [],
                 "body": {
                   "kind": 104,
                   "attributes": [],
@@ -304,9 +303,7 @@
                 "end": {
                   "line": 5,
                   "column": 23
-                },
-                "conditions": [],
-                "bindings": []
+                }
               }
             ],
             "start": {

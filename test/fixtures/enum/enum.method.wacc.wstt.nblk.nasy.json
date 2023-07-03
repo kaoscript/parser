@@ -377,6 +377,21 @@
                 "clauses": [
                   {
                     "kind": 66,
+                    "conditions": [
+                      {
+                        "kind": 63,
+                        "modifiers": [],
+                        "value": "monday",
+                        "start": {
+                          "line": 12,
+                          "column": 5
+                        },
+                        "end": {
+                          "line": 12,
+                          "column": 13
+                        }
+                      }
+                    ],
                     "body": {
                       "kind": 104,
                       "attributes": [],
@@ -409,23 +424,7 @@
                     "end": {
                       "line": 12,
                       "column": 30
-                    },
-                    "conditions": [
-                      {
-                        "kind": 63,
-                        "modifiers": [],
-                        "value": "monday",
-                        "start": {
-                          "line": 12,
-                          "column": 5
-                        },
-                        "end": {
-                          "line": 12,
-                          "column": 13
-                        }
-                      }
-                    ],
-                    "bindings": []
+                    }
                   }
                 ],
                 "start": {

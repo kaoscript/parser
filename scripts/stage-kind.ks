@@ -7,9 +7,9 @@ extern {
 }
 
 import {
-	'child_process' for exec
-	'fs'
-	'path'
+	'node:child_process' for exec
+	'node:fs'
+	'node:path'
 }
 
 var CHANGE_REGEX = /^[+-]\s/

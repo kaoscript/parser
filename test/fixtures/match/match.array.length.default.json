@@ -168,6 +168,20 @@
       "clauses": [
         {
           "kind": 66,
+          "conditions": [
+            {
+              "kind": 67,
+              "values": [],
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 4
+              }
+            }
+          ],
           "body": {
             "kind": 41,
             "attributes": [],
@@ -255,25 +269,49 @@
           "end": {
             "line": 4,
             "column": 35
-          },
-          "conditions": [
-            {
-              "kind": 67,
-              "values": [],
-              "start": {
-                "line": 4,
-                "column": 2
-              },
-              "end": {
-                "line": 4,
-                "column": 4
-              }
-            }
-          ],
-          "bindings": []
+          }
         },
         {
           "kind": 66,
+          "conditions": [],
+          "binding": {
+            "kind": 3,
+            "elements": [
+              {
+                "kind": 13,
+                "modifiers": [],
+                "internal": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "elem",
+                  "start": {
+                    "line": 5,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 12
+                  }
+                },
+                "start": {
+                  "line": 5,
+                  "column": 8
+                },
+                "end": {
+                  "line": 5,
+                  "column": 12
+                }
+              }
+            ],
+            "start": {
+              "line": 5,
+              "column": 7
+            },
+            "end": {
+              "line": 5,
+              "column": 13
+            }
+          },
           "body": {
             "kind": 41,
             "attributes": [],
@@ -361,51 +399,85 @@
           "end": {
             "line": 5,
             "column": 39
-          },
-          "conditions": [],
-          "bindings": [
-            {
-              "kind": 3,
-              "elements": [
-                {
-                  "kind": 13,
-                  "modifiers": [],
-                  "internal": {
-                    "kind": 52,
-                    "modifiers": [],
-                    "name": "elem",
-                    "start": {
-                      "line": 5,
-                      "column": 8
-                    },
-                    "end": {
-                      "line": 5,
-                      "column": 12
-                    }
-                  },
-                  "start": {
-                    "line": 5,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 5,
-                    "column": 12
-                  }
-                }
-              ],
-              "start": {
-                "line": 5,
-                "column": 7
-              },
-              "end": {
-                "line": 5,
-                "column": 13
-              }
-            }
-          ]
+          }
         },
         {
           "kind": 66,
+          "conditions": [],
+          "binding": {
+            "kind": 3,
+            "elements": [
+              {
+                "kind": 13,
+                "modifiers": [],
+                "start": {
+                  "line": 6,
+                  "column": 8
+                },
+                "end": {
+                  "line": 6,
+                  "column": 9
+                }
+              },
+              {
+                "kind": 13,
+                "modifiers": [],
+                "start": {
+                  "line": 6,
+                  "column": 11
+                },
+                "end": {
+                  "line": 6,
+                  "column": 12
+                }
+              },
+              {
+                "kind": 13,
+                "modifiers": [
+                  {
+                    "kind": 36,
+                    "start": {
+                      "line": 6,
+                      "column": 14
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 17
+                    }
+                  }
+                ],
+                "internal": {
+                  "kind": 52,
+                  "modifiers": [],
+                  "name": "rest",
+                  "start": {
+                    "line": 6,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 21
+                  }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 14
+                },
+                "end": {
+                  "line": 6,
+                  "column": 21
+                }
+              }
+            ],
+            "start": {
+              "line": 6,
+              "column": 7
+            },
+            "end": {
+              "line": 6,
+              "column": 22
+            }
+          },
           "body": {
             "kind": 41,
             "attributes": [],
@@ -493,84 +565,7 @@
           "end": {
             "line": 6,
             "column": 45
-          },
-          "conditions": [],
-          "bindings": [
-            {
-              "kind": 3,
-              "elements": [
-                {
-                  "kind": 13,
-                  "modifiers": [],
-                  "start": {
-                    "line": 6,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 6,
-                    "column": 9
-                  }
-                },
-                {
-                  "kind": 13,
-                  "modifiers": [],
-                  "start": {
-                    "line": 6,
-                    "column": 11
-                  },
-                  "end": {
-                    "line": 6,
-                    "column": 12
-                  }
-                },
-                {
-                  "kind": 13,
-                  "modifiers": [
-                    {
-                      "kind": 36,
-                      "start": {
-                        "line": 6,
-                        "column": 14
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 17
-                      }
-                    }
-                  ],
-                  "internal": {
-                    "kind": 52,
-                    "modifiers": [],
-                    "name": "rest",
-                    "start": {
-                      "line": 6,
-                      "column": 17
-                    },
-                    "end": {
-                      "line": 6,
-                      "column": 21
-                    }
-                  },
-                  "start": {
-                    "line": 6,
-                    "column": 14
-                  },
-                  "end": {
-                    "line": 6,
-                    "column": 21
-                  }
-                }
-              ],
-              "start": {
-                "line": 6,
-                "column": 7
-              },
-              "end": {
-                "line": 6,
-                "column": 22
-              }
-            }
-          ]
+          }
         }
       ],
       "start": {

@@ -135,6 +135,21 @@
             "clauses": [
               {
                 "kind": 66,
+                "conditions": [
+                  {
+                    "kind": 52,
+                    "modifiers": [],
+                    "name": "false",
+                    "start": {
+                      "line": 4,
+                      "column": 2
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 7
+                    }
+                  }
+                ],
                 "body": {
                   "kind": 106,
                   "attributes": [],
@@ -167,26 +182,25 @@
                 "end": {
                   "line": 4,
                   "column": 12
-                },
+                }
+              },
+              {
+                "kind": 66,
                 "conditions": [
                   {
                     "kind": 52,
                     "modifiers": [],
-                    "name": "false",
+                    "name": "true",
                     "start": {
-                      "line": 4,
+                      "line": 5,
                       "column": 2
                     },
                     "end": {
-                      "line": 4,
-                      "column": 7
+                      "line": 5,
+                      "column": 6
                     }
                   }
                 ],
-                "bindings": []
-              },
-              {
-                "kind": 66,
                 "body": {
                   "kind": 106,
                   "attributes": [],
@@ -219,23 +233,7 @@
                 "end": {
                   "line": 5,
                   "column": 11
-                },
-                "conditions": [
-                  {
-                    "kind": 52,
-                    "modifiers": [],
-                    "name": "true",
-                    "start": {
-                      "line": 5,
-                      "column": 2
-                    },
-                    "end": {
-                      "line": 5,
-                      "column": 6
-                    }
-                  }
-                ],
-                "bindings": []
+                }
               }
             ],
             "start": {

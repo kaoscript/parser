@@ -1324,7 +1324,7 @@ namespace M {
 			else if c == 46 {
 				var dyn substr = that._data.substr(that._index)
 
-				if match ?= regex.dot_number.exec(substr) {
+				if var match ?= regex.dot_number.exec(substr) {
 					that.next(match[0].length)
 
 					return Token.DECIMAL_NUMBER
@@ -1333,27 +1333,27 @@ namespace M {
 			else if c == 48 { // 0
 				var dyn substr = that._data.substr(that._index)
 
-				if match ?= regex.binary_number.exec(substr) {
+				if var match ?= regex.binary_number.exec(substr) {
 					that.next(match[0].length)
 
 					return Token.BINARY_NUMBER
 				}
-				else if match ?= regex.octal_number.exec(substr) {
+				else if var match ?= regex.octal_number.exec(substr) {
 					that.next(match[0].length)
 
 					return Token.OCTAL_NUMBER
 				}
-				else if match ?= regex.hex_number.exec(substr) {
+				else if var match ?= regex.hex_number.exec(substr) {
 					that.next(match[0].length)
 
 					return Token.HEX_NUMBER
 				}
-				else if match ?= regex.character_number.exec(substr) {
+				else if var match ?= regex.character_number.exec(substr) {
 					that.next(match[0].length)
 
 					return Token.CHARACTER_NUMBER
 				}
-				else if match ?= regex.decimal_number.exec(substr) {
+				else if var match ?= regex.decimal_number.exec(substr) {
 					that.next(match[0].length)
 
 					return Token.DECIMAL_NUMBER
@@ -1362,12 +1362,12 @@ namespace M {
 			else if c >= 49 && c <= 57 { // 1 - 9
 				var dyn substr = that._data.substr(that._index)
 
-				if match ?= regex.radix_number.exec(substr) {
+				if var match ?= regex.radix_number.exec(substr) {
 					that.next(match[0].length)
 
 					return Token.RADIX_NUMBER
 				}
-				else if match ?= regex.decimal_number.exec(substr) {
+				else if var match ?= regex.decimal_number.exec(substr) {
 					that.next(match[0].length)
 
 					return Token.DECIMAL_NUMBER
@@ -1406,7 +1406,7 @@ namespace M {
 
 					return Token.ML_SINGLE_QUOTE
 				}
-				else if match ?= regex.single_quote.exec(that.substringAt(1)) {
+				else if var match ?= regex.single_quote.exec(that.substringAt(1)) {
 					that.next(match[0].length + 1)
 
 					return Token.STRING
@@ -1418,7 +1418,7 @@ namespace M {
 				return Token.LEFT_ROUND
 			}
 			else if c == 47 { // /
-				if match ?= regex.regex.exec(that.substringAt(1)) {
+				if var match ?= regex.regex.exec(that.substringAt(1)) {
 					that.next(match[0].length + 1)
 
 					return Token.REGEXP
@@ -2133,7 +2133,7 @@ namespace M {
 			else if c == 96 { // )
 				return Token.TEMPLATE_END
 			}
-			else if match ?= regex.template.exec(that._data.substr(index)) {
+			else if var match ?= regex.template.exec(that._data.substr(index)) {
 				that.next(match[0].length)
 
 				return Token.TEMPLATE_VALUE
@@ -2410,7 +2410,7 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token.CLASS_VERSION)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if match ?= regex.class_version.exec(that.substringAt(0)) {
+		if var match ?= regex.class_version.exec(that.substringAt(0)) {
 			return that.next(match[0].length)
 		}
 		else {
@@ -3310,12 +3310,12 @@ var recognize = {
 	} # }}}
 	`\(Token.STRING)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 34 { // "
-			if match ?= regex.double_quote.exec(that.substringAt(1)) {
+			if var match ?= regex.double_quote.exec(that.substringAt(1)) {
 				return that.next(match[0].length + 1)
 			}
 		}
 		else if c == 39 { // '
-			if match ?= regex.single_quote.exec(that.substringAt(1)) {
+			if var match ?= regex.single_quote.exec(that.substringAt(1)) {
 				return that.next(match[0].length + 1)
 			}
 		}

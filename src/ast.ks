@@ -329,7 +329,7 @@ namespace AST {
 		func ArrayBinding(elements, first, last) { # {{{
 			return location({
 				kind: NodeKind.ArrayBinding
-				elements: [element.value for element in elements]
+				elements: [element.value for var element in elements]
 			}, first, last)
 		} # }}}
 
@@ -357,7 +357,7 @@ namespace AST {
 			return location({
 				kind: NodeKind.ArrayExpression
 				modifiers: []
-				values: [value.value for value in values]
+				values: [value.value for var value in values]
 			}, first, last)
 		} # }}}
 
@@ -449,7 +449,7 @@ namespace AST {
 			return location({
 				kind: NodeKind.AttributeExpression
 				name: name.value
-				arguments: [argument.value for argument in arguments]
+				arguments: [argument.value for var argument in arguments]
 			}, first, last)
 		} # }}}
 
@@ -465,7 +465,7 @@ namespace AST {
 			return location({
 				kind: NodeKind.AwaitExpression
 				modifiers
-				variables: [variable.value for variable in variables] if ?variables
+				variables: [variable.value for var variable in variables] if ?variables
 				operation: operand.value if ?operand
 			}, first, last)
 		} # }}}
@@ -505,8 +505,8 @@ namespace AST {
 		func BitmaskDeclaration(attributes, modifiers, name, type?, members, first, last) { # {{{
 			var node = location({
 				kind: NodeKind.BitmaskDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				members: members
 			}, first, last)
@@ -521,8 +521,8 @@ namespace AST {
 		func Block(attributes, statements, first, last) { # {{{
 			return location({
 				kind: NodeKind.Block
-				attributes: [attribute.value for attribute in attributes]
-				statements: [statement.value for statement in statements]
+				attributes: [attribute.value for var attribute in attributes]
+				statements: [statement.value for var statement in statements]
 			}, first, last)
 		} # }}}
 
@@ -637,7 +637,7 @@ namespace AST {
 				modifiers: []
 				scope: scope
 				callee: callee.value
-				arguments: [argument.value for argument in arguments.value]
+				arguments: [argument.value for var argument in arguments.value]
 			}, first, last)
 		} # }}}
 
@@ -653,7 +653,7 @@ namespace AST {
 				kind: NodeKind.DiscloseDeclaration
 				attributes: []
 				name: name.value
-				members: [member.value for member in members]
+				members: [member.value for var member in members]
 			}, first, last)
 		} # }}}
 
@@ -688,8 +688,8 @@ namespace AST {
 		func EnumDeclaration(attributes, modifiers, name, type?, members, first, last) { # {{{
 			var node = location({
 				kind: NodeKind.EnumDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				members: members
 			}, first, last)
@@ -704,15 +704,15 @@ namespace AST {
 		func ExclusionType(types, first, last) { # {{{
 			return location({
 				kind: NodeKind.ExclusionType
-				types: [type.value for type in types]
+				types: [type.value for var type in types]
 			}, first, last)
 		} # }}}
 
 		func ExportDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind.ExportDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				declarations: [declarator.value for declarator in declarations]
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declarator.value for var declarator in declarations]
 			}, first, last)
 		} # }}}
 
@@ -727,24 +727,24 @@ namespace AST {
 		func ExternDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind.ExternDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				declarations: [declarator.value for declarator in declarations]
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declarator.value for var declarator in declarations]
 			}, first, last)
 		} # }}}
 
 		func ExternOrImportDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind.ExternOrImportDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				declarations: [declaration.value for declaration in declarations]
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declaration.value for var declaration in declarations]
 			}, first, last)
 		} # }}}
 
 		func ExternOrRequireDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind.ExternOrRequireDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				declarations: [declarator.value for declarator in declarations]
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declarator.value for var declarator in declarations]
 			}, first, last)
 		} # }}}
 
@@ -758,8 +758,8 @@ namespace AST {
 		func FieldDeclaration(attributes, modifiers, name, type?, value?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind.FieldDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 			}, first, last)
 
@@ -918,14 +918,14 @@ namespace AST {
 			}, first, last)
 
 			if parameters != null {
-				node.parameters = [parameter.value for parameter in parameters.value]
+				node.parameters = [parameter.value for var parameter in parameters.value]
 			}
 
 			if modifiers == null {
 				node.modifiers = []
 			}
 			else {
-				node.modifiers = [modifier.value for modifier in modifiers]
+				node.modifiers = [modifier.value for var modifier in modifiers]
 			}
 
 			if type != null {
@@ -936,7 +936,7 @@ namespace AST {
 				node.throws = []
 			}
 			else {
-				node.throws = [throw.value for throw in throws.value]
+				node.throws = [throw.value for var throw in throws.value]
 			}
 
 			if body != null {
@@ -949,14 +949,14 @@ namespace AST {
 		func FunctionExpression(parameters, modifiers?, type?, throws?, body?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind.FunctionExpression
-				parameters: [parameter.value for parameter in parameters.value]
+				parameters: [parameter.value for var parameter in parameters.value]
 			}, first, last)
 
 			if modifiers == null {
 				node.modifiers = []
 			}
 			else {
-				node.modifiers = [modifier.value for modifier in modifiers]
+				node.modifiers = [modifier.value for var modifier in modifiers]
 			}
 
 			if type != null {
@@ -967,7 +967,7 @@ namespace AST {
 				node.throws = []
 			}
 			else {
-				node.throws = [throw.value for throw in throws.value]
+				node.throws = [throw.value for var throw in throws.value]
 			}
 
 			if body != null {
@@ -980,7 +980,7 @@ namespace AST {
 		func FusionType(types, first, last) { # {{{
 			return location({
 				kind: NodeKind.FusionType
-				types: [type.value for type in types]
+				types: [type.value for var type in types]
 			}, first, last)
 		} # }}}
 
@@ -1052,8 +1052,8 @@ namespace AST {
 		func ImportDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind.ImportDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				declarations: [declaration.value for declaration in declarations]
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declaration.value for var declaration in declarations]
 			}, first, last)
 		} # }}}
 
@@ -1080,16 +1080,16 @@ namespace AST {
 		func IncludeAgainDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind.IncludeAgainDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				declarations: [declaration.value for declaration in declarations]
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declaration.value for var declaration in declarations]
 			}, first, last)
 		} # }}}
 
 		func IncludeDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind.IncludeDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				declarations: [declaration.value for declaration in declarations]
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declaration.value for var declaration in declarations]
 			}, first, last)
 		} # }}}
 
@@ -1114,12 +1114,12 @@ namespace AST {
 			var node = location({
 				kind: NodeKind.LambdaExpression
 				modifiers: []
-				parameters: [parameter.value for parameter in parameters.value]
+				parameters: [parameter.value for var parameter in parameters.value]
 				body: body.value
 			}, first, last)
 
 			if modifiers != null {
-				node.modifiers = [modifier.value for modifier in modifiers]
+				node.modifiers = [modifier.value for var modifier in modifiers]
 			}
 
 			if type != null {
@@ -1130,7 +1130,7 @@ namespace AST {
 				node.throws = []
 			}
 			else {
-				node.throws = [throw.value for throw in throws.value]
+				node.throws = [throw.value for var throw in throws.value]
 			}
 
 			return node
@@ -1139,7 +1139,7 @@ namespace AST {
 		func Literal(modifiers?, value, first, last? = null) { # {{{
 			return location({
 				kind: NodeKind.Literal
-				modifiers: ?modifiers ? [modifier.value for modifier in modifiers] : []
+				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
 				value
 			}, first, last)
 		} # }}}
@@ -1147,9 +1147,9 @@ namespace AST {
 		func MacroDeclaration(attributes, name, parameters, body, first, last) { # {{{
 			return location({
 				kind: NodeKind.MacroDeclaration
-				attributes: [attribute.value for attribute in attributes]
+				attributes: [attribute.value for var attribute in attributes]
 				name: name.value
-				parameters: [parameter.value for parameter in parameters.value]
+				parameters: [parameter.value for var parameter in parameters.value]
 				body: body.value
 			}, first, last)
 		} # }}}
@@ -1158,7 +1158,7 @@ namespace AST {
 			return location({
 				kind: NodeKind.MacroExpression
 				attributes: []
-				elements: [element.value for element in elements]
+				elements: [element.value for var element in elements]
 			}, first, last)
 		} # }}}
 
@@ -1188,44 +1188,32 @@ namespace AST {
 			}, first)
 		} # }}}
 
-		func MatchClause(conditions?, bindings?, filter?, body, first, last) { # {{{
-			var node = location({
+		func MatchClause(conditions?, binding?, filter?, body, first, last) { # {{{
+			return location({
 				kind: NodeKind.MatchClause
+				conditions: if ?conditions {
+						set [condition.value for var condition in conditions]
+					}
+					else {
+						set []
+					}
+				binding: binding.value if ?binding
+				filter: filter.value if ?filter
 				body: body.value
 			}, first, last)
-
-			if conditions == null {
-				node.conditions = []
-			}
-			else {
-				node.conditions = [condition.value for condition in conditions]
-			}
-
-			if bindings == null {
-				node.bindings = []
-			}
-			else {
-				node.bindings = [binding.value for binding in bindings.value]
-			}
-
-			if filter != null {
-				node.filter = filter.value
-			}
-
-			return node
 		} # }}}
 
 		func MatchConditionArray(values, first, last) { # {{{
 			return location({
 				kind: NodeKind.MatchConditionArray
-				values: [value.value for value in values]
+				values: [value.value for var value in values]
 			}, first, last)
 		} # }}}
 
 		func MatchConditionObject(properties, first, last) { # {{{
 			return location({
 				kind: NodeKind.MatchConditionObject
-				properties: [property.value for property in properties]
+				properties: [property.value for var property in properties]
 			}, first, last)
 		} # }}}
 
@@ -1273,7 +1261,7 @@ namespace AST {
 				kind: NodeKind.MatchExpression
 				attributes: []
 				expression: expression.value
-				clauses: [clause for clause in clauses.value]
+				clauses: [clause for var clause in clauses.value]
 			}, first, last)
 		} # }}}
 
@@ -1283,7 +1271,7 @@ namespace AST {
 				attributes: []
 				expression: expression.value if ?expression
 				declaration: declaration.value if ?declaration
-				clauses: [clause for clause in clauses.value]
+				clauses: [clause for var clause in clauses.value]
 			}, first, last)
 		} # }}}
 
@@ -1299,10 +1287,10 @@ namespace AST {
 		func MethodDeclaration(attributes, modifiers, name, parameters, type?, throws?, body?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind.MethodDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
-				parameters: [parameter.value for parameter in parameters.value]
+				parameters: [parameter.value for var parameter in parameters.value]
 			}, first, last)
 
 			if type != null {
@@ -1313,7 +1301,7 @@ namespace AST {
 				node.throws = []
 			}
 			else {
-				node.throws = [throw.value for throw in throws.value]
+				node.throws = [throw.value for var throw in throws.value]
 			}
 
 			if body != null {
@@ -1332,7 +1320,7 @@ namespace AST {
 		func Module(attributes, body, parser: Parser) { # {{{
 			return location({
 				kind: NodeKind.Module
-				attributes: [attribute.value for attribute in attributes]
+				attributes: [attribute.value for var attribute in attributes]
 				body: body,
 				start: {
 					line: 1
@@ -1410,7 +1398,7 @@ namespace AST {
 		func ObjectBinding(elements, first, last) { # {{{
 			return location({
 				kind: NodeKind.ObjectBinding
-				elements: [element.value for element in elements]
+				elements: [element.value for var element in elements]
 			}, first, last)
 		} # }}}
 
@@ -1430,8 +1418,8 @@ namespace AST {
 			return location({
 				kind: NodeKind.ObjectExpression
 				modifiers: []
-				attributes: [attribute.value for attribute in attributes]
-				properties: [property.value for property in properties]
+				attributes: [attribute.value for var attribute in attributes]
+				properties: [property.value for var property in properties]
 			}, first, last)
 		} # }}}
 
@@ -1543,8 +1531,8 @@ namespace AST {
 		func PropertyDeclaration(attributes, modifiers, name, type?, defaultValue?, accessor?, mutator?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind.PropertyDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 			}, first, last)
 
@@ -1627,24 +1615,24 @@ namespace AST {
 		func RequireDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind.RequireDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				declarations: [declarator.value for declarator in declarations]
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declarator.value for var declarator in declarations]
 			}, first, last)
 		} # }}}
 
 		func RequireOrExternDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind.RequireOrExternDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				declarations: [declarator.value for declarator in declarations]
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declarator.value for var declarator in declarations]
 			}, first, last)
 		} # }}}
 
 		func RequireOrImportDeclaration(attributes, declarations, first, last) { # {{{
 			return location({
 				kind: NodeKind.RequireOrImportDeclaration
-				attributes: [attribute.value for attribute in attributes]
-				declarations: [declaration.value for declaration in declarations]
+				attributes: [attribute.value for var attribute in attributes]
+				declarations: [declaration.value for var declaration in declarations]
 			}, first, last)
 		} # }}}
 
@@ -1706,7 +1694,7 @@ namespace AST {
 			return location({
 				kind: NodeKind.SequenceExpression
 				modifiers: []
-				expressions: [expression.value for expression in expressions]
+				expressions: [expression.value for var expression in expressions]
 			}, first, last)
 		} # }}}
 
@@ -1735,7 +1723,7 @@ namespace AST {
 		func ShorthandProperty(attributes, name, first, last) { # {{{
 			return location({
 				kind: NodeKind.ShorthandProperty
-				attributes: [attribute.value for attribute in attributes]
+				attributes: [attribute.value for var attribute in attributes]
 				name: name.value
 			}, first, last)
 		} # }}}
@@ -1755,8 +1743,8 @@ namespace AST {
 		func StructField(attributes, modifiers, name, type?, defaultValue?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind.StructField
-				attributes: [attribute.value for attribute in attributes]
-				modifiers: [modifier.value for modifier in modifiers]
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 			}, first, last)
 
@@ -1783,11 +1771,11 @@ namespace AST {
 			var node = location({
 				kind: NodeKind.TemplateExpression
 				modifiers: []
-				elements: [element.value for element in elements]
+				elements: [element.value for var element in elements]
 			}, first, last)
 
 			if modifiers != null {
-				node.modifiers = [modifier.value for modifier in modifiers]
+				node.modifiers = [modifier.value for var modifier in modifiers]
 			}
 
 			return node
@@ -1842,7 +1830,7 @@ namespace AST {
 				kind: NodeKind.TryStatement
 				attributes: []
 				body: body.value
-				catchClauses: [clause.value for clause in catchClauses]
+				catchClauses: [clause.value for var clause in catchClauses]
 			}, first, last)
 
 			if catchClause != null {

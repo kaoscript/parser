@@ -444,7 +444,7 @@ export namespace Parser {
 				@NL_0M()
 			}
 			else if @token == Token.FROM_TILDE {
-				modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
+				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
 
 				from = @reqExpression(ExpressionMode.Default, fMode)
 
@@ -478,7 +478,7 @@ export namespace Parser {
 				@NL_0M()
 			}
 			else if @token == Token.TO_TILDE {
-				modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
+				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
 
 				to = @reqExpression(ExpressionMode.Default, fMode)
 
@@ -961,7 +961,7 @@ export namespace Parser {
 			}
 
 			return {
-				attributes: [attribute.value for attribute in attributes]
+				attributes: [attribute.value for var attribute in attributes]
 				body
 				start: first.start
 				end: last.end
@@ -1624,6 +1624,7 @@ export namespace Parser {
 
 			if @test(Token.MACRO) {
 				var second = @yes()
+				var dyn identifier
 
 				if @test(Token.LEFT_CURLY) {
 					@commit().NL_0M()
@@ -3113,7 +3114,7 @@ export namespace Parser {
 						}
 					}
 
-					last = members[members.length - 1]
+					var last = members[members.length - 1]
 
 					return @yep(AST.PropertiesSpecifier([], value, members, value, last))
 				}
@@ -5111,17 +5112,6 @@ export namespace Parser {
 			return @yep(AST.MacroDeclaration(attributes, name, parameters, body, first, body))
 		} # }}}
 		reqMatchBinding(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var bindings = [@reqMatchBindingValue(fMode)]
-
-			while @test(Token.COMMA) {
-				@commit()
-
-				bindings.push(@reqMatchBindingValue(fMode))
-			}
-
-			return @yep(bindings)
-		} # }}}
-		reqMatchBindingValue(fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dMode: DestructuringMode = .RECURSION + .TYPE
 
 			match @match(Token.LEFT_CURLY, Token.LEFT_SQUARE) {
@@ -5139,28 +5129,69 @@ export namespace Parser {
 					var mut name = null
 					var mut type = null
 
-					if @test(Token.MUT) {
-						modifier = @yep(AST.Modifier(ModifierKind.Mutable, @yes()))
+					if @test(Token.VAR) {
+						var varModifier = @yep(AST.Modifier(ModifierKind.Declarative, @yes()))
 
-						name = @tryIdentifier()
+						var dMode: DestructuringMode = .MODIFIER + .RECURSION + .TYPE
+						var mark2 = @mark()
+						var mut typing = true
 
-						if name.ok {
-							modifiers.push(modifier)
+						if @test(Token.MUT) {
+							var mutModifier = @yep(AST.Modifier(ModifierKind.Mutable, @yes()))
+
+							match @match(Token.LEFT_CURLY, Token.LEFT_SQUARE) {
+								Token.LEFT_CURLY {
+									name = @tryDestructuringObject(@yes(), dMode, fMode)
+								}
+								Token.LEFT_SQUARE {
+									name = @tryDestructuringArray(@yes(), dMode, fMode)
+								}
+								else {
+									name = @tryIdentifier()
+								}
+							}
+
+							if name.ok {
+								modifiers.push(varModifier, mutModifier)
+							}
+							else {
+								@rollback(mark2)
+
+								name = @reqIdentifier()
+							}
 						}
 						else {
-							@rollback(mark)
+							match @match(Token.LEFT_CURLY, Token.LEFT_SQUARE) {
+								Token.LEFT_CURLY {
+									name = @tryDestructuringObject(@yes(), dMode, fMode)
+								}
+								Token.LEFT_SQUARE {
+									name = @tryDestructuringArray(@yes(), dMode, fMode)
+								}
+								else {
+									name = @tryIdentifier()
+								}
+							}
 
-							name = @reqIdentifier()
+							if name.ok {
+								modifiers.push(varModifier)
+							}
+							else {
+								@rollback(mark)
+
+								name = @reqIdentifier()
+								typing = false
+							}
+						}
+
+						if typing && @test(Token.COLON) {
+							@commit()
+
+							type = @reqType()
 						}
 					}
 					else {
 						name = @reqIdentifier()
-					}
-
-					if @test(Token.COLON) {
-						@commit()
-
-						type = @reqType()
 					}
 
 					return @yep(AST.VariableDeclarator(modifiers, name, type, modifier ?? name, type ?? name))
@@ -5210,9 +5241,9 @@ export namespace Parser {
 
 			var clauses = []
 
-			var dyn conditions, bindings, filter, body, first
+			var dyn conditions, binding, filter, body, first
 			until @test(Token.RIGHT_CURLY) {
-				first = conditions = bindings = filter = null
+				first = conditions = binding = filter = null
 
 				if @test(Token.ELSE) {
 					first = @yes()
@@ -5252,7 +5283,7 @@ export namespace Parser {
 							first = @yes()
 						}
 
-						bindings = @reqMatchBinding(fMode)
+						binding = @reqMatchBinding(fMode)
 
 						@NL_0M()
 					}
@@ -5285,7 +5316,7 @@ export namespace Parser {
 
 				@reqNL_1M()
 
-				clauses.push(AST.MatchClause(conditions, bindings, filter, body, first!?, body))
+				clauses.push(AST.MatchClause(conditions, binding, filter, body, first!?, body))
 			}
 
 			unless @test(Token.RIGHT_CURLY) {
@@ -5349,7 +5380,7 @@ export namespace Parser {
 							values.push(@yep(AST.OmittedExpression([], @yes())))
 						}
 						else if @test(Token.DOT_DOT_DOT) {
-							modifier = AST.Modifier(ModifierKind.Rest, @yes())
+							var modifier = AST.Modifier(ModifierKind.Rest, @yes())
 
 							values.push(@yep(AST.OmittedExpression([modifier], modifier)))
 						}
@@ -5769,7 +5800,9 @@ export namespace Parser {
 			return @yep(AST.NamespaceDeclaration(attributes, [], name, statements, first, @yes()))
 		} # }}}
 		reqNumber(): Event ~ SyntaxError { # {{{
-			if (value = @tryNumber()).ok {
+			var value = @tryNumber()
+
+			if value.ok {
 				return value
 			}
 			else {
@@ -7961,14 +7994,21 @@ export namespace Parser {
 		tryAssignementStatement(fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn identifier = NO
 
+			var dMode: DestructuringMode = if fMode ~~ FunctionMode.Method {
+				set DestructuringMode.Expression + DestructuringMode.THIS_ALIAS
+			}
+			else {
+				set DestructuringMode.Expression
+			}
+
 			if @match(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE, Token.AT) == Token.IDENTIFIER {
 				identifier = @reqUnaryOperand(@reqIdentifier(), ExpressionMode.Default, fMode)
 			}
 			else if @token == Token.LEFT_CURLY {
-				identifier = @tryDestructuringObject(@yes(), fMode)
+				identifier = @tryDestructuringObject(@yes(), dMode, fMode)
 			}
 			else if @token == Token.LEFT_SQUARE {
-				identifier = @tryDestructuringArray(@yes(), fMode)
+				identifier = @tryDestructuringArray(@yes(), dMode, fMode)
 			}
 			else if fMode ~~ FunctionMode.Method && @token == Token.AT {
 				identifier = @reqUnaryOperand(@reqThisExpression(@yes()), ExpressionMode.Default, fMode)
@@ -8699,16 +8739,7 @@ export namespace Parser {
 
 			return NO
 		} # }}}
-		tryDestructuringArray(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var late dMode: DestructuringMode
-
-			if fMode ~~ FunctionMode.Method {
-				dMode = DestructuringMode.Expression + DestructuringMode.THIS_ALIAS
-			}
-			else {
-				dMode = DestructuringMode.Expression
-			}
-
+		tryDestructuringArray(first: Event, dMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			try {
 				return @reqDestructuringArray(first, dMode, fMode)
 			}
@@ -8716,16 +8747,7 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryDestructuringObject(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var late dMode: DestructuringMode
-
-			if fMode ~~ FunctionMode.Method {
-				dMode = DestructuringMode.Expression + DestructuringMode.THIS_ALIAS
-			}
-			else {
-				dMode = DestructuringMode.Expression
-			}
-
+		tryDestructuringObject(first: Event, dMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			try {
 				return @reqDestructuringObject(first, dMode, fMode)
 			}
@@ -10476,7 +10498,7 @@ export namespace Parser {
 				@commit().NL_0M()
 
 				if variables.length == 1 {
-					value = @reqExpression(eMode + ExpressionMode.ImplicitMember, fMode)
+					var value = @reqExpression(eMode + ExpressionMode.ImplicitMember, fMode)
 
 					var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, first, value))
 
@@ -10651,7 +10673,7 @@ export namespace Parser {
 				if @test(Token.EQUALS) {
 					@commit().NL_0M()
 
-					value = @reqExpression(eMode + ExpressionMode.ImplicitMember, fMode)
+					var value = @reqExpression(eMode + ExpressionMode.ImplicitMember, fMode)
 
 					var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, first, value))
 

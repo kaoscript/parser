@@ -513,6 +513,21 @@
                   "clauses": [
                     {
                       "kind": 66,
+                      "conditions": [
+                        {
+                          "kind": 52,
+                          "modifiers": [],
+                          "name": "black",
+                          "start": {
+                            "line": 15,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 15,
+                            "column": 8
+                          }
+                        }
+                      ],
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -545,26 +560,25 @@
                       "end": {
                         "line": 15,
                         "column": 14
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "black",
+                          "name": "red",
                           "start": {
-                            "line": 15,
+                            "line": 16,
                             "column": 3
                           },
                           "end": {
-                            "line": 15,
-                            "column": 8
+                            "line": 16,
+                            "column": 6
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -597,26 +611,25 @@
                       "end": {
                         "line": 16,
                         "column": 12
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "red",
+                          "name": "green",
                           "start": {
-                            "line": 16,
+                            "line": 17,
                             "column": 3
                           },
                           "end": {
-                            "line": 16,
-                            "column": 6
+                            "line": 17,
+                            "column": 8
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -649,26 +662,25 @@
                       "end": {
                         "line": 17,
                         "column": 14
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "green",
+                          "name": "yellow",
                           "start": {
-                            "line": 17,
+                            "line": 18,
                             "column": 3
                           },
                           "end": {
-                            "line": 17,
-                            "column": 8
+                            "line": 18,
+                            "column": 9
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -701,26 +713,25 @@
                       "end": {
                         "line": 18,
                         "column": 15
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "yellow",
+                          "name": "blue",
                           "start": {
-                            "line": 18,
+                            "line": 19,
                             "column": 3
                           },
                           "end": {
-                            "line": 18,
-                            "column": 9
+                            "line": 19,
+                            "column": 7
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -753,26 +764,25 @@
                       "end": {
                         "line": 19,
                         "column": 13
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "blue",
+                          "name": "magenta",
                           "start": {
-                            "line": 19,
+                            "line": 20,
                             "column": 3
                           },
                           "end": {
-                            "line": 19,
-                            "column": 7
+                            "line": 20,
+                            "column": 10
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -805,26 +815,25 @@
                       "end": {
                         "line": 20,
                         "column": 16
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "magenta",
+                          "name": "cyan",
                           "start": {
-                            "line": 20,
+                            "line": 21,
                             "column": 3
                           },
                           "end": {
-                            "line": 20,
-                            "column": 10
+                            "line": 21,
+                            "column": 7
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -857,26 +866,25 @@
                       "end": {
                         "line": 21,
                         "column": 13
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "cyan",
+                          "name": "white",
                           "start": {
-                            "line": 21,
+                            "line": 22,
                             "column": 3
                           },
                           "end": {
-                            "line": 21,
-                            "column": 7
+                            "line": 22,
+                            "column": 8
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -909,26 +917,11 @@
                       "end": {
                         "line": 22,
                         "column": 14
-                      },
-                      "conditions": [
-                        {
-                          "kind": 52,
-                          "modifiers": [],
-                          "name": "white",
-                          "start": {
-                            "line": 22,
-                            "column": 3
-                          },
-                          "end": {
-                            "line": 22,
-                            "column": 8
-                          }
-                        }
-                      ],
-                      "bindings": []
+                      }
                     },
                     {
                       "kind": 66,
+                      "conditions": [],
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -961,9 +954,7 @@
                       "end": {
                         "line": 23,
                         "column": 13
-                      },
-                      "conditions": [],
-                      "bindings": []
+                      }
                     }
                   ],
                   "start": {
@@ -1050,6 +1041,21 @@
                   "clauses": [
                     {
                       "kind": 66,
+                      "conditions": [
+                        {
+                          "kind": 52,
+                          "modifiers": [],
+                          "name": "black",
+                          "start": {
+                            "line": 27,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 27,
+                            "column": 8
+                          }
+                        }
+                      ],
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -1082,26 +1088,25 @@
                       "end": {
                         "line": 27,
                         "column": 14
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "black",
+                          "name": "red",
                           "start": {
-                            "line": 27,
+                            "line": 28,
                             "column": 3
                           },
                           "end": {
-                            "line": 27,
-                            "column": 8
+                            "line": 28,
+                            "column": 6
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -1134,26 +1139,25 @@
                       "end": {
                         "line": 28,
                         "column": 12
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "red",
+                          "name": "green",
                           "start": {
-                            "line": 28,
+                            "line": 29,
                             "column": 3
                           },
                           "end": {
-                            "line": 28,
-                            "column": 6
+                            "line": 29,
+                            "column": 8
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -1186,26 +1190,25 @@
                       "end": {
                         "line": 29,
                         "column": 14
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "green",
+                          "name": "yellow",
                           "start": {
-                            "line": 29,
+                            "line": 30,
                             "column": 3
                           },
                           "end": {
-                            "line": 29,
-                            "column": 8
+                            "line": 30,
+                            "column": 9
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -1238,26 +1241,25 @@
                       "end": {
                         "line": 30,
                         "column": 15
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "yellow",
+                          "name": "blue",
                           "start": {
-                            "line": 30,
+                            "line": 31,
                             "column": 3
                           },
                           "end": {
-                            "line": 30,
-                            "column": 9
+                            "line": 31,
+                            "column": 7
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -1290,26 +1292,25 @@
                       "end": {
                         "line": 31,
                         "column": 13
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "blue",
+                          "name": "magenta",
                           "start": {
-                            "line": 31,
+                            "line": 32,
                             "column": 3
                           },
                           "end": {
-                            "line": 31,
-                            "column": 7
+                            "line": 32,
+                            "column": 10
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -1342,26 +1343,25 @@
                       "end": {
                         "line": 32,
                         "column": 16
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "magenta",
+                          "name": "cyan",
                           "start": {
-                            "line": 32,
+                            "line": 33,
                             "column": 3
                           },
                           "end": {
-                            "line": 32,
-                            "column": 10
+                            "line": 33,
+                            "column": 7
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -1394,26 +1394,25 @@
                       "end": {
                         "line": 33,
                         "column": 13
-                      },
+                      }
+                    },
+                    {
+                      "kind": 66,
                       "conditions": [
                         {
                           "kind": 52,
                           "modifiers": [],
-                          "name": "cyan",
+                          "name": "white",
                           "start": {
-                            "line": 33,
+                            "line": 34,
                             "column": 3
                           },
                           "end": {
-                            "line": 33,
-                            "column": 7
+                            "line": 34,
+                            "column": 8
                           }
                         }
                       ],
-                      "bindings": []
-                    },
-                    {
-                      "kind": 66,
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -1446,26 +1445,11 @@
                       "end": {
                         "line": 34,
                         "column": 14
-                      },
-                      "conditions": [
-                        {
-                          "kind": 52,
-                          "modifiers": [],
-                          "name": "white",
-                          "start": {
-                            "line": 34,
-                            "column": 3
-                          },
-                          "end": {
-                            "line": 34,
-                            "column": 8
-                          }
-                        }
-                      ],
-                      "bindings": []
+                      }
                     },
                     {
                       "kind": 66,
+                      "conditions": [],
                       "body": {
                         "kind": 106,
                         "attributes": [],
@@ -1498,9 +1482,7 @@
                       "end": {
                         "line": 35,
                         "column": 13
-                      },
-                      "conditions": [],
-                      "bindings": []
+                      }
                     }
                   ],
                   "start": {
