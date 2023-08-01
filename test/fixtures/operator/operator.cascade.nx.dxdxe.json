@@ -1,0 +1,554 @@
+{
+  "kind": 75,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 47,
+      "attributes": [],
+      "name": {
+        "kind": 51,
+        "modifiers": [],
+        "name": "foobar",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 12
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      },
+      "parameters": [
+        {
+          "kind": 86,
+          "attributes": [],
+          "modifiers": [],
+          "external": {
+            "kind": 51,
+            "modifiers": [],
+            "name": "writer",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 19
+            }
+          },
+          "internal": {
+            "kind": 51,
+            "modifiers": [],
+            "name": "writer",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 19
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 13
+          },
+          "end": {
+            "line": 1,
+            "column": 19
+          }
+        },
+        {
+          "kind": 86,
+          "attributes": [],
+          "modifiers": [],
+          "external": {
+            "kind": 51,
+            "modifiers": [],
+            "name": "w",
+            "start": {
+              "line": 1,
+              "column": 21
+            },
+            "end": {
+              "line": 1,
+              "column": 22
+            }
+          },
+          "internal": {
+            "kind": 51,
+            "modifiers": [],
+            "name": "w",
+            "start": {
+              "line": 1,
+              "column": 21
+            },
+            "end": {
+              "line": 1,
+              "column": 22
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 21
+          },
+          "end": {
+            "line": 1,
+            "column": 22
+          }
+        },
+        {
+          "kind": 86,
+          "attributes": [],
+          "modifiers": [],
+          "external": {
+            "kind": 51,
+            "modifiers": [],
+            "name": "q",
+            "start": {
+              "line": 1,
+              "column": 24
+            },
+            "end": {
+              "line": 1,
+              "column": 25
+            }
+          },
+          "internal": {
+            "kind": 51,
+            "modifiers": [],
+            "name": "q",
+            "start": {
+              "line": 1,
+              "column": 24
+            },
+            "end": {
+              "line": 1,
+              "column": 25
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 24
+          },
+          "end": {
+            "line": 1,
+            "column": 25
+          }
+        },
+        {
+          "kind": 86,
+          "attributes": [],
+          "modifiers": [],
+          "external": {
+            "kind": 51,
+            "modifiers": [],
+            "name": "h",
+            "start": {
+              "line": 1,
+              "column": 27
+            },
+            "end": {
+              "line": 1,
+              "column": 28
+            }
+          },
+          "internal": {
+            "kind": 51,
+            "modifiers": [],
+            "name": "h",
+            "start": {
+              "line": 1,
+              "column": 27
+            },
+            "end": {
+              "line": 1,
+              "column": 28
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 27
+          },
+          "end": {
+            "line": 1,
+            "column": 28
+          }
+        }
+      ],
+      "modifiers": [],
+      "throws": [],
+      "body": {
+        "kind": 15,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 40,
+            "attributes": [],
+            "expression": {
+              "kind": 18,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 72,
+                "modifiers": [],
+                "object": {
+                  "kind": 31,
+                  "operator": {
+                    "kind": 0,
+                    "modifiers": [],
+                    "start": {
+                      "line": 5,
+                      "column": 14
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 16
+                    }
+                  },
+                  "condition": {
+                    "kind": 51,
+                    "modifiers": [],
+                    "name": "h",
+                    "start": {
+                      "line": 5,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 18
+                    }
+                  },
+                  "mainExpression": {
+                    "kind": 18,
+                    "modifiers": [],
+                    "scope": {
+                      "kind": 2
+                    },
+                    "callee": {
+                      "kind": 72,
+                      "modifiers": [],
+                      "object": {
+                        "kind": 31,
+                        "operator": {
+                          "kind": 0,
+                          "modifiers": [],
+                          "start": {
+                            "line": 3,
+                            "column": 14
+                          },
+                          "end": {
+                            "line": 3,
+                            "column": 16
+                          }
+                        },
+                        "condition": {
+                          "kind": 51,
+                          "modifiers": [],
+                          "name": "q",
+                          "start": {
+                            "line": 3,
+                            "column": 17
+                          },
+                          "end": {
+                            "line": 3,
+                            "column": 18
+                          }
+                        },
+                        "mainExpression": {
+                          "kind": 51,
+                          "modifiers": [],
+                          "name": "writer",
+                          "start": {
+                            "line": 2,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 2,
+                            "column": 8
+                          }
+                        },
+                        "disruptedExpression": {
+                          "kind": 18,
+                          "modifiers": [],
+                          "scope": {
+                            "kind": 2
+                          },
+                          "callee": {
+                            "kind": 72,
+                            "modifiers": [],
+                            "object": {
+                              "kind": 96,
+                              "name": "main",
+                              "start": {
+                                "line": 2,
+                                "column": 2
+                              },
+                              "end": {
+                                "line": 2,
+                                "column": 8
+                              }
+                            },
+                            "property": {
+                              "kind": 51,
+                              "modifiers": [],
+                              "name": "code",
+                              "start": {
+                                "line": 3,
+                                "column": 4
+                              },
+                              "end": {
+                                "line": 3,
+                                "column": 8
+                              }
+                            },
+                            "start": {
+                              "line": 2,
+                              "column": 2
+                            },
+                            "end": {
+                              "line": 3,
+                              "column": 8
+                            }
+                          },
+                          "arguments": [
+                            {
+                              "kind": 62,
+                              "modifiers": [],
+                              "value": "?",
+                              "start": {
+                                "line": 3,
+                                "column": 9
+                              },
+                              "end": {
+                                "line": 3,
+                                "column": 12
+                              }
+                            }
+                          ],
+                          "start": {
+                            "line": 2,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 3,
+                            "column": 13
+                          }
+                        },
+                        "start": {
+                          "line": 2,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 3,
+                          "column": 18
+                        }
+                      },
+                      "property": {
+                        "kind": 51,
+                        "modifiers": [],
+                        "name": "code",
+                        "start": {
+                          "line": 4,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 8
+                        }
+                      },
+                      "start": {
+                        "line": 2,
+                        "column": 2
+                      },
+                      "end": {
+                        "line": 4,
+                        "column": 8
+                      }
+                    },
+                    "arguments": [
+                      {
+                        "kind": 62,
+                        "modifiers": [],
+                        "value": "|>",
+                        "start": {
+                          "line": 4,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 13
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 2,
+                      "column": 2
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 14
+                    }
+                  },
+                  "disruptedExpression": {
+                    "kind": 18,
+                    "modifiers": [],
+                    "scope": {
+                      "kind": 2
+                    },
+                    "callee": {
+                      "kind": 72,
+                      "modifiers": [],
+                      "object": {
+                        "kind": 96,
+                        "name": "main",
+                        "start": {
+                          "line": 2,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 4,
+                          "column": 14
+                        }
+                      },
+                      "property": {
+                        "kind": 51,
+                        "modifiers": [],
+                        "name": "code",
+                        "start": {
+                          "line": 5,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 8
+                        }
+                      },
+                      "start": {
+                        "line": 2,
+                        "column": 2
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 8
+                      }
+                    },
+                    "arguments": [
+                      {
+                        "kind": 62,
+                        "modifiers": [],
+                        "value": "#",
+                        "start": {
+                          "line": 5,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 12
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 2,
+                      "column": 2
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 13
+                    }
+                  },
+                  "start": {
+                    "line": 2,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 18
+                  }
+                },
+                "property": {
+                  "kind": 51,
+                  "modifiers": [],
+                  "name": "code",
+                  "start": {
+                    "line": 6,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 8
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 6,
+                  "column": 8
+                }
+              },
+              "arguments": [
+                {
+                  "kind": 62,
+                  "modifiers": [],
+                  "value": " ",
+                  "start": {
+                    "line": 6,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 12
+                  }
+                }
+              ],
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 13
+              }
+            },
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 13
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 30
+        },
+        "end": {
+          "line": 7,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 2
+  }
+}

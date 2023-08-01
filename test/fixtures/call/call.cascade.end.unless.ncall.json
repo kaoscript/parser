@@ -1,78 +1,101 @@
 {
-  "kind": 76,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 127,
+      "kind": 40,
       "attributes": [],
-      "condition": {
-        "kind": 25,
-        "modifiers": [],
-        "values": [
-          {
-            "kind": 52,
-            "modifiers": [],
-            "name": "x",
-            "start": {
-              "line": 2,
-              "column": 16
-            },
-            "end": {
-              "line": 2,
-              "column": 17
-            }
+      "expression": {
+        "kind": 31,
+        "operator": {
+          "kind": 1,
+          "modifiers": [],
+          "start": {
+            "line": 2,
+            "column": 9
           },
-          {
-            "kind": 7,
-            "modifiers": [],
-            "start": {
-              "line": 2,
-              "column": 18
-            },
-            "end": {
-              "line": 2,
-              "column": 20
-            }
-          },
-          {
-            "kind": 81,
-            "modifiers": [],
-            "value": 0,
-            "start": {
-              "line": 2,
-              "column": 21
-            },
-            "end": {
-              "line": 2,
-              "column": 22
-            }
+          "end": {
+            "line": 2,
+            "column": 15
           }
-        ],
-        "start": {
-          "line": 2,
-          "column": 16
         },
-        "end": {
-          "line": 2,
-          "column": 22
-        }
-      },
-      "whenFalse": {
-        "kind": 41,
-        "attributes": [],
-        "expression": {
+        "condition": {
+          "kind": 24,
+          "modifiers": [],
+          "values": [
+            {
+              "kind": 51,
+              "modifiers": [],
+              "name": "x",
+              "start": {
+                "line": 2,
+                "column": 16
+              },
+              "end": {
+                "line": 2,
+                "column": 17
+              }
+            },
+            {
+              "kind": 7,
+              "modifiers": [],
+              "start": {
+                "line": 2,
+                "column": 18
+              },
+              "end": {
+                "line": 2,
+                "column": 20
+              }
+            },
+            {
+              "kind": 80,
+              "modifiers": [],
+              "value": 0,
+              "start": {
+                "line": 2,
+                "column": 21
+              },
+              "end": {
+                "line": 2,
+                "column": 22
+              }
+            }
+          ],
+          "start": {
+            "line": 2,
+            "column": 16
+          },
+          "end": {
+            "line": 2,
+            "column": 22
+          }
+        },
+        "mainExpression": {
+          "kind": 51,
+          "modifiers": [],
+          "name": "foo",
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 4
+          }
+        },
+        "disruptedExpression": {
           "kind": 18,
           "modifiers": [],
           "scope": {
             "kind": 2
           },
           "callee": {
-            "kind": 73,
+            "kind": 72,
             "modifiers": [],
             "object": {
-              "kind": 52,
-              "modifiers": [],
-              "name": "foo",
+              "kind": 96,
+              "name": "main",
               "start": {
                 "line": 1,
                 "column": 1
@@ -83,7 +106,7 @@
               }
             },
             "property": {
-              "kind": 52,
+              "kind": 51,
               "modifiers": [],
               "name": "bar",
               "start": {
@@ -120,7 +143,7 @@
         },
         "end": {
           "line": 2,
-          "column": 8
+          "column": 22
         }
       },
       "start": {

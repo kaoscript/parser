@@ -1,5 +1,5 @@
 {
-  "kind": 76,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
@@ -17,7 +17,7 @@
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 52,
+                "kind": 51,
                 "modifiers": [],
                 "name": "shape",
                 "start": {
@@ -45,10 +45,10 @@
           },
           "end": {
             "line": 4,
-            "column": 30
+            "column": 20
           },
           "value": {
-            "kind": 19,
+            "kind": 104,
             "modifiers": [],
             "object": {
               "kind": 18,
@@ -57,10 +57,10 @@
                 "kind": 2
               },
               "callee": {
-                "kind": 73,
+                "kind": 72,
                 "modifiers": [],
                 "object": {
-                  "kind": 52,
+                  "kind": 51,
                   "modifiers": [],
                   "name": "Ellipse",
                   "start": {
@@ -73,7 +73,7 @@
                   }
                 },
                 "property": {
-                  "kind": 52,
+                  "kind": 51,
                   "modifiers": [],
                   "name": "new",
                   "start": {
@@ -96,7 +96,7 @@
               },
               "arguments": [
                 {
-                  "kind": 81,
+                  "kind": 80,
                   "modifiers": [],
                   "value": 10,
                   "start": {
@@ -109,7 +109,7 @@
                   }
                 },
                 {
-                  "kind": 81,
+                  "kind": 80,
                   "modifiers": [],
                   "value": 20,
                   "start": {
@@ -156,10 +156,10 @@
                   "column": 33
                 },
                 "left": {
-                  "kind": 73,
+                  "kind": 72,
                   "modifiers": [],
                   "object": {
-                    "kind": 97,
+                    "kind": 96,
                     "name": "main",
                     "start": {
                       "line": 1,
@@ -171,7 +171,7 @@
                     }
                   },
                   "property": {
-                    "kind": 52,
+                    "kind": 51,
                     "modifiers": [],
                     "name": "rotation",
                     "start": {
@@ -239,7 +239,7 @@
                       "column": 27
                     },
                     "left": {
-                      "kind": 81,
+                      "kind": 80,
                       "modifiers": [],
                       "value": 45,
                       "start": {
@@ -252,10 +252,10 @@
                       }
                     },
                     "right": {
-                      "kind": 73,
+                      "kind": 72,
                       "modifiers": [],
                       "object": {
-                        "kind": 52,
+                        "kind": 51,
                         "modifiers": [],
                         "name": "Math",
                         "start": {
@@ -268,7 +268,7 @@
                         }
                       },
                       "property": {
-                        "kind": 52,
+                        "kind": 51,
                         "modifiers": [],
                         "name": "PI",
                         "start": {
@@ -291,7 +291,7 @@
                     }
                   },
                   "right": {
-                    "kind": 81,
+                    "kind": 80,
                     "modifiers": [],
                     "value": 180,
                     "start": {
@@ -329,10 +329,10 @@
                   "column": 28
                 },
                 "left": {
-                  "kind": 73,
+                  "kind": 72,
                   "modifiers": [],
                   "object": {
-                    "kind": 97,
+                    "kind": 96,
                     "name": "main",
                     "start": {
                       "line": 1,
@@ -344,7 +344,7 @@
                     }
                   },
                   "property": {
-                    "kind": 52,
+                    "kind": 51,
                     "modifiers": [],
                     "name": "color",
                     "start": {
@@ -366,7 +366,7 @@
                   }
                 },
                 "right": {
-                  "kind": 63,
+                  "kind": 62,
                   "modifiers": [],
                   "value": "rgb(0,129,198)",
                   "start": {
@@ -380,120 +380,18 @@
                 }
               },
               {
-                "kind": 103,
+                "kind": 12,
+                "modifiers": [],
                 "operator": {
-                  "kind": 0,
-                  "modifiers": [],
+                  "kind": 3,
+                  "assignment": 6,
                   "start": {
                     "line": 4,
-                    "column": 21
+                    "column": 17
                   },
                   "end": {
                     "line": 4,
-                    "column": 23
-                  }
-                },
-                "condition": {
-                  "kind": 18,
-                  "modifiers": [],
-                  "scope": {
-                    "kind": 2
-                  },
-                  "callee": {
-                    "kind": 52,
-                    "modifiers": [],
-                    "name": "test",
-                    "start": {
-                      "line": 4,
-                      "column": 24
-                    },
-                    "end": {
-                      "line": 4,
-                      "column": 28
-                    }
-                  },
-                  "arguments": [],
-                  "start": {
-                    "line": 4,
-                    "column": 24
-                  },
-                  "end": {
-                    "line": 4,
-                    "column": 30
-                  }
-                },
-                "expression": {
-                  "kind": 12,
-                  "modifiers": [],
-                  "operator": {
-                    "kind": 3,
-                    "assignment": 6,
-                    "start": {
-                      "line": 4,
-                      "column": 17
-                    },
-                    "end": {
-                      "line": 4,
-                      "column": 18
-                    }
-                  },
-                  "start": {
-                    "line": 1,
-                    "column": 13
-                  },
-                  "end": {
-                    "line": 4,
-                    "column": 20
-                  },
-                  "left": {
-                    "kind": 73,
-                    "modifiers": [],
-                    "object": {
-                      "kind": 97,
-                      "name": "main",
-                      "start": {
-                        "line": 1,
-                        "column": 13
-                      },
-                      "end": {
-                        "line": 1,
-                        "column": 32
-                      }
-                    },
-                    "property": {
-                      "kind": 52,
-                      "modifiers": [],
-                      "name": "outlineWidth",
-                      "start": {
-                        "line": 4,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 4,
-                        "column": 16
-                      }
-                    },
-                    "start": {
-                      "line": 1,
-                      "column": 13
-                    },
-                    "end": {
-                      "line": 4,
-                      "column": 16
-                    }
-                  },
-                  "right": {
-                    "kind": 81,
-                    "modifiers": [],
-                    "value": 0,
-                    "start": {
-                      "line": 4,
-                      "column": 19
-                    },
-                    "end": {
-                      "line": 4,
-                      "column": 20
-                    }
+                    "column": 18
                   }
                 },
                 "start": {
@@ -502,7 +400,57 @@
                 },
                 "end": {
                   "line": 4,
-                  "column": 30
+                  "column": 20
+                },
+                "left": {
+                  "kind": 72,
+                  "modifiers": [],
+                  "object": {
+                    "kind": 96,
+                    "name": "main",
+                    "start": {
+                      "line": 1,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 32
+                    }
+                  },
+                  "property": {
+                    "kind": 51,
+                    "modifiers": [],
+                    "name": "outlineWidth",
+                    "start": {
+                      "line": 4,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 16
+                    }
+                  },
+                  "start": {
+                    "line": 1,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 16
+                  }
+                },
+                "right": {
+                  "kind": 80,
+                  "modifiers": [],
+                  "value": 0,
+                  "start": {
+                    "line": 4,
+                    "column": 19
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 20
+                  }
                 }
               }
             ],
@@ -512,7 +460,7 @@
             },
             "end": {
               "line": 4,
-              "column": 30
+              "column": 20
             }
           }
         }
@@ -523,7 +471,7 @@
       },
       "end": {
         "line": 4,
-        "column": 30
+        "column": 20
       }
     }
   ],
@@ -533,6 +481,6 @@
   },
   "end": {
     "line": 4,
-    "column": 30
+    "column": 20
   }
 }

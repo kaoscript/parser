@@ -826,7 +826,7 @@ export namespace Parser {
 		} # }}}
 		isComputed(expression): Boolean { # {{{
 			match expression.kind {
-				NodeKind.CallExpression, NodeKind.CascadeExpression {
+				NodeKind.CallExpression, NodeKind.RollingExpression, NodeKind.DisruptiveExpression {
 					return true
 				}
 				NodeKind.MemberExpression {
@@ -1475,96 +1475,48 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		reqCascadeExpression(object: Event, eMode: ExpressionMode, fMode: FunctionMode, restrictive: Boolean): Event ~ SyntaxError { # {{{
+		reqCascadeExpression(mut object: Event, mut modifiers: Event[], identifier: Event?, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mode = eMode + ExpressionMode.ImplicitMember + ExpressionMode.NoMultiLine
-			var reference =  @yep(AST.Reference('main', object))
-			var expressions = []
-
 			repeat {
-				@commit()
+				var value = @yep(AST.MemberExpression(modifiers, @yep(AST.Reference('main', object)), @reqIdentifier()))
+				var operand = @reqUnaryOperand(value, eMode + ExpressionMode.NoMultiLine, fMode)
+				var expression = @altRestrictiveExpression(operand, fMode)
 
-				var mut value = @yep(AST.MemberExpression([], reference, @reqIdentifier()))
+				if expression.value.kind == NodeKind.RestrictiveExpression {
+					var { operator, condition, expression % value } = expression.value
 
-				var mut operand = @reqUnaryOperand(value, eMode + ExpressionMode.NoMultiLine, fMode)
-
-				var mut mark = @mark()
-
-				@NL_0M()
-
-				var operator = @tryAssignementOperator()
-
-				if operator.ok {
-					var values = [operand.value, AST.BinaryExpression(operator)]
-
-					@NL_0M()
-
-					operand = @reqBinaryOperand(mode, fMode)
-
-					values.push(operand.value)
-
-					repeat {
-						mark = @mark()
-
-						@NL_0M()
-
-						var operator = @tryBinaryOperator(fMode)
-
-						if operator.ok {
-							values.push(AST.BinaryExpression(operator))
-
-							@NL_0M()
-
-							values.push(@reqBinaryOperand(mode, fMode).value)
-						}
-						else {
-							@rollback(mark)
-
-							break
-						}
-					}
-
-					operand = @yep(AST.reorderExpression(values))
-
-					expressions.push(
-						if restrictive || #expressions {
-							set @altRestrictiveExpression(operand, fMode)
-						}
-						else {
-							set operand
-						}
-					)
-
-					mark = @mark()
+					object = @yep(AST.DisruptiveExpression(@yep(operator), @yep(condition), object, @yep(value), object, condition))
 				}
 				else {
-					@rollback(mark)
+					@replaceReference(value.value, 'main', object.value)
 
-					expressions.push(
-						if restrictive || #expressions {
-							set @altRestrictiveExpression(operand, fMode)
-						}
-						else {
-							set operand
-						}
-					)
+					object = expression
 				}
 
-				unless @test(Token.NEWLINE) {
-					@rollback(mark)
+				var mark = @mark()
 
+				unless @test(Token.NEWLINE) {
 					break
 				}
 
 				@commit().NL_0M()
 
-				unless @test(Token.DOT_DOT) {
+				if @test(Token.DOT) {
+					modifiers = []
+
+					@commit()
+				}
+				else if @test(Token.QUESTION_DOT) {
+					modifiers = [AST.Modifier(ModifierKind.Nullable, @yes())]
+				}
+				else {
 					@rollback(mark)
 
 					break
 				}
 			}
 
-			return @yep(AST.CascadeExpression([], object, expressions, object, expressions[expressions.length - 1]))
+			return object
 		} # }}}
 		reqCatchOnClause(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var type = @reqIdentifier()
@@ -3344,21 +3296,6 @@ export namespace Parser {
 				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
 				return @yep(AST.UnlessStatement(condition, @yep(AST.ExpressionStatement(expression)), expression, condition))
-			}
-			else if expression.value.kind == NodeKind.DisruptiveExpression && !@isComputed(expression.value.mainExpression) {
-				unless @replaceReference(expression.value.disruptedExpression, 'main', expression.value.mainExpression) {
-					throw @error(`Could not replace reference`)
-				}
-
-				var condition = @yep(expression.value.condition)
-				var block =  @yep(AST.ExpressionStatement(@yep(expression.value.disruptedExpression)))
-
-				if expression.value.operator.kind == RestrictiveOperatorKind.If {
-					return @yep(AST.IfStatement(condition, null, block, null, block, condition))
-				}
-				else {
-					return @yep(AST.UnlessStatement(condition, block, block, condition))
-				}
 			}
 			else {
 				return @yep(AST.ExpressionStatement(expression))
@@ -6089,7 +6026,7 @@ export namespace Parser {
 				else if @test(Token.QUESTION_OPERATOR) {
 					values.push(AST.ConditionalExpression(@yes()))
 
-					values.push(@reqExpression(ExpressionMode.Default, fMode).value)
+					values.push(@reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode).value)
 
 					unless @test(Token.COLON) {
 						@throw(':')
@@ -6097,7 +6034,7 @@ export namespace Parser {
 
 					@commit()
 
-					values.push(@reqExpression(ExpressionMode.Default, fMode).value)
+					values.push(@reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode).value)
 				}
 				else if (operator = @tryJunctionOperator()).ok {
 					values.push(@reqJunctionExpression(operator, eMode, fMode, values, type))
@@ -6763,6 +6700,97 @@ export namespace Parser {
 			else {
 				return @yep(AST.ReturnStatement(expression, first, expression))
 			}
+		} # }}}
+		reqRollingExpression(object: Event, modifiers: Event[], eMode: ExpressionMode, fMode: FunctionMode, restrictive: Boolean): Event ~ SyntaxError { # {{{
+			var mode = eMode + ExpressionMode.ImplicitMember + ExpressionMode.NoMultiLine
+			var reference =  @yep(AST.Reference('main', object))
+			var expressions = []
+
+			repeat {
+				@commit()
+
+				var value = @yep(AST.MemberExpression([], reference, @reqIdentifier()))
+				var operand = @reqUnaryOperand(value, eMode + ExpressionMode.NoMultiLine, fMode)
+				var mut mark = @mark()
+
+				@NL_0M()
+
+				var operator = @tryAssignementOperator()
+
+				if operator.ok {
+					@NL_0M()
+
+					var values = [
+						operand.value
+						AST.BinaryExpression(operator)
+						@reqBinaryOperand(mode, fMode).value
+					]
+
+					repeat {
+						mark = @mark()
+
+						@NL_0M()
+
+						var operator = @tryBinaryOperator(fMode)
+
+						if operator.ok {
+							values.push(AST.BinaryExpression(operator))
+
+							@NL_0M()
+
+							values.push(@reqBinaryOperand(mode, fMode).value)
+						}
+						else {
+							@rollback(mark)
+
+							break
+						}
+					}
+
+					var expression = @yep(AST.reorderExpression(values))
+
+					expressions.push(
+						if restrictive || #expressions {
+							set @altRestrictiveExpression(expression, fMode)
+						}
+						else {
+							set expression
+						}
+					)
+
+					mark = @mark()
+				}
+				else {
+					@rollback(mark)
+
+					expressions.push(
+						if restrictive || #expressions {
+							set @altRestrictiveExpression(operand, fMode)
+						}
+						else {
+							set operand
+						}
+					)
+
+					mark = @mark()
+				}
+
+				unless @test(Token.NEWLINE) {
+					@rollback(mark)
+
+					break
+				}
+
+				@commit().NL_0M()
+
+				unless @test(Token.DOT_DOT) {
+					@rollback(mark)
+
+					break
+				}
+			}
+
+			return @yep(AST.RollingExpression(modifiers, object, expressions, object, expressions[expressions.length - 1]))
 		} # }}}
 		reqSeparator(token: Token): Void ~ SyntaxError { # {{{
 			if @match(Token.COMMA, Token.NEWLINE, token) == Token.COMMA {
@@ -7543,9 +7571,7 @@ export namespace Parser {
 				value = @reqOperand(eMode, fMode)
 			}
 
-			var mut broken: [Event, Event]? = null
-
-			var dyn expression, mark, first
+			var dyn expression, first
 
 			repeat {
 				match @matchM(M.OPERAND_JUNCTION) {
@@ -7605,7 +7631,7 @@ export namespace Parser {
 							break
 						}
 
-						value = @reqCascadeExpression(value, eMode, fMode, false)
+						value = @reqRollingExpression(value, [], eMode, fMode, false)
 					}
 					Token.LEFT_SQUARE {
 						var modifiers = [AST.Modifier(ModifierKind.Computed, @yes())]
@@ -7628,29 +7654,36 @@ export namespace Parser {
 							break
 						}
 
-						mark = @mark()
+						var mark = @mark()
 
 						@commit().NL_0M()
 
 						if @test(Token.DOT_DOT) {
-							value = @reqCascadeExpression(value, eMode, fMode, true)
+							value = @reqRollingExpression(value, [], eMode, fMode, true)
 						}
 						else if @test(Token.DOT) {
 							@commit()
 
-							var oldValue = value
-
-							value = @yep(AST.MemberExpression([], value, @reqIdentifier()))
-
 							if eMode ~~ ExpressionMode.Arrow {
+								var identifier = @reqIdentifier()
+
 								if @test(Token.EQUALS_RIGHT_ANGLE) {
 									@rollback(mark)
 
-									return oldValue
+									return value
+								}
+								else {
+									value = @reqCascadeExpression(value, [], identifier, eMode, fMode)
 								}
 							}
+							else {
+								value = @reqCascadeExpression(value, [], null, eMode, fMode)
+							}
+						}
+						else if @test(Token.QUESTION_DOT) {
+							var modifiers = [AST.Modifier(ModifierKind.Nullable, @yes())]
 
-							broken = [oldValue, value]
+							value = @reqCascadeExpression(value, modifiers, null, eMode, fMode)
 						}
 						else {
 							@rollback(mark)
@@ -7664,6 +7697,15 @@ export namespace Parser {
 						expression = @reqIdentifier()
 
 						value = @yep(AST.MemberExpression(modifiers, value, expression, value, expression))
+					}
+					Token.QUESTION_DOT_DOT {
+						if eMode ~~ ExpressionMode.NoInlineCascade {
+							break
+						}
+
+						var modifiers = [AST.Modifier(ModifierKind.Nullable, @yes())]
+
+						value = @reqRollingExpression(value, modifiers, eMode, fMode, true)
 					}
 					Token.QUESTION_LEFT_ROUND {
 						var modifiers = [AST.Modifier(ModifierKind.Nullable, @yes())]
@@ -7687,51 +7729,6 @@ export namespace Parser {
 					}
 					else {
 						break
-					}
-				}
-
-				if eMode !~ ExpressionMode.NoRestriction || ?broken {
-					mark = @mark()
-
-					if @test(Token.IF, Token.UNLESS) {
-						var kind = @token == Token.IF ? RestrictiveOperatorKind.If : RestrictiveOperatorKind.Unless
-						var operator = @yep(AST.RestrictiveOperator(kind, @yes()))
-						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoMultiLine, fMode)
-
-						if @test(Token.NEWLINE) || @token == Token.EOF {
-							if var [mainExpression, disruptedExpression] ?= broken {
-								disruptedExpression.value.object = AST.Reference('main', disruptedExpression.value.object)
-
-								value = @yep(AST.DisruptiveExpression(operator, condition, mainExpression, value, mainExpression, condition))
-
-								if eMode !~ ExpressionMode.Arrow {
-									mark = @mark()
-
-									@commit().NL_0M()
-
-									if @test(Token.DOT) {
-										@commit()
-
-										var oldValue = value
-
-										value = @yep(AST.MemberExpression([], value, @reqIdentifier()))
-
-										broken = [oldValue, value]
-									}
-									else {
-										@rollback(mark)
-
-										break
-									}
-								}
-							}
-							else {
-								return @yep(AST.RestrictiveExpression(operator, condition, value, value, condition))
-							}
-						}
-						else {
-							@rollback(mark)
-						}
 					}
 				}
 			}
@@ -8002,7 +7999,7 @@ export namespace Parser {
 			}
 
 			if @match(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE, Token.AT) == Token.IDENTIFIER {
-				identifier = @reqUnaryOperand(@reqIdentifier(), ExpressionMode.Default, fMode)
+				identifier = @reqUnaryOperand(@reqIdentifier(), ExpressionMode.InlineOnly, fMode)
 			}
 			else if @token == Token.LEFT_CURLY {
 				identifier = @tryDestructuringObject(@yes(), dMode, fMode)

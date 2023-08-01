@@ -1,9 +1,9 @@
 {
-  "kind": 76,
+  "kind": 75,
   "attributes": [],
   "body": [
     {
-      "kind": 41,
+      "kind": 40,
       "attributes": [],
       "expression": {
         "kind": 12,
@@ -21,7 +21,7 @@
           }
         },
         "left": {
-          "kind": 52,
+          "kind": 51,
           "modifiers": [],
           "name": "heroes",
           "start": {
@@ -38,7 +38,7 @@
           "modifiers": [],
           "values": [
             {
-              "kind": 63,
+              "kind": 62,
               "modifiers": [],
               "value": "leto",
               "start": {
@@ -51,7 +51,7 @@
               }
             },
             {
-              "kind": 63,
+              "kind": 62,
               "modifiers": [],
               "value": "duncan",
               "start": {
@@ -64,7 +64,7 @@
               }
             },
             {
-              "kind": 63,
+              "kind": 62,
               "modifiers": [],
               "value": "goku",
               "start": {
@@ -105,7 +105,7 @@
       }
     },
     {
-      "kind": 41,
+      "kind": 40,
       "attributes": [],
       "expression": {
         "kind": 12,
@@ -123,7 +123,7 @@
           }
         },
         "left": {
-          "kind": 52,
+          "kind": 51,
           "modifiers": [],
           "name": "evenHeroes",
           "start": {
@@ -139,7 +139,7 @@
           "kind": 4,
           "modifiers": [],
           "body": {
-            "kind": 52,
+            "kind": 51,
             "modifiers": [],
             "name": "hero",
             "start": {
@@ -152,11 +152,11 @@
             }
           },
           "loop": {
-            "kind": 45,
+            "kind": 44,
             "attributes": [],
             "modifiers": [],
             "expression": {
-              "kind": 52,
+              "kind": 51,
               "modifiers": [],
               "name": "heroes",
               "start": {
@@ -177,7 +177,7 @@
               "column": 102
             },
             "value": {
-              "kind": 52,
+              "kind": 51,
               "modifiers": [],
               "name": "hero",
               "start": {
@@ -190,7 +190,7 @@
               }
             },
             "index": {
-              "kind": 52,
+              "kind": 51,
               "modifiers": [],
               "name": "index",
               "start": {
@@ -203,7 +203,7 @@
               }
             },
             "from": {
-              "kind": 81,
+              "kind": 80,
               "modifiers": [],
               "value": 1,
               "start": {
@@ -216,7 +216,7 @@
               }
             },
             "to": {
-              "kind": 81,
+              "kind": 80,
               "modifiers": [
                 {
                   "kind": 7,
@@ -247,7 +247,7 @@
                 "kind": 2
               },
               "callee": {
-                "kind": 52,
+                "kind": 51,
                 "modifiers": [],
                 "name": "foo",
                 "start": {
@@ -261,7 +261,7 @@
               },
               "arguments": [
                 {
-                  "kind": 52,
+                  "kind": 51,
                   "modifiers": [],
                   "name": "hero",
                   "start": {
@@ -274,7 +274,7 @@
                   }
                 },
                 {
-                  "kind": 52,
+                  "kind": 51,
                   "modifiers": [],
                   "name": "index",
                   "start": {
@@ -297,7 +297,7 @@
               }
             },
             "when": {
-              "kind": 25,
+              "kind": 24,
               "modifiers": [],
               "values": [
                 {
@@ -324,7 +324,7 @@
                     "column": 97
                   },
                   "left": {
-                    "kind": 52,
+                    "kind": 51,
                     "modifiers": [],
                     "name": "index",
                     "start": {
@@ -337,7 +337,7 @@
                     }
                   },
                   "right": {
-                    "kind": 81,
+                    "kind": 80,
                     "modifiers": [],
                     "value": 2,
                     "start": {
@@ -363,7 +363,7 @@
                   }
                 },
                 {
-                  "kind": 81,
+                  "kind": 80,
                   "modifiers": [],
                   "value": 0,
                   "start": {

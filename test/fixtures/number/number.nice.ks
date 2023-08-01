@@ -15,4 +15,5 @@ var float_hex2 = 0x1.2p3			// 9
 var float_hex3 = 0x3.14p0			// 3.078125
 var float_hex4 = 0xa.bp10			// 10944
 var character = 0'a'
+var quote = 0'\''
 var newline = 0'\n'

@@ -150,6 +150,7 @@ enum Token {
 	QUESTION
 	QUESTION_EQUALS
 	QUESTION_DOT
+	QUESTION_DOT_DOT
 	QUESTION_LEFT_ANGLE_PIPE
 	QUESTION_LEFT_ANGLE_PIPE_ASTERISK
 	QUESTION_LEFT_ROUND
@@ -224,7 +225,7 @@ var overhauls = {
 
 var regex: Object<RegExp> = {
 	binary_number: /^0b[_0-1]+[a-zA-Z]*/
-	character_number: /^0'(?:[^\r\n]|\\[0'"\\nrvtbf])'/
+	character_number: /^0'(?:[^\r\n\\]|\\[0'"\\nrvtbf])'/
 	class_version: /^\d+(\.\d+(\.\d+)?)?/
 	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?(?:[eE][-+]?[_0-9]+)?(?:[a-zA-Z]*)/
 	dot_number: /^\.[_0-9]+(?:[eE][-+]?[_0-9]+|[a-zA-Z]*)/
@@ -247,7 +248,7 @@ namespace M {
 			if c == -1 {
 				return Token.EOF
 			}
-			else if c == 33 { // !
+			else if c == 0'!' {
 				if that.charAt(2) == 61 {
 					c = that.charAt(1)
 
@@ -263,7 +264,7 @@ namespace M {
 					}
 				}
 			}
-			else if c == 35 { // #
+			else if c == 0'#' {
 				c = that.charAt(1)
 
 				if c == 35 && that.charAt(2) == 61 {
@@ -277,42 +278,42 @@ namespace M {
 					return Token.HASH_EQUALS
 				}
 			}
-			else if c == 37 { // %
+			else if c == 0'%' {
 				if that.charAt(1) == 61 {
 					that.next(2)
 
 					return Token.PERCENT_EQUALS
 				}
 			}
-			else if c == 38 { // &
+			else if c == 0'&' {
 				if that.charAt(1) == 38 && that.charAt(2) == 61 {
 					that.next(3)
 
 					return Token.AMPERSAND_AMPERSAND_EQUALS
 				}
 			}
-			else if c == 42 { // *
+			else if c == 0'*' {
 				if that.charAt(1) == 61 {
 					that.next(2)
 
 					return Token.ASTERISK_EQUALS
 				}
 			}
-			else if c == 43 { // +
+			else if c == 0'+' {
 				if that.charAt(1) == 61 {
 					that.next(2)
 
 					return Token.PLUS_EQUALS
 				}
 			}
-			else if c == 45 { // -
+			else if c == 0'-' {
 				if that.charAt(1) == 61 {
 					that.next(2)
 
 					return Token.MINUS_EQUALS
 				}
 			}
-			else if c == 47 { // /
+			else if c == 0'/' {
 				c = that.charAt(1)
 
 				if c == 46 {
@@ -328,7 +329,7 @@ namespace M {
 					return Token.SLASH_EQUALS
 				}
 			}
-			else if c == 60 { // <
+			else if c == 0'<' {
 				c = that.charAt(1)
 
 				if c == 45 {
@@ -342,21 +343,21 @@ namespace M {
 					return Token.LEFT_ANGLE_LEFT_ANGLE_EQUALS
 				}
 			}
-			else if c == 61 { // =
+			else if c == 0'=' {
 				if that.charAt(1) != 61 & 62 {
 					that.next(1)
 
 					return Token.EQUALS
 				}
 			}
-			else if c == 62 { // >
+			else if c == 0'>' {
 				if that.charAt(1) == 62 && that.charAt(2) == 61 {
 					that.next(3)
 
 					return Token.RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
 				}
 			}
-			else if c == 63 { // ?
+			else if c == 0'?' {
 				c = that.charAt(1)
 
 				if c == 61 {
@@ -372,14 +373,14 @@ namespace M {
 					}
 				}
 			}
-			else if c == 94 { // ^
+			else if c == 0'^' {
 				if that.charAt(1) == 94 && that.charAt(2) == 61 {
 					that.next(3)
 
 					return Token.CARET_CARET_EQUALS
 				}
 			}
-			else if c == 124 { // |
+			else if c == 0'|' {
 				if that.charAt(1) == 124 && that.charAt(2) == 61 {
 					that.next(3)
 
@@ -396,7 +397,7 @@ namespace M {
 			if c == -1 {
 				return Token.EOF
 			}
-			else if c == 33 { // !
+			else if c == 0'!' {
 				c = that.charAt(1)
 
 				if c == 35 && that.charAt(2) == 61 {
@@ -420,7 +421,7 @@ namespace M {
 					return Token.EXCLAMATION_TILDE
 				}
 			}
-			else if c == 35 { // #
+			else if c == 0'#' {
 				c = that.charAt(1)
 
 				if c == 35 {
@@ -455,7 +456,7 @@ namespace M {
 					return Token.HASH_EQUALS
 				}
 			}
-			else if c == 37 { // %
+			else if c == 0'%' {
 				if that.charAt(1) == 61 {
 					that.next(2)
 
@@ -467,7 +468,7 @@ namespace M {
 					return Token.PERCENT
 				}
 			}
-			else if c == 38 { // &
+			else if c == 0'&' {
 				c = that.charAt(1)
 
 				if c == 38 {
@@ -483,7 +484,7 @@ namespace M {
 					}
 				}
 			}
-			else if c == 42 { // *
+			else if c == 0'*' {
 				c = that.charAt(1)
 
 				if c == 61 {
@@ -518,7 +519,7 @@ namespace M {
 					return Token.ASTERISK
 				}
 			}
-			else if c == 43 { // +
+			else if c == 0'+' {
 				c = that.charAt(1)
 
 				if c == 61 {
@@ -532,7 +533,7 @@ namespace M {
 					return Token.PLUS
 				}
 			}
-			else if c == 45 { // -
+			else if c == 0'-' {
 				c = that.charAt(1)
 
 				if c == 61 {
@@ -551,7 +552,7 @@ namespace M {
 					return Token.MINUS
 				}
 			}
-			else if c == 47 { // /
+			else if c == 0'/' {
 				c = that.charAt(1)
 
 				if c == 46 {
@@ -577,7 +578,7 @@ namespace M {
 					return Token.SLASH
 				}
 			}
-			else if c == 60 { // <
+			else if c == 0'<' {
 				c = that.charAt(1)
 
 				if c == 45 {
@@ -622,7 +623,7 @@ namespace M {
 					return Token.LEFT_ANGLE
 				}
 			}
-			else if c == 61 { // =
+			else if c == 0'=' {
 				c = that.charAt(1)
 
 				if c == 61 {
@@ -636,7 +637,7 @@ namespace M {
 					return Token.EQUALS
 				}
 			}
-			else if c == 62 { // >
+			else if c == 0'>' {
 				c = that.charAt(1)
 
 				if c == 61 {
@@ -662,7 +663,7 @@ namespace M {
 					return Token.RIGHT_ANGLE
 				}
 			}
-			else if c == 63 { // ?
+			else if c == 0'?' {
 				c = that.charAt(1)
 
 				if c == 60 && that.charAt(2) == 124 {
@@ -697,7 +698,7 @@ namespace M {
 					}
 				}
 			}
-			else if c == 94 { // ^
+			else if c == 0'^' {
 				c = that.charAt(1)
 
 				if c == 94 {
@@ -718,7 +719,7 @@ namespace M {
 					}
 				}
 			}
-			else if c == 124 { // |
+			else if c == 0'|' {
 				c = that.charAt(1)
 
 				if c == 62 {
@@ -755,7 +756,7 @@ namespace M {
 					}
 				}
 			}
-			else if c == 126 { // ~
+			else if c == 0'~' {
 				if that.charAt(1) == 126 {
 					that.next(2)
 
@@ -1031,21 +1032,21 @@ namespace M {
 			if c == -1 {
 				return Token.EOF
 			}
-			else if c == 38 { // &
+			else if c == 0'&' {
 				if that.charAt(1) != 38 {
 					that.next(1)
 
 					return Token.AMPERSAND
 				}
 			}
-			else if c == 94 { // ^
+			else if c == 0'^' {
 				if that.charAt(1) != 94 {
 					that.next(1)
 
 					return Token.CARET
 				}
 			}
-			else if c == 124 { // |
+			else if c == 0'|' {
 				if that.charAt(1) != 62 & 124 {
 					that.next(1)
 
@@ -1330,7 +1331,7 @@ namespace M {
 					return Token.DECIMAL_NUMBER
 				}
 			}
-			else if c == 48 { // 0
+			else if c == 0'0' {
 				var dyn substr = that._data.substr(that._index)
 
 				if var match ?= regex.binary_number.exec(substr) {
@@ -1359,7 +1360,7 @@ namespace M {
 					return Token.DECIMAL_NUMBER
 				}
 			}
-			else if c >= 49 && c <= 57 { // 1 - 9
+			else if c >= 0'1' && c <= 0'9' {
 				var dyn substr = that._data.substr(that._index)
 
 				if var match ?= regex.radix_number.exec(substr) {
@@ -1383,7 +1384,7 @@ namespace M {
 			if c == -1 {
 				return Token.EOF
 			}
-			else if c == 34 { // "
+			else if c == 0'"' {
 				if that.charAt(1) == 34 && that.charAt(2) == 34 {
 					that.next(3)
 
@@ -1395,12 +1396,12 @@ namespace M {
 					return Token.STRING
 				}
 			}
-			else if c == 36 { // $
+			else if c == 0'$' {
 				that.scanIdentifier(false)
 
 				return Token.IDENTIFIER
 			}
-			else if c == 39 { // '
+			else if c == 0'\'' {
 				if that.charAt(1) == 39 && that.charAt(2) == 39 {
 					that.next(3)
 
@@ -1412,41 +1413,41 @@ namespace M {
 					return Token.STRING
 				}
 			}
-			else if c == 40 { // (
+			else if c == 0'(' {
 				that.next(1)
 
 				return Token.LEFT_ROUND
 			}
-			else if c == 47 { // /
+			else if c == 0'/' {
 				if var match ?= regex.regex.exec(that.substringAt(1)) {
 					that.next(match[0].length + 1)
 
 					return Token.REGEXP
 				}
 			}
-			else if c == 64 { // @
+			else if c == 0'@' {
 				if fMode ~~ FunctionMode.Method {
 					that.next(1)
 
 					return Token.AT
 				}
 			}
-			else if c >= 65 && c <= 90 { // A-Z
+			else if c >= 0'A' && c <= 0'Z' {
 				that.scanIdentifier(false)
 
 				return Token.IDENTIFIER
 			}
-			else if c == 91 { // [
+			else if c == 0'[' {
 				that.next(1)
 
 				return Token.LEFT_SQUARE
 			}
-			else if c == 95 && !that.isBoundary(1) { // _
+			else if c == 0'_' && !that.isBoundary(1) {
 				that.scanIdentifier(false)
 
 				return Token.IDENTIFIER
 			}
-			else if c == 96 { // `
+			else if c == 0'`' {
 				if that.charAt(1) == 96 && that.charAt(2) == 96 {
 					that.next(3)
 
@@ -1458,17 +1459,17 @@ namespace M {
 					return Token.TEMPLATE_BEGIN
 				}
 			}
-			else if c >= 97 && c <= 122 { // a-z
+			else if c >= 0'a' && c <= 0'z' {
 				that.scanIdentifier(false)
 
 				return Token.IDENTIFIER
 			}
-			else if c == 123 { // {
+			else if c == 0'{' {
 				that.next(1)
 
 				return Token.LEFT_CURLY
 			}
-			else if c == 126 { // ~
+			else if c == 0'~' {
 				if that.charAt(1) == 126 && that.charAt(2) == 126 {
 					that.next(3)
 
@@ -1496,12 +1497,12 @@ namespace M {
 
 				return Token.NEWLINE
 			}
-			else if c == 40 { // (
+			else if c == 0'(' {
 				that.next(1)
 
 				return Token.LEFT_ROUND
 			}
-			else if c == 42 { // *
+			else if c == 0'*' {
 				c = that.charAt(1)
 
 				if c == 36 {
@@ -1512,7 +1513,7 @@ namespace M {
 					}
 				}
 			}
-			else if c == 46 { // .
+			else if c == 0'.' {
 				if that.charAt(1) != 46 & 9 & 32 {
 					that.next(1)
 
@@ -1524,7 +1525,7 @@ namespace M {
 					return Token.DOT_DOT
 				}
 			}
-			else if c == 58 { // :
+			else if c == 0':' {
 				c = that.charAt(1)
 				var c2 = that.charAt(2)
 
@@ -1544,31 +1545,46 @@ namespace M {
 					return Token.COLON
 				}
 			}
-			else if c == 63 { // ?
+			else if c == 0'?' {
 				c = that.charAt(1)
 
-				if c == 40 {
+				if c == 0'(' {
 					that.next(2)
 
 					return Token.QUESTION_LEFT_ROUND
 				}
-				else if c == 46 && !(that.charAt(2) == 9 | 32) {
+				else if c == 0'.' && !(that.charAt(2) == 0'\t' | 0' ') {
 					that.next(2)
 
 					return Token.QUESTION_DOT
 				}
-				else if c == 91 {
+				else if c == 0'[' {
 					that.next(2)
 
 					return Token.QUESTION_LEFT_SQUARE
 				}
+				else {
+					var mark = that.mark()
+
+					that
+						..skipNewLine(that.index() + 1)
+						..commit()
+
+					if that.charAt(0) == 0'.' && that.charAt(1) == 0'.' {
+						that.next(2)
+
+						return Token.QUESTION_DOT_DOT
+					}
+
+					that.rollback(mark)
+				}
 			}
-			else if c == 91 { // [
+			else if c == 0'[' {
 				that.next(1)
 
 				return Token.LEFT_SQUARE
 			}
-			else if c == 94 { // ^
+			else if c == 0'^' {
 				if that.charAt(2) == 40 {
 					c = that.charAt(1)
 
@@ -1584,7 +1600,7 @@ namespace M {
 					}
 				}
 			}
-			else if c == 96 { // `
+			else if c == 0'`' {
 				that.next(1)
 
 				return Token.TEMPLATE_BEGIN
@@ -1600,7 +1616,7 @@ namespace M {
 			if p == 9 || p == 32 {
 				return Token.INVALID
 			}
-			else if c == 33 { // !
+			else if c == 0'!' {
 				if (c <- that.charAt(1)) == 33 {
 					that.next(2)
 
@@ -1622,14 +1638,14 @@ namespace M {
 			if c == -1 {
 				return Token.EOF
 			}
-			else if c == 33 { // !
+			else if c == 0'!' {
 				if !((c <- that.charAt(1)) == 61 || (c == 63 && that.charAt(2) == 61) || c == 9 | 32) {
 					that.next(1)
 
 					return Token.EXCLAMATION
 				}
 			}
-			else if c == 35 { // #
+			else if c == 0'#' {
 				c = that.charAt(1)
 
 				if c != 35 & 61 {
@@ -1638,7 +1654,7 @@ namespace M {
 					return Token.HASH
 				}
 			}
-			else if c == 45 { // -
+			else if c == 0'-' {
 				c = that.charAt(1)
 
 				if c != 61 {
@@ -1647,7 +1663,7 @@ namespace M {
 					return Token.MINUS
 				}
 			}
-			else if c == 46 { // .
+			else if c == 0'.' {
 				if that.charAt(1) == 46 && that.charAt(2) == 46 && that.charAt(3) != 9 & 32 {
 					that.next(3)
 
@@ -1659,14 +1675,14 @@ namespace M {
 					return Token.DOT
 				}
 			}
-			else if c == 63 { // ?
+			else if c == 0'?' {
 				if that.charAt(1) != 9 & 32 {
 					that.next(1)
 
 					return Token.QUESTION
 				}
 			}
-			else if c == 95 { // _
+			else if c == 0'_' {
 				if that.isBoundary(1) {
 					that.next(1)
 
@@ -2125,12 +2141,12 @@ namespace M {
 		func TEMPLATE(that: Scanner, mut index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 			var dyn c = that._data.charCodeAt(index)
 
-			if c == 92 && that._data.charCodeAt(index + 1) == 40 { // \(
+			if c == 0'\\' && that._data.charCodeAt(index + 1) == 0'(' {
 				that.next(2)
 
 				return Token.TEMPLATE_ELEMENT
 			}
-			else if c == 96 { // )
+			else if c == 0'`' {
 				return Token.TEMPLATE_END
 			}
 			else if var match ?= regex.template.exec(that._data.substr(index)) {
@@ -3152,6 +3168,14 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token.QUESTION_DOT)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 0'?' && that.charAt(1) == 0'.' && that.charAt(2) != 0'.' {
+			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token.QUESTION_EQUALS)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 63 && that.charAt(1) == 61 {
 			return that.next(2)
@@ -3161,7 +3185,7 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token.QUESTION_OPERATOR)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 63 {
+		if c == 0'?' {
 			return that.charAt(1) == 40 | 46 | 61 | 63 | 91 ? false : that.next(1)
 		}
 		else {
@@ -3309,12 +3333,12 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token.STRING)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 34 { // "
+		if c == 0'"' {
 			if var match ?= regex.double_quote.exec(that.substringAt(1)) {
 				return that.next(match[0].length + 1)
 			}
 		}
-		else if c == 39 { // '
+		else if c == 0'\'' {
 			if var match ?= regex.single_quote.exec(that.substringAt(1)) {
 				return that.next(match[0].length + 1)
 			}
@@ -3574,6 +3598,7 @@ class Scanner {
 
 		return Token.EOF
 	} # }}}
+	index(): @index
 	isBoundary(d: Number): Boolean { # {{{
 		var c = @data.charCodeAt(@index + d)
 
@@ -3788,7 +3813,7 @@ class Scanner {
 				// skip
 				@column += 1
 			}
-			else if c == 35 { // #
+			else if c == 0'#' {
 				var oldIndex = index
 
 				c = @data.charCodeAt(index + 1)
@@ -3816,7 +3841,7 @@ class Scanner {
 
 				c = @data.charCodeAt(index + 1)
 
-				if c == 123 { // {
+				if c == 0'{' {
 					if @data.charCodeAt(index + 2) != 123 && @data.charCodeAt(index + 3) != 123 {
 						@nextIndex = @index = oldIndex
 						@nextColumn = @column
@@ -3827,7 +3852,7 @@ class Scanner {
 
 					index += 2
 				}
-				else if c == 125 { // }
+				else if c == 0'}' {
 					if @data.charCodeAt(index + 2) != 125 && @data.charCodeAt(index + 3) != 125 {
 						@nextIndex = @index = oldIndex
 						@nextColumn = @column
@@ -3852,10 +3877,10 @@ class Scanner {
 
 				@column += index - oldIndex
 			}
-			else if c == 47 { // /
+			else if c == 0'/' {
 				c = @data.charCodeAt(index + 1)
 
-				if c == 42 { // /*
+				if c == 0'*' {
 					var oldIndex = index
 
 					var dyn line = @line
@@ -3875,7 +3900,7 @@ class Scanner {
 
 							lineIndex = index
 						}
-						else if c == 42 && @data.charCodeAt(index + 1) == 47 { // * /
+						else if c == 0'*' && @data.charCodeAt(index + 1) == 0'/' {
 							left -= 1
 
 							if left == 0 {
@@ -3885,7 +3910,7 @@ class Scanner {
 								break
 							}
 						}
-						else if c == 47 && @data.charCodeAt(index + 1) == 42 { // / *
+						else if c == 0'/' && @data.charCodeAt(index + 1) == 0'*' {
 							left += 1
 						}
 
@@ -3903,7 +3928,7 @@ class Scanner {
 					@line = line
 					@column = column
 				}
-				else if c == 47 { // //
+				else if c == 0'/' {
 					var lineIndex = index
 
 					index += 1
@@ -3952,10 +3977,10 @@ class Scanner {
 				// skip
 				@column += 1
 			}
-			else if c == 47 { // /
+			else if c == 0'/' {
 				c = @data.charCodeAt(index + 1)
 
-				if c == 42 { // /*
+				if c == 0'*' {
 					var oldIndex = index
 
 					var dyn line = @line
@@ -3975,7 +4000,7 @@ class Scanner {
 
 							lineIndex = index
 						}
-						else if c == 42 && @data.charCodeAt(index + 1) == 47 { // * /
+						else if c == 0'*' && @data.charCodeAt(index + 1) == 0'/' {
 							left -= 1
 
 							if left == 0 {
@@ -3985,7 +4010,7 @@ class Scanner {
 								break
 							}
 						}
-						else if c == 47 && @data.charCodeAt(index + 1) == 42 { // / *
+						else if c == 0'/' && @data.charCodeAt(index + 1) == 0'*' {
 							left += 1
 						}
 
@@ -4036,7 +4061,7 @@ class Scanner {
 					@line = line
 					@column = column
 				}
-				else if c == 47 { // //
+				else if c == 0'/' {
 					var lineIndex = index
 
 					index += 1
@@ -4106,7 +4131,7 @@ class Scanner {
 				// skip
 				@column += 1
 			}
-			else if c == 35 { // #
+			else if c == 0'#' {
 				var oldIndex = index
 
 				c = @data.charCodeAt(index + 1)
@@ -4134,7 +4159,7 @@ class Scanner {
 
 				c = @data.charCodeAt(index + 1)
 
-				if c == 123 { // {
+				if c == 0'{' {
 					if @data.charCodeAt(index + 2) != 123 && @data.charCodeAt(index + 3) != 123 {
 						@nextIndex = @index = oldIndex
 						@nextColumn = @column
@@ -4145,7 +4170,7 @@ class Scanner {
 
 					index += 2
 				}
-				else if c == 125 { // }
+				else if c == 0'}' {
 					if @data.charCodeAt(index + 2) != 125 && @data.charCodeAt(index + 3) != 125 {
 						@nextIndex = @index = oldIndex
 						@nextColumn = @column
@@ -4170,10 +4195,10 @@ class Scanner {
 
 				@column += index - oldIndex
 			}
-			else if c == 47 { // /
+			else if c == 0'/' {
 				c = @data.charCodeAt(index + 1)
 
-				if c == 42 { // /*
+				if c == 0'*' {
 					var oldIndex = index
 
 					var dyn line = @line
@@ -4193,7 +4218,7 @@ class Scanner {
 
 							lineIndex = index
 						}
-						else if c == 42 && @data.charCodeAt(index + 1) == 47 { // * /
+						else if c == 0'*' && @data.charCodeAt(index + 1) == 0'/' {
 							left -= 1
 
 							if left == 0 {
@@ -4204,7 +4229,7 @@ class Scanner {
 								break
 							}
 						}
-						else if c == 47 && @data.charCodeAt(index + 1) == 42 { // / *
+						else if c == 0'/' && @data.charCodeAt(index + 1) == 0'*' {
 							left += 1
 						}
 
@@ -4222,7 +4247,7 @@ class Scanner {
 					@line = line
 					@column = column
 				}
-				else if c == 47 { // //
+				else if c == 0'/' {
 					var lineIndex = index
 
 					index += 1
