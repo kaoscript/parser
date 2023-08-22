@@ -37,6 +37,7 @@ enum Token {
 	COLON
 	COLON_EXCLAMATION
 	COLON_QUESTION
+	COLON_RIGHT_ANGLE
 	COMMA
 	CONTINUE
 	DECIMAL_NUMBER
@@ -125,6 +126,7 @@ enum Token {
 	ML_TILDE
 	MUT
 	NAMESPACE
+	NEW
 	NEWLINE
 	NUMERAL
 	OCTAL_NUMBER
@@ -199,10 +201,12 @@ enum Token {
 	TRY
 	TUPLE
 	TYPE
+	TYPEOF
 	UNDERSCORE
 	UNLESS
 	UNTIL
 	UP
+	VALUEOF
 	VAR
 	WHEN
 	WHILE
@@ -1426,7 +1430,7 @@ namespace M {
 				}
 			}
 			else if c == 0'@' {
-				if fMode ~~ FunctionMode.Method {
+				if eMode ~~ .AtThis || fMode ~~ .Method {
 					that.next(1)
 
 					return Token.AT
@@ -2382,7 +2386,7 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token.CARET)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 94 && that.charAt(1) != 61 {
+		if c == 0'^' && that.charAt(1) != 0'=' {
 			return that.next(1)
 		}
 		else {
@@ -2390,7 +2394,7 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token.CARET_CARET)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 94 && that.charAt(1) == 94 {
+		if c == 0'^' && that.charAt(1) == 0'^' {
 			return that.next(2)
 		}
 		else {
@@ -2434,10 +2438,16 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token.COLON)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 58 {
-			c = that.charAt(1)
-
-			return c == 58 || c == 61 ? false : that.next(1)
+		if c == 0':' && that.charAt(1) != 0'>' {
+			return that.next(1)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token.COLON_RIGHT_ANGLE)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 0':' && that.charAt(1) == 0'>' {
+			return that.next(2)
 		}
 		else {
 			return false
@@ -2978,6 +2988,18 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token.NEW)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 0'n' &&
+			that.charAt(1) == 0'e' &&
+			that.charAt(2) == 0'w' &&
+			that.isBoundary(3)
+		{
+			return that.next(3)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token.NEWLINE)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 13 && that.charAt(1) == 10 {
 			return that.nextLine(2)
@@ -3455,6 +3477,21 @@ var recognize = {
 			return false
 		}
 	} # }}}
+	`\(Token.TYPEOF)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 0't' &&
+			that.charAt(1) == 0'y' &&
+			that.charAt(2) == 0'p' &&
+			that.charAt(3) == 0'e' &&
+			that.charAt(4) == 0'o' &&
+			that.charAt(5) == 0'f' &&
+			that.isBoundary(6)
+		{
+			return that.next(6)
+		}
+		else {
+			return false
+		}
+	} # }}}
 	`\(Token.UNDERSCORE)`(that: Scanner, mut c: Number): Boolean { # {{{
 		if c == 95 && that.isBoundary(1) {
 			return that.next(1)
@@ -3498,6 +3535,22 @@ var recognize = {
 			that.isBoundary(2)
 		{
 			return that.next(2)
+		}
+		else {
+			return false
+		}
+	} # }}}
+	`\(Token.VALUEOF)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if	c == 0'v' &&
+			that.charAt(1) == 0'a' &&
+			that.charAt(2) == 0'l' &&
+			that.charAt(3) == 0'u' &&
+			that.charAt(4) == 0'e' &&
+			that.charAt(5) == 0'o' &&
+			that.charAt(6) == 0'f' &&
+			that.isBoundary(7)
+		{
+			return that.next(7)
 		}
 		else {
 			return false
@@ -3559,22 +3612,22 @@ var recognize = {
 
 class Scanner {
 	private {
-		_column: Number			= 1
-		_data: String
-		_eof: Boolean			= false
-		_index: Number			= 0
-		_line: Number			= 1
-		_length: Number
-		_nextColumn: Number		= 1
-		_nextIndex: Number		= 0
-		_nextLine: Number		= 1
+		@column: Number			= 1
+		@data: String
+		@eof: Boolean			= false
+		@index: Number			= 0
+		@line: Number			= 1
+		@length: Number
+		@nextColumn: Number		= 1
+		@nextIndex: Number		= 0
+		@nextLine: Number		= 1
 	}
 	constructor(@data) { # {{{
 		@length = @data.length
 	} # }}}
 	charAt(d: Number): Number => @data.charCodeAt(@index + d)
 	char(): String => @eof ? 'EOF' : @data[@index]
-	column(): @column
+	column(): valueof @column
 	commit(): Token? { # {{{
 		if @eof {
 			return null
@@ -3598,19 +3651,19 @@ class Scanner {
 
 		return Token.EOF
 	} # }}}
-	index(): @index
+	index(): valueof @index
 	isBoundary(d: Number): Boolean { # {{{
 		var c = @data.charCodeAt(@index + d)
 
 		return c == 9 || c == 10 || c == 13 || c == 32 || !((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == 95 || c == 36)
 	} # }}}
-	isEOF(): Boolean => @eof
+	isEOF(): valueof @eof
 	isSpace(d: Number): Boolean { # {{{
 		var c = @data.charCodeAt(@index + d)
 
 		return c == 9 || c == 10 || c == 13 || c == 32
 	} # }}}
-	line(): @line
+	line(): valueof @line
 	mark(): Marker { # {{{
 		return Marker.new(
 			eof: @eof

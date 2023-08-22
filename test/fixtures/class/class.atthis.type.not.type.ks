@@ -6,6 +6,6 @@ class Greetings {
 		this('Hello!')
 	}
 	constructor(@message: String)
-	message(): @message
-	message(@message): this
+	message() :> @message
+	message(@message) :> this
 }

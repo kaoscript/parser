@@ -1302,7 +1302,7 @@ namespace AST {
 			return node
 		} # }}}
 
-		func Modifier(kind, first, last? = null) { # {{{
+		func Modifier(kind: ModifierKind, first, last? = null) { # {{{
 			return location({
 				kind: kind
 			}, first, last)
@@ -1592,6 +1592,12 @@ namespace AST {
 				modifiers: []
 				value: value
 			}, first)
+		} # }}}
+
+		func Reification(kind: ReificationKind, first: Event, last: Event? = null) { # {{{
+			return location({
+				kind: kind
+			}, first, last)
 		} # }}}
 
 		func RepeatStatement(expression?, body?, first, last) { # {{{
@@ -1922,6 +1928,21 @@ namespace AST {
 		} # }}}
 
 		func UnaryOperator(operator: UnaryOperatorKind, first) { # {{{
+			return location({
+				kind: operator
+			}, first)
+		} # }}}
+
+		func UnaryTypeExpression(modifiers, operator, operand, first, last) { # {{{
+			return location({
+				kind: NodeKind.UnaryTypeExpression
+				modifiers: [modifier.value for var modifier in modifiers]
+				operator: operator.value
+				argument: operand.value
+			}, first, last)
+		} # }}}
+
+		func UnaryTypeOperator(operator: UnaryTypeOperatorKind, first) { # {{{
 			return location({
 				kind: operator
 			}, first)

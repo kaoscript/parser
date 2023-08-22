@@ -5,6 +5,6 @@ class Greetings {
 	constructor([@message: String]) {
 		this.message(message)
 	}
-	message(): @message
-	message(@message): this
+	message() :> @message
+	message(@message) :> this
 }

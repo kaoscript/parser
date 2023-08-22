@@ -64,6 +64,7 @@ export namespace Parser {
 	bitmask ExpressionMode {
 		Default
 		Arrow
+		AtThis
 		Curry
 		ImplicitMember
 		NoAnonymousFunction
@@ -76,6 +77,10 @@ export namespace Parser {
 		WithMacro
 
 		InlineOnly			= Default + NoInlineCascade + NoMultiLine
+		// TODO!
+		// PrimaryType			= InlineOnly
+		PrimaryType			= Default + NoInlineCascade + NoMultiLine
+		ClassType			= PrimaryType + AtThis
 	}
 
 	bitmask FunctionMode {
@@ -140,7 +145,7 @@ export namespace Parser {
 		constructor(data: String) ~ SyntaxError { # {{{
 			@scanner = Scanner.new(data)
 		} # }}}
-		commit(): this { # {{{
+		commit(): valueof this { # {{{
 			@token = @scanner.commit()
 		} # }}}
 		error(message: String, lineNumber: Number = @scanner.line(), columnNumber: Number = @scanner.column()): SyntaxError { # {{{
@@ -1040,9 +1045,7 @@ export namespace Parser {
 							argument = @yep(AST.PositionalArgument(identifier))
 						}
 					}
-					// TODO!
-					// else if eMode ~~ .Curry && @test(.CARET) {
-					else if eMode ~~ ExpressionMode.Curry && @test(Token.CARET) {
+					else if eMode ~~ .Curry && @test(.CARET) {
 						var first = @yes()
 
 						if @testNS(Token.NUMERAL) {
@@ -1869,7 +1872,9 @@ export namespace Parser {
 		reqClassMethod(attributes, modifiers, mut bits: ClassBits, name: Event, round: Event?, mut first: Event): Event ~ SyntaxError { # {{{
 			var parameters = @reqClassMethodParameterList(round, bits ~~ ClassBits.NoBody ? DestructuringMode.EXTERNAL_ONLY : null)
 
-			var type = @tryMethodReturns(bits !~ ClassBits.NoBody)
+			// TODO!
+			// var type = @tryFunctionReturns(.ClassType, bits !~ ClassBits.NoBody)
+			var type = @tryFunctionReturns(ExpressionMode.ClassType, bits !~ ClassBits.NoBody)
 			var throws = @tryFunctionThrows()
 
 			if bits ~~ ClassBits.NoBody {
@@ -1878,7 +1883,7 @@ export namespace Parser {
 				return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
 			}
 			else {
-				var body = @tryFunctionBody(FunctionMode.Method)
+				var body = @tryFunctionBody(modifiers, FunctionMode.Method, !?type && !?throws)
 
 				@reqNL_1M()
 
@@ -2790,7 +2795,7 @@ export namespace Parser {
 			var type = @tryFunctionReturns()
 			var throws = @tryFunctionThrows()
 
-			var body = @mode ~~ ParserMode.Typing ? null : @reqFunctionBody(FunctionMode.Method)
+			var body = @mode ~~ ParserMode.Typing ? null : @reqFunctionBody(modifiers, FunctionMode.Method, !?type && !?throws)
 
 			@reqNL_1M()
 
@@ -3479,7 +3484,9 @@ export namespace Parser {
 		} # }}}
 		reqExternClassMethod(attributes, modifiers, name: Event, round: Event, first): Event ~ SyntaxError { # {{{
 			var parameters = @reqClassMethodParameterList(round, DestructuringMode.EXTERNAL_ONLY)
-			var type = @tryMethodReturns(false)
+			// TODO!
+			// var type = @tryFunctionReturns(.ClassType, false)
+			var type = @tryFunctionReturns(ExpressionMode.ClassType, false)
 
 			@reqNL_1M()
 
@@ -3778,9 +3785,7 @@ export namespace Parser {
 			if @test(Token.UNDERSCORE) {
 				@commit()
 			}
-			// TODO!
-			// else if !(destructuring = @tryDestructuring(declaration ? .Declaration : null, fMode)).ok {
-			else if !(destructuring = @tryDestructuring(declaration ? DestructuringMode.Declaration : null, fMode)).ok {
+			else if !(destructuring = @tryDestructuring(declaration ? .Declaration : null, fMode)).ok {
 				identifier1 = @reqIdentifier()
 
 				if @test(Token.COLON) {
@@ -3876,37 +3881,48 @@ export namespace Parser {
 
 			return statement
 		} # }}}
-		reqFunctionBody(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqFunctionBody(modifiers, fMode: FunctionMode, automatable: Boolean): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
-			if @match(Token.LEFT_CURLY, Token.EQUALS_RIGHT_ANGLE) == Token.LEFT_CURLY {
-				return @reqBlock(@yes(), fMode - FunctionMode.NoPipeline)
-			}
-			else if @token == Token.EQUALS_RIGHT_ANGLE {
-				@commit().NL_0M()
-
-				var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
-
-				if @match(Token.IF, Token.UNLESS) == Token.IF {
-					@commit()
-
-					var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
-
-					return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
+			match automatable ? @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE, .COLON_RIGHT_ANGLE) : @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE) {
+				.LEFT_CURLY {
+					return @reqBlock(@yes(), fMode - FunctionMode.NoPipeline)
 				}
-				else if @token == Token.UNLESS {
-					@commit()
+				.EQUALS_RIGHT_ANGLE {
+					@commit().NL_0M()
 
-					var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+					var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
-					return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(expression, expression, expression)), expression, condition))
+					if @match(Token.IF, Token.UNLESS) == Token.IF {
+						@commit()
+
+						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+
+						return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
+					}
+					else if @token == Token.UNLESS {
+						@commit()
+
+						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+
+						return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(expression, expression, expression)), expression, condition))
+					}
+					else {
+						return expression
+					}
+				}
+				.COLON_RIGHT_ANGLE {
+					modifiers.push(@yep(AST.Modifier(.AutoType, @yes())))
+
+					@NL_0M()
+
+					// TODO!
+					// return @reqExpression(.Default + .NoRestriction, fMode)
+					return @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 				}
 				else {
-					return expression
+					@throw('{', '=>')
 				}
-			}
-			else {
-				@throw('{', '=>')
 			}
 		} # }}}
 		reqFunctionParameterList(fMode: FunctionMode, mut pMode: DestructuringMode = DestructuringMode.Nil, maxParameters: Number = Infinity): Event ~ SyntaxError { # {{{
@@ -3943,7 +3959,7 @@ export namespace Parser {
 			var parameters = @reqFunctionParameterList(FunctionMode.Function)
 			var type = @tryFunctionReturns()
 			var throws = @tryFunctionThrows()
-			var body = @reqFunctionBody(FunctionMode.Function)
+			var body = @reqFunctionBody(modifiers, FunctionMode.Function, !?type && !?throws)
 
 			return @yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, body, first, body))
 		} # }}}
@@ -4829,7 +4845,7 @@ export namespace Parser {
 					Token.HASH_A_LEFT_ROUND {
 						addLiteral()
 
-						var reification = AST.Modifier(ReificationKind.Argument, @yes())
+						var reification = AST.Reification(.Argument, @yes())
 						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
@@ -4839,7 +4855,7 @@ export namespace Parser {
 					Token.HASH_E_LEFT_ROUND {
 						addLiteral()
 
-						var reification = AST.Modifier(ReificationKind.Expression, @yes())
+						var reification = AST.Reification(.Expression, @yes())
 						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
@@ -4849,7 +4865,7 @@ export namespace Parser {
 					Token.HASH_J_LEFT_ROUND {
 						addLiteral()
 
-						var reification = AST.Modifier(ReificationKind.Join, @yes())
+						var reification = AST.Reification(.Join, @yes())
 						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
 
 						@throw(',') unless @test(Token.COMMA)
@@ -4869,7 +4885,7 @@ export namespace Parser {
 					Token.HASH_S_LEFT_ROUND {
 						addLiteral()
 
-						var reification = AST.Modifier(ReificationKind.Statement, @yes())
+						var reification = AST.Reification(.Statement, @yes())
 						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
@@ -4879,7 +4895,7 @@ export namespace Parser {
 					Token.HASH_W_LEFT_ROUND {
 						addLiteral()
 
-						var reification = AST.Modifier(ReificationKind.Write, @yes())
+						var reification = AST.Reification(.Write, @yes())
 						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
@@ -5827,7 +5843,7 @@ export namespace Parser {
 					var parameters = @reqFunctionParameterList(fMode)
 					var type = @tryFunctionReturns()
 					var throws = @tryFunctionThrows()
-					var body = @reqFunctionBody(fMode)
+					var body = @reqFunctionBody(modifiers, fMode, !?type && !?throws)
 
 					return @yep(AST.ObjectMember(attributes, [], name, null, @yep(AST.LambdaExpression(parameters, modifiers, type, throws, body, parameters, body)), first ?? async ?? name, body))
 				}
@@ -5875,12 +5891,13 @@ export namespace Parser {
 				return @altRestrictiveExpression(expression, fMode)
 			}
 			else if @test(Token.LEFT_ROUND) {
+				var modifiers = []
 				var parameters = @reqFunctionParameterList(fMode)
 				var type = @tryFunctionReturns()
 				var throws = @tryFunctionThrows()
-				var body = @reqFunctionBody(fMode)
+				var body = @reqFunctionBody(modifiers, fMode, !?type && !?throws)
 
-				return @yep(AST.ObjectMember(attributes, [], name, null, @yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body)), first ?? name, body))
+				return @yep(AST.ObjectMember(attributes, modifiers, name, null, @yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body)), first ?? name, body))
 			}
 			else if name.value.kind == NodeKind.Identifier {
 				var expression = @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
@@ -7402,8 +7419,8 @@ export namespace Parser {
 
 			return @yep(AST.TupleDeclaration(attributes, modifiers, name, extends, implements, elements, first, last))
 		} # }}}
-		reqType(modifiers: Array = [], multiline: Boolean = false): Event ~ SyntaxError { # {{{
-			var type = @tryType(modifiers, multiline)
+		reqType(modifiers: Array = [], multiline: Boolean = false, eMode: ExpressionMode = .InlineOnly): Event ~ SyntaxError { # {{{
+			var type = @tryType(modifiers, multiline, eMode)
 
 			if type.ok {
 				return type
@@ -7412,8 +7429,8 @@ export namespace Parser {
 				@throw('type')
 			}
 		} # }}}
-		reqTypeCore(modifiers: Array = [], multiline: Boolean): Event ~ SyntaxError { # {{{
-			var type = @tryTypeCore(modifiers, multiline)
+		reqTypeCore(modifiers: Array, multiline: Boolean, eMode: ExpressionMode): Event ~ SyntaxError { # {{{
+			var type = @tryTypeCore(modifiers, multiline, eMode)
 
 			if type.ok {
 				return type
@@ -7523,6 +7540,25 @@ export namespace Parser {
 				return type
 			}
 		} # }}}
+		reqTypeReturn(eMode: ExpressionMode = .InlineOnly): Event ~ SyntaxError { # {{{
+			match @match(.NEW, .VALUEOF) {
+				.NEW {
+					var operator = @yep(AST.UnaryTypeOperator(.NewInstance, @yes()))
+					var operand = @reqType(eMode)
+
+					return @yep(AST.UnaryTypeExpression([], operator, operand, operator, operand))
+				}
+				.VALUEOF {
+					var operator = @yep(AST.UnaryTypeOperator(.ValueOf, @yes()))
+					var operand = @tryUnaryOperand(null, eMode, eMode ~~ .AtThis ? .Method : .Function)
+
+					return @yep(AST.UnaryTypeExpression([], operator, operand, operator, operand))
+				}
+				else {
+					return @reqType(eMode)
+				}
+			}
+		} # }}}
 		reqTypeStatement(mut first: Event, name: Event): Event ~ SyntaxError { # {{{
 			unless @test(Token.EQUALS) {
 				@throw('=')
@@ -7530,6 +7566,8 @@ export namespace Parser {
 
 			@commit().NL_0M()
 
+			// TODO!
+			// var type = @reqType(true, .InlineOnly)
 			var type = @reqType(true)
 
 			return @yep(AST.TypeAliasDeclaration(name, type, first, type))
@@ -7553,7 +7591,10 @@ export namespace Parser {
 				if @test(Token.COLON) {
 					@commit()
 
-					var type = @reqType()
+					// TODO!
+					// var type = @reqType(fMode ~~ .Method ? .InlineOnly + .AtThis : .PrimaryType)
+					// var type = @reqType(fMode ~~ .Method ? .ClassType : .PrimaryType)
+					var type = @reqType(fMode ~~ .Method ? ExpressionMode.ClassType : ExpressionMode.PrimaryType)
 
 					return @yep(AST.VariableDeclarator([], name, type, name, type))
 				}
@@ -8569,7 +8610,7 @@ export namespace Parser {
 			}
 
 			if @test(Token.LEFT_ROUND) {
-				return @reqClassMethod(attributes, modifiers, bits, name, null, first ?? name)
+				return @reqClassMethod(attributes, [...modifiers], bits, name, null, first ?? name)
 			}
 
 			return NO
@@ -8596,7 +8637,9 @@ export namespace Parser {
 			if @test(Token.COLON) {
 				@commit()
 
-				type = @reqType()
+				// TODO!
+				// type = @reqType(.ClassType)
+				type = @reqType(ExpressionMode.ClassType)
 			}
 
 			if @test(Token.LEFT_CURLY) {
@@ -8666,7 +8709,7 @@ export namespace Parser {
 				if @test(Token.COLON) {
 					@commit()
 
-					type = @reqType()
+					type = @reqType(Function.Method)
 				}
 				else if @test(Token.QUESTION) {
 					modifiers = [...modifiers, @yep(AST.Modifier(ModifierKind.Nullable, @yes()))]
@@ -8792,13 +8835,13 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryFunctionBody(fMode: FunctionMode): Event? ~ SyntaxError { # {{{
+		tryFunctionBody(modifiers, fMode: FunctionMode, automatable: Boolean): Event? ~ SyntaxError { # {{{
 			var mark = @mark()
 
 			@NL_0M()
 
-			if @test(Token.LEFT_CURLY, Token.EQUALS_RIGHT_ANGLE) {
-				return @reqFunctionBody(fMode)
+			if @test(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE, .COLON_RIGHT_ANGLE) {
+				return @reqFunctionBody(modifiers, fMode, automatable)
 			}
 			else {
 				@rollback(mark)
@@ -8819,9 +8862,9 @@ export namespace Parser {
 					@commit()
 
 					var parameters = @reqFunctionParameterList(FunctionMode.Function, maxParameters)
-					var type = @tryFunctionReturns()
+					var type = @tryFunctionReturns(eMode)
 					var throws = @tryFunctionThrows()
-					var body = @reqFunctionBody(FunctionMode.Function)
+					var body = @reqFunctionBody(modifiers, FunctionMode.Function, !?type && !?throws)
 
 					return @yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, first, body))
 				}
@@ -8831,9 +8874,9 @@ export namespace Parser {
 						return NO
 					}
 
-					var type = @tryFunctionReturns()
+					var type = @tryFunctionReturns(eMode)
 					var throws = @tryFunctionThrows()
-					var body = @reqFunctionBody(fMode)
+					var body = @reqFunctionBody(modifiers, fMode, !?type && !?throws)
 
 					return @yep(AST.LambdaExpression(parameters, modifiers, type, throws, body, first, body))
 				}
@@ -8846,15 +8889,16 @@ export namespace Parser {
 					return NO
 				}
 
-				var type = @tryFunctionReturns()
+				var modifiers = []
+				var type = @tryFunctionReturns(eMode)
 				var throws = @tryFunctionThrows()
-				var body = @reqFunctionBody(FunctionMode.Function)
+				var body = @reqFunctionBody(modifiers, FunctionMode.Function, !?type && !?throws)
 
-				return @yep(AST.FunctionExpression(parameters, null, type, throws, body, first, body))
+				return @yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, first, body))
 			}
 			else if @token == Token.LEFT_ROUND {
 				var parameters = @tryFunctionParameterList(fMode, maxParameters)
-				var type = @tryFunctionReturns()
+				var type = @tryFunctionReturns(eMode)
 				var throws = @tryFunctionThrows()
 
 				if !parameters.ok || !@test(Token.EQUALS_RIGHT_ANGLE) {
@@ -8936,7 +8980,7 @@ export namespace Parser {
 
 			return @yep(parameters, first, @yes())
 		} # }}}
-		tryFunctionReturns(isAllowingAuto: Boolean = true): Event? ~ SyntaxError { # {{{
+		tryFunctionReturns(eMode: ExpressionMode = .PrimaryType, isAllowingAuto: Boolean = true): Event? ~ SyntaxError { # {{{
 			var mark = @mark()
 
 			@NL_0M()
@@ -8944,15 +8988,7 @@ export namespace Parser {
 			if @test(Token.COLON) {
 				@commit()
 
-				var mark = @mark()
-
-				var number = @tryNumber()
-
-				if number.ok {
-					return number
-				}
-
-				return @reqType()
+				return @reqTypeReturn(eMode)
 			}
 			else {
 				@rollback(mark)
@@ -9262,35 +9298,6 @@ export namespace Parser {
 
 			return @yep(AST.MatchStatement(expression, declaration, clauses, first, clauses))
 		} # }}}
-		tryMethodReturns(isAllowingAuto: Boolean = true): Event? ~ SyntaxError { # {{{
-			var mark = @mark()
-
-			@NL_0M()
-
-			if @test(Token.COLON) {
-				@commit()
-
-				var mark = @mark()
-
-				var number = @tryNumber()
-
-				if number.ok {
-					return number
-				}
-
-				if @test(Token.AT) {
-					return @reqThisExpression(@yes())
-				}
-				else {
-					return @reqType()
-				}
-			}
-			else {
-				@rollback(mark)
-
-				return null
-			}
-		} # }}}
 		tryNameIST(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if @match(Token.IDENTIFIER, Token.STRING, Token.TEMPLATE_BEGIN) == Token.IDENTIFIER {
 				return @reqIdentifier()
@@ -9528,8 +9535,8 @@ export namespace Parser {
 				return NO
 			}
 		} # }}}
-		tryType(modifiers: Array = [], multiline: Boolean = false): Event ~ SyntaxError { # {{{
-			var type = @tryTypeCore(modifiers, multiline)
+		tryType(modifiers: Array = [], multiline: Boolean = false, eMode: ExpressionMode = .InlineOnly): Event ~ SyntaxError { # {{{
+			var type = @tryTypeCore(modifiers, multiline, eMode)
 
 			return NO unless type.ok
 
@@ -9556,7 +9563,7 @@ export namespace Parser {
 							types.push(@yep(AST.TypeReference([], name, null, name, name)))
 						}
 						else {
-							types.push(@reqTypeCore(true))
+							types.push(@reqTypeCore([], true, eMode))
 						}
 
 						mark = @mark()
@@ -9584,7 +9591,7 @@ export namespace Parser {
 
 						@NL_0M()
 
-						types.push(@reqTypeCore(true))
+						types.push(@reqTypeCore([], true, eMode))
 
 						mark = @mark()
 
@@ -9611,7 +9618,7 @@ export namespace Parser {
 
 						@NL_0M()
 
-						types.push(@reqTypeCore(true))
+						types.push(@reqTypeCore([], true, eMode))
 
 						mark = @mark()
 
@@ -9653,7 +9660,7 @@ export namespace Parser {
 							types.push(@yep(AST.TypeReference([], name, null, name, name)))
 						}
 						else {
-							types.push(@reqTypeCore(false))
+							types.push(@reqTypeCore([], false, eMode))
 						}
 					}
 					while @test(Token.PIPE)
@@ -9674,7 +9681,7 @@ export namespace Parser {
 					do {
 						@commit()
 
-						types.push(@reqTypeCore(false))
+						types.push(@reqTypeCore([], false, eMode))
 					}
 					while @test(Token.AMPERSAND)
 
@@ -9694,7 +9701,7 @@ export namespace Parser {
 					do {
 						@commit()
 
-						types.push(@reqTypeCore(false))
+						types.push(@reqTypeCore([], false, eMode))
 					}
 					while @test(Token.CARET)
 
@@ -9704,7 +9711,7 @@ export namespace Parser {
 
 			return type
 		} # }}}
-		tryTypeCore(modifiers: Array = [], multiline: Boolean): Event ~ SyntaxError { # {{{
+		tryTypeCore(modifiers: Array, multiline: Boolean, eMode: ExpressionMode): Event ~ SyntaxError { # {{{
 			if @test(Token.LEFT_CURLY) {
 				var first = @yes()
 				var properties = []
@@ -9728,7 +9735,7 @@ export namespace Parser {
 						if identifier.ok && @test(Token.LEFT_ROUND) {
 							var modifiers = [@yep(AST.Modifier(ModifierKind.Async, async))]
 							var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
-							var type = @tryFunctionReturns(false)
+							var type = @tryFunctionReturns(eMode, false)
 							var throws = @tryFunctionThrows()
 
 							var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
@@ -9750,7 +9757,7 @@ export namespace Parser {
 
 						if identifier.ok && @test(Token.LEFT_ROUND) {
 							var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
-							var type = @tryFunctionReturns(false)
+							var type = @tryFunctionReturns(eMode, false)
 							var throws = @tryFunctionThrows()
 
 							var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
@@ -9773,7 +9780,7 @@ export namespace Parser {
 
 						var first = @yes()
 						var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
-						var type = @tryType()
+						var type = @tryType(eMode)
 
 						if type.ok {
 							rest = @yep(AST.PropertyType([modifier], null, type, first, type))
@@ -9793,7 +9800,7 @@ export namespace Parser {
 
 							if @test(Token.LEFT_ROUND) {
 								var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
-								var return = @tryFunctionReturns()
+								var return = @tryFunctionReturns(eMode)
 								var throws = @tryFunctionThrows()
 
 								type = @yep(AST.FunctionExpression(parameters, null, return, throws, null, parameters, throws ?? return ?? parameters))
@@ -9867,7 +9874,7 @@ export namespace Parser {
 
 							var first = @yes()
 							var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
-							var type = @tryType([], multiline)
+							var type = @tryType([], multiline, eMode)
 
 							if type.ok {
 								rest = @yep(AST.PropertyType([modifier], null, type, first, type))
@@ -9917,7 +9924,7 @@ export namespace Parser {
 				if @test(Token.LEFT_ROUND) {
 					var modifiers = [@yep(AST.Modifier(ModifierKind.Async, async))]
 					var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
-					var type = @tryFunctionReturns(false)
+					var type = @tryFunctionReturns(eMode, false)
 					var throws = @tryFunctionThrows()
 
 					var func = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, async, throws ?? type ?? parameters))
@@ -9933,7 +9940,7 @@ export namespace Parser {
 
 				if @test(Token.LEFT_ROUND) {
 					var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
-					var type = @tryFunctionReturns(false)
+					var type = @tryFunctionReturns(eMode, false)
 					var throws = @tryFunctionThrows()
 
 					var func = @yep(AST.FunctionExpression(parameters, null, type, throws, null, first, throws ?? type ?? parameters))
@@ -9944,9 +9951,16 @@ export namespace Parser {
 				@rollback(mark)
 			}
 
+			if @test(.TYPEOF) {
+				var operator = @yep(AST.UnaryTypeOperator(UnaryTypeOperatorKind.TypeOf, @yes()))
+				var operand = @tryUnaryOperand(null, eMode, eMode ~~ .AtThis ? .Method : .Function)
+
+				return @yep(AST.UnaryTypeExpression(modifiers, operator, operand, operator, operand))
+			}
+
 			if @test(Token.LEFT_ROUND) {
 				var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
-				var type = @tryFunctionReturns(false)
+				var type = @tryFunctionReturns(eMode, false)
 				var throws = @tryFunctionThrows()
 
 				var func = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
@@ -10260,6 +10274,14 @@ export namespace Parser {
 		tryTypedVariable(fMode: FunctionMode, typeable: Boolean = true, questionable: Boolean = true): Event ~ SyntaxError { # {{{
 			try {
 				return @reqTypedVariable(fMode, typeable, questionable)
+			}
+			catch {
+				return NO
+			}
+		} # }}}
+		tryUnaryOperand(value: Event?, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			try {
+				return @reqUnaryOperand(value, eMode, fMode)
 			}
 			catch {
 				return NO

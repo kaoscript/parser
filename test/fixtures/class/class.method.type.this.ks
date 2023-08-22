@@ -3,5 +3,5 @@ class Foobar {
 		@value: Number	= 42
 	}
 	value(): Number => @value
-	value(@value): this
+	value(@value) :> this
 }
