@@ -1,93 +1,98 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 44,
+      "kind": 43,
       "attributes": [],
-      "modifiers": [
+      "iterations": [
         {
-          "kind": 10,
+          "kind": 0,
+          "modifiers": [
+            {
+              "kind": 10,
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 8
+              }
+            },
+            {
+              "kind": 23,
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 12
+              }
+            }
+          ],
+          "expression": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "values",
+            "start": {
+              "line": 1,
+              "column": 30
+            },
+            "end": {
+              "line": 1,
+              "column": 36
+            }
+          },
+          "value": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "value",
+            "start": {
+              "line": 1,
+              "column": 13
+            },
+            "end": {
+              "line": 1,
+              "column": 18
+            }
+          },
+          "type": {
+            "kind": 121,
+            "modifiers": [],
+            "typeName": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "String",
+              "start": {
+                "line": 1,
+                "column": 20
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 20
+            },
+            "end": {
+              "line": 1,
+              "column": 26
+            }
+          },
           "start": {
             "line": 1,
             "column": 5
           },
           "end": {
             "line": 1,
-            "column": 8
-          }
-        },
-        {
-          "kind": 23,
-          "start": {
-            "line": 1,
-            "column": 9
-          },
-          "end": {
-            "line": 1,
-            "column": 12
+            "column": 36
           }
         }
       ],
-      "expression": {
-        "kind": 51,
-        "modifiers": [],
-        "name": "values",
-        "start": {
-          "line": 1,
-          "column": 30
-        },
-        "end": {
-          "line": 1,
-          "column": 36
-        }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 2
-      },
-      "value": {
-        "kind": 51,
-        "modifiers": [],
-        "name": "value",
-        "start": {
-          "line": 1,
-          "column": 13
-        },
-        "end": {
-          "line": 1,
-          "column": 18
-        }
-      },
-      "type": {
-        "kind": 124,
-        "modifiers": [],
-        "typeName": {
-          "kind": 51,
-          "modifiers": [],
-          "name": "String",
-          "start": {
-            "line": 1,
-            "column": 20
-          },
-          "end": {
-            "line": 1,
-            "column": 26
-          }
-        },
-        "start": {
-          "line": 1,
-          "column": 20
-        },
-        "end": {
-          "line": 1,
-          "column": 26
-        }
-      },
       "body": {
         "kind": 15,
         "attributes": [],
@@ -100,6 +105,14 @@
           "line": 3,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
       }
     }
   ],

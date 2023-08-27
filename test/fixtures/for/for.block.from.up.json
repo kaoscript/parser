@@ -1,70 +1,75 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
       "kind": 43,
-      "modifiers": [
+      "attributes": [],
+      "iterations": [
         {
-          "kind": 3,
+          "kind": 1,
+          "modifiers": [
+            {
+              "kind": 3,
+              "start": {
+                "line": 1,
+                "column": 14
+              },
+              "end": {
+                "line": 1,
+                "column": 16
+              }
+            }
+          ],
+          "variable": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "end": {
+              "line": 1,
+              "column": 6
+            }
+          },
+          "from": {
+            "kind": 77,
+            "modifiers": [],
+            "value": 0,
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 13
+            }
+          },
+          "to": {
+            "kind": 77,
+            "modifiers": [],
+            "value": 10,
+            "start": {
+              "line": 1,
+              "column": 20
+            },
+            "end": {
+              "line": 1,
+              "column": 22
+            }
+          },
           "start": {
             "line": 1,
-            "column": 14
+            "column": 5
           },
           "end": {
             "line": 1,
-            "column": 16
+            "column": 22
           }
         }
       ],
-      "attributes": [],
-      "variable": {
-        "kind": 51,
-        "modifiers": [],
-        "name": "x",
-        "start": {
-          "line": 1,
-          "column": 5
-        },
-        "end": {
-          "line": 1,
-          "column": 6
-        }
-      },
-      "from": {
-        "kind": 80,
-        "modifiers": [],
-        "value": 0,
-        "start": {
-          "line": 1,
-          "column": 12
-        },
-        "end": {
-          "line": 1,
-          "column": 13
-        }
-      },
-      "to": {
-        "kind": 80,
-        "modifiers": [],
-        "value": 10,
-        "start": {
-          "line": 1,
-          "column": 20
-        },
-        "end": {
-          "line": 1,
-          "column": 22
-        }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
       "body": {
         "kind": 15,
         "attributes": [],
@@ -77,6 +82,14 @@
           "line": 2,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
       }
     }
   ],

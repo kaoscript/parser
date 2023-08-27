@@ -1,16 +1,29 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 53,
+      "kind": 50,
       "attributes": [],
+      "condition": {
+        "kind": 48,
+        "modifiers": [],
+        "name": "test",
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 8
+        }
+      },
       "whenTrue": {
         "kind": 15,
         "attributes": [],
         "statements": [
           {
-            "kind": 87,
+            "kind": 84,
             "attributes": [],
             "start": {
               "line": 2,
@@ -38,19 +51,6 @@
       "end": {
         "line": 3,
         "column": 2
-      },
-      "condition": {
-        "kind": 51,
-        "modifiers": [],
-        "name": "test",
-        "start": {
-          "line": 1,
-          "column": 4
-        },
-        "end": {
-          "line": 1,
-          "column": 8
-        }
       }
     }
   ],

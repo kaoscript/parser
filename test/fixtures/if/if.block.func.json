@@ -1,12 +1,12 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 47,
+      "kind": 44,
       "attributes": [],
       "name": {
-        "kind": 51,
+        "kind": 48,
         "modifiers": [],
         "name": "foo",
         "start": {
@@ -28,11 +28,11 @@
       },
       "parameters": [
         {
-          "kind": 86,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -45,7 +45,7 @@
             }
           },
           "internal": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -70,7 +70,7 @@
             }
           },
           "defaultValue": {
-            "kind": 80,
+            "kind": 77,
             "modifiers": [],
             "value": 5,
             "start": {
@@ -99,8 +99,60 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 53,
+            "kind": 50,
             "attributes": [],
+            "condition": {
+              "kind": 24,
+              "modifiers": [],
+              "values": [
+                {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "x",
+                  "start": {
+                    "line": 2,
+                    "column": 5
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 6
+                  }
+                },
+                {
+                  "kind": 7,
+                  "modifiers": [],
+                  "start": {
+                    "line": 2,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 9
+                  }
+                },
+                {
+                  "kind": 77,
+                  "modifiers": [],
+                  "value": 5,
+                  "start": {
+                    "line": 2,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 11
+                  }
+                }
+              ],
+              "start": {
+                "line": 2,
+                "column": 5
+              },
+              "end": {
+                "line": 2,
+                "column": 11
+              }
+            },
             "whenTrue": {
               "kind": 15,
               "attributes": [],
@@ -115,10 +167,10 @@
                       "kind": 2
                     },
                     "callee": {
-                      "kind": 72,
+                      "kind": 69,
                       "modifiers": [],
                       "object": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "console",
                         "start": {
@@ -131,7 +183,7 @@
                         }
                       },
                       "property": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "log",
                         "start": {
@@ -154,7 +206,7 @@
                     },
                     "arguments": [
                       {
-                        "kind": 62,
+                        "kind": 59,
                         "modifiers": [],
                         "value": "GIVE FIVE!",
                         "start": {
@@ -195,66 +247,6 @@
                 "column": 3
               }
             },
-            "start": {
-              "line": 2,
-              "column": 2
-            },
-            "end": {
-              "line": 7,
-              "column": 3
-            },
-            "condition": {
-              "kind": 24,
-              "modifiers": [],
-              "values": [
-                {
-                  "kind": 51,
-                  "modifiers": [],
-                  "name": "x",
-                  "start": {
-                    "line": 2,
-                    "column": 5
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 6
-                  }
-                },
-                {
-                  "kind": 7,
-                  "modifiers": [],
-                  "start": {
-                    "line": 2,
-                    "column": 7
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 9
-                  }
-                },
-                {
-                  "kind": 80,
-                  "modifiers": [],
-                  "value": 5,
-                  "start": {
-                    "line": 2,
-                    "column": 10
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 11
-                  }
-                }
-              ],
-              "start": {
-                "line": 2,
-                "column": 5
-              },
-              "end": {
-                "line": 2,
-                "column": 11
-              }
-            },
             "whenFalse": {
               "kind": 15,
               "attributes": [],
@@ -269,10 +261,10 @@
                       "kind": 2
                     },
                     "callee": {
-                      "kind": 72,
+                      "kind": 69,
                       "modifiers": [],
                       "object": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "console",
                         "start": {
@@ -285,7 +277,7 @@
                         }
                       },
                       "property": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "log",
                         "start": {
@@ -308,7 +300,7 @@
                     },
                     "arguments": [
                       {
-                        "kind": 62,
+                        "kind": 59,
                         "modifiers": [],
                         "value": "BOO!",
                         "start": {
@@ -348,6 +340,14 @@
                 "line": 7,
                 "column": 3
               }
+            },
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 3
             }
           }
         ],

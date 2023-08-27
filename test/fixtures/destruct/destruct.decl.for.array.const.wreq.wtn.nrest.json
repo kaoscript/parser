@@ -1,192 +1,197 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 44,
+      "kind": 43,
       "attributes": [],
-      "modifiers": [
+      "iterations": [
         {
-          "kind": 10,
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 1,
-            "column": 8
-          }
-        },
-        {
-          "kind": 18,
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 1,
-            "column": 8
-          }
-        }
-      ],
-      "expression": {
-        "kind": 51,
-        "modifiers": [],
-        "name": "lines",
-        "start": {
-          "line": 1,
-          "column": 44
-        },
-        "end": {
-          "line": 1,
-          "column": 49
-        }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
-      "value": {
-        "kind": 3,
-        "elements": [
-          {
-            "kind": 13,
-            "modifiers": [],
-            "internal": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "indent",
+          "kind": 0,
+          "modifiers": [
+            {
+              "kind": 10,
               "start": {
                 "line": 1,
-                "column": 10
+                "column": 5
               },
               "end": {
                 "line": 1,
-                "column": 16
+                "column": 8
               }
             },
+            {
+              "kind": 18,
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 8
+              }
+            }
+          ],
+          "expression": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "lines",
             "start": {
               "line": 1,
-              "column": 10
+              "column": 44
             },
             "end": {
               "line": 1,
-              "column": 16
+              "column": 49
             }
           },
-          {
-            "kind": 13,
-            "modifiers": [
+          "value": {
+            "kind": 3,
+            "elements": [
               {
-                "kind": 36,
+                "kind": 13,
+                "modifiers": [],
+                "internal": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "indent",
+                  "start": {
+                    "line": 1,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 16
+                  }
+                },
                 "start": {
                   "line": 1,
-                  "column": 23
+                  "column": 10
                 },
                 "end": {
                   "line": 1,
-                  "column": 24
+                  "column": 16
                 }
               },
               {
-                "kind": 28,
+                "kind": 13,
+                "modifiers": [
+                  {
+                    "kind": 36,
+                    "start": {
+                      "line": 1,
+                      "column": 23
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 24
+                    }
+                  },
+                  {
+                    "kind": 28,
+                    "start": {
+                      "line": 1,
+                      "column": 24
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 25
+                    }
+                  }
+                ],
+                "internal": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "first",
+                  "start": {
+                    "line": 1,
+                    "column": 18
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 23
+                  }
+                },
+                "operator": {
+                  "kind": 3,
+                  "assignment": 6,
+                  "start": {
+                    "line": 1,
+                    "column": 26
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 27
+                  }
+                },
+                "defaultValue": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "null",
+                  "start": {
+                    "line": 1,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 32
+                  }
+                },
                 "start": {
                   "line": 1,
-                  "column": 24
+                  "column": 18
                 },
                 "end": {
                   "line": 1,
-                  "column": 25
+                  "column": 32
                 }
               }
             ],
-            "internal": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "first",
-              "start": {
-                "line": 1,
-                "column": 18
-              },
-              "end": {
-                "line": 1,
-                "column": 23
-              }
-            },
-            "operator": {
-              "kind": 3,
-              "assignment": 6,
-              "start": {
-                "line": 1,
-                "column": 26
-              },
-              "end": {
-                "line": 1,
-                "column": 27
-              }
-            },
-            "defaultValue": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "null",
-              "start": {
-                "line": 1,
-                "column": 28
-              },
-              "end": {
-                "line": 1,
-                "column": 32
-              }
-            },
             "start": {
               "line": 1,
-              "column": 18
+              "column": 9
             },
             "end": {
               "line": 1,
-              "column": 32
+              "column": 33
             }
+          },
+          "index": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "index",
+            "start": {
+              "line": 1,
+              "column": 35
+            },
+            "end": {
+              "line": 1,
+              "column": 40
+            }
+          },
+          "from": {
+            "kind": 77,
+            "modifiers": [],
+            "value": 1,
+            "start": {
+              "line": 1,
+              "column": 55
+            },
+            "end": {
+              "line": 1,
+              "column": 56
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 56
           }
-        ],
-        "start": {
-          "line": 1,
-          "column": 9
-        },
-        "end": {
-          "line": 1,
-          "column": 33
         }
-      },
-      "index": {
-        "kind": 51,
-        "modifiers": [],
-        "name": "index",
-        "start": {
-          "line": 1,
-          "column": 35
-        },
-        "end": {
-          "line": 1,
-          "column": 40
-        }
-      },
-      "from": {
-        "kind": 80,
-        "modifiers": [],
-        "value": 1,
-        "start": {
-          "line": 1,
-          "column": 55
-        },
-        "end": {
-          "line": 1,
-          "column": 56
-        }
-      },
+      ],
       "body": {
         "kind": 15,
         "attributes": [],
@@ -199,6 +204,14 @@
           "line": 2,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
       }
     }
   ],

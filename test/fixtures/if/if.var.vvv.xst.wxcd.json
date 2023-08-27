@@ -1,17 +1,169 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 53,
+      "kind": 50,
       "attributes": [],
+      "declarations": [
+        {
+          "declaration": {
+            "kind": 128,
+            "attributes": [],
+            "modifiers": [
+              {
+                "kind": 18,
+                "start": {
+                  "line": 1,
+                  "column": 8
+                },
+                "end": {
+                  "line": 1,
+                  "column": 8
+                }
+              }
+            ],
+            "variables": [
+              {
+                "kind": 129,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "x",
+                  "start": {
+                    "line": 1,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 9
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 8
+                },
+                "end": {
+                  "line": 1,
+                  "column": 9
+                }
+              }
+            ],
+            "start": {
+              "line": 1,
+              "column": 4
+            },
+            "end": {
+              "line": 1,
+              "column": 21
+            },
+            "operator": {
+              "kind": 3,
+              "assignment": 7,
+              "start": {
+                "line": 1,
+                "column": 10
+              },
+              "end": {
+                "line": 1,
+                "column": 12
+              }
+            },
+            "value": {
+              "kind": 18,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "foobar",
+                "start": {
+                  "line": 1,
+                  "column": 13
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19
+                }
+              },
+              "arguments": [],
+              "start": {
+                "line": 1,
+                "column": 13
+              },
+              "end": {
+                "line": 1,
+                "column": 21
+              }
+            }
+          },
+          "condition": {
+            "kind": 18,
+            "modifiers": [],
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 69,
+              "modifiers": [],
+              "object": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "x",
+                "start": {
+                  "line": 1,
+                  "column": 25
+                },
+                "end": {
+                  "line": 1,
+                  "column": 26
+                }
+              },
+              "property": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "test",
+                "start": {
+                  "line": 1,
+                  "column": 27
+                },
+                "end": {
+                  "line": 1,
+                  "column": 31
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 25
+              },
+              "end": {
+                "line": 1,
+                "column": 31
+              }
+            },
+            "arguments": [],
+            "start": {
+              "line": 1,
+              "column": 25
+            },
+            "end": {
+              "line": 1,
+              "column": 33
+            }
+          }
+        }
+      ],
       "whenTrue": {
         "kind": 15,
         "attributes": [],
         "statements": [],
         "start": {
           "line": 1,
-          "column": 32
+          "column": 34
         },
         "end": {
           "line": 3,
@@ -25,154 +177,6 @@
       "end": {
         "line": 3,
         "column": 2
-      },
-      "condition": {
-        "kind": 18,
-        "modifiers": [],
-        "scope": {
-          "kind": 2
-        },
-        "callee": {
-          "kind": 72,
-          "modifiers": [],
-          "object": {
-            "kind": 51,
-            "modifiers": [],
-            "name": "x",
-            "start": {
-              "line": 1,
-              "column": 23
-            },
-            "end": {
-              "line": 1,
-              "column": 24
-            }
-          },
-          "property": {
-            "kind": 51,
-            "modifiers": [],
-            "name": "test",
-            "start": {
-              "line": 1,
-              "column": 25
-            },
-            "end": {
-              "line": 1,
-              "column": 29
-            }
-          },
-          "start": {
-            "line": 1,
-            "column": 23
-          },
-          "end": {
-            "line": 1,
-            "column": 29
-          }
-        },
-        "arguments": [],
-        "start": {
-          "line": 1,
-          "column": 23
-        },
-        "end": {
-          "line": 1,
-          "column": 31
-        }
-      },
-      "declaration": {
-        "kind": 131,
-        "attributes": [],
-        "modifiers": [
-          {
-            "kind": 18,
-            "start": {
-              "line": 1,
-              "column": 8
-            },
-            "end": {
-              "line": 1,
-              "column": 8
-            }
-          }
-        ],
-        "variables": [
-          {
-            "kind": 132,
-            "attributes": [],
-            "modifiers": [],
-            "name": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "x",
-              "start": {
-                "line": 1,
-                "column": 8
-              },
-              "end": {
-                "line": 1,
-                "column": 9
-              }
-            },
-            "start": {
-              "line": 1,
-              "column": 8
-            },
-            "end": {
-              "line": 1,
-              "column": 9
-            }
-          }
-        ],
-        "start": {
-          "line": 1,
-          "column": 4
-        },
-        "end": {
-          "line": 1,
-          "column": 21
-        },
-        "operator": {
-          "kind": 3,
-          "assignment": 7,
-          "start": {
-            "line": 1,
-            "column": 10
-          },
-          "end": {
-            "line": 1,
-            "column": 12
-          }
-        },
-        "value": {
-          "kind": 18,
-          "modifiers": [],
-          "scope": {
-            "kind": 2
-          },
-          "callee": {
-            "kind": 51,
-            "modifiers": [],
-            "name": "foobar",
-            "start": {
-              "line": 1,
-              "column": 13
-            },
-            "end": {
-              "line": 1,
-              "column": 19
-            }
-          },
-          "arguments": [],
-          "start": {
-            "line": 1,
-            "column": 13
-          },
-          "end": {
-            "line": 1,
-            "column": 21
-          }
-        }
       }
     }
   ],

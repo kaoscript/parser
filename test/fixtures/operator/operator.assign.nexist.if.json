@@ -1,31 +1,10 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 53,
+      "kind": 50,
       "attributes": [],
-      "whenTrue": {
-        "kind": 15,
-        "attributes": [],
-        "statements": [],
-        "start": {
-          "line": 1,
-          "column": 26
-        },
-        "end": {
-          "line": 2,
-          "column": 2
-        }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
       "condition": {
         "kind": 12,
         "modifiers": [],
@@ -50,13 +29,13 @@
           "column": 25
         },
         "left": {
-          "kind": 81,
+          "kind": 78,
           "elements": [
             {
               "kind": 13,
               "modifiers": [],
               "internal": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "x",
                 "start": {
@@ -81,7 +60,7 @@
               "kind": 13,
               "modifiers": [],
               "internal": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "y",
                 "start": {
@@ -119,7 +98,7 @@
             "kind": 2
           },
           "callee": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "foobar",
             "start": {
@@ -141,6 +120,27 @@
             "column": 25
           }
         }
+      },
+      "whenTrue": {
+        "kind": 15,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 1,
+          "column": 26
+        },
+        "end": {
+          "line": 2,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
       }
     }
   ],

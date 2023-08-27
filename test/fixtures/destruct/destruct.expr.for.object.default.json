@@ -1,95 +1,100 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 44,
+      "kind": 43,
       "attributes": [],
-      "modifiers": [],
-      "expression": {
-        "kind": 51,
-        "modifiers": [],
-        "name": "foo",
-        "start": {
-          "line": 1,
-          "column": 19
-        },
-        "end": {
-          "line": 1,
-          "column": 22
-        }
-      },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 2
-      },
-      "value": {
-        "kind": 81,
-        "elements": [
-          {
-            "kind": 13,
+      "iterations": [
+        {
+          "kind": 0,
+          "modifiers": [],
+          "expression": {
+            "kind": 48,
             "modifiers": [],
-            "internal": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "bar",
-              "start": {
-                "line": 1,
-                "column": 6
-              },
-              "end": {
-                "line": 1,
-                "column": 9
-              }
-            },
+            "name": "foo",
             "start": {
               "line": 1,
-              "column": 6
+              "column": 19
             },
             "end": {
               "line": 1,
-              "column": 9
+              "column": 22
             }
           },
-          {
-            "kind": 13,
-            "modifiers": [],
-            "internal": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "baz",
-              "start": {
-                "line": 1,
-                "column": 11
+          "value": {
+            "kind": 78,
+            "elements": [
+              {
+                "kind": 13,
+                "modifiers": [],
+                "internal": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "bar",
+                  "start": {
+                    "line": 1,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 9
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 6
+                },
+                "end": {
+                  "line": 1,
+                  "column": 9
+                }
               },
-              "end": {
-                "line": 1,
-                "column": 14
+              {
+                "kind": 13,
+                "modifiers": [],
+                "internal": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "baz",
+                  "start": {
+                    "line": 1,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 14
+                  }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 11
+                },
+                "end": {
+                  "line": 1,
+                  "column": 14
+                }
               }
-            },
+            ],
             "start": {
               "line": 1,
-              "column": 11
+              "column": 5
             },
             "end": {
               "line": 1,
-              "column": 14
+              "column": 15
             }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 22
           }
-        ],
-        "start": {
-          "line": 1,
-          "column": 5
-        },
-        "end": {
-          "line": 1,
-          "column": 15
         }
-      },
+      ],
       "body": {
         "kind": 15,
         "attributes": [],
@@ -102,6 +107,14 @@
           "line": 3,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
       }
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -21,7 +21,7 @@
           }
         },
         "left": {
-          "kind": 51,
+          "kind": 48,
           "modifiers": [],
           "name": "heroes",
           "start": {
@@ -38,7 +38,7 @@
           "modifiers": [],
           "values": [
             {
-              "kind": 62,
+              "kind": 59,
               "modifiers": [],
               "value": "leto",
               "start": {
@@ -51,7 +51,7 @@
               }
             },
             {
-              "kind": 62,
+              "kind": 59,
               "modifiers": [],
               "value": "duncan",
               "start": {
@@ -64,7 +64,7 @@
               }
             },
             {
-              "kind": 62,
+              "kind": 59,
               "modifiers": [],
               "value": "goku",
               "start": {
@@ -123,7 +123,7 @@
           }
         },
         "left": {
-          "kind": 51,
+          "kind": 48,
           "modifiers": [],
           "name": "evenHeroes",
           "start": {
@@ -138,8 +138,8 @@
         "right": {
           "kind": 4,
           "modifiers": [],
-          "body": {
-            "kind": 51,
+          "expression": {
+            "kind": 48,
             "modifiers": [],
             "name": "hero",
             "start": {
@@ -152,32 +152,138 @@
             }
           },
           "loop": {
-            "kind": 44,
+            "kind": 43,
             "attributes": [],
-            "modifiers": [
-              {
-                "kind": 12,
+            "iteration": {
+              "kind": 0,
+              "modifiers": [
+                {
+                  "kind": 12,
+                  "start": {
+                    "line": 3,
+                    "column": 46
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 50
+                  }
+                }
+              ],
+              "expression": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "heroes",
                 "start": {
                   "line": 3,
-                  "column": 46
+                  "column": 39
                 },
                 "end": {
                   "line": 3,
-                  "column": 50
+                  "column": 45
                 }
-              }
-            ],
-            "expression": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "heroes",
+              },
+              "value": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "hero",
+                "start": {
+                  "line": 3,
+                  "column": 24
+                },
+                "end": {
+                  "line": 3,
+                  "column": 28
+                }
+              },
+              "index": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "index",
+                "start": {
+                  "line": 3,
+                  "column": 30
+                },
+                "end": {
+                  "line": 3,
+                  "column": 35
+                }
+              },
+              "to": {
+                "kind": 77,
+                "modifiers": [],
+                "value": 2,
+                "start": {
+                  "line": 3,
+                  "column": 54
+                },
+                "end": {
+                  "line": 3,
+                  "column": 55
+                }
+              },
+              "until": {
+                "kind": 18,
+                "modifiers": [],
+                "scope": {
+                  "kind": 2
+                },
+                "callee": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "foo",
+                  "start": {
+                    "line": 3,
+                    "column": 62
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 65
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 48,
+                    "modifiers": [],
+                    "name": "hero",
+                    "start": {
+                      "line": 3,
+                      "column": 66
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 70
+                    }
+                  },
+                  {
+                    "kind": 48,
+                    "modifiers": [],
+                    "name": "index",
+                    "start": {
+                      "line": 3,
+                      "column": 72
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 77
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 3,
+                  "column": 62
+                },
+                "end": {
+                  "line": 3,
+                  "column": 78
+                }
+              },
               "start": {
                 "line": 3,
-                "column": 39
+                "column": 24
               },
               "end": {
                 "line": 3,
-                "column": 45
+                "column": 78
               }
             },
             "start": {
@@ -187,101 +293,6 @@
             "end": {
               "line": 3,
               "column": 78
-            },
-            "value": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "hero",
-              "start": {
-                "line": 3,
-                "column": 24
-              },
-              "end": {
-                "line": 3,
-                "column": 28
-              }
-            },
-            "index": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "index",
-              "start": {
-                "line": 3,
-                "column": 30
-              },
-              "end": {
-                "line": 3,
-                "column": 35
-              }
-            },
-            "to": {
-              "kind": 80,
-              "modifiers": [],
-              "value": 2,
-              "start": {
-                "line": 3,
-                "column": 54
-              },
-              "end": {
-                "line": 3,
-                "column": 55
-              }
-            },
-            "until": {
-              "kind": 18,
-              "modifiers": [],
-              "scope": {
-                "kind": 2
-              },
-              "callee": {
-                "kind": 51,
-                "modifiers": [],
-                "name": "foo",
-                "start": {
-                  "line": 3,
-                  "column": 62
-                },
-                "end": {
-                  "line": 3,
-                  "column": 65
-                }
-              },
-              "arguments": [
-                {
-                  "kind": 51,
-                  "modifiers": [],
-                  "name": "hero",
-                  "start": {
-                    "line": 3,
-                    "column": 66
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 70
-                  }
-                },
-                {
-                  "kind": 51,
-                  "modifiers": [],
-                  "name": "index",
-                  "start": {
-                    "line": 3,
-                    "column": 72
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 77
-                  }
-                }
-              ],
-              "start": {
-                "line": 3,
-                "column": 62
-              },
-              "end": {
-                "line": 3,
-                "column": 78
-              }
             }
           },
           "start": {

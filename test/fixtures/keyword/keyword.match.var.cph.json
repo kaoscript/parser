@@ -1,5 +1,5 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -8,8 +8,8 @@
       "expression": {
         "kind": 4,
         "modifiers": [],
-        "body": {
-          "kind": 51,
+        "expression": {
+          "kind": 48,
           "modifiers": [],
           "name": "match",
           "start": {
@@ -22,39 +22,63 @@
           }
         },
         "loop": {
-          "kind": 45,
+          "kind": 43,
           "attributes": [],
-          "modifiers": [
-            {
-              "kind": 10,
+          "iteration": {
+            "kind": 2,
+            "modifiers": [
+              {
+                "kind": 10,
+                "start": {
+                  "line": 1,
+                  "column": 12
+                },
+                "end": {
+                  "line": 1,
+                  "column": 15
+                }
+              },
+              {
+                "kind": 18,
+                "start": {
+                  "line": 1,
+                  "column": 12
+                },
+                "end": {
+                  "line": 1,
+                  "column": 15
+                }
+              }
+            ],
+            "expression": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "matches",
               "start": {
                 "line": 1,
-                "column": 12
+                "column": 25
               },
               "end": {
                 "line": 1,
-                "column": 15
+                "column": 32
               }
             },
-            {
-              "kind": 18,
+            "value": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "match",
               "start": {
                 "line": 1,
-                "column": 12
+                "column": 16
               },
               "end": {
                 "line": 1,
-                "column": 15
+                "column": 21
               }
-            }
-          ],
-          "expression": {
-            "kind": 51,
-            "modifiers": [],
-            "name": "matches",
+            },
             "start": {
               "line": 1,
-              "column": 25
+              "column": 12
             },
             "end": {
               "line": 1,
@@ -68,19 +92,6 @@
           "end": {
             "line": 1,
             "column": 32
-          },
-          "value": {
-            "kind": 51,
-            "modifiers": [],
-            "name": "match",
-            "start": {
-              "line": 1,
-              "column": 16
-            },
-            "end": {
-              "line": 1,
-              "column": 21
-            }
           }
         },
         "start": {

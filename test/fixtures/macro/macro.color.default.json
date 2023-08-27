@@ -1,5 +1,5 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -7,7 +7,7 @@
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 51,
+        "kind": 48,
         "modifiers": [],
         "name": "Color",
         "start": {
@@ -21,10 +21,10 @@
       },
       "members": [
         {
-          "kind": 63,
+          "kind": 60,
           "attributes": [],
           "name": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "registerSpace",
             "start": {
@@ -38,7 +38,7 @@
           },
           "parameters": [
             {
-              "kind": 86,
+              "kind": 83,
               "attributes": [],
               "modifiers": [
                 {
@@ -54,7 +54,7 @@
                 }
               ],
               "external": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "data",
                 "start": {
@@ -67,7 +67,7 @@
                 }
               },
               "internal": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "data",
                 "start": {
@@ -80,10 +80,10 @@
                 }
               },
               "type": {
-                "kind": 124,
+                "kind": 121,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 51,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "Object",
                   "start": {
@@ -119,28 +119,89 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 53,
+                "kind": 50,
                 "attributes": [],
+                "condition": {
+                  "kind": 123,
+                  "modifiers": [],
+                  "operator": {
+                    "kind": 1,
+                    "start": {
+                      "line": 3,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 7
+                    }
+                  },
+                  "argument": {
+                    "kind": 69,
+                    "modifiers": [],
+                    "object": {
+                      "kind": 48,
+                      "modifiers": [],
+                      "name": "data",
+                      "start": {
+                        "line": 3,
+                        "column": 7
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 11
+                      }
+                    },
+                    "property": {
+                      "kind": 48,
+                      "modifiers": [],
+                      "name": "components",
+                      "start": {
+                        "line": 3,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 22
+                      }
+                    },
+                    "start": {
+                      "line": 3,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 22
+                    }
+                  },
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 22
+                  }
+                },
                 "whenTrue": {
                   "kind": 15,
                   "attributes": [],
                   "statements": [
                     {
-                      "kind": 133,
+                      "kind": 130,
                       "attributes": [],
                       "modifiers": [],
                       "declarations": [
                         {
-                          "kind": 131,
+                          "kind": 128,
                           "attributes": [],
                           "modifiers": [],
                           "variables": [
                             {
-                              "kind": 132,
+                              "kind": 129,
                               "attributes": [],
                               "modifiers": [],
                               "name": {
-                                "kind": 51,
+                                "kind": 48,
                                 "modifiers": [],
                                 "name": "fields",
                                 "start": {
@@ -161,10 +222,10 @@
                                 "column": 27
                               },
                               "type": {
-                                "kind": 124,
+                                "kind": 121,
                                 "modifiers": [],
                                 "typeName": {
-                                  "kind": 51,
+                                  "kind": 48,
                                   "modifiers": [],
                                   "name": "Array",
                                   "start": {
@@ -186,10 +247,10 @@
                                 },
                                 "typeParameters": [
                                   {
-                                    "kind": 124,
+                                    "kind": 121,
                                     "modifiers": [],
                                     "typeName": {
-                                      "kind": 51,
+                                      "kind": 48,
                                       "modifiers": [],
                                       "name": "Expr",
                                       "start": {
@@ -247,21 +308,21 @@
                       }
                     },
                     {
-                      "kind": 133,
+                      "kind": 130,
                       "attributes": [],
                       "modifiers": [],
                       "declarations": [
                         {
-                          "kind": 131,
+                          "kind": 128,
                           "attributes": [],
                           "modifiers": [],
                           "variables": [
                             {
-                              "kind": 132,
+                              "kind": 129,
                               "attributes": [],
                               "modifiers": [],
                               "name": {
-                                "kind": 51,
+                                "kind": 48,
                                 "modifiers": [],
                                 "name": "methods",
                                 "start": {
@@ -282,10 +343,10 @@
                                 "column": 28
                               },
                               "type": {
-                                "kind": 124,
+                                "kind": 121,
                                 "modifiers": [],
                                 "typeName": {
-                                  "kind": 51,
+                                  "kind": 48,
                                   "modifiers": [],
                                   "name": "Array",
                                   "start": {
@@ -307,10 +368,10 @@
                                 },
                                 "typeParameters": [
                                   {
-                                    "kind": 124,
+                                    "kind": 121,
                                     "modifiers": [],
                                     "typeName": {
-                                      "kind": 51,
+                                      "kind": 48,
                                       "modifiers": [],
                                       "name": "Expr",
                                       "start": {
@@ -368,7 +429,7 @@
                       }
                     },
                     {
-                      "kind": 133,
+                      "kind": 130,
                       "attributes": [],
                       "modifiers": [
                         {
@@ -385,16 +446,16 @@
                       ],
                       "declarations": [
                         {
-                          "kind": 131,
+                          "kind": 128,
                           "attributes": [],
                           "modifiers": [],
                           "variables": [
                             {
-                              "kind": 132,
+                              "kind": 129,
                               "attributes": [],
                               "modifiers": [],
                               "name": {
-                                "kind": 51,
+                                "kind": 48,
                                 "modifiers": [],
                                 "name": "field",
                                 "start": {
@@ -436,81 +497,86 @@
                       }
                     },
                     {
-                      "kind": 44,
+                      "kind": 43,
                       "attributes": [],
-                      "modifiers": [],
-                      "expression": {
-                        "kind": 72,
-                        "modifiers": [],
-                        "object": {
-                          "kind": 51,
+                      "iterations": [
+                        {
+                          "kind": 0,
                           "modifiers": [],
-                          "name": "data",
-                          "start": {
-                            "line": 8,
-                            "column": 27
+                          "expression": {
+                            "kind": 69,
+                            "modifiers": [],
+                            "object": {
+                              "kind": 48,
+                              "modifiers": [],
+                              "name": "data",
+                              "start": {
+                                "line": 8,
+                                "column": 27
+                              },
+                              "end": {
+                                "line": 8,
+                                "column": 31
+                              }
+                            },
+                            "property": {
+                              "kind": 48,
+                              "modifiers": [],
+                              "name": "components",
+                              "start": {
+                                "line": 8,
+                                "column": 32
+                              },
+                              "end": {
+                                "line": 8,
+                                "column": 42
+                              }
+                            },
+                            "start": {
+                              "line": 8,
+                              "column": 27
+                            },
+                            "end": {
+                              "line": 8,
+                              "column": 42
+                            }
                           },
-                          "end": {
-                            "line": 8,
-                            "column": 31
-                          }
-                        },
-                        "property": {
-                          "kind": 51,
-                          "modifiers": [],
-                          "name": "components",
+                          "value": {
+                            "kind": 48,
+                            "modifiers": [],
+                            "name": "name",
+                            "start": {
+                              "line": 8,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 8,
+                              "column": 12
+                            }
+                          },
+                          "index": {
+                            "kind": 48,
+                            "modifiers": [],
+                            "name": "component",
+                            "start": {
+                              "line": 8,
+                              "column": 14
+                            },
+                            "end": {
+                              "line": 8,
+                              "column": 23
+                            }
+                          },
                           "start": {
                             "line": 8,
-                            "column": 32
+                            "column": 8
                           },
                           "end": {
                             "line": 8,
                             "column": 42
                           }
-                        },
-                        "start": {
-                          "line": 8,
-                          "column": 27
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 42
                         }
-                      },
-                      "start": {
-                        "line": 8,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 19,
-                        "column": 5
-                      },
-                      "value": {
-                        "kind": 51,
-                        "modifiers": [],
-                        "name": "name",
-                        "start": {
-                          "line": 8,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 12
-                        }
-                      },
-                      "index": {
-                        "kind": 51,
-                        "modifiers": [],
-                        "name": "component",
-                        "start": {
-                          "line": 8,
-                          "column": 14
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 23
-                        }
-                      },
+                      ],
                       "body": {
                         "kind": 15,
                         "attributes": [],
@@ -534,7 +600,7 @@
                                 }
                               },
                               "left": {
-                                "kind": 51,
+                                "kind": 48,
                                 "modifiers": [],
                                 "name": "field",
                                 "start": {
@@ -547,11 +613,11 @@
                                 }
                               },
                               "right": {
-                                "kind": 113,
+                                "kind": 110,
                                 "modifiers": [],
                                 "elements": [
                                   {
-                                    "kind": 62,
+                                    "kind": 59,
                                     "modifiers": [],
                                     "value": "_",
                                     "start": {
@@ -564,7 +630,7 @@
                                     }
                                   },
                                   {
-                                    "kind": 51,
+                                    "kind": 48,
                                     "modifiers": [],
                                     "name": "name",
                                     "start": {
@@ -614,10 +680,10 @@
                                 "kind": 2
                               },
                               "callee": {
-                                "kind": 72,
+                                "kind": 69,
                                 "modifiers": [],
                                 "object": {
-                                  "kind": 51,
+                                  "kind": 48,
                                   "modifiers": [],
                                   "name": "fields",
                                   "start": {
@@ -630,7 +696,7 @@
                                   }
                                 },
                                 "property": {
-                                  "kind": 51,
+                                  "kind": 48,
                                   "modifiers": [],
                                   "name": "push",
                                   "start": {
@@ -653,7 +719,7 @@
                               },
                               "arguments": [
                                 {
-                                  "kind": 64,
+                                  "kind": 61,
                                   "attributes": [],
                                   "elements": [
                                     {
@@ -671,7 +737,7 @@
                                     {
                                       "kind": 1,
                                       "expression": {
-                                        "kind": 51,
+                                        "kind": 48,
                                         "modifiers": [],
                                         "name": "field",
                                         "start": {
@@ -718,10 +784,10 @@
                                     {
                                       "kind": 1,
                                       "expression": {
-                                        "kind": 72,
+                                        "kind": 69,
                                         "modifiers": [],
                                         "object": {
-                                          "kind": 51,
+                                          "kind": 48,
                                           "modifiers": [],
                                           "name": "component",
                                           "start": {
@@ -734,7 +800,7 @@
                                           }
                                         },
                                         "property": {
-                                          "kind": 51,
+                                          "kind": 48,
                                           "modifiers": [],
                                           "name": "type",
                                           "start": {
@@ -814,10 +880,10 @@
                                 "kind": 2
                               },
                               "callee": {
-                                "kind": 72,
+                                "kind": 69,
                                 "modifiers": [],
                                 "object": {
-                                  "kind": 51,
+                                  "kind": 48,
                                   "modifiers": [],
                                   "name": "methods",
                                   "start": {
@@ -830,7 +896,7 @@
                                   }
                                 },
                                 "property": {
-                                  "kind": 51,
+                                  "kind": 48,
                                   "modifiers": [],
                                   "name": "push",
                                   "start": {
@@ -853,13 +919,13 @@
                               },
                               "arguments": [
                                 {
-                                  "kind": 64,
+                                  "kind": 61,
                                   "attributes": [],
                                   "elements": [
                                     {
                                       "kind": 1,
                                       "expression": {
-                                        "kind": 51,
+                                        "kind": 48,
                                         "modifiers": [],
                                         "name": "name",
                                         "start": {
@@ -906,7 +972,7 @@
                                     {
                                       "kind": 1,
                                       "expression": {
-                                        "kind": 51,
+                                        "kind": 48,
                                         "modifiers": [],
                                         "name": "name",
                                         "start": {
@@ -953,7 +1019,7 @@
                                     {
                                       "kind": 1,
                                       "expression": {
-                                        "kind": 51,
+                                        "kind": 48,
                                         "modifiers": [],
                                         "name": "name",
                                         "start": {
@@ -1000,7 +1066,7 @@
                                     {
                                       "kind": 1,
                                       "expression": {
-                                        "kind": 51,
+                                        "kind": 48,
                                         "modifiers": [],
                                         "name": "name",
                                         "start": {
@@ -1092,10 +1158,10 @@
                                 }
                               },
                               "left": {
-                                "kind": 72,
+                                "kind": 69,
                                 "modifiers": [],
                                 "object": {
-                                  "kind": 72,
+                                  "kind": 69,
                                   "modifiers": [
                                     {
                                       "kind": 9,
@@ -1110,10 +1176,10 @@
                                     }
                                   ],
                                   "object": {
-                                    "kind": 72,
+                                    "kind": 69,
                                     "modifiers": [],
                                     "object": {
-                                      "kind": 51,
+                                      "kind": 48,
                                       "modifiers": [],
                                       "name": "data",
                                       "start": {
@@ -1126,7 +1192,7 @@
                                       }
                                     },
                                     "property": {
-                                      "kind": 51,
+                                      "kind": 48,
                                       "modifiers": [],
                                       "name": "components",
                                       "start": {
@@ -1148,7 +1214,7 @@
                                     }
                                   },
                                   "property": {
-                                    "kind": 51,
+                                    "kind": 48,
                                     "modifiers": [],
                                     "name": "name",
                                     "start": {
@@ -1170,7 +1236,7 @@
                                   }
                                 },
                                 "property": {
-                                  "kind": 51,
+                                  "kind": 48,
                                   "modifiers": [],
                                   "name": "field",
                                   "start": {
@@ -1192,7 +1258,7 @@
                                 }
                               },
                               "right": {
-                                "kind": 51,
+                                "kind": 48,
                                 "modifiers": [],
                                 "name": "field",
                                 "start": {
@@ -1231,13 +1297,21 @@
                           "line": 19,
                           "column": 5
                         }
+                      },
+                      "start": {
+                        "line": 8,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 19,
+                        "column": 5
                       }
                     },
                     {
                       "kind": 40,
                       "attributes": [],
                       "expression": {
-                        "kind": 64,
+                        "kind": 61,
                         "attributes": [],
                         "elements": [
                           {
@@ -1255,7 +1329,7 @@
                           {
                             "kind": 1,
                             "expression": {
-                              "kind": 51,
+                              "kind": 48,
                               "modifiers": [],
                               "name": "data",
                               "start": {
@@ -1336,7 +1410,7 @@
                           {
                             "kind": 1,
                             "expression": {
-                              "kind": 51,
+                              "kind": 48,
                               "modifiers": [],
                               "name": "fields",
                               "start": {
@@ -1382,7 +1456,7 @@
                           {
                             "kind": 1,
                             "expression": {
-                              "kind": 51,
+                              "kind": 48,
                               "modifiers": [],
                               "name": "methods",
                               "start": {
@@ -1477,75 +1551,6 @@
                     "column": 4
                   }
                 },
-                "start": {
-                  "line": 3,
-                  "column": 3
-                },
-                "end": {
-                  "line": 32,
-                  "column": 4
-                },
-                "condition": {
-                  "kind": 126,
-                  "modifiers": [],
-                  "operator": {
-                    "kind": 1,
-                    "start": {
-                      "line": 3,
-                      "column": 6
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 7
-                    }
-                  },
-                  "argument": {
-                    "kind": 72,
-                    "modifiers": [],
-                    "object": {
-                      "kind": 51,
-                      "modifiers": [],
-                      "name": "data",
-                      "start": {
-                        "line": 3,
-                        "column": 7
-                      },
-                      "end": {
-                        "line": 3,
-                        "column": 11
-                      }
-                    },
-                    "property": {
-                      "kind": 51,
-                      "modifiers": [],
-                      "name": "components",
-                      "start": {
-                        "line": 3,
-                        "column": 12
-                      },
-                      "end": {
-                        "line": 3,
-                        "column": 22
-                      }
-                    },
-                    "start": {
-                      "line": 3,
-                      "column": 7
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 22
-                    }
-                  },
-                  "start": {
-                    "line": 3,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 22
-                  }
-                },
                 "whenFalse": {
                   "kind": 15,
                   "attributes": [],
@@ -1554,7 +1559,7 @@
                       "kind": 40,
                       "attributes": [],
                       "expression": {
-                        "kind": 64,
+                        "kind": 61,
                         "attributes": [],
                         "elements": [
                           {
@@ -1572,7 +1577,7 @@
                           {
                             "kind": 1,
                             "expression": {
-                              "kind": 51,
+                              "kind": 48,
                               "modifiers": [],
                               "name": "data",
                               "start": {
@@ -1633,6 +1638,14 @@
                     "line": 32,
                     "column": 4
                   }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 3
+                },
+                "end": {
+                  "line": 32,
+                  "column": 4
                 }
               }
             ],
@@ -1674,10 +1687,10 @@
           "kind": 2
         },
         "callee": {
-          "kind": 72,
+          "kind": 69,
           "modifiers": [],
           "object": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "Color",
             "start": {
@@ -1690,7 +1703,7 @@
             }
           },
           "property": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "registerSpace",
             "start": {
@@ -1713,12 +1726,12 @@
         },
         "arguments": [
           {
-            "kind": 82,
+            "kind": 79,
             "modifiers": [],
             "attributes": [],
             "properties": [
               {
-                "kind": 83,
+                "kind": 80,
                 "attributes": [],
                 "modifiers": [],
                 "start": {
@@ -1730,7 +1743,7 @@
                   "column": 18
                 },
                 "name": {
-                  "kind": 51,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "name",
                   "start": {
@@ -1743,10 +1756,10 @@
                   }
                 },
                 "value": {
-                  "kind": 72,
+                  "kind": 69,
                   "modifiers": [],
                   "object": {
-                    "kind": 51,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "Space",
                     "start": {
@@ -1759,7 +1772,7 @@
                     }
                   },
                   "property": {
-                    "kind": 51,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "SRGB",
                     "start": {
@@ -1782,7 +1795,7 @@
                 }
               },
               {
-                "kind": 83,
+                "kind": 80,
                 "attributes": [],
                 "modifiers": [],
                 "start": {
@@ -1794,7 +1807,7 @@
                   "column": 20
                 },
                 "name": {
-                  "kind": 51,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "alias",
                   "start": {
@@ -1811,10 +1824,10 @@
                   "modifiers": [],
                   "values": [
                     {
-                      "kind": 72,
+                      "kind": 69,
                       "modifiers": [],
                       "object": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "Space",
                         "start": {
@@ -1827,7 +1840,7 @@
                         }
                       },
                       "property": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "RGB",
                         "start": {
@@ -1860,7 +1873,7 @@
                 }
               },
               {
-                "kind": 83,
+                "kind": 80,
                 "attributes": [],
                 "modifiers": [],
                 "start": {
@@ -1872,7 +1885,7 @@
                   "column": 3
                 },
                 "name": {
-                  "kind": 51,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "components",
                   "start": {
@@ -1885,12 +1898,12 @@
                   }
                 },
                 "value": {
-                  "kind": 82,
+                  "kind": 79,
                   "modifiers": [],
                   "attributes": [],
                   "properties": [
                     {
-                      "kind": 83,
+                      "kind": 80,
                       "attributes": [],
                       "modifiers": [],
                       "start": {
@@ -1902,7 +1915,7 @@
                         "column": 4
                       },
                       "name": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "red",
                         "start": {
@@ -1915,12 +1928,12 @@
                         }
                       },
                       "value": {
-                        "kind": 82,
+                        "kind": 79,
                         "modifiers": [],
                         "attributes": [],
                         "properties": [
                           {
-                            "kind": 83,
+                            "kind": 80,
                             "attributes": [],
                             "modifiers": [],
                             "start": {
@@ -1932,7 +1945,7 @@
                               "column": 12
                             },
                             "name": {
-                              "kind": 51,
+                              "kind": 48,
                               "modifiers": [],
                               "name": "max",
                               "start": {
@@ -1945,7 +1958,7 @@
                               }
                             },
                             "value": {
-                              "kind": 80,
+                              "kind": 77,
                               "modifiers": [],
                               "value": 255,
                               "start": {
@@ -1970,7 +1983,7 @@
                       }
                     },
                     {
-                      "kind": 83,
+                      "kind": 80,
                       "attributes": [],
                       "modifiers": [],
                       "start": {
@@ -1982,7 +1995,7 @@
                         "column": 4
                       },
                       "name": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "green",
                         "start": {
@@ -1995,12 +2008,12 @@
                         }
                       },
                       "value": {
-                        "kind": 82,
+                        "kind": 79,
                         "modifiers": [],
                         "attributes": [],
                         "properties": [
                           {
-                            "kind": 83,
+                            "kind": 80,
                             "attributes": [],
                             "modifiers": [],
                             "start": {
@@ -2012,7 +2025,7 @@
                               "column": 12
                             },
                             "name": {
-                              "kind": 51,
+                              "kind": 48,
                               "modifiers": [],
                               "name": "max",
                               "start": {
@@ -2025,7 +2038,7 @@
                               }
                             },
                             "value": {
-                              "kind": 80,
+                              "kind": 77,
                               "modifiers": [],
                               "value": 255,
                               "start": {
@@ -2050,7 +2063,7 @@
                       }
                     },
                     {
-                      "kind": 83,
+                      "kind": 80,
                       "attributes": [],
                       "modifiers": [],
                       "start": {
@@ -2062,7 +2075,7 @@
                         "column": 4
                       },
                       "name": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "blue",
                         "start": {
@@ -2075,12 +2088,12 @@
                         }
                       },
                       "value": {
-                        "kind": 82,
+                        "kind": 79,
                         "modifiers": [],
                         "attributes": [],
                         "properties": [
                           {
-                            "kind": 83,
+                            "kind": 80,
                             "attributes": [],
                             "modifiers": [],
                             "start": {
@@ -2092,7 +2105,7 @@
                               "column": 12
                             },
                             "name": {
-                              "kind": 51,
+                              "kind": 48,
                               "modifiers": [],
                               "name": "max",
                               "start": {
@@ -2105,7 +2118,7 @@
                               }
                             },
                             "value": {
-                              "kind": 80,
+                              "kind": 77,
                               "modifiers": [],
                               "value": 255,
                               "start": {

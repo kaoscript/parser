@@ -348,7 +348,7 @@ namespace AST {
 			return location({
 				kind: NodeKind.ArrayComprehension
 				modifiers: []
-				body: expression.value
+				expression: expression.value
 				loop: loop.value
 			}, first, last)
 		} # }}}
@@ -764,141 +764,22 @@ namespace AST {
 			return node
 		} # }}}
 
-		func ForFromStatement(modifiers, variable, from, to?, step?, until?, while?, when?, first, last) { # {{{
-			var node = location({
-				kind: NodeKind.ForFromStatement
-				modifiers
+		func ForStatement(iterations, body, else?, first, last) { # {{{
+			return  location({
+				kind: NodeKind.ForStatement
 				attributes: []
-				variable: variable.value
-				from: from.value
-				to: to.value
+				iterations: [iteration.value for var iteration in iterations]
+				body: body.value
+				else: else.value if ?else
 			}, first, last)
-
-			if step != null {
-				node.step = step.value
-			}
-
-			if until != null {
-				node.until = until.value
-			}
-			else if while != null {
-				node.while = while.value
-			}
-
-			if when != null {
-				node.when = when.value
-			}
-
-			return node
 		} # }}}
 
-		func ForInStatement(modifiers, value, type, index, expression, from?, to?, step?, split?, until?, while?, when?, first, last) { # {{{
-			var node = location({
-				kind: NodeKind.ForInStatement
+		func ForStatement(iteration, first, last) { # {{{
+			return  location({
+				kind: NodeKind.ForStatement
 				attributes: []
-				modifiers
-				expression: expression.value
+				iteration: iteration.value
 			}, first, last)
-
-			if value.ok {
-				node.value = value.value
-			}
-			if type.ok {
-				node.type = type.value
-			}
-			if index.ok {
-				node.index = index.value
-			}
-
-			if from != null {
-				node.from = from.value
-			}
-			if to != null {
-				node.to = to.value
-			}
-			if step != null {
-				node.step = step.value
-			}
-			if split != null {
-				node.split = split.value
-			}
-
-			if until != null {
-				node.until = until.value
-			}
-			else if while != null {
-				node.while = while.value
-			}
-
-			if when != null {
-				node.when = when.value
-			}
-
-			return node
-		} # }}}
-
-		func ForRangeStatement(modifiers, value, index, from, to, step?, until?, while?, when?, first, last) { # {{{
-			var node = location({
-				kind: NodeKind.ForRangeStatement
-				attributes: []
-				modifiers
-				value: value.value
-				from: from.value
-				to: to.value
-			}, first, last)
-
-			if index.ok {
-				node.index = index.value
-			}
-
-			if step != null {
-				node.step = step.value
-			}
-
-			if until != null {
-				node.until = until.value
-			}
-			else if while != null {
-				node.while = while.value
-			}
-
-			if when != null {
-				node.when = when.value
-			}
-
-			return node
-		} # }}}
-
-		func ForOfStatement(modifiers, value, type, key, expression, until?, while?, when?, first, last) { # {{{
-			var node = location({
-				kind: NodeKind.ForOfStatement
-				attributes: []
-				modifiers
-				expression: expression.value
-			}, first, last)
-
-			if value.ok {
-				node.value = value.value
-			}
-			if type.ok {
-				node.type = type.value
-			}
-			if key.ok {
-				node.key = key.value
-			}
-
-			if until != null {
-				node.until = until.value
-			}
-			else if while != null {
-				node.while = while.value
-			}
-
-			if when != null {
-				node.when = when.value
-			}
-
-			return node
 		} # }}}
 
 		func FunctionDeclaration(name, parameters?, modifiers?, type?, throws?, body?, first, last) { # {{{
@@ -1008,26 +889,24 @@ namespace AST {
 			return node
 		} # }}}
 
-		func IfStatement(condition?, declaration?, whenTrue, whenFalse?, first, last) { # {{{
-			var node = location({
+		func IfStatement(condition: Event, whenTrue: Event, whenFalse: Event?, first, last) { # {{{
+			return location({
 				kind: NodeKind.IfStatement
 				attributes: []
+				condition: condition.value
 				whenTrue: whenTrue.value
+				whenFalse: whenFalse.value if ?whenFalse
 			}, first, last)
+		} # }}}
 
-			if condition != null {
-				node.condition = condition.value
-			}
-
-			if declaration != null {
-				node.declaration = declaration.value
-			}
-
-			if whenFalse != null {
-				node.whenFalse = whenFalse.value
-			}
-
-			return node
+		func IfStatement(declarations: [], whenTrue: Event, whenFalse: Event?, first, last) { # {{{
+			return location({
+				kind: NodeKind.IfStatement
+				attributes: []
+				declarations
+				whenTrue: whenTrue.value
+				whenFalse: whenFalse.value if ?whenFalse
+			}, first, last)
 		} # }}}
 
 		func ImplementDeclaration(attributes, variable, interface?, properties, first, last) { # {{{
@@ -1090,6 +969,67 @@ namespace AST {
 				attributes: []
 				file: file.value
 			}, file, file)
+		} # }}}
+
+		func IterationArray(modifiers, value, type, index, expression, from?, to?, step?, split?, until?, while?, when?, first, last) { # {{{
+			return location({
+				kind: IterationKind.Array
+				modifiers
+				expression: expression.value
+				value: value.value if value.ok
+				type: type.value if type.ok
+				index: index.value if index.ok
+				from: from.value if ?from
+				to: to.value if ?to
+				step: step.value if ?step
+				split: split.value if ?split
+				until: until.value if ?until
+				while: while.value if ?while
+				when: when.value if ?when
+			}, first, last)
+		} # }}}
+
+		func IterationFrom(modifiers, variable, from, to, step?, until?, while?, when?, first, last) { # {{{
+			return location({
+				kind: IterationKind.From
+				modifiers
+				variable: variable.value
+				from: from.value
+				to: to.value
+				step: step.value if ?step
+				until: until.value if ?until
+				while: while.value if ?while
+				when: when.value if ?when
+			}, first, last)
+		} # }}}
+
+		func IterationObject(modifiers, value, type, key, expression, until?, while?, when?, first, last) { # {{{
+			return location({
+				kind: IterationKind.Object
+				modifiers
+				expression: expression.value
+				value: value.value if value.ok
+				type: type.value if type.ok
+				key: key.value if key.ok
+				until: until.value if ?until
+				while: while.value if ?while
+				when: when.value if ?when
+			}, first, last)
+		} # }}}
+
+		func IterationRange(modifiers, value, index, from, to, step?, until?, while?, when?, first, last) { # {{{
+			return location({
+				kind: IterationKind.Range
+				modifiers
+				value: value.value
+				index: index.value if index.ok
+				from: from.value
+				to: to.value
+				step: step.value if ?step
+				until: until.value if ?until
+				while: while.value if ?while
+				when: when.value if ?when
+			}, first, last)
 		} # }}}
 
 		func JunctionExpression(operator, operands) { # {{{

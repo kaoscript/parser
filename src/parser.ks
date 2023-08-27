@@ -290,8 +290,12 @@ export namespace Parser {
 		NL_0M() ~ SyntaxError { # {{{
 			@skipNewLine()
 		} # }}}
-		altArrayComprehensionFor(expression: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var loop = @reqForExpression(@yes(), fMode)
+		altArrayComprehensionFor(expression: Event, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var firstLoop = @yes()
+
+			@NL_0M()
+
+			var iteration = @reqIteration(fMode)
 
 			@NL_0M()
 
@@ -299,10 +303,14 @@ export namespace Parser {
 				@throw(']')
 			}
 
+			var loop = @yep(AST.ForStatement(iteration, firstLoop, iteration))
+
 			return @yep(AST.ArrayComprehension(expression, loop, first, @yes()))
 		} # }}}
 		altArrayComprehensionRepeat(expression: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			@commit().NL_0M()
+			var firstLoop = @yes()
+
+			@NL_0M()
 
 			var condition = @reqExpression(ExpressionMode.Default, fMode)
 
@@ -310,7 +318,7 @@ export namespace Parser {
 				@throw('times')
 			}
 
-			var loop = @yep(AST.RepeatStatement(condition, null, first, @yes()))
+			var loop = @yep(AST.RepeatStatement(condition, null, firstLoop, @yes()))
 
 			@NL_0M()
 
@@ -354,288 +362,6 @@ export namespace Parser {
 			while true
 
 			@throw(']')
-		} # }}}
-		altForExpressionFrom(modifiers, variable: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var late from: Event
-			if @token == Token.FROM_TILDE {
-				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
-
-				from = @reqExpression(ExpressionMode.Default, fMode)
-
-				AST.pushModifier(from.value, modifier)
-			}
-			else {
-				@commit()
-
-				from = @reqExpression(ExpressionMode.Default, fMode)
-			}
-
-			@NL_0M()
-
-			if @match(Token.DOWN, Token.UP) == Token.DOWN {
-				modifiers.push(AST.Modifier(ModifierKind.Descending, @yes()))
-
-				@NL_0M()
-			}
-			else if @token == Token.UP {
-				modifiers.push(AST.Modifier(ModifierKind.Ascending, @yes()))
-
-				@NL_0M()
-			}
-
-			var late to: Event
-			if @match(Token.TO, Token.TO_TILDE) == Token.TO {
-				@commit()
-
-				to = @reqExpression(ExpressionMode.Default, fMode)
-			}
-			else if @token == Token.TO_TILDE {
-				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
-
-				to = @reqExpression(ExpressionMode.Default, fMode)
-
-				AST.pushModifier(to.value, modifier)
-			}
-			else {
-				@throw('to', 'to~')
-			}
-
-			@NL_0M()
-
-			var mut step: Event? = null
-			if @test(Token.STEP) {
-				@commit()
-
-				step = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-
-			var mut until: Event? = null
-			var mut while: Event? = null
-			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
-				@commit()
-
-				until = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-			else if @token == Token.WHILE {
-				@commit()
-
-				while = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-
-			var mut when: Event? = null
-			if @test(Token.WHEN) {
-				var first = @yes()
-
-				when = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
-			}
-
-			return @yep(AST.ForFromStatement(modifiers, variable, from, to, step, until, while, when, first, when ?? while ?? until ?? step ?? to))
-		} # }}}
-		altForExpressionIn(modifiers, value: Event, type: Event, index: Event, expression: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			@NL_0M()
-
-			var mut from: Event? = null
-			if @match(Token.FROM, Token.FROM_TILDE) == Token.FROM {
-				@commit()
-
-				from = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-			else if @token == Token.FROM_TILDE {
-				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
-
-				from = @reqExpression(ExpressionMode.Default, fMode)
-
-				AST.pushModifier(from.value, modifier)
-
-				@NL_0M()
-			}
-
-			var mut order: Event? = null
-			if @match(Token.DOWN, Token.UP) == Token.DOWN {
-				order = @yes()
-
-				modifiers.push(AST.Modifier(ModifierKind.Descending, order))
-
-				@NL_0M()
-			}
-			else if @token == Token.UP {
-				order = @yes()
-
-				modifiers.push(AST.Modifier(ModifierKind.Ascending, order))
-
-				@NL_0M()
-			}
-
-			var mut to: Event? = null
-			if @match(Token.TO, Token.TO_TILDE) == Token.TO {
-				@commit()
-
-				to = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-			else if @token == Token.TO_TILDE {
-				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
-
-				to = @reqExpression(ExpressionMode.Default, fMode)
-
-				AST.pushModifier(to.value, modifier)
-
-				@NL_0M()
-			}
-
-			var mut step: Event? = null
-			if @test(Token.STEP) {
-				@commit()
-
-				step = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-
-			var mut split: Event? = null
-			if @test(Token.SPLIT) {
-				@commit()
-
-				split = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-
-			var mut until: Event? = null
-			var mut while: Event? = null
-			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
-				@commit()
-
-				until = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-			else if @token == Token.WHILE {
-				@commit()
-
-				while = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-
-			var mut when: Event? = null
-			if @test(Token.WHEN) {
-				var first = @yes()
-
-				when = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
-			}
-
-			return @yep(AST.ForInStatement(modifiers, value, type, index, expression, from, to, step, split, until, while, when, first, when ?? while ?? until ?? split ?? step ?? to ?? order ?? from ?? expression))
-		} # }}}
-		altForExpressionInRange(modifiers, value: Event, type: Event, index: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var operand = @tryRangeOperand(ExpressionMode.InlineOnly, fMode)
-
-			if operand.ok {
-				if @test(Token.LEFT_ANGLE, Token.DOT_DOT) {
-					if @token == Token.LEFT_ANGLE {
-						AST.pushModifier(operand.value, @yep(AST.Modifier(ModifierKind.Ballpark, @yes())))
-
-						unless @test(Token.DOT_DOT) {
-							@throw('..')
-						}
-
-						@commit()
-					}
-					else {
-						@commit()
-					}
-
-					var mut modifier: Event? = null
-					if @test(Token.LEFT_ANGLE) {
-						modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
-					}
-
-					var to = @reqPrefixedOperand(ExpressionMode.InlineOnly, fMode)
-
-					if ?modifier {
-						AST.pushModifier(to.value, modifier)
-					}
-
-					var mut step: Event? = null
-					if @test(Token.DOT_DOT) {
-						@commit()
-
-						step = @reqPrefixedOperand(ExpressionMode.InlineOnly, fMode)
-					}
-
-					return @altForExpressionRange(modifiers, value, index, operand, to, step, first, fMode)
-				}
-				else {
-					return @altForExpressionIn(modifiers, value, type, index, operand, first, fMode)
-				}
-			}
-			else {
-				return @altForExpressionIn(modifiers, value, type, index, @reqExpression(ExpressionMode.Default, fMode), first, fMode)
-			}
-		} # }}}
-		altForExpressionOf(modifiers, value: Event, type: Event, key: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqExpression(ExpressionMode.Default, fMode)
-
-			var dyn until, while
-			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
-				@commit()
-
-				until = @reqExpression(ExpressionMode.Default, fMode)
-			}
-			else if @token == Token.WHILE {
-				@commit()
-
-				while = @reqExpression(ExpressionMode.Default, fMode)
-			}
-
-			@NL_0M()
-
-			var dyn whenExp
-			if @test(Token.WHEN) {
-				var first = @yes()
-
-				whenExp = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
-			}
-
-			return @yep(AST.ForOfStatement(modifiers, value, type, key, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
-		} # }}}
-		altForExpressionRange(modifiers, value: Event, index: Event, from: Event, to: Event, filter: Event?, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			@NL_0M()
-
-			var mut until: Event? = null
-			var mut while: Event? = null
-			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
-				@commit()
-
-				until = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-			else if @token == Token.WHILE {
-				@commit()
-
-				while = @reqExpression(ExpressionMode.Default, fMode)
-
-				@NL_0M()
-			}
-
-			var mut when: Event? = null
-			if @test(Token.WHEN) {
-				var first = @yes()
-
-				when = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
-			}
-
-			return @yep(AST.ForRangeStatement(modifiers, value, index, from, to, filter, until, while, when, first, when ?? while ?? until ?? filter ?? to ?? from))
 		} # }}}
 		altRestrictiveExpression(expression: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mark = @mark()
@@ -1433,7 +1159,7 @@ export namespace Parser {
 				var condition = @tryExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
 				if condition.ok {
-					return @yep(AST.IfStatement(condition, null, @yep(AST.BreakStatement(null, first, first)), null, first, condition))
+					return @yep(AST.IfStatement(condition, @yep(AST.BreakStatement(null, first, first)), null, first, condition))
 				}
 				else {
 					return @yep(AST.BreakStatement(label, first, label))
@@ -1460,7 +1186,7 @@ export namespace Parser {
 
 						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
-						return @yep(AST.IfStatement(condition, null, @yep(AST.BreakStatement(label, first, label)), null, first, condition))
+						return @yep(AST.IfStatement(condition, @yep(AST.BreakStatement(label, first, label)), null, first, condition))
 					}
 					else if @token == Token.UNLESS {
 						@commit()
@@ -2201,7 +1927,7 @@ export namespace Parser {
 				var condition = @tryExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
 				if condition.ok {
-					return @yep(AST.IfStatement(condition, null, @yep(AST.ContinueStatement(null, first, first)), null, first, condition))
+					return @yep(AST.IfStatement(condition, @yep(AST.ContinueStatement(null, first, first)), null, first, condition))
 				}
 				else {
 					return @yep(AST.ContinueStatement(label, first, label))
@@ -2228,7 +1954,7 @@ export namespace Parser {
 
 						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
-						return @yep(AST.IfStatement(condition, null, @yep(AST.ContinueStatement(label, first, label)), null, first, condition))
+						return @yep(AST.IfStatement(condition, @yep(AST.ContinueStatement(label, first, label)), null, first, condition))
 					}
 					else if @token == Token.UNLESS {
 						@commit()
@@ -3268,20 +2994,17 @@ export namespace Parser {
 			var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
 			if @match(Token.FOR, Token.IF, Token.REPEAT, Token.UNLESS) == Token.FOR {
-				var statement = @reqForExpression(@yes(), fMode)
+				var first = @yes()
+				var iteration = @reqIteration(fMode)
 
-				statement.value.body = AST.ExpressionStatement(expression)
-
-				@relocate(statement, expression, null)
-
-				return statement
+				return @yep(AST.ForStatement([iteration], @yep(AST.ExpressionStatement(expression)), null, first, expression))
 			}
 			else if @token == Token.IF {
 				@commit()
 
 				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
-				return @yep(AST.IfStatement(condition, null, @yep(AST.ExpressionStatement(expression)), null, expression, condition))
+				return @yep(AST.IfStatement(condition, @yep(AST.ExpressionStatement(expression)), null, expression, condition))
 			}
 			else if @token == Token.REPEAT {
 				@commit().NL_0M()
@@ -3736,150 +3459,67 @@ export namespace Parser {
 		reqFallthroughStatement(mut first: Event): Event { # {{{
 			return @yep(AST.FallthroughStatement(first))
 		} # }}}
-		reqForExpression(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var modifiers = []
-			var mut declaration = false
+		reqForStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var iterations = []
 
-			var mark = @mark()
-
-			if @test(Token.VAR) {
-				var mark2 = @mark()
-				var first = @yes()
-
-				var dyn modifier
-				if @test(Token.MUT) {
-					modifier = AST.Modifier(ModifierKind.Mutable, @yes())
-				}
-				else {
-					modifier = AST.Modifier(ModifierKind.Immutable, first)
-				}
-
-				if @test(Token.COMMA) {
-					@rollback(mark)
-				}
-				else if @test(Token.FROM, Token.IN, Token.OF) {
-					@commit()
-
-					if @test(Token.FROM, Token.IN, Token.OF) {
-						modifiers.push(AST.Modifier(ModifierKind.Declarative, first), modifier)
-						declaration = true
-
-						@rollback(mark2)
-					}
-					else {
-						@rollback(mark)
-					}
-				}
-				else {
-					modifiers.push(AST.Modifier(ModifierKind.Declarative, first), modifier)
-					declaration = true
-				}
-			}
-
-
-			var mut identifier1 = NO
-			var mut type1 = NO
-			var mut identifier2 = NO
-			var mut destructuring = NO
-
-			if @test(Token.UNDERSCORE) {
-				@commit()
-			}
-			else if !(destructuring = @tryDestructuring(declaration ? .Declaration : null, fMode)).ok {
-				identifier1 = @reqIdentifier()
-
-				if @test(Token.COLON) {
-					@commit()
-
-					type1 = @reqType()
-				}
-			}
-
-			if @test(Token.COMMA) {
-				@commit()
-
-				identifier2 = @reqIdentifier()
-			}
+			var mut mark = @mark()
 
 			@NL_0M()
 
-			if destructuring.ok {
-				if @match(Token.IN, Token.OF) == Token.IN {
-					@commit()
+			if @test(.LEFT_CURLY) {
+				@commit().NL_0M()
 
-					return @altForExpressionIn(modifiers, destructuring, type1, identifier2, @reqExpression(ExpressionMode.Default, fMode), first, fMode)
-				}
-				else if @token == Token.OF {
-					@commit()
+				if @test(.VAR) {
+					while @test(.VAR) {
+						iterations.push(@reqIteration(fMode))
 
-					return @altForExpressionOf(modifiers, destructuring, type1, identifier2, first, fMode)
+						@NL_0M()
+					}
+
+					unless @test(.RIGHT_CURLY) {
+						@throw('}')
+					}
+
+					@commit().NL_0M()
+
+					unless @test(.THEN) {
+						@throw('then')
+					}
+
+					@commit().NL_0M()
 				}
 				else {
-					@throw('in', 'of')
-				}
-			}
-			else if identifier2.ok {
-				if @match(Token.IN, Token.OF) == Token.IN {
-					@commit()
+					@rollback(mark)
 
-					return @altForExpressionInRange(modifiers, identifier1, type1, identifier2, first, fMode)
-				}
-				else if @token == Token.OF {
-					@commit()
-
-					return @altForExpressionOf(modifiers, identifier1, type1, identifier2, first, fMode)
-				}
-				else {
-					@throw('in', 'of')
+					iterations.push(@reqIteration(fMode))
 				}
 			}
 			else {
-				if @match(Token.FROM, Token.FROM_TILDE, Token.IN, Token.OF) == Token.FROM | Token.FROM_TILDE {
-					return @altForExpressionFrom(modifiers, identifier1, first, fMode)
-				}
-				else if @token == Token.IN {
-					@commit()
+				@rollback(mark)
 
-					return @altForExpressionInRange(modifiers, identifier1, type1, identifier2, first, fMode)
-				}
-				else if @token == Token.OF {
-					@commit()
-
-					return @altForExpressionOf(modifiers, identifier1, type1, identifier2, first, fMode)
-				}
-				else {
-					@throw('from', 'in', 'of')
-				}
+				iterations.push(@reqIteration(fMode))
 			}
-		} # }}}
-		reqForStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var statement = @reqForExpression(first, fMode)
 
 			@NL_0M()
 
-			var block = @reqBlock(NO, fMode)
+			var body = @reqBlock(NO, fMode)
 
-			statement.value.body = block.value
-			@relocate(statement, null, block)
+			var mut else = null
 
-			if statement.value.kind == NodeKind.ForFromStatement | NodeKind.ForInStatement | NodeKind.ForOfStatement {
-				var mark = @mark()
+			mark = @mark()
 
+			@commit().NL_0M()
+
+			if @test(Token.ELSE) {
 				@commit().NL_0M()
 
-				if @test(Token.ELSE) {
-					@commit().NL_0M()
-
-					var block = @reqBlock(NO, fMode)
-
-					statement.value.else = block.value
-				}
-				else {
-					@rollback(mark)
-				}
+				else = @reqBlock(NO, fMode)
+			}
+			else {
+				@rollback(mark)
 			}
 
-			return statement
+			return @yep(AST.ForStatement(iterations, body, else, first, else ?? body))
 		} # }}}
 		reqFunctionBody(modifiers, fMode: FunctionMode, automatable: Boolean): Event ~ SyntaxError { # {{{
 			@NL_0M()
@@ -3898,7 +3538,7 @@ export namespace Parser {
 
 						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
-						return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
+						return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
 					}
 					else if @token == Token.UNLESS {
 						@commit()
@@ -3989,24 +3629,24 @@ export namespace Parser {
 		} # }}}
 		reqIfStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mut condition: Event? = null
-			var mut declaration: Event? = null
+			var declarations = []
 
-			if @test(Token.VAR) {
+			if @test(.VAR) {
 				var mark = @mark()
 				var first = @yes()
 
 				var modifiers = []
-				if @test(Token.MUT) {
+				if @test(.MUT) {
 					modifiers.push(@yep(AST.Modifier(ModifierKind.Mutable, @yes())))
 				}
 				else {
 					modifiers.push(@yep(AST.Modifier(ModifierKind.Immutable, @yes())))
 				}
 
-				if @test(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE) {
+				if @test(.IDENTIFIER, .LEFT_CURLY, .LEFT_SQUARE) {
 					var variable = @reqTypedVariable(fMode)
 
-					if @test(Token.COMMA) {
+					var declaration = if @test(.COMMA) {
 						var variables = [variable]
 
 						do {
@@ -4014,11 +3654,11 @@ export namespace Parser {
 
 							variables.push(@reqTypedVariable(fMode))
 						}
-						while @test(Token.COMMA)
+						while @test(.COMMA)
 
 						var operator = @reqConditionAssignment()
 
-						unless @test(Token.AWAIT) {
+						unless @test(.AWAIT) {
 							@throw('await')
 						}
 
@@ -4027,21 +3667,26 @@ export namespace Parser {
 						var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
 						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
-						declaration = @yep(AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression))
+						set AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression)
 					}
 					else {
 						var operator = @reqConditionAssignment()
 						var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
 
-						declaration = @yep(AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression))
+						set AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression)
 					}
 
 					@NL_0M()
 
-					if @test(Token.SEMICOLON) {
+					if @test(.SEMICOLON_SEMICOLON) {
 						@commit().NL_0M()
 
-						condition = @reqExpression(ExpressionMode.NoAnonymousFunction, fMode)
+						var condition = @reqExpression(ExpressionMode.NoAnonymousFunction, fMode).value
+
+						declarations.push({ declaration, condition })
+					}
+					else {
+						declarations.push({ declaration })
 					}
 				}
 				else {
@@ -4051,9 +3696,97 @@ export namespace Parser {
 				}
 			}
 			else {
+				var mark = @mark()
+
 				@NL_0M()
 
-				condition = @reqExpression(ExpressionMode.NoAnonymousFunction, fMode)
+				if @test(.LEFT_CURLY) {
+					@commit().NL_0M()
+
+					if @test(.VAR) {
+						while @test(.VAR) {
+							var first = @yes()
+
+							var modifiers = []
+							if @test(.MUT) {
+								modifiers.push(@yep(AST.Modifier(ModifierKind.Mutable, @yes())))
+							}
+							else {
+								modifiers.push(@yep(AST.Modifier(ModifierKind.Immutable, @yes())))
+							}
+
+							unless @test(.IDENTIFIER, .LEFT_CURLY, .LEFT_SQUARE) {
+								@throw('Identifier', '{', '[')
+							}
+
+							var variable = @reqTypedVariable(fMode)
+
+							var declaration = if @test(.COMMA) {
+								var variables = [variable]
+
+								do {
+									@commit()
+
+									variables.push(@reqTypedVariable(fMode))
+								}
+								while @test(.COMMA)
+
+								var operator = @reqConditionAssignment()
+
+								unless @test(.AWAIT) {
+									@throw('await')
+								}
+
+								@commit()
+
+								var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+								var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
+
+								set AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression)
+							}
+							else {
+								var operator = @reqConditionAssignment()
+								var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+
+								set AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression)
+							}
+
+							@NL_0M()
+
+							if @test(.SEMICOLON_SEMICOLON) {
+								@commit().NL_0M()
+
+								var condition = @reqExpression(ExpressionMode.NoAnonymousFunction, fMode).value
+
+								@NL_0M()
+
+								declarations.push({ declaration, condition })
+							}
+							else {
+								declarations.push({ declaration })
+							}
+						}
+
+						unless @test(.RIGHT_CURLY) {
+							@throw('}')
+						}
+
+						@commit().NL_0M()
+
+						unless @test(.THEN) {
+							@throw('then')
+						}
+
+						@commit().NL_0M()
+					}
+					else {
+						@rollback(mark)
+					}
+				}
+
+				if !#declarations {
+					condition = @reqExpression(ExpressionMode.NoAnonymousFunction, fMode)
+				}
 			}
 
 			@NL_0M()
@@ -4072,23 +3805,25 @@ export namespace Parser {
 
 					var whenFalse = @reqIfStatement(position, fMode)
 
-					return @yep(AST.IfStatement(condition, declaration, whenTrue, whenFalse, first, whenFalse))
+					// TODO!
+					// return @yep(AST.IfStatement(declarations ## condition, whenTrue, whenFalse, first, whenFalse))
+					return @yep(AST.IfStatement(condition ?? declarations, whenTrue, whenFalse, first, whenFalse))
 				}
 				else if @token == Token.ELSE {
 					@commit().NL_0M()
 
 					var whenFalse = @reqBlock(NO, fMode)
 
-					return @yep(AST.IfStatement(condition, declaration, whenTrue, whenFalse, first, whenFalse))
+					return @yep(AST.IfStatement(condition ?? declarations, whenTrue, whenFalse, first, whenFalse))
 				}
 				else {
 					@rollback(mark)
 
-					return @yep(AST.IfStatement(condition, declaration, whenTrue, null, first, whenTrue))
+					return @yep(AST.IfStatement(condition ?? declarations, whenTrue, null, first, whenTrue))
 				}
 			}
 			else {
-				return @yep(AST.IfStatement(condition, declaration, whenTrue, null, first, whenTrue))
+				return @yep(AST.IfStatement(condition ?? declarations, whenTrue, null, first, whenTrue))
 			}
 		} # }}}
 		reqImplementMemberList(members): Void ~ SyntaxError { # {{{
@@ -4745,6 +4480,423 @@ export namespace Parser {
 			}
 
 			return @yep(AST.IncludeAgainDeclaration(attributes, declarations, first, last))
+		} # }}}
+		reqIteration(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var modifiers = []
+			var mut first = null
+			var mut declaration = false
+
+			var mark = @mark()
+
+			if @test(Token.VAR) {
+				var mark2 = @mark()
+				first = @yes()
+
+				var dyn modifier
+				if @test(Token.MUT) {
+					modifier = AST.Modifier(ModifierKind.Mutable, @yes())
+				}
+				else {
+					modifier = AST.Modifier(ModifierKind.Immutable, first)
+				}
+
+				if @test(Token.COMMA) {
+					first = null
+
+					@rollback(mark)
+				}
+				else if @test(Token.FROM, Token.IN, Token.OF) {
+					@commit()
+
+					if @test(Token.FROM, Token.IN, Token.OF) {
+						modifiers.push(AST.Modifier(ModifierKind.Declarative, first), modifier)
+						declaration = true
+
+						@rollback(mark2)
+					}
+					else {
+						first = null
+
+						@rollback(mark)
+					}
+				}
+				else {
+					modifiers.push(AST.Modifier(ModifierKind.Declarative, first), modifier)
+					declaration = true
+				}
+			}
+
+
+			var mut identifier1 = NO
+			var mut type1 = NO
+			var mut identifier2 = NO
+			var mut destructuring = NO
+
+			if @test(Token.UNDERSCORE) {
+				if ?first {
+					@commit()
+				}
+				else {
+					first = @yes()
+				}
+			}
+			else {
+				destructuring = @tryDestructuring(declaration ? .Declaration : null, fMode)
+
+				if destructuring.ok {
+					first ??= destructuring
+				}
+				else {
+					identifier1 = @reqIdentifier()
+
+					if @test(Token.COLON) {
+						@commit()
+
+						type1 = @reqType()
+					}
+
+					first ??= identifier1
+				}
+			}
+
+			if @test(Token.COMMA) {
+				@commit()
+
+				identifier2 = @reqIdentifier()
+			}
+
+			@NL_0M()
+
+			if destructuring.ok {
+				if @match(Token.IN, Token.OF) == Token.IN {
+					@commit()
+
+					return @reqIterationIn(modifiers, destructuring, type1, identifier2, @reqExpression(ExpressionMode.Default, fMode), first, fMode)
+				}
+				else if @token == Token.OF {
+					@commit()
+
+					return @reqIterationOf(modifiers, destructuring, type1, identifier2, first, fMode)
+				}
+				else {
+					@throw('in', 'of')
+				}
+			}
+			else if identifier2.ok {
+				if @match(Token.IN, Token.OF) == Token.IN {
+					@commit()
+
+					return @reqIterationInRange(modifiers, identifier1, type1, identifier2, first, fMode)
+				}
+				else if @token == Token.OF {
+					@commit()
+
+					return @reqIterationOf(modifiers, identifier1, type1, identifier2, first, fMode)
+				}
+				else {
+					@throw('in', 'of')
+				}
+			}
+			else {
+				if @match(Token.FROM, Token.FROM_TILDE, Token.IN, Token.OF) == Token.FROM | Token.FROM_TILDE {
+					return @reqIterationFrom(modifiers, identifier1, first, fMode)
+				}
+				else if @token == Token.IN {
+					@commit()
+
+					return @reqIterationInRange(modifiers, identifier1, type1, identifier2, first, fMode)
+				}
+				else if @token == Token.OF {
+					@commit()
+
+					return @reqIterationOf(modifiers, identifier1, type1, identifier2, first, fMode)
+				}
+				else {
+					@throw('from', 'in', 'of')
+				}
+			}
+		} # }}}
+		reqIterationFrom(modifiers, variable: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var late from: Event
+			if @token == Token.FROM_TILDE {
+				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
+
+				from = @reqExpression(ExpressionMode.Default, fMode)
+
+				AST.pushModifier(from.value, modifier)
+			}
+			else {
+				@commit()
+
+				from = @reqExpression(ExpressionMode.Default, fMode)
+			}
+
+			@NL_0M()
+
+			if @match(Token.DOWN, Token.UP) == Token.DOWN {
+				modifiers.push(AST.Modifier(ModifierKind.Descending, @yes()))
+
+				@NL_0M()
+			}
+			else if @token == Token.UP {
+				modifiers.push(AST.Modifier(ModifierKind.Ascending, @yes()))
+
+				@NL_0M()
+			}
+
+			var late to: Event
+			if @match(Token.TO, Token.TO_TILDE) == Token.TO {
+				@commit()
+
+				to = @reqExpression(ExpressionMode.Default, fMode)
+			}
+			else if @token == Token.TO_TILDE {
+				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
+
+				to = @reqExpression(ExpressionMode.Default, fMode)
+
+				AST.pushModifier(to.value, modifier)
+			}
+			else {
+				@throw('to', 'to~')
+			}
+
+			@NL_0M()
+
+			var mut step: Event? = null
+			if @test(Token.STEP) {
+				@commit()
+
+				step = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+
+			var mut until: Event? = null
+			var mut while: Event? = null
+			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
+				@commit()
+
+				until = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+			else if @token == Token.WHILE {
+				@commit()
+
+				while = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+
+			var mut when: Event? = null
+			if @test(Token.WHEN) {
+				var first = @yes()
+
+				when = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
+			}
+
+			return @yep(AST.IterationFrom(modifiers, variable, from, to, step, until, while, when, first, when ?? while ?? until ?? step ?? to))
+		} # }}}
+		reqIterationIn(modifiers, value: Event, type: Event, index: Event, expression: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			@NL_0M()
+
+			var mut from: Event? = null
+			if @match(Token.FROM, Token.FROM_TILDE) == Token.FROM {
+				@commit()
+
+				from = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+			else if @token == Token.FROM_TILDE {
+				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
+
+				from = @reqExpression(ExpressionMode.Default, fMode)
+
+				AST.pushModifier(from.value, modifier)
+
+				@NL_0M()
+			}
+
+			var mut order: Event? = null
+			if @match(Token.DOWN, Token.UP) == Token.DOWN {
+				order = @yes()
+
+				modifiers.push(AST.Modifier(ModifierKind.Descending, order))
+
+				@NL_0M()
+			}
+			else if @token == Token.UP {
+				order = @yes()
+
+				modifiers.push(AST.Modifier(ModifierKind.Ascending, order))
+
+				@NL_0M()
+			}
+
+			var mut to: Event? = null
+			if @match(Token.TO, Token.TO_TILDE) == Token.TO {
+				@commit()
+
+				to = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+			else if @token == Token.TO_TILDE {
+				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
+
+				to = @reqExpression(ExpressionMode.Default, fMode)
+
+				AST.pushModifier(to.value, modifier)
+
+				@NL_0M()
+			}
+
+			var mut step: Event? = null
+			if @test(Token.STEP) {
+				@commit()
+
+				step = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+
+			var mut split: Event? = null
+			if @test(Token.SPLIT) {
+				@commit()
+
+				split = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+
+			var mut until: Event? = null
+			var mut while: Event? = null
+			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
+				@commit()
+
+				until = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+			else if @token == Token.WHILE {
+				@commit()
+
+				while = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+
+			var mut when: Event? = null
+			if @test(Token.WHEN) {
+				var first = @yes()
+
+				when = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
+			}
+
+			return @yep(AST.IterationArray(modifiers, value, type, index, expression, from, to, step, split, until, while, when, first, when ?? while ?? until ?? split ?? step ?? to ?? order ?? from ?? expression))
+		} # }}}
+		reqIterationInRange(modifiers, value: Event, type: Event, index: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var operand = @tryRangeOperand(ExpressionMode.InlineOnly, fMode)
+
+			if operand.ok {
+				if @test(Token.LEFT_ANGLE, Token.DOT_DOT) {
+					if @token == Token.LEFT_ANGLE {
+						AST.pushModifier(operand.value, @yep(AST.Modifier(ModifierKind.Ballpark, @yes())))
+
+						unless @test(Token.DOT_DOT) {
+							@throw('..')
+						}
+
+						@commit()
+					}
+					else {
+						@commit()
+					}
+
+					var mut modifier: Event? = null
+					if @test(Token.LEFT_ANGLE) {
+						modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
+					}
+
+					var to = @reqPrefixedOperand(ExpressionMode.InlineOnly, fMode)
+
+					if ?modifier {
+						AST.pushModifier(to.value, modifier)
+					}
+
+					var mut step: Event? = null
+					if @test(Token.DOT_DOT) {
+						@commit()
+
+						step = @reqPrefixedOperand(ExpressionMode.InlineOnly, fMode)
+					}
+
+					return @reqIterationRange(modifiers, value, index, operand, to, step, first, fMode)
+				}
+				else {
+					return @reqIterationIn(modifiers, value, type, index, operand, first, fMode)
+				}
+			}
+			else {
+				return @reqIterationIn(modifiers, value, type, index, @reqExpression(ExpressionMode.Default, fMode), first, fMode)
+			}
+		} # }}}
+		reqIterationOf(modifiers, value: Event, type: Event, key: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var expression = @reqExpression(ExpressionMode.Default, fMode)
+
+			var dyn until, while
+			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
+				@commit()
+
+				until = @reqExpression(ExpressionMode.Default, fMode)
+			}
+			else if @token == Token.WHILE {
+				@commit()
+
+				while = @reqExpression(ExpressionMode.Default, fMode)
+			}
+
+			@NL_0M()
+
+			var dyn whenExp
+			if @test(Token.WHEN) {
+				var first = @yes()
+
+				whenExp = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
+			}
+
+			return @yep(AST.IterationObject(modifiers, value, type, key, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
+		} # }}}
+		reqIterationRange(modifiers, value: Event, index: Event, from: Event, to: Event, filter: Event?, first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			@NL_0M()
+
+			var mut until: Event? = null
+			var mut while: Event? = null
+			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
+				@commit()
+
+				until = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+			else if @token == Token.WHILE {
+				@commit()
+
+				while = @reqExpression(ExpressionMode.Default, fMode)
+
+				@NL_0M()
+			}
+
+			var mut when: Event? = null
+			if @test(Token.WHEN) {
+				var first = @yes()
+
+				when = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
+			}
+
+			return @yep(AST.IterationRange(modifiers, value, index, from, to, filter, until, while, when, first, when ?? while ?? until ?? filter ?? to ?? from))
 		} # }}}
 		reqJunctionExpression(operator: Event, mut eMode: ExpressionMode, fMode: FunctionMode, values: Event[], type: Boolean) ~ SyntaxError { # {{{
 			@NL_0M()
@@ -6670,7 +6822,7 @@ export namespace Parser {
 				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
 				if @test(Token.NEWLINE) || @token == Token.EOF {
-					return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(first)), null, first, condition))
+					return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(first)), null, first, condition))
 				}
 				else {
 					@rollback(mark)
@@ -6705,7 +6857,7 @@ export namespace Parser {
 
 				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
-				return @yep(AST.IfStatement(condition, null, @yep(AST.ReturnStatement(expression, first, expression)), null, first, condition))
+				return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(expression, first, expression)), null, first, condition))
 			}
 			else if @token == Token.UNLESS {
 				@commit()
@@ -6839,7 +6991,7 @@ export namespace Parser {
 
 				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
-				return @yep(AST.IfStatement(condition, null, @yep(AST.SetStatement(expression, first, expression)), null, first, condition))
+				return @yep(AST.IfStatement(condition, @yep(AST.SetStatement(expression, first, expression)), null, first, condition))
 			}
 			else if @token == Token.UNLESS {
 				@commit()
@@ -7202,7 +7354,7 @@ export namespace Parser {
 
 				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
 
-				return @yep(AST.IfStatement(condition, null, @yep(AST.ThrowStatement(expression, first, expression)), null, first, condition))
+				return @yep(AST.IfStatement(condition, @yep(AST.ThrowStatement(expression, first, expression)), null, first, condition))
 			}
 			else if @token == Token.UNLESS {
 				@commit()
@@ -9107,7 +9259,7 @@ export namespace Parser {
 
 					@NL_0M()
 
-					if @test(Token.SEMICOLON) {
+					if @test(Token.SEMICOLON_SEMICOLON) {
 						@commit().NL_0M()
 
 						condition = @reqExpression(ExpressionMode.NoAnonymousFunction, fMode)

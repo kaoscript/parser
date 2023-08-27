@@ -1,5 +1,5 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -21,7 +21,7 @@
           }
         },
         "left": {
-          "kind": 51,
+          "kind": 48,
           "modifiers": [],
           "name": "likes",
           "start": {
@@ -34,12 +34,12 @@
           }
         },
         "right": {
-          "kind": 82,
+          "kind": 79,
           "modifiers": [],
           "attributes": [],
           "properties": [
             {
-              "kind": 83,
+              "kind": 80,
               "attributes": [],
               "modifiers": [],
               "start": {
@@ -51,7 +51,7 @@
                 "column": 15
               },
               "name": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "leto",
                 "start": {
@@ -64,7 +64,7 @@
                 }
               },
               "value": {
-                "kind": 62,
+                "kind": 59,
                 "modifiers": [],
                 "value": "spice",
                 "start": {
@@ -78,7 +78,7 @@
               }
             },
             {
-              "kind": 83,
+              "kind": 80,
               "attributes": [],
               "modifiers": [],
               "start": {
@@ -90,7 +90,7 @@
                 "column": 15
               },
               "name": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "paul",
                 "start": {
@@ -103,7 +103,7 @@
                 }
               },
               "value": {
-                "kind": 62,
+                "kind": 59,
                 "modifiers": [],
                 "value": "chani",
                 "start": {
@@ -117,7 +117,7 @@
               }
             },
             {
-              "kind": 83,
+              "kind": 80,
               "attributes": [],
               "modifiers": [],
               "start": {
@@ -129,7 +129,7 @@
                 "column": 20
               },
               "name": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "duncan",
                 "start": {
@@ -142,7 +142,7 @@
                 }
               },
               "value": {
-                "kind": 62,
+                "kind": 59,
                 "modifiers": [],
                 "value": "murbella",
                 "start": {
@@ -202,7 +202,7 @@
           }
         },
         "left": {
-          "kind": 51,
+          "kind": 48,
           "modifiers": [],
           "name": "spicyHeroes",
           "start": {
@@ -217,8 +217,8 @@
         "right": {
           "kind": 4,
           "modifiers": [],
-          "body": {
-            "kind": 51,
+          "expression": {
+            "kind": 48,
             "modifiers": [],
             "name": "hero",
             "start": {
@@ -231,39 +231,76 @@
             }
           },
           "loop": {
-            "kind": 45,
+            "kind": 43,
             "attributes": [],
-            "modifiers": [
-              {
-                "kind": 10,
+            "iteration": {
+              "kind": 2,
+              "modifiers": [
+                {
+                  "kind": 10,
+                  "start": {
+                    "line": 7,
+                    "column": 25
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 28
+                  }
+                },
+                {
+                  "kind": 18,
+                  "start": {
+                    "line": 7,
+                    "column": 25
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 28
+                  }
+                }
+              ],
+              "expression": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "likes",
                 "start": {
                   "line": 7,
-                  "column": 25
+                  "column": 43
                 },
                 "end": {
                   "line": 7,
-                  "column": 28
+                  "column": 48
                 }
               },
-              {
-                "kind": 18,
+              "value": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "like",
                 "start": {
                   "line": 7,
-                  "column": 25
+                  "column": 29
                 },
                 "end": {
                   "line": 7,
-                  "column": 28
+                  "column": 33
                 }
-              }
-            ],
-            "expression": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "likes",
+              },
+              "key": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "hero",
+                "start": {
+                  "line": 7,
+                  "column": 35
+                },
+                "end": {
+                  "line": 7,
+                  "column": 39
+                }
+              },
               "start": {
                 "line": 7,
-                "column": 43
+                "column": 25
               },
               "end": {
                 "line": 7,
@@ -277,32 +314,6 @@
             "end": {
               "line": 7,
               "column": 48
-            },
-            "value": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "like",
-              "start": {
-                "line": 7,
-                "column": 29
-              },
-              "end": {
-                "line": 7,
-                "column": 33
-              }
-            },
-            "key": {
-              "kind": 51,
-              "modifiers": [],
-              "name": "hero",
-              "start": {
-                "line": 7,
-                "column": 35
-              },
-              "end": {
-                "line": 7,
-                "column": 39
-              }
             }
           },
           "start": {

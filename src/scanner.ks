@@ -175,7 +175,7 @@ enum Token {
 	RIGHT_ROUND
 	RIGHT_SQUARE
 	SEALED
-	SEMICOLON
+	SEMICOLON_SEMICOLON
 	SET
 	SLASH
 	SLASH_DOT
@@ -3292,9 +3292,9 @@ var recognize = {
 			return false
 		}
 	} # }}}
-	`\(Token.SEMICOLON)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if c == 59 {
-			return that.next(1)
+	`\(Token.SEMICOLON_SEMICOLON)`(that: Scanner, mut c: Number): Boolean { # {{{
+		if c == 0';' && that.charAt(1) == 0';' {
+			return that.next(2)
 		}
 		else {
 			return false
@@ -3385,10 +3385,10 @@ var recognize = {
 		}
 	} # }}}
 	`\(Token.THEN)`(that: Scanner, mut c: Number): Boolean { # {{{
-		if	c == 116 &&
-			that.charAt(1) == 104 &&
-			that.charAt(2) == 101 &&
-			that.charAt(3) == 110 &&
+		if	c == 0't' &&
+			that.charAt(1) == 0'h' &&
+			that.charAt(2) == 0'e' &&
+			that.charAt(3) == 0'n' &&
 			that.isBoundary(4)
 		{
 			return that.next(4)

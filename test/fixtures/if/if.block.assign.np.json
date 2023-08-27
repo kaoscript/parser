@@ -1,9 +1,9 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 133,
+      "kind": 130,
       "attributes": [],
       "modifiers": [
         {
@@ -20,16 +20,16 @@
       ],
       "declarations": [
         {
-          "kind": 131,
+          "kind": 128,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 132,
+              "kind": 129,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "x",
                 "start": {
@@ -71,29 +71,8 @@
       }
     },
     {
-      "kind": 53,
+      "kind": 50,
       "attributes": [],
-      "whenTrue": {
-        "kind": 15,
-        "attributes": [],
-        "statements": [],
-        "start": {
-          "line": 3,
-          "column": 10
-        },
-        "end": {
-          "line": 4,
-          "column": 2
-        }
-      },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 6,
-        "column": 2
-      },
       "condition": {
         "kind": 12,
         "modifiers": [],
@@ -118,7 +97,7 @@
           "column": 9
         },
         "left": {
-          "kind": 51,
+          "kind": 48,
           "modifiers": [],
           "name": "x",
           "start": {
@@ -131,7 +110,7 @@
           }
         },
         "right": {
-          "kind": 80,
+          "kind": 77,
           "modifiers": [],
           "value": 5,
           "start": {
@@ -142,6 +121,19 @@
             "line": 3,
             "column": 9
           }
+        }
+      },
+      "whenTrue": {
+        "kind": 15,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 3,
+          "column": 10
+        },
+        "end": {
+          "line": 4,
+          "column": 2
         }
       },
       "whenFalse": {
@@ -156,6 +148,14 @@
           "line": 6,
           "column": 2
         }
+      },
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 6,
+        "column": 2
       }
     }
   ],

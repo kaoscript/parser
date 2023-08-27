@@ -1,12 +1,12 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 47,
+      "kind": 44,
       "attributes": [],
       "name": {
-        "kind": 51,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -28,11 +28,11 @@
       },
       "parameters": [
         {
-          "kind": 86,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -45,7 +45,7 @@
             }
           },
           "internal": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -67,11 +67,11 @@
           }
         },
         {
-          "kind": 86,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "y",
             "start": {
@@ -84,7 +84,7 @@
             }
           },
           "internal": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "y",
             "start": {
@@ -109,41 +109,8 @@
       "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 53,
+        "kind": 50,
         "attributes": [],
-        "whenTrue": {
-          "kind": 103,
-          "attributes": [],
-          "value": {
-            "kind": 80,
-            "modifiers": [],
-            "value": 42,
-            "start": {
-              "line": 1,
-              "column": 22
-            },
-            "end": {
-              "line": 1,
-              "column": 24
-            }
-          },
-          "start": {
-            "line": 1,
-            "column": 22
-          },
-          "end": {
-            "line": 1,
-            "column": 24
-          }
-        },
-        "start": {
-          "line": 1,
-          "column": 22
-        },
-        "end": {
-          "line": 1,
-          "column": 38
-        },
         "condition": {
           "kind": 24,
           "modifiers": [],
@@ -172,7 +139,7 @@
                 "column": 33
               },
               "left": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "x",
                 "start": {
@@ -185,7 +152,7 @@
                 }
               },
               "right": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "y",
                 "start": {
@@ -211,7 +178,7 @@
               }
             },
             {
-              "kind": 80,
+              "kind": 77,
               "modifiers": [],
               "value": 0,
               "start": {
@@ -232,6 +199,39 @@
             "line": 1,
             "column": 38
           }
+        },
+        "whenTrue": {
+          "kind": 100,
+          "attributes": [],
+          "value": {
+            "kind": 77,
+            "modifiers": [],
+            "value": 42,
+            "start": {
+              "line": 1,
+              "column": 22
+            },
+            "end": {
+              "line": 1,
+              "column": 24
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 22
+          },
+          "end": {
+            "line": 1,
+            "column": 24
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 22
+        },
+        "end": {
+          "line": 1,
+          "column": 38
         }
       }
     }

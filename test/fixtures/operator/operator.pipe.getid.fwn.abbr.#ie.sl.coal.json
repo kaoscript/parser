@@ -1,5 +1,5 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -7,10 +7,10 @@
       "attributes": [],
       "declarations": [
         {
-          "kind": 47,
+          "kind": 44,
           "attributes": [],
           "name": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "parseInt",
             "start": {
@@ -32,11 +32,11 @@
           },
           "parameters": [
             {
-              "kind": 86,
+              "kind": 83,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "value",
                 "start": {
@@ -49,7 +49,7 @@
                 }
               },
               "internal": {
-                "kind": 51,
+                "kind": 48,
                 "modifiers": [],
                 "name": "value",
                 "start": {
@@ -62,10 +62,10 @@
                 }
               },
               "type": {
-                "kind": 124,
+                "kind": 121,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 51,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "String",
                   "start": {
@@ -98,10 +98,10 @@
           ],
           "modifiers": [],
           "type": {
-            "kind": 124,
+            "kind": 121,
             "modifiers": [],
             "typeName": {
-              "kind": 51,
+              "kind": 48,
               "modifiers": [],
               "name": "Number",
               "start": {
@@ -135,10 +135,10 @@
       }
     },
     {
-      "kind": 47,
+      "kind": 44,
       "attributes": [],
       "name": {
-        "kind": 51,
+        "kind": 48,
         "modifiers": [],
         "name": "getSupervisorId",
         "start": {
@@ -160,11 +160,11 @@
       },
       "parameters": [
         {
-          "kind": 86,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "enteredId",
             "start": {
@@ -177,7 +177,7 @@
             }
           },
           "internal": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "enteredId",
             "start": {
@@ -190,7 +190,7 @@
             }
           },
           "type": {
-            "kind": 124,
+            "kind": 121,
             "modifiers": [
               {
                 "kind": 28,
@@ -205,7 +205,7 @@
               }
             ],
             "typeName": {
-              "kind": 51,
+              "kind": 48,
               "modifiers": [],
               "name": "String",
               "start": {
@@ -238,10 +238,10 @@
       ],
       "modifiers": [],
       "type": {
-        "kind": 124,
+        "kind": 121,
         "modifiers": [],
         "typeName": {
-          "kind": 51,
+          "kind": 48,
           "modifiers": [],
           "name": "Number",
           "start": {
@@ -268,7 +268,7 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 103,
+            "kind": 100,
             "attributes": [],
             "value": {
               "kind": 12,
@@ -352,7 +352,7 @@
                     "column": 31
                   },
                   "left": {
-                    "kind": 51,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "enteredId",
                     "start": {
@@ -365,7 +365,7 @@
                     }
                   },
                   "right": {
-                    "kind": 51,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "parseInt",
                     "start": {
@@ -396,10 +396,10 @@
                       "kind": 2
                     },
                     "callee": {
-                      "kind": 72,
+                      "kind": 69,
                       "modifiers": [],
                       "object": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "Number",
                         "start": {
@@ -412,7 +412,7 @@
                         }
                       },
                       "property": {
-                        "kind": 51,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "isFinite",
                         "start": {
@@ -435,7 +435,7 @@
                     },
                     "arguments": [
                       {
-                        "kind": 116,
+                        "kind": 113,
                         "modifiers": [],
                         "start": {
                           "line": 6,
@@ -457,7 +457,7 @@
                     }
                   },
                   "whenTrue": {
-                    "kind": 116,
+                    "kind": 113,
                     "modifiers": [],
                     "start": {
                       "line": 6,
@@ -469,7 +469,7 @@
                     }
                   },
                   "whenFalse": {
-                    "kind": 51,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "null",
                     "start": {
@@ -484,7 +484,7 @@
                 }
               },
               "right": {
-                "kind": 80,
+                "kind": 77,
                 "modifiers": [],
                 "value": 0,
                 "start": {

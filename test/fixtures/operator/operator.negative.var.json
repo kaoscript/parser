@@ -1,12 +1,12 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 47,
+      "kind": 44,
       "attributes": [],
       "name": {
-        "kind": 51,
+        "kind": 48,
         "modifiers": [],
         "name": "foo",
         "start": {
@@ -28,11 +28,11 @@
       },
       "parameters": [
         {
-          "kind": 86,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -45,7 +45,7 @@
             }
           },
           "internal": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -67,11 +67,11 @@
           }
         },
         {
-          "kind": 86,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "y",
             "start": {
@@ -84,7 +84,7 @@
             }
           },
           "internal": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "y",
             "start": {
@@ -113,17 +113,53 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 53,
+            "kind": 50,
             "attributes": [],
+            "condition": {
+              "kind": 123,
+              "modifiers": [],
+              "operator": {
+                "kind": 4,
+                "start": {
+                  "line": 2,
+                  "column": 5
+                },
+                "end": {
+                  "line": 2,
+                  "column": 6
+                }
+              },
+              "argument": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "x",
+                "start": {
+                  "line": 2,
+                  "column": 6
+                },
+                "end": {
+                  "line": 2,
+                  "column": 7
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 5
+              },
+              "end": {
+                "line": 2,
+                "column": 7
+              }
+            },
             "whenTrue": {
               "kind": 15,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 103,
+                  "kind": 100,
                   "attributes": [],
                   "value": {
-                    "kind": 51,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "y",
                     "start": {
@@ -154,59 +190,15 @@
                 "column": 3
               }
             },
-            "start": {
-              "line": 2,
-              "column": 2
-            },
-            "end": {
-              "line": 7,
-              "column": 3
-            },
-            "condition": {
-              "kind": 126,
-              "modifiers": [],
-              "operator": {
-                "kind": 4,
-                "start": {
-                  "line": 2,
-                  "column": 5
-                },
-                "end": {
-                  "line": 2,
-                  "column": 6
-                }
-              },
-              "argument": {
-                "kind": 51,
-                "modifiers": [],
-                "name": "x",
-                "start": {
-                  "line": 2,
-                  "column": 6
-                },
-                "end": {
-                  "line": 2,
-                  "column": 7
-                }
-              },
-              "start": {
-                "line": 2,
-                "column": 5
-              },
-              "end": {
-                "line": 2,
-                "column": 7
-              }
-            },
             "whenFalse": {
               "kind": 15,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 103,
+                  "kind": 100,
                   "attributes": [],
                   "value": {
-                    "kind": 51,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "x",
                     "start": {
@@ -236,6 +228,14 @@
                 "line": 7,
                 "column": 3
               }
+            },
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 3
             }
           }
         ],

@@ -1,3 +1,3 @@
-if var x ?= foobar(); x.test() {
+if var x ?= foobar() ;; x.test() {
 
 }

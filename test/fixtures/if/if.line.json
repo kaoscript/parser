@@ -1,10 +1,62 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 53,
+      "kind": 50,
       "attributes": [],
+      "condition": {
+        "kind": 24,
+        "modifiers": [],
+        "values": [
+          {
+            "kind": 48,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 11
+            }
+          },
+          {
+            "kind": 7,
+            "modifiers": [],
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 14
+            }
+          },
+          {
+            "kind": 77,
+            "modifiers": [],
+            "value": 5,
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 1,
+              "column": 16
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 10
+        },
+        "end": {
+          "line": 1,
+          "column": 16
+        }
+      },
       "whenTrue": {
         "kind": 40,
         "attributes": [],
@@ -15,7 +67,7 @@
             "kind": 2
           },
           "callee": {
-            "kind": 51,
+            "kind": 48,
             "modifiers": [],
             "name": "foo",
             "start": {
@@ -53,58 +105,6 @@
       "end": {
         "line": 1,
         "column": 16
-      },
-      "condition": {
-        "kind": 24,
-        "modifiers": [],
-        "values": [
-          {
-            "kind": 51,
-            "modifiers": [],
-            "name": "x",
-            "start": {
-              "line": 1,
-              "column": 10
-            },
-            "end": {
-              "line": 1,
-              "column": 11
-            }
-          },
-          {
-            "kind": 7,
-            "modifiers": [],
-            "start": {
-              "line": 1,
-              "column": 12
-            },
-            "end": {
-              "line": 1,
-              "column": 14
-            }
-          },
-          {
-            "kind": 80,
-            "modifiers": [],
-            "value": 5,
-            "start": {
-              "line": 1,
-              "column": 15
-            },
-            "end": {
-              "line": 1,
-              "column": 16
-            }
-          }
-        ],
-        "start": {
-          "line": 1,
-          "column": 10
-        },
-        "end": {
-          "line": 1,
-          "column": 16
-        }
       }
     }
   ],

@@ -1,15 +1,67 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 53,
+      "kind": 50,
       "attributes": [],
+      "condition": {
+        "kind": 24,
+        "modifiers": [],
+        "values": [
+          {
+            "kind": 48,
+            "modifiers": [],
+            "name": "lang",
+            "start": {
+              "line": 1,
+              "column": 19
+            },
+            "end": {
+              "line": 1,
+              "column": 23
+            }
+          },
+          {
+            "kind": 7,
+            "modifiers": [],
+            "start": {
+              "line": 1,
+              "column": 24
+            },
+            "end": {
+              "line": 1,
+              "column": 26
+            }
+          },
+          {
+            "kind": 59,
+            "modifiers": [],
+            "value": "en",
+            "start": {
+              "line": 1,
+              "column": 27
+            },
+            "end": {
+              "line": 1,
+              "column": 31
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 19
+        },
+        "end": {
+          "line": 1,
+          "column": 31
+        }
+      },
       "whenTrue": {
-        "kind": 103,
+        "kind": 100,
         "attributes": [],
         "value": {
-          "kind": 62,
+          "kind": 59,
           "modifiers": [],
           "value": "hello",
           "start": {
@@ -37,58 +89,6 @@
       "end": {
         "line": 1,
         "column": 31
-      },
-      "condition": {
-        "kind": 24,
-        "modifiers": [],
-        "values": [
-          {
-            "kind": 51,
-            "modifiers": [],
-            "name": "lang",
-            "start": {
-              "line": 1,
-              "column": 19
-            },
-            "end": {
-              "line": 1,
-              "column": 23
-            }
-          },
-          {
-            "kind": 7,
-            "modifiers": [],
-            "start": {
-              "line": 1,
-              "column": 24
-            },
-            "end": {
-              "line": 1,
-              "column": 26
-            }
-          },
-          {
-            "kind": 62,
-            "modifiers": [],
-            "value": "en",
-            "start": {
-              "line": 1,
-              "column": 27
-            },
-            "end": {
-              "line": 1,
-              "column": 31
-            }
-          }
-        ],
-        "start": {
-          "line": 1,
-          "column": 19
-        },
-        "end": {
-          "line": 1,
-          "column": 31
-        }
       }
     }
   ],

@@ -1,12 +1,71 @@
 {
-  "kind": 75,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 53,
+      "kind": 50,
       "attributes": [],
+      "condition": {
+        "kind": 123,
+        "modifiers": [],
+        "operator": {
+          "kind": 4,
+          "start": {
+            "line": 1,
+            "column": 35
+          },
+          "end": {
+            "line": 1,
+            "column": 36
+          }
+        },
+        "argument": {
+          "kind": 123,
+          "modifiers": [],
+          "operator": {
+            "kind": 1,
+            "start": {
+              "line": 1,
+              "column": 36
+            },
+            "end": {
+              "line": 1,
+              "column": 37
+            }
+          },
+          "argument": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 37
+            },
+            "end": {
+              "line": 1,
+              "column": 38
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 36
+          },
+          "end": {
+            "line": 1,
+            "column": 38
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 35
+        },
+        "end": {
+          "line": 1,
+          "column": 38
+        }
+      },
       "whenTrue": {
-        "kind": 115,
+        "kind": 112,
         "attributes": [],
         "value": {
           "kind": 18,
@@ -15,10 +74,10 @@
             "kind": 2
           },
           "callee": {
-            "kind": 72,
+            "kind": 69,
             "modifiers": [],
             "object": {
-              "kind": 51,
+              "kind": 48,
               "modifiers": [],
               "name": "Error",
               "start": {
@@ -31,7 +90,7 @@
               }
             },
             "property": {
-              "kind": 51,
+              "kind": 48,
               "modifiers": [],
               "name": "new",
               "start": {
@@ -54,7 +113,7 @@
           },
           "arguments": [
             {
-              "kind": 62,
+              "kind": 59,
               "modifiers": [],
               "value": "Not Defined",
               "start": {
@@ -92,65 +151,6 @@
       "end": {
         "line": 1,
         "column": 38
-      },
-      "condition": {
-        "kind": 126,
-        "modifiers": [],
-        "operator": {
-          "kind": 4,
-          "start": {
-            "line": 1,
-            "column": 35
-          },
-          "end": {
-            "line": 1,
-            "column": 36
-          }
-        },
-        "argument": {
-          "kind": 126,
-          "modifiers": [],
-          "operator": {
-            "kind": 1,
-            "start": {
-              "line": 1,
-              "column": 36
-            },
-            "end": {
-              "line": 1,
-              "column": 37
-            }
-          },
-          "argument": {
-            "kind": 51,
-            "modifiers": [],
-            "name": "x",
-            "start": {
-              "line": 1,
-              "column": 37
-            },
-            "end": {
-              "line": 1,
-              "column": 38
-            }
-          },
-          "start": {
-            "line": 1,
-            "column": 36
-          },
-          "end": {
-            "line": 1,
-            "column": 38
-          }
-        },
-        "start": {
-          "line": 1,
-          "column": 35
-        },
-        "end": {
-          "line": 1,
-          "column": 38
-        }
       }
     }
   ],
