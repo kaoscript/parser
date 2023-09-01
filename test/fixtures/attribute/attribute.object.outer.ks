@@ -1,5 +1,5 @@
 var foo = {
 	#[foo]
-	bar() {
+	bar: func() {
 	}
 }

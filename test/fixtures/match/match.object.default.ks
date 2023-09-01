@@ -1,6 +1,6 @@
-var dyn value = {
+var value = {
 	foo: 1,
-	bar() => 2
+	bar: func() => 2
 }
 
 match value {

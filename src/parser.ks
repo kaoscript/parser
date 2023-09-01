@@ -77,16 +77,13 @@ export namespace Parser {
 		WithMacro
 
 		InlineOnly			= Default + NoInlineCascade + NoMultiLine
-		// TODO!
-		// PrimaryType			= InlineOnly
-		PrimaryType			= Default + NoInlineCascade + NoMultiLine
+		PrimaryType			= InlineOnly
 		ClassType			= PrimaryType + AtThis
 	}
 
 	bitmask FunctionMode {
 		Nil
 
-		Function
 		Macro
 		Method
 		NoPipeline
@@ -118,6 +115,11 @@ export namespace Parser {
 		Default
 		Module
 		NoIdentifier
+	}
+
+	type ModeTracker = {
+		pop: Boolean
+		mode: ParserMode?
 	}
 
 	var ESCAPES = {
@@ -620,7 +622,7 @@ export namespace Parser {
 						statement = @reqRequireOrImportStatement(@yes()).value
 					}
 					else {
-						statement = @reqStatement(FunctionMode.Function).value
+						statement = @reqStatement(FunctionMode.Nil).value
 					}
 				}
 
@@ -696,6 +698,23 @@ export namespace Parser {
 				body
 				start: first.start
 				end: last.end
+			}
+		} # }}}
+		popMode({ pop, mode }: ModeTracker): Void { # {{{
+			if pop {
+				@mode = mode!?
+			}
+		} # }}}
+		pushMode(modifier: ParserMode): ModeTracker { # {{{
+			if @mode ~~ modifier {
+				return { pop: false }
+			}
+			else {
+				var tracker = { pop: true, mode: @mode }
+
+				@mode += modifier
+
+				return tracker
 			}
 		} # }}}
 		replaceReference(expression, name: String, reference): Boolean { # {{{
@@ -1597,10 +1616,7 @@ export namespace Parser {
 		} # }}}
 		reqClassMethod(attributes, modifiers, mut bits: ClassBits, name: Event, round: Event?, mut first: Event): Event ~ SyntaxError { # {{{
 			var parameters = @reqClassMethodParameterList(round, bits ~~ ClassBits.NoBody ? DestructuringMode.EXTERNAL_ONLY : null)
-
-			// TODO!
-			// var type = @tryFunctionReturns(.ClassType, bits !~ ClassBits.NoBody)
-			var type = @tryFunctionReturns(ExpressionMode.ClassType, bits !~ ClassBits.NoBody)
+			var type = @tryFunctionReturns(.ClassType, bits !~ .NoBody)
 			var throws = @tryFunctionThrows()
 
 			if bits ~~ ClassBits.NoBody {
@@ -2516,7 +2532,7 @@ export namespace Parser {
 			return @reqEnumMethod(attributes, modifiers, name, first ?? name)
 		} # }}}
 		reqEnumMethod(attributes, modifiers, name: Event, first): Event ~ SyntaxError { # {{{
-			var parameters = @reqFunctionParameterList(FunctionMode.Function)
+			var parameters = @reqFunctionParameterList(FunctionMode.Nil)
 
 			var type = @tryFunctionReturns()
 			var throws = @tryFunctionThrows()
@@ -2689,7 +2705,7 @@ export namespace Parser {
 					return @yep(AST.DeclarationSpecifier(@reqTypeStatement(@yes(), @reqIdentifier())))
 				}
 				Token.VAR {
-					return @yep(AST.DeclarationSpecifier(@reqVarStatement(@yes(), ExpressionMode.NoAwait, FunctionMode.Function)))
+					return @yep(AST.DeclarationSpecifier(@reqVarStatement(@yes(), ExpressionMode.NoAwait, FunctionMode.Nil)))
 				}
 				else {
 					@throw()
@@ -3207,9 +3223,7 @@ export namespace Parser {
 		} # }}}
 		reqExternClassMethod(attributes, modifiers, name: Event, round: Event, first): Event ~ SyntaxError { # {{{
 			var parameters = @reqClassMethodParameterList(round, DestructuringMode.EXTERNAL_ONLY)
-			// TODO!
-			// var type = @tryFunctionReturns(.ClassType, false)
-			var type = @tryFunctionReturns(ExpressionMode.ClassType, false)
+			var type = @tryFunctionReturns(.ClassType, false)
 
 			@reqNL_1M()
 
@@ -3219,7 +3233,7 @@ export namespace Parser {
 			var name = @reqIdentifier()
 
 			if @test(Token.LEFT_ROUND) {
-				var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
+				var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
@@ -3340,7 +3354,7 @@ export namespace Parser {
 				return @yep(AST.VariableDeclarator([], name, type, name, type))
 			}
 			else if @token == Token.LEFT_ROUND {
-				var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
+				var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 
 				return @yep(AST.FunctionDeclaration(name, parameters, [], type, null, null, name, type ?? parameters))
@@ -3556,9 +3570,7 @@ export namespace Parser {
 
 					@NL_0M()
 
-					// TODO!
-					// return @reqExpression(.Default + .NoRestriction, fMode)
-					return @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+					return @reqExpression(.Default + .NoRestriction, fMode)
 				}
 				else {
 					@throw('{', '=>')
@@ -3594,12 +3606,13 @@ export namespace Parser {
 
 			return @yep(parameters, first, @yes())
 		} # }}}
-		reqFunctionStatement(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
+		reqFunctionStatement(mut first: Event, modifiers = [], fMode: FunctionMode = .Nil): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
-			var parameters = @reqFunctionParameterList(FunctionMode.Function)
+
+			var parameters = @reqFunctionParameterList(.Nil)
 			var type = @tryFunctionReturns()
 			var throws = @tryFunctionThrows()
-			var body = @reqFunctionBody(modifiers, FunctionMode.Function, !?type && !?throws)
+			var body = @reqFunctionBody(modifiers, .Nil, !?type && !?throws)
 
 			return @yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, body, first, body))
 		} # }}}
@@ -3805,8 +3818,6 @@ export namespace Parser {
 
 					var whenFalse = @reqIfStatement(position, fMode)
 
-					// TODO!
-					// return @yep(AST.IfStatement(declarations ## condition, whenTrue, whenFalse, first, whenFalse))
 					return @yep(AST.IfStatement(condition ?? declarations, whenTrue, whenFalse, first, whenFalse))
 				}
 				else if @token == Token.ELSE {
@@ -4082,7 +4093,7 @@ export namespace Parser {
 				}
 
 				while @until(Token.RIGHT_ROUND) {
-					var dyn name = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
+					var dyn name = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
 					var modifiers = []
 
 					if name.value.kind == NodeKind.Identifier {
@@ -4108,7 +4119,7 @@ export namespace Parser {
 							if @test(Token.COLON) {
 								@commit()
 
-								var value = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
+								var value = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
 
 								arguments.push(AST.Argument(modifiers, name, value, name, value))
 							}
@@ -4196,7 +4207,7 @@ export namespace Parser {
 						if @test(Token.COMMA) {
 							@commit()
 
-							var element = @reqDestructuring(DestructuringMode.Nil, FunctionMode.Function)
+							var element = @reqDestructuring(DestructuringMode.Nil, FunctionMode.Nil)
 
 							elements.push(@yep(AST.NamedSpecifier(element)))
 						}
@@ -4280,7 +4291,7 @@ export namespace Parser {
 						if @test(Token.COMMA) {
 							@commit()
 
-							var element = @reqDestructuring(DestructuringMode.Nil, FunctionMode.Function)
+							var element = @reqDestructuring(DestructuringMode.Nil, FunctionMode.Nil)
 
 							elements.push(@yep(AST.NamedSpecifier(element)))
 						}
@@ -4937,6 +4948,16 @@ export namespace Parser {
 
 			return AST.JunctionExpression(operator, operands)
 		} # }}}
+		reqLambdaBody(modifiers, fMode: FunctionMode, automatable: Boolean): Event ~ SyntaxError { # {{{
+			var body = @tryLambdaBody(modifiers, fMode, automatable)
+
+			if body.ok {
+				return body
+			}
+			else {
+				@throw('=>')
+			}
+		} # }}}
 		reqMacroElements(elements, terminator: MacroTerminator): Void ~ SyntaxError { # {{{
 			var history = []
 
@@ -4988,7 +5009,7 @@ export namespace Parser {
 						addLiteral()
 
 						var first = @yes()
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
+						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -4998,7 +5019,7 @@ export namespace Parser {
 						addLiteral()
 
 						var reification = AST.Reification(.Argument, @yes())
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
+						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5008,7 +5029,7 @@ export namespace Parser {
 						addLiteral()
 
 						var reification = AST.Reification(.Expression, @yes())
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
+						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5018,13 +5039,13 @@ export namespace Parser {
 						addLiteral()
 
 						var reification = AST.Reification(.Join, @yes())
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
+						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
 
 						@throw(',') unless @test(Token.COMMA)
 
 						@commit()
 
-						var separator = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
+						var separator = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5038,7 +5059,7 @@ export namespace Parser {
 						addLiteral()
 
 						var reification = AST.Reification(.Statement, @yes())
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
+						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5048,7 +5069,7 @@ export namespace Parser {
 						addLiteral()
 
 						var reification = AST.Reification(.Write, @yes())
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
+						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5182,7 +5203,7 @@ export namespace Parser {
 			if @match(Token.LEFT_CURLY, Token.EQUALS_RIGHT_ANGLE) == Token.LEFT_CURLY {
 				@mode += ParserMode.MacroExpression
 
-				var body = @reqBlock(@yes(), FunctionMode.Function)
+				var body = @reqBlock(@yes(), FunctionMode.Nil)
 
 				@mode -= ParserMode.MacroExpression
 
@@ -5326,7 +5347,7 @@ export namespace Parser {
 				else {
 					var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.Arrow, fMode)
 
-					if @mode ~~ ParserMode.InlineStatement {
+					if @mode ~~ .InlineStatement {
 						return @yep(AST.SetStatement(expression, expression, expression))
 					}
 					else {
@@ -5842,10 +5863,10 @@ export namespace Parser {
 				return @reqIdentifier()
 			}
 			else if @token == Token.LEFT_CURLY {
-				return @reqDestructuringObject(@yes(), DestructuringMode.Nil, FunctionMode.Function)
+				return @reqDestructuringObject(@yes(), DestructuringMode.Nil, FunctionMode.Nil)
 			}
 			else if @token == Token.LEFT_SQUARE {
-				return @reqDestructuringArray(@yes(), DestructuringMode.Nil, FunctionMode.Function)
+				return @reqDestructuringArray(@yes(), DestructuringMode.Nil, FunctionMode.Nil)
 			}
 			else {
 				@throw('Identifier', 'Destructuring')
@@ -5888,7 +5909,7 @@ export namespace Parser {
 					statement = @reqIncludeAgainStatement(@yes())
 				}
 				else {
-					statement = @reqStatement(FunctionMode.Function)
+					statement = @reqStatement(FunctionMode.Nil)
 				}
 
 				AST.pushAttributes(statement.value, attrs)
@@ -5984,26 +6005,6 @@ export namespace Parser {
 				first = attributes[0]
 			}
 
-			if @test(Token.ASYNC) {
-				var marker = @mark()
-
-				var async = @yes()
-
-				var name = @tryNameIST(eMode, fMode)
-				if name.ok {
-					var modifiers = [@yep(AST.Modifier(ModifierKind.Async, async))]
-					var parameters = @reqFunctionParameterList(fMode)
-					var type = @tryFunctionReturns()
-					var throws = @tryFunctionThrows()
-					var body = @reqFunctionBody(modifiers, fMode, !?type && !?throws)
-
-					return @yep(AST.ObjectMember(attributes, [], name, null, @yep(AST.LambdaExpression(parameters, modifiers, type, throws, body, parameters, body)), first ?? async ?? name, body))
-				}
-				else {
-					@rollback(marker)
-				}
-			}
-
 			var late name
 			if @match(Token.AT, Token.DOT_DOT_DOT, Token.IDENTIFIER, Token.LEFT_SQUARE, Token.STRING, Token.TEMPLATE_BEGIN) == Token.IDENTIFIER {
 				name = @reqIdentifier()
@@ -6042,22 +6043,13 @@ export namespace Parser {
 
 				return @altRestrictiveExpression(expression, fMode)
 			}
-			else if @test(Token.LEFT_ROUND) {
-				var modifiers = []
-				var parameters = @reqFunctionParameterList(fMode)
-				var type = @tryFunctionReturns()
-				var throws = @tryFunctionThrows()
-				var body = @reqFunctionBody(modifiers, fMode, !?type && !?throws)
-
-				return @yep(AST.ObjectMember(attributes, modifiers, name, null, @yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body)), first ?? name, body))
-			}
 			else if name.value.kind == NodeKind.Identifier {
 				var expression = @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
 
 				return @altRestrictiveExpression(expression, fMode)
 			}
 			else {
-				@throw(':', '(')
+				@throw(':')
 			}
 		} # }}}
 		reqOperand(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -7032,7 +7024,7 @@ export namespace Parser {
 
 						var modifiers = [@yep(AST.Modifier(ModifierKind.Async, first))]
 
-						statement = @reqFunctionStatement(first, modifiers)
+						statement = @reqFunctionStatement(first, modifiers, fMode)
 					}
 					else {
 						statement = NO
@@ -7091,7 +7083,7 @@ export namespace Parser {
 					statement = @reqForStatement(@yes(), fMode)
 				}
 				Token.FUNC {
-					statement = @reqFunctionStatement(@yes())
+					statement = @reqFunctionStatement(@yes(), null, fMode)
 				}
 				Token.IF {
 					statement = @reqIfStatement(@yes(), fMode)
@@ -7281,7 +7273,7 @@ export namespace Parser {
 					if @test(Token.EQUALS) {
 						@commit()
 
-						defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, FunctionMode.Function)
+						defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, FunctionMode.Nil)
 
 						last = defaultValue
 					}
@@ -7540,7 +7532,7 @@ export namespace Parser {
 					if @test(Token.EQUALS) {
 						@commit()
 
-						defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, FunctionMode.Function)
+						defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, FunctionMode.Nil)
 
 						last = defaultValue
 					}
@@ -7702,7 +7694,7 @@ export namespace Parser {
 				}
 				.VALUEOF {
 					var operator = @yep(AST.UnaryTypeOperator(.ValueOf, @yes()))
-					var operand = @tryUnaryOperand(null, eMode, eMode ~~ .AtThis ? .Method : .Function)
+					var operand = @tryUnaryOperand(null, eMode, eMode ~~ .AtThis ? .Method : .Nil)
 
 					return @yep(AST.UnaryTypeExpression([], operator, operand, operator, operand))
 				}
@@ -7718,9 +7710,7 @@ export namespace Parser {
 
 			@commit().NL_0M()
 
-			// TODO!
-			// var type = @reqType(true, .InlineOnly)
-			var type = @reqType(true)
+			var type = @reqType(true, .InlineOnly)
 
 			return @yep(AST.TypeAliasDeclaration(name, type, first, type))
 		} # }}}
@@ -7743,10 +7733,7 @@ export namespace Parser {
 				if @test(Token.COLON) {
 					@commit()
 
-					// TODO!
-					// var type = @reqType(fMode ~~ .Method ? .InlineOnly + .AtThis : .PrimaryType)
-					// var type = @reqType(fMode ~~ .Method ? .ClassType : .PrimaryType)
-					var type = @reqType(fMode ~~ .Method ? ExpressionMode.ClassType : ExpressionMode.PrimaryType)
+					var type = @reqType(fMode ~~ .Method ? .ClassType : .PrimaryType)
 
 					return @yep(AST.VariableDeclarator([], name, type, name, type))
 				}
@@ -8052,7 +8039,7 @@ export namespace Parser {
 
 					@commit()
 
-					var value = @reqExpression(ExpressionMode.Default, FunctionMode.Function)
+					var value = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
 
 					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, value, first, value))
 
@@ -8789,9 +8776,7 @@ export namespace Parser {
 			if @test(Token.COLON) {
 				@commit()
 
-				// TODO!
-				// type = @reqType(.ClassType)
-				type = @reqType(ExpressionMode.ClassType)
+				type = @reqType(.ClassType)
 			}
 
 			if @test(Token.LEFT_CURLY) {
@@ -9013,10 +8998,10 @@ export namespace Parser {
 				if @test(Token.FUNC) {
 					@commit()
 
-					var parameters = @reqFunctionParameterList(FunctionMode.Function, maxParameters)
+					var parameters = @reqFunctionParameterList(FunctionMode.Nil, maxParameters)
 					var type = @tryFunctionReturns(eMode)
 					var throws = @tryFunctionThrows()
-					var body = @reqFunctionBody(modifiers, FunctionMode.Function, !?type && !?throws)
+					var body = @reqFunctionBody(modifiers, FunctionMode.Nil, !?type && !?throws)
 
 					return @yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, first, body))
 				}
@@ -9028,7 +9013,7 @@ export namespace Parser {
 
 					var type = @tryFunctionReturns(eMode)
 					var throws = @tryFunctionThrows()
-					var body = @reqFunctionBody(modifiers, fMode, !?type && !?throws)
+					var body = @reqLambdaBody(modifiers, fMode, !?type && !?throws)
 
 					return @yep(AST.LambdaExpression(parameters, modifiers, type, throws, body, first, body))
 				}
@@ -9036,7 +9021,7 @@ export namespace Parser {
 			else if @token == Token.FUNC {
 				var first = @yes()
 
-				var parameters = @tryFunctionParameterList(FunctionMode.Function, maxParameters)
+				var parameters = @tryFunctionParameterList(FunctionMode.Nil, maxParameters)
 				if !parameters.ok {
 					return NO
 				}
@@ -9044,53 +9029,42 @@ export namespace Parser {
 				var modifiers = []
 				var type = @tryFunctionReturns(eMode)
 				var throws = @tryFunctionThrows()
-				var body = @reqFunctionBody(modifiers, FunctionMode.Function, !?type && !?throws)
+				var body = @reqFunctionBody(modifiers, FunctionMode.Nil, !?type && !?throws)
 
 				return @yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, first, body))
 			}
 			else if @token == Token.LEFT_ROUND {
 				var parameters = @tryFunctionParameterList(fMode, maxParameters)
-				var type = @tryFunctionReturns(eMode)
-				var throws = @tryFunctionThrows()
 
-				if !parameters.ok || !@test(Token.EQUALS_RIGHT_ANGLE) {
+				unless parameters.ok {
 					return NO
 				}
 
-				@commit()
+				var type = @tryFunctionReturns(eMode)
+				var throws = @tryFunctionThrows()
 
-				var body = if @test(Token.LEFT_CURLY) {
-					set @tryBlock(fMode)
+				var modifiers = []
+				var body = @tryLambdaBody(modifiers, fMode, !?type && !?throws)
+
+				unless body.ok {
+					return NO
 				}
-				else {
-					set @tryExpression(eMode + ExpressionMode.NoObject, fMode)
-				}
 
-				return NO unless body.ok
-
-				return @yep(AST.LambdaExpression(parameters, null, type, throws, body, parameters, body))
+				return @yep(AST.LambdaExpression(parameters, modifiers, type, throws, body, parameters, body))
 			}
 			else if @token == Token.IDENTIFIER {
 				var name = @reqIdentifier()
 
-				unless @test(Token.EQUALS_RIGHT_ANGLE) {
+				var modifiers = []
+				var body = @tryLambdaBody(modifiers, fMode, false)
+
+				unless body.ok {
 					return NO
 				}
 
-				@commit()
-
 				var parameters = @yep([@yep(AST.Parameter(name))], name, name)
 
-				var body = if @test(Token.LEFT_CURLY) {
-					set @tryBlock(fMode)
-				}
-				else {
-					set @tryExpression(eMode + ExpressionMode.NoObject, fMode)
-				}
-
-				return NO unless body.ok
-
-				return @yep(AST.LambdaExpression(parameters, null, null, null, body, parameters, body))
+				return @yep(AST.LambdaExpression(parameters, modifiers, null, null, body, parameters, body))
 			}
 			else {
 				return NO
@@ -9205,7 +9179,7 @@ export namespace Parser {
 
 			var first = @yes()
 
-			@mode += ParserMode.InlineStatement
+			var tracker = @pushMode(.InlineStatement)
 
 			var mark = @mark()
 
@@ -9302,10 +9276,14 @@ export namespace Parser {
 			var whenFalse = @tryIfExpression(eMode, fMode)
 
 			if whenFalse.ok {
+				@popMode(tracker)
+
 				return @yep(AST.IfExpression(condition, declaration, whenTrue, whenFalse, first, whenFalse))
 			}
 			else {
 				var whenFalse = @reqBlock(NO, fMode)
+
+				@popMode(tracker)
 
 				return @yep(AST.IfExpression(condition, declaration, whenTrue, whenFalse, first, whenFalse))
 			}
@@ -9324,6 +9302,26 @@ export namespace Parser {
 				else {
 					return NO
 				}
+			}
+		} # }}}
+		tryLambdaBody(modifiers, fMode: FunctionMode, automatable: Boolean): Event ~ SyntaxError { # {{{
+			if automatable && @test(.COLON_RIGHT_ANGLE) {
+				modifiers.push(@yep(AST.Modifier(.AutoType, @yes())))
+
+				return @tryExpression(.Default + .NoRestriction, fMode)
+			}
+			else if @test(.EQUALS_RIGHT_ANGLE) {
+				@commit()
+
+				if @test(Token.LEFT_CURLY) {
+					return @tryBlock(fMode)
+				}
+				else {
+					return @tryExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				}
+			}
+			else {
+				return NO
 			}
 		} # }}}
 		tryMacroStatement(mut first: Event): Event ~ SyntaxError { # {{{
@@ -9352,11 +9350,11 @@ export namespace Parser {
 				return NO
 			}
 
-			@mode += ParserMode.InlineStatement
+			var tracker = @pushMode(.InlineStatement)
 
 			var clauses = @reqMatchCaseList(fMode)
 
-			@mode -= ParserMode.InlineStatement
+			@popMode(tracker)
 
 			return @yep(AST.MatchExpression(expression, clauses, first, clauses))
 		} # }}}
@@ -9886,7 +9884,7 @@ export namespace Parser {
 
 						if identifier.ok && @test(Token.LEFT_ROUND) {
 							var modifiers = [@yep(AST.Modifier(ModifierKind.Async, async))]
-							var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
+							var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 							var type = @tryFunctionReturns(eMode, false)
 							var throws = @tryFunctionThrows()
 
@@ -9908,7 +9906,7 @@ export namespace Parser {
 						var identifier = @tryIdentifier()
 
 						if identifier.ok && @test(Token.LEFT_ROUND) {
-							var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
+							var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 							var type = @tryFunctionReturns(eMode, false)
 							var throws = @tryFunctionThrows()
 
@@ -9951,7 +9949,7 @@ export namespace Parser {
 							var mut type = null
 
 							if @test(Token.LEFT_ROUND) {
-								var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
+								var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 								var return = @tryFunctionReturns(eMode)
 								var throws = @tryFunctionThrows()
 
@@ -10075,7 +10073,7 @@ export namespace Parser {
 
 				if @test(Token.LEFT_ROUND) {
 					var modifiers = [@yep(AST.Modifier(ModifierKind.Async, async))]
-					var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
+					var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 					var type = @tryFunctionReturns(eMode, false)
 					var throws = @tryFunctionThrows()
 
@@ -10091,7 +10089,7 @@ export namespace Parser {
 				var first = @yes()
 
 				if @test(Token.LEFT_ROUND) {
-					var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
+					var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 					var type = @tryFunctionReturns(eMode, false)
 					var throws = @tryFunctionThrows()
 
@@ -10105,13 +10103,13 @@ export namespace Parser {
 
 			if @test(.TYPEOF) {
 				var operator = @yep(AST.UnaryTypeOperator(UnaryTypeOperatorKind.TypeOf, @yes()))
-				var operand = @tryUnaryOperand(null, eMode, eMode ~~ .AtThis ? .Method : .Function)
+				var operand = @tryUnaryOperand(null, eMode, eMode ~~ .AtThis ? .Method : .Nil)
 
 				return @yep(AST.UnaryTypeExpression(modifiers, operator, operand, operator, operand))
 			}
 
 			if @test(Token.LEFT_ROUND) {
-				var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
+				var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(eMode, false)
 				var throws = @tryFunctionThrows()
 
@@ -10354,7 +10352,7 @@ export namespace Parser {
 		} # }}}
 		tryTypeLimited(modifiers: Array = []): Event ~ SyntaxError { # {{{
 			if @test(Token.LEFT_ROUND) {
-				var parameters = @reqFunctionParameterList(FunctionMode.Function, DestructuringMode.EXTERNAL_ONLY)
+				var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 

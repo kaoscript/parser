@@ -5,19 +5,7 @@
     {
       "kind": 130,
       "attributes": [],
-      "modifiers": [
-        {
-          "kind": 14,
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 1,
-            "column": 8
-          }
-        }
-      ],
+      "modifiers": [],
       "declarations": [
         {
           "kind": 128,
@@ -34,29 +22,29 @@
                 "name": "foo",
                 "start": {
                   "line": 1,
-                  "column": 9
+                  "column": 5
                 },
                 "end": {
                   "line": 1,
-                  "column": 12
+                  "column": 8
                 }
               },
               "start": {
                 "line": 1,
-                "column": 9
+                "column": 5
               },
               "end": {
                 "line": 1,
-                "column": 12
+                "column": 8
               }
             }
           ],
           "start": {
             "line": 1,
-            "column": 1
+            "column": 5
           },
           "end": {
-            "line": 5,
+            "line": 4,
             "column": 2
           },
           "value": {
@@ -73,31 +61,20 @@
                   "column": 2
                 },
                 "end": {
-                  "line": 4,
+                  "line": 3,
                   "column": 3
                 },
                 "name": {
-                  "kind": 25,
-                  "expression": {
-                    "kind": 48,
-                    "modifiers": [],
-                    "name": "bar",
-                    "start": {
-                      "line": 2,
-                      "column": 3
-                    },
-                    "end": {
-                      "line": 2,
-                      "column": 6
-                    }
-                  },
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "bar",
                   "start": {
                     "line": 2,
                     "column": 2
                   },
                   "end": {
                     "line": 2,
-                    "column": 7
+                    "column": 5
                   }
                 },
                 "value": {
@@ -172,39 +149,13 @@
                   "body": {
                     "kind": 15,
                     "attributes": [],
-                    "statements": [
-                      {
-                        "kind": 100,
-                        "attributes": [],
-                        "value": {
-                          "kind": 48,
-                          "modifiers": [],
-                          "name": "name",
-                          "start": {
-                            "line": 3,
-                            "column": 10
-                          },
-                          "end": {
-                            "line": 3,
-                            "column": 14
-                          }
-                        },
-                        "start": {
-                          "line": 3,
-                          "column": 3
-                        },
-                        "end": {
-                          "line": 3,
-                          "column": 14
-                        }
-                      }
-                    ],
+                    "statements": [],
                     "start": {
                       "line": 2,
-                      "column": 22
+                      "column": 39
                     },
                     "end": {
-                      "line": 4,
+                      "line": 3,
                       "column": 3
                     }
                   },
@@ -213,19 +164,33 @@
                     "column": 7
                   },
                   "end": {
-                    "line": 4,
+                    "line": 3,
                     "column": 3
                   },
-                  "throws": []
+                  "throws": [
+                    {
+                      "kind": 48,
+                      "modifiers": [],
+                      "name": "SyntaxError",
+                      "start": {
+                        "line": 2,
+                        "column": 24
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 35
+                      }
+                    }
+                  ]
                 }
               }
             ],
             "start": {
               "line": 1,
-              "column": 15
+              "column": 11
             },
             "end": {
-              "line": 5,
+              "line": 4,
               "column": 2
             }
           }
@@ -236,7 +201,7 @@
         "column": 1
       },
       "end": {
-        "line": 5,
+        "line": 4,
         "column": 2
       }
     }
@@ -246,7 +211,7 @@
     "column": 1
   },
   "end": {
-    "line": 5,
+    "line": 4,
     "column": 2
   }
 }

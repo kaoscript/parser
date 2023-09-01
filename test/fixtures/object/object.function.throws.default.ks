@@ -1,4 +1,4 @@
-var dyn foo = {
-	bar(name: String) ~ SyntaxError {
+var foo = {
+	bar: func(name: String) ~ SyntaxError {
 	}
 }

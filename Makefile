@@ -13,7 +13,7 @@ else
 endif
 
 patch:
-	npx kaoscript ./scripts/patch.ks
+	npx kaoscript ./scripts/patch.ks$(if $(value dir), "$(dir)")
 
 clean:
 	npx kaoscript --clean
@@ -39,6 +39,6 @@ dev:
 	@make cls
 
 	@# tests
-	npx kaoscript test/parse.dev.ks "parse test"
+	kaoscript test/parse.dev.ks "parse test"
 
 .PHONY: test coverage
