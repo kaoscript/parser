@@ -39,6 +39,7 @@ enum Token {
 	COLON_QUESTION
 	COLON_RIGHT_ANGLE
 	COMMA
+	CONST
 	CONTINUE
 	DECIMAL_NUMBER
 	DISCLOSE
@@ -385,6 +386,17 @@ enum Token {
 			.COMMA { # {{{
 				if c == 44 {
 					return scanner.next(1)
+				}
+			} # }}}
+			.CONST { # {{{
+				if	c == 0'c' &&
+					scanner.charAt(1) == 0'o' &&
+					scanner.charAt(2) == 0'n' &&
+					scanner.charAt(3) == 0's' &&
+					scanner.charAt(4) == 0't' &&
+					scanner.isBoundary(5)
+				{
+					return scanner.next(5)
 				}
 			} # }}}
 			.CONTINUE { # {{{
@@ -765,9 +777,9 @@ enum Token {
 				}
 			} # }}}
 			.MUT { # {{{
-				if	c == 109 &&
-					scanner.charAt(1) == 117 &&
-					scanner.charAt(2) == 116 &&
+				if	c == 0'm' &&
+					scanner.charAt(1) == 0'u' &&
+					scanner.charAt(2) == 0't' &&
 					scanner.isBoundary(3)
 				{
 					return scanner.next(3)
@@ -2793,8 +2805,8 @@ namespace M {
 				return Token.BREAK
 			}
 		}
-		// class, continue
-		else if c == 99
+		// class, const, continue
+		else if c == 0'c'
 		{
 			if	that.charAt(1) == 108 &&
 				that.charAt(2) == 97 &&
@@ -2805,6 +2817,16 @@ namespace M {
 				that.next(5)
 
 				return Token.CLASS
+			}
+			else if	that.charAt(1) == 0'o' &&
+				that.charAt(2) == 0'n' &&
+				that.charAt(3) == 0's' &&
+				that.charAt(4) == 0't' &&
+				that.isBoundary(5)
+			{
+				that.next(5)
+
+				return Token.CONST
 			}
 			else if	that.charAt(1) == 111 &&
 				that.charAt(2) == 110 &&

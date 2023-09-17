@@ -577,7 +577,7 @@ export namespace Parser {
 			var dyn attrs = []
 			var dyn statement
 
-			if (statement = @tryShebang()).ok {
+			if (statement <- @tryShebang()).ok {
 				body.push(statement.value)
 			}
 
@@ -1059,19 +1059,19 @@ export namespace Parser {
 			var mark = @mark()
 
 			var dyn expression
-			if (expression = @tryAwaitExpression(eMode, fMode)).ok {
+			if (expression <- @tryAwaitExpression(eMode, fMode)).ok {
 				return expression
 			}
-			else if @rollback(mark) && (expression = @tryFunctionExpression(eMode, fMode)).ok {
+			else if @rollback(mark) && (expression <- @tryFunctionExpression(eMode, fMode)).ok {
 				return expression
 			}
-			else if @rollback(mark) && (expression = @tryIfExpression(eMode, fMode)).ok {
+			else if @rollback(mark) && (expression <- @tryIfExpression(eMode, fMode)).ok {
 				return expression
 			}
-			else if @rollback(mark) && (expression = @tryMatchExpression(eMode, fMode)).ok {
+			else if @rollback(mark) && (expression <- @tryMatchExpression(eMode, fMode)).ok {
 				return expression
 			}
-			else if @rollback(mark) && (expression = @tryTryExpression(eMode, fMode)).ok {
+			else if @rollback(mark) && (expression <- @tryTryExpression(eMode, fMode)).ok {
 				return expression
 			}
 
@@ -1341,7 +1341,7 @@ export namespace Parser {
 
 					return
 				}
-				else if (identifier = @tryIdentifier()).ok {
+				else if (identifier <- @tryIdentifier()).ok {
 					members.push(@reqMacroStatement(attributes, identifier, first ?? second))
 
 					return
@@ -1504,7 +1504,7 @@ export namespace Parser {
 			var dyn finalModifier = NO
 
 			if @test(Token.FINAL) {
-				finalModifier = @yep(AST.Modifier(ModifierKind.Immutable, @yes()))
+				finalModifier = @yep(AST.Modifier(.Final, @yes()))
 
 				if @test(Token.LEFT_CURLY) {
 					var modifiers = [finalModifier]
@@ -2594,10 +2594,10 @@ export namespace Parser {
 				Token.ABSTRACT {
 					var first = @yes()
 
-					if @test(Token.CLASS) {
+					if @test(.CLASS) {
 						@commit()
 
-						var modifiers = [@yep(AST.Modifier(ModifierKind.Abstract, first))]
+						var modifiers = [@yep(AST.Modifier(.Abstract, first))]
 
 						return @yep(AST.DeclarationSpecifier(@reqClassStatement(first, modifiers)))
 					}
@@ -2608,10 +2608,10 @@ export namespace Parser {
 				Token.ASYNC {
 					var first = @reqIdentifier()
 
-					if @test(Token.FUNC) {
+					if @test(.FUNC) {
 						@commit()
 
-						var modifiers = [@yep(AST.Modifier(ModifierKind.Async, first))]
+						var modifiers = [@yep(AST.Modifier(.Async, first))]
 
 						return @yep(AST.DeclarationSpecifier(@reqFunctionStatement(first, modifiers)))
 					}
@@ -2630,15 +2630,15 @@ export namespace Parser {
 				}
 				Token.FINAL {
 					var first = @yes()
-					var modifiers = [@yep(AST.Modifier(ModifierKind.Immutable, first))]
+					var modifiers = [@yep(AST.Modifier(.Final, first))]
 
-					if @test(Token.CLASS) {
+					if @test(.CLASS) {
 						@commit()
 
 						return @yep(AST.DeclarationSpecifier(@reqClassStatement(first, modifiers)))
 					}
-					else if @test(Token.ABSTRACT) {
-						modifiers.push(@yep(AST.Modifier(ModifierKind.Abstract, @yes())))
+					else if @test(.ABSTRACT) {
+						modifiers.push(@yep(AST.Modifier(.Abstract, @yes())))
 
 						if @test(Token.CLASS) {
 							@commit()
@@ -2660,7 +2660,7 @@ export namespace Parser {
 					return @reqExportIdentifier(@reqIdentifier())
 				}
 				Token.MACRO {
-					if @mode !~ ParserMode.MacroExpression {
+					if @mode !~ .MacroExpression {
 						return @yep(AST.DeclarationSpecifier(@tryMacroStatement(@yes())))
 					}
 					else {
@@ -2672,15 +2672,15 @@ export namespace Parser {
 				}
 				Token.SEALED {
 					var first = @yes()
-					var modifiers = [@yep(AST.Modifier(ModifierKind.Sealed, first))]
+					var modifiers = [@yep(AST.Modifier(.Sealed, first))]
 
-					if @test(Token.CLASS) {
+					if @test(.CLASS) {
 						@commit()
 
 						return @yep(AST.DeclarationSpecifier(@reqClassStatement(first, modifiers)))
 					}
-					else if @test(Token.ABSTRACT) {
-						modifiers.push(@yep(AST.Modifier(ModifierKind.Abstract, @yes())))
+					else if @test(.ABSTRACT) {
+						modifiers.push(@yep(AST.Modifier(.Abstract, @yes())))
 
 						if @test(Token.CLASS) {
 							@commit()
@@ -2705,7 +2705,7 @@ export namespace Parser {
 					return @yep(AST.DeclarationSpecifier(@reqTypeStatement(@yes(), @reqIdentifier())))
 				}
 				Token.VAR {
-					return @yep(AST.DeclarationSpecifier(@reqVarStatement(@yes(), ExpressionMode.NoAwait, FunctionMode.Nil)))
+					return @yep(AST.DeclarationSpecifier(@reqVarStatement(@yes(), .NoAwait, .Nil)))
 				}
 				else {
 					@throw()
@@ -3002,6 +3002,18 @@ export namespace Parser {
 				else {
 					eMode += ExpressionMode.Default
 				}
+			}
+
+			if @test(.CONST) {
+				var mark = @mark()
+				var operator = @yep(AST.UnaryOperator(.Constant, @yes()))
+				var operand = @tryOperation(eMode, fMode)
+
+				if operand.ok {
+					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+				}
+
+				@rollback(mark)
 			}
 
 			return @reqOperation(eMode, fMode)
@@ -3647,13 +3659,10 @@ export namespace Parser {
 			if @test(.VAR) {
 				var mark = @mark()
 				var first = @yes()
+				var modifiers = [@yep(AST.Modifier(ModifierKind.Declarative, first))]
 
-				var modifiers = []
 				if @test(.MUT) {
 					modifiers.push(@yep(AST.Modifier(ModifierKind.Mutable, @yes())))
-				}
-				else {
-					modifiers.push(@yep(AST.Modifier(ModifierKind.Immutable, @yes())))
 				}
 
 				if @test(.IDENTIFIER, .LEFT_CURLY, .LEFT_SQUARE) {
@@ -3719,13 +3728,10 @@ export namespace Parser {
 					if @test(.VAR) {
 						while @test(.VAR) {
 							var first = @yes()
+							var modifiers = [@yep(AST.Modifier(ModifierKind.Declarative, first))]
 
-							var modifiers = []
 							if @test(.MUT) {
 								modifiers.push(@yep(AST.Modifier(ModifierKind.Mutable, @yes())))
-							}
-							else {
-								modifiers.push(@yep(AST.Modifier(ModifierKind.Immutable, @yes())))
 							}
 
 							unless @test(.IDENTIFIER, .LEFT_CURLY, .LEFT_SQUARE) {
@@ -3914,10 +3920,10 @@ export namespace Parser {
 			var finalMark = @mark()
 			var dyn finalModifier = NO
 
-			if @test(Token.FINAL) {
-				finalModifier = @yep(AST.Modifier(ModifierKind.Immutable, @yes()))
+			if @test(.FINAL) {
+				finalModifier = @yep(AST.Modifier(.Final, @yes()))
 
-				if @test(Token.LEFT_CURLY) {
+				if @test(.LEFT_CURLY) {
 					var modifiers = [finalModifier]
 					if staticModifier.ok {
 						modifiers.unshift(staticModifier)
@@ -4503,12 +4509,11 @@ export namespace Parser {
 				var mark2 = @mark()
 				first = @yes()
 
-				var dyn modifier
-				if @test(Token.MUT) {
-					modifier = AST.Modifier(ModifierKind.Mutable, @yes())
+				var modifier = if @test(Token.MUT) {
+					set AST.Modifier(ModifierKind.Mutable, @yes())
 				}
 				else {
-					modifier = AST.Modifier(ModifierKind.Immutable, first)
+					set null
 				}
 
 				if @test(Token.COMMA) {
@@ -4520,7 +4525,10 @@ export namespace Parser {
 					@commit()
 
 					if @test(Token.FROM, Token.IN, Token.OF) {
-						modifiers.push(AST.Modifier(ModifierKind.Declarative, first), modifier)
+						modifiers
+							..push(AST.Modifier(ModifierKind.Declarative, first))
+							..push(modifier) if ?modifier
+
 						declaration = true
 
 						@rollback(mark2)
@@ -4532,7 +4540,10 @@ export namespace Parser {
 					}
 				}
 				else {
-					modifiers.push(AST.Modifier(ModifierKind.Declarative, first), modifier)
+					modifiers
+							..push(AST.Modifier(ModifierKind.Declarative, first))
+							..push(modifier) if ?modifier
+
 					declaration = true
 				}
 			}
@@ -5572,7 +5583,7 @@ export namespace Parser {
 					return @yep(AST.MatchConditionRangeTO(operand, @reqPrefixedOperand(ExpressionMode.Default, fMode)))
 				}
 			}
-			else if (operator = @tryJunctionOperator()).ok {
+			else if (operator <- @tryJunctionOperator()).ok {
 				var values = [operand.value]
 
 				values.push(@reqJunctionExpression(operator, eMode, fMode, values, false))
@@ -6067,10 +6078,10 @@ export namespace Parser {
 
 			var dyn operand, operator
 
-			if (operand = @tryDestructuring(null, fMode)).ok {
+			if (operand <- @tryDestructuring(null, fMode)).ok {
 				@NL_0M()
 
-				if (operator = @tryAssignementOperator()).ok {
+				if (operator <- @tryAssignementOperator()).ok {
 					var values = [operand.value, AST.BinaryExpression(operator)]
 
 					@NL_0M()
@@ -6094,7 +6105,7 @@ export namespace Parser {
 
 				@NL_0M()
 
-				if (operator = @tryBinaryOperator(fMode)).ok {
+				if (operator <- @tryBinaryOperator(fMode)).ok {
 					var mut mode = eMode + ExpressionMode.ImplicitMember
 
 					match operator.value.kind {
@@ -6170,7 +6181,7 @@ export namespace Parser {
 						values.push(@reqBinaryOperand(mode, fMode).value)
 					}
 				}
-				else if !type && (operator = @tryTypeOperator()).ok {
+				else if !type && (operator <- @tryTypeOperator()).ok {
 					if mark.line != operator.start.line {
 						@rollback(mark)
 
@@ -6197,7 +6208,7 @@ export namespace Parser {
 
 					values.push(@reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode).value)
 				}
-				else if (operator = @tryJunctionOperator()).ok {
+				else if (operator <- @tryJunctionOperator()).ok {
 					values.push(@reqJunctionExpression(operator, eMode, fMode, values, type))
 				}
 				else {
@@ -7042,6 +7053,9 @@ export namespace Parser {
 				Token.CLASS {
 					statement = @tryClassStatement(@yes())
 				}
+				Token.CONST {
+					statement = @tryConstStatement(@yes(), .Default, fMode)
+				}
 				Token.CONTINUE {
 					statement = @reqContinueStatement(@yes(), fMode)
 				}
@@ -7056,17 +7070,17 @@ export namespace Parser {
 				}
 				Token.FINAL {
 					var first = @yes()
-					var modifiers = [@yep(AST.Modifier(ModifierKind.Immutable, first))]
+					var modifiers = [@yep(AST.Modifier(.Final, first))]
 
-					if @test(Token.CLASS) {
+					if @test(.CLASS) {
 						@commit()
 
 						statement = @reqClassStatement(first, modifiers)
 					}
-					else if @test(Token.ABSTRACT) {
-						modifiers.push(@yep(AST.Modifier(ModifierKind.Abstract, @yes())))
+					else if @test(.ABSTRACT) {
+						modifiers.push(@yep(AST.Modifier(.Abstract, @yes())))
 
-						if @test(Token.CLASS) {
+						if @test(.CLASS) {
 							@commit()
 
 							statement = @reqClassStatement(first, modifiers)
@@ -7182,7 +7196,7 @@ export namespace Parser {
 			unless statement.ok {
 				@rollback(mark)
 
-				if !(statement = @tryAssignementStatement(fMode)).ok {
+				if !(statement <- @tryAssignementStatement(fMode)).ok {
 					@rollback(mark)
 
 					statement = @reqExpressionStatement(fMode)
@@ -8548,11 +8562,11 @@ export namespace Parser {
 
 					@rollback(mark)
 				}
-				else if bits ~~ ClassBits.FinalMethod && @test(Token.FINAL) {
-					var modifier = @yep(AST.Modifier(ModifierKind.Immutable, @yes()))
+				else if bits ~~ ClassBits.FinalMethod && @test(.FINAL) {
+					var modifier = @yep(AST.Modifier(.Final, @yes()))
 					var mark2 = @mark()
 
-					if bits ~~ ClassBits.OverrideMethod && @test(Token.OVERRIDE) {
+					if bits ~~ ClassBits.OverrideMethod && @test(.OVERRIDE) {
 						var modifier2 = @yep(AST.Modifier(ModifierKind.Override, @yes()))
 						var method = @tryClassMethod(attributes, [...modifiers, modifier, modifier2], bits, first ?? modifier)
 
@@ -8659,12 +8673,12 @@ export namespace Parser {
 			if bits ~~ ClassBits.Variable {
 				var mark = @mark()
 
-				if bits ~~ ClassBits.FinalVariable && @test(Token.FINAL) {
-					var modifier = @yep(AST.Modifier(ModifierKind.Immutable, @yes()))
+				if bits ~~ ClassBits.FinalVariable && @test(.FINAL) {
+					var modifier = @yep(AST.Modifier(.Final, @yes()))
 					var mark2 = @mark()
 
-					if bits ~~ ClassBits.LateVariable && @test(Token.LATE) {
-						var modifier2 = @yep(AST.Modifier(ModifierKind.LateInit, @yes()))
+					if bits ~~ ClassBits.LateVariable && @test(.LATE) {
+						var modifier2 = @yep(AST.Modifier(.LateInit, @yes()))
 						var method = @tryClassVariable(
 							attributes
 							[...modifiers, modifier, modifier2]
@@ -8869,6 +8883,11 @@ export namespace Parser {
 			@reqNL_1M()
 
 			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?? type ?? name))
+		} # }}}
+		tryConstStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var modifier = @yep(AST.Modifier(.Constant, first))
+
+			return @tryVarImmuStatement([modifier], first, eMode, fMode)
 		} # }}}
 		tryDefaultAssignmentOperator(typed: Boolean): Event ~ SyntaxError { # {{{
 			if typed {
@@ -9189,13 +9208,10 @@ export namespace Parser {
 			if @test(Token.VAR) {
 				var mark = @mark()
 				var first = @yes()
+				var modifiers = [@yep(AST.Modifier(ModifierKind.Declarative, first))]
 
-				var modifiers = []
 				if @test(Token.MUT) {
 					modifiers.push(@yep(AST.Modifier(ModifierKind.Mutable, @yes())))
-				}
-				else {
-					modifiers.push(@yep(AST.Modifier(ModifierKind.Immutable, @yes())))
 				}
 
 				if @test(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE) {
@@ -9365,13 +9381,10 @@ export namespace Parser {
 			if @test(Token.VAR) {
 				var mark = @mark()
 				var firstVar = @yes()
+				var modifiers = [@yep(AST.Modifier(ModifierKind.Declarative, first))]
 
-				var modifiers = []
 				if @test(Token.MUT) {
 					modifiers.push(@yep(AST.Modifier(ModifierKind.Mutable, @yes())))
-				}
-				else {
-					modifiers.push(@yep(AST.Modifier(ModifierKind.Immutable, @yes())))
 				}
 
 				if @test(Token.IDENTIFIER) {
@@ -9862,6 +9875,29 @@ export namespace Parser {
 			return type
 		} # }}}
 		tryTypeCore(modifiers: Array, multiline: Boolean, eMode: ExpressionMode): Event ~ SyntaxError { # {{{
+			if @test(.CONST) {
+				var operator = @yep(AST.UnaryTypeOperator(.Constant, @yes()))
+				var operand = @tryTypeCore([], multiline, eMode)
+
+				if operand.ok {
+					return @yep(AST.UnaryTypeExpression(modifiers, operator, operand, operator, operand))
+				}
+				else {
+					return NO
+				}
+			}
+			else if @test(.MUT) {
+				var operator = @yep(AST.UnaryTypeOperator(.Mutable, @yes()))
+				var operand = @tryTypeCore([], multiline, eMode)
+
+				if operand.ok {
+					return @yep(AST.UnaryTypeExpression(modifiers, operator, operand, operator, operand))
+				}
+				else {
+					return NO
+				}
+			}
+
 			if @test(Token.LEFT_CURLY) {
 				var first = @yes()
 				var properties = []
@@ -10102,10 +10138,15 @@ export namespace Parser {
 			}
 
 			if @test(.TYPEOF) {
-				var operator = @yep(AST.UnaryTypeOperator(UnaryTypeOperatorKind.TypeOf, @yes()))
+				var operator = @yep(AST.UnaryTypeOperator(.TypeOf, @yes()))
 				var operand = @tryUnaryOperand(null, eMode, eMode ~~ .AtThis ? .Method : .Nil)
 
-				return @yep(AST.UnaryTypeExpression(modifiers, operator, operand, operator, operand))
+				if operand.ok {
+					return @yep(AST.UnaryTypeExpression(modifiers, operator, operand, operator, operand))
+				}
+				else {
+					return NO
+				}
 			}
 
 			if @test(Token.LEFT_ROUND) {
@@ -10203,17 +10244,17 @@ export namespace Parser {
 				}
 				Token.FINAL {
 					var first = @yes()
-					var modifiers = [@yep(AST.Modifier(ModifierKind.Immutable, first))]
+					var modifiers = [@yep(AST.Modifier(.Final, first))]
 
-					if @test(Token.CLASS) {
+					if @test(.CLASS) {
 						@commit()
 
 						return @reqExternClassDeclaration(first, modifiers)
 					}
-					else if @test(Token.ABSTRACT) {
-						modifiers.push(@yep(AST.Modifier(ModifierKind.Abstract, @yes())))
+					else if @test(.ABSTRACT) {
+						modifiers.push(@yep(AST.Modifier(.Abstract, @yes())))
 
-						if @test(Token.CLASS) {
+						if @test(.CLASS) {
 							@commit()
 
 							return @reqExternClassDeclaration(first, modifiers)
@@ -10514,91 +10555,7 @@ export namespace Parser {
 				@rollback(mark)
 			}
 
-			if @test(Token.LEFT_CURLY) {
-				@commit()
-
-				var declarations = []
-				var mut ok = @tryNL_1M().ok
-
-				if ok {
-					while @until(Token.RIGHT_CURLY) {
-						var variable = @tryTypedVariable(fMode, true, false)
-						if !variable.ok {
-							ok = false
-
-							break
-						}
-
-						if @test(Token.EQUALS) {
-							@commit()
-						}
-						else {
-							ok = false
-
-							break
-						}
-
-						var value = @reqExpression(eMode, fMode)
-
-						declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, value, variable, value)))
-
-						@reqNL_1M()
-					}
-				}
-
-				if ok {
-					unless @test(Token.RIGHT_CURLY) {
-						@throw('}')
-					}
-
-					return @yep(AST.VariableStatement([], [], declarations, first, @yes()))
-				}
-				else {
-					@rollback(mark)
-				}
-			}
-
-			var variable = @tryTypedVariable(fMode, true, false)
-
-			return NO unless variable.ok
-
-			var variables = [variable]
-
-			if @test(Token.COMMA) {
-				@commit()
-
-				variables.push(@reqTypedVariable(fMode, true, false))
-			}
-
-			if @test(Token.EQUALS) {
-				@commit()
-			}
-			else {
-				@throw('=')
-			}
-
-			@NL_0M()
-
-			var late value: Event
-
-			if variables.length == 1 {
-				value = @reqExpression(eMode + ExpressionMode.ImplicitMember, fMode)
-			}
-			else {
-				unless @test(Token.AWAIT) {
-					@throw('await')
-				}
-
-				@commit()
-
-				var operand = @reqPrefixedOperand(eMode, fMode)
-
-				value = @yep(AST.AwaitExpression([], variables, operand, variable, operand))
-			}
-
-			var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, variable, value))
-
-			return @yep(AST.VariableStatement([], [], [declaration], first, declaration))
+			return @tryVarImmuStatement([], first, eMode, fMode)
 		} # }}}
 		tryVarDynStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var modifiers = [@yep(AST.Modifier(ModifierKind.Dynamic, @yes()))]
@@ -10711,6 +10668,95 @@ export namespace Parser {
 			}
 
 			return @yep(AST.VariableStatement([], modifiers, declarations, first, last))
+		} # }}}
+		tryVarImmuStatement(modifiers: Array, first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var mark = @mark()
+
+			if @test(Token.LEFT_CURLY) {
+				@commit()
+
+				var declarations = []
+				var mut ok = @tryNL_1M().ok
+
+				if ok {
+					while @until(Token.RIGHT_CURLY) {
+						var variable = @tryTypedVariable(fMode, true, false)
+						if !variable.ok {
+							ok = false
+
+							break
+						}
+
+						if @test(Token.EQUALS) {
+							@commit()
+						}
+						else {
+							ok = false
+
+							break
+						}
+
+						var value = @reqExpression(eMode, fMode)
+
+						declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, value, variable, value)))
+
+						@reqNL_1M()
+					}
+				}
+
+				if ok {
+					unless @test(Token.RIGHT_CURLY) {
+						@throw('}')
+					}
+
+					return @yep(AST.VariableStatement([], modifiers, declarations, first, @yes()))
+				}
+				else {
+					@rollback(mark)
+				}
+			}
+
+			var variable = @tryTypedVariable(fMode, true, false)
+
+			return NO unless variable.ok
+
+			var variables = [variable]
+
+			if @test(Token.COMMA) {
+				@commit()
+
+				variables.push(@reqTypedVariable(fMode, true, false))
+			}
+
+			if @test(Token.EQUALS) {
+				@commit()
+			}
+			else {
+				@throw('=')
+			}
+
+			@NL_0M()
+
+			var late value: Event
+
+			if variables.length == 1 {
+				value = @reqExpression(eMode + ExpressionMode.ImplicitMember, fMode)
+			}
+			else {
+				unless @test(Token.AWAIT) {
+					@throw('await')
+				}
+
+				@commit()
+
+				var operand = @reqPrefixedOperand(eMode, fMode)
+
+				value = @yep(AST.AwaitExpression([], variables, operand, variable, operand))
+			}
+
+			var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, variable, value))
+
+			return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 		} # }}}
 		tryVarLateStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var modifiers = [@yep(AST.Modifier(ModifierKind.LateInit, @yes()))]
@@ -10908,13 +10954,10 @@ export namespace Parser {
 			if @test(Token.VAR) {
 				var mark = @mark()
 				var first = @yes()
+				var modifiers = [@yep(AST.Modifier(ModifierKind.Declarative, first))]
 
-				var modifiers = []
 				if @test(Token.MUT) {
 					modifiers.push(@yep(AST.Modifier(ModifierKind.Mutable, @yes())))
-				}
-				else {
-					modifiers.push(@yep(AST.Modifier(ModifierKind.Immutable, @yes())))
 				}
 
 				if @test(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE) {
@@ -10983,13 +11026,10 @@ export namespace Parser {
 			if @test(Token.VAR) {
 				var mark = @mark()
 				var first = @yes()
+				var modifiers = [@yep(AST.Modifier(ModifierKind.Declarative, first))]
 
-				var modifiers = []
 				if @test(Token.MUT) {
 					modifiers.push(@yep(AST.Modifier(ModifierKind.Mutable, @yes())))
-				}
-				else {
-					modifiers.push(@yep(AST.Modifier(ModifierKind.Immutable, @yes())))
 				}
 
 				if @test(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE) {

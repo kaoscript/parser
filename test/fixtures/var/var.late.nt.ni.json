@@ -5,7 +5,19 @@
     {
       "kind": 130,
       "attributes": [],
-      "modifiers": [],
+      "modifiers": [
+        {
+          "kind": 21,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 9
+          }
+        }
+      ],
       "declarations": [
         {
           "kind": 128,
@@ -19,10 +31,10 @@
               "name": {
                 "kind": 48,
                 "modifiers": [],
-                "name": "delete",
+                "name": "a",
                 "start": {
                   "line": 1,
-                  "column": 5
+                  "column": 10
                 },
                 "end": {
                   "line": 1,
@@ -31,7 +43,7 @@
               },
               "start": {
                 "line": 1,
-                "column": 5
+                "column": 10
               },
               "end": {
                 "line": 1,
@@ -41,25 +53,11 @@
           ],
           "start": {
             "line": 1,
-            "column": 5
+            "column": 10
           },
           "end": {
             "line": 1,
-            "column": 16
-          },
-          "value": {
-            "kind": 79,
-            "modifiers": [],
-            "attributes": [],
-            "properties": [],
-            "start": {
-              "line": 1,
-              "column": 14
-            },
-            "end": {
-              "line": 1,
-              "column": 16
-            }
+            "column": 11
           }
         }
       ],
@@ -69,7 +67,7 @@
       },
       "end": {
         "line": 1,
-        "column": 16
+        "column": 11
       }
     },
     {
@@ -83,49 +81,24 @@
           "assignment": 6,
           "start": {
             "line": 3,
-            "column": 12
+            "column": 3
           },
           "end": {
             "line": 3,
-            "column": 13
+            "column": 4
           }
         },
         "left": {
-          "kind": 69,
+          "kind": 48,
           "modifiers": [],
-          "object": {
-            "kind": 48,
-            "modifiers": [],
-            "name": "delete",
-            "start": {
-              "line": 3,
-              "column": 1
-            },
-            "end": {
-              "line": 3,
-              "column": 7
-            }
-          },
-          "property": {
-            "kind": 48,
-            "modifiers": [],
-            "name": "foo",
-            "start": {
-              "line": 3,
-              "column": 8
-            },
-            "end": {
-              "line": 3,
-              "column": 11
-            }
-          },
+          "name": "a",
           "start": {
             "line": 3,
             "column": 1
           },
           "end": {
             "line": 3,
-            "column": 11
+            "column": 2
           }
         },
         "right": {
@@ -134,11 +107,11 @@
           "value": 42,
           "start": {
             "line": 3,
-            "column": 14
+            "column": 5
           },
           "end": {
             "line": 3,
-            "column": 16
+            "column": 7
           }
         },
         "start": {
@@ -147,7 +120,7 @@
         },
         "end": {
           "line": 3,
-          "column": 16
+          "column": 7
         }
       },
       "start": {
@@ -156,7 +129,7 @@
       },
       "end": {
         "line": 3,
-        "column": 16
+        "column": 7
       }
     }
   ],
@@ -166,6 +139,6 @@
   },
   "end": {
     "line": 3,
-    "column": 16
+    "column": 7
   }
 }

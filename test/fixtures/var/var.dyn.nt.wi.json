@@ -7,7 +7,7 @@
       "attributes": [],
       "modifiers": [
         {
-          "kind": 23,
+          "kind": 15,
           "start": {
             "line": 1,
             "column": 5
@@ -31,14 +31,14 @@
               "name": {
                 "kind": 48,
                 "modifiers": [],
-                "name": "$foo",
+                "name": "a",
                 "start": {
                   "line": 1,
                   "column": 9
                 },
                 "end": {
                   "line": 1,
-                  "column": 13
+                  "column": 10
                 }
               },
               "start": {
@@ -47,7 +47,7 @@
               },
               "end": {
                 "line": 1,
-                "column": 13
+                "column": 10
               }
             }
           ],
@@ -57,20 +57,19 @@
           },
           "end": {
             "line": 1,
-            "column": 18
+            "column": 15
           },
           "value": {
-            "kind": 79,
+            "kind": 77,
             "modifiers": [],
-            "attributes": [],
-            "properties": [],
+            "value": 42,
             "start": {
               "line": 1,
-              "column": 16
+              "column": 13
             },
             "end": {
               "line": 1,
-              "column": 18
+              "column": 15
             }
           }
         }
@@ -81,7 +80,7 @@
       },
       "end": {
         "line": 1,
-        "column": 18
+        "column": 15
       }
     }
   ],
@@ -91,6 +90,6 @@
   },
   "end": {
     "line": 1,
-    "column": 18
+    "column": 15
   }
 }
