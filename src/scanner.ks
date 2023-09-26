@@ -1817,8 +1817,7 @@ namespace M {
 		if c == -1 {
 			return Token.EOF
 		}
-		// _
-		else if c == 95 && !that.isBoundary(1) {
+		else if c == 0'_' && !that.isBoundary(1) {
 			that.scanIdentifier(false)
 
 			return Token.IDENTIFIER
@@ -1940,8 +1939,7 @@ namespace M {
 		if c == -1 {
 			return Token.EOF
 		}
-		// _
-		else if c == 95 && !that.isBoundary(1) {
+		else if c == 0'_' && !that.isBoundary(1) {
 			that.scanIdentifier(false)
 
 			return Token.IDENTIFIER
@@ -2215,7 +2213,7 @@ namespace M {
 				that.charAt(5) == 111 &&
 				that.charAt(6) == 115 &&
 				that.charAt(7) == 101 &&
-				that.isBoundary(8)
+				that.isSpace(8)
 			{
 				that.next(8)
 
@@ -2230,7 +2228,7 @@ namespace M {
 				that.charAt(3) == 111 &&
 				that.charAt(4) == 114 &&
 				that.charAt(5) == 116 &&
-				that.isBoundary(6)
+				that.isSpace(6)
 			{
 				that.next(6)
 
@@ -2250,7 +2248,7 @@ namespace M {
 						that.charAt(10) == 111 &&
 						that.charAt(11) == 114 &&
 						that.charAt(12) == 116 &&
-						that.isBoundary(13)
+						that.isSpace(13)
 					{
 						that.next(13)
 
@@ -2263,14 +2261,14 @@ namespace M {
 							that.charAt(11) == 105 &&
 							that.charAt(12) == 114 &&
 							that.charAt(13) == 101 &&
-							that.isBoundary(14)
+							that.isSpace(14)
 					{
 						that.next(14)
 
 						return Token.EXTERN_REQUIRE
 					}
 				}
-				else if that.isBoundary(6)
+				else if that.isSpace(6)
 				{
 					that.next(6)
 
@@ -2294,13 +2292,13 @@ namespace M {
 					that.charAt(10) == 97 &&
 					that.charAt(11) == 105 &&
 					that.charAt(12) == 110 &&
-					that.isBoundary(13)
+					that.isSpace(13)
 				{
 					that.next(13)
 
 					return Token.INCLUDE_AGAIN
 				}
-				else if that.isBoundary(7) {
+				else if that.isSpace(7) {
 					that.next(7)
 
 					return Token.INCLUDE
@@ -2325,7 +2323,7 @@ namespace M {
 						that.charAt(11) == 101 &&
 						that.charAt(12) == 114 &&
 						that.charAt(13) == 110 &&
-						that.isBoundary(14)
+						that.isSpace(14)
 					{
 						that.next(14)
 
@@ -2337,14 +2335,14 @@ namespace M {
 						that.charAt(11) == 111 &&
 						that.charAt(12) == 114 &&
 						that.charAt(13) == 116 &&
-						that.isBoundary(14)
+						that.isSpace(14)
 					{
 						that.next(14)
 
 						return Token.REQUIRE_IMPORT
 					}
 				}
-				else if that.isBoundary(7)
+				else if that.isSpace(7)
 				{
 					that.next(7)
 
@@ -2674,7 +2672,7 @@ namespace M {
 			return Token.EOF
 		}
 		else if c == 0'!' {
-			if !((c <- that.charAt(1)) == 61 || (c == 63 && that.charAt(2) == 61) || c == 9 | 32) {
+			if !((c <- that.charAt(1)) == 0'=' || (c == 0'?' && that.charAt(2) == 0'=') || c == 9 | 32) {
 				that.next(1)
 
 				return Token.EXCLAMATION
@@ -2699,7 +2697,7 @@ namespace M {
 			}
 		}
 		else if c == 0'.' {
-			if that.charAt(1) == 46 && that.charAt(2) == 46 && that.charAt(3) != 9 & 32 {
+			if that.charAt(1) == 0'.' && that.charAt(2) == 0'.' && that.charAt(3) != 9 & 32 {
 				that.next(3)
 
 				return Token.DOT_DOT_DOT
@@ -2711,7 +2709,7 @@ namespace M {
 			}
 		}
 		else if c == 0'?' {
-			if that.charAt(1) != 9 & 32 {
+			if that.charAt(1) != 9 & 32 & 0'=' {
 				that.next(1)
 
 				return Token.QUESTION
@@ -2743,7 +2741,7 @@ namespace M {
 				that.charAt(5) == 97 &&
 				that.charAt(6) == 99 &&
 				that.charAt(7) == 116 &&
-				that.isBoundary(8)
+				that.isSpace(8)
 			{
 				that.next(8)
 
@@ -2753,7 +2751,7 @@ namespace M {
 					that.charAt(2) == 121 &&
 					that.charAt(3) == 110 &&
 					that.charAt(4) == 99 &&
-					that.isBoundary(5)
+					that.isSpace(5)
 			{
 				that.next(5)
 
@@ -2762,7 +2760,7 @@ namespace M {
 			else if that.charAt(1) == 117 &&
 					that.charAt(2) == 116 &&
 					that.charAt(3) == 111 &&
-					that.isBoundary(4)
+					that.isSpace(4)
 			{
 				that.next(4)
 
@@ -2778,7 +2776,7 @@ namespace M {
 				that.charAt(4) == 97 &&
 				that.charAt(5) == 115 &&
 				that.charAt(6) == 107 &&
-				that.isBoundary(7)
+				that.isSpace(7)
 			{
 				that.next(7)
 
@@ -2788,7 +2786,7 @@ namespace M {
 					that.charAt(2) == 111 &&
 					that.charAt(3) == 99 &&
 					that.charAt(4) == 107 &&
-					that.isBoundary(5)
+					that.isSpace(5)
 			{
 				that.next(5)
 
@@ -2798,7 +2796,7 @@ namespace M {
 					that.charAt(2) == 101 &&
 					that.charAt(3) == 97 &&
 					that.charAt(4) == 107 &&
-					that.isBoundary(5)
+					that.isSpace(5)
 			{
 				that.next(5)
 
@@ -2812,7 +2810,7 @@ namespace M {
 				that.charAt(2) == 97 &&
 				that.charAt(3) == 115 &&
 				that.charAt(4) == 115 &&
-				that.isBoundary(5)
+				that.isSpace(5)
 			{
 				that.next(5)
 
@@ -2822,7 +2820,7 @@ namespace M {
 				that.charAt(2) == 0'n' &&
 				that.charAt(3) == 0's' &&
 				that.charAt(4) == 0't' &&
-				that.isBoundary(5)
+				that.isSpace(5)
 			{
 				that.next(5)
 
@@ -2835,7 +2833,7 @@ namespace M {
 				that.charAt(5) == 110 &&
 				that.charAt(6) == 117 &&
 				that.charAt(7) == 101 &&
-				that.isBoundary(8)
+				that.isSpace(8)
 			{
 				that.next(8)
 
@@ -2846,7 +2844,7 @@ namespace M {
 		else if	c == 100
 		{
 			if 	that.charAt(1) == 111 &&
-				that.isBoundary(2)
+				that.isSpace(2)
 			{
 				that.next(2)
 
@@ -2859,7 +2857,7 @@ namespace M {
 			if	that.charAt(1) == 110 &&
 				that.charAt(2) == 117 &&
 				that.charAt(3) == 109 &&
-				that.isBoundary(4)
+				that.isSpace(4)
 			{
 				that.next(4)
 
@@ -2871,7 +2869,7 @@ namespace M {
 		{
 			if	that.charAt(1) == 111 &&
 				that.charAt(2) == 114 &&
-				that.isBoundary(3)
+				that.isSpace(3)
 			{
 				that.next(3)
 
@@ -2880,7 +2878,7 @@ namespace M {
 			else if that.charAt(1) == 117 &&
 				that.charAt(2) == 110 &&
 				that.charAt(3) == 99 &&
-				that.isBoundary(4)
+				that.isSpace(4)
 			{
 				that.next(4)
 
@@ -2890,7 +2888,7 @@ namespace M {
 				that.charAt(2) == 110 &&
 				that.charAt(3) == 97 &&
 				that.charAt(4) == 108 &&
-				that.isBoundary(5)
+				that.isSpace(5)
 			{
 				that.next(5)
 
@@ -2906,7 +2904,7 @@ namespace M {
 				that.charAt(8) == 117 &&
 				that.charAt(9) == 103 &&
 				that.charAt(10) == 104 &&
-				that.isBoundary(11)
+				that.isSpace(11)
 			{
 				that.next(11)
 
@@ -2917,7 +2915,7 @@ namespace M {
 		else if c == 105
 		{
 			if	that.charAt(1) == 102 &&
-				that.isBoundary(2)
+				that.isSpace(2)
 			{
 				that.next(2)
 
@@ -2926,7 +2924,7 @@ namespace M {
 			else if that.charAt(1) == 109 &&
 				that.charAt(2) == 112 &&
 				that.charAt(3) == 108 &&
-				that.isBoundary(4)
+				that.isSpace(4)
 			{
 				that.next(4)
 
@@ -2937,7 +2935,7 @@ namespace M {
 				that.charAt(3) == 111 &&
 				that.charAt(4) == 114 &&
 				that.charAt(5) == 116 &&
-				that.isBoundary(6)
+				that.isSpace(6)
 			{
 				that.next(6)
 
@@ -2954,7 +2952,7 @@ namespace M {
 				that.charAt(5) == 110 &&
 				that.charAt(6) == 105 &&
 				that.charAt(7) == 116 &&
-				that.isBoundary(8)
+				that.isSpace(8)
 			{
 				that.next(8)
 
@@ -2968,7 +2966,7 @@ namespace M {
 				that.charAt(2) == 99 &&
 				that.charAt(3) == 114 &&
 				that.charAt(4) == 111 &&
-				that.isBoundary(5)
+				that.isSpace(5)
 			{
 				that.next(5)
 
@@ -2978,7 +2976,7 @@ namespace M {
 				that.charAt(2) == 116 &&
 				that.charAt(3) == 99 &&
 				that.charAt(4) == 104 &&
-				that.isBoundary(5)
+				that.isSpace(5)
 			{
 				that.next(5)
 
@@ -2996,7 +2994,7 @@ namespace M {
 				that.charAt(6) == 97 &&
 				that.charAt(7) == 99 &&
 				that.charAt(8) == 101 &&
-				that.isBoundary(9)
+				that.isSpace(9)
 			{
 				that.next(9)
 
@@ -3009,7 +3007,7 @@ namespace M {
 			if	that.charAt(1) == 97 &&
 				that.charAt(2) == 115 &&
 				that.charAt(3) == 115 &&
-				that.isBoundary(4)
+				that.isSpace(4)
 			{
 				that.next(4)
 
@@ -3024,7 +3022,7 @@ namespace M {
 				that.charAt(3) == 101 &&
 				that.charAt(4) == 97 &&
 				that.charAt(5) == 116 &&
-				that.isBoundary(6)
+				that.isSpace(6)
 			{
 				that.next(6)
 
@@ -3035,7 +3033,7 @@ namespace M {
 				that.charAt(3) == 117 &&
 				that.charAt(4) == 114 &&
 				that.charAt(5) == 110 &&
-				that.isBoundary(6)
+				that.isSpace(6)
 			{
 				that.next(6)
 
@@ -3050,7 +3048,7 @@ namespace M {
 				that.charAt(3) == 108 &&
 				that.charAt(4) == 101 &&
 				that.charAt(5) == 100 &&
-				that.isBoundary(6)
+				that.isSpace(6)
 			{
 				that.next(6)
 
@@ -3059,7 +3057,7 @@ namespace M {
 			else if pMode ~~ ParserMode.InlineStatement &&
 				that.charAt(1) == 101 &&
 				that.charAt(2) == 116 &&
-				that.isBoundary(3)
+				that.isSpace(3)
 			{
 				that.next(3)
 
@@ -3070,7 +3068,7 @@ namespace M {
 				that.charAt(3) == 117 &&
 				that.charAt(4) == 99 &&
 				that.charAt(5) == 116 &&
-				that.isBoundary(6)
+				that.isSpace(6)
 			{
 				that.next(6)
 
@@ -3078,13 +3076,13 @@ namespace M {
 			}
 		}
 		// throw, try, tuple, type
-		else if c == 116
+		else if c == 0't'
 		{
 			if	that.charAt(1) == 104 &&
 				that.charAt(2) == 114 &&
 				that.charAt(3) == 111 &&
 				that.charAt(4) == 119 &&
-				that.isBoundary(5)
+				that.isSpace(5)
 			{
 				that.next(5)
 
@@ -3092,7 +3090,7 @@ namespace M {
 			}
 			else if that.charAt(1) == 114 &&
 				that.charAt(2) == 121 &&
-				that.isBoundary(3)
+				that.isSpace(3)
 			{
 				that.next(3)
 
@@ -3102,7 +3100,7 @@ namespace M {
 				that.charAt(2) == 112 &&
 				that.charAt(3) == 108 &&
 				that.charAt(4) == 101 &&
-				that.isBoundary(5)
+				that.isSpace(5)
 			{
 				that.next(5)
 
@@ -3111,7 +3109,7 @@ namespace M {
 			else if that.charAt(1) == 121 &&
 				that.charAt(2) == 112 &&
 				that.charAt(3) == 101 &&
-				that.isBoundary(4)
+				that.isSpace(4)
 			{
 				that.next(4)
 
@@ -3126,7 +3124,7 @@ namespace M {
 				that.charAt(3) == 101 &&
 				that.charAt(4) == 115 &&
 				that.charAt(5) == 115 &&
-				that.isBoundary(6)
+				that.isSpace(6)
 			{
 				that.next(6)
 
@@ -3136,7 +3134,7 @@ namespace M {
 				that.charAt(2) == 116 &&
 				that.charAt(3) == 105 &&
 				that.charAt(4) == 108 &&
-				that.isBoundary(5)
+				that.isSpace(5)
 			{
 				that.next(5)
 
@@ -3148,7 +3146,7 @@ namespace M {
 		{
 			if	that.charAt(1) == 97 &&
 				that.charAt(2) == 114 &&
-				that.isBoundary(3)
+				that.isSpace(3)
 			{
 				that.next(3)
 
@@ -3162,7 +3160,7 @@ namespace M {
 				that.charAt(2) == 105 &&
 				that.charAt(3) == 108 &&
 				that.charAt(4) == 101 &&
-				that.isBoundary(5)
+				that.isSpace(5)
 			{
 				that.next(5)
 
@@ -3171,7 +3169,7 @@ namespace M {
 			else if	that.charAt(1) == 105 &&
 				that.charAt(2) == 116 &&
 				that.charAt(3) == 104 &&
-				that.isBoundary(4)
+				that.isSpace(4)
 			{
 				that.next(4)
 
