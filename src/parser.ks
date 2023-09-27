@@ -7246,6 +7246,68 @@ export namespace Parser {
 				@throw('type')
 			}
 		} # }}}
+		reqTypeArray(modifiers: Array, multiline: Boolean, first: Event, eMode: ExpressionMode): Event ~ SyntaxError { # {{{
+			var properties = []
+			var mut rest = null
+
+			@NL_0M()
+
+			while @until(Token.RIGHT_SQUARE) {
+				if @test(Token.COMMA) {
+					var first = @yep()
+					var property = @yep(AST.PropertyType([], null, null, first, first))
+
+					properties.push(property)
+
+					@commit().NL_0M()
+				}
+				else {
+					@NL_0M()
+
+					if @test(Token.DOT_DOT_DOT) {
+						if ?rest {
+							@throw('Identifier')
+						}
+
+						var first = @yes()
+						var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
+						var type = @tryType([], multiline, eMode)
+
+						if type.ok {
+							rest = @yep(AST.PropertyType([modifier], null, type, first, type))
+						}
+						else {
+							rest = @yep(AST.PropertyType([modifier], null, null, first, first))
+						}
+					}
+					else {
+						var type = @reqType([], multiline)
+
+						var property = @yep(AST.PropertyType([], null, type, type, type))
+
+						properties.push(property)
+					}
+
+					if @test(Token.COMMA) {
+						@commit().NL_0M()
+					}
+					else if @test(Token.NEWLINE) {
+						@commit().NL_0M()
+					}
+					else {
+						break
+					}
+				}
+			}
+
+			unless @test(Token.RIGHT_SQUARE) {
+				@throw(']')
+			}
+
+			var type = @yep(AST.ArrayType(modifiers, properties, rest, first, @yes()))
+
+			return @altTypeContainer(type)
+		} # }}}
 		reqTypeCore(modifiers: Array, multiline: Boolean, eMode: ExpressionMode): Event ~ SyntaxError { # {{{
 			var type = @tryTypeCore(modifiers, multiline, eMode)
 
@@ -7263,8 +7325,8 @@ export namespace Parser {
 				return type
 			}
 			// TODO!
-			// else if type.value is String[] && #type.value {
-			// 	@throw(...type.value)
+			// else {
+			// 	@throw(...type.value ?? 'type')
 			// }
 			else if #type.value {
 				@throw(...type.value)
@@ -7280,7 +7342,7 @@ export namespace Parser {
 				return @altTypeContainer(type, nullable)
 			}
 			else {
-				return NO
+				@throw()
 			}
 		} # }}}
 		reqTypeEntity(): Event ~ SyntaxError { # {{{
@@ -7329,6 +7391,144 @@ export namespace Parser {
 			@throw('}') unless @test(Token.RIGHT_CURLY)
 
 			return @yep(AST.TypeList(attributes, types, first, @yes()))
+		} # }}}
+		reqTypeObject(modifiers: Array, first: Event, eMode: ExpressionMode): Event ~ SyntaxError { # {{{
+			var properties = []
+			var mut rest = null
+
+			@NL_0M()
+
+			until @test(Token.RIGHT_CURLY) {
+				var mark = @mark()
+				var mut nf = true
+
+				if @test(Token.ASYNC) {
+					var async = @yes()
+
+					if @test(Token.FUNC) {
+						@commit()
+					}
+
+					var identifier = @tryIdentifier()
+
+					if identifier.ok && @test(Token.LEFT_ROUND) {
+						var modifiers = [@yep(AST.Modifier(ModifierKind.Async, async))]
+						var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
+						var type = @tryFunctionReturns(eMode, false)
+						var throws = @tryFunctionThrows()
+
+						var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
+
+						var property = @yep(AST.PropertyType([], identifier, objectType, identifier, objectType))
+
+						properties.push(property)
+
+						nf = false
+					}
+					else {
+						@rollback(mark)
+					}
+				}
+
+				if nf && @test(Token.FUNC) {
+					var first = @yes()
+					var identifier = @tryIdentifier()
+
+					if identifier.ok && @test(Token.LEFT_ROUND) {
+						var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
+						var type = @tryFunctionReturns(eMode, false)
+						var throws = @tryFunctionThrows()
+
+						var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
+
+						var property = @yep(AST.PropertyType([], identifier, objectType, identifier, objectType))
+
+						properties.push(property)
+
+						nf = false
+					}
+					else {
+						@rollback(mark)
+					}
+				}
+
+				if nf && @test(Token.DOT_DOT_DOT) {
+					if ?rest {
+						@throw('Identifier')
+					}
+
+					var first = @yes()
+					var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
+					var type = @tryType(eMode)
+
+					if type.ok {
+						rest = @yep(AST.PropertyType([modifier], null, type, first, type))
+					}
+					else {
+						rest = @yep(AST.PropertyType([modifier], null, null, first, first))
+					}
+
+					nf = false
+				}
+
+				if nf {
+					var identifier = @tryIdentifier()
+
+					if identifier.ok {
+						var modifiers = []
+						var mut type = null
+
+						if @test(.LEFT_ROUND) {
+							var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
+							var return = @tryFunctionReturns(eMode)
+							var throws = @tryFunctionThrows()
+
+							type = @yep(AST.FunctionExpression(parameters, null, return, throws, null, parameters, throws ?? return ?? parameters))
+						}
+						else if @test(.COLON) {
+							@commit()
+
+							type = @reqType()
+						}
+						else if @test(.QUESTION) {
+							modifiers.push(@yep(AST.Modifier(.Nullable, @yes())))
+						}
+
+						var property = @yep(AST.PropertyType(modifiers, identifier, type, identifier, type ?? identifier))
+
+						properties.push(property)
+
+						nf = false
+					}
+				}
+
+				if nf {
+					@throw('Identifier', '...')
+				}
+				else {
+					if @test(Token.COMMA) {
+						@commit().NL_0M()
+					}
+					else if @test(Token.NEWLINE) {
+						@commit().NL_0M()
+
+						if @test(Token.COMMA) {
+							@commit().NL_0M()
+						}
+					}
+					else {
+						break
+					}
+				}
+			}
+
+			unless @test(Token.RIGHT_CURLY) {
+				@throw('}')
+			}
+
+			var type = @yep(AST.ObjectType(modifiers, properties, rest, first, @yes()))
+
+			return @altTypeContainer(type)
 		} # }}}
 		reqTypeParameter(): Event ~ SyntaxError { # {{{
 			var type = @tryType()
@@ -9785,207 +9985,11 @@ export namespace Parser {
 			}
 
 			if @test(Token.LEFT_CURLY) {
-				var first = @yes()
-				var properties = []
-				var mut rest = null
-
-				@NL_0M()
-
-				until @test(Token.RIGHT_CURLY) {
-					var mark = @mark()
-					var mut nf = true
-
-					if @test(Token.ASYNC) {
-						var async = @yes()
-
-						if @test(Token.FUNC) {
-							@commit()
-						}
-
-						var identifier = @tryIdentifier()
-
-						if identifier.ok && @test(Token.LEFT_ROUND) {
-							var modifiers = [@yep(AST.Modifier(ModifierKind.Async, async))]
-							var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
-							var type = @tryFunctionReturns(eMode, false)
-							var throws = @tryFunctionThrows()
-
-							var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, throws ?? type ?? parameters))
-
-							var property = @yep(AST.PropertyType([], identifier, objectType, identifier, objectType))
-
-							properties.push(property)
-
-							nf = false
-						}
-						else {
-							@rollback(mark)
-						}
-					}
-
-					if nf && @test(Token.FUNC) {
-						var first = @yes()
-						var identifier = @tryIdentifier()
-
-						if identifier.ok && @test(Token.LEFT_ROUND) {
-							var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
-							var type = @tryFunctionReturns(eMode, false)
-							var throws = @tryFunctionThrows()
-
-							var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
-
-							var property = @yep(AST.PropertyType([], identifier, objectType, identifier, objectType))
-
-							properties.push(property)
-
-							nf = false
-						}
-						else {
-							@rollback(mark)
-						}
-					}
-
-					if nf && @test(Token.DOT_DOT_DOT) {
-						if ?rest {
-							@throw('Identifier')
-						}
-
-						var first = @yes()
-						var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
-						var type = @tryType(eMode)
-
-						if type.ok {
-							rest = @yep(AST.PropertyType([modifier], null, type, first, type))
-						}
-						else {
-							rest = @yep(AST.PropertyType([modifier], null, null, first, first))
-						}
-
-						nf = false
-					}
-
-					if nf {
-						var identifier = @tryIdentifier()
-
-						if identifier.ok {
-							var modifiers = []
-							var mut type = null
-
-							if @test(.LEFT_ROUND) {
-								var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
-								var return = @tryFunctionReturns(eMode)
-								var throws = @tryFunctionThrows()
-
-								type = @yep(AST.FunctionExpression(parameters, null, return, throws, null, parameters, throws ?? return ?? parameters))
-							}
-							else if @test(.COLON) {
-								@commit()
-
-								type = @reqType()
-							}
-							else if @test(.QUESTION) {
-								modifiers.push(@yep(AST.Modifier(.Nullable, @yes())))
-							}
-
-							var property = @yep(AST.PropertyType(modifiers, identifier, type, identifier, type ?? identifier))
-
-							properties.push(property)
-
-							nf = false
-						}
-					}
-
-					if nf {
-						@throw('Identifier', '...')
-					}
-					else {
-						if @test(Token.COMMA) {
-							@commit().NL_0M()
-						}
-						else if @test(Token.NEWLINE) {
-							@commit().NL_0M()
-
-							if @test(Token.COMMA) {
-								@commit().NL_0M()
-							}
-						}
-						else {
-							break
-						}
-					}
-				}
-
-				unless @test(Token.RIGHT_CURLY) {
-					@throw('}')
-				}
-
-				var type = @yep(AST.ObjectType([], properties, rest, first, @yes()))
-
-				return @altTypeContainer(type)
+				return @reqTypeObject(modifiers, @yes(), eMode)
 			}
 
 			if @test(Token.LEFT_SQUARE) {
-				var first = @yes()
-				var properties = []
-				var mut rest = null
-
-				@NL_0M()
-
-				while @until(Token.RIGHT_SQUARE) {
-					if @test(Token.COMMA) {
-						var first = @yep()
-						var property = @yep(AST.PropertyType([], null, null, first, first))
-
-						properties.push(property)
-
-						@commit().NL_0M()
-					}
-					else {
-						@NL_0M()
-
-						if @test(Token.DOT_DOT_DOT) {
-							if ?rest {
-								@throw('Identifier')
-							}
-
-							var first = @yes()
-							var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
-							var type = @tryType([], multiline, eMode)
-
-							if type.ok {
-								rest = @yep(AST.PropertyType([modifier], null, type, first, type))
-							}
-							else {
-								rest = @yep(AST.PropertyType([modifier], null, null, first, first))
-							}
-						}
-						else {
-							var type = @reqType([], multiline)
-
-							var property = @yep(AST.PropertyType([], null, type, type, type))
-
-							properties.push(property)
-						}
-
-						if @test(Token.COMMA) {
-							@commit().NL_0M()
-						}
-						else if @test(Token.NEWLINE) {
-							@commit().NL_0M()
-						}
-						else {
-							break
-						}
-					}
-				}
-
-				unless @test(Token.RIGHT_SQUARE) {
-					@throw(']')
-				}
-
-				var type = @yep(AST.ArrayType([], properties, rest, first, @yes()))
-
-				return @altTypeContainer(type)
+				return @reqTypeArray(modifiers, multiline, @yes(), eMode)
 			}
 
 			var mark = @mark()
@@ -10288,6 +10292,14 @@ export namespace Parser {
 				var throws = @tryFunctionThrows()
 
 				return @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?? type ?? parameters))
+			}
+
+			if @test(Token.LEFT_CURLY) {
+				return @reqTypeObject(modifiers, @yes(), .InlineOnly)
+			}
+
+			if @test(Token.LEFT_SQUARE) {
+				return @reqTypeArray(modifiers, false, @yes(), .InlineOnly)
 			}
 
 			var name = @tryIdentifierOrMember()

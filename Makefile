@@ -39,6 +39,6 @@ dev:
 	@make cls
 
 	@# tests
-	kaoscript test/parse.dev.ks "parse repeat.infinity.inline"
+	kaoscript test/parse.dev.ks "parse test"
 
 .PHONY: test coverage
