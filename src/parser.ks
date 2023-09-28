@@ -7324,15 +7324,8 @@ export namespace Parser {
 			if type.ok {
 				return type
 			}
-			// TODO!
-			// else {
-			// 	@throw(...type.value ?? 'type')
-			// }
-			else if #type.value {
-				@throw(...type.value)
-			}
 			else {
-				@throw('type')
+				@throw(...type.value ## 'type')
 			}
 		} # }}}
 		reqTypeLimited(modifiers: Array = [], nullable: Boolean = true): Event ~ SyntaxError { # {{{
