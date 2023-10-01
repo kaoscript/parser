@@ -62,7 +62,8 @@ export namespace Parser {
 	}
 
 	bitmask ExpressionMode {
-		Default
+		Nil
+
 		Arrow
 		AtThis
 		Curry
@@ -76,7 +77,7 @@ export namespace Parser {
 		Pipeline
 		WithMacro
 
-		InlineOnly			= Default + NoInlineCascade + NoMultiLine
+		InlineOnly			= NoInlineCascade + NoMultiLine
 		PrimaryType			= InlineOnly
 		ClassType			= PrimaryType + AtThis
 	}
@@ -105,14 +106,16 @@ export namespace Parser {
 	}
 
 	bitmask ParserMode {
-		Default
+		Nil
+
 		InlineStatement
 		MacroExpression
 		Typing
 	}
 
 	bitmask TypeMode {
-		Default
+		Nil
+
 		Module
 		NoIdentifier
 	}
@@ -140,7 +143,7 @@ export namespace Parser {
 
 	class Parser {
 		private {
-			@mode: ParserMode	= ParserMode.Default
+			@mode: ParserMode	= ParserMode.Nil
 			@scanner: Scanner
 			@token: Token?
 		}
@@ -319,7 +322,7 @@ export namespace Parser {
 
 			@NL_0M()
 
-			var condition = @reqExpression(ExpressionMode.Default, fMode)
+			var condition = @reqExpression(.Nil, fMode)
 
 			unless @test(Token.TIMES) {
 				@throw('times')
@@ -376,7 +379,7 @@ export namespace Parser {
 			if @test(Token.IF, Token.UNLESS) {
 				var kind = @token == Token.IF ? RestrictiveOperatorKind.If : RestrictiveOperatorKind.Unless
 				var operator = @yep(AST.RestrictiveOperator(kind, @yes()))
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoMultiLine, fMode)
+				var condition = @reqExpression(.NoMultiLine, fMode)
 
 				if @test(Token.NEWLINE) || @token == Token.EOF {
 					return @yep(AST.RestrictiveExpression(operator, condition, expression, expression, condition))
@@ -627,7 +630,7 @@ export namespace Parser {
 						statement = @reqRequireOrImportStatement(@yes()).value
 					}
 					else {
-						statement = @reqStatement(FunctionMode.Nil).value
+						statement = @reqStatement(null, FunctionMode.Nil).value
 					}
 				}
 
@@ -683,7 +686,7 @@ export namespace Parser {
 
 				@stackOuterAttributes(attrs)
 
-				var statement = @reqStatement(mode).value
+				var statement = @reqStatement(null, mode).value
 
 				AST.pushAttributes(statement, attrs)
 
@@ -799,7 +802,7 @@ export namespace Parser {
 						var first = @yes()
 
 						if @testNS(Token.NUMERAL) {
-							var index = @yep(AST.NumericExpression(parseInt(@scanner.value(), 10), @yes()))
+							var index = @yep(AST.NumericExpression(parseInt(@scanner.value(), 10), 10, @yes()))
 
 							argument = @yep(AST.PlaceholderArgument([], index, first, index))
 						}
@@ -851,7 +854,7 @@ export namespace Parser {
 									var first = @yes()
 
 									if @testNS(Token.NUMERAL) {
-										var index = @yep(AST.NumericExpression(parseInt(@scanner.value(), 10), @yes()))
+										var index = @yep(AST.NumericExpression(parseInt(@scanner.value(), 10), 10, @yes()))
 
 										set @yep(AST.PlaceholderArgument([], index, first, index))
 									}
@@ -1124,7 +1127,7 @@ export namespace Parser {
 
 			return @yep(AST.BitmaskDeclaration(attributes, modifiers, name, type, members, first, @yes()))
 		} # }}}
-		reqBlock(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqBlock(mut first: Event, eMode: ExpressionMode?, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			if !first.ok {
 				unless @test(Token.LEFT_CURLY) {
 					@throw('{')
@@ -1147,7 +1150,7 @@ export namespace Parser {
 
 				@stackOuterAttributes(attrs)
 
-				statement = @reqStatement(fMode)
+				statement = @reqStatement(eMode, fMode)
 
 				AST.pushAttributes(statement.value, attrs)
 
@@ -1166,7 +1169,7 @@ export namespace Parser {
 			if @match(Token.IF, Token.UNLESS) == Token.IF {
 				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @tryExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @tryExpression(.NoRestriction, fMode)
 
 				if condition.ok {
 					return @yep(AST.IfStatement(condition, @yep(AST.BreakStatement(null, first, first)), null, first, condition))
@@ -1178,7 +1181,7 @@ export namespace Parser {
 			else if @token == Token.UNLESS {
 				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @tryExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @tryExpression(.NoRestriction, fMode)
 
 				if condition.ok {
 					return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(null, first, first)), first, condition))
@@ -1194,14 +1197,14 @@ export namespace Parser {
 					if @match(Token.IF, Token.UNLESS) == Token.IF {
 						@commit()
 
-						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+						var condition = @reqExpression(.NoRestriction, fMode)
 
 						return @yep(AST.IfStatement(condition, @yep(AST.BreakStatement(label, first, label)), null, first, condition))
 					}
 					else if @token == Token.UNLESS {
 						@commit()
 
-						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+						var condition = @reqExpression(.NoRestriction, fMode)
 
 						return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(label, first, label)), first, condition))
 					}
@@ -1269,7 +1272,7 @@ export namespace Parser {
 
 			@NL_0M()
 
-			var body = @reqBlock(NO, fMode)
+			var body = @reqBlock(NO, null, fMode)
 
 			return @yep(AST.CatchClause(binding, type, body, first, body))
 		} # }}}
@@ -1662,12 +1665,12 @@ export namespace Parser {
 					if @match(Token.EQUALS_RIGHT_ANGLE, Token.LEFT_CURLY) == Token.EQUALS_RIGHT_ANGLE {
 						@commit()
 
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Method)
+						var expression = @reqExpression(.Nil, .Method)
 
 						accessor = @yep(AST.AccessorDeclaration(expression, first, expression))
 					}
 					else if @token == Token.LEFT_CURLY {
-						var block = @reqBlock(NO, FunctionMode.Method)
+						var block = @reqBlock(NO, null, FunctionMode.Method)
 
 						accessor = @yep(AST.AccessorDeclaration(block, first, block))
 					}
@@ -1683,12 +1686,12 @@ export namespace Parser {
 						if @match(Token.EQUALS_RIGHT_ANGLE, Token.LEFT_CURLY) == Token.EQUALS_RIGHT_ANGLE {
 							@commit()
 
-							var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Method)
+							var expression = @reqExpression(.Nil, .Method)
 
 							mutator = @yep(AST.MutatorDeclaration(expression, first, expression))
 						}
 						else if @token == Token.LEFT_CURLY {
-							var block = @reqBlock(NO, FunctionMode.Method)
+							var block = @reqBlock(NO, null, FunctionMode.Method)
 
 							mutator = @yep(AST.MutatorDeclaration(block, first, block))
 						}
@@ -1705,12 +1708,12 @@ export namespace Parser {
 					if @match(Token.EQUALS_RIGHT_ANGLE, Token.LEFT_CURLY) == Token.EQUALS_RIGHT_ANGLE {
 						@commit()
 
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Method)
+						var expression = @reqExpression(.Nil, .Method)
 
 						mutator = @yep(AST.MutatorDeclaration(expression, first, expression))
 					}
 					else if @token == Token.LEFT_CURLY {
-						var block = @reqBlock(NO, FunctionMode.Method)
+						var block = @reqBlock(NO, null, FunctionMode.Method)
 
 						mutator = @yep(AST.MutatorDeclaration(block, first, block))
 					}
@@ -1756,7 +1759,7 @@ export namespace Parser {
 			if @test(Token.EQUALS) {
 				@commit()
 
-				defaultValue = @reqExpression(ExpressionMode.Default, FunctionMode.Method)
+				defaultValue = @reqExpression(.Nil, .Method)
 			}
 
 			@reqNL_1M()
@@ -1792,7 +1795,7 @@ export namespace Parser {
 			@commit().reqNL_1M()
 		} # }}}
 		reqClassProxyGroup(attributes, modifiers, members: Array<Event>, first: Event): Void ~ SyntaxError { # {{{
-			var recipient = @reqExpression(ExpressionMode.Default, FunctionMode.Method)
+			var recipient = @reqExpression(.Nil, .Method)
 
 			@throw('{') unless @test(Token.LEFT_CURLY)
 
@@ -1909,7 +1912,7 @@ export namespace Parser {
 			return variable
 		} # }}}
 		reqComputedPropertyName(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqExpression(ExpressionMode.Default, fMode)
+			var expression = @reqExpression(.Nil, fMode)
 
 			unless @test(Token.RIGHT_SQUARE) {
 				@throw(']')
@@ -1931,7 +1934,7 @@ export namespace Parser {
 			if @match(Token.IF, Token.UNLESS) == Token.IF {
 				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @tryExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @tryExpression(.NoRestriction, fMode)
 
 				if condition.ok {
 					return @yep(AST.IfStatement(condition, @yep(AST.ContinueStatement(null, first, first)), null, first, condition))
@@ -1943,7 +1946,7 @@ export namespace Parser {
 			else if @token == Token.UNLESS {
 				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
 
-				var condition = @tryExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @tryExpression(.NoRestriction, fMode)
 
 				if condition.ok {
 					return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(null, first, first)), first, condition))
@@ -1959,14 +1962,14 @@ export namespace Parser {
 					if @match(Token.IF, Token.UNLESS) == Token.IF {
 						@commit()
 
-						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+						var condition = @reqExpression(.NoRestriction, fMode)
 
 						return @yep(AST.IfStatement(condition, @yep(AST.ContinueStatement(label, first, label)), null, first, condition))
 					}
 					else if @token == Token.UNLESS {
 						@commit()
 
-						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+						var condition = @reqExpression(.NoRestriction, fMode)
 
 						return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(label, first, label)), first, condition))
 					}
@@ -2134,7 +2137,7 @@ export namespace Parser {
 					var operator = @tryDefaultAssignmentOperator(true)
 
 					if operator.ok {
-						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+						var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 						return @yep(AST.ArrayBindingElement(modifiers, name, type, operator, defaultValue, first ?? name, defaultValue))
 					}
@@ -2157,7 +2160,7 @@ export namespace Parser {
 
 				if required {
 					var operator = @reqDefaultAssignmentOperator()
-					var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+					var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 					return @yep(AST.ArrayBindingElement(modifiers, name, null, operator, defaultValue, first ?? name, defaultValue))
 				}
@@ -2167,7 +2170,7 @@ export namespace Parser {
 				var operator = @tryDefaultAssignmentOperator(true)
 
 				if operator.ok {
-					var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+					var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 					return @yep(AST.ArrayBindingElement(modifiers, name, null, operator, defaultValue, first ?? name, defaultValue))
 				}
@@ -2340,7 +2343,7 @@ export namespace Parser {
 						var operator = @tryDefaultAssignmentOperator(true)
 
 						if operator.ok {
-							var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+							var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 							return @yep(AST.ObjectBindingElement(modifiers, external, internal, type, operator, defaultValue, first ?? external ?? internal, defaultValue))
 						}
@@ -2354,7 +2357,7 @@ export namespace Parser {
 
 					if required {
 						var operator = @reqDefaultAssignmentOperator()
-						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+						var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 						return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, operator, defaultValue, first ?? external ?? internal, defaultValue))
 					}
@@ -2364,7 +2367,7 @@ export namespace Parser {
 					var operator = @tryDefaultAssignmentOperator(true)
 
 					if operator.ok {
-						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+						var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 						return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, operator, defaultValue, first ?? external ?? internal, defaultValue))
 					}
@@ -2385,7 +2388,7 @@ export namespace Parser {
 					var operator = @tryDefaultAssignmentOperator(true)
 
 					if operator.ok {
-						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+						var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 						return @yep(AST.ObjectBindingElement(modifiers, external, internal, null, operator, defaultValue, first ?? external ?? internal, defaultValue))
 					}
@@ -2418,21 +2421,21 @@ export namespace Parser {
 		reqDoStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			@NL_0M()
 
-			var body = @reqBlock(NO, fMode)
+			var body = @reqBlock(NO, null, fMode)
 
 			@reqNL_1M()
 
 			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default, fMode)
+				var condition = @reqExpression(.Nil, fMode)
 
 				return @yep(AST.DoUntilStatement(condition, body, first, condition))
 			}
 			else if @token == Token.WHILE {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default, fMode)
+				var condition = @reqExpression(.Nil, fMode)
 
 				return @yep(AST.DoWhileStatement(condition, body, first, condition))
 			}
@@ -2818,7 +2821,7 @@ export namespace Parser {
 			var declarations = []
 
 			if @match(Token.EQUALS, Token.IDENTIFIER, Token.LEFT_CURLY) == Token.EQUALS {
-				var modifier = @yep(AST.Modifier(ModifierKind.Default, @yes()))
+				var modifier = @yep(AST.Modifier(.Default, @yes()))
 				var identifier = @reqIdentifier()
 
 				declarations.push(@yep(AST.NamedSpecifier([modifier], identifier, null, first, identifier)))
@@ -2989,8 +2992,8 @@ export namespace Parser {
 				@throw(...expression.value)
 			}
 		} # }}}
-		reqExpressionStatement(fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+		reqExpressionStatement(eMode: ExpressionMode = .Nil + .NoRestriction, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var expression = @reqExpression(eMode, fMode)
 
 			if @match(Token.FOR, Token.IF, Token.REPEAT, Token.UNLESS) == Token.FOR {
 				var first = @yes()
@@ -3001,14 +3004,14 @@ export namespace Parser {
 			else if @token == Token.IF {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(eMode, fMode)
 
 				return @yep(AST.IfStatement(condition, @yep(AST.ExpressionStatement(expression)), null, expression, condition))
 			}
 			else if @token == Token.REPEAT {
 				@commit().NL_0M()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(eMode, fMode)
 				var block =  @yep(AST.ExpressionStatement(expression))
 
 				unless @test(Token.TIMES) {
@@ -3020,7 +3023,7 @@ export namespace Parser {
 			else if @token == Token.UNLESS {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(eMode, fMode)
 
 				return @yep(AST.UnlessStatement(condition, @yep(AST.ExpressionStatement(expression)), expression, condition))
 			}
@@ -3499,7 +3502,7 @@ export namespace Parser {
 
 			@NL_0M()
 
-			var body = @reqBlock(NO, fMode)
+			var body = @reqBlock(NO, null, fMode)
 
 			var mut else = null
 
@@ -3510,7 +3513,7 @@ export namespace Parser {
 			if @test(Token.ELSE) {
 				@commit().NL_0M()
 
-				else = @reqBlock(NO, fMode)
+				else = @reqBlock(NO, null, fMode)
 			}
 			else {
 				@rollback(mark)
@@ -3523,24 +3526,24 @@ export namespace Parser {
 
 			match automatable ? @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE, .COLON_RIGHT_ANGLE) : @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE) {
 				.LEFT_CURLY {
-					return @reqBlock(@yes(), fMode - FunctionMode.NoPipeline)
+					return @reqBlock(@yes(), null, fMode - FunctionMode.NoPipeline)
 				}
 				.EQUALS_RIGHT_ANGLE {
 					@commit().NL_0M()
 
-					var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+					var expression = @reqExpression(.NoRestriction, fMode)
 
 					if @match(Token.IF, Token.UNLESS) == Token.IF {
 						@commit()
 
-						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+						var condition = @reqExpression(.NoRestriction, fMode)
 
 						return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
 					}
 					else if @token == Token.UNLESS {
 						@commit()
 
-						var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+						var condition = @reqExpression(.NoRestriction, fMode)
 
 						return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(expression, expression, expression)), expression, condition))
 					}
@@ -3553,7 +3556,7 @@ export namespace Parser {
 
 					@NL_0M()
 
-					return @reqExpression(.Default + .NoRestriction, fMode)
+					return @reqExpression(.NoRestriction, fMode)
 				}
 				else {
 					@throw('{', '=>')
@@ -3657,14 +3660,14 @@ export namespace Parser {
 
 						@commit()
 
-						var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+						var operand = @reqPrefixedOperand(.Nil, fMode)
 						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
 						set AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression)
 					}
 					else {
 						var operator = @reqConditionAssignment()
-						var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+						var expression = @reqExpression(.ImplicitMember, fMode)
 
 						set AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression)
 					}
@@ -3674,7 +3677,7 @@ export namespace Parser {
 					if @test(.SEMICOLON_SEMICOLON) {
 						@commit().NL_0M()
 
-						var condition = @reqExpression(ExpressionMode.NoAnonymousFunction, fMode).value
+						var condition = @reqExpression(.NoAnonymousFunction, fMode).value
 
 						declarations.push({ declaration, condition })
 					}
@@ -3685,7 +3688,7 @@ export namespace Parser {
 				else {
 					@rollback(mark)
 
-					condition = @reqExpression(ExpressionMode.NoAnonymousFunction, fMode)
+					condition = @reqExpression(.NoAnonymousFunction, fMode)
 				}
 			}
 			else {
@@ -3729,14 +3732,14 @@ export namespace Parser {
 
 								@commit()
 
-								var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+								var operand = @reqPrefixedOperand(.Nil, fMode)
 								var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
 								set AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression)
 							}
 							else {
 								var operator = @reqConditionAssignment()
-								var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+								var expression = @reqExpression(.ImplicitMember, fMode)
 
 								set AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression)
 							}
@@ -3746,7 +3749,7 @@ export namespace Parser {
 							if @test(.SEMICOLON_SEMICOLON) {
 								@commit().NL_0M()
 
-								var condition = @reqExpression(ExpressionMode.NoAnonymousFunction, fMode).value
+								var condition = @reqExpression(.NoAnonymousFunction, fMode).value
 
 								@NL_0M()
 
@@ -3781,7 +3784,7 @@ export namespace Parser {
 
 			@NL_0M()
 
-			var whenTrue = @reqBlock(NO, fMode)
+			var whenTrue = @reqBlock(NO, null, fMode)
 
 			if @test(Token.NEWLINE) {
 				var mark = @mark()
@@ -3800,7 +3803,7 @@ export namespace Parser {
 				else if @token == Token.ELSE {
 					@commit().NL_0M()
 
-					var whenFalse = @reqBlock(NO, fMode)
+					var whenFalse = @reqBlock(NO, null, fMode)
 
 					return @yep(AST.IfStatement(condition ?? declarations, whenTrue, whenFalse, first, whenFalse))
 				}
@@ -4070,7 +4073,7 @@ export namespace Parser {
 				}
 
 				while @until(Token.RIGHT_ROUND) {
-					var dyn name = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
+					var dyn name = @reqExpression(.Nil, .Nil)
 					var modifiers = []
 
 					if name.value.kind == NodeKind.Identifier {
@@ -4096,7 +4099,7 @@ export namespace Parser {
 							if @test(Token.COLON) {
 								@commit()
 
-								var value = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
+								var value = @reqExpression(.Nil, .Nil)
 
 								arguments.push(AST.Argument(modifiers, name, value, name, value))
 							}
@@ -4564,7 +4567,7 @@ export namespace Parser {
 				if @match(Token.IN, Token.OF) == Token.IN {
 					@commit()
 
-					return @reqIterationIn(modifiers, destructuring, type1, identifier2, @reqExpression(ExpressionMode.Default, fMode), first, fMode)
+					return @reqIterationIn(modifiers, destructuring, type1, identifier2, @reqExpression(.Nil, fMode), first, fMode)
 				}
 				else if @token == Token.OF {
 					@commit()
@@ -4614,14 +4617,14 @@ export namespace Parser {
 			if @token == Token.FROM_TILDE {
 				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
 
-				from = @reqExpression(ExpressionMode.Default, fMode)
+				from = @reqExpression(.Nil, fMode)
 
 				AST.pushModifier(from.value, modifier)
 			}
 			else {
 				@commit()
 
-				from = @reqExpression(ExpressionMode.Default, fMode)
+				from = @reqExpression(.Nil, fMode)
 			}
 
 			@NL_0M()
@@ -4641,12 +4644,12 @@ export namespace Parser {
 			if @match(Token.TO, Token.TO_TILDE) == Token.TO {
 				@commit()
 
-				to = @reqExpression(ExpressionMode.Default, fMode)
+				to = @reqExpression(.Nil, fMode)
 			}
 			else if @token == Token.TO_TILDE {
 				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
 
-				to = @reqExpression(ExpressionMode.Default, fMode)
+				to = @reqExpression(.Nil, fMode)
 
 				AST.pushModifier(to.value, modifier)
 			}
@@ -4660,7 +4663,7 @@ export namespace Parser {
 			if @test(Token.STEP) {
 				@commit()
 
-				step = @reqExpression(ExpressionMode.Default, fMode)
+				step = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
@@ -4670,14 +4673,14 @@ export namespace Parser {
 			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
 				@commit()
 
-				until = @reqExpression(ExpressionMode.Default, fMode)
+				until = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
 			else if @token == Token.WHILE {
 				@commit()
 
-				while = @reqExpression(ExpressionMode.Default, fMode)
+				while = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
@@ -4686,7 +4689,7 @@ export namespace Parser {
 			if @test(Token.WHEN) {
 				var first = @yes()
 
-				when = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
+				when = @relocate(@reqExpression(.Nil, fMode), first, null)
 			}
 
 			return @yep(AST.IterationFrom(modifiers, variable, from, to, step, until, while, when, first, when ?? while ?? until ?? step ?? to))
@@ -4698,14 +4701,14 @@ export namespace Parser {
 			if @match(Token.FROM, Token.FROM_TILDE) == Token.FROM {
 				@commit()
 
-				from = @reqExpression(ExpressionMode.Default, fMode)
+				from = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
 			else if @token == Token.FROM_TILDE {
 				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
 
-				from = @reqExpression(ExpressionMode.Default, fMode)
+				from = @reqExpression(.Nil, fMode)
 
 				AST.pushModifier(from.value, modifier)
 
@@ -4732,14 +4735,14 @@ export namespace Parser {
 			if @match(Token.TO, Token.TO_TILDE) == Token.TO {
 				@commit()
 
-				to = @reqExpression(ExpressionMode.Default, fMode)
+				to = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
 			else if @token == Token.TO_TILDE {
 				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
 
-				to = @reqExpression(ExpressionMode.Default, fMode)
+				to = @reqExpression(.Nil, fMode)
 
 				AST.pushModifier(to.value, modifier)
 
@@ -4750,7 +4753,7 @@ export namespace Parser {
 			if @test(Token.STEP) {
 				@commit()
 
-				step = @reqExpression(ExpressionMode.Default, fMode)
+				step = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
@@ -4759,7 +4762,7 @@ export namespace Parser {
 			if @test(Token.SPLIT) {
 				@commit()
 
-				split = @reqExpression(ExpressionMode.Default, fMode)
+				split = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
@@ -4769,14 +4772,14 @@ export namespace Parser {
 			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
 				@commit()
 
-				until = @reqExpression(ExpressionMode.Default, fMode)
+				until = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
 			else if @token == Token.WHILE {
 				@commit()
 
-				while = @reqExpression(ExpressionMode.Default, fMode)
+				while = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
@@ -4785,7 +4788,7 @@ export namespace Parser {
 			if @test(Token.WHEN) {
 				var first = @yes()
 
-				when = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
+				when = @relocate(@reqExpression(.Nil, fMode), first, null)
 			}
 
 			return @yep(AST.IterationArray(modifiers, value, type, index, expression, from, to, step, split, until, while, when, first, when ?? while ?? until ?? split ?? step ?? to ?? order ?? from ?? expression))
@@ -4813,7 +4816,7 @@ export namespace Parser {
 						modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
 					}
 
-					var to = @reqPrefixedOperand(ExpressionMode.InlineOnly, fMode)
+					var to = @reqPrefixedOperand(.InlineOnly, fMode)
 
 					if ?modifier {
 						AST.pushModifier(to.value, modifier)
@@ -4823,7 +4826,7 @@ export namespace Parser {
 					if @test(Token.DOT_DOT) {
 						@commit()
 
-						step = @reqPrefixedOperand(ExpressionMode.InlineOnly, fMode)
+						step = @reqPrefixedOperand(.InlineOnly, fMode)
 					}
 
 					return @reqIterationRange(modifiers, value, index, operand, to, step, first, fMode)
@@ -4833,22 +4836,22 @@ export namespace Parser {
 				}
 			}
 			else {
-				return @reqIterationIn(modifiers, value, type, index, @reqExpression(ExpressionMode.Default, fMode), first, fMode)
+				return @reqIterationIn(modifiers, value, type, index, @reqExpression(.Nil, fMode), first, fMode)
 			}
 		} # }}}
 		reqIterationOf(modifiers, value: Event, type: Event, key: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqExpression(ExpressionMode.Default, fMode)
+			var expression = @reqExpression(.Nil, fMode)
 
 			var dyn until, while
 			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
 				@commit()
 
-				until = @reqExpression(ExpressionMode.Default, fMode)
+				until = @reqExpression(.Nil, fMode)
 			}
 			else if @token == Token.WHILE {
 				@commit()
 
-				while = @reqExpression(ExpressionMode.Default, fMode)
+				while = @reqExpression(.Nil, fMode)
 			}
 
 			@NL_0M()
@@ -4857,7 +4860,7 @@ export namespace Parser {
 			if @test(Token.WHEN) {
 				var first = @yes()
 
-				whenExp = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
+				whenExp = @relocate(@reqExpression(.Nil, fMode), first, null)
 			}
 
 			return @yep(AST.IterationObject(modifiers, value, type, key, expression, until, while, whenExp, first, whenExp ?? while ?? until ?? expression))
@@ -4870,14 +4873,14 @@ export namespace Parser {
 			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
 				@commit()
 
-				until = @reqExpression(ExpressionMode.Default, fMode)
+				until = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
 			else if @token == Token.WHILE {
 				@commit()
 
-				while = @reqExpression(ExpressionMode.Default, fMode)
+				while = @reqExpression(.Nil, fMode)
 
 				@NL_0M()
 			}
@@ -4886,7 +4889,7 @@ export namespace Parser {
 			if @test(Token.WHEN) {
 				var first = @yes()
 
-				when = @relocate(@reqExpression(ExpressionMode.Default, fMode), first, null)
+				when = @relocate(@reqExpression(.Nil, fMode), first, null)
 			}
 
 			return @yep(AST.IterationRange(modifiers, value, index, from, to, filter, until, while, when, first, when ?? while ?? until ?? filter ?? to ?? from))
@@ -4991,7 +4994,7 @@ export namespace Parser {
 						addLiteral()
 
 						var first = @yes()
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
+						var expression = @reqExpression(.Nil, .Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5001,7 +5004,7 @@ export namespace Parser {
 						addLiteral()
 
 						var reification = AST.Reification(.Argument, @yes())
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
+						var expression = @reqExpression(.Nil, .Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5011,7 +5014,7 @@ export namespace Parser {
 						addLiteral()
 
 						var reification = AST.Reification(.Expression, @yes())
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
+						var expression = @reqExpression(.Nil, .Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5021,13 +5024,13 @@ export namespace Parser {
 						addLiteral()
 
 						var reification = AST.Reification(.Join, @yes())
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
+						var expression = @reqExpression(.Nil, .Nil)
 
 						@throw(',') unless @test(Token.COMMA)
 
 						@commit()
 
-						var separator = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
+						var separator = @reqExpression(.Nil, .Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5041,7 +5044,7 @@ export namespace Parser {
 						addLiteral()
 
 						var reification = AST.Reification(.Statement, @yes())
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
+						var expression = @reqExpression(.Nil, .Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5051,7 +5054,7 @@ export namespace Parser {
 						addLiteral()
 
 						var reification = AST.Reification(.Write, @yes())
-						var expression = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
+						var expression = @reqExpression(.Nil, .Nil)
 
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
@@ -5185,7 +5188,7 @@ export namespace Parser {
 			if @match(Token.LEFT_CURLY, Token.EQUALS_RIGHT_ANGLE) == Token.LEFT_CURLY {
 				@mode += ParserMode.MacroExpression
 
-				var body = @reqBlock(@yes(), FunctionMode.Nil)
+				var body = @reqBlock(@yes(), null, FunctionMode.Nil)
 
 				@mode -= ParserMode.MacroExpression
 
@@ -5322,12 +5325,12 @@ export namespace Parser {
 				}
 				Token.THROW {
 					var first = @yes()
-					var expression = @reqExpression(ExpressionMode.Default, fMode)
+					var expression = @reqExpression(.Nil, fMode)
 
 					return @yep(AST.ThrowStatement(expression, first, expression))
 				}
 				else {
-					var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.Arrow, fMode)
+					var expression = @reqExpression(.Arrow, fMode)
 
 					if @mode ~~ .InlineStatement {
 						return @yep(AST.SetStatement(expression, expression, expression))
@@ -5357,7 +5360,7 @@ export namespace Parser {
 					first = @yes()
 
 					if @test(Token.LEFT_CURLY) {
-						body = @reqBlock(@yes(), fMode)
+						body = @reqBlock(@yes(), null, fMode)
 					}
 					else if @test(Token.EQUALS_RIGHT_ANGLE) {
 						@commit()
@@ -5410,7 +5413,7 @@ export namespace Parser {
 					}
 
 					if @test(Token.LEFT_CURLY) {
-						body = @reqBlock(@yes(), fMode)
+						body = @reqBlock(@yes(), null, fMode)
 					}
 					else if @test(Token.EQUALS_RIGHT_ANGLE) {
 						@commit()
@@ -5530,10 +5533,10 @@ export namespace Parser {
 				if @test(Token.LEFT_ANGLE) {
 					@commit()
 
-					return @yep(AST.MatchConditionRangeFI(operand, @reqPrefixedOperand(ExpressionMode.Default, fMode)))
+					return @yep(AST.MatchConditionRangeFI(operand, @reqPrefixedOperand(.Nil, fMode)))
 				}
 				else {
-					return @yep(AST.MatchConditionRangeFO(operand, @reqPrefixedOperand(ExpressionMode.Default, fMode)))
+					return @yep(AST.MatchConditionRangeFO(operand, @reqPrefixedOperand(.Nil, fMode)))
 				}
 			}
 			else if @token == Token.LEFT_ANGLE {
@@ -5548,10 +5551,10 @@ export namespace Parser {
 				if @test(Token.LEFT_ANGLE) {
 					@commit()
 
-					return @yep(AST.MatchConditionRangeTI(operand, @reqPrefixedOperand(ExpressionMode.Default, fMode)))
+					return @yep(AST.MatchConditionRangeTI(operand, @reqPrefixedOperand(.Nil, fMode)))
 				}
 				else {
-					return @yep(AST.MatchConditionRangeTO(operand, @reqPrefixedOperand(ExpressionMode.Default, fMode)))
+					return @yep(AST.MatchConditionRangeTO(operand, @reqPrefixedOperand(.Nil, fMode)))
 				}
 			}
 			else if (operator <- @tryJunctionOperator()).ok {
@@ -5666,7 +5669,7 @@ export namespace Parser {
 						if @matchM(M.TEMPLATE) == Token.TEMPLATE_ELEMENT {
 							@commit()
 
-							line.push(@reqExpression(ExpressionMode.Default, fMode))
+							line.push(@reqExpression(.Nil, fMode))
 
 							unless @test(Token.RIGHT_ROUND) {
 								@throw(')')
@@ -5891,7 +5894,7 @@ export namespace Parser {
 					statement = @reqIncludeAgainStatement(@yes())
 				}
 				else {
-					statement = @reqStatement(FunctionMode.Nil)
+					statement = @reqStatement(null, FunctionMode.Nil)
 				}
 
 				AST.pushAttributes(statement.value, attrs)
@@ -6205,7 +6208,7 @@ export namespace Parser {
 				var operator = valued ? @tryDefaultAssignmentOperator(true) : NO
 
 				if operator.ok {
-					var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+					var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 					return @yep(AST.Parameter(attributes, modifiers, external, internal, type, operator, defaultValue, first, defaultValue))
 				}
@@ -6220,7 +6223,7 @@ export namespace Parser {
 				var operator = valued ? @tryDefaultAssignmentOperator(true) : NO
 
 				if operator.ok {
-					var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+					var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 					return @yep(AST.Parameter(attributes, modifiers, external, internal, null, operator, defaultValue, first, defaultValue))
 				}
@@ -6232,7 +6235,7 @@ export namespace Parser {
 					var operator = valued ? @tryDefaultAssignmentOperator(true) : NO
 
 					if operator.ok {
-						var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+						var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 						return @yep(AST.Parameter(attributes, modifiers, external, internal, null, operator, defaultValue, first, defaultValue))
 					}
@@ -6332,7 +6335,7 @@ export namespace Parser {
 			var operator = @tryDefaultAssignmentOperator(true)
 
 			if operator.ok {
-				var defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+				var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
 				return @yep(AST.Parameter(attributes, modifiers, external ?? @yep(name.value.name), name, null, operator, defaultValue, first ?? name, defaultValue))
 			}
@@ -6397,12 +6400,12 @@ export namespace Parser {
 			@NL_0M()
 
 			if @test(Token.LEFT_CURLY) {
-				var block = @reqBlock(NO, fMode)
+				var block = @reqBlock(NO, null, fMode)
 
 				return @yep(AST.RepeatStatement(null, block, first, block))
 			}
 			else {
-				var expression = @reqExpression(ExpressionMode.Default, fMode)
+				var expression = @reqExpression(.Nil, fMode)
 
 				unless @test(Token.TIMES) {
 					@throw('times')
@@ -6410,7 +6413,7 @@ export namespace Parser {
 
 				@commit().NL_0M()
 
-				var block = @reqBlock(NO, fMode)
+				var block = @reqBlock(NO, null, fMode)
 
 				return @yep(AST.RepeatStatement(expression, block, first, block))
 			}
@@ -6481,7 +6484,7 @@ export namespace Parser {
 
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(.NoRestriction, fMode)
 
 				if @test(Token.NEWLINE) || @token == Token.EOF {
 					return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(first)), null, first, condition))
@@ -6498,7 +6501,7 @@ export namespace Parser {
 
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(.NoRestriction, fMode)
 
 				if @test(Token.NEWLINE) || @token == Token.EOF {
 					return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(first)), first, condition))
@@ -6508,7 +6511,7 @@ export namespace Parser {
 				}
 			}
 
-			var expression = @tryExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+			var expression = @tryExpression(.NoRestriction, fMode)
 
 			unless expression.ok {
 				return NO
@@ -6517,14 +6520,14 @@ export namespace Parser {
 			if @match(Token.IF, Token.UNLESS) == Token.IF {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(.NoRestriction, fMode)
 
 				return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(expression, first, expression)), null, first, condition))
 			}
 			else if @token == Token.UNLESS {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(.NoRestriction, fMode)
 
 				return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(expression, first, expression)), first, condition))
 			}
@@ -6646,19 +6649,19 @@ export namespace Parser {
 			}
 		} # }}}
 		reqSetStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+			var expression = @reqExpression(.NoRestriction, fMode)
 
 			if @match(Token.IF, Token.UNLESS) == Token.IF {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(.NoRestriction, fMode)
 
 				return @yep(AST.IfStatement(condition, @yep(AST.SetStatement(expression, first, expression)), null, first, condition))
 			}
 			else if @token == Token.UNLESS {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(.NoRestriction, fMode)
 
 				return @yep(AST.UnlessStatement(condition, @yep(AST.SetStatement(expression, first, expression)), first, condition))
 			}
@@ -6666,7 +6669,7 @@ export namespace Parser {
 				return @yep(AST.SetStatement(expression, first, expression))
 			}
 		} # }}}
-		reqStatement(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		reqStatement(eMode!: ExpressionMode = .Nil, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mark = @mark()
 
 			var dyn statement = NO
@@ -6713,7 +6716,7 @@ export namespace Parser {
 					statement = @tryClassStatement(@yes())
 				}
 				Token.CONST {
-					statement = @tryConstStatement(@yes(), .Default, fMode)
+					statement = @tryConstStatement(@yes(), .Nil, fMode)
 				}
 				Token.CONTINUE {
 					statement = @reqContinueStatement(@yes(), fMode)
@@ -6842,7 +6845,7 @@ export namespace Parser {
 					statement = @tryUntilStatement(@yes(), fMode)
 				}
 				Token.VAR {
-					statement = @tryVarStatement(@yes(), ExpressionMode.Default, fMode)
+					statement = @tryVarStatement(@yes(), .Nil, fMode)
 				}
 				Token.WHILE {
 					statement = @tryWhileStatement(@yes(), fMode)
@@ -6855,10 +6858,10 @@ export namespace Parser {
 			unless statement.ok {
 				@rollback(mark)
 
-				if !(statement <- @tryAssignementStatement(fMode)).ok {
+				if !(statement <- @tryAssignementStatement(eMode, fMode)).ok {
 					@rollback(mark)
 
-					statement = @reqExpressionStatement(fMode)
+					statement = @reqExpressionStatement(eMode, fMode)
 				}
 			}
 
@@ -6946,7 +6949,7 @@ export namespace Parser {
 					if @test(Token.EQUALS) {
 						@commit()
 
-						defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, FunctionMode.Nil)
+						defaultValue = @reqExpression(.ImplicitMember, .Nil)
 
 						last = defaultValue
 					}
@@ -7012,19 +7015,19 @@ export namespace Parser {
 			return @yep(AST.ThisExpression(identifier, first, identifier))
 		} # }}}
 		reqThrowStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqExpression(.Default + .NoRestriction, fMode)
+			var expression = @reqExpression(.NoRestriction, fMode)
 
 			if @match(Token.IF, Token.UNLESS) == Token.IF {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(.NoRestriction, fMode)
 
 				return @yep(AST.IfStatement(condition, @yep(AST.ThrowStatement(expression, first, expression)), null, first, condition))
 			}
 			else if @token == Token.UNLESS {
 				@commit()
 
-				var condition = @reqExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+				var condition = @reqExpression(.NoRestriction, fMode)
 
 				return @yep(AST.UnlessStatement(condition, @yep(AST.ThrowStatement(expression, first, expression)), first, condition))
 			}
@@ -7040,7 +7043,7 @@ export namespace Parser {
 
 			@NL_0M()
 
-			var body = @reqBlock(NO, fMode)
+			var body = @reqBlock(NO, null, fMode)
 
 			return @yep(AST.CatchClause(binding, null, body, first, body))
 		} # }}}
@@ -7050,14 +7053,14 @@ export namespace Parser {
 				modifiers.push(AST.Modifier(ModifierKind.Disabled, @yes()))
 			}
 
-			var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+			var operand = @reqPrefixedOperand(.Nil, fMode)
 
 			var dyn default = null
 
 			if @test(Token.TILDE) {
 				@commit()
 
-				default = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+				default = @reqPrefixedOperand(.Nil, fMode)
 			}
 
 			return @yep(AST.TryExpression(modifiers, operand, default, first, default ?? operand))
@@ -7110,7 +7113,7 @@ export namespace Parser {
 			if @test(Token.FINALLY) {
 				@commit()
 
-				finalizer = last = @reqBlock(NO, fMode)
+				finalizer = last = @reqBlock(NO, null, fMode)
 			}
 			else {
 				@rollback(mark)
@@ -7205,7 +7208,7 @@ export namespace Parser {
 					if @test(Token.EQUALS) {
 						@commit()
 
-						defaultValue = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, FunctionMode.Nil)
+						defaultValue = @reqExpression(.ImplicitMember, .Nil)
 
 						last = defaultValue
 					}
@@ -7318,7 +7321,7 @@ export namespace Parser {
 				@throw('type')
 			}
 		} # }}}
-		reqTypeDescriptive(tMode: TypeMode = TypeMode.Default): Event ~ SyntaxError { # {{{
+		reqTypeDescriptive(tMode: TypeMode = .Nil): Event ~ SyntaxError { # {{{
 			var type = @tryTypeDescriptive(tMode)
 
 			if type.ok {
@@ -7587,11 +7590,18 @@ export namespace Parser {
 		reqTypedVariable(fMode: FunctionMode, typeable: Boolean = true, questionable: Boolean = true): Event ~ SyntaxError { # {{{
 			var mut name = null
 
-			if @match(Token.LEFT_CURLY, Token.LEFT_SQUARE) == Token.LEFT_CURLY {
-				name = @reqDestructuringObject(@yes(), DestructuringMode.Declaration, fMode)
+			var dMode = if fMode ~~ .Method {
+				set DestructuringMode.Declaration + DestructuringMode.THIS_ALIAS
 			}
-			else if @token == Token.LEFT_SQUARE {
-				name = @reqDestructuringArray(@yes(), DestructuringMode.Declaration, fMode)
+			else {
+				set DestructuringMode.Declaration
+			}
+
+			if @match(.LEFT_CURLY, .LEFT_SQUARE) == .LEFT_CURLY {
+				name = @reqDestructuringObject(@yes(), dMode, fMode)
+			}
+			else if @token == .LEFT_SQUARE {
+				name = @reqDestructuringArray(@yes(), dMode, fMode)
 			}
 			else {
 				name = @tryIdentifier()
@@ -7600,15 +7610,15 @@ export namespace Parser {
 			}
 
 			if typeable {
-				if @test(Token.COLON) {
+				if @test(.COLON) {
 					@commit()
 
 					var type = @reqType(fMode ~~ .Method ? .ClassType : .PrimaryType)
 
 					return @yep(AST.VariableDeclarator([], name, type, name, type))
 				}
-				else if questionable && @test(Token.QUESTION) {
-					var modifier = @yep(AST.Modifier(ModifierKind.Nullable, @yes()))
+				else if questionable && @test(.QUESTION) {
+					var modifier = @yep(AST.Modifier(.Nullable, @yes()))
 
 					return @yep(AST.VariableDeclarator([modifier], name, null, name, modifier))
 				}
@@ -7627,11 +7637,11 @@ export namespace Parser {
 			}
 		} # }}}
 		reqUnlessStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var condition = @reqExpression(ExpressionMode.Default, fMode)
+			var condition = @reqExpression(.Nil, fMode)
 
 			@NL_0M()
 
-			var whenFalse = @reqBlock(NO, fMode)
+			var whenFalse = @reqBlock(NO, null, fMode)
 
 			return @yep(AST.UnlessStatement(condition, whenFalse, first, whenFalse))
 		} # }}}
@@ -7686,7 +7696,7 @@ export namespace Parser {
 				else if @token == Token.LEFT_SQUARE {
 					var modifiers = [AST.Modifier(ModifierKind.Computed, @yes())]
 
-					property = @reqExpression(ExpressionMode.Default, fMode)
+					property = @reqExpression(.Nil, fMode)
 
 					unless @test(Token.RIGHT_SQUARE) {
 						@throw(']')
@@ -7742,27 +7752,49 @@ export namespace Parser {
 		submitEnumMember(attributes: Array, modifiers: Array, identifier: Event, token: Token?, members: Array): Void ~ SyntaxError { # {{{
 			var first = attributes[0] ?? modifiers[0] ?? identifier
 
-			match token ?? @match(Token.EQUALS, Token.LEFT_ROUND)  {
-				Token.EQUALS {
+			if !?token && @test(.ASTERISK_ASTERISK) {
+				modifiers.push(@yep(AST.Modifier(.Default, @yes())))
+
+				if @test(.EQUALS) {
 					if @mode ~~ ParserMode.Typing {
 						@throw()
 					}
 
 					@commit()
 
-					var value = @reqExpression(ExpressionMode.Default, FunctionMode.Nil)
+					var value = @reqExpression(.Nil, .Nil)
 
 					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, value, first, value))
-
-					@reqNL_1M()
 				}
-				Token.LEFT_ROUND {
-					members.push(@reqEnumMethod(attributes, modifiers, identifier, first).value)
-				}
-				when token == null {
+				else {
 					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, null, first, identifier))
+				}
 
-					@reqNL_1M()
+				@reqNL_1M()
+			}
+			else {
+				match token ?? @match(.EQUALS, .LEFT_ROUND)  {
+					.EQUALS {
+						if @mode ~~ ParserMode.Typing {
+							@throw()
+						}
+
+						@commit()
+
+						var value = @reqExpression(.Nil, .Nil)
+
+						members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, value, first, value))
+
+						@reqNL_1M()
+					}
+					.LEFT_ROUND {
+						members.push(@reqEnumMethod(attributes, modifiers, identifier, first).value)
+					}
+					else {
+						members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, null, first, identifier))
+
+						@reqNL_1M()
+					}
 				}
 			}
 		} # }}}
@@ -7879,7 +7911,7 @@ export namespace Parser {
 
 			return NO
 		} # }}}
-		tryAssignementStatement(fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryAssignementStatement(eMode!: ExpressionMode = .Nil, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var dyn identifier = NO
 
 			var dMode: DestructuringMode = if fMode ~~ FunctionMode.Method {
@@ -7890,7 +7922,7 @@ export namespace Parser {
 			}
 
 			if @match(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE, Token.AT) == Token.IDENTIFIER {
-				identifier = @reqUnaryOperand(@reqIdentifier(), ExpressionMode.InlineOnly, fMode)
+				identifier = @tryUnaryOperand(@reqIdentifier(), eMode + .InlineOnly, fMode)
 			}
 			else if @token == Token.LEFT_CURLY {
 				identifier = @tryDestructuringObject(@yes(), dMode, fMode)
@@ -7899,7 +7931,7 @@ export namespace Parser {
 				identifier = @tryDestructuringArray(@yes(), dMode, fMode)
 			}
 			else if fMode ~~ FunctionMode.Method && @token == Token.AT {
-				identifier = @reqUnaryOperand(@reqThisExpression(@yes()), ExpressionMode.Default, fMode)
+				identifier = @tryUnaryOperand(@reqThisExpression(@yes()), eMode, fMode)
 			}
 
 			unless identifier.ok {
@@ -7930,7 +7962,7 @@ export namespace Parser {
 						@throw('await')
 					}
 
-					var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					statement = @yep(AST.AwaitExpression([], variables, operand, identifier, operand))
 				}
@@ -7945,7 +7977,7 @@ export namespace Parser {
 
 				@NL_0M()
 
-				var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember + ExpressionMode.NoRestriction, fMode)
+				var expression = @reqExpression(eMode + .ImplicitMember + .NoRestriction, fMode)
 
 				statement = @yep(AST.BinaryExpression(identifier, @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, equals)), expression, identifier, expression))
 			}
@@ -7963,7 +7995,7 @@ export namespace Parser {
 			}
 
 			try {
-				return @reqAwaitExpression(@yes(), eMode ~~ ExpressionMode.Pipeline ? ExpressionMode.Pipeline : ExpressionMode.Default, fMode)
+				return @reqAwaitExpression(@yes(), eMode, fMode)
 			}
 			catch {
 				return NO
@@ -8180,7 +8212,7 @@ export namespace Parser {
 		} # }}}
 		tryBlock(fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			try {
-				return @reqBlock(NO, fMode)
+				return @reqBlock(NO, null, fMode)
 			}
 			catch {
 				return NO
@@ -8197,7 +8229,7 @@ export namespace Parser {
 				@throw('{')
 			}
 
-			var body = @reqBlock(@yes(), fMode)
+			var body = @reqBlock(@yes(), null, fMode)
 
 			return @yep(AST.BlockStatement(label, body, first, body))
 		} # }}}
@@ -8542,7 +8574,7 @@ export namespace Parser {
 				@throw('@')
 			}
 
-			var target = @reqExpression(ExpressionMode.Default, FunctionMode.Method)
+			var target = @reqExpression(.Nil, .Method)
 
 			@reqNL_1M()
 
@@ -8595,7 +8627,7 @@ export namespace Parser {
 			else if @test(Token.EQUALS) {
 				@commit()
 
-				value = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, FunctionMode.Method)
+				value = @reqExpression(.ImplicitMember, .Method)
 			}
 			else if bits ~~ ClassBits.RequiredAssignment {
 				@throw('=')
@@ -8704,11 +8736,8 @@ export namespace Parser {
 				{
 					return @reqMacroExpression(@yes(), terminator)
 				}
-				else if eMode == null {
-					eMode = ExpressionMode.Default
-				}
 				else {
-					eMode += ExpressionMode.Default
+					eMode ??= .Nil
 				}
 			}
 
@@ -8978,14 +9007,14 @@ export namespace Parser {
 
 						@commit()
 
-						var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+						var operand = @reqPrefixedOperand(.Nil, fMode)
 						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
 						declaration = @yep(AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression))
 					}
 					else {
 						var operator = @reqConditionAssignment()
-						var expression = @reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+						var expression = @reqExpression(.ImplicitMember, fMode)
 
 						declaration = @yep(AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression))
 					}
@@ -9022,7 +9051,7 @@ export namespace Parser {
 				return NO
 			}
 
-			var whenTrue = @reqBlock(NO, fMode)
+			var whenTrue = @reqBlock(NO, null, fMode)
 
 			@commit().NL_0M()
 
@@ -9040,7 +9069,7 @@ export namespace Parser {
 				return @yep(AST.IfExpression(condition, declaration, whenTrue, whenFalse, first, whenFalse))
 			}
 			else {
-				var whenFalse = @reqBlock(NO, fMode)
+				var whenFalse = @reqBlock(NO, null, fMode)
 
 				@popMode(tracker)
 
@@ -9067,7 +9096,7 @@ export namespace Parser {
 			if automatable && @test(.COLON_RIGHT_ANGLE) {
 				modifiers.push(@yep(AST.Modifier(.AutoType, @yes())))
 
-				return @tryExpression(.Default + .NoRestriction, fMode)
+				return @tryExpression(.NoRestriction, fMode)
 			}
 			else if @test(.EQUALS_RIGHT_ANGLE) {
 				@commit()
@@ -9076,7 +9105,7 @@ export namespace Parser {
 					return @tryBlock(fMode)
 				}
 				else {
-					return @tryExpression(ExpressionMode.Default + ExpressionMode.NoRestriction, fMode)
+					return @tryExpression(.NoRestriction, fMode)
 				}
 			}
 			else {
@@ -9158,7 +9187,7 @@ export namespace Parser {
 
 						@commit()
 
-						var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+						var operand = @reqPrefixedOperand(.Nil, fMode)
 						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
 						declaration = @yep(AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression))
@@ -9173,7 +9202,7 @@ export namespace Parser {
 							@throw('=')
 						}
 
-						var expression = @reqOperation(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode)
+						var expression = @reqOperation(.ImplicitMember, fMode)
 
 						declaration = @yep(AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression))
 					}
@@ -9181,7 +9210,7 @@ export namespace Parser {
 				else {
 					@rollback(mark)
 
-					expression = @tryOperation(ExpressionMode.Default, fMode)
+					expression = @tryOperation(.Nil, fMode)
 
 					unless expression.ok {
 						return NO
@@ -9189,7 +9218,7 @@ export namespace Parser {
 				}
 			}
 			else {
-				expression = @tryOperation(ExpressionMode.Default, fMode)
+				expression = @tryOperation(.Nil, fMode)
 
 				unless expression.ok {
 					return NO
@@ -9212,7 +9241,7 @@ export namespace Parser {
 				return @reqString()
 			}
 			else if @token == Token.TEMPLATE_BEGIN {
-				return @reqTemplateExpression(@yes(), eMode ~~ ExpressionMode.Pipeline ? ExpressionMode.Pipeline : ExpressionMode.Default, fMode)
+				return @reqTemplateExpression(@yes(), eMode, fMode)
 			}
 			else {
 				return NO
@@ -9229,7 +9258,7 @@ export namespace Parser {
 		} # }}}
 		tryNumber(): Event ~ SyntaxError { # {{{
 			if @matchM(M.NUMBER) == Token.BINARY_NUMBER {
-				return @yep(AST.NumericExpression(parseInt(@scanner.value().slice(2).replace(/\_/g, ''), 2), @yes()))
+				return @yep(AST.NumericExpression(parseInt(@scanner.value().slice(2).replace(/\_/g, ''), 2), 2, @yes()))
 			}
 			else if @token == Token.CHARACTER_NUMBER {
 				var value = @scanner.value()
@@ -9237,12 +9266,12 @@ export namespace Parser {
 				if value.length == 4 {
 					var number = value.charCodeAt(2)
 
-					return @yep(AST.NumericExpression(number, @yes()))
+					return @yep(AST.NumericExpression(number, 7, @yes()))
 				}
 				else {
 					var number = ESCAPES[value[3]]
 
-					return @yep(AST.NumericExpression(number, @yes()))
+					return @yep(AST.NumericExpression(number, 7, @yes()))
 				}
 			}
 			else if @token == Token.OCTAL_NUMBER {
@@ -9267,7 +9296,7 @@ export namespace Parser {
 					value *= Math.pow(2, parseInt(number[1]))
 				}
 
-				return @yep(AST.NumericExpression(value, @yes()))
+				return @yep(AST.NumericExpression(value, 8, @yes()))
 			}
 			else if @token == Token.HEX_NUMBER {
 				var radix = 16
@@ -9291,15 +9320,16 @@ export namespace Parser {
 					value *= Math.pow(2, parseInt(number[1]))
 				}
 
-				return @yep(AST.NumericExpression(value, @yes()))
+				return @yep(AST.NumericExpression(value, 16, @yes()))
 			}
 			else if @token == Token.RADIX_NUMBER {
 				var data = /^(\d+)r(.*)$/.exec(@scanner.value())
+				var radix = parseInt(data[1])
 
-				return @yep(AST.NumericExpression(parseInt(data[2]!?.replace(/\_/g, ''), parseInt(data[1])), @yes()))
+				return @yep(AST.NumericExpression(parseInt(data[2]!?.replace(/\_/g, ''), radix), radix, @yes()))
 			}
 			else if @token == Token.DECIMAL_NUMBER {
-				return @yep(AST.NumericExpression(parseFloat(@scanner.value().replace(/\_/g, ''), 10), @yes()))
+				return @yep(AST.NumericExpression(parseFloat(@scanner.value().replace(/\_/g, ''), 10), 10, @yes()))
 			}
 			else {
 				return NO
@@ -9374,7 +9404,7 @@ export namespace Parser {
 				name = @reqString()
 			}
 			else if @token == Token.TEMPLATE_BEGIN {
-				name = @reqTemplateExpression(@yes(), eMode ~~ ExpressionMode.Pipeline ? ExpressionMode.Pipeline : ExpressionMode.Default, fMode)
+				name = @reqTemplateExpression(@yes(), eMode, fMode)
 			}
 			else if fMode ~~ FunctionMode.Method && @token == Token.AT {
 				var name = @reqThisExpression(@yes())
@@ -9384,7 +9414,7 @@ export namespace Parser {
 			}
 			else if @token == Token.DOT_DOT_DOT {
 				var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Spread, @yes()))
-				var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+				var operand = @reqPrefixedOperand(.Nil, fMode)
 				var expression = @yep(AST.UnaryExpression(operator, operand, operator, operand))
 
 				return @altRestrictiveExpression(expression, fMode)
@@ -9444,7 +9474,7 @@ export namespace Parser {
 					return @yep(AST.Literal(null, @value(), @yes()))
 				}
 				.TEMPLATE_BEGIN {
-					return @reqTemplateExpression(@yes(), eMode ~~ ExpressionMode.Pipeline ? ExpressionMode.Pipeline : ExpressionMode.Default, fMode)
+					return @reqTemplateExpression(@yes(), eMode, fMode)
 				}
 				else {
 					return @tryNumber()
@@ -9578,7 +9608,7 @@ export namespace Parser {
 				else if @test(Token.QUESTION_OPERATOR) {
 					values.push(AST.ConditionalExpression(@yes()))
 
-					values.push(@reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode).value)
+					values.push(@reqExpression(.ImplicitMember, fMode).value)
 
 					unless @test(Token.COLON) {
 						@throw(':')
@@ -9586,7 +9616,7 @@ export namespace Parser {
 
 					@commit()
 
-					values.push(@reqExpression(ExpressionMode.Default + ExpressionMode.ImplicitMember, fMode).value)
+					values.push(@reqExpression(.ImplicitMember, fMode).value)
 				}
 				else if (operator <- @tryJunctionOperator()).ok {
 					values.push(@reqJunctionExpression(operator, eMode, fMode, values, type))
@@ -9641,8 +9671,20 @@ export namespace Parser {
 			var mark = @mark()
 
 			match @matchM(M.PREFIX_OPERATOR, eMode) {
+				.ASTERISK_ASTERISK {
+					var operator = @yep(AST.UnaryOperator(.Default, @yes()))
+					var operand = @tryIdentifier()
+
+					if operand.ok {
+						return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+					}
+					else {
+						@rollback(mark)
+					}
+
+				}
 				Token.DOT {
-					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Implicit, @yes()))
+					var operator = @yep(AST.UnaryOperator(.Implicit, @yes()))
 					var operand = @tryIdentifier()
 
 					if operand.ok {
@@ -10075,7 +10117,7 @@ export namespace Parser {
 
 			return @altTypeContainer(type)
 		} # }}}
-		tryTypeDescriptive(tMode: TypeMode = TypeMode.Default): Event ~ SyntaxError { # {{{
+		tryTypeDescriptive(tMode: TypeMode = .Nil): Event ~ SyntaxError { # {{{
 			match @matchM(M.DESCRIPTIVE_TYPE) {
 				Token.ABSTRACT {
 					var abstract = @yep(AST.Modifier(ModifierKind.Abstract, @yes()))
@@ -10437,7 +10479,7 @@ export namespace Parser {
 					Token.LEFT_SQUARE {
 						var modifiers = [AST.Modifier(ModifierKind.Computed, @yes())]
 
-						expression = @reqExpression(eMode ~~ ExpressionMode.Pipeline ? ExpressionMode.Pipeline : ExpressionMode.Default, fMode)
+						expression = @reqExpression(eMode, fMode)
 
 						unless @test(Token.RIGHT_SQUARE) {
 							@throw(']')
@@ -10517,7 +10559,7 @@ export namespace Parser {
 						var position = @yes()
 						var modifiers = [AST.Modifier(ModifierKind.Nullable, position), AST.Modifier(ModifierKind.Computed, position)]
 
-						expression = @reqExpression(eMode ~~ ExpressionMode.Pipeline ? ExpressionMode.Pipeline : ExpressionMode.Default, fMode)
+						expression = @reqExpression(eMode, fMode)
 
 						unless @test(Token.RIGHT_SQUARE) {
 							@throw(']')
@@ -10526,7 +10568,7 @@ export namespace Parser {
 						value = @yep(AST.MemberExpression(modifiers, value, expression, value, @yes()))
 					}
 					Token.TEMPLATE_BEGIN {
-						value = @yep(AST.TaggedTemplateExpression(value, @reqTemplateExpression(@yes(), eMode ~~ ExpressionMode.Pipeline ? ExpressionMode.Pipeline : ExpressionMode.Default, fMode), value, @yes()))
+						value = @yep(AST.TaggedTemplateExpression(value, @reqTemplateExpression(@yes(), eMode, fMode), value, @yes()))
 					}
 					else {
 						break
@@ -10537,7 +10579,7 @@ export namespace Parser {
 			return value
 		} # }}}
 		tryUntilStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var condition = @tryExpression(ExpressionMode.Default, fMode)
+			var condition = @tryExpression(.Nil, fMode)
 
 			unless condition.ok {
 				return NO
@@ -10545,12 +10587,12 @@ export namespace Parser {
 
 			var dyn body
 			if @match(Token.LEFT_CURLY, Token.EQUALS_RIGHT_ANGLE) == Token.LEFT_CURLY {
-				body = @reqBlock(@yes(), fMode)
+				body = @reqBlock(@yes(), null, fMode)
 			}
 			else if @token == Token.EQUALS_RIGHT_ANGLE {
 				@commit()
 
-				body = @reqExpression(ExpressionMode.Default, fMode)
+				body = @reqExpression(.Nil, fMode)
 			}
 			else {
 				@throw('{', '=>')
@@ -11039,14 +11081,14 @@ export namespace Parser {
 
 						@commit()
 
-						var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+						var operand = @reqPrefixedOperand(.Nil, fMode)
 						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
 						condition = @yep(AST.VariableDeclaration([], modifiers, variables, operator, expression, first, expression))
 					}
 					else {
 						var operator = @reqConditionAssignment()
-						var expression = @reqExpression(ExpressionMode.Default, fMode)
+						var expression = @reqExpression(.Nil, fMode)
 
 						condition = @yep(AST.VariableDeclaration([], modifiers, [variable], operator, expression, first, expression))
 					}
@@ -11054,11 +11096,11 @@ export namespace Parser {
 				else {
 					@rollback(mark)
 
-					condition = @tryExpression(ExpressionMode.Default, fMode)
+					condition = @tryExpression(.Nil, fMode)
 				}
 			}
 			else {
-				condition = @tryExpression(ExpressionMode.Default, fMode)
+				condition = @tryExpression(.Nil, fMode)
 			}
 
 			unless condition.ok {
@@ -11067,12 +11109,12 @@ export namespace Parser {
 
 			var dyn body
 			if @match(Token.LEFT_CURLY, Token.EQUALS_RIGHT_ANGLE) == Token.LEFT_CURLY {
-				body = @reqBlock(@yes(), fMode)
+				body = @reqBlock(@yes(), null, fMode)
 			}
 			else if @token == Token.EQUALS_RIGHT_ANGLE {
 				@commit()
 
-				body = @reqExpression(ExpressionMode.Default, fMode)
+				body = @reqExpression(.Nil, fMode)
 			}
 			else {
 				@throw('{', '=>')
@@ -11116,7 +11158,7 @@ export namespace Parser {
 
 						@commit()
 
-						var operand = @reqPrefixedOperand(ExpressionMode.Default, fMode)
+						var operand = @reqPrefixedOperand(.Nil, fMode)
 						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
 						return @yep(AST.VariableDeclaration([], modifiers, variables, null, expression, first, expression))
@@ -11129,7 +11171,7 @@ export namespace Parser {
 							@throw('=')
 						}
 
-						var expression = @reqExpression(ExpressionMode.Default, fMode)
+						var expression = @reqExpression(.Nil, fMode)
 
 						return @yep(AST.VariableDeclaration([], modifiers, [variable], null, expression, first, expression))
 					}
@@ -11182,7 +11224,7 @@ export namespace Parser {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Division, @yes()))
 				}
 				else {
-					@throw('=', '+=', '-=', '*=', '/=', '/.=', '%=', '&&=', '||=', '^^=', '<<=', '>>=')
+					return NO
 				}
 			}
 
@@ -11192,6 +11234,7 @@ export namespace Parser {
 		} # }}}
 		tryWithStatement(first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mut mark = @mark()
+			var mut eMode = ExpressionMode.Nil
 			var variables = []
 
 			if @test(Token.LEFT_CURLY) {
@@ -11241,12 +11284,27 @@ export namespace Parser {
 			else {
 				var variable = @tryWithVariable(fMode)
 
-				return NO unless variable.ok
+				if variable.ok {
+					variables.push(variable)
 
-				variables.push(variable)
+					if variable.value.kind == NodeKind.Identifier {
+						eMode += .ImplicitMember
+					}
+				}
+				else {
+					@rollback(mark)
+
+					var operand = @tryUnaryOperand(null, .InlineOnly, fMode)
+
+					return NO unless operand.ok
+
+					variables.push(operand)
+
+					eMode += .ImplicitMember
+				}
 			}
 
-			var body = @reqBlock(NO, fMode)
+			var body = @reqBlock(NO, eMode, fMode)
 			var mut finalizer = null
 
 			mark = @mark()
@@ -11254,7 +11312,7 @@ export namespace Parser {
 			if @tryNL_1M().ok && @test(Token.FINALLY) {
 				@commit()
 
-				finalizer = @reqBlock(NO, fMode)
+				finalizer = @reqBlock(NO, null, fMode)
 			}
 			else {
 				@rollback(mark)

@@ -8,6 +8,7 @@ enum Token {
 	AS_EXCLAMATION
 	AS_QUESTION
 	ASTERISK
+	ASTERISK_ASTERISK
 	ASTERISK_DOLLAR_LEFT_ROUND
 	ASTERISK_EQUALS
 	ASTERISK_PIPE_RIGHT_ANGLE
@@ -240,8 +241,13 @@ enum Token {
 				}
 			} # }}}
 			.ASTERISK { # {{{
-				if c == 42 && scanner.charAt(1) != 42 & 36 & 61 {
+				if c == 0'*' && scanner.charAt(1) != 0'*' & 0'$' & 0'=' {
 					return scanner.next(1)
+				}
+			} # }}}
+			.ASTERISK_ASTERISK { # {{{
+				if c == 0'*' && scanner.charAt(1) == 0'*' {
+					return scanner.next(2)
 				}
 			} # }}}
 			.AS { # {{{
@@ -2681,16 +2687,21 @@ namespace M {
 		else if c == 0'#' {
 			c = that.charAt(1)
 
-			if c != 35 & 61 {
+			if c != 0'#' & 0'=' {
 				that.next(1)
 
 				return Token.HASH
 			}
 		}
-		else if c == 0'-' {
-			c = that.charAt(1)
+		else if c == 0'*' {
+			if that.charAt(1) == 0'*' {
+				that.next(2)
 
-			if c != 61 {
+				return Token.ASTERISK_ASTERISK
+			}
+		}
+		else if c == 0'-' {
+			if that.charAt(1) != 0'=' {
 				that.next(1)
 
 				return Token.MINUS

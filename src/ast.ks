@@ -1318,11 +1318,12 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func NumericExpression(value, first) { # {{{
+		func NumericExpression(value, radix, first) { # {{{
 			return location({
 				kind: NodeKind.NumericExpression
 				modifiers: []
-				value: value
+				value
+				radix
 			}, first)
 		} # }}}
 
