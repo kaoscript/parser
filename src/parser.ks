@@ -7851,13 +7851,13 @@ export namespace Parser {
 		tryAssignementOperator(): Event ~ SyntaxError { # {{{
 			match @matchM(M.ASSIGNEMENT_OPERATOR) {
 				Token.AMPERSAND_AMPERSAND_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.And, @yes()))
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalAnd, @yes()))
 				}
 				Token.ASTERISK_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Multiplication, @yes()))
 				}
 				Token.CARET_CARET_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Xor, @yes()))
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalXor, @yes()))
 				}
 				Token.EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
@@ -7874,9 +7874,6 @@ export namespace Parser {
 				Token.HASH_HASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
 				}
-				Token.LEFT_ANGLE_LEFT_ANGLE_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LeftShift, @yes()))
-				}
 				Token.LEFT_ANGLE_MINUS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Return, @yes()))
 				}
@@ -7887,19 +7884,31 @@ export namespace Parser {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Modulo, @yes()))
 				}
 				Token.PIPE_PIPE_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Or, @yes()))
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalOr, @yes()))
 				}
-				Token.PLUS_EQUALS {
+				.PLUS_AMPERSAND_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseAnd, @yes()))
+				}
+				.PLUS_CARET_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseXor, @yes()))
+				}
+				.PLUS_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Addition, @yes()))
+				}
+				.PLUS_LEFT_ANGLE_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseLeftShift, @yes()))
+				}
+				.PLUS_PIPE_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseOr, @yes()))
+				}
+				.PLUS_RIGHT_ANGLE_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseRightShift, @yes()))
 				}
 				Token.QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
 				}
 				Token.QUESTION_QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NullCoalescing, @yes()))
-				}
-				Token.RIGHT_ANGLE_RIGHT_ANGLE_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.RightShift, @yes()))
 				}
 				Token.SLASH_DOT_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Quotient, @yes()))
@@ -8028,10 +8037,10 @@ export namespace Parser {
 		tryBinaryOperator(fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			match @matchM(M.BINARY_OPERATOR, null, fMode) {
 				Token.AMPERSAND_AMPERSAND {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.And, @yes()))
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.LogicalAnd, @yes()))
 				}
 				Token.AMPERSAND_AMPERSAND_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.And, @yes()))
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalAnd, @yes()))
 				}
 				Token.ASTERISK {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind.Multiplication, @yes()))
@@ -8055,10 +8064,10 @@ export namespace Parser {
 					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.ForwardPipeline, @yes()))
 				}
 				Token.CARET_CARET {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Xor, @yes()))
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.LogicalXor, @yes()))
 				}
 				Token.CARET_CARET_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Xor, @yes()))
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalXor, @yes()))
 				}
 				Token.EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
@@ -8103,12 +8112,6 @@ export namespace Parser {
 				Token.LEFT_ANGLE_EQUALS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind.LessThanOrEqual, @yes()))
 				}
-				Token.LEFT_ANGLE_LEFT_ANGLE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.LeftShift, @yes()))
-				}
-				Token.LEFT_ANGLE_LEFT_ANGLE_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LeftShift, @yes()))
-				}
 				Token.LEFT_ANGLE_MINUS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Return, @yes()))
 				}
@@ -8127,7 +8130,7 @@ export namespace Parser {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Subtraction, @yes()))
 				}
 				Token.MINUS_RIGHT_ANGLE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Imply, @yes()))
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.LogicalImply, @yes()))
 				}
 				Token.PERCENT {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind.Modulo, @yes()))
@@ -8149,16 +8152,46 @@ export namespace Parser {
 					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.ForwardPipeline, @yes()))
 				}
 				Token.PIPE_PIPE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Or, @yes()))
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.LogicalOr, @yes()))
 				}
 				Token.PIPE_PIPE_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Or, @yes()))
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalOr, @yes()))
 				}
-				Token.PLUS {
+				.PLUS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind.Addition, @yes()))
 				}
-				Token.PLUS_EQUALS {
+				.PLUS_AMPERSAND {
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.BitwiseAnd, @yes()))
+				}
+				.PLUS_AMPERSAND_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseAnd, @yes()))
+				}
+				.PLUS_CARET {
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.BitwiseXor, @yes()))
+				}
+				.PLUS_CARET_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseXor, @yes()))
+				}
+				.PLUS_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Addition, @yes()))
+				}
+				.PLUS_LEFT_ANGLE {
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.BitwiseLeftShift, @yes()))
+				}
+				.PLUS_LEFT_ANGLE_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseLeftShift, @yes()))
+				}
+				.PLUS_PIPE {
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.BitwiseOr, @yes()))
+				}
+				.PLUS_PIPE_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseOr, @yes()))
+				}
+				.PLUS_RIGHT_ANGLE {
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.BitwiseRightShift, @yes()))
+				}
+				.PLUS_RIGHT_ANGLE_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseRightShift, @yes()))
 				}
 				Token.QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
@@ -8184,12 +8217,6 @@ export namespace Parser {
 				}
 				Token.RIGHT_ANGLE_EQUALS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind.GreaterThanOrEqual, @yes()))
-				}
-				Token.RIGHT_ANGLE_RIGHT_ANGLE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.RightShift, @yes()))
-				}
-				Token.RIGHT_ANGLE_RIGHT_ANGLE_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.RightShift, @yes()))
 				}
 				Token.SLASH {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind.Division, @yes()))
@@ -9079,13 +9106,13 @@ export namespace Parser {
 		tryJunctionOperator(): Event ~ SyntaxError { # {{{
 			match @matchM(M.JUNCTION_OPERATOR) {
 				Token.AMPERSAND {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.And, @yes()))
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.JunctionAnd, @yes()))
 				}
 				Token.CARET {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Xor, @yes()))
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.JunctionXor, @yes()))
 				}
 				Token.PIPE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Or, @yes()))
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.JunctionOr, @yes()))
 				}
 				else {
 					return NO
@@ -9719,7 +9746,7 @@ export namespace Parser {
 					}
 				}
 				Token.EXCLAMATION {
-					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Negation, @yes()))
+					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.LogicalNegation, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
@@ -9744,6 +9771,12 @@ export namespace Parser {
 
 						return @yep(AST.UnaryExpression(operator, operand, operator, operand))
 					}
+				}
+				.PLUS_CARET {
+					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.BitwiseNegation, @yes()))
+					var operand = @reqPrefixedOperand(eMode, fMode)
+
+					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
 				}
 				Token.QUESTION {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Existential, @yes()))
@@ -11188,19 +11221,16 @@ export namespace Parser {
 
 			match @matchM(M.ASSIGNEMENT_OPERATOR) {
 				Token.AMPERSAND_AMPERSAND_EQUALS {
-					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.And, @yes()))
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalAnd, @yes()))
 				}
 				Token.ASTERISK_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Multiplication, @yes()))
 				}
 				Token.CARET_CARET_EQUALS {
-					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Xor, @yes()))
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalXor, @yes()))
 				}
 				Token.EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
-				}
-				Token.LEFT_ANGLE_LEFT_ANGLE_EQUALS {
-					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.LeftShift, @yes()))
 				}
 				Token.MINUS_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Subtraction, @yes()))
@@ -11209,13 +11239,25 @@ export namespace Parser {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Modulo, @yes()))
 				}
 				Token.PIPE_PIPE_EQUALS {
-					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Or, @yes()))
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalOr, @yes()))
 				}
-				Token.PLUS_EQUALS {
+				.PLUS_AMPERSAND_EQUALS {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseAnd, @yes()))
+				}
+				.PLUS_CARET_EQUALS {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseXor, @yes()))
+				}
+				.PLUS_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Addition, @yes()))
 				}
-				Token.RIGHT_ANGLE_RIGHT_ANGLE_EQUALS {
-					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.RightShift, @yes()))
+				.PLUS_LEFT_ANGLE_EQUALS {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseLeftShift, @yes()))
+				}
+				.PLUS_PIPE_EQUALS {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseOr, @yes()))
+				}
+				.PLUS_RIGHT_ANGLE_EQUALS {
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseRightShift, @yes()))
 				}
 				Token.SLASH_DOT_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Quotient, @yes()))

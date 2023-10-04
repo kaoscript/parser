@@ -25,7 +25,7 @@ var DEBUG = process.env.DEBUG == '1' || process.env.DEBUG == 'true' || process.e
 var SKIP_KIND = process.env.SKIP_KIND == '1' || process.env.SKIP_KIND == 'true' || process.env.SKIP_KIND == 'on'
 
 func unescapeKind(key, value) { # {{{
-	if key == 'kind' {
+	if key == 'kind' | 'assignment' {
 		return 0
 	}
 	else {

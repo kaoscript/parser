@@ -2,85 +2,94 @@ namespace AST {
 	# {{{
 	var $comparison = {
 		[BinaryOperatorKind.Addition]: false
-		[BinaryOperatorKind.And]: false
 		[BinaryOperatorKind.Assignment]: false
 		[BinaryOperatorKind.BackwardPipeline]: false
+		[BinaryOperatorKind.BitwiseAnd]: false
+		[BinaryOperatorKind.BitwiseOr]: false
+		[BinaryOperatorKind.BitwiseXor]: false
+		[BinaryOperatorKind.BitwiseLeftShift]: false
+		[BinaryOperatorKind.BitwiseRightShift]: false
 		[BinaryOperatorKind.Division]: false
 		[BinaryOperatorKind.Equality]: true
 		[BinaryOperatorKind.EmptyCoalescing]: false
 		[BinaryOperatorKind.ForwardPipeline]: false
 		[BinaryOperatorKind.GreaterThan]: true
 		[BinaryOperatorKind.GreaterThanOrEqual]: true
-		[BinaryOperatorKind.Imply]: false
 		[BinaryOperatorKind.Inequality]: true
-		[BinaryOperatorKind.LeftShift]: false
 		[BinaryOperatorKind.LessThan]: true
 		[BinaryOperatorKind.LessThanOrEqual]: true
+		[BinaryOperatorKind.LogicalAnd]: false
+		[BinaryOperatorKind.LogicalImply]: false
+		[BinaryOperatorKind.LogicalOr]: false
+		[BinaryOperatorKind.LogicalXor]: false
 		[BinaryOperatorKind.Match]: false
 		[BinaryOperatorKind.Mismatch]: false
 		[BinaryOperatorKind.Modulo]: false
 		[BinaryOperatorKind.Multiplication]: false
 		[BinaryOperatorKind.NullCoalescing]: false
-		[BinaryOperatorKind.Or]: false
 		[BinaryOperatorKind.Quotient]: false
-		[BinaryOperatorKind.RightShift]: false
 		[BinaryOperatorKind.Subtraction]: false
 		[BinaryOperatorKind.TypeCasting]: false
 		[BinaryOperatorKind.TypeEquality]: false
 		[BinaryOperatorKind.TypeInequality]: false
-		[BinaryOperatorKind.Xor]: false
 	}
 
 	var $polyadic = {
 		[BinaryOperatorKind.Addition]: true
-		[BinaryOperatorKind.And]: true
 		[BinaryOperatorKind.Assignment]: false
+		[BinaryOperatorKind.BitwiseAnd]: true
+		[BinaryOperatorKind.BitwiseOr]: true
+		[BinaryOperatorKind.BitwiseXor]: true
+		[BinaryOperatorKind.BitwiseLeftShift]: true
+		[BinaryOperatorKind.BitwiseRightShift]: true
 		[BinaryOperatorKind.Division]: true
 		[BinaryOperatorKind.EmptyCoalescing]: true
-		[BinaryOperatorKind.Imply]: true
-		[BinaryOperatorKind.LeftShift]: true
+		[BinaryOperatorKind.LogicalAnd]: true
+		[BinaryOperatorKind.LogicalImply]: true
+		[BinaryOperatorKind.LogicalOr]: true
+		[BinaryOperatorKind.LogicalXor]: true
 		[BinaryOperatorKind.Modulo]: true
 		[BinaryOperatorKind.Multiplication]: true
 		[BinaryOperatorKind.NullCoalescing]: true
-		[BinaryOperatorKind.Or]: true
 		[BinaryOperatorKind.Quotient]: true
-		[BinaryOperatorKind.RightShift]: true
 		[BinaryOperatorKind.Subtraction]: true
 		[BinaryOperatorKind.TypeCasting]: false
 		[BinaryOperatorKind.TypeEquality]: false
 		[BinaryOperatorKind.TypeInequality]: false
-		[BinaryOperatorKind.Xor]: true
 	}
 
 	var $precedence = {
 		[BinaryOperatorKind.Addition]: 13
-		[BinaryOperatorKind.And]: 6
 		[BinaryOperatorKind.Assignment]: 3
 		[BinaryOperatorKind.BackwardPipeline]: 20
+		[BinaryOperatorKind.BitwiseAnd]: 12
+		[BinaryOperatorKind.BitwiseOr]: 12
+		[BinaryOperatorKind.BitwiseXor]: 12
+		[BinaryOperatorKind.BitwiseLeftShift]: 12
+		[BinaryOperatorKind.BitwiseRightShift]: 12
 		[BinaryOperatorKind.Division]: 14
 		[BinaryOperatorKind.Equality]: 8
 		[BinaryOperatorKind.EmptyCoalescing]: 15
 		[BinaryOperatorKind.ForwardPipeline]: 16
 		[BinaryOperatorKind.GreaterThan]: 8
 		[BinaryOperatorKind.GreaterThanOrEqual]: 8
-		[BinaryOperatorKind.Imply]: 5
 		[BinaryOperatorKind.Inequality]: 8
-		[BinaryOperatorKind.LeftShift]: 12
 		[BinaryOperatorKind.LessThan]: 8
 		[BinaryOperatorKind.LessThanOrEqual]: 8
+		[BinaryOperatorKind.LogicalAnd]: 6
+		[BinaryOperatorKind.LogicalImply]: 5
+		[BinaryOperatorKind.LogicalOr]: 5
+		[BinaryOperatorKind.LogicalXor]: 5
 		[BinaryOperatorKind.Match]: 8
 		[BinaryOperatorKind.Mismatch]: 8
 		[BinaryOperatorKind.Modulo]: 14
 		[BinaryOperatorKind.Multiplication]: 14
 		[BinaryOperatorKind.NullCoalescing]: 15
-		[BinaryOperatorKind.Or]: 5
 		[BinaryOperatorKind.Quotient]: 14
-		[BinaryOperatorKind.RightShift]: 12
 		[BinaryOperatorKind.Subtraction]: 13
 		[BinaryOperatorKind.TypeCasting]: 8
 		[BinaryOperatorKind.TypeEquality]: 8
 		[BinaryOperatorKind.TypeInequality]: 8
-		[BinaryOperatorKind.Xor]: 5
 	}
 
 	var $rtl = {

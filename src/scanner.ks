@@ -109,8 +109,6 @@ enum Token {
 	LATEINIT
 	LEFT_ANGLE
 	LEFT_ANGLE_EQUALS
-	LEFT_ANGLE_LEFT_ANGLE
-	LEFT_ANGLE_LEFT_ANGLE_EQUALS
 	LEFT_ANGLE_MINUS
 	LEFT_ANGLE_PIPE
 	LEFT_ANGLE_PIPE_ASTERISK
@@ -146,7 +144,17 @@ enum Token {
 	PIPE_PIPE
 	PIPE_PIPE_EQUALS
 	PLUS
+	PLUS_AMPERSAND
+	PLUS_AMPERSAND_EQUALS
+	PLUS_CARET
+	PLUS_CARET_EQUALS
 	PLUS_EQUALS
+	PLUS_LEFT_ANGLE
+	PLUS_LEFT_ANGLE_EQUALS
+	PLUS_PIPE
+	PLUS_PIPE_EQUALS
+	PLUS_RIGHT_ANGLE
+	PLUS_RIGHT_ANGLE_EQUALS
 	PRIVATE
 	PROTECTED
 	PROXY
@@ -171,8 +179,6 @@ enum Token {
 	RETURN
 	RIGHT_ANGLE
 	RIGHT_ANGLE_EQUALS
-	RIGHT_ANGLE_RIGHT_ANGLE
-	RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
 	RIGHT_CURLY
 	RIGHT_ROUND
 	RIGHT_SQUARE
@@ -1352,10 +1358,37 @@ namespace M {
 			}
 		}
 		else if c == 0'+' {
-			if that.charAt(1) == 61 {
+			c = that.charAt(1)
+
+			if c == 0'=' {
 				that.next(2)
 
 				return Token.PLUS_EQUALS
+			}
+			else if c == 0'&' && that.charAt(2) == 0'=' {
+				that.next(3)
+
+				return Token.PLUS_AMPERSAND_EQUALS
+			}
+			else if c == 0'|' && that.charAt(2) == 0'=' {
+				that.next(3)
+
+				return Token.PLUS_PIPE_EQUALS
+			}
+			else if c == 0'^' && that.charAt(2) == 0'=' {
+				that.next(3)
+
+				return Token.PLUS_CARET_EQUALS
+			}
+			else if c == 0'<' && that.charAt(2) == 0'=' {
+				that.next(3)
+
+				return Token.PLUS_LEFT_ANGLE_EQUALS
+			}
+			else if c == 0'>' && that.charAt(2) == 0'=' {
+				that.next(3)
+
+				return Token.PLUS_RIGHT_ANGLE_EQUALS
 			}
 		}
 		else if c == 0'-' {
@@ -1384,15 +1417,10 @@ namespace M {
 		else if c == 0'<' {
 			c = that.charAt(1)
 
-			if c == 45 {
+			if c == 0'-' {
 				that.next(2)
 
 				return Token.LEFT_ANGLE_MINUS
-			}
-			else if c == 60 && that.charAt(2) == 61 {
-				that.next(3)
-
-				return Token.LEFT_ANGLE_LEFT_ANGLE_EQUALS
 			}
 		}
 		else if c == 0'=' {
@@ -1400,13 +1428,6 @@ namespace M {
 				that.next(1)
 
 				return Token.EQUALS
-			}
-		}
-		else if c == 0'>' {
-			if that.charAt(1) == 62 && that.charAt(2) == 61 {
-				that.next(3)
-
-				return Token.RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
 			}
 		}
 		else if c == 0'?' {
@@ -1573,10 +1594,70 @@ namespace M {
 		else if c == 0'+' {
 			c = that.charAt(1)
 
-			if c == 61 {
+			if c == 0'=' {
 				that.next(2)
 
 				return Token.PLUS_EQUALS
+			}
+			else if c == 0'&' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.PLUS_AMPERSAND_EQUALS
+				}
+				else {
+					that.next(2)
+
+					return Token.PLUS_AMPERSAND
+				}
+			}
+			else if c == 0'|' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.PLUS_PIPE_EQUALS
+				}
+				else {
+					that.next(2)
+
+					return Token.PLUS_PIPE
+				}
+			}
+			else if c == 0'^' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.PLUS_CARET_EQUALS
+				}
+				else {
+					that.next(2)
+
+					return Token.PLUS_CARET
+				}
+			}
+			else if c == 0'<' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.PLUS_LEFT_ANGLE_EQUALS
+				}
+				else {
+					that.next(2)
+
+					return Token.PLUS_LEFT_ANGLE
+				}
+			}
+			else if c == 0'>' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.PLUS_RIGHT_ANGLE_EQUALS
+				}
+				else {
+					that.next(2)
+
+					return Token.PLUS_RIGHT_ANGLE
+				}
 			}
 			else {
 				that.next(1)
@@ -1637,18 +1718,6 @@ namespace M {
 
 				return Token.LEFT_ANGLE_MINUS
 			}
-			else if c == 60 {
-				if that.charAt(2) == 61 {
-					that.next(3)
-
-					return Token.LEFT_ANGLE_LEFT_ANGLE_EQUALS
-				}
-				else {
-					that.next(2)
-
-					return Token.LEFT_ANGLE_LEFT_ANGLE
-				}
-			}
 			else if c == 61 {
 				that.next(2)
 
@@ -1695,18 +1764,6 @@ namespace M {
 				that.next(2)
 
 				return Token.RIGHT_ANGLE_EQUALS
-			}
-			else if c == 62 {
-				if that.charAt(2) == 61 {
-					that.next(3)
-
-					return Token.RIGHT_ANGLE_RIGHT_ANGLE_EQUALS
-				}
-				else {
-					that.next(2)
-
-					return Token.RIGHT_ANGLE_RIGHT_ANGLE
-				}
 			}
 			else {
 				that.next(1)
@@ -2698,6 +2755,13 @@ namespace M {
 				that.next(2)
 
 				return Token.ASTERISK_ASTERISK
+			}
+		}
+		else if c == 0'+' {
+			if that.charAt(1) == 0'^' {
+				that.next(2)
+
+				return Token.PLUS_CARET
 			}
 		}
 		else if c == 0'-' {
