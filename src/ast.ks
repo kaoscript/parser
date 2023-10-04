@@ -1,6 +1,6 @@
 namespace AST {
 	# {{{
-	var $comparison = {
+	var $comparison: Object<Boolean, BinaryOperatorKind> = {
 		[BinaryOperatorKind.Addition]: false
 		[BinaryOperatorKind.Assignment]: false
 		[BinaryOperatorKind.BackwardPipeline]: false
@@ -34,7 +34,7 @@ namespace AST {
 		[BinaryOperatorKind.TypeInequality]: false
 	}
 
-	var $polyadic = {
+	var $polyadic: Object<Boolean, BinaryOperatorKind> = {
 		[BinaryOperatorKind.Addition]: true
 		[BinaryOperatorKind.Assignment]: false
 		[BinaryOperatorKind.BitwiseAnd]: true
@@ -58,7 +58,7 @@ namespace AST {
 		[BinaryOperatorKind.TypeInequality]: false
 	}
 
-	var $precedence = {
+	var $precedence: Object<Number, BinaryOperatorKind> = {
 		[BinaryOperatorKind.Addition]: 13
 		[BinaryOperatorKind.Assignment]: 3
 		[BinaryOperatorKind.BackwardPipeline]: 20
@@ -92,7 +92,7 @@ namespace AST {
 		[BinaryOperatorKind.TypeInequality]: 8
 	}
 
-	var $rtl = {
+	var $rtl: Object<Boolean, BinaryOperatorKind> = {
 		[BinaryOperatorKind.BackwardPipeline]: true
 	}
 	# }}}
