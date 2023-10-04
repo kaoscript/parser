@@ -1911,8 +1911,8 @@ export namespace Parser {
 
 			return variable
 		} # }}}
-		reqComputedPropertyName(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var expression = @reqExpression(.Nil, fMode)
+		reqComputedPropertyName(mut first: Event, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+			var expression = @reqExpression(eMode, fMode)
 
 			unless @test(Token.RIGHT_SQUARE) {
 				@throw(']')
@@ -4567,7 +4567,9 @@ export namespace Parser {
 				if @match(Token.IN, Token.OF) == Token.IN {
 					@commit()
 
-					return @reqIterationIn(modifiers, destructuring, type1, identifier2, @reqExpression(.Nil, fMode), first, fMode)
+					var expression = @reqExpression(.Nil, fMode)
+
+					return @reqIterationIn(modifiers, destructuring, type1, identifier2, expression, first, fMode)
 				}
 				else if @token == Token.OF {
 					@commit()
@@ -4594,15 +4596,15 @@ export namespace Parser {
 				}
 			}
 			else {
-				if @match(Token.FROM, Token.FROM_TILDE, Token.IN, Token.OF) == Token.FROM | Token.FROM_TILDE {
+				if @match(Token.FROM, Token.FROM_TILDE, Token.IN, Token.OF) == .FROM | .FROM_TILDE {
 					return @reqIterationFrom(modifiers, identifier1, first, fMode)
 				}
-				else if @token == Token.IN {
+				else if @token == .IN {
 					@commit()
 
 					return @reqIterationInRange(modifiers, identifier1, type1, identifier2, first, fMode)
 				}
-				else if @token == Token.OF {
+				else if @token == .OF {
 					@commit()
 
 					return @reqIterationOf(modifiers, identifier1, type1, identifier2, first, fMode)
@@ -4832,11 +4834,15 @@ export namespace Parser {
 					return @reqIterationRange(modifiers, value, index, operand, to, step, first, fMode)
 				}
 				else {
-					return @reqIterationIn(modifiers, value, type, index, operand, first, fMode)
+					var expression = @tryOperation(operand, .Nil, fMode)
+
+					return @reqIterationIn(modifiers, value, type, index, expression, first, fMode)
 				}
 			}
 			else {
-				return @reqIterationIn(modifiers, value, type, index, @reqExpression(.Nil, fMode), first, fMode)
+				var expression = @reqExpression(.Nil, fMode)
+
+				return @reqIterationIn(modifiers, value, type, index, expression, first, fMode)
 			}
 		} # }}}
 		reqIterationOf(modifiers, value: Event, type: Event, key: Event, mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -5959,7 +5965,7 @@ export namespace Parser {
 			}
 		} # }}}
 		reqOperation(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
-			var operation = @tryOperation(eMode, fMode)
+			var operation = @tryOperation(null, eMode, fMode)
 
 			if operation.ok {
 				return operation
@@ -8771,7 +8777,7 @@ export namespace Parser {
 			if @test(.CONST) {
 				var mark = @mark()
 				var operator = @yep(AST.UnaryOperator(.Constant, @yes()))
-				var operand = @tryOperation(eMode, fMode)
+				var operand = @tryOperation(null, eMode, fMode)
 
 				if operand.ok {
 					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
@@ -8780,7 +8786,7 @@ export namespace Parser {
 				@rollback(mark)
 			}
 
-			return @tryOperation(eMode, fMode)
+			return @tryOperation(null, eMode, fMode)
 		} # }}}
 		tryExternFunctionDeclaration(modifiers, mut first: Event): Event ~ SyntaxError { # {{{
 			try {
@@ -9159,7 +9165,7 @@ export namespace Parser {
 
 			var first = @yes()
 
-			var expression = @tryOperation(eMode, fMode)
+			var expression = @tryOperation(null, eMode, fMode)
 
 			unless expression.ok && @test(Token.LEFT_CURLY) {
 				return NO
@@ -9237,7 +9243,7 @@ export namespace Parser {
 				else {
 					@rollback(mark)
 
-					expression = @tryOperation(.Nil, fMode)
+					expression = @tryOperation(null, .Nil, fMode)
 
 					unless expression.ok {
 						return NO
@@ -9245,7 +9251,7 @@ export namespace Parser {
 				}
 			}
 			else {
-				expression = @tryOperation(.Nil, fMode)
+				expression = @tryOperation(null, .Nil, fMode)
 
 				unless expression.ok {
 					return NO
@@ -9425,7 +9431,7 @@ export namespace Parser {
 				name = @reqIdentifier()
 			}
 			else if @token == Token.LEFT_SQUARE {
-				name = @reqComputedPropertyName(@yes(), fMode)
+				name = @reqComputedPropertyName(@yes(), .ImplicitMember, fMode)
 			}
 			else if @token == Token.STRING {
 				name = @reqString()
@@ -9508,30 +9514,31 @@ export namespace Parser {
 				}
 			}
 		} # }}}
-		tryOperation(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
+		tryOperation(mut operand: Event?, eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mut mark = @mark()
+			var mut operator = null
 
-			var dyn operand, operator
-
-			if (operand <- @tryDestructuring(null, fMode)).ok {
-				@NL_0M()
-
-				if (operator <- @tryAssignementOperator()).ok {
-					var values = [operand.value, AST.BinaryExpression(operator)]
-
+			if !?operand {
+				if (operand <- @tryDestructuring(null, fMode)).ok {
 					@NL_0M()
 
-					values.push(@reqBinaryOperand(eMode + ExpressionMode.ImplicitMember, fMode).value)
+					if (operator <- @tryAssignementOperator()).ok {
+						var values = [operand.value, AST.BinaryExpression(operator)]
 
-					return @yep(AST.reorderExpression(values))
+						@NL_0M()
+
+						values.push(@reqBinaryOperand(eMode + ExpressionMode.ImplicitMember, fMode).value)
+
+						return @yep(AST.reorderExpression(values))
+					}
 				}
+
+				@rollback(mark)
+
+				operand = @tryBinaryOperand(eMode, fMode)
+
+				return operand unless operand.ok
 			}
-
-			@rollback(mark)
-
-			operand = @tryBinaryOperand(eMode, fMode)
-
-			return operand unless operand.ok
 
 			var values = [operand.value]
 
