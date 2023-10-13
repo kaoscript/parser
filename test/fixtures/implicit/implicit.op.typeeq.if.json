@@ -13,11 +13,11 @@
           "modifiers": [],
           "start": {
             "line": 1,
-            "column": 10
+            "column": 11
           },
           "end": {
             "line": 1,
-            "column": 12
+            "column": 13
           }
         },
         "start": {
@@ -26,71 +26,67 @@
         },
         "end": {
           "line": 1,
-          "column": 26
+          "column": 23
         },
         "left": {
           "kind": 48,
           "modifiers": [],
-          "name": "value",
+          "name": "person",
           "start": {
             "line": 1,
             "column": 4
           },
           "end": {
             "line": 1,
-            "column": 9
+            "column": 10
           }
         },
         "right": {
           "kind": 121,
           "modifiers": [],
           "typeName": {
-            "kind": 48,
+            "kind": 123,
             "modifiers": [],
-            "name": "array",
-            "start": {
-              "line": 1,
-              "column": 13
-            },
-            "end": {
-              "line": 1,
-              "column": 18
-            }
-          },
-          "typeParameters": [
-            {
-              "kind": 121,
-              "modifiers": [],
-              "typeName": {
-                "kind": 48,
-                "modifiers": [],
-                "name": "string",
-                "start": {
-                  "line": 1,
-                  "column": 19
-                },
-                "end": {
-                  "line": 1,
-                  "column": 25
-                }
-              },
+            "operator": {
+              "kind": 6,
               "start": {
                 "line": 1,
-                "column": 19
+                "column": 14
               },
               "end": {
                 "line": 1,
-                "column": 25
+                "column": 15
               }
+            },
+            "argument": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "Director",
+              "start": {
+                "line": 1,
+                "column": 15
+              },
+              "end": {
+                "line": 1,
+                "column": 23
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 14
+            },
+            "end": {
+              "line": 1,
+              "column": 23
             }
-          ],
+          },
           "start": {
             "line": 1,
-            "column": 13
+            "column": 14
           },
           "end": {
             "line": 1,
-            "column": 26
+            "column": 23
           }
         }
       },
@@ -100,7 +96,7 @@
         "statements": [],
         "start": {
           "line": 1,
-          "column": 27
+          "column": 24
         },
         "end": {
           "line": 2,

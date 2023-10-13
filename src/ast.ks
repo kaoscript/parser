@@ -1830,18 +1830,14 @@ namespace AST {
 			}, name)
 		} # }}}
 
-		func TypeReference(modifiers, name, parameters?, first, last) { # {{{
-			var node = location({
+		func TypeReference(modifiers, name, parameters?, typeSubtypes?, first, last) { # {{{
+			return location({
 				kind: NodeKind.TypeReference
 				modifiers: [modifier.value for var modifier in modifiers]
 				typeName: name.value
+				typeParameters: [parameter.value for var parameter in parameters.value] if ?parameters
+				typeSubtypes: [typeSubtype.value for var typeSubtype in typeSubtypes.value] if ?typeSubtypes
 			}, first, last)
-
-			if parameters != null {
-				node.typeParameters = [parameter.value for var parameter in parameters.value]
-			}
-
-			return node
 		} # }}}
 
 		func TypeAliasDeclaration(name, type, first, last) { # {{{
@@ -1962,6 +1958,34 @@ namespace AST {
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				declarations: [declaration.value for var declaration in declarations]
+			}, first, last)
+		} # }}}
+
+		func VariantDeclaration(attributes, modifiers, name, fields, first, last) { # {{{
+			return location({
+				kind: NodeKind.VariantDeclaration
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
+				name: name.value
+				fields
+			}, first, last)
+		} # }}}
+
+		func VariantField(name, type?, first, last) { # {{{
+			return location({
+				kind: NodeKind.VariantField
+				attributes: []
+				modifiers: []
+				name: name.value
+				type: type.value if ?type
+			}, first, last)
+		} # }}}
+
+		func VariantType(master, properties?, first, last) { # {{{
+			return location({
+				kind: NodeKind.VariantType
+				master: master.value
+				properties if ?properties
 			}, first, last)
 		} # }}}
 

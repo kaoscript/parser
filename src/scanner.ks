@@ -216,6 +216,7 @@ enum Token {
 	UP
 	VALUEOF
 	VAR
+	VARIANT
 	WHEN
 	WHILE
 	WITH
@@ -1228,12 +1229,25 @@ enum Token {
 				}
 			} # }}}
 			.VAR { # {{{
-				if	c == 118 &&
-					scanner.charAt(1) == 97 &&
-					scanner.charAt(2) == 114 &&
+				if	c == 0'v' &&
+					scanner.charAt(1) == 0'a' &&
+					scanner.charAt(2) == 0'r' &&
 					scanner.isBoundary(3)
 				{
 					return scanner.next(3)
+				}
+			} # }}}
+			.VARIANT { # {{{
+				if	c == 0'v' &&
+					scanner.charAt(1) == 0'a' &&
+					scanner.charAt(2) == 0'r' &&
+					scanner.charAt(3) == 0'i' &&
+					scanner.charAt(4) == 0'a' &&
+					scanner.charAt(5) == 0'n' &&
+					scanner.charAt(6) == 0't' &&
+					scanner.isBoundary(7)
+				{
+					return scanner.next(7)
 				}
 			} # }}}
 			.WHEN { # {{{
@@ -2777,7 +2791,7 @@ namespace M {
 
 				return Token.DOT_DOT_DOT
 			}
-			else if eMode ~~ ExpressionMode.ImplicitMember {
+			else if eMode ~~ .ImplicitMember {
 				that.next(1)
 
 				return Token.DOT
@@ -3216,16 +3230,28 @@ namespace M {
 				return Token.UNTIL
 			}
 		}
-		// var
-		else if c == 118
+		// var, variant
+		else if c == 0'v'
 		{
-			if	that.charAt(1) == 97 &&
-				that.charAt(2) == 114 &&
+			if	that.charAt(1) == 0'a' &&
+				that.charAt(2) == 0'r' &&
 				that.isSpace(3)
 			{
 				that.next(3)
 
 				return Token.VAR
+			}
+			else if	that.charAt(1) == 0'a' &&
+				that.charAt(2) == 0'r' &&
+				that.charAt(3) == 0'i' &&
+				that.charAt(4) == 0'a' &&
+				that.charAt(5) == 0'n' &&
+				that.charAt(6) == 0't' &&
+				that.isSpace(7)
+			{
+				that.next(7)
+
+				return Token.VARIANT
 			}
 		}
 		// while, with
