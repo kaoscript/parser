@@ -5712,13 +5712,13 @@ export namespace Parser {
 					for var [indent, first? = null, ...rest], index in lines {
 						if index > 0 {
 							if !?previous {
-								previous = AST.Literal(null, '\n', Position.new(
+								previous = AST.Literal(null, '\n', {
 									line: firstLine
 									column: 1
-								), Position.new(
+								}, {
 									line: firstLine
 									column: 2
-								))
+								})
 
 								elements.push(@yep(previous))
 							}
@@ -5727,13 +5727,13 @@ export namespace Parser {
 								previous.end.column += 1
 							}
 							else {
-								previous = AST.Literal(null, '\n', Position.new(
+								previous = AST.Literal(null, '\n', {
 									line: previous.end.line:Number
 									column: previous.end.column:Number + 1
-								), Position.new(
+								}, {
 									line: previous.end.line:Number
 									column: previous.end.column:Number + 2
-								))
+								})
 
 								elements.push(@yep(previous))
 							}
@@ -5746,13 +5746,13 @@ export namespace Parser {
 
 							if var value #= indent.substr(baseIndent.length) {
 								if !?previous {
-									previous = AST.Literal(null, value, Position.new(
+									previous = AST.Literal(null, value, {
 										line: firstLine
 										column: baseIndent.length
-									), Position.new(
+									}, {
 										line: firstLine
 										column: indent.length
-									))
+									})
 
 									elements.push(@yep(previous))
 								}
@@ -5762,13 +5762,13 @@ export namespace Parser {
 									previous.end.column += indent.length
 								}
 								else {
-									previous = AST.Literal(null, value, Position.new(
+									previous = AST.Literal(null, value, {
 										line: previous.end.line:Number + 1
 										column: baseIndent.length
-									), Position.new(
+									}, {
 										line: previous.end.line:Number + 1
 										column: indent.length
-									))
+									})
 
 									elements.push(@yep(previous))
 								}
@@ -5811,13 +5811,13 @@ export namespace Parser {
 								previous.end.column += 1
 							}
 							else {
-								previous = AST.Literal(null, '\n', Position.new(
+								previous = AST.Literal(null, '\n', {
 									line: previous.end.line:Number
 									column: previous.end.column:Number + 1
-								), Position.new(
+								}, {
 									line: previous.end.line:Number
 									column: previous.end.column:Number + 2
-								))
+								})
 
 								elements.push(@yep(previous))
 							}

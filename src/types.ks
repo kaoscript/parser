@@ -12,12 +12,12 @@ struct Marker {
 	column: Number
 }
 
-struct Position {
+type Position = {
 	line: Number
 	column: Number
 }
 
-struct Range {
+type Range = {
 	start: Position
 	end: Position
 }

@@ -3390,10 +3390,10 @@ class Scanner {
 		}
 	} # }}}
 	endPosition(): Position { # {{{
-		return Position.new(
+		return {
 			line: @nextLine
 			column: @nextColumn
-		)
+		}
 	} # }}}
 	eof(): Token { # {{{
 		@eof = true
@@ -3479,40 +3479,40 @@ class Scanner {
 		return true
 	} # }}}
 	position(): Range { # {{{
-		return Range.new(
-			start: Position.new(
+		return {
+			start: {
 				line: @line
 				column: @column
-			)
-			end: Position.new(
+			}
+			end: {
 				line: @nextLine
 				column: @nextColumn
-			)
-		)
+			}
+		}
 	} # }}}
 	position(start: Number): Range { # {{{
-		return Range.new(
-			start: Position.new(
+		return {
+			start: {
 				line: @line
 				column: @column + start
-			)
-			end: Position.new(
+			}
+			end: {
 				line: @nextLine
 				column: @nextColumn
-			)
-		)
+			}
+		}
 	} # }}}
 	position(start: Number, length: Number): Range { # {{{
-		return Range.new(
-			start: Position.new(
+		return {
+			start: {
 				line: @line
 				column: @column + start
-			)
-			end: Position.new(
+			}
+			end: {
 				line: @line
 				column: @column + start + length
-			)
-		)
+			}
+		}
 	} # }}}
 	readLine(): String { # {{{
 		var mut index = @index
@@ -4088,10 +4088,10 @@ class Scanner {
 		return -1
 	} # }}}
 	startPosition(): Position { # {{{
-		return Position.new(
+		return {
 			line: @line
 			column: @column
-		)
+		}
 	} # }}}
 	substringAt(d: Number): String => @data.substring(@index + d)
 	test(token: Token): Boolean { # {{{
