@@ -1684,6 +1684,15 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func SpreadExpression(operand, members, first, last) { # {{{
+			return location({
+				kind: NodeKind.SpreadExpression
+				attributes: []
+				operand: operand.value
+				members: [member.value for var member in members]
+			}, first, last)
+		} # }}}
+
 		func StructDeclaration(attributes, modifiers, name, extends?, implements, fields, first, last) { # {{{
 			return location({
 				kind: NodeKind.StructDeclaration
@@ -1840,11 +1849,12 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func TypeAliasDeclaration(name, type, first, last) { # {{{
+		func TypeAliasDeclaration(name, generics, type, first, last) { # {{{
 			return location({
 				kind: NodeKind.TypeAliasDeclaration
 				attributes: []
 				name: name.value
+				generics: [generic.value for var generic in generics] if #generics
 				type: type.value
 			}, first, last)
 		} # }}}
@@ -1971,12 +1981,12 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func VariantField(name, type?, first, last) { # {{{
+		func VariantField(names, type?, first, last) { # {{{
 			return location({
 				kind: NodeKind.VariantField
 				attributes: []
 				modifiers: []
-				name: name.value
+				names: [name.value for var name in names]
 				type: type.value if ?type
 			}, first, last)
 		} # }}}

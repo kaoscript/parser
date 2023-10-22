@@ -26,8 +26,9 @@ export namespace Parser {
 		identifier: Event?		= null
 	}
 
-	bitmask ClassBits {
+	bitmask ClassBits<u32> {
 		AbstractMethod		 = 1
+		AssistMethod
 		Attribute
 		FinalMethod
 		FinalVariable
@@ -1351,7 +1352,7 @@ export namespace Parser {
 				return @reqClassMemberBlock(
 					attributes
 					[accessModifier]
-					ClassBits.Variable + ClassBits.FinalVariable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method + ClassBits.OverrideMethod + ClassBits.Proxy
+					ClassBits.Variable + ClassBits.FinalVariable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method + ClassBits.AssistMethod + ClassBits.OverrideMethod + ClassBits.Proxy
 					members
 				)
 			}
@@ -1370,6 +1371,26 @@ export namespace Parser {
 						attributes
 						modifiers
 						ClassBits.Method + ClassBits.Property + ClassBits.NoBody
+						members
+					)
+				}
+
+				@rollback(mark)
+			}
+			else if @test(.ASSIST) {
+				var mark = @mark()
+				var modifier = @yep(AST.Modifier(.Assist, @yes()))
+
+				if @test(.LEFT_CURLY) {
+					var modifiers = [modifier]
+					if accessModifier.ok {
+						modifiers.unshift(accessModifier)
+					}
+
+					return @reqClassMemberBlock(
+						attributes
+						modifiers
+						ClassBits.Method
 						members
 					)
 				}
@@ -1521,30 +1542,52 @@ export namespace Parser {
 						return @reqClassMemberBlock(
 							attributes
 							modifiers
-							ClassBits.Variable + ClassBits.LateVariable + ClassBits.RequiredAssignment + ClassBits.Property + ClassBits.OverrideProperty + ClassBits.Method + ClassBits.OverrideMethod
+							ClassBits.Variable + ClassBits.LateVariable + ClassBits.RequiredAssignment + ClassBits.Property + ClassBits.OverrideProperty + ClassBits.Method + ClassBits.AssistMethod + ClassBits.OverrideMethod
 							members
 						)
 					}
 				}
-				else if !staticModifier.ok && @test(Token.OVERRIDE) {
-					var mark = @mark()
-					var modifier = @yep(AST.Modifier(ModifierKind.Override, @yes()))
+				else if !staticModifier.ok {
+					if @test(.ASSIST) {
+						var mark = @mark()
+						var modifier = @yep(AST.Modifier(.Assist, @yes()))
 
-					if @test(Token.LEFT_CURLY) {
-						var modifiers = [finalModifier, modifier]
-						if accessModifier.ok {
-							modifiers.unshift(accessModifier)
+						if @test(.LEFT_CURLY) {
+							var modifiers = [finalModifier, modifier]
+							if accessModifier.ok {
+								modifiers.unshift(accessModifier)
+							}
+
+							return @reqClassMemberBlock(
+								attributes
+								modifiers
+								ClassBits.Method
+								members
+							)
 						}
 
-						return @reqClassMemberBlock(
-							attributes
-							modifiers
-							ClassBits.Method + ClassBits.Property
-							members
-						)
+						@rollback(mark)
 					}
+					else if @test(Token.OVERRIDE) {
+						var mark = @mark()
+						var modifier = @yep(AST.Modifier(ModifierKind.Override, @yes()))
 
-					@rollback(mark)
+						if @test(Token.LEFT_CURLY) {
+							var modifiers = [finalModifier, modifier]
+							if accessModifier.ok {
+								modifiers.unshift(accessModifier)
+							}
+
+							return @reqClassMemberBlock(
+								attributes
+								modifiers
+								ClassBits.Method + ClassBits.Property
+								members
+							)
+						}
+
+						@rollback(mark)
+					}
 				}
 			}
 
@@ -3602,6 +3645,9 @@ export namespace Parser {
 
 			return @yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, body, first, body))
 		} # }}}
+		reqGeneric(): Event ~ SyntaxError { # {{{
+			return @reqIdentifier()
+		} # }}}
 		reqIdentifier(): Event ~ SyntaxError { # {{{
 			if @scanner.test(Token.IDENTIFIER) {
 				return @yep(AST.Identifier(@scanner.value(), @yes()))
@@ -3837,7 +3883,39 @@ export namespace Parser {
 				)
 			}
 
-			if @test(Token.OVERRIDE, Token.OVERWRITE) {
+			if @test(.ASSIST) {
+				var mark = @mark()
+				var modifier = @yep(AST.Modifier(.Assist, @yes()))
+				var modifiers = [modifier]
+				if accessModifier.ok {
+					modifiers.unshift(accessModifier)
+				}
+
+				if @test(.LEFT_CURLY) {
+					return @reqClassMemberBlock(
+						attributes
+						modifiers
+						ClassBits.Method
+						members
+					)
+				}
+
+				var member = @tryClassMember(
+					attributes
+					modifiers
+					ClassBits.Method
+					first ?? modifiers[0]
+				)
+
+				if member.ok {
+					members.push(member)
+
+					return
+				}
+
+				@rollback(mark)
+			}
+			else if @test(.OVERRIDE, .OVERWRITE) {
 				var mark = @mark()
 				var modifier = @yep(AST.Modifier(@token == Token.OVERRIDE ? ModifierKind.Override : ModifierKind.Overwrite, @yes()))
 				var modifiers = [modifier]
@@ -3920,30 +3998,52 @@ export namespace Parser {
 							modifiers
 							ClassBits.Variable + ClassBits.LateVariable + ClassBits.RequiredAssignment +
 							ClassBits.Property + ClassBits.OverrideProperty + ClassBits.OverwriteProperty +
-							ClassBits.Method + ClassBits.OverrideMethod + ClassBits.OverwriteMethod
+							ClassBits.Method + ClassBits.AssistMethod + ClassBits.OverrideMethod + ClassBits.OverwriteMethod
 							members
 						)
 					}
 				}
-				else if !staticModifier.ok && @test(Token.OVERRIDE, Token.OVERWRITE) {
-					var mark = @mark()
-					var modifier = @yep(AST.Modifier(@token == Token.OVERRIDE ? ModifierKind.Override : ModifierKind.Overwrite, @yes()))
+				else if !staticModifier.ok {
+					if @test(.ASSIST) {
+						var mark = @mark()
+						var modifier = @yep(AST.Modifier(.Assist, @yes()))
 
-					if @test(Token.LEFT_CURLY) {
-						var modifiers = [finalModifier, modifier]
-						if accessModifier.ok {
-							modifiers.unshift(accessModifier)
+						if @test(.LEFT_CURLY) {
+							var modifiers = [finalModifier, modifier]
+							if accessModifier.ok {
+								modifiers.unshift(accessModifier)
+							}
+
+							return @reqClassMemberBlock(
+								attributes
+								modifiers
+								ClassBits.Method
+								members
+							)
 						}
 
-						return @reqClassMemberBlock(
-							attributes
-							modifiers
-							ClassBits.Method + ClassBits.Property
-							members
-						)
+						@rollback(mark)
 					}
+					else if @test(Token.OVERRIDE, Token.OVERWRITE) {
+						var mark = @mark()
+						var modifier = @yep(AST.Modifier(@token == Token.OVERRIDE ? ModifierKind.Override : ModifierKind.Overwrite, @yes()))
 
-					@rollback(mark)
+						if @test(Token.LEFT_CURLY) {
+							var modifiers = [finalModifier, modifier]
+							if accessModifier.ok {
+								modifiers.unshift(accessModifier)
+							}
+
+							return @reqClassMemberBlock(
+								attributes
+								modifiers
+								ClassBits.Method + ClassBits.Property
+								members
+							)
+						}
+
+						@rollback(mark)
+					}
 				}
 			}
 
@@ -3985,8 +4085,6 @@ export namespace Parser {
 				}
 
 				@rollback(lateMark)
-			}
-			else if @test(Token.OVERRIDE) {
 			}
 
 			if accessModifier.ok {
@@ -7394,10 +7492,6 @@ export namespace Parser {
 
 						@reqVariantFieldList(elements)
 
-						unless @test(.RIGHT_CURLY) {
-							@throw('}')
-						}
-
 						var objectType = @yep(AST.VariantType(master, elements, master, @yes()))
 
 						var property = @yep(AST.PropertyType([], identifier, objectType, first, objectType))
@@ -7540,7 +7634,30 @@ export namespace Parser {
 			}
 		} # }}}
 		reqTypeStatement(mut first: Event, name: Event): Event ~ SyntaxError { # {{{
-			unless @test(Token.EQUALS) {
+			var generics = []
+
+			if @test(.LEFT_ANGLE) {
+				@commit()
+
+				while @until(.RIGHT_ANGLE) {
+					generics.push(@reqGeneric())
+
+					if @test(.COMMA) {
+						@commit()
+					}
+					else {
+						break
+					}
+				}
+
+				unless @test(.RIGHT_ANGLE) {
+					@throw('>')
+				}
+
+				@commit()
+			}
+
+			unless @test(.EQUALS) {
 				@throw('=')
 			}
 
@@ -7548,7 +7665,7 @@ export namespace Parser {
 
 			var type = @reqType(true, .InlineOnly)
 
-			return @yep(AST.TypeAliasDeclaration(name, type, first, type))
+			return @yep(AST.TypeAliasDeclaration(name, generics, type, first, type))
 		} # }}}
 		reqTypedVariable(fMode: FunctionMode, typeable: Boolean = true, questionable: Boolean = true): Event ~ SyntaxError { # {{{
 			var mut name = null
@@ -7678,20 +7795,30 @@ export namespace Parser {
 			@NL_0M()
 
 			while @until(.RIGHT_CURLY) {
-				var name = @reqIdentifier()
+				var names = [@reqIdentifier()]
+
+				while @test(.COMMA) {
+					@commit()
+
+					names.push(@reqIdentifier())
+				}
 
 				if @test(.LEFT_CURLY) {
 					var type = @reqTypeObject([], @yes(), .InlineOnly)
 
 					@reqNL_1M()
 
-					elements.push(AST.VariantField(name, type, name, type))
+					elements.push(AST.VariantField(names, type, names[0], type))
 				}
 				else {
 					@reqNL_1M()
 
-					elements.push(AST.VariantField(name, null, name, name))
+					elements.push(AST.VariantField(names, null, names[0], names[names.length - 1]))
 				}
+			}
+
+			unless @test(.RIGHT_CURLY) {
+				@throw('}')
 			}
 		} # }}}
 		stackInlineAttributes(attributes: Array): Array ~ SyntaxError { # {{{
@@ -8291,7 +8418,7 @@ export namespace Parser {
 			return @tryClassMember(
 				attributes
 				[...modifiers]
-				ClassBits.Variable + ClassBits.FinalVariable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method + ClassBits.OverrideMethod + ClassBits.AbstractMethod + ClassBits.Proxy
+				ClassBits.Variable + ClassBits.FinalVariable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method + ClassBits.AssistMethod + ClassBits.OverrideMethod + ClassBits.AbstractMethod + ClassBits.Proxy
 				first
 			)
 		} # }}}
@@ -8329,7 +8456,17 @@ export namespace Parser {
 					var modifier = @yep(AST.Modifier(.Final, @yes()))
 					var mark2 = @mark()
 
-					if bits ~~ ClassBits.OverrideMethod && @test(.OVERRIDE) {
+					if bits ~~ ClassBits.AssistMethod && @test(.ASSIST) {
+						var modifier2 = @yep(AST.Modifier(.Assist, @yes()))
+						var method = @tryClassMethod(attributes, [...modifiers, modifier, modifier2], bits, first ?? modifier)
+
+						if method.ok {
+							return method
+						}
+
+						@rollback(mark2)
+					}
+					else if bits ~~ ClassBits.OverrideMethod && @test(.OVERRIDE) {
 						var modifier2 = @yep(AST.Modifier(ModifierKind.Override, @yes()))
 						var method = @tryClassMethod(attributes, [...modifiers, modifier, modifier2], bits, first ?? modifier)
 
@@ -8357,6 +8494,17 @@ export namespace Parser {
 
 						@rollback(mark2)
 					}
+
+					var method = @tryClassMethod(attributes, [...modifiers, modifier], bits, first ?? modifier)
+
+					if method.ok {
+						return method
+					}
+
+					@rollback(mark)
+				}
+				else if bits ~~ ClassBits.AssistMethod && @test(.ASSIST) {
+					var modifier = @yep(AST.Modifier(.Assist, @yes()))
 
 					var method = @tryClassMethod(attributes, [...modifiers, modifier], bits, first ?? modifier)
 
@@ -9425,9 +9573,50 @@ export namespace Parser {
 			else if @token == Token.DOT_DOT_DOT {
 				var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Spread, @yes()))
 				var operand = @reqPrefixedOperand(.Nil, fMode)
-				var expression = @yep(AST.UnaryExpression(operator, operand, operator, operand))
 
-				return @altRestrictiveExpression(expression, fMode)
+				if @test(.LEFT_CURLY) {
+					@commit()
+
+					var members = []
+
+					while @until(.RIGHT_CURLY) {
+						var dyn external = @reqIdentifier()
+						var mut internal = external
+
+						if @test(.PERCENT) {
+							@commit()
+
+							internal = @reqIdentifier()
+						}
+						else {
+							external = null
+						}
+
+						members.push(@yep(AST.NamedSpecifier([], internal, external, external ?? internal, internal)))
+
+						if @test(Token.COMMA) {
+							@commit()
+						}
+						else {
+							break
+						}
+					}
+
+					unless @test(.RIGHT_CURLY) {
+						@throw('}')
+					}
+
+					@commit()
+
+					var expression = @yep(AST.SpreadExpression(operand, members, operator, operand))
+
+					return @altRestrictiveExpression(expression, fMode)
+				}
+				else {
+					var expression = @yep(AST.UnaryExpression(operator, operand, operator, operand))
+
+					return @altRestrictiveExpression(expression, fMode)
+				}
 			}
 			else {
 				return @no('Identifier', 'String', 'Template', 'Computed Property Name')
@@ -9884,10 +10073,6 @@ export namespace Parser {
 								var fields = []
 
 								@reqVariantFieldList(fields)
-
-								unless @test(.RIGHT_CURLY) {
-									@throw('}')
-								}
 
 								var type = @yep(AST.VariantType(enum, fields, enum, @yes()))
 
@@ -10824,10 +11009,6 @@ export namespace Parser {
 			var elements = []
 
 			@reqVariantFieldList(elements)
-
-			unless @test(.RIGHT_CURLY) {
-				@throw('}')
-			}
 
 			return @yep(AST.VariantDeclaration([], [], name, elements, first, @yes()))
 		} # }}}

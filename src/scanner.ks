@@ -7,6 +7,7 @@ enum Token {
 	AS
 	AS_EXCLAMATION
 	AS_QUESTION
+	ASSIST
 	ASTERISK
 	ASTERISK_ASTERISK
 	ASTERISK_DOLLAR_LEFT_ROUND
@@ -263,6 +264,18 @@ enum Token {
 					scanner.isBoundary(2)
 				{
 					return scanner.next(2)
+				}
+			} # }}}
+			.ASSIST { # {{{
+				if	c == 0'a' &&
+					scanner.charAt(1) == 0's' &&
+					scanner.charAt(2) == 0's' &&
+					scanner.charAt(3) == 0'i' &&
+					scanner.charAt(4) == 0's' &&
+					scanner.charAt(5) == 0't' &&
+					scanner.isBoundary(6)
+				{
+					return scanner.next(6)
 				}
 			} # }}}
 			.ASYNC { # {{{
