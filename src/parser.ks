@@ -1071,7 +1071,7 @@ export namespace Parser {
 				return operand
 			}
 			else {
-				@throw(...operand.value)
+				@throw(...operand.value!?)
 			}
 		} # }}}
 		reqBitmaskStatement(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
@@ -3032,7 +3032,7 @@ export namespace Parser {
 				return expression
 			}
 			else {
-				@throw(...expression.value)
+				@throw(...expression.value!?)
 			}
 		} # }}}
 		reqExpressionStatement(eMode: ExpressionMode = .Nil + .NoRestriction, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -5898,7 +5898,7 @@ export namespace Parser {
 					}
 				}
 				else {
-					elements.push(...lines[0].slice(1))
+					elements.push(...lines[0].slice(1)!?)
 
 					if lines.length > 1 {
 						var mut previous = elements[elements.length - 1].value
@@ -6059,7 +6059,7 @@ export namespace Parser {
 				return operand
 			}
 			else {
-				@throw(...operand.value)
+				@throw(...operand.value!?)
 			}
 		} # }}}
 		reqOperation(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -6069,7 +6069,7 @@ export namespace Parser {
 				return operation
 			}
 			else {
-				@throw(...operation.value)
+				@throw(...operation.value!?)
 			}
 		} # }}}
 		reqParameter(pMode: DestructuringMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -6487,7 +6487,7 @@ export namespace Parser {
 				return operand
 			}
 			else {
-				@throw(...operand.value)
+				@throw(...operand.value!?)
 			}
 		} # }}}
 		reqPrefixedOperand(eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -7342,7 +7342,7 @@ export namespace Parser {
 				return type
 			}
 			else {
-				@throw(...type.value ## 'type')
+				@throw(...?type.value ## 'type')
 			}
 		} # }}}
 		reqTypeLimited(modifiers: Array = [], nullable: Boolean = true, eMode: ExpressionMode = .Nil): Event ~ SyntaxError { # {{{
@@ -7713,7 +7713,7 @@ export namespace Parser {
 				return operand
 			}
 			else {
-				@throw(...operand.value)
+				@throw(...operand.value!?)
 			}
 		} # }}}
 		reqUnlessStatement(mut first: Event, fMode: FunctionMode): Event ~ SyntaxError { # {{{
@@ -7862,10 +7862,8 @@ export namespace Parser {
 		submitEnumMember(attributes: Array, modifiers: Array, identifier: Event, token: Token?, members: Array): Void ~ SyntaxError { # {{{
 			var first = attributes[0] ?? modifiers[0] ?? identifier
 
-			if !?token && @test(.ASTERISK_ASTERISK) {
-				modifiers.push(@yep(AST.Modifier(.Default, @yes())))
-
-				if @test(.EQUALS) {
+			match token ?? @match(.EQUALS, .LEFT_ROUND)  {
+				.EQUALS {
 					if @mode ~~ ParserMode.Typing {
 						@throw()
 					}
@@ -7875,36 +7873,16 @@ export namespace Parser {
 					var value = @reqExpression(.Nil, .Nil)
 
 					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, value, first, value))
+
+					@reqNL_1M()
+				}
+				.LEFT_ROUND {
+					members.push(@reqEnumMethod(attributes, modifiers, identifier, first).value)
 				}
 				else {
 					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, null, first, identifier))
-				}
 
-				@reqNL_1M()
-			}
-			else {
-				match token ?? @match(.EQUALS, .LEFT_ROUND)  {
-					.EQUALS {
-						if @mode ~~ ParserMode.Typing {
-							@throw()
-						}
-
-						@commit()
-
-						var value = @reqExpression(.Nil, .Nil)
-
-						members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, value, first, value))
-
-						@reqNL_1M()
-					}
-					.LEFT_ROUND {
-						members.push(@reqEnumMethod(attributes, modifiers, identifier, first).value)
-					}
-					else {
-						members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, null, first, identifier))
-
-						@reqNL_1M()
-					}
+					@reqNL_1M()
 				}
 			}
 		} # }}}
@@ -9881,18 +9859,6 @@ export namespace Parser {
 			var mark = @mark()
 
 			match @matchM(M.PREFIX_OPERATOR, eMode) {
-				.ASTERISK_ASTERISK {
-					var operator = @yep(AST.UnaryOperator(.Default, @yes()))
-					var operand = @tryIdentifier()
-
-					if operand.ok {
-						return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
-					}
-					else {
-						@rollback(mark)
-					}
-
-				}
 				Token.DOT {
 					var operator = @yep(AST.UnaryOperator(.Implicit, @yes()))
 					var operand = @tryIdentifier()

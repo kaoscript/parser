@@ -2783,13 +2783,6 @@ namespace M {
 				return Token.HASH
 			}
 		}
-		else if c == 0'*' {
-			if that.charAt(1) == 0'*' {
-				that.next(2)
-
-				return Token.ASTERISK_ASTERISK
-			}
-		}
 		else if c == 0'+' {
 			if that.charAt(1) == 0'^' {
 				that.next(2)
