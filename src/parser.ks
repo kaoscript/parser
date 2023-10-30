@@ -829,7 +829,7 @@ export namespace Parser {
 
 						argument = @altRestrictiveExpression(expression, fMode)
 					}
-					else if eMode ~~ ExpressionMode.Curry && @test(Token.DOT_DOT_DOT) {
+					else if eMode ~~ .Curry && @test(Token.DOT_DOT_DOT) {
 						var mark = @mark()
 						var modifier = @yep(AST.Modifier(ModifierKind.Rest, @yes()))
 
@@ -8905,7 +8905,7 @@ export namespace Parser {
 				var operand = @tryOperation(null, eMode, fMode)
 
 				if operand.ok {
-					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 				}
 
 				@rollback(mark)
@@ -9552,7 +9552,7 @@ export namespace Parser {
 			}
 
 			var late name
-			if @match(Token.AT, Token.DOT_DOT_DOT, Token.IDENTIFIER, Token.LEFT_SQUARE, Token.STRING, Token.TEMPLATE_BEGIN) == Token.IDENTIFIER {
+			if @match(Token.AT, Token.DOT_DOT_DOT_QUESTION, Token.DOT_DOT_DOT, Token.IDENTIFIER, Token.LEFT_SQUARE, Token.STRING, Token.TEMPLATE_BEGIN) == Token.IDENTIFIER {
 				name = @reqIdentifier()
 			}
 			else if @token == Token.LEFT_SQUARE {
@@ -9570,8 +9570,14 @@ export namespace Parser {
 
 				return @altRestrictiveExpression(expression, fMode)
 			}
-			else if @token == Token.DOT_DOT_DOT {
-				var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Spread, @yes()))
+			else if @token == .DOT_DOT_DOT | .DOT_DOT_DOT_QUESTION {
+				var modifiers = []
+
+				if @token == .DOT_DOT_DOT_QUESTION {
+					modifiers.push(@yep(AST.Modifier(.Nullable, @yep())))
+				}
+
+				var operator = @yep(AST.UnaryOperator(.Spread, @yes()))
 				var operand = @reqPrefixedOperand(.Nil, fMode)
 
 				if @test(.LEFT_CURLY) {
@@ -9608,12 +9614,12 @@ export namespace Parser {
 
 					@commit()
 
-					var expression = @yep(AST.SpreadExpression(operand, members, operator, operand))
+					var expression = @yep(AST.SpreadExpression(modifiers, operand, members, operator, operand))
 
 					return @altRestrictiveExpression(expression, fMode)
 				}
 				else {
-					var expression = @yep(AST.UnaryExpression(operator, operand, operator, operand))
+					var expression = @yep(AST.UnaryExpression(modifiers, operator, operand, operator, operand))
 
 					return @altRestrictiveExpression(expression, fMode)
 				}
@@ -9852,20 +9858,24 @@ export namespace Parser {
 
 			return operand unless operand.ok
 
-			var dyn operator
+			var mut operator = null
+			var mut modifier = null
+
 			match @matchM(M.POSTFIX_OPERATOR) {
-				Token.EXCLAMATION_EXCLAMATION {
-					operator = @yep(AST.UnaryOperator(UnaryOperatorKind.ForcedTypeCasting, @yes()))
+				.EXCLAMATION_EXCLAMATION {
+					operator = @yep(AST.UnaryOperator(.TypeFitting, @yes()))
+					modifier = @yep(AST.Modifier(.Forced, operator))
 				}
-				Token.EXCLAMATION_QUESTION {
-					operator = @yep(AST.UnaryOperator(UnaryOperatorKind.NullableTypeCasting, @yes()))
+				.EXCLAMATION_QUESTION {
+					operator = @yep(AST.UnaryOperator(.TypeFitting, @yes()))
+					modifier = @yep(AST.Modifier(.Nullable, operator))
 				}
 				else {
 					return operand
 				}
 			}
 
-			return @tryPostfixedOperand(@yep(AST.UnaryExpression(operator, operand, operand, operator)), eMode, fMode)
+			return @tryPostfixedOperand(@yep(AST.UnaryExpression([modifier], operator, operand, operand, operator)), eMode, fMode)
 		} # }}}
 		tryPrefixedOperand(mut eMode: ExpressionMode, fMode: FunctionMode): Event ~ SyntaxError { # {{{
 			var mark = @mark()
@@ -9876,7 +9886,7 @@ export namespace Parser {
 					var operand = @tryIdentifier()
 
 					if operand.ok {
-						return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+						return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 					}
 					else {
 						@rollback(mark)
@@ -9888,7 +9898,7 @@ export namespace Parser {
 					var operand = @tryIdentifier()
 
 					if operand.ok {
-						return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+						return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 					}
 					else {
 						@rollback(mark)
@@ -9902,7 +9912,7 @@ export namespace Parser {
 						if operand.ok {
 							var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Spread, position))
 
-							return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+							return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 						}
 						else {
 							var modifiers = [AST.Modifier(ModifierKind.Spread, position)]
@@ -9915,20 +9925,27 @@ export namespace Parser {
 						var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Spread, @yes()))
 						var operand = @reqPrefixedOperand(eMode, fMode)
 
-						return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+						return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 					}
+				}
+				Token.DOT_DOT_DOT_QUESTION {
+					var operator = @yep(AST.UnaryOperator(.Spread, @yes()))
+					var modifier = @yep(AST.Modifier(.Nullable, operator))
+					var operand = @reqPrefixedOperand(eMode, fMode)
+
+					return @yep(AST.UnaryExpression([modifier], operator, operand, operator, operand))
 				}
 				Token.EXCLAMATION {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.LogicalNegation, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
-					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 				}
 				Token.HASH {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.NonEmpty, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
-					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 				}
 				Token.MINUS {
 					var first = @yes()
@@ -9942,20 +9959,20 @@ export namespace Parser {
 					else {
 						var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Negative, first))
 
-						return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+						return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 					}
 				}
 				.PLUS_CARET {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.BitwiseNegation, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
-					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 				}
 				Token.QUESTION {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Existential, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
-					return @yep(AST.UnaryExpression(operator, operand, operator, operand))
+					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 				}
 				Token.UNDERSCORE {
 					return @reqPostfixedOperand(@yep(AST.TopicReference(@yes())), eMode, fMode)
@@ -10659,7 +10676,7 @@ export namespace Parser {
 					var operand = @tryIdentifierOrMember()
 
 					if operand.ok {
-						name = @yep(AST.UnaryExpression(operator, operand, operator, operand))
+						name = @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 					}
 					else {
 						return NO

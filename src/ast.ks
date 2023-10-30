@@ -1684,10 +1684,11 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func SpreadExpression(operand, members, first, last) { # {{{
+		func SpreadExpression(modifiers, operand, members, first, last) { # {{{
 			return location({
 				kind: NodeKind.SpreadExpression
 				attributes: []
+				modifiers: [modifier.value for var modifier in modifiers]
 				operand: operand.value
 				members: [member.value for var member in members]
 			}, first, last)
@@ -1874,10 +1875,10 @@ namespace AST {
 			}, first)
 		} # }}}
 
-		func UnaryExpression(operator, operand, first, last) { # {{{
+		func UnaryExpression(modifiers, operator, operand, first, last) { # {{{
 			return location({
 				kind: NodeKind.UnaryExpression
-				modifiers: []
+				modifiers: [modifier.value for var modifier in modifiers]
 				operator: operator.value
 				argument: operand.value
 			}, first, last)

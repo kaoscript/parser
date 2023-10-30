@@ -49,6 +49,7 @@ enum Token {
 	DOT
 	DOT_DOT
 	DOT_DOT_DOT
+	DOT_DOT_DOT_QUESTION
 	DOWN
 	DYN
 	ELSE
@@ -450,8 +451,13 @@ enum Token {
 				}
 			} # }}}
 			.DOT_DOT_DOT { # {{{
-				if c == 46 && scanner.charAt(1) == 46 && scanner.charAt(2) == 46 {
+				if c == 0'.' && scanner.charAt(1) == 0'.' && scanner.charAt(2) == 0'.' {
 					return scanner.next(3)
+				}
+			} # }}}
+			.DOT_DOT_DOT_QUESTION { # {{{
+				if c == 0'.' && scanner.charAt(1) == 0'.' && scanner.charAt(2) == 0'.' && scanner.charAt(3) == 0'?' {
+					return scanner.next(4)
 				}
 			} # }}}
 			.DOWN { # {{{
@@ -2799,10 +2805,17 @@ namespace M {
 			}
 		}
 		else if c == 0'.' {
-			if that.charAt(1) == 0'.' && that.charAt(2) == 0'.' && that.charAt(3) != 9 & 32 {
-				that.next(3)
+			if that.charAt(1) == 0'.' && that.charAt(2) == 0'.' {
+				if that.charAt(3) == 0'?' && that.charAt(4) != 9 & 32 {
+					that.next(4)
 
-				return Token.DOT_DOT_DOT
+					return Token.DOT_DOT_DOT_QUESTION
+				}
+				else if that.charAt(3) != 9 & 32 {
+					that.next(3)
+
+					return Token.DOT_DOT_DOT
+				}
 			}
 			else if eMode ~~ .ImplicitMember {
 				that.next(1)
