@@ -7481,16 +7481,13 @@ export namespace Parser {
 
 						var name = @reqIdentifierOrMember()
 						var master = @yep(AST.TypeReference(name))
-
-						unless @test(.LEFT_CURLY) {
-							@throw('{')
-						}
-
-						@commit()
-
 						var elements = []
 
-						@reqVariantFieldList(elements)
+						if @test(.LEFT_CURLY) {
+							@commit()
+
+							@reqVariantFieldList(elements)
+						}
 
 						var objectType = @yep(AST.VariantType(master, elements, master, @yes()))
 
@@ -10049,23 +10046,17 @@ export namespace Parser {
 
 							var name = @reqIdentifierOrMember()
 							var enum = @yep(AST.TypeReference(name))
+							var fields = []
 
 							if @test(.LEFT_CURLY) {
 								@commit()
 
-								var fields = []
-
 								@reqVariantFieldList(fields)
-
-								var type = @yep(AST.VariantType(enum, fields, enum, @yes()))
-
-								elements.push(AST.StructField([], [], identifier, type, null, first, type))
 							}
-							else {
-								var type = @yep(AST.VariantType(enum, null, enum, @yes()))
 
-								elements.push(AST.StructField([], [], identifier, type, null, first, type))
-							}
+							var type = @yep(AST.VariantType(enum, fields, enum, @yes()))
+
+							elements.push(AST.StructField([], [], identifier, type, null, first, type))
 
 							nf = false
 						}

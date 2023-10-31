@@ -1992,11 +1992,11 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func VariantType(master, properties?, first, last) { # {{{
+		func VariantType(master, properties, first, last) { # {{{
 			return location({
 				kind: NodeKind.VariantType
 				master: master.value
-				properties if ?properties
+				properties
 			}, first, last)
 		} # }}}
 
