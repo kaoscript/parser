@@ -1,12 +1,12 @@
 {
-  "kind": 72,
+  "kind": 71,
   "attributes": [],
   "body": [
     {
-      "kind": 40,
+      "kind": 39,
       "attributes": [],
       "expression": {
-        "kind": 12,
+        "kind": 11,
         "modifiers": [],
         "operator": {
           "kind": 2,
@@ -21,7 +21,7 @@
           }
         },
         "left": {
-          "kind": 48,
+          "kind": 47,
           "modifiers": [],
           "name": "likes",
           "start": {
@@ -34,12 +34,12 @@
           }
         },
         "right": {
-          "kind": 79,
+          "kind": 78,
           "modifiers": [],
           "attributes": [],
           "properties": [
             {
-              "kind": 80,
+              "kind": 79,
               "attributes": [],
               "modifiers": [],
               "start": {
@@ -51,7 +51,7 @@
                 "column": 15
               },
               "name": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "leto",
                 "start": {
@@ -64,7 +64,7 @@
                 }
               },
               "value": {
-                "kind": 59,
+                "kind": 58,
                 "modifiers": [],
                 "value": "spice",
                 "start": {
@@ -78,7 +78,7 @@
               }
             },
             {
-              "kind": 80,
+              "kind": 79,
               "attributes": [],
               "modifiers": [],
               "start": {
@@ -90,7 +90,7 @@
                 "column": 15
               },
               "name": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "paul",
                 "start": {
@@ -103,7 +103,7 @@
                 }
               },
               "value": {
-                "kind": 59,
+                "kind": 58,
                 "modifiers": [],
                 "value": "chani",
                 "start": {
@@ -117,7 +117,7 @@
               }
             },
             {
-              "kind": 80,
+              "kind": 79,
               "attributes": [],
               "modifiers": [],
               "start": {
@@ -129,7 +129,7 @@
                 "column": 20
               },
               "name": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "duncan",
                 "start": {
@@ -142,7 +142,7 @@
                 }
               },
               "value": {
-                "kind": 59,
+                "kind": 58,
                 "modifiers": [],
                 "value": "murbella",
                 "start": {
@@ -184,14 +184,14 @@
       }
     },
     {
-      "kind": 43,
+      "kind": 42,
       "attributes": [],
       "iterations": [
         {
           "kind": 2,
           "modifiers": [],
           "expression": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "likes",
             "start": {
@@ -204,7 +204,7 @@
             }
           },
           "value": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "value",
             "start": {
@@ -217,7 +217,7 @@
             }
           },
           "key": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "key",
             "start": {
@@ -240,19 +240,19 @@
         }
       ],
       "body": {
-        "kind": 40,
+        "kind": 39,
         "attributes": [],
         "expression": {
-          "kind": 18,
+          "kind": 17,
           "modifiers": [],
           "scope": {
             "kind": 2
           },
           "callee": {
-            "kind": 69,
+            "kind": 68,
             "modifiers": [],
             "object": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "console",
               "start": {
@@ -265,7 +265,7 @@
               }
             },
             "property": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "log",
               "start": {
@@ -288,7 +288,7 @@
           },
           "arguments": [
             {
-              "kind": 59,
+              "kind": 58,
               "modifiers": [],
               "value": "%s likes %s",
               "start": {
@@ -301,7 +301,7 @@
               }
             },
             {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "key",
               "start": {
@@ -314,7 +314,7 @@
               }
             },
             {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "value",
               "start": {

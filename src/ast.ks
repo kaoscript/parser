@@ -317,24 +317,6 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func Argument(modifiers, name?, value, first, last) { # {{{
-			if name == null {
-				return location({
-					kind: NodeKind.Argument
-					modifiers
-					value: value.value
-				}, first, last)
-			}
-			else {
-				return location({
-					kind: NodeKind.Argument
-					modifiers
-					name: name.value
-					value: value.value
-				}, first, last)
-			}
-		} # }}}
-
 		func ArrayBinding(elements, first, last) { # {{{
 			return location({
 				kind: NodeKind.ArrayBinding
@@ -1282,19 +1264,10 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func NamedArgument(name, value) { # {{{
+		func NamedArgument(modifiers, name, value, first, last) { # {{{
 			return location({
 				kind: NodeKind.NamedArgument
-				modifiers: []
-				name: name.value
-				value: value.value
-			}, name, value)
-		} # }}}
-
-		func NamedArgument(name, value, first, last) { # {{{
-			return location({
-				kind: NodeKind.NamedArgument
-				modifiers: []
+				modifiers
 				name: name.value
 				value: value.value
 			}, first, last)
@@ -1452,12 +1425,12 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func PositionalArgument(value) { # {{{
+		func PositionalArgument(modifiers, value, first, last) { # {{{
 			return location({
 				kind: NodeKind.PositionalArgument
-				modifiers: []
+				modifiers
 				value: value.value
-			}, value, value)
+			}, first, last)
 		} # }}}
 
 		func PropertiesSpecifier(modifiers, object, properties, first, last) { # {{{

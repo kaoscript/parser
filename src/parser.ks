@@ -791,12 +791,12 @@ export namespace Parser {
 						if fMode ~~ FunctionMode.Method && @test(Token.AT) {
 							var alias = @reqThisExpression(@yes())
 
-							argument = @yep(AST.PositionalArgument(alias))
+							argument = @yep(AST.PositionalArgument([], alias, alias, alias))
 						}
 						else {
 							var identifier = @reqIdentifier()
 
-							argument = @yep(AST.PositionalArgument(identifier))
+							argument = @yep(AST.PositionalArgument([], identifier, identifier, identifier))
 						}
 					}
 					else if eMode ~~ .Curry && @test(.CARET) {
@@ -819,12 +819,12 @@ export namespace Parser {
 						if fMode ~~ FunctionMode.Method && @test(Token.AT) {
 							var alias = @reqThisExpression(@yes())
 
-							expression = @yep(AST.NamedArgument(@yep(alias.value.name), alias, first, alias))
+							expression = @yep(AST.NamedArgument([], @yep(alias.value.name), alias, first, alias))
 						}
 						else {
 							var identifier = @reqIdentifier()
 
-							expression = @yep(AST.NamedArgument(identifier, identifier, first, identifier))
+							expression = @yep(AST.NamedArgument([], identifier, identifier, first, identifier))
 						}
 
 						argument = @altRestrictiveExpression(expression, fMode)
@@ -867,7 +867,7 @@ export namespace Parser {
 									set @reqExpression(subEMode, fMode, MacroTerminator.List)
 								}
 
-								var expression = @yep(AST.NamedArgument(argument, value))
+								var expression = @yep(AST.NamedArgument([], argument, value, argument, value))
 
 								arguments.push(@altRestrictiveExpression(expression, fMode))
 							}
@@ -2188,7 +2188,7 @@ export namespace Parser {
 						@throw('=', '??=', '##=')
 					}
 					else {
-						return @yep(AST.ArrayBindingElement(modifiers, name, type, null, null, first ?? name, type ?? name))
+						return @yep(AST.ArrayBindingElement(modifiers, name, type, null, null, first ?? name, type ?? name!?))
 					}
 				}
 				else if @test(Token.QUESTION) {
@@ -2391,7 +2391,7 @@ export namespace Parser {
 							return @yep(AST.ObjectBindingElement(modifiers, external, internal, type, operator, defaultValue, first ?? external ?? internal, defaultValue))
 						}
 						else {
-							return @yep(AST.ObjectBindingElement(modifiers, external, internal, type, null, null, first ?? external ?? internal, type ?? internal ?? external))
+							return @yep(AST.ObjectBindingElement(modifiers, external, internal, type, null, null, first ?? external ?? internal, type ?? internal ?? external!?))
 						}
 					}
 					else if !rest && @test(Token.QUESTION) {
@@ -4187,10 +4187,10 @@ export namespace Parser {
 
 								var value = @reqIdentifier()
 
-								arguments.push(AST.Argument(modifiers, name, value, first, value))
+								arguments.push(AST.NamedArgument(modifiers, name, value, first, value))
 							}
 							else {
-								arguments.push(AST.Argument(modifiers, null, name, first, name))
+								arguments.push(AST.PositionalArgument(modifiers, name, first, name))
 							}
 						}
 						else {
@@ -4199,15 +4199,15 @@ export namespace Parser {
 
 								var value = @reqExpression(.Nil, .Nil)
 
-								arguments.push(AST.Argument(modifiers, name, value, name, value))
+								arguments.push(AST.NamedArgument(modifiers, name, value, name, value))
 							}
 							else {
-								arguments.push(AST.Argument(modifiers, null, name, name, name))
+								arguments.push(AST.PositionalArgument(modifiers, name, name, name))
 							}
 						}
 					}
 					else {
-						arguments.push(AST.Argument(modifiers, null, name, name, name))
+						arguments.push(AST.PositionalArgument(modifiers, name, name, name))
 					}
 
 					if @test(Token.COMMA) {

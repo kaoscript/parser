@@ -1,12 +1,12 @@
 {
-  "kind": 72,
+  "kind": 71,
   "attributes": [],
   "body": [
     {
-      "kind": 44,
+      "kind": 43,
       "attributes": [],
       "name": {
-        "kind": 48,
+        "kind": 47,
         "modifiers": [],
         "name": "process",
         "start": {
@@ -28,11 +28,11 @@
       },
       "parameters": [
         {
-          "kind": 83,
+          "kind": 82,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "input",
             "start": {
@@ -45,7 +45,7 @@
             }
           },
           "internal": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "input",
             "start": {
@@ -82,14 +82,14 @@
       ],
       "throws": [],
       "body": {
-        "kind": 15,
+        "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 100,
+            "kind": 99,
             "attributes": [],
             "value": {
-              "kind": 12,
+              "kind": 11,
               "modifiers": [],
               "operator": {
                 "kind": 12,
@@ -112,7 +112,7 @@
                 "column": 26
               },
               "left": {
-                "kind": 12,
+                "kind": 11,
                 "modifiers": [],
                 "operator": {
                   "kind": 12,
@@ -135,7 +135,7 @@
                   "column": 40
                 },
                 "left": {
-                  "kind": 12,
+                  "kind": 11,
                   "modifiers": [],
                   "operator": {
                     "kind": 12,
@@ -158,7 +158,7 @@
                     "column": 29
                   },
                   "left": {
-                    "kind": 12,
+                    "kind": 11,
                     "modifiers": [],
                     "operator": {
                       "kind": 12,
@@ -181,7 +181,7 @@
                       "column": 40
                     },
                     "left": {
-                      "kind": 48,
+                      "kind": 47,
                       "modifiers": [],
                       "name": "input",
                       "start": {
@@ -194,15 +194,15 @@
                       }
                     },
                     "right": {
-                      "kind": 58,
+                      "kind": 57,
                       "modifiers": [],
                       "parameters": [
                         {
-                          "kind": 83,
+                          "kind": 82,
                           "attributes": [],
                           "modifiers": [],
                           "external": {
-                            "kind": 48,
+                            "kind": 47,
                             "modifiers": [],
                             "name": "value",
                             "start": {
@@ -215,7 +215,7 @@
                             }
                           },
                           "internal": {
-                            "kind": 48,
+                            "kind": 47,
                             "modifiers": [],
                             "name": "value",
                             "start": {
@@ -238,16 +238,16 @@
                         }
                       ],
                       "body": {
-                        "kind": 11,
+                        "kind": 10,
                         "modifiers": [],
                         "operation": {
-                          "kind": 18,
+                          "kind": 17,
                           "modifiers": [],
                           "scope": {
                             "kind": 2
                           },
                           "callee": {
-                            "kind": 48,
+                            "kind": 47,
                             "modifiers": [],
                             "name": "preprocess",
                             "start": {
@@ -261,7 +261,7 @@
                           },
                           "arguments": [
                             {
-                              "kind": 48,
+                              "kind": 47,
                               "modifiers": [],
                               "name": "value",
                               "start": {
@@ -304,15 +304,15 @@
                     }
                   },
                   "right": {
-                    "kind": 58,
+                    "kind": 57,
                     "modifiers": [],
                     "parameters": [
                       {
-                        "kind": 83,
+                        "kind": 82,
                         "attributes": [],
                         "modifiers": [],
                         "external": {
-                          "kind": 48,
+                          "kind": 47,
                           "modifiers": [],
                           "name": "value",
                           "start": {
@@ -325,7 +325,7 @@
                           }
                         },
                         "internal": {
-                          "kind": 48,
+                          "kind": 47,
                           "modifiers": [],
                           "name": "value",
                           "start": {
@@ -348,16 +348,16 @@
                       }
                     ],
                     "body": {
-                      "kind": 18,
+                      "kind": 17,
                       "modifiers": [],
                       "scope": {
                         "kind": 2
                       },
                       "callee": {
-                        "kind": 69,
+                        "kind": 68,
                         "modifiers": [],
                         "object": {
-                          "kind": 48,
+                          "kind": 47,
                           "modifiers": [],
                           "name": "value",
                           "start": {
@@ -370,7 +370,7 @@
                           }
                         },
                         "property": {
-                          "kind": 48,
+                          "kind": 47,
                           "modifiers": [],
                           "name": "next",
                           "start": {
@@ -413,21 +413,21 @@
                   }
                 },
                 "right": {
-                  "kind": 58,
+                  "kind": 57,
                   "modifiers": [],
                   "parameters": [
                     {
-                      "kind": 83,
+                      "kind": 82,
                       "attributes": [],
                       "modifiers": [],
                       "internal": {
-                        "kind": 78,
+                        "kind": 77,
                         "elements": [
                           {
-                            "kind": 13,
+                            "kind": 12,
                             "modifiers": [],
                             "internal": {
-                              "kind": 48,
+                              "kind": 47,
                               "modifiers": [],
                               "name": "x",
                               "start": {
@@ -449,10 +449,10 @@
                             }
                           },
                           {
-                            "kind": 13,
+                            "kind": 12,
                             "modifiers": [],
                             "internal": {
-                              "kind": 48,
+                              "kind": 47,
                               "modifiers": [],
                               "name": "y",
                               "start": {
@@ -474,7 +474,7 @@
                             }
                           },
                           {
-                            "kind": 13,
+                            "kind": 12,
                             "modifiers": [
                               {
                                 "kind": 39,
@@ -489,7 +489,7 @@
                               }
                             ],
                             "internal": {
-                              "kind": 48,
+                              "kind": 47,
                               "modifiers": [],
                               "name": "z",
                               "start": {
@@ -531,16 +531,16 @@
                     }
                   ],
                   "body": {
-                    "kind": 18,
+                    "kind": 17,
                     "modifiers": [],
                     "scope": {
                       "kind": 2
                     },
                     "callee": {
-                      "kind": 69,
+                      "kind": 68,
                       "modifiers": [],
                       "object": {
-                        "kind": 48,
+                        "kind": 47,
                         "modifiers": [],
                         "name": "Foo",
                         "start": {
@@ -553,7 +553,7 @@
                         }
                       },
                       "property": {
-                        "kind": 48,
+                        "kind": 47,
                         "modifiers": [],
                         "name": "new",
                         "start": {
@@ -576,7 +576,7 @@
                     },
                     "arguments": [
                       {
-                        "kind": 48,
+                        "kind": 47,
                         "modifiers": [],
                         "name": "x",
                         "start": {
@@ -589,7 +589,7 @@
                         }
                       },
                       {
-                        "kind": 48,
+                        "kind": 47,
                         "modifiers": [],
                         "name": "y",
                         "start": {
@@ -602,7 +602,7 @@
                         }
                       },
                       {
-                        "kind": 48,
+                        "kind": 47,
                         "modifiers": [],
                         "name": "z",
                         "start": {
@@ -636,15 +636,15 @@
                 }
               },
               "right": {
-                "kind": 58,
+                "kind": 57,
                 "modifiers": [],
                 "parameters": [
                   {
-                    "kind": 83,
+                    "kind": 82,
                     "attributes": [],
                     "modifiers": [],
                     "internal": {
-                      "kind": 48,
+                      "kind": 47,
                       "modifiers": [],
                       "name": "value",
                       "start": {
@@ -657,7 +657,7 @@
                       }
                     },
                     "external": {
-                      "kind": 48,
+                      "kind": 47,
                       "modifiers": [],
                       "name": "value",
                       "start": {
@@ -680,16 +680,16 @@
                   }
                 ],
                 "body": {
-                  "kind": 18,
+                  "kind": 17,
                   "modifiers": [],
                   "scope": {
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 69,
+                    "kind": 68,
                     "modifiers": [],
                     "object": {
-                      "kind": 48,
+                      "kind": 47,
                       "modifiers": [],
                       "name": "value",
                       "start": {
@@ -702,7 +702,7 @@
                       }
                     },
                     "property": {
-                      "kind": 48,
+                      "kind": 47,
                       "modifiers": [],
                       "name": "log",
                       "start": {
