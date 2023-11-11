@@ -773,11 +773,12 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func FunctionDeclaration(name, parameters?, modifiers?, type?, throws?, body?, first, last) { # {{{
+		func FunctionDeclaration(name, typeParameters?, parameters?, modifiers?, type?, throws?, body?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind.FunctionDeclaration
 				attributes: []
 				name: name.value
+				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?typeParameters
 			}, first, last)
 
 			if parameters != null {
@@ -1206,12 +1207,13 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func MethodDeclaration(attributes, modifiers, name, parameters, type?, throws?, body?, first, last) { # {{{
+		func MethodDeclaration(attributes, typeParameters?, modifiers, name, parameters, type?, throws?, body?, first, last) { # {{{
 			var node = location({
 				kind: NodeKind.MethodDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
+				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?typeParameters
 				parameters: [parameter.value for var parameter in parameters.value]
 			}, first, last)
 
@@ -1805,6 +1807,14 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
+		func TypeParameter(name) { # {{{
+			return location({
+				kind: NodeKind.TypeParameter
+				modifiers: []
+				name: name.value
+			}, name)
+		} # }}}
+
 		func TypeReference(name) { # {{{
 			return location({
 				kind: NodeKind.TypeReference
@@ -1823,12 +1833,12 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func TypeAliasDeclaration(name, generics, type, first, last) { # {{{
+		func TypeAliasDeclaration(name, parameters?, type, first, last) { # {{{
 			return location({
 				kind: NodeKind.TypeAliasDeclaration
 				attributes: []
 				name: name.value
-				generics: [generic.value for var generic in generics] if #generics
+				typeParameters: [parameter.value for var parameter in parameters.value] if ?parameters
 				type: type.value
 			}, first, last)
 		} # }}}

@@ -1651,22 +1651,23 @@ export namespace Parser {
 
 			members.push(member)
 		} # }}}
-		reqClassMethod(attributes, modifiers, mut bits: ClassBits, name: Event, round: Event?, mut first: Event): Event ~ SyntaxError { # {{{
-			var parameters = @reqClassMethodParameterList(round, bits ~~ ClassBits.NoBody ? DestructuringMode.EXTERNAL_ONLY : null)
+		reqClassMethod(attributes, modifiers, mut bits: ClassBits, name: Event, mut first: Event): Event ~ SyntaxError { # {{{
+			var typeParameters = @tryTypeParameterList()
+			var parameters = @reqClassMethodParameterList(null, bits ~~ ClassBits.NoBody ? DestructuringMode.EXTERNAL_ONLY : null)
 			var type = @tryFunctionReturns(.ClassType, bits !~ .NoBody)
 			var throws = @tryFunctionThrows()
 
 			if bits ~~ ClassBits.NoBody {
 				@reqNL_1M()
 
-				return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, null, first, throws ?? type ?? parameters))
+				return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, null, first, throws ?? type ?? parameters))
 			}
 			else {
 				var body = @tryFunctionBody(modifiers, FunctionMode.Method, !?type && !?throws)
 
 				@reqNL_1M()
 
-				return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
+				return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
 			}
 		} # }}}
 		reqClassMethodParameterList(mut top: Event = NO, mut pMode: DestructuringMode = DestructuringMode.Nil): Event ~ SyntaxError { # {{{
@@ -2569,6 +2570,7 @@ export namespace Parser {
 			return @reqEnumMethod(attributes, modifiers, name, first ?? name)
 		} # }}}
 		reqEnumMethod(attributes, modifiers, name: Event, first): Event ~ SyntaxError { # {{{
+			var typeParameters = @tryTypeParameterList()
 			var parameters = @reqFunctionParameterList(FunctionMode.Nil)
 
 			var type = @tryFunctionReturns()
@@ -2578,7 +2580,7 @@ export namespace Parser {
 
 			@reqNL_1M()
 
-			return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
+			return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, body, first, body ?? throws ?? type ?? parameters))
 
 		} # }}}
 		reqEnumStatement(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
@@ -3251,29 +3253,31 @@ export namespace Parser {
 			}
 		} # }}}
 		reqExternClassMethod(attributes, modifiers, name: Event, round: Event, first): Event ~ SyntaxError { # {{{
+			var typeParameters = @tryTypeParameterList()
 			var parameters = @reqClassMethodParameterList(round, DestructuringMode.EXTERNAL_ONLY)
 			var type = @tryFunctionReturns(.ClassType, false)
 
 			@reqNL_1M()
 
-			return @yep(AST.MethodDeclaration(attributes, modifiers, name, parameters, type, null, null, first, type ?? parameters))
+			return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, null, null, first, type ?? parameters))
 		} # }}}
 		reqExternFunctionDeclaration(modifiers, mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
+			var typeParameters = @tryTypeParameterList()
 
 			if @test(Token.LEFT_ROUND) {
 				var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
-				return @yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, null, first, throws ?? type ?? parameters))
+				return @yep(AST.FunctionDeclaration(name, typeParameters, parameters, modifiers, type, throws, null, first, throws ?? type ?? parameters))
 			}
 			else {
 				var position = @yep()
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
-				return @yep(AST.FunctionDeclaration(name, null, modifiers, type, throws, null, first, throws ?? type ?? name))
+				return @yep(AST.FunctionDeclaration(name, typeParameters, null, modifiers, type, throws, null, first, throws ?? type ?? name))
 			}
 		} # }}}
 		reqExternNamespaceDeclaration(mut first: Event, modifiers = []): Event ~ SyntaxError { # {{{
@@ -3386,7 +3390,7 @@ export namespace Parser {
 				var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 
-				return @yep(AST.FunctionDeclaration(name, parameters, [], type, null, null, name, type ?? parameters))
+				return @yep(AST.FunctionDeclaration(name, null, parameters, [], type, null, null, name, type ?? parameters))
 			}
 			else {
 				return @yep(AST.VariableDeclarator([], name, null, name, name))
@@ -3637,13 +3641,13 @@ export namespace Parser {
 		} # }}}
 		reqFunctionStatement(mut first: Event, modifiers = [], fMode: FunctionMode = .Nil): Event ~ SyntaxError { # {{{
 			var name = @reqIdentifier()
-
+			var typeParameters = @tryTypeParameterList()
 			var parameters = @reqFunctionParameterList(.Nil)
 			var type = @tryFunctionReturns()
 			var throws = @tryFunctionThrows()
 			var body = @reqFunctionBody(modifiers, .Nil, !?type && !?throws)
 
-			return @yep(AST.FunctionDeclaration(name, parameters, modifiers, type, throws, body, first, body))
+			return @yep(AST.FunctionDeclaration(name, typeParameters, parameters, modifiers, type, throws, body, first, body))
 		} # }}}
 		reqGeneric(): Event ~ SyntaxError { # {{{
 			return @reqIdentifier()
@@ -7631,28 +7635,29 @@ export namespace Parser {
 			}
 		} # }}}
 		reqTypeStatement(mut first: Event, name: Event): Event ~ SyntaxError { # {{{
-			var generics = []
+			// var parameters = []
 
-			if @test(.LEFT_ANGLE) {
-				@commit()
+			// if @test(.LEFT_ANGLE) {
+			// 	@commit()
 
-				while @until(.RIGHT_ANGLE) {
-					generics.push(@reqGeneric())
+			// 	while @until(.RIGHT_ANGLE) {
+			// 		parameters.push(@reqGeneric())
 
-					if @test(.COMMA) {
-						@commit()
-					}
-					else {
-						break
-					}
-				}
+			// 		if @test(.COMMA) {
+			// 			@commit()
+			// 		}
+			// 		else {
+			// 			break
+			// 		}
+			// 	}
 
-				unless @test(.RIGHT_ANGLE) {
-					@throw('>')
-				}
+			// 	unless @test(.RIGHT_ANGLE) {
+			// 		@throw('>')
+			// 	}
 
-				@commit()
-			}
+			// 	@commit()
+			// }
+			var parameters = @tryTypeParameterList()
 
 			unless @test(.EQUALS) {
 				@throw('=')
@@ -7662,7 +7667,7 @@ export namespace Parser {
 
 			var type = @reqType(true, .InlineOnly)
 
-			return @yep(AST.TypeAliasDeclaration(name, generics, type, first, type))
+			return @yep(AST.TypeAliasDeclaration(name, parameters, type, first, type))
 		} # }}}
 		reqTypedVariable(fMode: FunctionMode, typeable: Boolean = true, questionable: Boolean = true): Event ~ SyntaxError { # {{{
 			var mut name = null
@@ -8648,8 +8653,8 @@ export namespace Parser {
 				}
 			}
 
-			if @test(Token.LEFT_ROUND) {
-				return @reqClassMethod(attributes, [...modifiers], bits, name, null, first ?? name)
+			if @test(.LEFT_ROUND, .LEFT_ANGLE) {
+				return @reqClassMethod(attributes, [...modifiers], bits, name, first ?? name)
 			}
 
 			return NO
@@ -10731,6 +10736,35 @@ export namespace Parser {
 					return NO
 				}
 			}
+		} # }}}
+		tryTypeParameterList(): Event? ~ SyntaxError { # {{{
+			unless @test(.LEFT_ANGLE) {
+				return null
+			}
+
+			@commit()
+
+			var result = []
+			var mut first = @reqIdentifier()
+			var mut last = first
+
+			result.push(@yep(AST.TypeParameter(last)))
+
+			while @test(Token.COMMA) {
+				@commit()
+
+				last = @reqIdentifier()
+
+				result.push(@yep(AST.TypeParameter(last)))
+			}
+
+			unless @test(.RIGHT_ANGLE) {
+				@throw('>')
+			}
+
+			@commit()
+
+			return @yep(result, result, last)
 		} # }}}
 		tryTypeStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @tryIdentifier()
