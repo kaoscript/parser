@@ -1807,12 +1807,13 @@ namespace AST {
 			}, first, last)
 		} # }}}
 
-		func TypeParameter(name) { # {{{
+		func TypeParameter(name, constraint?, first, last) { # {{{
 			return location({
 				kind: NodeKind.TypeParameter
 				modifiers: []
 				name: name.value
-			}, name)
+				constraint: constraint.value if ?constraint
+			}, first, last)
 		} # }}}
 
 		func TypeReference(name) { # {{{

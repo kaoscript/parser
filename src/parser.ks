@@ -10745,18 +10745,27 @@ export namespace Parser {
 			@commit()
 
 			var result = []
-			var mut first = @reqIdentifier()
-			var mut last = first
+			var mut last = null
 
-			result.push(@yep(AST.TypeParameter(last)))
+			do {
+				@commit() if ?last
 
-			while @test(Token.COMMA) {
-				@commit()
+				var identifier = @reqIdentifier()
 
-				last = @reqIdentifier()
+				var constraint = if @test(.IS) {
+					@commit()
 
-				result.push(@yep(AST.TypeParameter(last)))
+					set @reqType(.InlineOnly + .ImplicitMember)
+				}
+				else {
+					set null
+				}
+
+				result.push(@yep(AST.TypeParameter(identifier, constraint, identifier, constraint ?? identifier)))
+
+				last = identifier
 			}
+			while @test(Token.COMMA)
 
 			unless @test(.RIGHT_ANGLE) {
 				@throw('>')
@@ -10764,7 +10773,7 @@ export namespace Parser {
 
 			@commit()
 
-			return @yep(result, result, last)
+			return @yep(result, result[0], last!?)
 		} # }}}
 		tryTypeStatement(mut first: Event): Event ~ SyntaxError { # {{{
 			var name = @tryIdentifier()
