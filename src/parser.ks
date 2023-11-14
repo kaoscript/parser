@@ -1210,7 +1210,7 @@ export namespace Parser {
 			}
 			else {
 				// TODO!
-				// #operand.expecteds ? @throw(...operand.expecteds) : @throw()
+				// ?#operand.expecteds ? @throw(...operand.expecteds) : @throw()
 				@throw(...?operand.expecteds)
 			}
 		} # }}}
@@ -2118,11 +2118,11 @@ export namespace Parser {
 			if @test(Token.QUESTION_EQUALS) {
 				return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
 			}
-			else if @test(Token.HASH_EQUALS) {
+			else if @test(Token.QUESTION_HASH_EQUALS) {
 				return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonEmpty, @yes()))
 			}
 
-			@throw('?=', '#=')
+			@throw('?=', '?#=')
 		} # }}}
 		reqContinueStatement(first: Event, eMode: ExpressionMode, fMode: FunctionMode)
 			: Event<NodeData(ContinueStatement, IfStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
@@ -2187,7 +2187,7 @@ export namespace Parser {
 			else if @test(Token.QUESTION_QUESTION_EQUALS) {
 				return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NullCoalescing, @yes()))
 			}
-			else if @test(Token.HASH_HASH_EQUALS) {
+			else if @test(Token.QUESTION_HASH_HASH_EQUALS) {
 				return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
 			}
 
@@ -4019,7 +4019,7 @@ export namespace Parser {
 					}
 				}
 
-				if !#declarations {
+				if !?#declarations {
 					condition = @reqExpression(ExpressionMode.NoAnonymousFunction, fMode)
 				}
 			}
@@ -5961,13 +5961,13 @@ export namespace Parser {
 
 			var mut value = ''
 
-			if #baseIndent {
+			if ?#baseIndent {
 				for var [indent, line], index in lines split 2 {
 					if index > 0 {
 						value += '\n'
 					}
 
-					if #line {
+					if ?#line {
 						if indent.startsWith(baseIndent) {
 							value += indent.substr(baseIndent.length) + line
 						}
@@ -6054,8 +6054,8 @@ export namespace Parser {
 
 			var elements = []
 
-			if #lines {
-				if #baseIndent {
+			if ?#lines {
+				if ?#baseIndent {
 					var firstLine = first.start!?.line + 1
 					var mut previous = null
 
@@ -6094,7 +6094,7 @@ export namespace Parser {
 								throw @error(`Unexpected indentation`, first.line:Number + index + 1, 1)
 							}
 
-							if var value #= indent.substr(baseIndent.length) {
+							if var value ?#= indent.substr(baseIndent.length) {
 								if !?previous {
 									previous = AST.Literal(null, value, {
 										line: firstLine
@@ -6128,7 +6128,7 @@ export namespace Parser {
 								previous.value += first.value.value
 								previous.end = first.value.end
 
-								if #rest {
+								if ?#rest {
 									elements.push(...rest)
 
 									previous = rest[rest.length - 1].value
@@ -6137,7 +6137,7 @@ export namespace Parser {
 							else {
 								elements.push(first)
 
-								if #rest {
+								if ?#rest {
 									elements.push(...rest)
 
 									previous = rest[rest.length - 1].value
@@ -6181,7 +6181,7 @@ export namespace Parser {
 									elements.push(first)
 								}
 
-								if #rest {
+								if ?#rest {
 									elements.push(...rest)
 
 									previous = rest[rest.length - 1].value
@@ -6939,7 +6939,7 @@ export namespace Parser {
 					var expression = @yep(AST.reorderExpression(values))
 
 					expressions.push(
-						if restrictive || #expressions {
+						if restrictive || ?#expressions {
 							set @altRestrictiveExpression(expression, fMode)
 						}
 						else {
@@ -6953,7 +6953,7 @@ export namespace Parser {
 					@rollback(mark)
 
 					expressions.push(
-						if restrictive || #expressions {
+						if restrictive || ?#expressions {
 							set @altRestrictiveExpression(operand, fMode)
 						}
 						else {
@@ -8045,7 +8045,7 @@ export namespace Parser {
 				elements.push(@yep(AST.NamedSpecifier(name)))
 			}
 
-			var first = #modifiers ? modifiers[0] : name
+			var first = ?#modifiers ? modifiers[0] : name
 			var last = elements[elements.length - 1]
 
 			specifiers.push(@yep(AST.GroupSpecifier(modifiers, elements, type, first, last)))
@@ -8088,40 +8088,34 @@ export namespace Parser {
 			: Event<BinaryOperatorData(Assignment)> ~ SyntaxError # {{{
 		{
 			match @matchM(M.ASSIGNEMENT_OPERATOR) {
-				Token.AMPERSAND_AMPERSAND_EQUALS {
+				.AMPERSAND_AMPERSAND_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalAnd, @yes()))
 				}
-				Token.ASTERISK_EQUALS {
+				.ASTERISK_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Multiplication, @yes()))
 				}
-				Token.CARET_CARET_EQUALS {
+				.CARET_CARET_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalXor, @yes()))
 				}
-				Token.EQUALS {
+				.EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
 				}
-				Token.EXCLAMATION_HASH_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Empty, @yes()))
-				}
-				Token.EXCLAMATION_QUESTION_EQUALS {
+				.EXCLAMATION_QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonExistential, @yes()))
 				}
-				Token.HASH_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonEmpty, @yes()))
+				.EXCLAMATION_QUESTION_HASH_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Empty, @yes()))
 				}
-				Token.HASH_HASH_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
-				}
-				Token.LEFT_ANGLE_MINUS {
+				.LEFT_ANGLE_MINUS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Return, @yes()))
 				}
-				Token.MINUS_EQUALS {
+				.MINUS_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Subtraction, @yes()))
 				}
-				Token.PERCENT_EQUALS {
+				.PERCENT_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Modulo, @yes()))
 				}
-				Token.PIPE_PIPE_EQUALS {
+				.PIPE_PIPE_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalOr, @yes()))
 				}
 				.PLUS_AMPERSAND_EQUALS {
@@ -8142,16 +8136,22 @@ export namespace Parser {
 				.PLUS_RIGHT_ANGLE_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseRightShift, @yes()))
 				}
-				Token.QUESTION_EQUALS {
+				.QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
 				}
-				Token.QUESTION_QUESTION_EQUALS {
+				.QUESTION_HASH_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonEmpty, @yes()))
+				}
+				.QUESTION_HASH_HASH_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
+				}
+				.QUESTION_QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NullCoalescing, @yes()))
 				}
-				Token.SLASH_DOT_EQUALS {
+				.SLASH_DOT_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Quotient, @yes()))
 				}
-				Token.SLASH_EQUALS {
+				.SLASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Division, @yes()))
 				}
 			}
@@ -8327,23 +8327,14 @@ export namespace Parser {
 				Token.EXCLAMATION_EQUALS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind.Inequality, @yes()))
 				}
-				Token.EXCLAMATION_HASH_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Empty, @yes()))
-				}
 				Token.EXCLAMATION_QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonExistential, @yes()))
 				}
+				Token.EXCLAMATION_QUESTION_HASH_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Empty, @yes()))
+				}
 				Token.EXCLAMATION_TILDE {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind.Mismatch, @yes()))
-				}
-				Token.HASH_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonEmpty, @yes()))
-				}
-				Token.HASH_HASH {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.EmptyCoalescing, @yes()))
-				}
-				Token.HASH_HASH_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
 				}
 				Token.HASH_LEFT_ANGLE_PIPE {
 					var modifiers = [AST.Modifier(ModifierKind.NonEmpty, @position(0, 1))]
@@ -8444,6 +8435,15 @@ export namespace Parser {
 				}
 				Token.QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
+				}
+				Token.QUESTION_HASH_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonEmpty, @yes()))
+				}
+				Token.QUESTION_HASH_HASH {
+					return @yep(AST.BinaryOperator(BinaryOperatorKind.EmptyCoalescing, @yes()))
+				}
+				Token.QUESTION_HASH_HASH_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
 				}
 				Token.QUESTION_LEFT_ANGLE_PIPE {
 					var modifiers = [AST.Modifier(ModifierKind.Existential, @position(0, 1))]
@@ -9026,7 +9026,7 @@ export namespace Parser {
 				else if @test(Token.QUESTION_QUESTION_EQUALS) {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NullCoalescing, @yes()))
 				}
-				else if @test(Token.HASH_HASH_EQUALS) {
+				else if @test(Token.QUESTION_HASH_HASH_EQUALS) {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
 				}
 			}
@@ -9034,7 +9034,7 @@ export namespace Parser {
 				if @test(Token.QUESTION_EQUALS) {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
 				}
-				else if @test(Token.HASH_EQUALS) {
+				else if @test(Token.QUESTION_HASH_EQUALS) {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonEmpty, @yes()))
 				}
 			}
@@ -10238,7 +10238,7 @@ export namespace Parser {
 
 					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 				}
-				Token.HASH {
+				Token.QUESTION_HASH {
 					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.NonEmpty, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 

@@ -62,9 +62,9 @@ enum Token {
 	EXCLAMATION
 	EXCLAMATION_EQUALS
 	EXCLAMATION_EXCLAMATION
-	EXCLAMATION_HASH_EQUALS
 	EXCLAMATION_QUESTION
 	EXCLAMATION_QUESTION_EQUALS
+	EXCLAMATION_QUESTION_HASH_EQUALS
 	EXCLAMATION_TILDE
 	EXPORT
 	EXTENDS
@@ -82,11 +82,8 @@ enum Token {
 	HASH
 	HASH_A_LEFT_ROUND
 	HASH_E_LEFT_ROUND
-	HASH_EQUALS
 	HASH_EXCLAMATION
 	HASH_EXCLAMATION_LEFT_SQUARE
-	HASH_HASH
-	HASH_HASH_EQUALS
 	HASH_J_LEFT_ROUND
 	HASH_LEFT_ANGLE_PIPE
 	HASH_LEFT_ANGLE_PIPE_ASTERISK
@@ -165,6 +162,10 @@ enum Token {
 	QUESTION_EQUALS
 	QUESTION_DOT
 	QUESTION_DOT_DOT
+	QUESTION_HASH
+	QUESTION_HASH_EQUALS
+	QUESTION_HASH_HASH
+	QUESTION_HASH_HASH_EQUALS
 	QUESTION_LEFT_ANGLE_PIPE
 	QUESTION_LEFT_ANGLE_PIPE_ASTERISK
 	QUESTION_LEFT_ROUND
@@ -624,11 +625,6 @@ enum Token {
 					return scanner.next(1)
 				}
 			} # }}}
-			.HASH_EQUALS { # {{{
-				if c == 35 && scanner.charAt(1) == 61 {
-					return scanner.next(2)
-				}
-			} # }}}
 			.HASH_EXCLAMATION { # {{{
 				if c == 35 && scanner.charAt(1) == 33 && scanner.charAt(2) != 91 {
 					return scanner.next(2)
@@ -636,11 +632,6 @@ enum Token {
 			} # }}}
 			.HASH_EXCLAMATION_LEFT_SQUARE { # {{{
 				if c == 35 && scanner.charAt(1) == 33 && scanner.charAt(2) == 91 {
-					return scanner.next(3)
-				}
-			} # }}}
-			.HASH_HASH_EQUALS { # {{{
-				if c == 35 && scanner.charAt(1) == 35 && scanner.charAt(2) == 61 {
 					return scanner.next(3)
 				}
 			} # }}}
@@ -973,7 +964,7 @@ enum Token {
 				}
 			} # }}}
 			.QUESTION { # {{{
-				if c == 63 && scanner.charAt(1) != 61 & 63 {
+				if c == 63 && scanner.charAt(1) != 0'=' & 0'?' & 0'#' {
 					return scanner.next(1)
 				}
 			} # }}}
@@ -985,6 +976,16 @@ enum Token {
 			.QUESTION_EQUALS { # {{{
 				if c == 63 && scanner.charAt(1) == 61 {
 					return scanner.next(2)
+				}
+			} # }}}
+			.QUESTION_HASH_EQUALS { # {{{
+				if c == 0'?' && scanner.charAt(1) == 0'#' && scanner.charAt(2) == 0'=' {
+					return scanner.next(3)
+				}
+			} # }}}
+			.QUESTION_HASH_HASH_EQUALS { # {{{
+				if c == 0'?' && scanner.charAt(1) == 0'#' && scanner.charAt(2) == 0'#' && scanner.charAt(3) == 0'=' {
+					return scanner.next(4)
 				}
 			} # }}}
 			.QUESTION_OPERATOR { # {{{
@@ -1340,33 +1341,17 @@ namespace M {
 			return Token.EOF
 		}
 		else if c == 0'!' {
-			if that.charAt(2) == 61 {
-				c = that.charAt(1)
-
-				if c == 61 {
-					that.next(3)
-
-					return Token.EXCLAMATION_HASH_EQUALS
-				}
-				else if c == 63 {
+			if that.charAt(1) == 0'?' {
+				if that.charAt(2) == 0'=' {
 					that.next(3)
 
 					return Token.EXCLAMATION_QUESTION_EQUALS
 				}
-			}
-		}
-		else if c == 0'#' {
-			c = that.charAt(1)
+				else if that.charAt(2) == 0'#' && that.charAt(3) == 0'=' {
+					that.next(4)
 
-			if c == 35 && that.charAt(2) == 61 {
-				that.next(3)
-
-				return Token.HASH_HASH_EQUALS
-			}
-			else if c == 61 {
-				that.next(2)
-
-				return Token.HASH_EQUALS
+					return Token.EXCLAMATION_QUESTION_HASH_EQUALS
+				}
 			}
 		}
 		else if c == 0'%' {
@@ -1466,17 +1451,27 @@ namespace M {
 		else if c == 0'?' {
 			c = that.charAt(1)
 
-			if c == 61 {
+			if c == 0'=' {
 				that.next(2)
 
 				return Token.QUESTION_EQUALS
 			}
-			else if c == 63 {
-				if that.charAt(2) == 61 {
+			else if c == 0'?' {
+				if that.charAt(2) == 0'=' {
 					that.next(3)
 
 					return Token.QUESTION_QUESTION_EQUALS
 				}
+			}
+			else if c == 0'#' && that.charAt(2) == 0'?' {
+				that.next(3)
+
+				return Token.QUESTION_HASH_HASH_EQUALS
+			}
+			else if c == 0'=' {
+				that.next(2)
+
+				return Token.QUESTION_HASH_EQUALS
 			}
 		}
 		else if c == 0'^' {
@@ -1505,20 +1500,22 @@ namespace M {
 		else if c == 0'!' {
 			c = that.charAt(1)
 
-			if c == 35 && that.charAt(2) == 61 {
-				that.next(3)
-
-				return Token.EXCLAMATION_HASH_EQUALS
-			}
-			else if c == 61 {
+			if c == 61 {
 				that.next(2)
 
 				return Token.EXCLAMATION_EQUALS
 			}
-			else if c == 63 && that.charAt(2) == 61 {
-				that.next(3)
+			else if c == 0'?' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
 
-				return Token.EXCLAMATION_QUESTION_EQUALS
+					return Token.EXCLAMATION_QUESTION_EQUALS
+				}
+				else if that.charAt(2) == 0'#' && that.charAt(3) == 0'=' {
+					that.next(4)
+
+					return Token.EXCLAMATION_QUESTION_HASH_EQUALS
+				}
 			}
 			else if c == 126 {
 				that.next(2)
@@ -1527,21 +1524,7 @@ namespace M {
 			}
 		}
 		else if c == 0'#' {
-			c = that.charAt(1)
-
-			if c == 35 {
-				if that.charAt(2) == 61 {
-					that.next(3)
-
-					return Token.HASH_HASH_EQUALS
-				}
-				else {
-					that.next(2)
-
-					return Token.HASH_HASH
-				}
-			}
-			else if c == 60 && that.charAt(2) == 124 {
+			if that.charAt(1) == 60 && that.charAt(2) == 124 {
 				if fMode !~ FunctionMode.NoPipeline {
 					if that.charAt(3) == 42 {
 						that.next(4)
@@ -1554,11 +1537,6 @@ namespace M {
 						return Token.HASH_LEFT_ANGLE_PIPE
 					}
 				}
-			}
-			else if c == 61 {
-				that.next(2)
-
-				return Token.HASH_EQUALS
 			}
 		}
 		else if c == 0'%' {
@@ -1807,9 +1785,45 @@ namespace M {
 		else if c == 0'?' {
 			c = that.charAt(1)
 
-			if c == 60 && that.charAt(2) == 124 {
+			if c == 0'=' {
+				that.next(2)
+
+				return Token.QUESTION_EQUALS
+			}
+			else if c == 0'?' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.QUESTION_QUESTION_EQUALS
+				}
+				else {
+					that.next(2)
+
+					return Token.QUESTION_QUESTION
+				}
+			}
+			else if c == 0'#' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.QUESTION_HASH_EQUALS
+				}
+				else if that.charAt(2) == 0'#' {
+					if that.charAt(3) == 0'=' {
+						that.next(4)
+
+						return Token.QUESTION_HASH_HASH_EQUALS
+					}
+					else {
+						that.next(3)
+
+						return Token.QUESTION_HASH_HASH
+					}
+				}
+			}
+			else if c == 0'<' && that.charAt(2) == 0'|' {
 				if fMode !~ FunctionMode.NoPipeline {
-					if that.charAt(3) == 42 {
+					if that.charAt(3) == 0'*' {
 						that.next(4)
 
 						return Token.QUESTION_LEFT_ANGLE_PIPE_ASTERISK
@@ -1819,23 +1833,6 @@ namespace M {
 
 						return Token.QUESTION_LEFT_ANGLE_PIPE
 					}
-				}
-			}
-			else if c == 61 {
-				that.next(2)
-
-				return Token.QUESTION_EQUALS
-			}
-			else if c == 63 {
-				if that.charAt(2) == 61 {
-					that.next(3)
-
-					return Token.QUESTION_QUESTION_EQUALS
-				}
-				else {
-					that.next(2)
-
-					return Token.QUESTION_QUESTION
 				}
 			}
 		}
@@ -2817,7 +2814,12 @@ namespace M {
 			}
 		}
 		else if c == 0'?' {
-			if that.charAt(1) != 9 & 32 & 0'=' {
+			if that.charAt(1) == 0'#' {
+				that.next(2)
+
+				return Token.QUESTION_HASH
+			}
+			else if that.charAt(1) != 9 & 32 & 0'=' {
 				that.next(1)
 
 				return Token.QUESTION

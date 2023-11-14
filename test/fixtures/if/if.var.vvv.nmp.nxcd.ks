@@ -1,3 +1,3 @@
-if var x #= foobar() {
+if var x ?#= foobar() {
 
 }

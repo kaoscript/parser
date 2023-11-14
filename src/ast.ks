@@ -124,10 +124,10 @@ namespace AST {
 	} # }}}
 
 	export func pushAttributes(data, attributes: Array): Void { # {{{
-		if #attributes {
+		if ?#attributes {
 			data.start = attributes[0].value.start
 
-			while #attributes {
+			while ?#attributes {
 				data.attributes.unshift(attributes.pop().value)
 			}
 		}
@@ -577,7 +577,7 @@ namespace AST {
 				name: name.value
 				version: version.value if ?version
 				extends: extends.value if ?extends
-				implements: [implement.value for var implement in implements] if #implements
+				implements: [implement.value for var implement in implements] if ?#implements
 				members: [member.value for var member in members]
 			}, first, last)
 		} # }}}
@@ -1685,7 +1685,7 @@ namespace AST {
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				extends: extends.value if ?extends
-				implements: [implement.value for var implement in implements] if #implements
+				implements: [implement.value for var implement in implements] if ?#implements
 				fields
 			}, first, last)
 		} # }}}
@@ -1800,7 +1800,7 @@ namespace AST {
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				extends: extends.value if ?extends
-				implements: [implement.value for var implement in implements] if #implements
+				implements: [implement.value for var implement in implements] if ?#implements
 				fields
 			}, first, last)
 		} # }}}
