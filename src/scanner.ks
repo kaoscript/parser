@@ -3433,12 +3433,12 @@ class Scanner {
 	} # }}}
 	line(): valueof @line
 	mark(): Marker { # {{{
-		return Marker.new(
+		return {
 			eof: @eof
 			index: @index
 			line: @line
 			column: @column
-		)
+		}
 	} # }}}
 	match(...tokens: Token): Token { # {{{
 		if @eof {

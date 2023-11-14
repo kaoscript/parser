@@ -20,6 +20,7 @@ disclose Array {
 	shift(): Any?
 	slice(begin: Number = 0, end: Number = -1): Array
 	some(callback): Boolean
+	splice(start: Number = 0, deleteCount: Number = 0, ...items?)
 	sort(compare: Function = null): Array
 	unshift(...elements?): Number
 }
