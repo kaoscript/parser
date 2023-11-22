@@ -99,31 +99,12 @@ namespace AST {
 
 	var CONDITIONAL_PRECEDENCE = 4
 
-	func location(descriptor, start: Position, end: Position) { # {{{
-		descriptor.start = start
-		descriptor.end = end
-
-		return descriptor
-	} # }}}
-
-	func location(descriptor, firstToken, lastToken? = null) { # {{{
-		if lastToken == null {
-			if !?descriptor.start {
-				descriptor.start = firstToken.start
-			}
-
-			descriptor.end = firstToken.end
-		}
-		else {
-			descriptor.start = firstToken.start
-
-			descriptor.end = lastToken.end
-		}
-
-		return descriptor
-	} # }}}
-
-	export func pushAttributes(data, attributes: Array): Void { # {{{
+	export func pushAttributes(
+		// TODO
+		// data: Range & { attributes: NodeData(AttributeDeclaration)[] }
+		data
+		attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+	): Void { # {{{
 		if ?#attributes {
 			data.start = attributes[0].value.start
 
@@ -133,7 +114,10 @@ namespace AST {
 		}
 	} # }}}
 
-	export func pushModifier<T is NodeData>(data: T, modifier: Event(Y)): T { # {{{
+	export func pushModifier<T is NodeData>(
+		data: T
+		modifier: Event(Y)
+	): T { # {{{
 		data.modifiers.push(modifier.value)
 
 		data.end = modifier.end
@@ -141,12 +125,15 @@ namespace AST {
 		return data
 	} # }}}
 
+	// TODO
+	// export func reorderExpression(operations: BinaryOperationData[]): NodeData(Expression) { # {{{
 	export func reorderExpression<T is NodeData>(operations: T[]): T { # {{{
 		var precedences = {}
 		var mut precedenceList = []
 
 		for var mut i from 1 to~ operations.length step 2 {
 			if operations[i].kind == NodeKind.ConditionalExpression {
+			// if operations[i] is NodeData(ConditionalExpression) {
 				if ?precedences[CONDITIONAL_PRECEDENCE] {
 					precedences[CONDITIONAL_PRECEDENCE] += 1
 				}
@@ -183,6 +170,7 @@ namespace AST {
 				// TODO!
 				// if operations[k] is .ConditionalExpression {
 				if operations[k].kind == NodeKind.ConditionalExpression {
+				// if operations[k] is NodeData(ConditionalExpression) {
 					if precedence == CONDITIONAL_PRECEDENCE {
 						count -= 1
 
@@ -205,6 +193,7 @@ namespace AST {
 				}
 				else if $precedence[operations[k].operator.kind] == precedence {
 					if operations[k].kind == NodeKind.BinaryExpression && $rtl[operations[k].operator.kind] {
+					// if operations[k] is NodeData(BinaryExpression) && $rtl[operations[k].operator.kind] {
 						var mut end = operations.length - 1
 
 						for var i from k + 2 to~ operations.length step 2 {
@@ -238,18 +227,30 @@ namespace AST {
 						count -= 1
 
 						var mut operator = operations[k]
+						// var mut operand: NodeData(BinaryExpression, PolyadicExpression)? = null
+						// var mut operand = null
 
 						if operator.kind == NodeKind.BinaryExpression {
+						// if operator is BinaryOperatorData {
 							var left = operations[k - 1]
 
 							if left.kind == NodeKind.BinaryExpression && operator.operator.kind == left.operator.kind && $polyadic[operator.operator.kind] {
+							// if left is NodeData(BinaryExpression) && operator.operator.kind == left.operator.kind && $polyadic[operator.operator.kind] {
 								operator.kind = NodeKind.PolyadicExpression
 								operator.start = left.start
 								operator.end = operations[k + 1].end
 
 								operator.operands = [left.left, left.right, operations[k + 1]]
+								// operand = {
+								// 	kind: NodeKind.PolyadicExpression
+								// 	operator
+								// 	operands: [left.left, left.right, operations[k + 1]]
+								// 	start: left.start
+								// 	end: operations[k + 1].end
+								// }
 							}
 							else if left.kind == NodeKind.PolyadicExpression && operator.operator.kind == left.operator.kind {
+							// else if left is NodeData(PolyadicExpression) && operator.operator.kind == left.operator.kind {
 								left.operands.push(operations[k + 1])
 								left.end = operations[k + 1].end
 
@@ -257,6 +258,7 @@ namespace AST {
 							}
 							else if $comparison[operator.operator.kind] {
 								if left.kind == NodeKind.ComparisonExpression {
+								// if left is NodeData(ComparisonExpression) {
 									left.values.push(operator.operator, operations[k + 1])
 									left.end = operations[k + 1].end
 
@@ -267,6 +269,7 @@ namespace AST {
 								}
 							}
 							else if left.kind == NodeKind.BinaryExpression && operator.operator.kind == BinaryOperatorKind.Assignment && left.operator.kind == BinaryOperatorKind.Assignment && operator.operator.assignment == left.operator.assignment {
+							// else if left is NodeData(BinaryExpression) && operator.operator.kind == BinaryOperatorKind.Assignment && left.operator.kind == BinaryOperatorKind.Assignment && operator.operator.assignment == left.operator.assignment {
 								operator.left = left.right
 								operator.right = operations[k + 1]
 
@@ -307,7 +310,9 @@ namespace AST {
 	} # }}}
 
 	export {
-		func AccessorDeclaration({ start, end }: Event(Y)): NodeData(AccessorDeclaration) { # {{{
+		func AccessorDeclaration(
+			{ start, end }: Range
+		): NodeData(AccessorDeclaration) { # {{{
 			return {
 				kind: .AccessorDeclaration
 				start
@@ -315,7 +320,11 @@ namespace AST {
 			}
 		} # }}}
 
-		func AccessorDeclaration({ value % body }: Event<NodeData(Block, Expression)>(Y), { start }: Event(Y), { end }: Event(Y)): NodeData(AccessorDeclaration) { # {{{
+		func AccessorDeclaration(
+			{ value % body }: Event<NodeData(Block, Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(AccessorDeclaration) { # {{{
 			return {
 				kind: .AccessorDeclaration
 				body
@@ -324,7 +333,11 @@ namespace AST {
 			}
 		} # }}}
 
-		func ArrayBinding(elements: Event<NodeData(BindingElement)>(Y)[], { start }: Event(Y), { end }: Event(Y)): NodeData(ArrayBinding) { # {{{
+		func ArrayBinding(
+			elements: Event<NodeData(BindingElement)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ArrayBinding) { # {{{
 			return {
 				kind: .ArrayBinding
 				elements: [element.value for var element in elements]
@@ -333,245 +346,384 @@ namespace AST {
 			}
 		} # }}}
 
-		func ArrayBindingElement(modifiers, internal?, type?, operator?, defaultValue?, first, last): NodeData(BindingElement) { # {{{
-			return location({
-				kind: NodeKind.BindingElement
+		func ArrayBindingElement(
+			modifiers: ModifierData[]
+			internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>(Y)?
+			type: Event<NodeData(Type)>(Y)?
+			operator: Event<BinaryOperatorData(Assignment)>(Y)?
+			defaultValue: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(BindingElement) { # {{{
+			return {
+				kind: .BindingElement
 				modifiers
 				internal: internal.value if ?internal
 				type: type.value if ?type
 				operator: operator.value if ?operator
 				defaultValue: defaultValue.value if ?defaultValue
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ArrayComprehension(expression, loop, first, last): NodeData(ArrayComprehension) { # {{{
-			return location({
-				kind: NodeKind.ArrayComprehension
+		func ArrayComprehension(
+			expression: Event<NodeData(Expression)>(Y)
+			loop: Event<NodeData(ForStatement, RepeatStatement)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ArrayComprehension) { # {{{
+			return {
+				kind: .ArrayComprehension
 				modifiers: []
 				expression: expression.value
 				loop: loop.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ArrayExpression(values, first, last): NodeData(ArrayExpression) { # {{{
-			return location({
-				kind: NodeKind.ArrayExpression
+		func ArrayExpression(
+			values: Event<NodeData(Expression)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ArrayExpression) { # {{{
+			return {
+				kind: .ArrayExpression
 				modifiers: []
 				values: [value.value for var value in values]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ArrayRangeFI(from, til, by?, first, last): NodeData(ArrayRange) { # {{{
-			var node = location({
-				kind: NodeKind.ArrayRange
+		func ArrayRangeFI(
+			from: Event<NodeData(Expression)>(Y)
+			til: Event<NodeData(Expression)>(Y)
+			by: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ArrayRange) { # {{{
+			return {
+				kind: .ArrayRange
 				from: from.value
 				til: til.value
-			}, first, last)
-
-			if ?by {
-				node.by = by.value
+				by: by.value if ?by
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func ArrayRangeFO(from, to, by?, first, last): NodeData(ArrayRange) { # {{{
-			var node = location({
-				kind: NodeKind.ArrayRange
+		func ArrayRangeFO(
+			from: Event<NodeData(Expression)>(Y)
+			to: Event<NodeData(Expression)>(Y)
+			by: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ArrayRange) { # {{{
+			return {
+				kind: .ArrayRange
 				from: from.value
 				to: to.value
-			}, first, last)
-
-			if ?by {
-				node.by = by.value
+				by: by.value if ?by
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func ArrayRangeTI(then, til, by?, first, last): NodeData(ArrayRange) { # {{{
-			var node = location({
-				kind: NodeKind.ArrayRange
+		func ArrayRangeTI(
+			then: Event<NodeData(Expression)>(Y)
+			til: Event<NodeData(Expression)>(Y)
+			by: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ArrayRange) { # {{{
+			return {
+				kind: .ArrayRange
 				then: then.value
 				til: til.value
-			}, first, last)
-
-			if ?by {
-				node.by = by.value
+				by: by.value if ?by
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func ArrayRangeTO(then, to, by?, first, last): NodeData(ArrayRange) { # {{{
-			var node = location({
-				kind: NodeKind.ArrayRange
+		func ArrayRangeTO(
+			then: Event<NodeData(Expression)>(Y)
+			to: Event<NodeData(Expression)>(Y)
+			by: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ArrayRange) { # {{{
+			return {
+				kind: .ArrayRange
 				then: then.value
 				to: to.value
-			}, first, last)
-
-			if ?by {
-				node.by = by.value
+				by: by.value if ?by
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func ArrayType(modifiers, properties, rest?, first, last): NodeData(ArrayType) { # {{{
-			var node = location({
-				kind: NodeKind.ArrayType
+		func ArrayType(
+			modifiers: Event<ModifierData>(Y)[]
+			properties: Event<NodeData(PropertyType)>(Y)[]
+			rest: Event<NodeData(PropertyType)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ArrayType) { # {{{
+			return {
+				kind: .ArrayType
 				modifiers: [modifier.value for var modifier in modifiers]
 				properties: [property.value for var property in properties]
-			}, first, last)
-
-			if rest != null {
-				node.rest = rest.value
+				rest: rest.value if ?rest
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func AssignmentOperator(operator: AssignmentOperatorKind, first): BinaryOperatorData(Assignment) { # {{{
-			return location({
-				kind: BinaryOperatorKind.Assignment
+		func AssignmentOperator(
+			operator: AssignmentOperatorKind
+			{ start, end }: Range
+		): BinaryOperatorData(Assignment) { # {{{
+			return {
+				kind: .Assignment
 				assignment: operator
-			}, first)
+				start
+				end
+			}
 		} # }}}
 
-		func AttributeDeclaration(declaration, first, last): NodeData(AttributeDeclaration) { # {{{
-			return location({
-				kind: NodeKind.AttributeDeclaration
+		func AttributeDeclaration(
+			declaration: Event<NodeData(Identifier, AttributeExpression, AttributeOperation)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(AttributeDeclaration) { # {{{
+			return {
+				kind: .AttributeDeclaration
 				declaration: declaration.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func AttributeExpression(name, arguments, first, last): NodeData(AttributeExpression) { # {{{
-			return location({
-				kind: NodeKind.AttributeExpression
+		func AttributeExpression(
+			name: Event<NodeData(Identifier)>(Y)
+			arguments: Event<NodeData(Identifier, AttributeOperation, AttributeExpression)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(AttributeExpression) { # {{{
+			return {
+				kind: .AttributeExpression
 				name: name.value
 				arguments: [argument.value for var argument in arguments]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func AttributeOperation(name, value, first, last): NodeData(AttributeOperation) { # {{{
-			return location({
-				kind: NodeKind.AttributeOperation
+		func AttributeOperation(
+			name: Event<NodeData(Identifier)>(Y)
+			value: Event<NodeData(Literal)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(AttributeOperation) { # {{{
+			return {
+				kind: .AttributeOperation
 				name: name.value
 				value: value.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func AwaitExpression(modifiers, variables?, operand?, first, last): NodeData(AwaitExpression) { # {{{
-			return location({
-				kind: NodeKind.AwaitExpression
+		func AwaitExpression(
+			modifiers: ModifierData[]
+			variables: Event<NodeData(VariableDeclarator)>(Y)[]?
+			operand: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(AwaitExpression) { # {{{
+			return {
+				kind: .AwaitExpression
 				modifiers
 				variables: [variable.value for var variable in variables] if ?variables
 				operation: operand.value if ?operand
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func BinaryExpression(operator): NodeData(BinaryExpression) { # {{{
-			return location({
-				kind: NodeKind.BinaryExpression
+		func BinaryExpression(
+			{ value, start, end }: Event<BinaryOperatorData>(Y)
+		): NodeData(BinaryExpression) { # {{{
+			return {
+				kind: .BinaryExpression
 				modifiers: []
-				operator: operator.value
-			}, operator)
+				operator: value
+				start
+				end
+			}
 		} # }}}
 
-		func BinaryExpression(left, operator, right, first = left, last = right): NodeData(BinaryExpression) { # {{{
-			return location({
-				kind: NodeKind.BinaryExpression
+		func BinaryExpression(
+			left: Event<NodeData(Expression)>(Y)
+			operator: Event<BinaryOperatorData>(Y)
+			right: Event<NodeData(Expression, TypeReference)>(Y)
+			{ start }: Range = left
+			{ end }: Range = right
+		): NodeData(BinaryExpression) { # {{{
+			return {
+				kind: .BinaryExpression
 				modifiers: []
 				operator: operator.value
 				left: left.value
 				right: right.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func BinaryOperator(operator: BinaryOperatorKind, first): BinaryOperatorData { # {{{
-			return location({
+		func BinaryOperator(
+			operator: BinaryOperatorKind
+			{ start, end }: Range
+		): BinaryOperatorData { # {{{
+			return {
 				kind: operator
 				modifiers: []
-			}, first)
+				start
+				end
+			}!!
 		} # }}}
 
-		func BinaryOperator(modifiers, operator: BinaryOperatorKind, first): BinaryOperatorData { # {{{
-			return location({
+		func BinaryOperator(
+			modifiers: ModifierData[]
+			operator: BinaryOperatorKind
+			{ start, end }: Range
+		): BinaryOperatorData { # {{{
+			return {
 				kind: operator
 				modifiers
-			}, first)
+				start
+				end
+			}!!
 		} # }}}
 
-		func BitmaskDeclaration(attributes, modifiers, name, type?, members, first, last): NodeData(BitmaskDeclaration) { # {{{
-			var node = location({
-				kind: NodeKind.BitmaskDeclaration
+		func BitmaskDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			type: Event<NodeData(Identifier)>(Y)?
+			members: NodeData(MethodDeclaration)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(BitmaskDeclaration) { # {{{
+			return {
+				kind: .BitmaskDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
+				type: type.value if ?type
 				members: members
-			}, first, last)
-
-			if type != null {
-				node.type = type.value
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func Block(attributes, statements, first, last): NodeData(Block) { # {{{
-			return location({
-				kind: NodeKind.Block
+		func Block(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			statements: Event<NodeData(Statement)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(Block) { # {{{
+			return {
+				kind: .Block
 				attributes: [attribute.value for var attribute in attributes]
 				statements: [statement.value for var statement in statements]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func BlockStatement(label, body, first, last): NodeData(BlockStatement) { # {{{
-			return location({
-				kind: NodeKind.BlockStatement
+		func BlockStatement(
+			label: Event<NodeData(Identifier)>(Y)
+			body: Event<NodeData(Block)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(BlockStatement) { # {{{
+			return {
+				kind: .BlockStatement
 				attributes: []
 				label: label.value
 				body: body.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func BreakStatement(label?, first, last): NodeData(BreakStatement) { # {{{
-			return location({
-				kind: NodeKind.BreakStatement
+		func BreakStatement(
+			label: Event<NodeData(Identifier)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(BreakStatement) { # {{{
+			return {
+				kind: .BreakStatement
 				attributes: []
 				label: label.value if ?label
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func CallExpression(modifiers, scope = { kind: ScopeKind.This }, callee, arguments, first, last): NodeData(CallExpression) { # {{{
-			return location({
-				kind: NodeKind.CallExpression
+		func CallExpression(
+			modifiers: ModifierData[]
+			scope: ScopeData = { kind: ScopeKind.This }
+			callee: Event<NodeData(Expression)>(Y)
+			arguments: Event<Event<NodeData(Argument, Expression)>(Y)[]>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(CallExpression) { # {{{
+			return {
+				kind: .CallExpression
 				modifiers
 				scope
 				callee: callee.value
 				arguments: [argument.value for var argument in arguments.value]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func CatchClause(binding?, type?, body, first, last): NodeData(CatchClause) { # {{{
-			var node = location({
-				kind: NodeKind.CatchClause
+		func CatchClause(
+			binding: Event<NodeData(Identifier)>(Y)?
+			type: Event<NodeData(Identifier)>(Y)?
+			body: Event<NodeData(Block)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(CatchClause) { # {{{
+			return {
+				kind: .CatchClause
 				body: body.value
-			}, first, last)
-
-			if binding != null {
-				node.binding = binding.value
+				binding: binding.value if ?binding
+				type: type.value if ?type
+				start
+				end
 			}
-			if type != null {
-				node.type = type.value
-			}
-
-			return node
 		} # }}}
 
-		func ClassDeclaration(attributes, modifiers, name, version?, extends?, implements, members, first, last): NodeData(ClassDeclaration) { # {{{
-			return location({
-				kind: NodeKind.ClassDeclaration
+		func ClassDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			version: Event<VersionData>(Y)?
+			extends: Event<NodeData(Identifier, MemberExpression)>(Y)?
+			implements: Event<NodeData(Identifier, MemberExpression)>(Y)[]
+			members: Event<NodeData(ClassMember)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ClassDeclaration) { # {{{
+			return {
+				kind: .ClassDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
@@ -579,402 +731,607 @@ namespace AST {
 				extends: extends.value if ?extends
 				implements: [implement.value for var implement in implements] if ?#implements
 				members: [member.value for var member in members]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ComparisonExpression(values): NodeData(ComparisonExpression) { # {{{
-			return location({
-				kind: NodeKind.ComparisonExpression
+		func ComparisonExpression(
+			values: NodeData(Expression)[]
+		): NodeData(ComparisonExpression) { # {{{
+			return {
+				kind: .ComparisonExpression
 				modifiers: []
 				values
-			}, values[0], values[values.length - 1])
+				start: values[0].start
+				end: values[values.length - 1].end
+			}
 		} # }}}
 
-		func ComputedPropertyName(expression, first, last): NodeData(ComputedPropertyName) { # {{{
-			return location({
-				kind: NodeKind.ComputedPropertyName
+		func ComputedPropertyName(
+			expression: Event<NodeData(Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ComputedPropertyName) { # {{{
+			return {
+				kind: .ComputedPropertyName
 				expression: expression.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ConditionalExpression(first): NodeData(ConditionalExpression) { # {{{
-			return location({
-				kind: NodeKind.ConditionalExpression
+		func ConditionalExpression(
+			{ start, end }: Range
+		): NodeData(ConditionalExpression) { # {{{
+			return {
+				kind: .ConditionalExpression
 				modifiers: []
-			}, first)
+				start
+				end
+			}!!
 		} # }}}
 
-		func ConditionalExpression(condition, whenTrue, whenFalse): NodeData(ConditionalExpression) { # {{{
-			return location({
-				kind: NodeKind.ConditionalExpression
-				modifiers: []
-				condition: condition.value
-				whenTrue: whenTrue.value
-				whenFalse: whenFalse.value
-			}, condition, whenFalse)
-		} # }}}
+		// func ConditionalExpression(
+		// 	condition: Event<NodeData(Expression)>(Y)
+		// 	whenTrue: Event<NodeData(Expression)>(Y)
+		// 	whenFalse: Event<NodeData(Expression)>(Y)
+		// ): NodeData(ConditionalExpression) { # {{{
+		// 	return {
+		// 		kind: .ConditionalExpression
+		// 		modifiers: []
+		// 		condition: condition.value
+		// 		whenTrue: whenTrue.value
+		// 		whenFalse: whenFalse.value
+		// 		start: condition.start
+		// 		end: whenFalse.end
+		// 	}
+		// } # }}}
 
-		func ContinueStatement(label?, first, last): NodeData(ContinueStatement) { # {{{
-			return location({
-				kind: NodeKind.ContinueStatement
+		func ContinueStatement(
+			label: Event<NodeData(Identifier)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ContinueStatement) { # {{{
+			return {
+				kind: .ContinueStatement
 				attributes: []
 				label: label.value if ?label
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func CurryExpression(scope, callee, arguments, first, last): NodeData(CurryExpression) { # {{{
-			return location({
-				kind: NodeKind.CurryExpression
+		func CurryExpression(
+			scope: ScopeData
+			callee: Event<NodeData(Expression)>(Y)
+			arguments: Event<Event<NodeData(Argument, Expression)>(Y)[]>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(CurryExpression) { # {{{
+			return {
+				kind: .CurryExpression
 				modifiers: []
 				scope: scope
 				callee: callee.value
 				arguments: [argument.value for var argument in arguments.value]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func DeclarationSpecifier(declaration): NodeData(DeclarationSpecifier) { # {{{
-			return location({
-				kind: NodeKind.DeclarationSpecifier
-				declaration: declaration.value
-			}, declaration)
+		func DeclarationSpecifier(
+			{ value % declaration, start, end }: Event<NodeData(SpecialDeclaration)>(Y)
+		): NodeData(DeclarationSpecifier) { # {{{
+			return {
+				kind: .DeclarationSpecifier
+				declaration
+				start
+				end
+			}
 		} # }}}
 
-		func DiscloseDeclaration(name, members, first, last): NodeData(DiscloseDeclaration) { # {{{
-			return location({
-				kind: NodeKind.DiscloseDeclaration
+		func DiscloseDeclaration(
+			name: Event<NodeData(Identifier)>(Y)
+			members: Event<NodeData(ClassMember)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(DiscloseDeclaration) { # {{{
+			return {
+				kind: .DiscloseDeclaration
 				attributes: []
 				name: name.value
 				members: [member.value for var member in members]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func DisruptiveExpression(operator: Event, condition: Event, mainExpression: Event, disruptedExpression: Event, first, last): NodeData(DisruptiveExpression) { # {{{
-			return location({
-				kind: NodeKind.DisruptiveExpression
+		func DisruptiveExpression(
+			operator: Event<RestrictiveOperatorData>(Y)
+			condition: Event<NodeData(Expression)>(Y)
+			mainExpression: Event<NodeData(Expression)>(Y)
+			disruptedExpression: Event<NodeData(Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(DisruptiveExpression) { # {{{
+			return {
+				kind: .DisruptiveExpression
 				operator: operator.value
 				condition: condition.value
 				mainExpression: mainExpression.value
 				disruptedExpression: disruptedExpression.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func DoUntilStatement(condition, body, first, last): NodeData(DoUntilStatement) { # {{{
-			return location({
-				kind: NodeKind.DoUntilStatement
+		func DoUntilStatement(
+			condition: Event<NodeData(Expression)>(Y)
+			body: Event<NodeData(Block)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(DoUntilStatement) { # {{{
+			return {
+				kind: .DoUntilStatement
 				attributes: []
 				condition: condition.value
 				body: body.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func DoWhileStatement(condition, body, first, last): NodeData(DoWhileStatement) { # {{{
-			return location({
-				kind: NodeKind.DoWhileStatement
+		func DoWhileStatement(
+			condition: Event<NodeData(Expression)>(Y)
+			body: Event<NodeData(Block)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(DoWhileStatement) { # {{{
+			return {
+				kind: .DoWhileStatement
 				attributes: []
 				condition: condition.value
 				body: body.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func EnumDeclaration(attributes, modifiers, name, type?, members, first, last): NodeData(EnumDeclaration) { # {{{
-			var node = location({
-				kind: NodeKind.EnumDeclaration
+		func EnumDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			type: Event<NodeData(TypeReference)>(Y)?
+			members: NodeData(MethodDeclaration)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(EnumDeclaration) { # {{{
+			return {
+				kind: .EnumDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
-				members: members
-			}, first, last)
-
-			if type != null {
-				node.type = type.value
+				type: type.value if ?type
+				members
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func ExclusionType(types, first, last): NodeData(ExclusionType) { # {{{
-			return location({
-				kind: NodeKind.ExclusionType
+		func ExclusionType(
+			types: Event<NodeData(Type)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ExclusionType) { # {{{
+			return {
+				kind: .ExclusionType
 				types: [type.value for var type in types]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ExportDeclaration(attributes, declarations, first, last): NodeData(ExportDeclaration) { # {{{
-			return location({
-				kind: NodeKind.ExportDeclaration
+		func ExportDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			declarations: Event<NodeData(DeclarationSpecifier, GroupSpecifier, NamedSpecifier, PropertiesSpecifier)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ExportDeclaration) { # {{{
+			return {
+				kind: .ExportDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				declarations: [declarator.value for var declarator in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ExpressionStatement(expression): NodeData(ExpressionStatement) { # {{{
-			return location({
-				kind: NodeKind.ExpressionStatement
+		func ExpressionStatement(
+			{ value % expression, start, end }: Event<NodeData(Expression)>(Y)
+		): NodeData(ExpressionStatement) { # {{{
+			return {
+				kind: .ExpressionStatement
 				attributes: []
-				expression: expression.value
-			}, expression)
+				expression
+				start
+				end
+			}
 		} # }}}
 
-		func ExternDeclaration(attributes, declarations, first, last): NodeData(ExternDeclaration) { # {{{
-			return location({
-				kind: NodeKind.ExternDeclaration
+		func ExternDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			declarations: Event<NodeData(DescriptiveType)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ExternDeclaration) { # {{{
+			return {
+				kind: .ExternDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				declarations: [declarator.value for var declarator in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ExternOrImportDeclaration(attributes, declarations, first, last): NodeData(ExternOrImportDeclaration) { # {{{
-			return location({
-				kind: NodeKind.ExternOrImportDeclaration
+		func ExternOrImportDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			declarations: Event<NodeData(ImportDeclarator)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ExternOrImportDeclaration) { # {{{
+			return {
+				kind: .ExternOrImportDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				declarations: [declaration.value for var declaration in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ExternOrRequireDeclaration(attributes, declarations, first, last): NodeData(ExternOrRequireDeclaration) { # {{{
-			return location({
-				kind: NodeKind.ExternOrRequireDeclaration
+		func ExternOrRequireDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			declarations: Event<NodeData(DescriptiveType)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ExternOrRequireDeclaration) { # {{{
+			return {
+				kind: .ExternOrRequireDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				declarations: [declarator.value for var declarator in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func FallthroughStatement(first): NodeData(FallthroughStatement) { # {{{
-			return location({
-				kind: NodeKind.FallthroughStatement
+		func FallthroughStatement(
+			{ start, end }: Range
+		): NodeData(FallthroughStatement) { # {{{
+			return {
+				kind: .FallthroughStatement
 				attributes: []
-			}, first)
+				start
+				end
+			}
 		} # }}}
 
-		func FieldDeclaration(attributes, modifiers, name, type?, value?, first, last): NodeData(FieldDeclaration) { # {{{
-			var node = location({
-				kind: NodeKind.FieldDeclaration
+		func FieldDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			type: Event<NodeData(Type)>(Y)?
+			value: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(FieldDeclaration) { # {{{
+			return {
+				kind: .FieldDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
-			}, first, last)
-
-			if type != null && type.ok {
-				node.type = type.value
+				type: type.value if ?type
+				value: value.value if ?value
+				start
+				end
 			}
-			if value != null {
-				node.value = value.value
-			}
-
-			return node
 		} # }}}
 
-		func ForStatement(iterations, body, else?, first, last): NodeData(ForStatement) { # {{{
-			return  location({
-				kind: NodeKind.ForStatement
+		func ForStatement(
+			iterations: Event<IterationData>(Y)[]
+			body: Event<NodeData(Block, ExpressionStatement)>(Y)
+			else: Event<NodeData(Block)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ForStatement) { # {{{
+			return {
+				kind: .ForStatement
 				attributes: []
 				iterations: [iteration.value for var iteration in iterations]
 				body: body.value
 				else: else.value if ?else
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ForStatement(iteration, first, last): NodeData(ForStatement) { # {{{
-			return  location({
-				kind: NodeKind.ForStatement
+		func ForStatement(
+			iteration: Event<IterationData>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ForStatement) { # {{{
+			return {
+				kind: .ForStatement
 				attributes: []
 				iteration: iteration.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func FunctionDeclaration(name, typeParameters?, parameters?, modifiers?, type?, throws?, body?, first, last): NodeData(FunctionDeclaration) { # {{{
-			var node = location({
-				kind: NodeKind.FunctionDeclaration
+		// TODO
+		func FunctionDeclaration(
+			name: Event<NodeData(Identifier)>(Y)
+			typeParameters: Event<Event<NodeData(TypeParameter)>[]>?
+			parameters: Event<Event<NodeData(Parameter)>(Y)[]>(Y)?
+			modifiers: Event<ModifierData>(Y)[]?
+			type: Event<NodeData(Type)>?
+			throws: Event<Event<NodeData(Identifier)>[]>?
+			body: Event<NodeData(Block, Expression, IfStatement, UnlessStatement)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(FunctionDeclaration) { # {{{
+			return {
+				kind: .FunctionDeclaration
 				attributes: []
+				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
 				name: name.value
 				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?typeParameters
-			}, first, last)
-
-			if parameters != null {
-				node.parameters = [parameter.value for var parameter in parameters.value]
+				parameters: [parameter.value for var parameter in parameters.value] if ?parameters
+				type: type.value if ?type
+				throws: ?throws ? [throw.value for var throw in throws.value]: []
+				body: body.value if ?body
+				start
+				end
 			}
-
-			if modifiers == null {
-				node.modifiers = []
-			}
-			else {
-				node.modifiers = [modifier.value for var modifier in modifiers]
-			}
-
-			if type != null {
-				node.type = type.value
-			}
-
-			if throws == null {
-				node.throws = []
-			}
-			else {
-				node.throws = [throw.value for var throw in throws.value]
-			}
-
-			if body != null {
-				node.body = body.value
-			}
-
-			return node
 		} # }}}
 
-		func FunctionExpression(parameters, modifiers?, type?, throws?, body?, first, last): NodeData(FunctionExpression) { # {{{
-			var node = location({
-				kind: NodeKind.FunctionExpression
+		func FunctionExpression(
+			parameters: Event<Event<NodeData(Parameter)>[]>(Y)
+			modifiers: Event<ModifierData>(Y)[]?
+			type: Event<NodeData(Type)>?
+			throws: Event<Event<NodeData(Identifier)>[]>?
+			body: Event<NodeData(Block, Expression, IfStatement, UnlessStatement)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(FunctionExpression) { # {{{
+			return {
+				kind: .FunctionExpression
+				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
 				parameters: [parameter.value for var parameter in parameters.value]
-			}, first, last)
-
-			if modifiers == null {
-				node.modifiers = []
+				type: type.value if ?type
+				throws: ?throws ? [throw.value for var throw in throws.value]: []
+				body: body.value if ?body
+				start
+				end
 			}
-			else {
-				node.modifiers = [modifier.value for var modifier in modifiers]
-			}
-
-			if type != null {
-				node.type = type.value
-			}
-
-			if throws == null {
-				node.throws = []
-			}
-			else {
-				node.throws = [throw.value for var throw in throws.value]
-			}
-
-			if body != null {
-				node.body = body.value
-			}
-
-			return node
 		} # }}}
 
-		func FusionType(types, first, last): NodeData(FusionType) { # {{{
-			return location({
-				kind: NodeKind.FusionType
+		func FusionType(
+			types: Event<NodeData(Type)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(FusionType) { # {{{
+			return {
+				kind: .FusionType
 				types: [type.value for var type in types]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func GroupSpecifier(modifiers, elements, type?, first, last): NodeData(GroupSpecifier) { # {{{
-			var node = location({
-				kind: NodeKind.GroupSpecifier
+		func GroupSpecifier(
+			modifiers: Event<ModifierData>(Y)[]
+			elements: Event<NodeData(NamedSpecifier, TypedSpecifier)>(Y)[]
+			type: Event<NodeData(DescriptiveType)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(GroupSpecifier) { # {{{
+			return {
+				kind: .GroupSpecifier
 				modifiers: [modifier.value for var modifier in modifiers]
 				elements: [element.value for var element in elements]
-			}, first, last)
-
-			if type != null {
-				node.type = type.value
+				type: type.value if ?type
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func IfExpression(condition?, declaration?, whenTrue, whenFalse, first, last): NodeData(IfExpression) { # {{{
-			var node = location({
-				kind: NodeKind.IfExpression
+		func Identifier(
+			name: String
+			{ start, end }: Range
+		): NodeData(Identifier) { # {{{
+			return {
+				kind: NodeKind.Identifier
+				modifiers: []
+				name
+				start
+				end
+			}
+		} # }}}
+
+		func IfExpression(
+			condition: Event<NodeData(Expression)>?
+			declaration: Event<NodeData(VariableDeclaration)>(Y)?
+			whenTrue: Event<NodeData(Block)>(Y)
+			whenFalse: Event<NodeData(Block, IfExpression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(IfExpression) { # {{{
+			return {
+				kind: .IfExpression
 				attributes: []
+				condition: condition.value if ?condition
+				declaration: declaration.value if ?declaration
 				whenTrue: whenTrue.value
 				whenFalse: whenFalse.value
-			}, first, last)
-
-			if condition != null {
-				node.condition = condition.value
+				start
+				end
 			}
-
-			if declaration != null {
-				node.declaration = declaration.value
-			}
-
-			return node
 		} # }}}
 
-		func IfStatement(condition: Event, whenTrue: Event, whenFalse: Event?, first, last): NodeData(IfStatement) { # {{{
-			return location({
-				kind: NodeKind.IfStatement
+		func IfStatement(
+			condition: Event<NodeData(Expression)>(Y)// | Event<NodeData(VariableDeclaration, Expression)>(Y)[]
+			whenTrue: Event<NodeData(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
+			whenFalse: Event<NodeData(Block, IfStatement)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(IfStatement) { # {{{
+			return {
+				kind: .IfStatement
 				attributes: []
 				condition: condition.value
 				whenTrue: whenTrue.value
 				whenFalse: whenFalse.value if ?whenFalse
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func IfStatement(declarations: [], whenTrue: Event, whenFalse: Event?, first, last): NodeData(IfStatement) { # {{{
-			return location({
-				kind: NodeKind.IfStatement
+		func IfStatement(
+			declarations: NodeData(VariableDeclaration, Expression)[]
+			whenTrue: Event<NodeData(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
+			whenFalse: Event<NodeData(Block, IfStatement)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(IfStatement) { # {{{
+			return {
+				kind: .IfStatement
 				attributes: []
 				declarations
 				whenTrue: whenTrue.value
 				whenFalse: whenFalse.value if ?whenFalse
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ImplementDeclaration(attributes, variable, interface?, properties, first, last): NodeData(ImplementDeclaration) { # {{{
-			return location({
-				kind: NodeKind.ImplementDeclaration
+		func ImplementDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			variable: Event<NodeData(Identifier, MemberExpression)>(Y)
+			interface: Event<NodeData(Identifier, MemberExpression)>(Y)?
+			properties: Event<NodeData(ClassMember)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ImplementDeclaration) { # {{{
+			return {
+				kind: .ImplementDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				variable: variable.value
 				interface: interface.value if ?interface
 				properties: [property.value for var property in properties]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ImportDeclaration(attributes, declarations, first, last): NodeData(ImportDeclaration) { # {{{
-			return location({
-				kind: NodeKind.ImportDeclaration
+		func ImportDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			declarations: Event<NodeData(ImportDeclarator)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ImportDeclaration) { # {{{
+			return {
+				kind: .ImportDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				declarations: [declaration.value for var declaration in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ImportDeclarator(attributes, modifiers, source, arguments?, type?, specifiers, first, last): NodeData(ImportDeclarator) { # {{{
-			return location({
-				kind: NodeKind.ImportDeclarator
+		func ImportDeclarator(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: ModifierData[]
+			source: Event<NodeData(Literal)>(Y)
+			arguments: NodeData(NamedArgument, PositionalArgument)[]?
+			type: Event<NodeData(DescriptiveType, TypeList)>(Y)?
+			specifiers: Event<NodeData(GroupSpecifier)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ImportDeclarator) { # {{{
+			return {
+				kind: .ImportDeclarator
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers
 				source: source.value
 				arguments: arguments if ?arguments
 				type: type.value if ?type
 				specifiers: [specifier.value for var specifier in specifiers]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func Identifier(name, first): NodeData(Identifier) { # {{{
-			return location({
-				kind: NodeKind.Identifier
-				modifiers: []
-				name: name
-			}, first)
-		} # }}}
-
-		func IncludeAgainDeclaration(attributes, declarations, first, last): NodeData(IncludeAgainDeclaration) { # {{{
-			return location({
-				kind: NodeKind.IncludeAgainDeclaration
+		func IncludeAgainDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			declarations: Event<NodeData(IncludeDeclarator)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(IncludeAgainDeclaration) { # {{{
+			return {
+				kind: .IncludeAgainDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				declarations: [declaration.value for var declaration in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func IncludeDeclaration(attributes, declarations, first, last): NodeData(IncludeDeclaration) { # {{{
-			return location({
-				kind: NodeKind.IncludeDeclaration
+		func IncludeDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			declarations: Event<NodeData(IncludeDeclarator)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(IncludeDeclaration) { # {{{
+			return {
+				kind: .IncludeDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				declarations: [declaration.value for var declaration in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func IncludeDeclarator(file): NodeData(IncludeDeclarator) { # {{{
-			return location({
-				kind: NodeKind.IncludeDeclarator
+		func IncludeDeclarator(
+			{ value % file, start, end }: Event<String>(Y)
+		): NodeData(IncludeDeclarator) { # {{{
+			return {
+				kind: .IncludeDeclarator
 				attributes: []
-				file: file.value
-			}, file, file)
+				file
+				start
+				end
+			}
 		} # }}}
 
-		func IterationArray(modifiers, value, type, index, expression, from?, to?, step?, split?, until?, while?, when?, first, last): IterationData(Array) { # {{{
-			return location({
-				kind: IterationKind.Array
+		func IterationArray(
+			modifiers: ModifierData[]
+			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
+			type:  Event<NodeData(Type)>
+			index: Event<NodeData(Identifier)>
+			expression: Event<NodeData(Expression)>(Y)
+			from: Event<NodeData(Expression)>(Y)?
+			to: Event<NodeData(Expression)>(Y)?
+			step: Event<NodeData(Expression)>(Y)?
+			split: Event<NodeData(Expression)>(Y)?
+			until: Event<NodeData(Expression)>(Y)?
+			while: Event<NodeData(Expression)>(Y)?
+			when: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): IterationData(Array) { # {{{
+			return {
+				kind: .Array
 				modifiers
 				expression: expression.value
 				value: value.value if value.ok
@@ -987,12 +1344,25 @@ namespace AST {
 				until: until.value if ?until
 				while: while.value if ?while
 				when: when.value if ?when
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func IterationFrom(modifiers, variable, from, to, step?, until?, while?, when?, first, last): IterationData(From) { # {{{
-			return location({
-				kind: IterationKind.From
+		func IterationFrom(
+			modifiers: ModifierData[]
+			variable: Event<NodeData(Identifier)>(Y)
+			from: Event<NodeData(Expression)>(Y)
+			to: Event<NodeData(Expression)>(Y)
+			step: Event<NodeData(Expression)>(Y)?
+			until: Event<NodeData(Expression)>(Y)?
+			while: Event<NodeData(Expression)>(Y)?
+			when: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): IterationData(From) { # {{{
+			return {
+				kind: .From
 				modifiers
 				variable: variable.value
 				from: from.value
@@ -1001,12 +1371,25 @@ namespace AST {
 				until: until.value if ?until
 				while: while.value if ?while
 				when: when.value if ?when
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func IterationObject(modifiers, value, type, key, expression, until?, while?, when?, first, last): IterationData(Object) { # {{{
-			return location({
-				kind: IterationKind.Object
+		func IterationObject(
+			modifiers: ModifierData[]
+			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
+			type:  Event<NodeData(Type)>
+			key: Event<NodeData(Identifier)>
+			expression: Event<NodeData(Expression)>(Y)
+			until: Event<NodeData(Expression)>(Y)?
+			while: Event<NodeData(Expression)>(Y)?
+			when: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): IterationData(Object) { # {{{
+			return {
+				kind: .Object
 				modifiers
 				expression: expression.value
 				value: value.value if value.ok
@@ -1015,12 +1398,26 @@ namespace AST {
 				until: until.value if ?until
 				while: while.value if ?while
 				when: when.value if ?when
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func IterationRange(modifiers, value, index, from, to, step?, until?, while?, when?, first, last): IterationData(Range) { # {{{
-			return location({
-				kind: IterationKind.Range
+		func IterationRange(
+			modifiers: ModifierData[]
+			value: Event<NodeData(Identifier)>
+			index: Event<NodeData(Identifier)>
+			from: Event<NodeData(Expression)>(Y)
+			to: Event<NodeData(Expression)>
+			step: Event<NodeData(Expression)>(Y)?
+			until: Event<NodeData(Expression)>(Y)?
+			while: Event<NodeData(Expression)>(Y)?
+			when: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): IterationData(Range) { # {{{
+			return {
+				kind: .Range
 				modifiers
 				value: value.value
 				index: index.value if index.ok
@@ -1030,99 +1427,160 @@ namespace AST {
 				until: until.value if ?until
 				while: while.value if ?while
 				when: when.value if ?when
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func JunctionExpression(operator, operands): NodeData(JunctionExpression) { # {{{
-			return location({
-				kind: NodeKind.JunctionExpression
+		func JunctionExpression(
+			operator: Event<BinaryOperatorData>(Y)
+			operands: NodeData(Expression, Type)[]
+		): NodeData(JunctionExpression) { # {{{
+			return {
+				kind: .JunctionExpression
 				modifiers: []
 				operator: operator.value
 				operands
-			}, operands[0], operands[operands.length - 1])
+				start: operands[0].start
+				end: operands[operands.length - 1].end
+			}
 		} # }}}
 
-		func LambdaExpression(parameters, modifiers?, type?, throws?, body, first, last): NodeData(LambdaExpression) { # {{{
-			var node = location({
-				kind: NodeKind.LambdaExpression
-				modifiers: []
+		func LambdaExpression(
+			parameters: Event<Event<NodeData(Parameter)>[]>(Y)
+			modifiers: Event<ModifierData>(Y)[]?
+			type: Event<NodeData(Type)>?
+			throws: Event<Event<NodeData(Identifier)>[]>?
+			body: Event<NodeData(Block, Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(LambdaExpression) { # {{{
+			return {
+				kind: .LambdaExpression
+				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
 				parameters: [parameter.value for var parameter in parameters.value]
+				type: type.value if ?type
+				throws: ?throws ? [throw.value for var throw in throws.value]: []
 				body: body.value
-			}, first, last)
-
-			if modifiers != null {
-				node.modifiers = [modifier.value for var modifier in modifiers]
+				start
+				end
 			}
-
-			if type != null {
-				node.type = type.value
-			}
-
-			if throws == null {
-				node.throws = []
-			}
-			else {
-				node.throws = [throw.value for var throw in throws.value]
-			}
-
-			return node
 		} # }}}
 
-		func Literal(modifiers?, value, first, last? = null): NodeData(Literal) { # {{{
-			return location({
-				kind: NodeKind.Literal
+		func Literal(
+			modifiers: Event<ModifierData>(Y)[]?
+			value: String
+			start: Position
+			end: Position
+		): NodeData(Literal) { # {{{
+			return {
+				kind: .Literal
 				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
 				value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func MacroDeclaration(attributes, name, parameters, body, first, last): NodeData(MacroDeclaration) { # {{{
-			return location({
-				kind: NodeKind.MacroDeclaration
+		func Literal(
+			modifiers: Event<ModifierData>(Y)[]?
+			value: String
+			// TODO!
+			// { start }: Range
+			// { end }: Range = $^
+			first: Range
+			{ end }: Range = first
+		): NodeData(Literal) { # {{{
+			return {
+				kind: .Literal
+				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
+				value
+				start: first.start
+				end
+			}
+		} # }}}
+
+		func MacroDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			parameters: Event<Event<NodeData(Parameter)>(Y)[]>(Y)
+			body: Event<NodeData(Block, ExpressionStatement)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(MacroDeclaration) { # {{{
+			return {
+				kind: .MacroDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				name: name.value
 				parameters: [parameter.value for var parameter in parameters.value]
 				body: body.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func MacroExpression(elements, first, last): NodeData(MacroExpression) { # {{{
-			return location({
-				kind: NodeKind.MacroExpression
+		func MacroExpression(
+			elements: Event<MacroElementData(Expression, Literal)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(MacroExpression) { # {{{
+			return {
+				kind: .MacroExpression
 				attributes: []
 				elements: [element.value for var element in elements]
-			}, first, last)
-		} # }}}
-
-		func MacroElementExpression(expression, reification?, first, last): MacroElementData(Expression) { # {{{
-			var node = location({
-				kind: MacroElementKind.Expression
-				expression: expression.value
-			}, first, last)
-
-			if reification != null {
-				node.reification = reification
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func MacroElementLiteral(value, first, last): MacroElementData(Literal) { # {{{
-			return location({
-				kind: MacroElementKind.Literal
+		func MacroElementExpression(
+			expression: Event<NodeData(Expression)>(Y)
+			reification: ReificationData?
+			{ start }: Range
+			{ end }: Range
+		): MacroElementData(Expression) { # {{{
+			return {
+				kind: .Expression
+				expression: expression.value
+				reification: reification if ?reification
+				start
+				end
+			}
+		} # }}}
+
+		func MacroElementLiteral(
+			value: String
+			{ start }: Range
+			{ end }: Range
+		): MacroElementData(Literal) { # {{{
+			return {
+				kind: .Literal
 				value: value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func MacroElementNewLine(first): MacroElementData(NewLine) { # {{{
-			return location({
-				kind: MacroElementKind.NewLine
-			}, first)
+		func MacroElementNewLine(
+			{ start, end }: Range
+		): MacroElementData(NewLine) { # {{{
+			return {
+				kind: .NewLine
+				start
+				end
+			}
 		} # }}}
 
-		func MatchClause(conditions?, binding?, filter?, body, first, last): NodeData(MatchClause) { # {{{
-			return location({
-				kind: NodeKind.MatchClause
+		func MatchClause(
+			conditions: Event<NodeData(Expression, MatchConditionArray, MatchConditionObject, MatchConditionRange, MatchConditionType)>(Y)[]?
+			binding: Event<NodeData(VariableDeclarator, ArrayBinding, ObjectBinding)>(Y)?
+			filter: Event<NodeData(Expression)>(Y)?
+			body: Event<NodeData(Block, Statement)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(MatchClause) { # {{{
+			return {
+				kind: .MatchClause
 				conditions: if ?conditions {
 						set [condition.value for var condition in conditions]
 					}
@@ -1132,292 +1590,463 @@ namespace AST {
 				binding: binding.value if ?binding
 				filter: filter.value if ?filter
 				body: body.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func MatchConditionArray(values, first, last): NodeData(MatchConditionArray) { # {{{
-			return location({
-				kind: NodeKind.MatchConditionArray
+		func MatchConditionArray(
+			values: Event<NodeData(Expression, MatchConditionRange, OmittedExpression)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(MatchConditionArray) { # {{{
+			return {
+				kind: .MatchConditionArray
 				values: [value.value for var value in values]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func MatchConditionObject(properties, first, last): NodeData(MatchConditionObject) { # {{{
-			return location({
-				kind: NodeKind.MatchConditionObject
+		func MatchConditionObject(
+			properties: Event<NodeData(ObjectMember)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(MatchConditionObject) { # {{{
+			return {
+				kind: .MatchConditionObject
 				properties: [property.value for var property in properties]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func MatchConditionRangeFI(from, til): NodeData(MatchConditionRange) { # {{{
-			return location({
-				kind: NodeKind.MatchConditionRange
+		func MatchConditionRangeFI(
+			from: Event<NodeData(Expression)>(Y)
+			til: Event<NodeData(Expression)>(Y)
+		): NodeData(MatchConditionRange) { # {{{
+			return {
+				kind: .MatchConditionRange
 				from: from.value
 				til: til.value
-			}, from, til)
+				start: from.start
+				end: til.end
+			}
 		} # }}}
 
-		func MatchConditionRangeFO(from, to): NodeData(MatchConditionRange) { # {{{
-			return location({
-				kind: NodeKind.MatchConditionRange
+		func MatchConditionRangeFO(
+			from: Event<NodeData(Expression)>(Y)
+			to: Event<NodeData(Expression)>(Y)
+		): NodeData(MatchConditionRange) { # {{{
+			return {
+				kind: .MatchConditionRange
 				from: from.value
 				to: to.value
-			}, from, to)
+				start: from.start
+				end: to.end
+			}
 		} # }}}
 
-		func MatchConditionRangeTI(then, til): NodeData(MatchConditionRange) { # {{{
-			return location({
-				kind: NodeKind.MatchConditionRange
+		func MatchConditionRangeTI(
+			then: Event<NodeData(Expression)>(Y)
+			til: Event<NodeData(Expression)>(Y)
+		): NodeData(MatchConditionRange) { # {{{
+			return {
+				kind: .MatchConditionRange
 				then: then.value
 				til: til.value
-			}, then, til)
+				start: then.start
+				end: til.end
+			}
 		} # }}}
 
-		func MatchConditionRangeTO(then, to): NodeData(MatchConditionRange) { # {{{
-			return location({
-				kind: NodeKind.MatchConditionRange
+		func MatchConditionRangeTO(
+			then: Event<NodeData(Expression)>(Y)
+			to: Event<NodeData(Expression)>(Y)
+		): NodeData(MatchConditionRange) { # {{{
+			return {
+				kind: .MatchConditionRange
 				then: then.value
 				to: to.value
-			}, then, to)
+				start: then.start
+				end: to.end
+			}
 		} # }}}
 
-		func MatchConditionType(type, first, last): NodeData(MatchConditionType) { # {{{
-			return location({
-				kind: NodeKind.MatchConditionType
+		func MatchConditionType(
+			type: Event<NodeData(Type)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(MatchConditionType) { # {{{
+			return {
+				kind: .MatchConditionType
 				type: type.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func MatchExpression(expression, clauses, first, last): NodeData(MatchExpression) { # {{{
-			return location({
-				kind: NodeKind.MatchExpression
+		func MatchExpression(
+			expression: Event<NodeData(Expression)>(Y)
+			clauses: Event<NodeData(MatchClause)[]>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(MatchExpression) { # {{{
+			return {
+				kind: .MatchExpression
 				attributes: []
 				expression: expression.value
 				clauses: [clause for var clause in clauses.value]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func MatchStatement(expression?, declaration?, clauses, first, last): NodeData(MatchStatement) { # {{{
-			return location({
-				kind: NodeKind.MatchStatement
+		func MatchStatement(
+			expression: Event<NodeData(Expression)>(Y)?
+			declaration: Event<NodeData(VariableDeclaration)>(Y)?
+			clauses: Event<NodeData(MatchClause)[]>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(MatchStatement) { # {{{
+			return {
+				kind: .MatchStatement
 				attributes: []
 				expression: expression.value if ?expression
 				declaration: declaration.value if ?declaration
 				clauses: [clause for var clause in clauses.value]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func MemberExpression(modifiers, object?, property, first = object, last = property): NodeData(MemberExpression) { # {{{
-			return location({
-				kind: NodeKind.MemberExpression
+		func MemberExpression(
+			modifiers: ModifierData[]
+			object: Event<NodeData(Expression)>(Y)?
+			property: Event<NodeData(Expression)>(Y)
+			{ start }: Range = object ?? property
+			{ end }: Range = property
+		): NodeData(MemberExpression) { # {{{
+			return {
+				kind: .MemberExpression
 				modifiers
 				object: object.value if ?object
 				property: property.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func MethodDeclaration(attributes, typeParameters?, modifiers, name, parameters, type?, throws?, body?, first, last): NodeData(MethodDeclaration) { # {{{
-			var node = location({
-				kind: NodeKind.MethodDeclaration
+		func MethodDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			typeParameters: Event<Event<NodeData(TypeParameter)>[]>?
+			parameters: Event<Event<NodeData(Parameter)>(Y)[]>(Y)
+			type: Event<NodeData(Type)>?
+			throws: Event<Event<NodeData(Identifier)>[]>?
+			body: Event<NodeData(Block, Expression, IfStatement, UnlessStatement)>?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(MethodDeclaration) { # {{{
+			return {
+				kind: .MethodDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?typeParameters
 				parameters: [parameter.value for var parameter in parameters.value]
-			}, first, last)
-
-			if type != null {
-				node.type = type.value
+				type: type.value if ?type
+				throws: ?throws ? [throw.value for var throw in throws.value]: []
+				body: body.value if ?body
+				start
+				end
 			}
-
-			if throws == null {
-				node.throws = []
-			}
-			else {
-				node.throws = [throw.value for var throw in throws.value]
-			}
-
-			if body != null {
-				node.body = body.value
-			}
-
-			return node
 		} # }}}
 
-		func Modifier(kind: ModifierKind, first, last? = null): ModifierData { # {{{
-			return location({
+		func Modifier(
+			kind: ModifierKind
+			{ start, end }: Range
+			last: Range? = null
+		): ModifierData { # {{{
+			return {
 				kind: kind
-			}, first, last)
+				start
+				end: last?.end ?? end
+			}!!
 		} # }}}
 
-		func Module(attributes, body, parser: Parser): NodeData(Module) { # {{{
-			return location({
-				kind: NodeKind.Module
+		func Module(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			body: NodeData(Statement)[]
+			parser: Parser
+		): NodeData(Module) { # {{{
+			return {
+				kind: .Module
 				attributes: [attribute.value for var attribute in attributes]
-				body: body,
+				body,
 				start: {
 					line: 1
 					column: 1
 				}
-			}, parser.position())
+				end: parser.position().end
+			}
 		} # }}}
 
-		func MutatorDeclaration(first): NodeData(MutatorDeclaration) { # {{{
-			return location({
-				kind: NodeKind.MutatorDeclaration
-			}, first)
+		func MutatorDeclaration(
+			{ start, end }: Range
+		): NodeData(MutatorDeclaration) { # {{{
+			return {
+				kind: .MutatorDeclaration
+				start
+				end
+			}
 		} # }}}
 
-		func MutatorDeclaration(body, first, last): NodeData(MutatorDeclaration) { # {{{
-			return location({
-				kind: NodeKind.MutatorDeclaration
+		func MutatorDeclaration(
+			body: Event<NodeData(Block, Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(MutatorDeclaration) { # {{{
+			return {
+				kind: .MutatorDeclaration
 				body: body.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func NamedArgument(modifiers, name, value, first, last): NodeData(NamedArgument) { # {{{
-			return location({
-				kind: NodeKind.NamedArgument
+		func NamedArgument(
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			value: Event<NodeData(Expression, PlaceholderArgument)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(NamedArgument) { # {{{
+			return {
+				kind: .NamedArgument
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				value: value.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func NamedSpecifier(internal): NodeData(NamedSpecifier) { # {{{
-			return location({
-				kind: NodeKind.NamedSpecifier
+		func NamedSpecifier(
+			{ value % internal, start, end }: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>(Y)
+		): NodeData(NamedSpecifier) { # {{{
+			return {
+				kind: .NamedSpecifier
 				modifiers: []
-				internal: internal.value
-			}, internal, internal)
+				internal
+				start
+				end
+			}
 		} # }}}
 
-		func NamedSpecifier(modifiers, internal, external?, first, last): NodeData(NamedSpecifier) { # {{{
-			return location({
-				kind: NodeKind.NamedSpecifier
+		func NamedSpecifier(
+			modifiers: Event<ModifierData>(Y)[]
+			internal: Event<NodeData(Identifier, MemberExpression, ArrayBinding, ObjectBinding)>(Y)
+			external: Event<NodeData(Identifier)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(NamedSpecifier) { # {{{
+			return {
+				kind: .NamedSpecifier
 				modifiers: [modifier.value for var modifier in modifiers]
 				internal: internal.value
 				external: external.value if ?external
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func NamespaceDeclaration(attributes, modifiers, name, statements, first, last): NodeData(NamespaceDeclaration) { # {{{
-			return location({
-				kind: NodeKind.NamespaceDeclaration
+		func NamespaceDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			statements: Event<NodeData(Statement)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(NamespaceDeclaration) { # {{{
+			return {
+				kind: .NamespaceDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				statements: [statement.value for var statement in statements]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func NumericExpression(value, radix, first): NodeData(NumericExpression) { # {{{
-			return location({
-				kind: NodeKind.NumericExpression
+		func NumericExpression(
+			value: Number
+			radix: Number
+			{ start, end }: Range
+		): NodeData(NumericExpression) { # {{{
+			return {
+				kind: .NumericExpression
 				modifiers: []
 				value
 				radix
-			}, first)
+				start
+				end
+			}
 		} # }}}
 
-		func ObjectBinding(elements, first, last): NodeData(ObjectBinding) { # {{{
-			return location({
-				kind: NodeKind.ObjectBinding
+		func ObjectBinding(
+			elements: Event<NodeData(BindingElement)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ObjectBinding) { # {{{
+			return {
+				kind: .ObjectBinding
 				elements: [element.value for var element in elements]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ObjectBindingElement(modifiers, external?, internal?, type?, operator?, defaultValue?, first, last): NodeData(BindingElement) { # {{{
-			return location({
-				kind: NodeKind.BindingElement
+		func ObjectBindingElement(
+			modifiers: ModifierData[]
+			external: Event<NodeData(Identifier)>(Y)?
+			internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>(Y)?
+			type: Event<NodeData(Type)>(Y)?
+			operator: Event<BinaryOperatorData(Assignment)>(Y)?
+			defaultValue: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(BindingElement) { # {{{
+			return {
+				kind: .BindingElement
 				modifiers
 				external: external.value if ?external
 				internal: internal.value if ?internal
 				type: type.value if ?type
 				operator: operator.value if ?operator
 				defaultValue: defaultValue.value if ?defaultValue
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ObjectExpression(attributes, properties, first, last): NodeData(ObjectExpression) { # {{{
-			return location({
-				kind: NodeKind.ObjectExpression
+		func ObjectExpression(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			properties: Event<NodeData(Expression)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ObjectExpression) { # {{{
+			return {
+				kind: .ObjectExpression
 				modifiers: []
 				attributes: [attribute.value for var attribute in attributes]
 				properties: [property.value for var property in properties]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ObjectMember(attributes, modifiers, name?, type?, value?, first, last): NodeData(ObjectMember) { # {{{
-			var node = location({
-				kind: NodeKind.ObjectMember
+		func ObjectMember(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier, ComputedPropertyName, Literal, TemplateExpression)>(Y)?
+			type: Event<NodeData(Type)>(Y)?
+			value: Event<NodeData(Expression, MatchConditionRange)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ObjectMember) { # {{{
+			return {
+				kind: .ObjectMember
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
-			}, first, last)
-
-			if name != null {
-				node.name = name.value
+				name: name.value if ?name
+				type: type.value if ?type
+				value: value.value if ?value
+				start
+				end
 			}
-			if type != null {
-				node.type = type.value
-			}
-			if value != null {
-				node.value = value.value
-			}
-
-			return node
 		} # }}}
 
-		func ObjectType(modifiers, properties, rest?, first, last): NodeData(ObjectType) { # {{{
-			var node = location({
-				kind: NodeKind.ObjectType
+		func ObjectType(
+			modifiers: Event<ModifierData>(Y)[]
+			properties: Event<NodeData(PropertyType)>(Y)[]
+			rest: Event<NodeData(PropertyType)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ObjectType) { # {{{
+			return {
+				kind: .ObjectType
 				modifiers: [modifier.value for var modifier in modifiers]
 				properties: [property.value for var property in properties]
-			}, first, last)
-
-			if rest != null {
-				node.rest = rest.value
+				rest: rest.value if ?rest
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func OmittedExpression(modifiers, first): NodeData(OmittedExpression) { # {{{
-			var node = location({
-				kind: NodeKind.OmittedExpression
+		func OmittedExpression(
+			modifiers: ModifierData[]
+			{ start, end }: Range
+		): NodeData(OmittedExpression) { # {{{
+			return {
+				kind: .OmittedExpression
 				modifiers
-			}, first, first)
-
-			return node
+				start
+				end
+			}
 		} # }}}
 
-		func OmittedReference(first): NodeData(TypeReference) { # {{{
-			return location({
-				kind: NodeKind.TypeReference
+		func OmittedReference(
+			{ start, end }: Range
+		): NodeData(TypeReference) { # {{{
+			return {
+				kind: .TypeReference
 				modifiers: []
-			}, first, first)
+				start
+				end
+			}
 		} # }}}
 
-		func PassStatement(first): NodeData(PassStatement) { # {{{
-			return location({
-				kind: NodeKind.PassStatement
+		func PassStatement(
+			{ start, end }: Range
+		): NodeData(PassStatement) { # {{{
+			return {
+				kind: .PassStatement
 				attributes: []
-			}, first, first)
+				start
+				end
+			}
 		} # }}}
 
-		func Parameter(name): NodeData(Parameter) { # {{{
-			return location({
-				kind: NodeKind.Parameter
+		func Parameter(
+			{ value, start, end }
+		): NodeData(Parameter) { # {{{
+			return {
+				kind: .Parameter
 				attributes: []
 				modifiers: []
-				internal: name.value
-				external: name.value
-			}, name, name)
+				internal: value
+				external: value
+				start
+				end
+			}
 		} # }}}
 
-		func Parameter(attributes, modifiers, external?, internal?, type?, operator?, defaultValue?, first, last): NodeData(Parameter) { # {{{
-			return location({
-				kind: NodeKind.Parameter
+		func Parameter(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: ModifierData[]
+			external: Event<NodeData(Identifier)>(Y)?
+			internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>(Y)?
+			type: Event<NodeData(Type)>(Y)?
+			operator: Event<BinaryOperatorData(Assignment)>(Y)?
+			defaultValue: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(Parameter) { # {{{
+			return {
+				kind: .Parameter
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers
 				external: external.value if ?external
@@ -1425,596 +2054,979 @@ namespace AST {
 				type: type.value if ?type
 				operator: operator.value if ?operator
 				defaultValue: defaultValue.value if ?defaultValue
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func PlaceholderArgument(modifiers, index?, first, last): NodeData(PlaceholderArgument) { # {{{
-			return location({
-				kind: NodeKind.PlaceholderArgument
+		func PlaceholderArgument(
+			modifiers: Event<ModifierData>(Y)[]
+			index: Event<NodeData(NumericExpression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(PlaceholderArgument) { # {{{
+			return {
+				kind: .PlaceholderArgument
 				modifiers: [modifier.value for var modifier in modifiers]
 				index: index.value if ?index
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func PositionalArgument(modifiers, value, first, last): NodeData(PositionalArgument) { # {{{
-			return location({
-				kind: NodeKind.PositionalArgument
+		func PositionalArgument(
+			modifiers: Event<ModifierData>(Y)[]
+			value: Event<NodeData(Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(PositionalArgument) { # {{{
+			return {
+				kind: .PositionalArgument
 				modifiers: [modifier.value for var modifier in modifiers]
 				value: value.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func PropertiesSpecifier(modifiers, object, properties, first, last): NodeData(PropertiesSpecifier) { # {{{
-			return location({
-				kind: NodeKind.PropertiesSpecifier
+		func PropertiesSpecifier(
+			modifiers: Event<ModifierData>(Y)[]
+			object: Event<NodeData(Identifier, MemberExpression)>(Y)
+			properties: Event<NodeData(NamedSpecifier)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(PropertiesSpecifier) { # {{{
+			return {
+				kind: .PropertiesSpecifier
 				modifiers: [modifier.value for var modifier in modifiers]
 				object: object.value
 				properties: [property.value for var property in properties]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func PropertyDeclaration(attributes, modifiers, name, type?, defaultValue?, accessor?, mutator?, first, last): NodeData(PropertyDeclaration) { # {{{
-			var node = location({
-				kind: NodeKind.PropertyDeclaration
+		func PropertyDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			type: Event<NodeData(Type)>?
+			defaultValue: Event<NodeData(Expression)>(Y)?
+			accessor: Event<NodeData(AccessorDeclaration)>(Y)?
+			mutator: Event<NodeData(MutatorDeclaration)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(PropertyDeclaration) { # {{{
+			return {
+				kind: .PropertyDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
-			}, first, last)
-
-			if type != null && type.ok {
-				node.type = type.value
+				type: type.value if ?type && type.ok
+				defaultValue: defaultValue.value if ?defaultValue
+				accessor: accessor.value if ?accessor
+				mutator: mutator.value if ?mutator
+				start
+				end
 			}
-			if defaultValue != null {
-				node.defaultValue = defaultValue.value
-			}
-			if accessor != null {
-				node.accessor = accessor.value
-			}
-			if mutator != null {
-				node.mutator = mutator.value
-			}
-
-			return node
 		} # }}}
 
-		func PropertyType(modifiers, name?, type?, first, last): NodeData(PropertyType) { # {{{
-			var node = location({
-				kind: NodeKind.PropertyType
+		func PropertyType(
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)?
+			type: Event<NodeData(Type)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(PropertyType) { # {{{
+			return {
+				kind: .PropertyType
 				modifiers: [modifier.value for var modifier in modifiers]
-			}, first, last)
-
-			if name != null {
-				node.name = name.value
+				name: name.value if ?name
+				type: type.value if ?type
+				start
+				end
 			}
-			if type != null {
-				node.type = type.value
-			}
-
-			return node
 		} # }}}
 
-		func ProxyDeclaration(attributes, modifiers, internal, external, first, last): NodeData(ProxyDeclaration) { # {{{
-			return location({
-				kind: NodeKind.ProxyDeclaration
+		func ProxyDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			internal: Event<NodeData(Identifier)>(Y)
+			external: Event<NodeData(Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ProxyDeclaration) { # {{{
+			return {
+				kind: .ProxyDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				internal: internal.value
 				external: external.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ProxyGroupDeclaration(attributes, modifiers, recipient, elements, first, last): NodeData(ProxyGroupDeclaration) { # {{{
-			return location({
-				kind: NodeKind.ProxyGroupDeclaration
+		func ProxyGroupDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			recipient: Event<NodeData(Expression)>(Y)
+			elements: Event<NodeData(ProxyDeclaration)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ProxyGroupDeclaration) { # {{{
+			return {
+				kind: .ProxyGroupDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				recipient: recipient.value
 				elements: [element.value for var element in elements]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func Reference(name: String, first): NodeData(Reference) { # {{{
-			return location({
-				kind: NodeKind.Reference
+		func Reference(
+			name: String
+			{ start, end }: Range
+		): NodeData(Reference) { # {{{
+			return {
+				kind: .Reference
 				name
-			}, first)
+				start
+				end
+			}
 		} # }}}
 
-		func RegularExpression(value, first): NodeData(RegularExpression) { # {{{
-			return location({
-				kind: NodeKind.RegularExpression
+		func RegularExpression(
+			value: String
+			{ start, end }: Range
+		): NodeData(RegularExpression) { # {{{
+			return {
+				kind: .RegularExpression
 				modifiers: []
-				value: value
-			}, first)
+				value
+				start
+				end
+			}
 		} # }}}
 
-		func Reification(kind: ReificationKind, first: Event, last: Event? = null): ReificationData { # {{{
-			return location({
+		func Reification(
+			kind: ReificationKind
+			{ start, end }: Range
+		): ReificationData { # {{{
+			return {
 				kind: kind
-			}, first, last)
+				start
+				end
+			}!!
 		} # }}}
 
-		func RepeatStatement(expression?, body?, first, last): NodeData(RepeatStatement) { # {{{
-			return location({
-				kind: NodeKind.RepeatStatement
+		func RepeatStatement(
+			expression: Event<NodeData(Expression)>(Y)?
+			body: Event<NodeData(Block, ExpressionStatement)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(RepeatStatement) { # {{{
+			return {
+				kind: .RepeatStatement
 				attributes: []
 				expression: expression.value if ?expression
 				body: body.value if ?body
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func RequireDeclaration(attributes, declarations, first, last): NodeData(RequireDeclaration) { # {{{
-			return location({
-				kind: NodeKind.RequireDeclaration
+		func RequireDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			declarations: Event<NodeData(DescriptiveType)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(RequireDeclaration) { # {{{
+			return {
+				kind: .RequireDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				declarations: [declarator.value for var declarator in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func RequireOrExternDeclaration(attributes, declarations, first, last): NodeData(RequireOrExternDeclaration) { # {{{
-			return location({
-				kind: NodeKind.RequireOrExternDeclaration
+		func RequireOrExternDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			declarations: Event<NodeData(DescriptiveType)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(RequireOrExternDeclaration) { # {{{
+			return {
+				kind: .RequireOrExternDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				declarations: [declarator.value for var declarator in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func RequireOrImportDeclaration(attributes, declarations, first, last): NodeData(RequireOrImportDeclaration) { # {{{
-			return location({
-				kind: NodeKind.RequireOrImportDeclaration
+		func RequireOrImportDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			declarations: Event<NodeData(ImportDeclarator)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(RequireOrImportDeclaration) { # {{{
+			return {
+				kind: .RequireOrImportDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				declarations: [declaration.value for var declaration in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func RestModifier(min, max, first, last): ModifierData(Rest) { # {{{
-			return location({
-				kind: ModifierKind.Rest
+		func RestModifier(
+			min: Number
+			max: Number
+			{ start }: Range
+			{ end }: Range
+		): ModifierData(Rest) { # {{{
+			return {
+				kind: .Rest
 				arity: {
 					min: min
 					max: max
 				}
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func RestrictiveExpression(operator: Event, condition: Event, expression: Event, first, last): NodeData(RestrictiveExpression) { # {{{
-			return location({
-				kind: NodeKind.RestrictiveExpression
+		func RestrictiveExpression(
+			operator: Event<RestrictiveOperatorData>(Y)
+			condition: Event<NodeData(Expression)>(Y)
+			expression: Event<NodeData(Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(RestrictiveExpression) { # {{{
+			return {
+				kind: .RestrictiveExpression
 				operator: operator.value
 				condition: condition.value
 				expression: expression.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func RestrictiveOperator(operator: RestrictiveOperatorKind, first): RestrictiveOperatorData { # {{{
-			return location({
+		func RestrictiveOperator(
+			operator: RestrictiveOperatorKind
+			{ start, end }: Range
+		): RestrictiveOperatorData { # {{{
+			return {
 				kind: operator
 				modifiers: []
-			}, first)
+				start
+				end
+			}!!
 		} # }}}
 
-		func ReturnStatement(first): NodeData(ReturnStatement) { # {{{
-			return location({
-				kind: NodeKind.ReturnStatement
+		func ReturnStatement(
+			{ start, end }: Range
+		): NodeData(ReturnStatement) { # {{{
+			return {
+				kind: .ReturnStatement
 				attributes: []
-			}, first, first)
+				start
+				end
+			}
 		} # }}}
 
-		func ReturnStatement(value, first, last): NodeData(ReturnStatement) { # {{{
-			return location({
-				kind: NodeKind.ReturnStatement
+		func ReturnStatement(
+			value: Event<NodeData(Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ReturnStatement) { # {{{
+			return {
+				kind: .ReturnStatement
 				attributes: []
 				value: value.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func RollingExpression(modifiers, object, expressions, first, last): NodeData(RollingExpression) { # {{{
-			return location({
-				kind: NodeKind.RollingExpression
+		func RollingExpression(
+			modifiers: ModifierData[]
+			object: Event<NodeData(Expression)>(Y)
+			expressions: Event<NodeData(Expression)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(RollingExpression) { # {{{
+			return {
+				kind: .RollingExpression
 				modifiers
 				object: object.value
 				expressions: [expression.value for var expression in expressions]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func Scope(scope: ScopeKind): ScopeData { # {{{
+		func Scope(
+			scope: ScopeKind
+		): ScopeData { # {{{
 			return {
 				kind: scope
 			}
 		} # }}}
 
-		func Scope(scope: ScopeKind, value): ScopeData { # {{{
+		func Scope(
+			scope: ScopeKind
+			value: Event<NodeData(Identifier, ObjectExpression)>(Y)
+		): ScopeData { # {{{
 			return {
 				kind: scope
 				value: value.value
 			}
 		} # }}}
 
-		func SequenceExpression(expressions, first, last): NodeData(SequenceExpression) { # {{{
-			return location({
-				kind: NodeKind.SequenceExpression
+		func SequenceExpression(
+			expressions: Event<NodeData(Expression)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(SequenceExpression) { # {{{
+			return {
+				kind: .SequenceExpression
 				modifiers: []
 				expressions: [expression.value for var expression in expressions]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func SetStatement(first): NodeData(SetStatement) { # {{{
-			return location({
-				kind: NodeKind.SetStatement
+		func SetStatement(
+			{ start, end }: Range
+		): NodeData(SetStatement) { # {{{
+			return {
+				kind: .SetStatement
 				attributes: []
-			}, first, first)
+				start
+				end
+			}
 		} # }}}
 
-		func SetStatement(value, first, last): NodeData(SetStatement) { # {{{
-			return location({
-				kind: NodeKind.SetStatement
+		func SetStatement(
+			value: Event<NodeData(Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(SetStatement) { # {{{
+			return {
+				kind: .SetStatement
 				attributes: []
 				value: value.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ShebangDeclaration(command, first, last): NodeData(ShebangDeclaration) { # {{{
-			return location({
-				kind: NodeKind.ShebangDeclaration
+		func ShebangDeclaration(
+			command: String
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ShebangDeclaration) { # {{{
+			return {
+				kind: .ShebangDeclaration
 				command
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ShorthandProperty(attributes, name, first, last): NodeData(ShorthandProperty) { # {{{
-			return location({
-				kind: NodeKind.ShorthandProperty
+		func ShorthandProperty(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			name: Event<NodeData(Identifier, ComputedPropertyName, Literal, TemplateExpression, ThisExpression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ShorthandProperty) { # {{{
+			return {
+				kind: .ShorthandProperty
 				attributes: [attribute.value for var attribute in attributes]
 				name: name.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func SpreadExpression(modifiers, operand, members, first, last): NodeData(SpreadExpression) { # {{{
-			return location({
-				kind: NodeKind.SpreadExpression
+		func SpreadExpression(
+			modifiers: Event<ModifierData>(Y)[]
+			operand: Event<NodeData(Expression)>(Y)
+			members: Event<NodeData(NamedSpecifier)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(SpreadExpression) { # {{{
+			return {
+				kind: .SpreadExpression
 				attributes: []
 				modifiers: [modifier.value for var modifier in modifiers]
 				operand: operand.value
 				members: [member.value for var member in members]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func StructDeclaration(attributes, modifiers, name, extends?, implements, fields, first, last): NodeData(StructDeclaration) { # {{{
-			return location({
-				kind: NodeKind.StructDeclaration
+		func StructDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			extends: Event<NodeData(TypeReference)>(Y)?
+			implements: Event<NodeData(Identifier, MemberExpression)>(Y)[]
+			fields: NodeData(StructField)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(StructDeclaration) { # {{{
+			return {
+				kind: .StructDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				extends: extends.value if ?extends
 				implements: [implement.value for var implement in implements] if ?#implements
 				fields
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func StructField(attributes, modifiers, name, type?, defaultValue?, first, last): NodeData(StructField) { # {{{
-			var node = location({
-				kind: NodeKind.StructField
+		func StructField(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>
+			type: Event<NodeData(Type)>(Y)?
+			defaultValue: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(StructField) { # {{{
+			return {
+				kind: .StructField
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
-			}, first, last)
-
-			if ?type {
-				node.type = type.value
+				type: type.value if ?type
+				defaultValue: defaultValue.value if ?defaultValue
+				start
+				end
 			}
-
-			if ?defaultValue {
-				node.defaultValue = defaultValue.value
-			}
-
-			return node
 		} # }}}
 
-		func TaggedTemplateExpression(tag, template, first, last): NodeData(TaggedTemplateExpression) { # {{{
-			return location({
-				kind: NodeKind.TaggedTemplateExpression
+		func TaggedTemplateExpression(
+			tag: Event<NodeData(Expression)>
+			template: Event<NodeData(TemplateExpression)>
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TaggedTemplateExpression) { # {{{
+			return {
+				kind: .TaggedTemplateExpression
 				tag: tag.value
 				template: template.value
-			}, first, last)
-		} # }}}
-
-		func TemplateExpression(modifiers?, elements, first, last?): NodeData(TemplateExpression) { # {{{
-			var node = location({
-				kind: NodeKind.TemplateExpression
-				modifiers: []
-				elements: [element.value for var element in elements]
-			}, first, last)
-
-			if modifiers != null {
-				node.modifiers = [modifier.value for var modifier in modifiers]
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func ThisExpression(name, first, last): NodeData(ThisExpression) { # {{{
-			return location({
-				kind: NodeKind.ThisExpression
+		func TemplateExpression(
+			modifiers: Event<ModifierData>(Y)[]?
+			elements: Event<NodeData(Expression)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TemplateExpression) { # {{{
+			return {
+				kind: .TemplateExpression
+				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
+				elements: [element.value for var element in elements]
+				start
+				end
+			}
+		} # }}}
+
+		func ThisExpression(
+			name: Event<NodeData(Identifier)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ThisExpression) { # {{{
+			return {
+				kind: .ThisExpression
 				modifiers: []
 				name: name.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func ThrowStatement(first): NodeData(ThrowStatement) { # {{{
-			return location({
-				kind: NodeKind.ThrowStatement
+		func ThrowStatement(
+			{ start, end }: Range
+		): NodeData(ThrowStatement) { # {{{
+			return {
+				kind: .ThrowStatement
 				attributes: []
-			}, first)
+				start
+				end
+			}
 		} # }}}
 
-		func ThrowStatement(value, first, last): NodeData(ThrowStatement) { # {{{
-			return location({
-				kind: NodeKind.ThrowStatement
+		func ThrowStatement(
+			value: Event<NodeData(Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ThrowStatement) { # {{{
+			return {
+				kind: .ThrowStatement
 				attributes: []
 				value: value.value
-			}, first, last)
-		} # }}}
-
-		func TopicReference(modifiers = [], first): NodeData(TopicReference) { # {{{
-			return location({
-				kind: NodeKind.TopicReference
-				modifiers
-			}, first)
-		} # }}}
-
-		func TryExpression(modifiers, operand, defaultValue?, first, last): NodeData(TryExpression) { # {{{
-			var node = location({
-				kind: NodeKind.TryExpression
-				modifiers
-				argument: operand.value
-			}, first, last)
-
-			if defaultValue != null {
-				node.defaultValue = defaultValue.value
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func TryStatement(body, catchClauses, catchClause?, finalizer?, first, last): NodeData(TryStatement) { # {{{
-			var node = location({
-				kind: NodeKind.TryStatement
+		func TopicReference(
+			modifiers: ModifierData[] = []
+			{ start, end }: Range
+		): NodeData(TopicReference) { # {{{
+			return {
+				kind: .TopicReference
+				modifiers
+				start
+				end
+			}
+		} # }}}
+
+		func TryExpression(
+			modifiers: ModifierData[]
+			argument: Event<NodeData(Expression)>(Y)
+			defaultValue: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TryExpression) { # {{{
+			return {
+				kind: .TryExpression
+				modifiers
+				argument: argument.value
+				defaultValue: defaultValue.value if ?defaultValue
+				start
+				end
+			}
+		} # }}}
+
+		func TryStatement(
+			body: Event<NodeData(Block)>(Y)
+			catchClauses: Event<NodeData(CatchClause)>(Y)[]
+			catchClause: Event<NodeData(CatchClause)>(Y)?
+			finalizer: Event<NodeData(Block)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TryStatement) { # {{{
+			return {
+				kind: .TryStatement
 				attributes: []
 				body: body.value
 				catchClauses: [clause.value for var clause in catchClauses]
-			}, first, last)
-
-			if catchClause != null {
-				node.catchClause = catchClause.value
+				catchClause: catchClause.value if ?catchClause
+				finalizer: finalizer.value if ?finalizer
+				start
+				end
 			}
-			if finalizer != null {
-				node.finalizer = finalizer.value
-			}
-
-			return node
 		} # }}}
 
-		func TupleDeclaration(attributes, modifiers, name, extends?, implements, fields, first, last): NodeData(TupleDeclaration) { # {{{
-			return location({
-				kind: NodeKind.TupleDeclaration
+		func TupleDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			extends: Event<NodeData(Identifier)>(Y)?
+			implements: Event<NodeData(Identifier, MemberExpression)>(Y)[]
+			fields: NodeData(TupleField)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TupleDeclaration) { # {{{
+			return {
+				kind: .TupleDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				extends: extends.value if ?extends
 				implements: [implement.value for var implement in implements] if ?#implements
 				fields
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func TupleField(attributes, modifiers, name?, type?, defaultValue?, first, last): NodeData(TupleField) { # {{{
-			return location({
-				kind: NodeKind.TupleField
+		func TupleField(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)?
+			type: Event<NodeData(Type)>(Y)?
+			defaultValue: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TupleField) { # {{{
+			return {
+				kind: .TupleField
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value if ?name
 				type: type.value if ?type
 				defaultValue: defaultValue.value if ?defaultValue
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func TypeParameter(name, constraint?, first, last): NodeData(TypeParameter) { # {{{
-			return location({
-				kind: NodeKind.TypeParameter
+		func TypedSpecifier(
+			type: Event<NodeData(DescriptiveType)>(Y)
+			{ start, end }: Range
+		): NodeData(TypedSpecifier) { # {{{
+			return {
+				kind: .TypedSpecifier
+				type: type.value
+				start
+				end
+			}
+		} # }}}
+
+		func TypeAliasDeclaration(
+			name: Event<NodeData(Identifier)>(Y)
+			parameters: Event<Event<NodeData(TypeParameter)>[]>?
+			type: Event<NodeData(Type)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TypeAliasDeclaration) { # {{{
+			return {
+				kind: .TypeAliasDeclaration
+				attributes: []
+				name: name.value
+				typeParameters: [parameter.value for var parameter in parameters.value] if ?parameters
+				type: type.value
+				start
+				end
+			}
+		} # }}}
+
+		func TypeList(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			types: Event<NodeData(DescriptiveType)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TypeList) { # {{{
+			return {
+				kind: .TypeList
+				attributes: [attribute.value for var attribute in attributes]
+				types: [type.value for var type in types]
+				start
+				end
+			}
+		} # }}}
+
+		func TypeParameter(
+			name: Event<NodeData(Identifier)>(Y)
+			constraint: Event<NodeData(Type)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TypeParameter) { # {{{
+			return {
+				kind: .TypeParameter
 				modifiers: []
 				name: name.value
 				constraint: constraint.value if ?constraint
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func TypeReference(name): NodeData(TypeReference) { # {{{
-			return location({
-				kind: NodeKind.TypeReference
+		func TypeReference(
+			{ value % typeName, start, end }: Event<NodeData(Identifier, MemberExpression, UnaryExpression)>(Y)
+		): NodeData(TypeReference) { # {{{
+			return {
+				kind: .TypeReference
 				modifiers: []
-				typeName: name.value
-			}, name)
+				typeName
+				start
+				end
+			}
 		} # }}}
 
-		func TypeReference(modifiers, name, parameters?, typeSubtypes?, first, last): NodeData(TypeReference) { # {{{
-			return location({
-				kind: NodeKind.TypeReference
+		func TypeReference(
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier, MemberExpression, UnaryExpression)>(Y)
+			parameters: Event<Event<NodeData(Type)>(Y)[]>(Y)?
+			typeSubtypes: Event<Event<NodeData(Identifier)>(Y)[]>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TypeReference) { # {{{
+			return {
+				kind: .TypeReference
 				modifiers: [modifier.value for var modifier in modifiers]
 				typeName: name.value
 				typeParameters: [parameter.value for var parameter in parameters.value] if ?parameters
 				typeSubtypes: [typeSubtype.value for var typeSubtype in typeSubtypes.value] if ?typeSubtypes
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func TypeAliasDeclaration(name, parameters?, type, first, last): NodeData(TypeAliasDeclaration) { # {{{
-			return location({
-				kind: NodeKind.TypeAliasDeclaration
-				attributes: []
-				name: name.value
-				typeParameters: [parameter.value for var parameter in parameters.value] if ?parameters
-				type: type.value
-			}, first, last)
-		} # }}}
-
-		func TypeList(attributes, types, first, last): NodeData(TypeList) { # {{{
-			return location({
-				kind: NodeKind.TypeList
-				attributes: [attribute.value for var attribute in attributes]
-				types: [type.value for var type in types]
-			}, first, last)
-		} # }}}
-
-		func TypedSpecifier(type, first): NodeData(TypedSpecifier) { # {{{
-			return location({
-				kind: NodeKind.TypedSpecifier
-				type: type.value
-			}, first)
-		} # }}}
-
-		func UnaryExpression(modifiers, operator, operand, first, last): NodeData(UnaryExpression) { # {{{
-			return location({
-				kind: NodeKind.UnaryExpression
+		func UnaryExpression(
+			modifiers: Event<ModifierData>(Y)[]
+			operator: Event<UnaryOperatorData>(Y)
+			argument: Event<NodeData(Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(UnaryExpression) { # {{{
+			return {
+				kind: .UnaryExpression
 				modifiers: [modifier.value for var modifier in modifiers]
 				operator: operator.value
-				argument: operand.value
-			}, first, last)
+				argument: argument.value
+				start
+				end
+			}
 		} # }}}
 
-		func UnaryOperator(operator: UnaryOperatorKind, first): UnaryOperatorData { # {{{
-			return location({
+		func UnaryOperator(
+			operator: UnaryOperatorKind
+			{ start, end }: Range
+		): UnaryOperatorData { # {{{
+			return {
 				kind: operator
-			}, first)
+				start
+				end
+			}!!
 		} # }}}
 
-		func UnaryTypeExpression(modifiers, operator, operand, first, last): NodeData(UnaryTypeExpression) { # {{{
-			return location({
-				kind: NodeKind.UnaryTypeExpression
+		func UnaryTypeExpression(
+			modifiers: Event<ModifierData>(Y)[]
+			operator: Event<UnaryTypeOperatorData>(Y)
+			argument: Event<NodeData(Type, Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(UnaryTypeExpression) { # {{{
+			return {
+				kind: .UnaryTypeExpression
 				modifiers: [modifier.value for var modifier in modifiers]
 				operator: operator.value
-				argument: operand.value
-			}, first, last)
+				argument: argument.value
+				start
+				end
+			}
 		} # }}}
 
-		func UnaryTypeOperator(operator: UnaryTypeOperatorKind, first): UnaryTypeOperatorData { # {{{
-			return location({
+		func UnaryTypeOperator(
+			operator: UnaryTypeOperatorKind
+			{ start, end }: Range
+		): UnaryTypeOperatorData { # {{{
+			return {
 				kind: operator
-			}, first)
+				start
+				end
+			}!!
 		} # }}}
 
-		func UnionType(types, first, last): NodeData(UnionType) { # {{{
-			return location({
-				kind: NodeKind.UnionType
+		func UnionType(
+			types: Event<NodeData(Type)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(UnionType) { # {{{
+			return {
+				kind: .UnionType
 				types: [type.value for var type in types]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func UnlessStatement(condition, whenFalse, first, last): NodeData(UnlessStatement) { # {{{
-			return location({
-				kind: NodeKind.UnlessStatement
+		func UnlessStatement(
+			condition: Event<NodeData(Expression)>(Y)
+			whenFalse: Event<NodeData(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(UnlessStatement) { # {{{
+			return {
+				kind: .UnlessStatement
 				attributes: []
 				condition: condition.value
 				whenFalse: whenFalse.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func UntilStatement(condition, body, first, last): NodeData(UntilStatement) { # {{{
-			return location({
-				kind: NodeKind.UntilStatement
+		func UntilStatement(
+			condition: Event<NodeData(Expression)>(Y)
+			body: Event<NodeData(Block, Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(UntilStatement) { # {{{
+			return {
+				kind: .UntilStatement
 				attributes: []
 				condition: condition.value
 				body: body.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func VariableDeclaration(attributes, modifiers, variables, operator?, value?, first, last): NodeData(VariableDeclaration) { # {{{
-			var node = location({
-				kind: NodeKind.VariableDeclaration
+		func VariableDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			variables: Event<NodeData(VariableDeclarator)>(Y)[]
+			operator: Event<BinaryOperatorData(Assignment)>(Y)?
+			value: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(VariableDeclaration) { # {{{
+			return {
+				kind: .VariableDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				variables: [variable.value for var variable in variables]
-			}, first, last)
-
-			if operator != null {
-				node.operator = operator.value
+				operator: operator.value if ?operator
+				value: value.value if ?value
+				start
+				end
 			}
-			if value != null {
-				node.value = value.value
-			}
-
-			return node
 		} # }}}
 
-		func VariableDeclarator(modifiers, name, type?, first, last): NodeData(VariableDeclarator) { # {{{
-			var node = location({
-				kind: NodeKind.VariableDeclarator
+		func VariableDeclarator(
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>(Y)
+			type: Event<NodeData(Type)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(VariableDeclarator) { # {{{
+			return {
+				kind: .VariableDeclarator
 				attributes: []
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
-			}, first, last)
-
-			if type != null {
-				node.type = type.value
+				type: type.value if ?type
+				start
+				end
 			}
-
-			return node
 		} # }}}
 
-		func VariableStatement(attributes, modifiers, declarations, first, last): NodeData(VariableStatement) { # {{{
-			return location({
-				kind: NodeKind.VariableStatement
+		func VariableStatement(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			declarations: Event<NodeData(VariableDeclaration)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(VariableStatement) { # {{{
+			return {
+				kind: .VariableStatement
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				declarations: [declaration.value for var declaration in declarations]
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func VariantDeclaration(attributes, modifiers, name, fields, first, last): NodeData(VariantDeclaration) { # {{{
-			return location({
-				kind: NodeKind.VariantDeclaration
+		func VariantDeclaration(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			fields: NodeData(VariantField)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(VariantDeclaration) { # {{{
+			return {
+				kind: .VariantDeclaration
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				fields
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func VariantField(names, type?, first, last): NodeData(VariantField) { # {{{
-			return location({
-				kind: NodeKind.VariantField
+		func VariantField(
+			names: Event<NodeData(Identifier)>(Y)[]
+			type: Event<NodeData(Type)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(VariantField) { # {{{
+			return {
+				kind: .VariantField
 				attributes: []
 				modifiers: []
 				names: [name.value for var name in names]
 				type: type.value if ?type
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func VariantType(master, properties, first, last): NodeData(VariantType) { # {{{
-			return location({
+		func VariantType(
+			master: Event<NodeData(TypeReference)>(Y)
+			properties: NodeData(VariantField)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(VariantType) { # {{{
+			return {
 				kind: NodeKind.VariantType
 				master: master.value
 				properties
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func WhileStatement(condition, body, first, last): NodeData(WhileStatement) { # {{{
-			return location({
-				kind: NodeKind.WhileStatement
+		func Version(
+			major: String
+			minor: String = '0'
+			patch: String = '0'
+			{ start, end }: Range
+		): VersionData { # {{{
+			return {
+				major
+				minor
+				patch
+				start
+				end
+			}
+		} # }}}
+
+		func WhileStatement(
+			condition: Event<NodeData(Expression, VariableDeclaration)>(Y)
+			body: Event<NodeData(Block, Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(WhileStatement) { # {{{
+			return {
+				kind: .WhileStatement
 				attributes: []
 				condition: condition.value
 				body: body.value
-			}, first, last)
+				start
+				end
+			}
 		} # }}}
 
-		func WithStatement(variables, body, finalizer?, first, last): NodeData(WithStatement) { # {{{
-			var node = location({
-				kind: NodeKind.WithStatement
+		func WithStatement(
+			variables: Event<NodeData(BinaryExpression, VariableDeclaration)>(Y)[]
+			body: Event<NodeData(Block)>(Y)
+			finalizer: Event<NodeData(Block)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(WithStatement) { # {{{
+			return {
+				kind: .WithStatement
 				attributes: []
 				variables: [variable.value for var variable in variables]
 				body: body.value
-			}, first, last)
-
-			if finalizer != null {
-				node.finalizer = finalizer.value
+				finalizer: finalizer.value if ?finalizer
+				start
+				end
 			}
-
-			return node
 		} # }}}
 	}
 }

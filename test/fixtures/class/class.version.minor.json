@@ -22,7 +22,7 @@
       "version": {
         "major": "1",
         "minor": "0",
-        "patch": 0,
+        "patch": "0",
         "start": {
           "line": 1,
           "column": 17
@@ -62,14 +62,6 @@
               "column": 14
             }
           },
-          "start": {
-            "line": 2,
-            "column": 2
-          },
-          "end": {
-            "line": 2,
-            "column": 22
-          },
           "type": {
             "kind": 123,
             "modifiers": [],
@@ -94,6 +86,14 @@
               "line": 2,
               "column": 22
             }
+          },
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 2,
+            "column": 22
           }
         },
         {
@@ -191,6 +191,7 @@
               }
             }
           ],
+          "throws": [],
           "start": {
             "line": 3,
             "column": 2
@@ -198,8 +199,7 @@
           "end": {
             "line": 3,
             "column": 31
-          },
-          "throws": []
+          }
         },
         {
           "kind": 69,
@@ -259,14 +259,6 @@
               }
             }
           ],
-          "start": {
-            "line": 5,
-            "column": 2
-          },
-          "end": {
-            "line": 7,
-            "column": 3
-          },
           "throws": [],
           "body": {
             "kind": 14,
@@ -358,6 +350,14 @@
               "line": 7,
               "column": 3
             }
+          },
+          "start": {
+            "line": 5,
+            "column": 2
+          },
+          "end": {
+            "line": 7,
+            "column": 3
           }
         }
       ],
