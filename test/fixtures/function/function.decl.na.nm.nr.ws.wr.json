@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foo",
         "start": {
@@ -18,16 +19,7 @@
           "column": 9
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 5,
-        "column": 2
-      },
       "parameters": [],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
@@ -60,7 +52,7 @@
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "bar",
                       "start": {
@@ -82,16 +74,8 @@
                     }
                   }
                 ],
-                "start": {
-                  "line": 2,
-                  "column": 2
-                },
-                "end": {
-                  "line": 2,
-                  "column": 23
-                },
                 "value": {
-                  "kind": 58,
+                  "kind": 59,
                   "modifiers": [],
                   "value": "hello",
                   "start": {
@@ -102,6 +86,14 @@
                     "line": 2,
                     "column": 23
                   }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 23
                 }
               }
             ],
@@ -115,10 +107,10 @@
             }
           },
           {
-            "kind": 99,
+            "kind": 100,
             "attributes": [],
             "value": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "bar",
               "start": {
@@ -148,6 +140,14 @@
           "line": 5,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
       }
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -17,7 +17,7 @@
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "foo",
                 "start": {
@@ -39,33 +39,17 @@
               }
             }
           ],
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 4,
-            "column": 2
-          },
           "value": {
-            "kind": 78,
+            "kind": 79,
             "modifiers": [],
             "attributes": [],
             "properties": [
               {
-                "kind": 79,
+                "kind": 80,
                 "attributes": [],
                 "modifiers": [],
-                "start": {
-                  "line": 2,
-                  "column": 2
-                },
-                "end": {
-                  "line": 3,
-                  "column": 3
-                },
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "bar",
                   "start": {
@@ -78,15 +62,15 @@
                   }
                 },
                 "value": {
-                  "kind": 57,
+                  "kind": 58,
                   "modifiers": [],
                   "parameters": [
                     {
-                      "kind": 82,
+                      "kind": 83,
                       "attributes": [],
                       "modifiers": [],
                       "external": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "name",
                         "start": {
@@ -99,7 +83,7 @@
                         }
                       },
                       "internal": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "name",
                         "start": {
@@ -115,7 +99,7 @@
                         "kind": 123,
                         "modifiers": [],
                         "typeName": {
-                          "kind": 47,
+                          "kind": 48,
                           "modifiers": [],
                           "name": "String",
                           "start": {
@@ -146,6 +130,21 @@
                       }
                     }
                   ],
+                  "throws": [
+                    {
+                      "kind": 48,
+                      "modifiers": [],
+                      "name": "SyntaxError",
+                      "start": {
+                        "line": 2,
+                        "column": 24
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 35
+                      }
+                    }
+                  ],
                   "body": {
                     "kind": 14,
                     "attributes": [],
@@ -166,22 +165,15 @@
                   "end": {
                     "line": 3,
                     "column": 3
-                  },
-                  "throws": [
-                    {
-                      "kind": 47,
-                      "modifiers": [],
-                      "name": "SyntaxError",
-                      "start": {
-                        "line": 2,
-                        "column": 24
-                      },
-                      "end": {
-                        "line": 2,
-                        "column": 35
-                      }
-                    }
-                  ]
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 3,
+                  "column": 3
                 }
               }
             ],
@@ -193,6 +185,14 @@
               "line": 4,
               "column": 2
             }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 4,
+            "column": 2
           }
         }
       ],

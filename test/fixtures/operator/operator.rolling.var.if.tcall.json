@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -17,7 +17,7 @@
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "shape",
                 "start": {
@@ -39,16 +39,8 @@
               }
             }
           ],
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 4,
-            "column": 19
-          },
           "value": {
-            "kind": 100,
+            "kind": 101,
             "modifiers": [],
             "object": {
               "kind": 17,
@@ -57,10 +49,10 @@
                 "kind": 2
               },
               "callee": {
-                "kind": 68,
+                "kind": 69,
                 "modifiers": [],
                 "object": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "Ellipse",
                   "start": {
@@ -73,7 +65,7 @@
                   }
                 },
                 "property": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "new",
                   "start": {
@@ -96,7 +88,7 @@
               },
               "arguments": [
                 {
-                  "kind": 76,
+                  "kind": 77,
                   "modifiers": [],
                   "value": 10,
                   "radix": 10,
@@ -110,7 +102,7 @@
                   }
                 },
                 {
-                  "kind": 76,
+                  "kind": 77,
                   "modifiers": [],
                   "value": 20,
                   "radix": 10,
@@ -135,7 +127,7 @@
             },
             "expressions": [
               {
-                "kind": 98,
+                "kind": 99,
                 "operator": {
                   "kind": 0,
                   "modifiers": [],
@@ -155,7 +147,7 @@
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "test",
                     "start": {
@@ -184,10 +176,10 @@
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 68,
+                    "kind": 69,
                     "modifiers": [],
                     "object": {
-                      "kind": 92,
+                      "kind": 93,
                       "name": "main",
                       "start": {
                         "line": 1,
@@ -199,7 +191,7 @@
                       }
                     },
                     "property": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "rotation",
                       "start": {
@@ -268,7 +260,7 @@
                           "column": 25
                         },
                         "left": {
-                          "kind": 76,
+                          "kind": 77,
                           "modifiers": [],
                           "value": 45,
                           "radix": 10,
@@ -282,10 +274,10 @@
                           }
                         },
                         "right": {
-                          "kind": 68,
+                          "kind": 69,
                           "modifiers": [],
                           "object": {
-                            "kind": 47,
+                            "kind": 48,
                             "modifiers": [],
                             "name": "Math",
                             "start": {
@@ -298,7 +290,7 @@
                             }
                           },
                           "property": {
-                            "kind": 47,
+                            "kind": 48,
                             "modifiers": [],
                             "name": "PI",
                             "start": {
@@ -321,7 +313,7 @@
                         }
                       },
                       "right": {
-                        "kind": 76,
+                        "kind": 77,
                         "modifiers": [],
                         "value": 180,
                         "radix": 10,
@@ -361,10 +353,10 @@
                   "kind": 2
                 },
                 "callee": {
-                  "kind": 68,
+                  "kind": 69,
                   "modifiers": [],
                   "object": {
-                    "kind": 92,
+                    "kind": 93,
                     "name": "main",
                     "start": {
                       "line": 1,
@@ -376,7 +368,7 @@
                     }
                   },
                   "property": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "color",
                     "start": {
@@ -399,7 +391,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 58,
+                    "kind": 59,
                     "modifiers": [],
                     "value": "rgb(0,129,198)",
                     "start": {
@@ -428,10 +420,10 @@
                   "kind": 2
                 },
                 "callee": {
-                  "kind": 68,
+                  "kind": 69,
                   "modifiers": [],
                   "object": {
-                    "kind": 92,
+                    "kind": 93,
                     "name": "main",
                     "start": {
                       "line": 1,
@@ -443,7 +435,7 @@
                     }
                   },
                   "property": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "outlineWidth",
                     "start": {
@@ -466,7 +458,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 76,
+                    "kind": 77,
                     "modifiers": [],
                     "value": 0,
                     "radix": 10,
@@ -498,6 +490,14 @@
               "line": 4,
               "column": 19
             }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 4,
+            "column": 19
           }
         }
       ],

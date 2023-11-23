@@ -1,16 +1,17 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 36,
+      "kind": 37,
       "attributes": [],
       "declarations": [
         {
-          "kind": 43,
+          "kind": 44,
           "attributes": [],
+          "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "quxbaz",
             "start": {
@@ -22,6 +23,7 @@
               "column": 13
             }
           },
+          "throws": [],
           "start": {
             "line": 2,
             "column": 2
@@ -29,9 +31,7 @@
           "end": {
             "line": 2,
             "column": 13
-          },
-          "modifiers": [],
-          "throws": []
+          }
         }
       ],
       "start": {
@@ -44,10 +44,11 @@
       }
     },
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -59,17 +60,9 @@
           "column": 12
         }
       },
-      "start": {
-        "line": 5,
-        "column": 1
-      },
-      "end": {
-        "line": 9,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [
             {
@@ -85,7 +78,7 @@
             }
           ],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "value",
             "start": {
@@ -98,7 +91,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "value",
             "start": {
@@ -120,14 +113,13 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 99,
+            "kind": 100,
             "attributes": [],
             "value": {
               "kind": 11,
@@ -188,7 +180,7 @@
                   "column": 13
                 },
                 "left": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "value",
                   "start": {
@@ -201,7 +193,7 @@
                   }
                 },
                 "right": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "quxbaz",
                   "start": {
@@ -271,6 +263,14 @@
           "line": 9,
           "column": 2
         }
+      },
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 9,
+        "column": 2
       }
     }
   ],

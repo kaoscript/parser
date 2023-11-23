@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -7,7 +7,7 @@
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "Vector",
         "start": {
@@ -21,7 +21,7 @@
       },
       "members": [
         {
-          "kind": 88,
+          "kind": 89,
           "attributes": [],
           "modifiers": [
             {
@@ -37,7 +37,7 @@
             }
           ],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -49,19 +49,11 @@
               "column": 4
             }
           },
-          "start": {
-            "line": 3,
-            "column": 3
-          },
-          "end": {
-            "line": 3,
-            "column": 25
-          },
           "type": {
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "Number",
               "start": {
@@ -94,7 +86,7 @@
             }
           },
           "mutator": {
-            "kind": 72,
+            "kind": 73,
             "start": {
               "line": 3,
               "column": 20
@@ -103,10 +95,18 @@
               "line": 3,
               "column": 23
             }
+          },
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 3,
+            "column": 25
           }
         },
         {
-          "kind": 88,
+          "kind": 89,
           "attributes": [],
           "modifiers": [
             {
@@ -122,7 +122,7 @@
             }
           ],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "y",
             "start": {
@@ -134,19 +134,11 @@
               "column": 4
             }
           },
-          "start": {
-            "line": 4,
-            "column": 3
-          },
-          "end": {
-            "line": 7,
-            "column": 4
-          },
           "type": {
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "Number",
               "start": {
@@ -179,7 +171,7 @@
             }
           },
           "mutator": {
-            "kind": 72,
+            "kind": 73,
             "body": {
               "kind": 17,
               "modifiers": [],
@@ -187,10 +179,10 @@
                 "kind": 2
               },
               "callee": {
-                "kind": 68,
+                "kind": 69,
                 "modifiers": [],
                 "object": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "Math",
                   "start": {
@@ -203,7 +195,7 @@
                   }
                 },
                 "property": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "abs",
                   "start": {
@@ -226,7 +218,7 @@
               },
               "arguments": [
                 {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "y",
                   "start": {
@@ -256,10 +248,18 @@
               "line": 6,
               "column": 22
             }
+          },
+          "start": {
+            "line": 4,
+            "column": 3
+          },
+          "end": {
+            "line": 7,
+            "column": 4
           }
         },
         {
-          "kind": 88,
+          "kind": 89,
           "attributes": [],
           "modifiers": [
             {
@@ -275,7 +275,7 @@
             }
           ],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "z",
             "start": {
@@ -287,19 +287,11 @@
               "column": 4
             }
           },
-          "start": {
-            "line": 8,
-            "column": 3
-          },
-          "end": {
-            "line": 10,
-            "column": 4
-          },
           "type": {
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "Number",
               "start": {
@@ -323,7 +315,7 @@
           "accessor": {
             "kind": 1,
             "body": {
-              "kind": 76,
+              "kind": 77,
               "modifiers": [],
               "value": 0,
               "radix": 10,
@@ -344,6 +336,14 @@
               "line": 9,
               "column": 12
             }
+          },
+          "start": {
+            "line": 8,
+            "column": 3
+          },
+          "end": {
+            "line": 10,
+            "column": 4
           }
         }
       ],

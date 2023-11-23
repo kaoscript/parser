@@ -1,13 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 75,
+      "kind": 76,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "NS",
         "start": {
@@ -21,16 +21,17 @@
       },
       "statements": [
         {
-          "kind": 35,
+          "kind": 36,
           "attributes": [],
           "declarations": [
             {
               "kind": 28,
               "declaration": {
-                "kind": 43,
+                "kind": 44,
                 "attributes": [],
+                "modifiers": [],
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "foo",
                   "start": {
@@ -42,16 +43,7 @@
                     "column": 17
                   }
                 },
-                "start": {
-                  "line": 2,
-                  "column": 9
-                },
-                "end": {
-                  "line": 3,
-                  "column": 3
-                },
                 "parameters": [],
-                "modifiers": [],
                 "throws": [],
                 "body": {
                   "kind": 14,
@@ -65,6 +57,14 @@
                     "line": 3,
                     "column": 3
                   }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
+                  "column": 3
                 }
               },
               "start": {
@@ -87,16 +87,17 @@
           }
         },
         {
-          "kind": 35,
+          "kind": 36,
           "attributes": [],
           "declarations": [
             {
               "kind": 28,
               "declaration": {
-                "kind": 43,
+                "kind": 44,
                 "attributes": [],
+                "modifiers": [],
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "bar",
                   "start": {
@@ -108,16 +109,7 @@
                     "column": 17
                   }
                 },
-                "start": {
-                  "line": 4,
-                  "column": 9
-                },
-                "end": {
-                  "line": 5,
-                  "column": 3
-                },
                 "parameters": [],
-                "modifiers": [],
                 "throws": [],
                 "body": {
                   "kind": 14,
@@ -131,6 +123,14 @@
                     "line": 5,
                     "column": 3
                   }
+                },
+                "start": {
+                  "line": 4,
+                  "column": 9
+                },
+                "end": {
+                  "line": 5,
+                  "column": 3
                 }
               },
               "start": {
@@ -153,16 +153,17 @@
           }
         },
         {
-          "kind": 35,
+          "kind": 36,
           "attributes": [],
           "declarations": [
             {
               "kind": 28,
               "declaration": {
-                "kind": 43,
+                "kind": 44,
                 "attributes": [],
+                "modifiers": [],
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "qux",
                   "start": {
@@ -174,16 +175,7 @@
                     "column": 17
                   }
                 },
-                "start": {
-                  "line": 6,
-                  "column": 9
-                },
-                "end": {
-                  "line": 7,
-                  "column": 3
-                },
                 "parameters": [],
-                "modifiers": [],
                 "throws": [],
                 "body": {
                   "kind": 14,
@@ -197,6 +189,14 @@
                     "line": 7,
                     "column": 3
                   }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 9
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
                 }
               },
               "start": {
@@ -229,14 +229,14 @@
       }
     },
     {
-      "kind": 35,
+      "kind": 36,
       "attributes": [],
       "declarations": [
         {
-          "kind": 87,
+          "kind": 88,
           "modifiers": [],
           "object": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "NS",
             "start": {
@@ -250,10 +250,10 @@
           },
           "properties": [
             {
-              "kind": 74,
+              "kind": 75,
               "modifiers": [],
               "internal": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "foo",
                 "start": {
@@ -275,10 +275,10 @@
               }
             },
             {
-              "kind": 74,
+              "kind": 75,
               "modifiers": [],
               "internal": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "bar",
                 "start": {
@@ -300,10 +300,10 @@
               }
             },
             {
-              "kind": 74,
+              "kind": 75,
               "modifiers": [],
               "internal": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "qux",
                 "start": {

@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -29,7 +29,7 @@
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "foo",
                 "start": {
@@ -51,33 +51,17 @@
               }
             }
           ],
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 3,
-            "column": 2
-          },
           "value": {
-            "kind": 78,
+            "kind": 79,
             "modifiers": [],
             "attributes": [],
             "properties": [
               {
-                "kind": 79,
+                "kind": 80,
                 "attributes": [],
                 "modifiers": [],
-                "start": {
-                  "line": 2,
-                  "column": 2
-                },
-                "end": {
-                  "line": 2,
-                  "column": 10
-                },
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "if",
                   "start": {
@@ -90,7 +74,7 @@
                   }
                 },
                 "value": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "true",
                   "start": {
@@ -101,6 +85,14 @@
                     "line": 2,
                     "column": 10
                   }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 10
                 }
               }
             ],
@@ -112,6 +104,14 @@
               "line": 3,
               "column": 2
             }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 2
           }
         }
       ],

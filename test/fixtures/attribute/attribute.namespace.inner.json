@@ -1,16 +1,16 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 75,
+      "kind": 76,
       "attributes": [
         {
           "kind": 7,
           "declaration": {
             "kind": 8,
             "name": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "error",
               "start": {
@@ -24,7 +24,7 @@
             },
             "arguments": [
               {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "off",
                 "start": {
@@ -58,7 +58,7 @@
       ],
       "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "Foobar",
         "start": {
@@ -72,10 +72,11 @@
       },
       "statements": [
         {
-          "kind": 43,
+          "kind": 44,
           "attributes": [],
+          "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "foo",
             "start": {
@@ -87,16 +88,7 @@
               "column": 10
             }
           },
-          "start": {
-            "line": 4,
-            "column": 2
-          },
-          "end": {
-            "line": 5,
-            "column": 3
-          },
           "parameters": [],
-          "modifiers": [],
           "throws": [],
           "body": {
             "kind": 14,
@@ -110,13 +102,22 @@
               "line": 5,
               "column": 3
             }
+          },
+          "start": {
+            "line": 4,
+            "column": 2
+          },
+          "end": {
+            "line": 5,
+            "column": 3
           }
         },
         {
-          "kind": 43,
+          "kind": 44,
           "attributes": [],
+          "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "bar",
             "start": {
@@ -128,16 +129,7 @@
               "column": 10
             }
           },
-          "start": {
-            "line": 7,
-            "column": 2
-          },
-          "end": {
-            "line": 8,
-            "column": 3
-          },
           "parameters": [],
-          "modifiers": [],
           "throws": [],
           "body": {
             "kind": 14,
@@ -151,6 +143,14 @@
               "line": 8,
               "column": 3
             }
+          },
+          "start": {
+            "line": 7,
+            "column": 2
+          },
+          "end": {
+            "line": 8,
+            "column": 3
           }
         }
       ],

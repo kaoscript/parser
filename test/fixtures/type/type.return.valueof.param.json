@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -18,21 +19,13 @@
           "column": 12
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -45,7 +38,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -61,7 +54,7 @@
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "Number",
               "start": {
@@ -92,7 +85,6 @@
           }
         }
       ],
-      "modifiers": [],
       "type": {
         "kind": 126,
         "modifiers": [],
@@ -108,7 +100,7 @@
           }
         },
         "argument": {
-          "kind": 47,
+          "kind": 48,
           "modifiers": [],
           "name": "x",
           "start": {
@@ -142,6 +134,14 @@
           "line": 2,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
       }
     }
   ],

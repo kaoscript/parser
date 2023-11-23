@@ -1,9 +1,9 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 35,
+      "kind": 36,
       "attributes": [],
       "declarations": [
         {
@@ -35,7 +35,7 @@
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "foo",
                       "start": {
@@ -57,16 +57,8 @@
                     }
                   }
                 ],
-                "start": {
-                  "line": 1,
-                  "column": 8
-                },
-                "end": {
-                  "line": 1,
-                  "column": 33
-                },
                 "value": {
-                  "kind": 58,
+                  "kind": 59,
                   "modifiers": [],
                   "value": "I'm foo!",
                   "start": {
@@ -77,6 +69,14 @@
                     "line": 1,
                     "column": 33
                   }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 8
+                },
+                "end": {
+                  "line": 1,
+                  "column": 33
                 }
               }
             ],
@@ -109,7 +109,7 @@
       }
     },
     {
-      "kind": 35,
+      "kind": 36,
       "attributes": [],
       "declarations": [
         {
@@ -129,7 +129,7 @@
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "c",
                       "start": {
@@ -151,16 +151,8 @@
                     }
                   }
                 ],
-                "start": {
-                  "line": 2,
-                  "column": 12
-                },
-                "end": {
-                  "line": 2,
-                  "column": 17
-                },
                 "value": {
-                  "kind": 76,
+                  "kind": 77,
                   "modifiers": [],
                   "value": 3,
                   "radix": 10,
@@ -172,6 +164,14 @@
                     "line": 2,
                     "column": 17
                   }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 12
+                },
+                "end": {
+                  "line": 2,
+                  "column": 17
                 }
               }
             ],
@@ -204,7 +204,7 @@
       }
     },
     {
-      "kind": 35,
+      "kind": 36,
       "attributes": [],
       "declarations": [
         {
@@ -224,7 +224,7 @@
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "b",
                       "start": {
@@ -246,16 +246,8 @@
                     }
                   }
                 ],
-                "start": {
-                  "line": 3,
-                  "column": 12
-                },
-                "end": {
-                  "line": 3,
-                  "column": 17
-                },
                 "value": {
-                  "kind": 76,
+                  "kind": 77,
                   "modifiers": [],
                   "value": 5,
                   "radix": 10,
@@ -267,6 +259,14 @@
                     "line": 3,
                     "column": 17
                   }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 12
+                },
+                "end": {
+                  "line": 3,
+                  "column": 17
                 }
               }
             ],
@@ -299,16 +299,17 @@
       }
     },
     {
-      "kind": 35,
+      "kind": 36,
       "attributes": [],
       "declarations": [
         {
           "kind": 28,
           "declaration": {
-            "kind": 43,
+            "kind": 44,
             "attributes": [],
+            "modifiers": [],
             "name": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "foo",
               "start": {
@@ -320,23 +321,14 @@
                 "column": 16
               }
             },
-            "start": {
-              "line": 5,
-              "column": 8
-            },
-            "end": {
-              "line": 7,
-              "column": 2
-            },
             "parameters": [],
-            "modifiers": [],
             "throws": [],
             "body": {
               "kind": 14,
               "attributes": [],
               "statements": [
                 {
-                  "kind": 99,
+                  "kind": 100,
                   "attributes": [],
                   "value": {
                     "kind": 11,
@@ -362,7 +354,7 @@
                       "column": 14
                     },
                     "left": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "c",
                       "start": {
@@ -375,7 +367,7 @@
                       }
                     },
                     "right": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "b",
                       "start": {
@@ -406,6 +398,14 @@
                 "line": 7,
                 "column": 2
               }
+            },
+            "start": {
+              "line": 5,
+              "column": 8
+            },
+            "end": {
+              "line": 7,
+              "column": 2
             }
           },
           "start": {
@@ -428,7 +428,7 @@
       }
     },
     {
-      "kind": 35,
+      "kind": 36,
       "attributes": [],
       "declarations": [
         {
@@ -438,7 +438,7 @@
             "attributes": [],
             "modifiers": [],
             "name": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "BarQux",
               "start": {
@@ -452,7 +452,7 @@
             },
             "members": [
               {
-                "kind": 41,
+                "kind": 42,
                 "attributes": [],
                 "modifiers": [
                   {
@@ -468,7 +468,7 @@
                   }
                 ],
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "a",
                   "start": {
@@ -480,19 +480,11 @@
                     "column": 4
                   }
                 },
-                "start": {
-                  "line": 11,
-                  "column": 3
-                },
-                "end": {
-                  "line": 11,
-                  "column": 9
-                },
                 "type": {
                   "kind": 123,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "int",
                     "start": {
@@ -512,14 +504,22 @@
                     "line": 11,
                     "column": 9
                   }
+                },
+                "start": {
+                  "line": 11,
+                  "column": 3
+                },
+                "end": {
+                  "line": 11,
+                  "column": 9
                 }
               },
               {
-                "kind": 69,
+                "kind": 70,
                 "attributes": [],
                 "modifiers": [],
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "BarQux",
                   "start": {
@@ -533,11 +533,11 @@
                 },
                 "parameters": [
                   {
-                    "kind": 82,
+                    "kind": 83,
                     "attributes": [],
                     "modifiers": [],
                     "external": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "a",
                       "start": {
@@ -553,7 +553,7 @@
                       "kind": 112,
                       "modifiers": [],
                       "name": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "a",
                         "start": {
@@ -584,6 +584,7 @@
                     }
                   }
                 ],
+                "throws": [],
                 "start": {
                   "line": 14,
                   "column": 2
@@ -591,8 +592,7 @@
                 "end": {
                   "line": 14,
                   "column": 12
-                },
-                "throws": []
+                }
               }
             ],
             "start": {

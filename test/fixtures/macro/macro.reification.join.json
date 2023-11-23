@@ -1,12 +1,12 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 59,
+      "kind": 60,
       "attributes": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -24,10 +24,10 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 39,
+            "kind": 40,
             "attributes": [],
             "expression": {
-              "kind": 60,
+              "kind": 61,
               "attributes": [],
               "elements": [
                 {
@@ -37,7 +37,7 @@
                     "modifiers": [],
                     "values": [
                       {
-                        "kind": 58,
+                        "kind": 59,
                         "modifiers": [],
                         "value": "foobar()",
                         "start": {
@@ -50,7 +50,7 @@
                         }
                       },
                       {
-                        "kind": 58,
+                        "kind": 59,
                         "modifiers": [],
                         "value": "quxbaz()",
                         "start": {
@@ -72,14 +72,6 @@
                       "column": 35
                     }
                   },
-                  "start": {
-                    "line": 2,
-                    "column": 8
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 44
-                  },
                   "reification": {
                     "kind": 3,
                     "start": {
@@ -91,8 +83,16 @@
                       "column": 11
                     }
                   },
+                  "start": {
+                    "line": 2,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 44
+                  },
                   "separator": {
-                    "kind": 58,
+                    "kind": 59,
                     "modifiers": [],
                     "value": " && ",
                     "start": {

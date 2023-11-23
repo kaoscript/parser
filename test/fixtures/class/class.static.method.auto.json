@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -7,7 +7,7 @@
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "Foobar",
         "start": {
@@ -21,7 +21,7 @@
       },
       "members": [
         {
-          "kind": 69,
+          "kind": 70,
           "attributes": [],
           "modifiers": [
             {
@@ -48,7 +48,7 @@
             }
           ],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "instance",
             "start": {
@@ -61,20 +61,12 @@
             }
           },
           "parameters": [],
-          "start": {
-            "line": 3,
-            "column": 3
-          },
-          "end": {
-            "line": 3,
-            "column": 26
-          },
           "throws": [],
           "body": {
             "kind": 112,
             "modifiers": [],
             "name": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "instance",
               "start": {
@@ -94,10 +86,18 @@
               "line": 3,
               "column": 26
             }
+          },
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 3,
+            "column": 26
           }
         },
         {
-          "kind": 69,
+          "kind": 70,
           "attributes": [],
           "modifiers": [
             {
@@ -113,7 +113,7 @@
             }
           ],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "instance",
             "start": {
@@ -127,11 +127,11 @@
           },
           "parameters": [
             {
-              "kind": 82,
+              "kind": 83,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "instance",
                 "start": {
@@ -147,7 +147,7 @@
                 "kind": 112,
                 "modifiers": [],
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "instance",
                   "start": {
@@ -178,6 +178,7 @@
               }
             }
           ],
+          "throws": [],
           "start": {
             "line": 4,
             "column": 3
@@ -185,8 +186,7 @@
           "end": {
             "line": 4,
             "column": 22
-          },
-          "throws": []
+          }
         }
       ],
       "start": {

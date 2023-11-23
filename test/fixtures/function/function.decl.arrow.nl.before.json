@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "hello",
         "start": {
@@ -18,19 +19,10 @@
           "column": 11
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 15
-      },
       "parameters": [],
-      "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 58,
+        "kind": 59,
         "modifiers": [],
         "value": "Hello :)",
         "start": {
@@ -41,6 +33,14 @@
           "line": 2,
           "column": 15
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 15
       }
     }
   ],

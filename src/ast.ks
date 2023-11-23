@@ -2480,7 +2480,7 @@ namespace AST {
 			name: Event<NodeData(Identifier)>(Y)
 			extends: Event<NodeData(TypeReference)>(Y)?
 			implements: Event<NodeData(Identifier, MemberExpression)>(Y)[]
-			fields: NodeData(StructField)[]
+			fields: NodeData(FieldDeclaration)[]
 			{ start }: Range
 			{ end }: Range
 		): NodeData(StructDeclaration) { # {{{
@@ -2492,27 +2492,6 @@ namespace AST {
 				extends: extends.value if ?extends
 				implements: [implement.value for var implement in implements] if ?#implements
 				fields
-				start
-				end
-			}
-		} # }}}
-
-		func StructField(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>
-			type: Event<NodeData(Type)>(Y)?
-			defaultValue: Event<NodeData(Expression)>(Y)?
-			{ start }: Range
-			{ end }: Range
-		): NodeData(StructField) { # {{{
-			return {
-				kind: .StructField
-				attributes: [attribute.value for var attribute in attributes]
-				modifiers: [modifier.value for var modifier in modifiers]
-				name: name.value
-				type: type.value if ?type
-				defaultValue: defaultValue.value if ?defaultValue
 				start
 				end
 			}

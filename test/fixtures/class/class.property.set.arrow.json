@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -7,7 +7,7 @@
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "Foobar",
         "start": {
@@ -21,7 +21,7 @@
       },
       "members": [
         {
-          "kind": 88,
+          "kind": 89,
           "attributes": [],
           "modifiers": [
             {
@@ -37,7 +37,7 @@
             }
           ],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "foo",
             "start": {
@@ -49,16 +49,8 @@
               "column": 6
             }
           },
-          "start": {
-            "line": 3,
-            "column": 3
-          },
-          "end": {
-            "line": 5,
-            "column": 4
-          },
           "mutator": {
-            "kind": 72,
+            "kind": 73,
             "body": {
               "kind": 11,
               "modifiers": [],
@@ -83,7 +75,7 @@
                 "column": 19
               },
               "left": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "foo",
                 "start": {
@@ -96,7 +88,7 @@
                 }
               },
               "right": {
-                "kind": 76,
+                "kind": 77,
                 "modifiers": [],
                 "value": 10,
                 "radix": 10,
@@ -118,6 +110,14 @@
               "line": 4,
               "column": 19
             }
+          },
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 5,
+            "column": 4
           }
         }
       ],

@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -29,7 +29,7 @@
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "foo",
                 "start": {
@@ -51,14 +51,6 @@
               }
             }
           ],
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 1,
-            "column": 43
-          },
           "value": {
             "kind": 25,
             "modifiers": [],
@@ -71,7 +63,7 @@
               "column": 43
             },
             "condition": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "lang",
               "start": {
@@ -84,7 +76,7 @@
               }
             },
             "whenTrue": {
-              "kind": 58,
+              "kind": 59,
               "modifiers": [],
               "value": "hello",
               "start": {
@@ -97,7 +89,7 @@
               }
             },
             "whenFalse": {
-              "kind": 58,
+              "kind": 59,
               "modifiers": [],
               "value": "bonjour",
               "start": {
@@ -109,6 +101,14 @@
                 "column": 43
               }
             }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 43
           }
         }
       ],

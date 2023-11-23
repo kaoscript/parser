@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -23,7 +24,7 @@
           "kind": 122,
           "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "T",
             "start": {
@@ -39,7 +40,7 @@
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "Animal",
               "start": {
@@ -70,21 +71,13 @@
           }
         }
       ],
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "animal",
             "start": {
@@ -97,7 +90,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "animal",
             "start": {
@@ -113,7 +106,7 @@
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "T",
               "start": {
@@ -144,7 +137,6 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
@@ -158,6 +150,14 @@
           "line": 2,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
       }
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -29,7 +29,7 @@
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "foo",
                 "start": {
@@ -51,24 +51,16 @@
               }
             }
           ],
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 1,
-            "column": 38
-          },
           "value": {
-            "kind": 57,
+            "kind": 58,
             "modifiers": [],
             "parameters": [
               {
-                "kind": 82,
+                "kind": 83,
                 "attributes": [],
                 "modifiers": [],
                 "external": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "x",
                   "start": {
@@ -81,7 +73,7 @@
                   }
                 },
                 "internal": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "x",
                   "start": {
@@ -106,7 +98,7 @@
                   }
                 },
                 "defaultValue": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "null",
                   "start": {
@@ -128,11 +120,11 @@
                 }
               },
               {
-                "kind": 82,
+                "kind": 83,
                 "attributes": [],
                 "modifiers": [],
                 "external": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "y",
                   "start": {
@@ -145,7 +137,7 @@
                   }
                 },
                 "internal": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "y",
                   "start": {
@@ -167,12 +159,13 @@
                 }
               }
             ],
+            "throws": [],
             "body": {
               "kind": 4,
               "modifiers": [],
               "values": [
                 {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "x",
                   "start": {
@@ -185,7 +178,7 @@
                   }
                 },
                 {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "y",
                   "start": {
@@ -214,8 +207,15 @@
             "end": {
               "line": 1,
               "column": 38
-            },
-            "throws": []
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 38
           }
         }
       ],

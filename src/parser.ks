@@ -11144,7 +11144,7 @@ export namespace Parser {
 
 							var type = @yep(AST.VariantType(enum, fields, enum, @yes()))
 
-							elements.push(AST.StructField([], [], identifier, type, null, first, type))
+							elements.push(AST.FieldDeclaration([], [], identifier!!, type, null, first, type))
 
 							nf = false
 						}
@@ -11192,7 +11192,7 @@ export namespace Parser {
 							last = defaultValue
 						}
 
-						elements.push(AST.StructField(attributes, modifiers, name, type, defaultValue, first ?? name, last))
+						elements.push(AST.FieldDeclaration(attributes, modifiers, name, type, defaultValue, first ?? name, last))
 					}
 
 					if @match(Token.COMMA, Token.NEWLINE) == Token.COMMA {

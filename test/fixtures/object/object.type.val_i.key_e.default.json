@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -7,7 +7,7 @@
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "CardSuit",
         "start": {
@@ -21,11 +21,11 @@
       },
       "members": [
         {
-          "kind": 41,
+          "kind": 42,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "Clubs",
             "start": {
@@ -47,11 +47,11 @@
           }
         },
         {
-          "kind": 41,
+          "kind": 42,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "Diamonds",
             "start": {
@@ -73,11 +73,11 @@
           }
         },
         {
-          "kind": 41,
+          "kind": 42,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "Hearts",
             "start": {
@@ -99,11 +99,11 @@
           }
         },
         {
-          "kind": 41,
+          "kind": 42,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "Spades",
             "start": {
@@ -149,7 +149,7 @@
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "$precedence",
                 "start": {
@@ -161,19 +161,11 @@
                   "column": 16
                 }
               },
-              "start": {
-                "line": 8,
-                "column": 5
-              },
-              "end": {
-                "line": 8,
-                "column": 42
-              },
               "type": {
                 "kind": 123,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "Object",
                   "start": {
@@ -190,7 +182,7 @@
                     "kind": 123,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "Number",
                       "start": {
@@ -215,7 +207,7 @@
                     "kind": 123,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "CardSuit",
                       "start": {
@@ -245,41 +237,33 @@
                   "line": 8,
                   "column": 42
                 }
+              },
+              "start": {
+                "line": 8,
+                "column": 5
+              },
+              "end": {
+                "line": 8,
+                "column": 42
               }
             }
           ],
-          "start": {
-            "line": 8,
-            "column": 5
-          },
-          "end": {
-            "line": 11,
-            "column": 2
-          },
           "value": {
-            "kind": 78,
+            "kind": 79,
             "modifiers": [],
             "attributes": [],
             "properties": [
               {
-                "kind": 79,
+                "kind": 80,
                 "attributes": [],
                 "modifiers": [],
-                "start": {
-                  "line": 9,
-                  "column": 2
-                },
-                "end": {
-                  "line": 9,
-                  "column": 21
-                },
                 "name": {
                   "kind": 24,
                   "expression": {
-                    "kind": 68,
+                    "kind": 69,
                     "modifiers": [],
                     "object": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "CardSuit",
                       "start": {
@@ -292,7 +276,7 @@
                       }
                     },
                     "property": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "Clubs",
                       "start": {
@@ -323,7 +307,7 @@
                   }
                 },
                 "value": {
-                  "kind": 76,
+                  "kind": 77,
                   "modifiers": [],
                   "value": 0,
                   "radix": 10,
@@ -335,27 +319,27 @@
                     "line": 9,
                     "column": 21
                   }
-                }
-              },
-              {
-                "kind": 79,
-                "attributes": [],
-                "modifiers": [],
+                },
                 "start": {
-                  "line": 10,
+                  "line": 9,
                   "column": 2
                 },
                 "end": {
-                  "line": 10,
-                  "column": 24
-                },
+                  "line": 9,
+                  "column": 21
+                }
+              },
+              {
+                "kind": 80,
+                "attributes": [],
+                "modifiers": [],
                 "name": {
                   "kind": 24,
                   "expression": {
-                    "kind": 68,
+                    "kind": 69,
                     "modifiers": [],
                     "object": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "CardSuit",
                       "start": {
@@ -368,7 +352,7 @@
                       }
                     },
                     "property": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "Diamonds",
                       "start": {
@@ -399,7 +383,7 @@
                   }
                 },
                 "value": {
-                  "kind": 76,
+                  "kind": 77,
                   "modifiers": [],
                   "value": 0,
                   "radix": 10,
@@ -411,6 +395,14 @@
                     "line": 10,
                     "column": 24
                   }
+                },
+                "start": {
+                  "line": 10,
+                  "column": 2
+                },
+                "end": {
+                  "line": 10,
+                  "column": 24
                 }
               }
             ],
@@ -422,6 +414,14 @@
               "line": 11,
               "column": 2
             }
+          },
+          "start": {
+            "line": 8,
+            "column": 5
+          },
+          "end": {
+            "line": 11,
+            "column": 2
           }
         }
       ],

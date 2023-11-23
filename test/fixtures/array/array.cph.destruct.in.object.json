@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -18,21 +19,13 @@
           "column": 12
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "items",
             "start": {
@@ -45,7 +38,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "items",
             "start": {
@@ -61,7 +54,7 @@
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "Array",
               "start": {
@@ -92,20 +85,19 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 99,
+            "kind": 100,
             "attributes": [],
             "value": {
               "kind": 3,
               "modifiers": [],
               "expression": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "key",
                 "start": {
@@ -118,7 +110,7 @@
                 }
               },
               "loop": {
-                "kind": 42,
+                "kind": 43,
                 "attributes": [],
                 "iteration": {
                   "kind": 0,
@@ -136,7 +128,7 @@
                     }
                   ],
                   "expression": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "items",
                     "start": {
@@ -149,13 +141,13 @@
                     }
                   },
                   "value": {
-                    "kind": 77,
+                    "kind": 78,
                     "elements": [
                       {
                         "kind": 12,
                         "modifiers": [],
                         "internal": {
-                          "kind": 47,
+                          "kind": 48,
                           "modifiers": [],
                           "name": "key",
                           "start": {
@@ -231,6 +223,14 @@
           "line": 3,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
       }
     }
   ],

@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -18,17 +19,9 @@
           "column": 12
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 8,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [
             {
@@ -44,7 +37,7 @@
             }
           ],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "value",
             "start": {
@@ -57,7 +50,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "value",
             "start": {
@@ -79,17 +72,16 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 67,
+            "kind": 68,
             "attributes": [],
             "expression": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "value",
               "start": {
@@ -103,10 +95,10 @@
             },
             "clauses": [
               {
-                "kind": 61,
+                "kind": 62,
                 "conditions": [
                   {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "Number",
                     "start": {
@@ -142,10 +134,10 @@
                 }
               },
               {
-                "kind": 61,
+                "kind": 62,
                 "conditions": [
                   {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "Array",
                     "start": {
@@ -165,7 +157,7 @@
                       "kind": 12,
                       "modifiers": [],
                       "internal": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "argument",
                         "start": {
@@ -181,7 +173,7 @@
                         "kind": 123,
                         "modifiers": [],
                         "typeName": {
-                          "kind": 47,
+                          "kind": 48,
                           "modifiers": [],
                           "name": "Number",
                           "start": {
@@ -226,7 +218,7 @@
                   "modifiers": [],
                   "values": [
                     {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "argument",
                       "start": {
@@ -251,7 +243,7 @@
                       }
                     },
                     {
-                      "kind": 76,
+                      "kind": 77,
                       "modifiers": [],
                       "value": 0,
                       "radix": 10,
@@ -315,6 +307,14 @@
           "line": 8,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 8,
+        "column": 2
       }
     }
   ],

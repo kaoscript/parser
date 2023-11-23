@@ -1,9 +1,9 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 36,
+      "kind": 37,
       "attributes": [],
       "declarations": [
         {
@@ -11,7 +11,7 @@
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "console",
             "start": {
@@ -43,10 +43,11 @@
       }
     },
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "min",
         "start": {
@@ -58,36 +59,19 @@
           "column": 9
         }
       },
-      "start": {
-        "line": 3,
-        "column": 1
-      },
-      "end": {
-        "line": 6,
-        "column": 2
-      },
       "parameters": [],
-      "modifiers": [],
       "throws": [],
       "body": {
-        "kind": 78,
+        "kind": 79,
         "modifiers": [],
         "attributes": [],
         "properties": [
           {
-            "kind": 79,
+            "kind": 80,
             "attributes": [],
             "modifiers": [],
-            "start": {
-              "line": 4,
-              "column": 2
-            },
-            "end": {
-              "line": 4,
-              "column": 18
-            },
             "name": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "gender",
               "start": {
@@ -100,7 +84,7 @@
               }
             },
             "value": {
-              "kind": 58,
+              "kind": 59,
               "modifiers": [],
               "value": "female",
               "start": {
@@ -111,22 +95,22 @@
                 "line": 4,
                 "column": 18
               }
-            }
-          },
-          {
-            "kind": 79,
-            "attributes": [],
-            "modifiers": [],
+            },
             "start": {
-              "line": 5,
+              "line": 4,
               "column": 2
             },
             "end": {
-              "line": 5,
-              "column": 9
-            },
+              "line": 4,
+              "column": 18
+            }
+          },
+          {
+            "kind": 80,
+            "attributes": [],
+            "modifiers": [],
             "name": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "age",
               "start": {
@@ -139,7 +123,7 @@
               }
             },
             "value": {
-              "kind": 76,
+              "kind": 77,
               "modifiers": [],
               "value": 24,
               "radix": 10,
@@ -151,6 +135,14 @@
                 "line": 5,
                 "column": 9
               }
+            },
+            "start": {
+              "line": 5,
+              "column": 2
+            },
+            "end": {
+              "line": 5,
+              "column": 9
             }
           }
         ],
@@ -162,14 +154,22 @@
           "line": 6,
           "column": 2
         }
+      },
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 6,
+        "column": 2
       }
     },
     {
-      "kind": 75,
+      "kind": 76,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foo",
         "start": {
@@ -197,13 +197,13 @@
                   "attributes": [],
                   "modifiers": [],
                   "name": {
-                    "kind": 77,
+                    "kind": 78,
                     "elements": [
                       {
                         "kind": 12,
                         "modifiers": [],
                         "internal": {
-                          "kind": 47,
+                          "kind": 48,
                           "modifiers": [],
                           "name": "gender",
                           "start": {
@@ -228,7 +228,7 @@
                         "kind": 12,
                         "modifiers": [],
                         "internal": {
-                          "kind": 47,
+                          "kind": 48,
                           "modifiers": [],
                           "name": "age",
                           "start": {
@@ -269,14 +269,6 @@
                   }
                 }
               ],
-              "start": {
-                "line": 9,
-                "column": 6
-              },
-              "end": {
-                "line": 9,
-                "column": 27
-              },
               "value": {
                 "kind": 17,
                 "modifiers": [],
@@ -284,7 +276,7 @@
                   "kind": 2
                 },
                 "callee": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "min",
                   "start": {
@@ -305,6 +297,14 @@
                   "line": 9,
                   "column": 27
                 }
+              },
+              "start": {
+                "line": 9,
+                "column": 6
+              },
+              "end": {
+                "line": 9,
+                "column": 27
               }
             }
           ],
@@ -328,7 +328,7 @@
       }
     },
     {
-      "kind": 39,
+      "kind": 40,
       "attributes": [],
       "expression": {
         "kind": 17,
@@ -337,10 +337,10 @@
           "kind": 2
         },
         "callee": {
-          "kind": 68,
+          "kind": 69,
           "modifiers": [],
           "object": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "console",
             "start": {
@@ -353,7 +353,7 @@
             }
           },
           "property": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "log",
             "start": {
@@ -376,10 +376,10 @@
         },
         "arguments": [
           {
-            "kind": 68,
+            "kind": 69,
             "modifiers": [],
             "object": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "foo",
               "start": {
@@ -392,7 +392,7 @@
               }
             },
             "property": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "age",
               "start": {
@@ -433,7 +433,7 @@
       }
     },
     {
-      "kind": 39,
+      "kind": 40,
       "attributes": [],
       "expression": {
         "kind": 17,
@@ -442,10 +442,10 @@
           "kind": 2
         },
         "callee": {
-          "kind": 68,
+          "kind": 69,
           "modifiers": [],
           "object": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "console",
             "start": {
@@ -458,7 +458,7 @@
             }
           },
           "property": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "log",
             "start": {
@@ -485,10 +485,10 @@
             "modifiers": [],
             "elements": [
               {
-                "kind": 68,
+                "kind": 69,
                 "modifiers": [],
                 "object": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "foo",
                   "start": {
@@ -501,7 +501,7 @@
                   }
                 },
                 "property": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "gender",
                   "start": {

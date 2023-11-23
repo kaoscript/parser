@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foo",
         "start": {
@@ -18,21 +19,13 @@
           "column": 9
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -45,7 +38,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -70,7 +63,7 @@
             }
           },
           "defaultValue": {
-            "kind": 58,
+            "kind": 59,
             "modifiers": [],
             "value": "abc",
             "start": {
@@ -92,7 +85,6 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
@@ -106,13 +98,22 @@
           "line": 2,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
       }
     },
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foo",
         "start": {
@@ -124,17 +125,9 @@
           "column": 9
         }
       },
-      "start": {
-        "line": 4,
-        "column": 1
-      },
-      "end": {
-        "line": 5,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [
             {
@@ -150,7 +143,7 @@
             }
           ],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -163,7 +156,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -188,7 +181,7 @@
             }
           },
           "defaultValue": {
-            "kind": 58,
+            "kind": 59,
             "modifiers": [],
             "value": "abc",
             "start": {
@@ -210,7 +203,6 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
@@ -224,13 +216,22 @@
           "line": 5,
           "column": 2
         }
+      },
+      "start": {
+        "line": 4,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
       }
     },
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foo",
         "start": {
@@ -242,21 +243,13 @@
           "column": 9
         }
       },
-      "start": {
-        "line": 7,
-        "column": 1
-      },
-      "end": {
-        "line": 8,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -269,7 +262,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -285,7 +278,7 @@
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "String",
               "start": {
@@ -319,7 +312,7 @@
             }
           },
           "defaultValue": {
-            "kind": 58,
+            "kind": 59,
             "modifiers": [],
             "value": "abc",
             "start": {
@@ -341,7 +334,6 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
@@ -355,6 +347,14 @@
           "line": 8,
           "column": 2
         }
+      },
+      "start": {
+        "line": 7,
+        "column": 1
+      },
+      "end": {
+        "line": 8,
+        "column": 2
       }
     }
   ],

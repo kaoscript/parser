@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -18,21 +19,13 @@
           "column": 12
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 12,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "d",
             "start": {
@@ -45,7 +38,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "d",
             "start": {
@@ -67,17 +60,16 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 67,
+            "kind": 68,
             "attributes": [],
             "expression": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "d",
               "start": {
@@ -91,10 +83,10 @@
             },
             "clauses": [
               {
-                "kind": 61,
+                "kind": 62,
                 "conditions": [
                   {
-                    "kind": 58,
+                    "kind": 59,
                     "modifiers": [],
                     "value": "hour",
                     "start": {
@@ -112,7 +104,7 @@
                   "attributes": [],
                   "statements": [
                     {
-                      "kind": 40,
+                      "kind": 41,
                       "attributes": [],
                       "start": {
                         "line": 4,
@@ -143,10 +135,10 @@
                 }
               },
               {
-                "kind": 61,
+                "kind": 62,
                 "conditions": [
                   {
-                    "kind": 58,
+                    "kind": 59,
                     "modifiers": [],
                     "value": "minute",
                     "start": {
@@ -164,7 +156,7 @@
                   "attributes": [],
                   "statements": [
                     {
-                      "kind": 40,
+                      "kind": 41,
                       "attributes": [],
                       "start": {
                         "line": 7,
@@ -195,10 +187,10 @@
                 }
               },
               {
-                "kind": 61,
+                "kind": 62,
                 "conditions": [
                   {
-                    "kind": 58,
+                    "kind": 59,
                     "modifiers": [],
                     "value": "second",
                     "start": {
@@ -252,6 +244,14 @@
           "line": 12,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 12,
+        "column": 2
       }
     }
   ],

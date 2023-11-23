@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -18,21 +19,13 @@
           "column": 12
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "p",
             "start": {
@@ -45,7 +38,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "p",
             "start": {
@@ -61,7 +54,7 @@
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "Point",
               "start": {
@@ -92,7 +85,6 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
@@ -113,7 +105,7 @@
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "d3",
                       "start": {
@@ -135,14 +127,6 @@
                     }
                   }
                 ],
-                "start": {
-                  "line": 2,
-                  "column": 6
-                },
-                "end": {
-                  "line": 2,
-                  "column": 24
-                },
                 "value": {
                   "kind": 11,
                   "modifiers": [],
@@ -179,7 +163,7 @@
                     "column": 24
                   },
                   "left": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "p",
                     "start": {
@@ -195,7 +179,7 @@
                     "kind": 123,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "Point3D",
                       "start": {
@@ -216,6 +200,14 @@
                       "column": 24
                     }
                   }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 6
+                },
+                "end": {
+                  "line": 2,
+                  "column": 24
                 }
               }
             ],
@@ -237,6 +229,14 @@
           "line": 3,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
       }
     }
   ],

@@ -1,12 +1,25 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [
+        {
+          "kind": 4,
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 6
+          }
+        }
+      ],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foo",
         "start": {
@@ -18,21 +31,13 @@
           "column": 15
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "bar",
             "start": {
@@ -45,7 +50,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "bar",
             "start": {
@@ -61,7 +66,7 @@
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "string",
               "start": {
@@ -92,11 +97,11 @@
           }
         },
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "qux",
             "start": {
@@ -109,7 +114,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "qux",
             "start": {
@@ -125,7 +130,7 @@
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "int",
               "start": {
@@ -156,24 +161,11 @@
           }
         }
       ],
-      "modifiers": [
-        {
-          "kind": 4,
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 1,
-            "column": 6
-          }
-        }
-      ],
       "type": {
         "kind": 123,
         "modifiers": [],
         "typeName": {
-          "kind": 47,
+          "kind": 48,
           "modifiers": [],
           "name": "string",
           "start": {
@@ -200,10 +192,10 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 99,
+            "kind": 100,
             "attributes": [],
             "value": {
-              "kind": 85,
+              "kind": 86,
               "modifiers": [],
               "operator": {
                 "kind": 1,
@@ -227,7 +219,7 @@
               },
               "operands": [
                 {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "bar",
                   "start": {
@@ -240,7 +232,7 @@
                   }
                 },
                 {
-                  "kind": 58,
+                  "kind": 59,
                   "modifiers": [],
                   "value": "+",
                   "start": {
@@ -253,7 +245,7 @@
                   }
                 },
                 {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "qux",
                   "start": {
@@ -285,13 +277,22 @@
           "line": 3,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
       }
     },
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "bar",
         "start": {
@@ -303,21 +304,13 @@
           "column": 9
         }
       },
-      "start": {
-        "line": 5,
-        "column": 1
-      },
-      "end": {
-        "line": 9,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "callback",
             "start": {
@@ -330,7 +323,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "callback",
             "start": {
@@ -352,7 +345,6 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
@@ -373,7 +365,7 @@
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "text",
                       "start": {
@@ -395,14 +387,6 @@
                     }
                   }
                 ],
-                "start": {
-                  "line": 6,
-                  "column": 6
-                },
-                "end": {
-                  "line": 6,
-                  "column": 36
-                },
                 "value": {
                   "kind": 10,
                   "modifiers": [],
@@ -413,7 +397,7 @@
                       "kind": 2
                     },
                     "callee": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "foo",
                       "start": {
@@ -427,7 +411,7 @@
                     },
                     "arguments": [
                       {
-                        "kind": 58,
+                        "kind": 59,
                         "modifiers": [],
                         "value": "foobar",
                         "start": {
@@ -440,7 +424,7 @@
                         }
                       },
                       {
-                        "kind": 76,
+                        "kind": 77,
                         "modifiers": [],
                         "value": 42,
                         "radix": 10,
@@ -471,6 +455,14 @@
                     "line": 6,
                     "column": 36
                   }
+                },
+                "start": {
+                  "line": 6,
+                  "column": 6
+                },
+                "end": {
+                  "line": 6,
+                  "column": 36
                 }
               }
             ],
@@ -484,7 +476,7 @@
             }
           },
           {
-            "kind": 39,
+            "kind": 40,
             "attributes": [],
             "expression": {
               "kind": 17,
@@ -493,7 +485,7 @@
                 "kind": 2
               },
               "callee": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "callback",
                 "start": {
@@ -507,7 +499,7 @@
               },
               "arguments": [
                 {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "null",
                   "start": {
@@ -520,7 +512,7 @@
                   }
                 },
                 {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "text",
                   "start": {
@@ -560,6 +552,14 @@
           "line": 9,
           "column": 2
         }
+      },
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 9,
+        "column": 2
       }
     }
   ],

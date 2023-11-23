@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -7,7 +7,7 @@
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "Quxbaz",
         "start": {
@@ -20,7 +20,7 @@
         }
       },
       "extends": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "Foobar",
         "start": {
@@ -34,7 +34,7 @@
       },
       "members": [
         {
-          "kind": 69,
+          "kind": 70,
           "attributes": [],
           "modifiers": [
             {
@@ -50,7 +50,7 @@
             }
           ],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "foobar",
             "start": {
@@ -64,11 +64,11 @@
           },
           "parameters": [
             {
-              "kind": 82,
+              "kind": 83,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "x",
                 "start": {
@@ -81,7 +81,7 @@
                 }
               },
               "internal": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "x",
                 "start": {
@@ -103,14 +103,6 @@
               }
             }
           ],
-          "start": {
-            "line": 3,
-            "column": 3
-          },
-          "end": {
-            "line": 4,
-            "column": 4
-          },
           "throws": [],
           "body": {
             "kind": 14,
@@ -124,6 +116,14 @@
               "line": 4,
               "column": 4
             }
+          },
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 4,
+            "column": 4
           }
         }
       ],

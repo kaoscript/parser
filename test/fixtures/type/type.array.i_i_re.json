@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -18,21 +19,13 @@
           "column": 12
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 2,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -45,7 +38,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -62,21 +55,13 @@
             "modifiers": [],
             "properties": [
               {
-                "kind": 89,
+                "kind": 90,
                 "modifiers": [],
-                "start": {
-                  "line": 1,
-                  "column": 17
-                },
-                "end": {
-                  "line": 1,
-                  "column": 23
-                },
                 "type": {
                   "kind": 123,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "Number",
                     "start": {
@@ -96,24 +81,24 @@
                     "line": 1,
                     "column": 23
                   }
-                }
-              },
-              {
-                "kind": 89,
-                "modifiers": [],
+                },
                 "start": {
                   "line": 1,
-                  "column": 25
+                  "column": 17
                 },
                 "end": {
                   "line": 1,
-                  "column": 31
-                },
+                  "column": 23
+                }
+              },
+              {
+                "kind": 90,
+                "modifiers": [],
                 "type": {
                   "kind": 123,
                   "modifiers": [],
                   "typeName": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "Number",
                     "start": {
@@ -133,19 +118,19 @@
                     "line": 1,
                     "column": 31
                   }
+                },
+                "start": {
+                  "line": 1,
+                  "column": 25
+                },
+                "end": {
+                  "line": 1,
+                  "column": 31
                 }
               }
             ],
-            "start": {
-              "line": 1,
-              "column": 16
-            },
-            "end": {
-              "line": 1,
-              "column": 37
-            },
             "rest": {
-              "kind": 89,
+              "kind": 90,
               "modifiers": [
                 {
                   "kind": 39,
@@ -171,6 +156,14 @@
                 "line": 1,
                 "column": 36
               }
+            },
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 1,
+              "column": 37
             }
           },
           "start": {
@@ -183,7 +176,6 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
@@ -197,6 +189,14 @@
           "line": 2,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
       }
     }
   ],

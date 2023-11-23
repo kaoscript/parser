@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -17,7 +17,7 @@
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "point",
                 "start": {
@@ -39,33 +39,17 @@
               }
             }
           ],
-          "start": {
-            "line": 1,
-            "column": 5
-          },
-          "end": {
-            "line": 5,
-            "column": 2
-          },
           "value": {
-            "kind": 78,
+            "kind": 79,
             "modifiers": [],
             "attributes": [],
             "properties": [
               {
-                "kind": 79,
+                "kind": 80,
                 "attributes": [],
                 "modifiers": [],
-                "start": {
-                  "line": 2,
-                  "column": 2
-                },
-                "end": {
-                  "line": 2,
-                  "column": 6
-                },
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "x",
                   "start": {
@@ -78,7 +62,7 @@
                   }
                 },
                 "value": {
-                  "kind": 76,
+                  "kind": 77,
                   "modifiers": [],
                   "value": 1,
                   "radix": 10,
@@ -90,22 +74,22 @@
                     "line": 2,
                     "column": 6
                   }
-                }
-              },
-              {
-                "kind": 79,
-                "attributes": [],
-                "modifiers": [],
+                },
                 "start": {
-                  "line": 3,
+                  "line": 2,
                   "column": 2
                 },
                 "end": {
-                  "line": 3,
+                  "line": 2,
                   "column": 6
-                },
+                }
+              },
+              {
+                "kind": 80,
+                "attributes": [],
+                "modifiers": [],
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "y",
                   "start": {
@@ -118,7 +102,7 @@
                   }
                 },
                 "value": {
-                  "kind": 76,
+                  "kind": 77,
                   "modifiers": [],
                   "value": 1,
                   "radix": 10,
@@ -130,10 +114,18 @@
                     "line": 3,
                     "column": 6
                   }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 2
+                },
+                "end": {
+                  "line": 3,
+                  "column": 6
                 }
               },
               {
-                "kind": 98,
+                "kind": 99,
                 "operator": {
                   "kind": 0,
                   "modifiers": [],
@@ -147,7 +139,7 @@
                   }
                 },
                 "condition": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "_3d",
                   "start": {
@@ -160,19 +152,11 @@
                   }
                 },
                 "expression": {
-                  "kind": 79,
+                  "kind": 80,
                   "attributes": [],
                   "modifiers": [],
-                  "start": {
-                    "line": 4,
-                    "column": 2
-                  },
-                  "end": {
-                    "line": 4,
-                    "column": 6
-                  },
                   "name": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "z",
                     "start": {
@@ -185,7 +169,7 @@
                     }
                   },
                   "value": {
-                    "kind": 76,
+                    "kind": 77,
                     "modifiers": [],
                     "value": 1,
                     "radix": 10,
@@ -197,6 +181,14 @@
                       "line": 4,
                       "column": 6
                     }
+                  },
+                  "start": {
+                    "line": 4,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 6
                   }
                 },
                 "start": {
@@ -217,6 +209,14 @@
               "line": 5,
               "column": 2
             }
+          },
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 5,
+            "column": 2
           }
         }
       ],

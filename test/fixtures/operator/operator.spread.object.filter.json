@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -18,21 +19,13 @@
           "column": 12
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 5,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "value",
             "start": {
@@ -45,7 +38,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "value",
             "start": {
@@ -67,26 +60,25 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 99,
+            "kind": 100,
             "attributes": [],
             "value": {
-              "kind": 78,
+              "kind": 79,
               "modifiers": [],
               "attributes": [],
               "properties": [
                 {
-                  "kind": 105,
+                  "kind": 106,
                   "attributes": [],
                   "modifiers": [],
                   "operand": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "value",
                     "start": {
@@ -100,10 +92,10 @@
                   },
                   "members": [
                     {
-                      "kind": 74,
+                      "kind": 75,
                       "modifiers": [],
                       "internal": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "x",
                         "start": {
@@ -125,10 +117,10 @@
                       }
                     },
                     {
-                      "kind": 74,
+                      "kind": 75,
                       "modifiers": [],
                       "internal": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "y",
                         "start": {
@@ -187,6 +179,14 @@
           "line": 5,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 2
       }
     }
   ],

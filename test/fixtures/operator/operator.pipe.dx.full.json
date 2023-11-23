@@ -1,12 +1,25 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [
+        {
+          "kind": 4,
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 6
+          }
+        }
+      ],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "process",
         "start": {
@@ -18,21 +31,13 @@
           "column": 19
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 7,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "input",
             "start": {
@@ -45,7 +50,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "input",
             "start": {
@@ -67,26 +72,13 @@
           }
         }
       ],
-      "modifiers": [
-        {
-          "kind": 4,
-          "start": {
-            "line": 1,
-            "column": 1
-          },
-          "end": {
-            "line": 1,
-            "column": 6
-          }
-        }
-      ],
       "throws": [],
       "body": {
         "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 99,
+            "kind": 100,
             "attributes": [],
             "value": {
               "kind": 11,
@@ -181,7 +173,7 @@
                       "column": 25
                     },
                     "left": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "input",
                       "start": {
@@ -203,7 +195,7 @@
                           "kind": 2
                         },
                         "callee": {
-                          "kind": 47,
+                          "kind": 48,
                           "modifiers": [],
                           "name": "preprocess",
                           "start": {
@@ -255,7 +247,7 @@
                       "kind": 2
                     },
                     "callee": {
-                      "kind": 68,
+                      "kind": 69,
                       "modifiers": [],
                       "object": {
                         "kind": 114,
@@ -270,7 +262,7 @@
                         }
                       },
                       "property": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "next",
                         "start": {
@@ -303,21 +295,21 @@
                   }
                 },
                 "right": {
-                  "kind": 57,
+                  "kind": 58,
                   "modifiers": [],
                   "parameters": [
                     {
-                      "kind": 82,
+                      "kind": 83,
                       "attributes": [],
                       "modifiers": [],
                       "internal": {
-                        "kind": 77,
+                        "kind": 78,
                         "elements": [
                           {
                             "kind": 12,
                             "modifiers": [],
                             "internal": {
-                              "kind": 47,
+                              "kind": 48,
                               "modifiers": [],
                               "name": "x",
                               "start": {
@@ -342,7 +334,7 @@
                             "kind": 12,
                             "modifiers": [],
                             "internal": {
-                              "kind": 47,
+                              "kind": 48,
                               "modifiers": [],
                               "name": "y",
                               "start": {
@@ -379,7 +371,7 @@
                               }
                             ],
                             "internal": {
-                              "kind": 47,
+                              "kind": 48,
                               "modifiers": [],
                               "name": "z",
                               "start": {
@@ -420,6 +412,7 @@
                       }
                     }
                   ],
+                  "throws": [],
                   "body": {
                     "kind": 17,
                     "modifiers": [],
@@ -427,10 +420,10 @@
                       "kind": 2
                     },
                     "callee": {
-                      "kind": 68,
+                      "kind": 69,
                       "modifiers": [],
                       "object": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "Foo",
                         "start": {
@@ -443,7 +436,7 @@
                         }
                       },
                       "property": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "new",
                         "start": {
@@ -466,7 +459,7 @@
                     },
                     "arguments": [
                       {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "x",
                         "start": {
@@ -479,7 +472,7 @@
                         }
                       },
                       {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "y",
                         "start": {
@@ -492,7 +485,7 @@
                         }
                       },
                       {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "z",
                         "start": {
@@ -521,8 +514,7 @@
                   "end": {
                     "line": 5,
                     "column": 40
-                  },
-                  "throws": []
+                  }
                 }
               },
               "right": {
@@ -532,7 +524,7 @@
                   "kind": 2
                 },
                 "callee": {
-                  "kind": 68,
+                  "kind": 69,
                   "modifiers": [],
                   "object": {
                     "kind": 114,
@@ -547,7 +539,7 @@
                     }
                   },
                   "property": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "log",
                     "start": {
@@ -597,6 +589,14 @@
           "line": 7,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
       }
     }
   ],

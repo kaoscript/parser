@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -18,21 +19,13 @@
           "column": 12
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 4,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -45,7 +38,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -67,14 +60,13 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 49,
+            "kind": 50,
             "attributes": [],
             "condition": {
               "kind": 11,
@@ -100,7 +92,7 @@
                 "column": 25
               },
               "left": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "x",
                 "start": {
@@ -113,7 +105,7 @@
                 }
               },
               "right": {
-                "kind": 56,
+                "kind": 57,
                 "modifiers": [],
                 "operator": {
                   "kind": 16,
@@ -132,7 +124,7 @@
                     "kind": 123,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "Number",
                       "start": {
@@ -157,7 +149,7 @@
                     "kind": 123,
                     "modifiers": [],
                     "typeName": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "String",
                       "start": {
@@ -220,6 +212,14 @@
           "line": 4,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 2
       }
     }
   ],

@@ -539,14 +539,7 @@ type NodeData = Range & {
 			name: NodeData(Identifier)
 			extends: NodeData(TypeReference)?
 			implements: NodeData(Identifier, MemberExpression)[]?
-			fields: NodeData(StructField)[]
-		}
-		StructField {
-			attributes: NodeData(AttributeDeclaration)[]
-			modifiers: ModifierData[]
-			name: NodeData(Identifier)
-			type: NodeData(Type)?
-			defaultValue: NodeData(Expression)?
+			fields: NodeData(FieldDeclaration)[]
 		}
 		TaggedTemplateExpression {
 			tag: NodeData(Expression)

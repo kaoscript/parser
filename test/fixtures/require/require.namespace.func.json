@@ -1,17 +1,17 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 95,
+      "kind": 96,
       "attributes": [],
       "declarations": [
         {
-          "kind": 75,
+          "kind": 76,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "Math",
             "start": {
@@ -25,10 +25,11 @@
           },
           "statements": [
             {
-              "kind": 43,
+              "kind": 44,
               "attributes": [],
+              "modifiers": [],
               "name": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "round",
                 "start": {
@@ -40,17 +41,9 @@
                   "column": 7
                 }
               },
-              "start": {
-                "line": 2,
-                "column": 2
-              },
-              "end": {
-                "line": 2,
-                "column": 20
-              },
               "parameters": [
                 {
-                  "kind": 82,
+                  "kind": 83,
                   "attributes": [],
                   "modifiers": [
                     {
@@ -79,12 +72,11 @@
                   }
                 }
               ],
-              "modifiers": [],
               "type": {
                 "kind": 123,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "Number",
                   "start": {
@@ -105,7 +97,15 @@
                   "column": 20
                 }
               },
-              "throws": []
+              "throws": [],
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 20
+              }
             }
           ],
           "start": {

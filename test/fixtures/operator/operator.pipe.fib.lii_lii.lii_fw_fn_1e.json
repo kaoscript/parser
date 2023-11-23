@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "fib",
         "start": {
@@ -18,17 +19,9 @@
           "column": 9
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 1,
-        "column": 31
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "internal": {
@@ -38,7 +31,7 @@
                 "kind": 12,
                 "modifiers": [],
                 "internal": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "m",
                   "start": {
@@ -63,7 +56,7 @@
                 "kind": 12,
                 "modifiers": [],
                 "internal": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "n",
                   "start": {
@@ -104,14 +97,13 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 4,
         "modifiers": [],
         "values": [
           {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "n",
             "start": {
@@ -147,7 +139,7 @@
               "column": 30
             },
             "left": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "m",
               "start": {
@@ -160,7 +152,7 @@
               }
             },
             "right": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "n",
               "start": {
@@ -182,6 +174,14 @@
           "line": 1,
           "column": 31
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 31
       }
     },
     {
@@ -199,7 +199,7 @@
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "f",
                 "start": {
@@ -221,14 +221,6 @@
               }
             }
           ],
-          "start": {
-            "line": 3,
-            "column": 5
-          },
-          "end": {
-            "line": 3,
-            "column": 22
-          },
           "value": {
             "kind": 11,
             "modifiers": [],
@@ -257,7 +249,7 @@
               "modifiers": [],
               "values": [
                 {
-                  "kind": 76,
+                  "kind": 77,
                   "modifiers": [],
                   "value": 1,
                   "radix": 10,
@@ -271,7 +263,7 @@
                   }
                 },
                 {
-                  "kind": 76,
+                  "kind": 77,
                   "modifiers": [],
                   "value": 1,
                   "radix": 10,
@@ -295,7 +287,7 @@
               }
             },
             "right": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "fib",
               "start": {
@@ -307,6 +299,14 @@
                 "column": 22
               }
             }
+          },
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 22
           }
         }
       ],

@@ -1,12 +1,12 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
       "kind": 120,
       "attributes": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "User",
         "start": {
@@ -19,22 +19,14 @@
         }
       },
       "type": {
-        "kind": 80,
+        "kind": 81,
         "modifiers": [],
         "properties": [
           {
-            "kind": 89,
+            "kind": 90,
             "modifiers": [],
-            "start": {
-              "line": 2,
-              "column": 2
-            },
-            "end": {
-              "line": 2,
-              "column": 14
-            },
             "name": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "name",
               "start": {
@@ -50,7 +42,7 @@
               "kind": 123,
               "modifiers": [],
               "typeName": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "String",
                 "start": {
@@ -70,21 +62,21 @@
                 "line": 2,
                 "column": 14
               }
-            }
-          },
-          {
-            "kind": 89,
-            "modifiers": [],
+            },
             "start": {
-              "line": 3,
+              "line": 2,
               "column": 2
             },
             "end": {
-              "line": 3,
-              "column": 23
-            },
+              "line": 2,
+              "column": 14
+            }
+          },
+          {
+            "kind": 90,
+            "modifiers": [],
             "name": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "supervisorId",
               "start": {
@@ -112,7 +104,7 @@
                 }
               ],
               "typeName": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "Number",
                 "start": {
@@ -132,6 +124,14 @@
                 "line": 3,
                 "column": 23
               }
+            },
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 3,
+              "column": 23
             }
           }
         ],
@@ -154,14 +154,15 @@
       }
     },
     {
-      "kind": 36,
+      "kind": 37,
       "attributes": [],
       "declarations": [
         {
-          "kind": 43,
+          "kind": 44,
           "attributes": [],
+          "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "parseInt",
             "start": {
@@ -173,21 +174,13 @@
               "column": 15
             }
           },
-          "start": {
-            "line": 7,
-            "column": 2
-          },
-          "end": {
-            "line": 7,
-            "column": 38
-          },
           "parameters": [
             {
-              "kind": 82,
+              "kind": 83,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "value",
                 "start": {
@@ -200,7 +193,7 @@
                 }
               },
               "internal": {
-                "kind": 47,
+                "kind": 48,
                 "modifiers": [],
                 "name": "value",
                 "start": {
@@ -216,7 +209,7 @@
                 "kind": 123,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "String",
                   "start": {
@@ -247,12 +240,11 @@
               }
             }
           ],
-          "modifiers": [],
           "type": {
             "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "Number",
               "start": {
@@ -273,14 +265,22 @@
               "column": 38
             }
           },
-          "throws": []
+          "throws": [],
+          "start": {
+            "line": 7,
+            "column": 2
+          },
+          "end": {
+            "line": 7,
+            "column": 38
+          }
         },
         {
           "kind": 131,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "repository",
             "start": {
@@ -292,31 +292,15 @@
               "column": 16
             }
           },
-          "start": {
-            "line": 9,
-            "column": 2
-          },
-          "end": {
-            "line": 11,
-            "column": 3
-          },
           "type": {
-            "kind": 80,
+            "kind": 81,
             "modifiers": [],
             "properties": [
               {
-                "kind": 89,
+                "kind": 90,
                 "modifiers": [],
-                "start": {
-                  "line": 10,
-                  "column": 3
-                },
-                "end": {
-                  "line": 10,
-                  "column": 30
-                },
                 "name": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "findById",
                   "start": {
@@ -329,14 +313,15 @@
                   }
                 },
                 "type": {
-                  "kind": 44,
+                  "kind": 45,
+                  "modifiers": [],
                   "parameters": [
                     {
-                      "kind": 82,
+                      "kind": 83,
                       "attributes": [],
                       "modifiers": [],
                       "external": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "id",
                         "start": {
@@ -349,7 +334,7 @@
                         }
                       },
                       "internal": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "id",
                         "start": {
@@ -365,7 +350,7 @@
                         "kind": 123,
                         "modifiers": [],
                         "typeName": {
-                          "kind": 47,
+                          "kind": 48,
                           "modifiers": [],
                           "name": "Number",
                           "start": {
@@ -396,15 +381,6 @@
                       }
                     }
                   ],
-                  "start": {
-                    "line": 10,
-                    "column": 11
-                  },
-                  "end": {
-                    "line": 10,
-                    "column": 30
-                  },
-                  "modifiers": [],
                   "type": {
                     "kind": 123,
                     "modifiers": [
@@ -421,7 +397,7 @@
                       }
                     ],
                     "typeName": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "User",
                       "start": {
@@ -442,7 +418,23 @@
                       "column": 30
                     }
                   },
-                  "throws": []
+                  "throws": [],
+                  "start": {
+                    "line": 10,
+                    "column": 11
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 30
+                  }
+                },
+                "start": {
+                  "line": 10,
+                  "column": 3
+                },
+                "end": {
+                  "line": 10,
+                  "column": 30
                 }
               }
             ],
@@ -454,6 +446,14 @@
               "line": 11,
               "column": 3
             }
+          },
+          "start": {
+            "line": 9,
+            "column": 2
+          },
+          "end": {
+            "line": 11,
+            "column": 3
           }
         }
       ],
@@ -467,10 +467,11 @@
       }
     },
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "getSupervisorName",
         "start": {
@@ -482,21 +483,13 @@
           "column": 23
         }
       },
-      "start": {
-        "line": 14,
-        "column": 1
-      },
-      "end": {
-        "line": 21,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "enteredId",
             "start": {
@@ -509,7 +502,7 @@
             }
           },
           "internal": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "enteredId",
             "start": {
@@ -537,7 +530,7 @@
               }
             ],
             "typeName": {
-              "kind": 47,
+              "kind": 48,
               "modifiers": [],
               "name": "String",
               "start": {
@@ -568,7 +561,6 @@
           }
         }
       ],
-      "modifiers": [],
       "type": {
         "kind": 123,
         "modifiers": [
@@ -585,7 +577,7 @@
           }
         ],
         "typeName": {
-          "kind": 47,
+          "kind": 48,
           "modifiers": [],
           "name": "String",
           "start": {
@@ -612,7 +604,7 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 99,
+            "kind": 100,
             "attributes": [],
             "value": {
               "kind": 11,
@@ -778,7 +770,7 @@
                         "column": 18
                       },
                       "left": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "enteredId",
                         "start": {
@@ -797,7 +789,7 @@
                           "kind": 2
                         },
                         "callee": {
-                          "kind": 47,
+                          "kind": 48,
                           "modifiers": [],
                           "name": "parseInt",
                           "start": {
@@ -840,10 +832,10 @@
                         "kind": 2
                       },
                       "callee": {
-                        "kind": 68,
+                        "kind": 69,
                         "modifiers": [],
                         "object": {
-                          "kind": 47,
+                          "kind": 48,
                           "modifiers": [],
                           "name": "repository",
                           "start": {
@@ -856,7 +848,7 @@
                           }
                         },
                         "property": {
-                          "kind": 47,
+                          "kind": 48,
                           "modifiers": [],
                           "name": "findById",
                           "start": {
@@ -902,7 +894,7 @@
                     }
                   },
                   "right": {
-                    "kind": 68,
+                    "kind": 69,
                     "modifiers": [],
                     "object": {
                       "kind": 114,
@@ -917,7 +909,7 @@
                       }
                     },
                     "property": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "supervisorId",
                       "start": {
@@ -946,10 +938,10 @@
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 68,
+                    "kind": 69,
                     "modifiers": [],
                     "object": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "repository",
                       "start": {
@@ -962,7 +954,7 @@
                       }
                     },
                     "property": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "findById",
                       "start": {
@@ -1008,7 +1000,7 @@
                 }
               },
               "right": {
-                "kind": 68,
+                "kind": 69,
                 "modifiers": [],
                 "object": {
                   "kind": 114,
@@ -1023,7 +1015,7 @@
                   }
                 },
                 "property": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "name",
                   "start": {
@@ -1063,6 +1055,14 @@
           "line": 21,
           "column": 2
         }
+      },
+      "start": {
+        "line": 14,
+        "column": 1
+      },
+      "end": {
+        "line": 21,
+        "column": 2
       }
     }
   ],

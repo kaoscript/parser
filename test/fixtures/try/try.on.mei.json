@@ -1,5 +1,5 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
@@ -10,7 +10,7 @@
         "attributes": [],
         "statements": [
           {
-            "kind": 39,
+            "kind": 40,
             "attributes": [],
             "expression": {
               "kind": 17,
@@ -19,10 +19,10 @@
                 "kind": 2
               },
               "callee": {
-                "kind": 68,
+                "kind": 69,
                 "modifiers": [],
                 "object": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "console",
                   "start": {
@@ -35,7 +35,7 @@
                   }
                 },
                 "property": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "log",
                   "start": {
@@ -58,7 +58,7 @@
               },
               "arguments": [
                 {
-                  "kind": 58,
+                  "kind": 59,
                   "modifiers": [],
                   "value": "foobar",
                   "start": {
@@ -107,7 +107,7 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 39,
+                "kind": 40,
                 "attributes": [],
                 "expression": {
                   "kind": 17,
@@ -116,10 +116,10 @@
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 68,
+                    "kind": 69,
                     "modifiers": [],
                     "object": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "console",
                       "start": {
@@ -132,7 +132,7 @@
                       }
                     },
                     "property": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "log",
                       "start": {
@@ -155,7 +155,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 58,
+                      "kind": 59,
                       "modifiers": [],
                       "value": "RangeError",
                       "start": {
@@ -168,7 +168,7 @@
                       }
                     },
                     {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "error",
                       "start": {
@@ -209,16 +209,8 @@
               "column": 2
             }
           },
-          "start": {
-            "line": 4,
-            "column": 1
-          },
-          "end": {
-            "line": 6,
-            "column": 2
-          },
           "binding": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "error",
             "start": {
@@ -231,7 +223,7 @@
             }
           },
           "type": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "RangeError",
             "start": {
@@ -242,6 +234,14 @@
               "line": 4,
               "column": 14
             }
+          },
+          "start": {
+            "line": 4,
+            "column": 1
+          },
+          "end": {
+            "line": 6,
+            "column": 2
           }
         },
         {
@@ -251,7 +251,7 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 39,
+                "kind": 40,
                 "attributes": [],
                 "expression": {
                   "kind": 17,
@@ -260,10 +260,10 @@
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 68,
+                    "kind": 69,
                     "modifiers": [],
                     "object": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "console",
                       "start": {
@@ -276,7 +276,7 @@
                       }
                     },
                     "property": {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "log",
                       "start": {
@@ -299,7 +299,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 58,
+                      "kind": 59,
                       "modifiers": [],
                       "value": "SyntaxError",
                       "start": {
@@ -312,7 +312,7 @@
                       }
                     },
                     {
-                      "kind": 47,
+                      "kind": 48,
                       "modifiers": [],
                       "name": "error",
                       "start": {
@@ -353,16 +353,8 @@
               "column": 2
             }
           },
-          "start": {
-            "line": 7,
-            "column": 1
-          },
-          "end": {
-            "line": 9,
-            "column": 2
-          },
           "binding": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "error",
             "start": {
@@ -375,7 +367,7 @@
             }
           },
           "type": {
-            "kind": 47,
+            "kind": 48,
             "modifiers": [],
             "name": "SyntaxError",
             "start": {
@@ -386,17 +378,17 @@
               "line": 7,
               "column": 15
             }
+          },
+          "start": {
+            "line": 7,
+            "column": 1
+          },
+          "end": {
+            "line": 9,
+            "column": 2
           }
         }
       ],
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 12,
-        "column": 2
-      },
       "catchClause": {
         "kind": 18,
         "body": {
@@ -404,7 +396,7 @@
           "attributes": [],
           "statements": [
             {
-              "kind": 39,
+              "kind": 40,
               "attributes": [],
               "expression": {
                 "kind": 17,
@@ -413,10 +405,10 @@
                   "kind": 2
                 },
                 "callee": {
-                  "kind": 68,
+                  "kind": 69,
                   "modifiers": [],
                   "object": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "console",
                     "start": {
@@ -429,7 +421,7 @@
                     }
                   },
                   "property": {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "log",
                     "start": {
@@ -452,7 +444,7 @@
                 },
                 "arguments": [
                   {
-                    "kind": 58,
+                    "kind": 59,
                     "modifiers": [],
                     "value": "Error",
                     "start": {
@@ -465,7 +457,7 @@
                     }
                   },
                   {
-                    "kind": 47,
+                    "kind": 48,
                     "modifiers": [],
                     "name": "error",
                     "start": {
@@ -506,16 +498,8 @@
             "column": 2
           }
         },
-        "start": {
-          "line": 10,
-          "column": 1
-        },
-        "end": {
-          "line": 12,
-          "column": 2
-        },
         "binding": {
-          "kind": 47,
+          "kind": 48,
           "modifiers": [],
           "name": "error",
           "start": {
@@ -526,7 +510,23 @@
             "line": 10,
             "column": 12
           }
+        },
+        "start": {
+          "line": 10,
+          "column": 1
+        },
+        "end": {
+          "line": 12,
+          "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 12,
+        "column": 2
       }
     }
   ],

@@ -1,12 +1,13 @@
 {
-  "kind": 71,
+  "kind": 72,
   "attributes": [],
   "body": [
     {
-      "kind": 43,
+      "kind": 44,
       "attributes": [],
+      "modifiers": [],
       "name": {
-        "kind": 47,
+        "kind": 48,
         "modifiers": [],
         "name": "drawCircle",
         "start": {
@@ -18,27 +19,19 @@
           "column": 16
         }
       },
-      "start": {
-        "line": 1,
-        "column": 1
-      },
-      "end": {
-        "line": 3,
-        "column": 2
-      },
       "parameters": [
         {
-          "kind": 82,
+          "kind": 83,
           "attributes": [],
           "modifiers": [],
           "internal": {
-            "kind": 77,
+            "kind": 78,
             "elements": [
               {
                 "kind": 12,
                 "modifiers": [],
                 "external": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "center",
                   "start": {
@@ -57,7 +50,7 @@
                       "kind": 12,
                       "modifiers": [],
                       "internal": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "x",
                         "start": {
@@ -82,7 +75,7 @@
                       "kind": 12,
                       "modifiers": [],
                       "internal": {
-                        "kind": 47,
+                        "kind": 48,
                         "modifiers": [],
                         "name": "y",
                         "start": {
@@ -126,7 +119,7 @@
                 "kind": 12,
                 "modifiers": [],
                 "external": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "radius",
                   "start": {
@@ -139,7 +132,7 @@
                   }
                 },
                 "internal": {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "r",
                   "start": {
@@ -180,21 +173,20 @@
           }
         }
       ],
-      "modifiers": [],
       "throws": [],
       "body": {
         "kind": 14,
         "attributes": [],
         "statements": [
           {
-            "kind": 99,
+            "kind": 100,
             "attributes": [],
             "value": {
               "kind": 4,
               "modifiers": [],
               "values": [
                 {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "x",
                   "start": {
@@ -207,7 +199,7 @@
                   }
                 },
                 {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "y",
                   "start": {
@@ -220,7 +212,7 @@
                   }
                 },
                 {
-                  "kind": 47,
+                  "kind": 48,
                   "modifiers": [],
                   "name": "r",
                   "start": {
@@ -260,6 +252,14 @@
           "line": 3,
           "column": 2
         }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
       }
     }
   ],
