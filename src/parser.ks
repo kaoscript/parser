@@ -457,39 +457,40 @@ export namespace Parser {
 			fMode: FunctionMode
 		): Event<NodeData(ArrayExpression)>(Y) ~ SyntaxError # {{{
 		{
-			var values = [expression]
+			var values = [@altRestrictiveExpression(expression, fMode)]
 
-			do {
-				if @match(Token.RIGHT_SQUARE, Token.COMMA, Token.NEWLINE) == Token.RIGHT_SQUARE {
-					return @yep(AST.ArrayExpression(values, first, @yes()))
-				}
-				else if @token == Token.COMMA {
+			repeat {
+				if @test(.COMMA) {
 					@commit().NL_0M()
 
-					values.push(@reqExpression(null, fMode, MacroTerminator.Array))
+					var expression = @reqExpression(null, fMode, MacroTerminator.Array)
+
+					values.push(@altRestrictiveExpression(expression, fMode))
 				}
-				else if @token == Token.NEWLINE {
+				else if @test(.NEWLINE) {
 					@commit().NL_0M()
 
-					if @match(Token.RIGHT_SQUARE, Token.COMMA) == Token.COMMA {
+					if @test(.COMMA) {
 						@commit().NL_0M()
+					}
+					else if @test(.RIGHT_SQUARE) {
+						break
+					}
 
-						values.push(@reqExpression(null, fMode, MacroTerminator.Array))
-					}
-					else if @token == Token.RIGHT_SQUARE {
-						return @yep(AST.ArrayExpression(values, first, @yes()))
-					}
-					else {
-						values.push(@reqExpression(null, fMode, MacroTerminator.Array))
-					}
+					var expression = @reqExpression(null, fMode, MacroTerminator.Array)
+
+					values.push(@altRestrictiveExpression(expression, fMode))
 				}
 				else {
 					break
 				}
 			}
-			while true
 
-			@throw(']')
+			unless @test(.RIGHT_SQUARE) {
+				@throw(']')
+			}
+
+			return @yep(AST.ArrayExpression(values, first, @yes()))
 		} # }}}
 
 		altRestrictiveExpression(
