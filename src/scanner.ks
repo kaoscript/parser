@@ -186,6 +186,7 @@ enum Token {
 	RIGHT_ROUND
 	RIGHT_SQUARE
 	SEALED
+	SEMICOLON
 	SEMICOLON_SEMICOLON
 	SET
 	SLASH
@@ -1044,6 +1045,11 @@ enum Token {
 			} # }}}
 			.RIGHT_SQUARE { # {{{
 				if c == 93 {
+					return scanner.next(1)
+				}
+			} # }}}
+			.SEMICOLON { # {{{
+				if c == 0';' {
 					return scanner.next(1)
 				}
 			} # }}}

@@ -1,0 +1,6 @@
+class Foobar {
+	override {
+		foobar() {
+		}
+	}
+}

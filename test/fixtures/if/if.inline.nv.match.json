@@ -1,13 +1,13 @@
 {
-  "kind": 72,
+  "kind": 73,
   "attributes": [],
   "body": [
     {
-      "kind": 44,
+      "kind": 45,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 48,
+        "kind": 49,
         "modifiers": [],
         "name": "foobar",
         "start": {
@@ -21,11 +21,11 @@
       },
       "parameters": [
         {
-          "kind": 83,
+          "kind": 84,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -38,7 +38,7 @@
             }
           },
           "internal": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -60,11 +60,11 @@
           }
         },
         {
-          "kind": 83,
+          "kind": 84,
           "attributes": [],
           "modifiers": [],
           "external": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
             "name": "y",
             "start": {
@@ -77,7 +77,7 @@
             }
           },
           "internal": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
             "name": "y",
             "start": {
@@ -101,25 +101,25 @@
       ],
       "throws": [],
       "body": {
-        "kind": 14,
+        "kind": 15,
         "attributes": [],
         "statements": [
           {
-            "kind": 132,
+            "kind": 133,
             "attributes": [],
             "modifiers": [],
             "declarations": [
               {
-                "kind": 130,
+                "kind": 131,
                 "attributes": [],
                 "modifiers": [],
                 "variables": [
                   {
-                    "kind": 131,
+                    "kind": 132,
                     "attributes": [],
                     "modifiers": [],
                     "name": {
-                      "kind": 48,
+                      "kind": 49,
                       "modifiers": [],
                       "name": "name",
                       "start": {
@@ -142,10 +142,10 @@
                   }
                 ],
                 "value": {
-                  "kind": 49,
+                  "kind": 50,
                   "attributes": [],
                   "condition": {
-                    "kind": 48,
+                    "kind": 49,
                     "modifiers": [],
                     "name": "x",
                     "start": {
@@ -158,17 +158,17 @@
                     }
                   },
                   "whenTrue": {
-                    "kind": 14,
+                    "kind": 15,
                     "attributes": [],
                     "statements": [
                       {
-                        "kind": 103,
+                        "kind": 104,
                         "attributes": [],
                         "value": {
-                          "kind": 67,
+                          "kind": 68,
                           "attributes": [],
                           "expression": {
-                            "kind": 48,
+                            "kind": 49,
                             "modifiers": [],
                             "name": "y",
                             "start": {
@@ -182,10 +182,10 @@
                           },
                           "clauses": [
                             {
-                              "kind": 62,
+                              "kind": 63,
                               "conditions": [
                                 {
-                                  "kind": 77,
+                                  "kind": 78,
                                   "modifiers": [],
                                   "value": 0,
                                   "radix": 10,
@@ -200,10 +200,10 @@
                                 }
                               ],
                               "body": {
-                                "kind": 103,
+                                "kind": 104,
                                 "attributes": [],
                                 "value": {
-                                  "kind": 59,
+                                  "kind": 60,
                                   "modifiers": [],
                                   "value": "zero",
                                   "start": {
@@ -234,10 +234,10 @@
                               }
                             },
                             {
-                              "kind": 62,
+                              "kind": 63,
                               "conditions": [
                                 {
-                                  "kind": 77,
+                                  "kind": 78,
                                   "modifiers": [],
                                   "value": 1,
                                   "radix": 10,
@@ -252,10 +252,10 @@
                                 }
                               ],
                               "body": {
-                                "kind": 103,
+                                "kind": 104,
                                 "attributes": [],
                                 "value": {
-                                  "kind": 59,
+                                  "kind": 60,
                                   "modifiers": [],
                                   "value": "one",
                                   "start": {
@@ -286,13 +286,13 @@
                               }
                             },
                             {
-                              "kind": 62,
+                              "kind": 63,
                               "conditions": [],
                               "body": {
-                                "kind": 103,
+                                "kind": 104,
                                 "attributes": [],
                                 "value": {
-                                  "kind": 59,
+                                  "kind": 60,
                                   "modifiers": [],
                                   "value": "bye",
                                   "start": {
@@ -352,14 +352,14 @@
                     }
                   },
                   "whenFalse": {
-                    "kind": 14,
+                    "kind": 15,
                     "attributes": [],
                     "statements": [
                       {
-                        "kind": 103,
+                        "kind": 104,
                         "attributes": [],
                         "value": {
-                          "kind": 59,
+                          "kind": 60,
                           "modifiers": [],
                           "value": "bye",
                           "start": {

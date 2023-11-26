@@ -21,29 +21,16 @@ export namespace Parser {
 		'./scanner.ks'
 	}
 
-	type AmbiguityResult = {
-		token: Token?
-		identifier: Event<NodeData(Identifier)>(Y)?
-	}
+	bitmask AccessMode {
+		Nil
 
-	bitmask ClassBits<u32> {
-		AbstractMethod		 = 1
-		AssistMethod
-		Attribute
-		FinalMethod
-		FinalVariable
-		LateVariable
-		Method
-		NoAssignment
-		NoBody
-		OverrideMethod
-		OverrideProperty
-		OverwriteMethod
-		OverwriteProperty
-		Property
-		Proxy
-		RequiredAssignment
-		Variable
+		Internal
+		Private
+		Protected
+		Public
+
+		Closed = Public + Internal + Private
+		Opened = Public + Protected + Internal + Private
 	}
 
 	bitmask DestructuringMode {
@@ -79,8 +66,8 @@ export namespace Parser {
 		WithMacro
 
 		InlineOnly			= NoInlineCascade + NoMultiLine
+		Method				= PrimaryType + AtThis
 		PrimaryType			= InlineOnly
-		ClassType			= PrimaryType + AtThis
 	}
 
 	bitmask FunctionMode {
@@ -104,6 +91,27 @@ export namespace Parser {
 		List				= COMMA + NEWLINE + RIGHT_ROUND
 		Object				= COMMA + NEWLINE + RIGHT_CURLY
 		Parenthesis			= NEWLINE + RIGHT_ROUND
+	}
+
+	bitmask MemberBits<u32> {
+		AbstractMethod		 = 1
+		AssistMethod
+		Attribute
+		FinalMethod
+		FinalVariable
+		LateVariable
+		Method
+		NoAssignment
+		NoBody
+		OverrideMethod
+		OverrideProperty
+		OverwriteMethod
+		OverwriteProperty
+		Property
+		Proxy
+		RequiredAssignment
+		Value
+		Variable
 	}
 
 	bitmask ParserMode {
@@ -650,116 +658,6 @@ export namespace Parser {
 			}
 
 			return false
-		} # }}}
-
-		isAmbiguousIdentifier(
-			result: AmbiguityResult
-		): Boolean ~ SyntaxError # {{{
-		{
-			if @test(Token.IDENTIFIER) {
-				result.token = null
-				result.identifier = @yep(AST.Identifier(@scanner.value(), @yes()))
-
-				return true
-			}
-			else {
-				return false
-			}
-		} # }}}
-
-		isAmbiguousAccessModifierForEnum(
-			modifiers: Event<ModifierData>(Y)[]
-			result: AmbiguityResult
-		): Boolean ~ SyntaxError # {{{
-		{
-			var late identifier
-			var late token: Token
-
-			if @test(Token.PRIVATE, Token.PUBLIC, Token.INTERNAL) {
-				token = @token!?
-				identifier = AST.Identifier(@scanner.value(), @yes())
-			}
-			else {
-				return false
-			}
-
-			if @test(Token.EQUALS, Token.LEFT_ROUND) {
-				result.token = @token
-				result.identifier = @yep(identifier)
-
-				return true
-			}
-			else {
-				if token == Token.PRIVATE {
-					modifiers.push(@yep(AST.Modifier(ModifierKind.Private, identifier)))
-				}
-				else if token == Token.PUBLIC {
-					modifiers.push(@yep(AST.Modifier(ModifierKind.Public, identifier)))
-				}
-				else {
-					modifiers.push(@yep(AST.Modifier(ModifierKind.Internal, identifier)))
-				}
-
-				result.token = null
-				result.identifier = @yep(identifier)
-
-				return false
-			}
-		} # }}}
-
-		isAmbiguousAsyncModifier(
-			modifiers: Event<ModifierData>(Y)[]
-			result: AmbiguityResult
-		): Boolean ~ SyntaxError # {{{
-		{
-			unless @test(Token.ASYNC) {
-				return false
-			}
-
-			var identifier = AST.Identifier(@scanner.value(), @yes())
-
-			if @test(Token.IDENTIFIER) {
-				modifiers.push(@yep(AST.Modifier(ModifierKind.Async, identifier)))
-
-				result.token = @token
-				result.identifier = @yep(AST.Identifier(@scanner.value(), @yes()))
-			}
-			else {
-				result.token = null
-				result.identifier = @yep(identifier)
-			}
-
-			return true
-		} # }}}
-
-		isAmbiguousStaticModifier(
-			modifiers: Event<ModifierData>(Y)[]
-			result: AmbiguityResult
-		): Boolean ~ SyntaxError # {{{
-		{
-			var late identifier
-
-			if @test(Token.STATIC) {
-				identifier = AST.Identifier(@scanner.value(), @yes())
-			}
-			else {
-				return false
-			}
-
-			if @test(Token.EQUALS, Token.LEFT_ROUND) {
-				result.token = @token
-				result.identifier = @yep(identifier)
-
-				return true
-			}
-			else {
-				modifiers.push(@yep(AST.Modifier(ModifierKind.Static, identifier)))
-
-				result.token = null
-				result.identifier = @yep(identifier)
-
-				return false
-			}
 		} # }}}
 
 		isComputed(
@@ -1332,6 +1230,125 @@ export namespace Parser {
 			}
 		} # }}}
 
+		reqBitmaskMember(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			mut bits: MemberBits
+		): Event<NodeData(BitmaskValue, MethodDeclaration)>(Y) ~ SyntaxError # {{{
+		{
+			var member = @tryBitmaskMember(attributes, modifiers, bits, null)
+
+			unless member.ok {
+				@throw('Identifier')
+			}
+
+			return member
+		} # }}}
+
+		reqBitmaskMemberBlock(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			mut bits: MemberBits
+			members: NodeData(BitmaskValue, MethodDeclaration)[]
+		): Void ~ SyntaxError # {{{
+		{
+			@commit().NL_0M()
+
+			var mut attrs = [...attributes]
+
+			bits += MemberBits.Attribute
+
+			while @until(Token.RIGHT_CURLY) {
+				if @stackInnerAttributes(attrs) {
+					continue
+				}
+
+				members.push(@reqBitmaskMember(attrs, modifiers, bits).value)
+			}
+
+			unless @test(Token.RIGHT_CURLY) {
+				@throw('}')
+			}
+
+			@commit().reqNL_1M()
+		} # }}}
+
+		reqBitmaskMemberList(
+			members: NodeData(BitmaskValue, MethodDeclaration)[]
+		): Void ~ SyntaxError # {{{
+		{
+			var attributes = @stackOuterAttributes([])
+			var modifiers = []
+
+			var accessMark = @mark()
+			var accessModifier = @tryAccessModifier(.Closed)
+
+			if accessModifier.ok && @test(Token.LEFT_CURLY) {
+				return @reqBitmaskMemberBlock(
+					attributes
+					[accessModifier]
+					MemberBits.Method
+					members
+				)
+			}
+
+			var first = accessModifier.ok ? accessModifier : null
+			var staticMark = @mark()
+			var staticModifier = @tryStaticModifier()
+
+			if staticModifier.ok {
+				if @test(Token.LEFT_CURLY) {
+					return @reqBitmaskMemberBlock(
+						attributes
+						[
+							accessModifier if accessModifier.ok
+							staticModifier
+						]
+						MemberBits.Method
+						members
+					)
+				}
+				else {
+					var member = @tryBitmaskMember(
+						attributes
+						[
+							accessModifier if accessModifier.ok
+							staticModifier
+						]
+						MemberBits.Method
+						(first ?? staticModifier)!!
+					)
+
+					if member.ok {
+						members.push(member.value)
+
+						return
+					}
+
+					@rollback(staticMark)
+				}
+			}
+
+			if accessModifier.ok {
+				var member = @tryBitmaskMember(
+					attributes
+					[accessModifier]
+					MemberBits.Method
+					accessModifier
+				)
+
+				if member.ok {
+					members.push(member.value)
+
+					return
+				}
+
+				@rollback(accessMark)
+			}
+
+			members.push(@reqBitmaskMember(attributes, [], MemberBits.Value + MemberBits.Method).value)
+		} # }}}
+
 		reqBitmaskStatement(
 			first: Event(Y)
 			modifiers: Event<ModifierData>(Y)[] = []
@@ -1539,7 +1556,7 @@ export namespace Parser {
 		reqClassMember(
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			mut bits: ClassBits
+			mut bits: MemberBits
 			first: Range?
 		): Event<NodeData(ClassMember)>(Y) ~ SyntaxError # {{{
 		{
@@ -1555,7 +1572,7 @@ export namespace Parser {
 		reqClassMemberBlock(
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			mut bits: ClassBits
+			mut bits: MemberBits
 			members: Event<NodeData(ClassMember)>(Y)[]
 		): Void ~ SyntaxError # {{{
 		{
@@ -1563,7 +1580,7 @@ export namespace Parser {
 
 			var mut attrs = [...attributes]
 
-			bits += ClassBits.Attribute
+			bits += MemberBits.Attribute
 
 			while @until(Token.RIGHT_CURLY) {
 				if @stackInnerAttributes(attrs) {
@@ -1622,13 +1639,13 @@ export namespace Parser {
 			}
 
 			var accessMark = @mark()
-			var accessModifier = @tryAccessModifier()
+			var accessModifier = @tryAccessModifier(.Opened)
 
 			if accessModifier.ok && @test(Token.LEFT_CURLY) {
 				return @reqClassMemberBlock(
 					attributes
 					[accessModifier]
-					ClassBits.Variable + ClassBits.FinalVariable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method + ClassBits.AssistMethod + ClassBits.OverrideMethod + ClassBits.Proxy
+					MemberBits.Variable + MemberBits.FinalVariable + MemberBits.LateVariable + MemberBits.Property + MemberBits.Method + MemberBits.AssistMethod + MemberBits.OverrideMethod + MemberBits.Proxy
 					members
 				)
 			}
@@ -1646,7 +1663,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						ClassBits.Method + ClassBits.Property + ClassBits.NoBody
+						MemberBits.Method + MemberBits.Property + MemberBits.NoBody
 						members
 					)
 				}
@@ -1666,7 +1683,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						ClassBits.Method
+						MemberBits.Method
 						members
 					)
 				}
@@ -1686,7 +1703,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						ClassBits.Method + ClassBits.Property
+						MemberBits.Method + MemberBits.Property
 						members
 					)
 				}
@@ -1709,7 +1726,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						ClassBits.Variable + ClassBits.FinalVariable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method + ClassBits.FinalMethod + ClassBits.Proxy
+						MemberBits.Variable + MemberBits.FinalVariable + MemberBits.LateVariable + MemberBits.Property + MemberBits.Method + MemberBits.FinalMethod + MemberBits.Proxy
 						members
 					)
 				}
@@ -1810,7 +1827,7 @@ export namespace Parser {
 						return @reqClassMemberBlock(
 							attributes
 							modifiers
-							ClassBits.Variable + ClassBits.LateVariable + ClassBits.RequiredAssignment + ClassBits.Property + ClassBits.Method
+							MemberBits.Variable + MemberBits.LateVariable + MemberBits.RequiredAssignment + MemberBits.Property + MemberBits.Method
 							members
 						)
 					}
@@ -1818,7 +1835,7 @@ export namespace Parser {
 						return @reqClassMemberBlock(
 							attributes
 							modifiers
-							ClassBits.Variable + ClassBits.LateVariable + ClassBits.RequiredAssignment + ClassBits.Property + ClassBits.OverrideProperty + ClassBits.Method + ClassBits.AssistMethod + ClassBits.OverrideMethod
+							MemberBits.Variable + MemberBits.LateVariable + MemberBits.RequiredAssignment + MemberBits.Property + MemberBits.OverrideProperty + MemberBits.Method + MemberBits.AssistMethod + MemberBits.OverrideMethod
 							members
 						)
 					}
@@ -1837,7 +1854,7 @@ export namespace Parser {
 							return @reqClassMemberBlock(
 								attributes
 								modifiers
-								ClassBits.Method
+								MemberBits.Method
 								members
 							)
 						}
@@ -1857,7 +1874,7 @@ export namespace Parser {
 							return @reqClassMemberBlock(
 								attributes
 								modifiers
-								ClassBits.Method + ClassBits.Property
+								MemberBits.Method + MemberBits.Property
 								members
 							)
 						}
@@ -1886,7 +1903,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						finalModifier.ok ? ClassBits.Variable : ClassBits.Variable + ClassBits.FinalVariable
+						finalModifier.ok ? MemberBits.Variable : MemberBits.Variable + MemberBits.FinalVariable
 						members
 					)
 				}
@@ -1894,7 +1911,7 @@ export namespace Parser {
 				var member = @tryClassMember(
 					attributes
 					modifiers
-					ClassBits.Variable + ClassBits.NoAssignment
+					MemberBits.Variable + MemberBits.NoAssignment
 					first ?? modifiers[0]
 				)
 
@@ -1931,17 +1948,17 @@ export namespace Parser {
 		reqClassMethod(
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			bits: ClassBits
+			bits: MemberBits
 			name: Event<NodeData(Identifier)>(Y)
 			first: Range
 		): Event<NodeData(MethodDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var typeParameters = @tryTypeParameterList()
-			var parameters = @reqClassMethodParameterList(null, bits ~~ ClassBits.NoBody ? DestructuringMode.EXTERNAL_ONLY : null)
-			var type = @tryFunctionReturns(.ClassType, bits !~ .NoBody)
+			var parameters = @reqClassMethodParameterList(null, bits ~~ MemberBits.NoBody ? DestructuringMode.EXTERNAL_ONLY : null)
+			var type = @tryFunctionReturns(.Method, bits !~ .NoBody)
 			var throws = @tryFunctionThrows()
 
-			if bits ~~ ClassBits.NoBody {
+			if bits ~~ MemberBits.NoBody {
 				@reqNL_1M()
 
 				return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, null, first, (throws ?? type ?? parameters)!!))
@@ -2273,7 +2290,7 @@ export namespace Parser {
 		reqClassVariable(
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			mut bits: ClassBits
+			mut bits: MemberBits
 			name: Event<NodeData(Identifier)>(Y)
 			first: Range?
 		): Event<NodeData(FieldDeclaration)>(Y) ~ SyntaxError # {{{
@@ -2870,117 +2887,177 @@ export namespace Parser {
 		} # }}}
 
 		reqEnumMember(
-			members: NodeData(MethodDeclaration)[]
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			mut bits: MemberBits
+		): Event<NodeData(EnumValue, FieldDeclaration, MethodDeclaration)>(Y) ~ SyntaxError # {{{
+		{
+			var member = @tryEnumMember(attributes, modifiers, bits, null)
+
+			unless member.ok {
+				@throw('Identifier')
+			}
+
+			return member
+		} # }}}
+
+		reqEnumMemberBlock(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			mut bits: MemberBits
+			members: NodeData(EnumValue, FieldDeclaration, MethodDeclaration)[]
+		): Void ~ SyntaxError # {{{
+		{
+			@commit().NL_0M()
+
+			var mut attrs = [...attributes]
+
+			bits += MemberBits.Attribute
+
+			while @until(Token.RIGHT_CURLY) {
+				if @stackInnerAttributes(attrs) {
+					continue
+				}
+
+				members.push(@reqEnumMember(attrs, modifiers, bits).value)
+			}
+
+			unless @test(Token.RIGHT_CURLY) {
+				@throw('}')
+			}
+
+			@commit().reqNL_1M()
+		} # }}}
+
+		reqEnumMemberList(
+			members: NodeData(EnumValue, FieldDeclaration, MethodDeclaration)[]
 		): Void ~ SyntaxError # {{{
 		{
 			var attributes = @stackOuterAttributes([])
 			var modifiers = []
-			var result: AmbiguityResult = {}
 
-			if @isAmbiguousAccessModifierForEnum(modifiers, result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members)
+			var accessMark = @mark()
+			var accessModifier = @tryAccessModifier(.Closed)
+
+			if accessModifier.ok && @test(Token.LEFT_CURLY) {
+				return @reqEnumMemberBlock(
+					attributes
+					[accessModifier]
+					MemberBits.Variable + MemberBits.Method
+					members
+				)
 			}
-			else if @isAmbiguousStaticModifier(modifiers, result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, result.token, members)
-			}
-			else if @isAmbiguousAsyncModifier(modifiers, result) {
-				var {identifier, token} = result
 
-				var first = attributes[0] ?? modifiers[0] ?? identifier
+			var first = accessModifier.ok ? accessModifier : null
+			var staticMark = @mark()
+			var staticModifier = @tryStaticModifier()
 
-				if token == Token.IDENTIFIER {
-					members.push(@reqEnumMethod(attributes, modifiers, identifier!?, first).value)
-				}
-				else {
-					@submitEnumMember(attributes, modifiers, identifier!?, null, members)
-				}
-			}
-			else if @isAmbiguousIdentifier(result) {
-				@submitEnumMember(attributes, modifiers, result.identifier!?, null, members)
-			}
-			else {
-				var mark = @mark()
-
-				@NL_0M()
-
+			if staticModifier.ok {
 				if @test(Token.LEFT_CURLY) {
-					@commit().NL_0M()
-
-					var dyn attrs
-
-					while @until(Token.RIGHT_CURLY) {
-						attrs = @stackOuterAttributes([])
-
-						if attrs.length != 0 {
-							attrs.unshift(...attributes)
-						}
-						else {
-							attrs = attributes
-						}
-
-						members.push(@reqEnumMethod(attrs, modifiers, attrs[0]).value)
-					}
-
-					unless @test(Token.RIGHT_CURLY) {
-						@throw('}')
-					}
-
-					@commit().reqNL_1M()
+					return @reqEnumMemberBlock(
+						attributes
+						[
+							accessModifier if accessModifier.ok
+							staticModifier
+						]
+						MemberBits.Method
+						members
+					)
 				}
 				else {
-					@rollback(mark)
+					var member = @tryEnumMember(
+						attributes
+						[
+							accessModifier if accessModifier.ok
+							staticModifier
+						]
+						MemberBits.Method
+						(first ?? staticModifier)!!
+					)
 
-					@submitEnumMember(attributes, [], result.identifier!?, null, members)
+					if member.ok {
+						members.push(member.value)
+
+						return
+					}
+
+					@rollback(staticMark)
 				}
 			}
-		} # }}}
 
-		reqEnumMethod(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			mut modifiers: Event<ModifierData>(Y)[]
-			first: Event(Y)?
-		): Event<NodeData(MethodDeclaration)>(Y) ~ SyntaxError # {{{
-		{
-			var mut name = null
+			var constMark = @mark()
+			var constModifier = @tryConstModifier()
 
-			if @test(Token.ASYNC) {
-				var mut async = @reqIdentifier()
-
-				name = @tryIdentifier()
-
-				if name.ok {
-					modifiers = [...modifiers, @yep(AST.Modifier(ModifierKind.Async, async))]
+			if constModifier.ok {
+				if @test(Token.LEFT_CURLY) {
+					return @reqEnumMemberBlock(
+						attributes
+						[
+							accessModifier if accessModifier.ok
+							constModifier
+						]
+						MemberBits.Variable
+						members
+					)
 				}
 				else {
-					name = async
+					var member = @tryEnumMember(
+						attributes
+						[
+							accessModifier if accessModifier.ok
+							constModifier
+						]
+						MemberBits.Variable
+						(first ?? constModifier)!!
+					)
+
+					if member.ok {
+						members.push(member.value)
+
+						return
+					}
+
+					@rollback(constMark)
 				}
 			}
-			else {
-				name = @reqIdentifier()
+
+			if accessModifier.ok {
+				var member = @tryEnumMember(
+					attributes
+					[accessModifier]
+					MemberBits.Method
+					accessModifier
+				)
+
+				if member.ok {
+					members.push(member.value)
+
+					return
+				}
+
+				@rollback(accessMark)
 			}
 
-			return @reqEnumMethod(attributes, modifiers, name, first ?? name)
+			members.push(@reqEnumMember(attributes, [], MemberBits.Value + MemberBits.Method).value)
 		} # }}}
 
 		reqEnumMethod(
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
+			bits: MemberBits
 			name: Event<NodeData(Identifier)>(Y)
-			first: Event(Y)
+			first: Range
 		): Event<NodeData(MethodDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var typeParameters = @tryTypeParameterList()
-			var parameters = @reqFunctionParameterList(FunctionMode.Nil)
-
-			var type = @tryFunctionReturns()
+			var parameters = @reqClassMethodParameterList(null, null)
+			var type = @tryFunctionReturns(.Method, true)
 			var throws = @tryFunctionThrows()
-
-			var body = @mode ~~ ParserMode.Typing ? null : @reqFunctionBody(modifiers, FunctionMode.Method, !?type && !?throws)
+			var body = @tryFunctionBody(modifiers, .Method, !?type && !?throws)
 
 			@reqNL_1M()
 
 			return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, body, first, (body ?? throws ?? type ?? parameters)!!))
-
 		} # }}}
 
 		reqEnumStatement(
@@ -3621,7 +3698,7 @@ export namespace Parser {
 						members.push(@reqClassMember(
 							attrs
 							modifiers
-							ClassBits.Method + ClassBits.NoBody
+							MemberBits.Method + MemberBits.NoBody
 							first
 						))
 					}
@@ -3636,7 +3713,7 @@ export namespace Parser {
 					members.push(@reqClassMember(
 						attributes
 						modifiers
-						ClassBits.Method + ClassBits.NoBody
+						MemberBits.Method + MemberBits.NoBody
 						first
 					))
 				}
@@ -3691,7 +3768,7 @@ export namespace Parser {
 		{
 			var typeParameters = @tryTypeParameterList()
 			var parameters = @reqClassMethodParameterList(round, DestructuringMode.EXTERNAL_ONLY)
-			var type = @tryFunctionReturns(.ClassType, false)
+			var type = @tryFunctionReturns(.Method, false)
 
 			@reqNL_1M()
 
@@ -4384,13 +4461,13 @@ export namespace Parser {
 			}
 
 			var accessMark = @mark()
-			var accessModifier = @tryAccessModifier()
+			var accessModifier = @tryAccessModifier(.Opened)
 
 			if accessModifier.ok && @test(Token.LEFT_CURLY) {
 				return @reqClassMemberBlock(
 					attributes
 					[accessModifier]
-					ClassBits.Variable + ClassBits.FinalVariable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method
+					MemberBits.Variable + MemberBits.FinalVariable + MemberBits.LateVariable + MemberBits.Property + MemberBits.Method
 					members
 				)
 			}
@@ -4407,7 +4484,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						ClassBits.Method
+						MemberBits.Method
 						members
 					)
 				}
@@ -4415,7 +4492,7 @@ export namespace Parser {
 				var member = @tryClassMember(
 					attributes
 					modifiers
-					ClassBits.Method
+					MemberBits.Method
 					first ?? modifiers[0]
 				)
 
@@ -4439,7 +4516,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						ClassBits.Method + ClassBits.Property
+						MemberBits.Method + MemberBits.Property
 						members
 					)
 				}
@@ -4447,7 +4524,7 @@ export namespace Parser {
 				var member = @tryClassMember(
 					attributes
 					modifiers
-					ClassBits.Method + ClassBits.Property
+					MemberBits.Method + MemberBits.Property
 					first ?? modifiers[0]
 				)
 
@@ -4475,7 +4552,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						ClassBits.Variable + ClassBits.FinalVariable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method + ClassBits.FinalMethod
+						MemberBits.Variable + MemberBits.FinalVariable + MemberBits.LateVariable + MemberBits.Property + MemberBits.Method + MemberBits.FinalMethod
 						members
 					)
 				}
@@ -4500,7 +4577,7 @@ export namespace Parser {
 						return @reqClassMemberBlock(
 							attributes
 							modifiers
-							ClassBits.Variable + ClassBits.LateVariable + ClassBits.RequiredAssignment + ClassBits.Property + ClassBits.Method
+							MemberBits.Variable + MemberBits.LateVariable + MemberBits.RequiredAssignment + MemberBits.Property + MemberBits.Method
 							members
 						)
 					}
@@ -4508,9 +4585,9 @@ export namespace Parser {
 						return @reqClassMemberBlock(
 							attributes
 							modifiers
-							ClassBits.Variable + ClassBits.LateVariable + ClassBits.RequiredAssignment +
-							ClassBits.Property + ClassBits.OverrideProperty + ClassBits.OverwriteProperty +
-							ClassBits.Method + ClassBits.AssistMethod + ClassBits.OverrideMethod + ClassBits.OverwriteMethod
+							MemberBits.Variable + MemberBits.LateVariable + MemberBits.RequiredAssignment +
+							MemberBits.Property + MemberBits.OverrideProperty + MemberBits.OverwriteProperty +
+							MemberBits.Method + MemberBits.AssistMethod + MemberBits.OverrideMethod + MemberBits.OverwriteMethod
 							members
 						)
 					}
@@ -4529,7 +4606,7 @@ export namespace Parser {
 							return @reqClassMemberBlock(
 								attributes
 								modifiers
-								ClassBits.Method
+								MemberBits.Method
 								members
 							)
 						}
@@ -4549,7 +4626,7 @@ export namespace Parser {
 							return @reqClassMemberBlock(
 								attributes
 								modifiers
-								ClassBits.Method + ClassBits.Property
+								MemberBits.Method + MemberBits.Property
 								members
 							)
 						}
@@ -4578,7 +4655,7 @@ export namespace Parser {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						finalModifier.ok ? ClassBits.Variable : ClassBits.Variable + ClassBits.FinalVariable
+						finalModifier.ok ? MemberBits.Variable : MemberBits.Variable + MemberBits.FinalVariable
 						members
 					)
 				}
@@ -4586,7 +4663,7 @@ export namespace Parser {
 				var member = @tryClassMember(
 					attributes
 					modifiers
-					ClassBits.Variable + ClassBits.NoAssignment
+					MemberBits.Variable + MemberBits.NoAssignment
 					first ?? modifiers[0]
 				)
 
@@ -8361,7 +8438,7 @@ export namespace Parser {
 				if @test(.COLON) {
 					@commit()
 
-					var type = @reqType(fMode ~~ .Method ? .ClassType : .PrimaryType)
+					var type = @reqType(fMode ~~ .Method ? .Method : .PrimaryType)
 
 					return @yep(AST.VariableDeclarator([], name, type, name, type))
 				}
@@ -8571,41 +8648,6 @@ export namespace Parser {
 			return attributes
 		} # }}}
 
-		submitEnumMember(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			modifiers: Event<ModifierData>(Y)[]
-			identifier: Event<NodeData(Identifier)>(Y)
-			token: Token?
-			members: NodeData(FieldDeclaration, MethodDeclaration)[]
-		): Void ~ SyntaxError # {{{
-		{
-			var first = attributes[0] ?? modifiers[0] ?? identifier
-
-			match token ?? @match(.EQUALS, .LEFT_ROUND)  {
-				.EQUALS {
-					if @mode ~~ ParserMode.Typing {
-						@throw()
-					}
-
-					@commit()
-
-					var value = @reqExpression(.Nil, .Nil)
-
-					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, value, first, value))
-
-					@reqNL_1M()
-				}
-				.LEFT_ROUND {
-					members.push(@reqEnumMethod(attributes, modifiers, identifier, first).value)
-				}
-				else {
-					members.push(AST.FieldDeclaration(attributes, modifiers, identifier, null, null, first, identifier))
-
-					@reqNL_1M()
-				}
-			}
-		} # }}}
-
 		submitNamedGroupSpecifier(
 			modifiers: Event<ModifierData>(Y)[]
 			type: Event<NodeData(DescriptiveType)>(Y)?
@@ -8651,18 +8693,18 @@ export namespace Parser {
 			}
 		} # }}}
 
-		tryAccessModifier(): Event<ModifierData> ~ SyntaxError # {{{
+		tryAccessModifier(aMode: AccessMode): Event<ModifierData> ~ SyntaxError # {{{
 		{
-			if @match(Token.PRIVATE, Token.PROTECTED, Token.PUBLIC, Token.INTERNAL) == Token.PRIVATE {
+			if aMode ~~ .Private && @test(.PRIVATE) {
 				return @yep(AST.Modifier(ModifierKind.Private, @yes()))
 			}
-			else if @token == Token.PROTECTED {
+			else if aMode ~~ .Protected && @test(.PROTECTED) {
 				return @yep(AST.Modifier(ModifierKind.Protected, @yes()))
 			}
-			else if @token == Token.PUBLIC {
+			else if aMode ~~ .Public && @test(.PUBLIC) {
 				return @yep(AST.Modifier(ModifierKind.Public, @yes()))
 			}
-			else if @token == Token.INTERNAL {
+			else if aMode ~~ .Internal && @test(.INTERNAL) {
 				return @yep(AST.Modifier(ModifierKind.Internal, @yes()))
 			}
 
@@ -9082,6 +9124,45 @@ export namespace Parser {
 			return NO
 		} # }}}
 
+		tryBitmaskMember(
+			mut attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			mut bits: MemberBits
+			mut first: Range?
+		): Event<NodeData(BitmaskValue, MethodDeclaration)> ~ SyntaxError # {{{
+		{
+			if bits ~~ .Attribute {
+				var attrs = @stackOuterAttributes([])
+
+				if attrs.length != 0 {
+					attributes = [...attributes, ...attrs]
+					first ??= attrs[0]
+				}
+			}
+
+			var mark = @mark()
+
+			if bits ~~ .Method {
+				var method = @tryEnumMethod(attributes, modifiers, bits, first)
+
+				if method.ok {
+					return method
+				}
+
+				@rollback(mark)
+			}
+
+			if bits ~~ .Value {
+				var value = @tryBitmaskValue(attributes, modifiers, bits, first)
+
+				if value.ok {
+					return value
+				}
+			}
+
+			return NO
+		} # }}}
+
 		tryBitmaskStatement(
 			first: Event(Y)
 			modifiers: Event<ModifierData>(Y)[] = []
@@ -9126,14 +9207,14 @@ export namespace Parser {
 			// var attributes = []
 			// var members = []
 			var attributes: Event<NodeData(AttributeDeclaration)>(Y)[] = []
-			var members: NodeData(MethodDeclaration)[] = []
+			var members: NodeData(BitmaskValue, MethodDeclaration)[] = []
 
 			while @until(Token.RIGHT_CURLY) {
 				if @stackInnerAttributes(attributes) {
 					pass
 				}
 				else {
-					@reqEnumMember(members)
+					@reqBitmaskMemberList(members)
 				}
 			}
 
@@ -9142,6 +9223,30 @@ export namespace Parser {
 			}
 
 			return @yep(AST.BitmaskDeclaration(attributes, modifiers, name, type, members, first, @yes()))
+		} # }}}
+
+		tryBitmaskValue(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			mut modifiers: Event<ModifierData>(Y)[]
+			bits: MemberBits
+			mut first: Range?
+		): Event<NodeData(BitmaskValue)> ~ SyntaxError # {{{
+		{
+			var name = @tryIdentifier()
+
+			return NO unless name.ok
+
+			var mut value = null
+
+			if @test(Token.EQUALS) {
+				@commit()
+
+				value = @reqExpression(.ImplicitMember, .Method)
+			}
+
+			@reqNL_1M()
+
+			return @yep(AST.BitmaskValue(attributes, modifiers, name, value, (first ?? name)!!, (value ?? name)!!))
 		} # }}}
 
 		tryBlock(
@@ -9191,7 +9296,7 @@ export namespace Parser {
 					var member = @tryClassMember(
 						attributes
 						[...modifiers, staticModifier, finalModifier]
-						ClassBits.Variable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method
+						MemberBits.Variable + MemberBits.LateVariable + MemberBits.Property + MemberBits.Method
 						first ?? staticModifier
 					)
 
@@ -9205,7 +9310,7 @@ export namespace Parser {
 				var member = @tryClassMember(
 					attributes
 					[...modifiers, staticModifier]
-					ClassBits.Variable + ClassBits.FinalVariable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method + ClassBits.FinalMethod + ClassBits.Proxy
+					MemberBits.Variable + MemberBits.FinalVariable + MemberBits.LateVariable + MemberBits.Property + MemberBits.Method + MemberBits.FinalMethod + MemberBits.Proxy
 					first ?? staticModifier
 				)
 
@@ -9219,7 +9324,7 @@ export namespace Parser {
 				var member = @tryClassMember(
 					attributes
 					[...modifiers, finalModifier]
-					ClassBits.Variable + ClassBits.RequiredAssignment + ClassBits.Property + ClassBits.Method
+					MemberBits.Variable + MemberBits.RequiredAssignment + MemberBits.Property + MemberBits.Method
 					first ?? finalModifier
 				)
 
@@ -9233,7 +9338,7 @@ export namespace Parser {
 			return @tryClassMember(
 				attributes
 				[...modifiers]
-				ClassBits.Variable + ClassBits.FinalVariable + ClassBits.LateVariable + ClassBits.Property + ClassBits.Method + ClassBits.AssistMethod + ClassBits.OverrideMethod + ClassBits.AbstractMethod + ClassBits.Proxy
+				MemberBits.Variable + MemberBits.FinalVariable + MemberBits.LateVariable + MemberBits.Property + MemberBits.Method + MemberBits.AssistMethod + MemberBits.OverrideMethod + MemberBits.AbstractMethod + MemberBits.Proxy
 				first
 			)
 		} # }}}
@@ -9241,13 +9346,13 @@ export namespace Parser {
 		tryClassMember(
 			mut attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			mut bits: ClassBits
+			mut bits: MemberBits
 			mut first: Range?
 		): Event<NodeData(FieldDeclaration, MethodDeclaration, PropertyDeclaration, ProxyDeclaration)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
-			if bits ~~ ClassBits.Attribute {
+			if bits ~~ MemberBits.Attribute {
 				var attrs = @stackOuterAttributes([])
 				if attrs.length != 0 {
 					attributes = [...attributes, ...attrs]
@@ -9255,16 +9360,16 @@ export namespace Parser {
 				}
 			}
 
-			if bits ~~ ClassBits.Method {
+			if bits ~~ MemberBits.Method {
 				var mark = @mark()
 
-				if bits ~~ ClassBits.AbstractMethod && @test(Token.ABSTRACT) {
+				if bits ~~ MemberBits.AbstractMethod && @test(Token.ABSTRACT) {
 					var modifier = @yep(AST.Modifier(ModifierKind.Abstract, @yes()))
 
 					var method = @tryClassMethod(
 						attributes
 						[...modifiers, modifier]
-						bits + ClassBits.NoBody
+						bits + MemberBits.NoBody
 						first ?? modifier
 					)
 
@@ -9274,11 +9379,11 @@ export namespace Parser {
 
 					@rollback(mark)
 				}
-				else if bits ~~ ClassBits.FinalMethod && @test(.FINAL) {
+				else if bits ~~ MemberBits.FinalMethod && @test(.FINAL) {
 					var modifier = @yep(AST.Modifier(.Final, @yes()))
 					var mark2 = @mark()
 
-					if bits ~~ ClassBits.AssistMethod && @test(.ASSIST) {
+					if bits ~~ MemberBits.AssistMethod && @test(.ASSIST) {
 						var modifier2 = @yep(AST.Modifier(.Assist, @yes()))
 						var method = @tryClassMethod(attributes, [...modifiers, modifier, modifier2], bits, first ?? modifier)
 
@@ -9288,7 +9393,7 @@ export namespace Parser {
 
 						@rollback(mark2)
 					}
-					else if bits ~~ ClassBits.OverrideMethod && @test(.OVERRIDE) {
+					else if bits ~~ MemberBits.OverrideMethod && @test(.OVERRIDE) {
 						var modifier2 = @yep(AST.Modifier(ModifierKind.Override, @yes()))
 						var method = @tryClassMethod(attributes, [...modifiers, modifier, modifier2], bits, first ?? modifier)
 
@@ -9296,7 +9401,7 @@ export namespace Parser {
 							return method
 						}
 
-						if bits ~~ ClassBits.OverrideProperty {
+						if bits ~~ MemberBits.OverrideProperty {
 							var property = @tryClassProperty(attributes, [...modifiers, modifier, modifier2], bits, first ?? modifier)
 
 							if property.ok {
@@ -9306,7 +9411,7 @@ export namespace Parser {
 
 						@rollback(mark2)
 					}
-					else if bits ~~ ClassBits.OverwriteMethod && @test(Token.OVERWRITE) {
+					else if bits ~~ MemberBits.OverwriteMethod && @test(Token.OVERWRITE) {
 						var modifier2 = @yep(AST.Modifier(ModifierKind.Overwrite, @yes()))
 						var method = @tryClassMethod(attributes, [...modifiers, modifier, modifier2], bits, first ?? modifier)
 
@@ -9325,7 +9430,7 @@ export namespace Parser {
 
 					@rollback(mark)
 				}
-				else if bits ~~ ClassBits.AssistMethod && @test(.ASSIST) {
+				else if bits ~~ MemberBits.AssistMethod && @test(.ASSIST) {
 					var modifier = @yep(AST.Modifier(.Assist, @yes()))
 
 					var method = @tryClassMethod(attributes, [...modifiers, modifier], bits, first ?? modifier)
@@ -9336,7 +9441,7 @@ export namespace Parser {
 
 					@rollback(mark)
 				}
-				else if bits ~~ ClassBits.OverrideMethod && @test(Token.OVERRIDE) {
+				else if bits ~~ MemberBits.OverrideMethod && @test(Token.OVERRIDE) {
 					var modifier = @yep(AST.Modifier(ModifierKind.Override, @yes()))
 
 					var method = @tryClassMethod(attributes, [...modifiers, modifier], bits, first ?? modifier)
@@ -9345,7 +9450,7 @@ export namespace Parser {
 						return method
 					}
 
-					if bits ~~ ClassBits.OverrideProperty {
+					if bits ~~ MemberBits.OverrideProperty {
 						var property = @tryClassProperty(attributes, [...modifiers, modifier], bits, first ?? modifier)
 
 						if property.ok {
@@ -9355,7 +9460,7 @@ export namespace Parser {
 
 					@rollback(mark)
 				}
-				else if bits ~~ ClassBits.OverwriteMethod && @test(Token.OVERWRITE) {
+				else if bits ~~ MemberBits.OverwriteMethod && @test(Token.OVERWRITE) {
 				}
 
 				var method = @tryClassMethod(attributes, modifiers, bits, first)
@@ -9367,10 +9472,10 @@ export namespace Parser {
 				@rollback(mark)
 			}
 
-			if bits ~~ ClassBits.Property {
+			if bits ~~ MemberBits.Property {
 				var mark = @mark()
 
-				if bits ~~ ClassBits.OverrideProperty && @test(Token.OVERRIDE) {
+				if bits ~~ MemberBits.OverrideProperty && @test(Token.OVERRIDE) {
 					var modifier = @yep(AST.Modifier(ModifierKind.Override, @yes()))
 					var property = @tryClassProperty(attributes, [...modifiers, modifier], bits, first ?? modifier)
 
@@ -9390,7 +9495,7 @@ export namespace Parser {
 				@rollback(mark)
 			}
 
-			if bits ~~ ClassBits.Proxy && @test(Token.PROXY) {
+			if bits ~~ MemberBits.Proxy && @test(Token.PROXY) {
 				var mark = @mark()
 				var keyword = @yes()
 
@@ -9403,19 +9508,19 @@ export namespace Parser {
 				@rollback(mark)
 			}
 
-			if bits ~~ ClassBits.Variable {
+			if bits ~~ MemberBits.Variable {
 				var mark = @mark()
 
-				if bits ~~ ClassBits.FinalVariable && @test(.FINAL) {
+				if bits ~~ MemberBits.FinalVariable && @test(.FINAL) {
 					var modifier = @yep(AST.Modifier(.Final, @yes()))
 					var mark2 = @mark()
 
-					if bits ~~ ClassBits.LateVariable && @test(.LATE) {
+					if bits ~~ MemberBits.LateVariable && @test(.LATE) {
 						var modifier2 = @yep(AST.Modifier(.LateInit, @yes()))
 						var method = @tryClassVariable(
 							attributes
 							[...modifiers, modifier, modifier2]
-							bits - ClassBits.RequiredAssignment
+							bits - MemberBits.RequiredAssignment
 							null
 							null
 							first ?? modifier
@@ -9431,7 +9536,7 @@ export namespace Parser {
 					var variable = @tryClassVariable(
 						attributes
 						[...modifiers, modifier]
-						bits + ClassBits.RequiredAssignment
+						bits + MemberBits.RequiredAssignment
 						null
 						null
 						first ?? modifier
@@ -9443,12 +9548,12 @@ export namespace Parser {
 
 					@rollback(mark)
 				}
-				else if bits ~~ ClassBits.LateVariable && @test(Token.LATE) {
+				else if bits ~~ MemberBits.LateVariable && @test(Token.LATE) {
 					var modifier = @yep(AST.Modifier(ModifierKind.LateInit, @yes()))
 					var method = @tryClassVariable(
 						attributes
 						[...modifiers, modifier]
-						bits - ClassBits.RequiredAssignment
+						bits - MemberBits.RequiredAssignment
 						null
 						null
 						first ?? modifier
@@ -9476,7 +9581,7 @@ export namespace Parser {
 		tryClassMethod(
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
-			bits: ClassBits
+			bits: MemberBits
 			mut first: Range?
 		): Event<NodeData(MethodDeclaration)> ~ SyntaxError # {{{
 		{
@@ -9512,7 +9617,7 @@ export namespace Parser {
 		tryClassProperty(
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
-			bits: ClassBits
+			bits: MemberBits
 			mut first: Range?
 		): Event<NodeData(FieldDeclaration, PropertyDeclaration)> ~ SyntaxError # {{{
 		{
@@ -9538,7 +9643,7 @@ export namespace Parser {
 			if @test(Token.COLON) {
 				@commit()
 
-				type = @reqType(.ClassType)
+				type = @reqType(.Method)
 			}
 
 			if @test(Token.LEFT_CURLY) {
@@ -9546,7 +9651,7 @@ export namespace Parser {
 
 				return @reqClassProperty(attributes, modifiers, name, type, first ?? name)
 			}
-			else if type.ok && bits ~~ ClassBits.Variable {
+			else if type.ok && bits ~~ MemberBits.Variable {
 				return @tryClassVariable(attributes, modifiers, bits, name, type, first)
 			}
 
@@ -9599,7 +9704,7 @@ export namespace Parser {
 		tryClassVariable(
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
-			bits: ClassBits
+			bits: MemberBits
 			mut name: Event<NodeData(Identifier)>(Y)?
 			mut type: Event<NodeData(Type)>(Y)?
 			mut first: Range?
@@ -9638,7 +9743,7 @@ export namespace Parser {
 			}
 
 			var dyn value
-			if bits ~~ ClassBits.NoAssignment {
+			if bits ~~ MemberBits.NoAssignment {
 				pass
 			}
 			else if @test(Token.EQUALS) {
@@ -9646,13 +9751,22 @@ export namespace Parser {
 
 				value = @reqExpression(.ImplicitMember, .Method)
 			}
-			else if bits ~~ ClassBits.RequiredAssignment {
+			else if bits ~~ MemberBits.RequiredAssignment {
 				@throw('=')
 			}
 
 			@reqNL_1M()
 
 			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, (first ?? name)!!, (value ?? type ?? name)!!))
+		} # }}}
+
+		tryConstModifier(): Event<ModifierData> ~ SyntaxError # {{{
+		{
+			if @test(.CONST) {
+				return @yep(AST.Modifier(.Constant, @yes()))
+			}
+
+			return NO
 		} # }}}
 
 		tryConstStatement(
@@ -9749,6 +9863,91 @@ export namespace Parser {
 			}
 		} # }}}
 
+		tryEnumMember(
+			mut attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			mut bits: MemberBits
+			mut first: Range?
+		): Event<NodeData(EnumValue, FieldDeclaration, MethodDeclaration)> ~ SyntaxError # {{{
+		{
+			if bits ~~ .Attribute {
+				var attrs = @stackOuterAttributes([])
+
+				if attrs.length != 0 {
+					attributes = [...attributes, ...attrs]
+					first ??= attrs[0]
+				}
+			}
+
+			var mark = @mark()
+
+			if bits ~~ .Method {
+				var method = @tryEnumMethod(attributes, modifiers, bits, first)
+
+				if method.ok {
+					return method
+				}
+
+				@rollback(mark)
+			}
+
+			if bits ~~ .Value {
+				var value = @tryEnumValue(attributes, modifiers, bits, first)
+
+				if value.ok {
+					return value
+				}
+			}
+
+			if bits ~~ .Variable {
+				var variable = @tryEnumVariable(attributes, modifiers, bits, first)
+
+				if variable.ok {
+					return variable
+				}
+
+				@rollback(mark)
+			}
+
+			return NO
+		} # }}}
+
+		tryEnumMethod(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			mut modifiers: Event<ModifierData>(Y)[]
+			bits: MemberBits
+			mut first: Range?
+		): Event<NodeData(MethodDeclaration)> ~ SyntaxError # {{{
+		{
+			var dyn name
+			if @test(Token.ASYNC) {
+				var dyn modifier = @reqIdentifier()
+
+				name = @tryIdentifier()
+
+				if name.ok {
+					modifiers = [...modifiers, @yep(AST.Modifier(ModifierKind.Async, modifier))]
+					first = modifier
+				}
+				else {
+					name = modifier
+				}
+			}
+			else {
+				name = @tryIdentifier()
+
+				unless name.ok {
+					return NO
+				}
+			}
+
+			if @test(.LEFT_ROUND, .LEFT_ANGLE) {
+				return @reqEnumMethod(attributes, [...modifiers], bits, name, first ?? name)
+			}
+
+			return NO
+		} # }}}
+
 		tryEnumStatement(
 			first: Event(Y)
 			modifiers: Event<ModifierData>(Y)[] = []
@@ -9759,11 +9958,26 @@ export namespace Parser {
 				return NO
 			}
 
-			var dyn type
+			var mut type = null
+			var mut init = null
+			var mut step = null
+
 			if @test(Token.LEFT_ANGLE) {
 				@commit()
 
 				type = @reqTypeEntity()
+
+				if @test(.SEMICOLON) {
+					@commit()
+
+					init = @reqUnaryOperand(null, .Nil, .Nil)
+
+					if @test(.SEMICOLON) {
+						@commit()
+
+						step = @reqUnaryOperand(null, .Nil, .Nil)
+					}
+				}
 
 				unless @test(Token.RIGHT_ANGLE) {
 					@throw('>')
@@ -9788,7 +10002,7 @@ export namespace Parser {
 					pass
 				}
 				else {
-					@reqEnumMember(members)
+					@reqEnumMemberList(members)
 				}
 			}
 
@@ -9796,7 +10010,82 @@ export namespace Parser {
 				@throw('}')
 			}
 
-			return @yep(AST.EnumDeclaration(attributes, modifiers, name, type, members, first, @yes()))
+			return @yep(AST.EnumDeclaration(attributes, modifiers, name, type, init, step, members, first, @yes()))
+		} # }}}
+
+		tryEnumValue(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			mut modifiers: Event<ModifierData>(Y)[]
+			bits: MemberBits
+			mut first: Range?
+		): Event<NodeData(EnumValue)> ~ SyntaxError # {{{
+		{
+			var name = @tryIdentifier()
+
+			return NO unless name.ok
+
+			var mut arguments = null
+			var mut value = null
+
+			if @test(Token.EQUALS) {
+				@commit()
+
+				if @test(.LEFT_ROUND) {
+					@commit()
+
+					arguments = @reqArgumentList(.Nil, .Nil).value
+
+					@commit()
+
+					if @test(Token.AMPERSAND) {
+						@commit()
+
+						value = @reqExpression(.ImplicitMember, .Method)
+					}
+				}
+				else {
+					value = @reqExpression(.ImplicitMember, .Method)
+				}
+			}
+
+			@reqNL_1M()
+
+			return @yep(AST.EnumValue(attributes, modifiers, name, value, arguments, (first ?? name)!!, (value ?? name)!!))
+		} # }}}
+
+		tryEnumVariable(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			mut modifiers: Event<ModifierData>(Y)[]
+			bits: MemberBits
+			mut first: Range?
+		): Event<NodeData(FieldDeclaration)> ~ SyntaxError # {{{
+		{
+			var name = @tryIdentifier()
+
+			return NO unless name.ok
+
+			var mut type = null
+
+			if @test(Token.COLON) {
+				@commit()
+
+				type = @reqType(Function.Method)
+			}
+			else if @test(Token.QUESTION) {
+				modifiers = [...modifiers, @yep(AST.Modifier(ModifierKind.Nullable, @yes()))]
+			}
+
+			var mut value = null
+
+			if @test(Token.EQUALS) {
+				@commit()
+
+				value = @reqExpression(.ImplicitMember, .Method)
+			}
+
+			@reqNL_1M()
+
+			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, (first ?? name)!!, (value ?? type ?? name)!!))
 		} # }}}
 
 		tryExpression(
@@ -11074,6 +11363,15 @@ export namespace Parser {
 				@reqNL_1M()
 
 				return @yep(AST.ShebangDeclaration(command, first, last))
+			}
+
+			return NO
+		} # }}}
+
+		tryStaticModifier(): Event<ModifierData> ~ SyntaxError # {{{
+		{
+			if @test(.STATIC) {
+				return @yep(AST.Modifier(.Static, @yes()))
 			}
 
 			return NO

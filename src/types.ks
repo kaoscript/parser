@@ -93,7 +93,13 @@ type NodeData = Range & {
 			modifiers: ModifierData[]
 			name: NodeData(Identifier)
 			type: NodeData(Identifier)?
-			members: NodeData(MethodDeclaration)[]
+			members: NodeData(BitmaskValue, MethodDeclaration)[]
+		}
+		BitmaskValue {
+			attributes: NodeData(AttributeDeclaration)[]
+			modifiers: ModifierData[]
+			name: NodeData(Identifier)
+			value: NodeData(Expression)?
 		}
 		Block {
 			attributes: NodeData(AttributeDeclaration)[]
@@ -180,7 +186,16 @@ type NodeData = Range & {
 			modifiers: ModifierData[]
 			name: NodeData(Identifier)
 			type: NodeData(TypeReference)?
-			members: NodeData(MethodDeclaration)[]
+			initial: NodeData(Expression)?
+			step: NodeData(Expression)?
+			members: NodeData(EnumValue, FieldDeclaration, MethodDeclaration)[]
+		}
+		EnumValue {
+			attributes: NodeData(AttributeDeclaration)[]
+			modifiers: ModifierData[]
+			name: NodeData(Identifier)
+			value: NodeData(Expression)?
+			arguments: NodeData(Argument)[]?
 		}
 		ExclusionType {
 			types: NodeData(Type)[]

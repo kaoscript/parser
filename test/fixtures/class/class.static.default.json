@@ -1,13 +1,13 @@
 {
-  "kind": 72,
+  "kind": 73,
   "attributes": [],
   "body": [
     {
-      "kind": 19,
+      "kind": 20,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 48,
+        "kind": 49,
         "modifiers": [],
         "name": "Shape",
         "start": {
@@ -21,7 +21,7 @@
       },
       "members": [
         {
-          "kind": 42,
+          "kind": 43,
           "attributes": [],
           "modifiers": [
             {
@@ -37,7 +37,7 @@
             }
           ],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
             "name": "_color",
             "start": {
@@ -50,10 +50,10 @@
             }
           },
           "type": {
-            "kind": 123,
+            "kind": 124,
             "modifiers": [],
             "typeName": {
-              "kind": 48,
+              "kind": 49,
               "modifiers": [],
               "name": "string",
               "start": {
@@ -75,7 +75,7 @@
             }
           },
           "value": {
-            "kind": 59,
+            "kind": 60,
             "modifiers": [],
             "value": "",
             "start": {
@@ -97,7 +97,7 @@
           }
         },
         {
-          "kind": 42,
+          "kind": 43,
           "attributes": [],
           "modifiers": [
             {
@@ -113,7 +113,7 @@
             }
           ],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
             "name": "_type",
             "start": {
@@ -126,10 +126,10 @@
             }
           },
           "type": {
-            "kind": 123,
+            "kind": 124,
             "modifiers": [],
             "typeName": {
-              "kind": 48,
+              "kind": 49,
               "modifiers": [],
               "name": "string",
               "start": {
@@ -151,7 +151,7 @@
             }
           },
           "value": {
-            "kind": 59,
+            "kind": 60,
             "modifiers": [],
             "value": "",
             "start": {
@@ -173,7 +173,7 @@
           }
         },
         {
-          "kind": 70,
+          "kind": 71,
           "attributes": [],
           "modifiers": [
             {
@@ -189,7 +189,7 @@
             }
           ],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
             "name": "makeRectangle",
             "start": {
@@ -203,11 +203,11 @@
           },
           "parameters": [
             {
-              "kind": 83,
+              "kind": 84,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "color",
                 "start": {
@@ -220,7 +220,7 @@
                 }
               },
               "internal": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "color",
                 "start": {
@@ -233,10 +233,10 @@
                 }
               },
               "type": {
-                "kind": 123,
+                "kind": 124,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "string",
                   "start": {
@@ -268,10 +268,10 @@
             }
           ],
           "type": {
-            "kind": 123,
+            "kind": 124,
             "modifiers": [],
             "typeName": {
-              "kind": 48,
+              "kind": 49,
               "modifiers": [],
               "name": "Shape",
               "start": {
@@ -294,16 +294,16 @@
           },
           "throws": [],
           "body": {
-            "kind": 17,
+            "kind": 18,
             "modifiers": [],
             "scope": {
               "kind": 2
             },
             "callee": {
-              "kind": 69,
+              "kind": 70,
               "modifiers": [],
               "object": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "Shape",
                 "start": {
@@ -316,7 +316,7 @@
                 }
               },
               "property": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "new",
                 "start": {
@@ -339,7 +339,7 @@
             },
             "arguments": [
               {
-                "kind": 59,
+                "kind": 60,
                 "modifiers": [],
                 "value": "rectangle",
                 "start": {
@@ -352,7 +352,7 @@
                 }
               },
               {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "color",
                 "start": {
@@ -384,11 +384,11 @@
           }
         },
         {
-          "kind": 70,
+          "kind": 71,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
             "name": "constructor",
             "start": {
@@ -402,11 +402,11 @@
           },
           "parameters": [
             {
-              "kind": 83,
+              "kind": 84,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "type",
                 "start": {
@@ -419,10 +419,10 @@
                 }
               },
               "internal": {
-                "kind": 112,
+                "kind": 113,
                 "modifiers": [],
                 "name": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "type",
                   "start": {
@@ -453,11 +453,11 @@
               }
             },
             {
-              "kind": 83,
+              "kind": 84,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "color",
                 "start": {
@@ -470,10 +470,10 @@
                 }
               },
               "internal": {
-                "kind": 112,
+                "kind": 113,
                 "modifiers": [],
                 "name": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "color",
                   "start": {
@@ -525,21 +525,21 @@
       }
     },
     {
-      "kind": 132,
+      "kind": 133,
       "attributes": [],
       "modifiers": [],
       "declarations": [
         {
-          "kind": 130,
+          "kind": 131,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 131,
+              "kind": 132,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "r",
                 "start": {
@@ -562,16 +562,16 @@
             }
           ],
           "value": {
-            "kind": 17,
+            "kind": 18,
             "modifiers": [],
             "scope": {
               "kind": 2
             },
             "callee": {
-              "kind": 69,
+              "kind": 70,
               "modifiers": [],
               "object": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "Shape",
                 "start": {
@@ -584,7 +584,7 @@
                 }
               },
               "property": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "makeRectangle",
                 "start": {
@@ -607,7 +607,7 @@
             },
             "arguments": [
               {
-                "kind": 59,
+                "kind": 60,
                 "modifiers": [],
                 "value": "black",
                 "start": {
@@ -649,28 +649,28 @@
       }
     },
     {
-      "kind": 40,
+      "kind": 41,
       "attributes": [],
       "expression": {
-        "kind": 17,
+        "kind": 18,
         "modifiers": [],
         "scope": {
           "kind": 2
         },
         "callee": {
-          "kind": 69,
+          "kind": 70,
           "modifiers": [],
           "object": {
-            "kind": 69,
+            "kind": 70,
             "modifiers": [],
             "object": {
-              "kind": 17,
+              "kind": 18,
               "modifiers": [],
               "scope": {
                 "kind": 2
               },
               "callee": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "expect",
                 "start": {
@@ -684,10 +684,10 @@
               },
               "arguments": [
                 {
-                  "kind": 69,
+                  "kind": 70,
                   "modifiers": [],
                   "object": {
-                    "kind": 48,
+                    "kind": 49,
                     "modifiers": [],
                     "name": "r",
                     "start": {
@@ -700,7 +700,7 @@
                     }
                   },
                   "property": {
-                    "kind": 48,
+                    "kind": 49,
                     "modifiers": [],
                     "name": "type",
                     "start": {
@@ -732,7 +732,7 @@
               }
             },
             "property": {
-              "kind": 48,
+              "kind": 49,
               "modifiers": [],
               "name": "to",
               "start": {
@@ -754,7 +754,7 @@
             }
           },
           "property": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
             "name": "equal",
             "start": {
@@ -777,7 +777,7 @@
         },
         "arguments": [
           {
-            "kind": 59,
+            "kind": 60,
             "modifiers": [],
             "value": "rectangle",
             "start": {
@@ -809,28 +809,28 @@
       }
     },
     {
-      "kind": 40,
+      "kind": 41,
       "attributes": [],
       "expression": {
-        "kind": 17,
+        "kind": 18,
         "modifiers": [],
         "scope": {
           "kind": 2
         },
         "callee": {
-          "kind": 69,
+          "kind": 70,
           "modifiers": [],
           "object": {
-            "kind": 69,
+            "kind": 70,
             "modifiers": [],
             "object": {
-              "kind": 17,
+              "kind": 18,
               "modifiers": [],
               "scope": {
                 "kind": 2
               },
               "callee": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "expect",
                 "start": {
@@ -844,10 +844,10 @@
               },
               "arguments": [
                 {
-                  "kind": 69,
+                  "kind": 70,
                   "modifiers": [],
                   "object": {
-                    "kind": 48,
+                    "kind": 49,
                     "modifiers": [],
                     "name": "r",
                     "start": {
@@ -860,7 +860,7 @@
                     }
                   },
                   "property": {
-                    "kind": 48,
+                    "kind": 49,
                     "modifiers": [],
                     "name": "color",
                     "start": {
@@ -892,7 +892,7 @@
               }
             },
             "property": {
-              "kind": 48,
+              "kind": 49,
               "modifiers": [],
               "name": "to",
               "start": {
@@ -914,7 +914,7 @@
             }
           },
           "property": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
             "name": "equal",
             "start": {
@@ -937,7 +937,7 @@
         },
         "arguments": [
           {
-            "kind": 59,
+            "kind": 60,
             "modifiers": [],
             "value": "black",
             "start": {

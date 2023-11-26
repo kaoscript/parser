@@ -1,9 +1,9 @@
 {
-  "kind": 72,
+  "kind": 73,
   "attributes": [],
   "body": [
     {
-      "kind": 132,
+      "kind": 133,
       "attributes": [],
       "modifiers": [
         {
@@ -20,16 +20,16 @@
       ],
       "declarations": [
         {
-          "kind": 130,
+          "kind": 131,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 131,
+              "kind": 132,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "view",
                 "start": {
@@ -42,10 +42,10 @@
                 }
               },
               "type": {
-                "kind": 123,
+                "kind": 124,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "UIView",
                   "start": {
@@ -96,10 +96,10 @@
       }
     },
     {
-      "kind": 68,
+      "kind": 69,
       "attributes": [],
       "expression": {
-        "kind": 48,
+        "kind": 49,
         "modifiers": [],
         "name": "view",
         "start": {
@@ -113,15 +113,15 @@
       },
       "clauses": [
         {
-          "kind": 62,
+          "kind": 63,
           "conditions": [
             {
-              "kind": 66,
+              "kind": 67,
               "type": {
-                "kind": 123,
+                "kind": 124,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "UIImageView",
                   "start": {
@@ -153,19 +153,19 @@
             }
           ],
           "body": {
-            "kind": 40,
+            "kind": 41,
             "attributes": [],
             "expression": {
-              "kind": 17,
+              "kind": 18,
               "modifiers": [],
               "scope": {
                 "kind": 2
               },
               "callee": {
-                "kind": 69,
+                "kind": 70,
                 "modifiers": [],
                 "object": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "console",
                   "start": {
@@ -178,7 +178,7 @@
                   }
                 },
                 "property": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "log",
                   "start": {
@@ -201,7 +201,7 @@
               },
               "arguments": [
                 {
-                  "kind": 59,
+                  "kind": 60,
                   "modifiers": [],
                   "value": "It's an image view",
                   "start": {
@@ -242,15 +242,15 @@
           }
         },
         {
-          "kind": 62,
+          "kind": 63,
           "conditions": [
             {
-              "kind": 66,
+              "kind": 67,
               "type": {
-                "kind": 123,
+                "kind": 124,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "UILabel",
                   "start": {
@@ -282,7 +282,7 @@
             }
           ],
           "binding": {
-            "kind": 131,
+            "kind": 132,
             "attributes": [],
             "modifiers": [
               {
@@ -298,7 +298,7 @@
               }
             ],
             "name": {
-              "kind": 48,
+              "kind": 49,
               "modifiers": [],
               "name": "label",
               "start": {
@@ -311,10 +311,10 @@
               }
             },
             "type": {
-              "kind": 123,
+              "kind": 124,
               "modifiers": [],
               "typeName": {
-                "kind": 48,
+                "kind": 49,
                 "modifiers": [],
                 "name": "UILabel",
                 "start": {
@@ -345,19 +345,19 @@
             }
           },
           "body": {
-            "kind": 40,
+            "kind": 41,
             "attributes": [],
             "expression": {
-              "kind": 17,
+              "kind": 18,
               "modifiers": [],
               "scope": {
                 "kind": 2
               },
               "callee": {
-                "kind": 69,
+                "kind": 70,
                 "modifiers": [],
                 "object": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "console",
                   "start": {
@@ -370,7 +370,7 @@
                   }
                 },
                 "property": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "log",
                   "start": {
@@ -393,7 +393,7 @@
               },
               "arguments": [
                 {
-                  "kind": 59,
+                  "kind": 60,
                   "modifiers": [],
                   "value": "It's a label",
                   "start": {
@@ -434,15 +434,15 @@
           }
         },
         {
-          "kind": 62,
+          "kind": 63,
           "conditions": [
             {
-              "kind": 66,
+              "kind": 67,
               "type": {
-                "kind": 123,
+                "kind": 124,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "UITableView",
                   "start": {
@@ -474,7 +474,7 @@
             }
           ],
           "binding": {
-            "kind": 131,
+            "kind": 132,
             "attributes": [],
             "modifiers": [
               {
@@ -501,7 +501,7 @@
               }
             ],
             "name": {
-              "kind": 48,
+              "kind": 49,
               "modifiers": [],
               "name": "tblv",
               "start": {
@@ -523,11 +523,11 @@
             }
           },
           "body": {
-            "kind": 14,
+            "kind": 15,
             "attributes": [],
             "statements": [
               {
-                "kind": 132,
+                "kind": 133,
                 "attributes": [],
                 "modifiers": [
                   {
@@ -544,16 +544,16 @@
                 ],
                 "declarations": [
                   {
-                    "kind": 130,
+                    "kind": 131,
                     "attributes": [],
                     "modifiers": [],
                     "variables": [
                       {
-                        "kind": 131,
+                        "kind": 132,
                         "attributes": [],
                         "modifiers": [],
                         "name": {
-                          "kind": 48,
+                          "kind": 49,
                           "modifiers": [],
                           "name": "sectionCount",
                           "start": {
@@ -576,16 +576,16 @@
                       }
                     ],
                     "value": {
-                      "kind": 17,
+                      "kind": 18,
                       "modifiers": [],
                       "scope": {
                         "kind": 2
                       },
                       "callee": {
-                        "kind": 69,
+                        "kind": 70,
                         "modifiers": [],
                         "object": {
-                          "kind": 48,
+                          "kind": 49,
                           "modifiers": [],
                           "name": "tblv",
                           "start": {
@@ -598,7 +598,7 @@
                           }
                         },
                         "property": {
-                          "kind": 48,
+                          "kind": 49,
                           "modifiers": [],
                           "name": "numberOfSections",
                           "start": {
@@ -649,19 +649,19 @@
                 }
               },
               {
-                "kind": 40,
+                "kind": 41,
                 "attributes": [],
                 "expression": {
-                  "kind": 17,
+                  "kind": 18,
                   "modifiers": [],
                   "scope": {
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 69,
+                    "kind": 70,
                     "modifiers": [],
                     "object": {
-                      "kind": 48,
+                      "kind": 49,
                       "modifiers": [],
                       "name": "console",
                       "start": {
@@ -674,7 +674,7 @@
                       }
                     },
                     "property": {
-                      "kind": 48,
+                      "kind": 49,
                       "modifiers": [],
                       "name": "log",
                       "start": {
@@ -697,7 +697,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 59,
+                      "kind": 60,
                       "modifiers": [],
                       "value": "It's a table view with \\(sectionCount) sections",
                       "start": {
@@ -748,22 +748,22 @@
           }
         },
         {
-          "kind": 62,
+          "kind": 63,
           "conditions": [],
           "body": {
-            "kind": 40,
+            "kind": 41,
             "attributes": [],
             "expression": {
-              "kind": 17,
+              "kind": 18,
               "modifiers": [],
               "scope": {
                 "kind": 2
               },
               "callee": {
-                "kind": 69,
+                "kind": 70,
                 "modifiers": [],
                 "object": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "console",
                   "start": {
@@ -776,7 +776,7 @@
                   }
                 },
                 "property": {
-                  "kind": 48,
+                  "kind": 49,
                   "modifiers": [],
                   "name": "log",
                   "start": {
@@ -799,7 +799,7 @@
               },
               "arguments": [
                 {
-                  "kind": 59,
+                  "kind": 60,
                   "modifiers": [],
                   "value": "It's some other UIView or subclass",
                   "start": {

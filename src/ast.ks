@@ -614,7 +614,7 @@ namespace AST {
 			modifiers: Event<ModifierData>(Y)[]
 			name: Event<NodeData(Identifier)>(Y)
 			type: Event<NodeData(Identifier)>(Y)?
-			members: NodeData(MethodDeclaration)[]
+			members: NodeData(BitmaskValue, MethodDeclaration)[]
 			{ start }: Range
 			{ end }: Range
 		): NodeData(BitmaskDeclaration) { # {{{
@@ -625,6 +625,25 @@ namespace AST {
 				name: name.value
 				type: type.value if ?type
 				members: members
+				start
+				end
+			}
+		} # }}}
+
+		func BitmaskValue(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			value: Event<NodeData(Expression)>(Y)?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(BitmaskValue) { # {{{
+			return {
+				kind: .BitmaskValue
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
+				name: name.value
+				value: value.value if ?value
 				start
 				end
 			}
@@ -772,22 +791,6 @@ namespace AST {
 			}!!
 		} # }}}
 
-		// func ConditionalExpression(
-		// 	condition: Event<NodeData(Expression)>(Y)
-		// 	whenTrue: Event<NodeData(Expression)>(Y)
-		// 	whenFalse: Event<NodeData(Expression)>(Y)
-		// ): NodeData(ConditionalExpression) { # {{{
-		// 	return {
-		// 		kind: .ConditionalExpression
-		// 		modifiers: []
-		// 		condition: condition.value
-		// 		whenTrue: whenTrue.value
-		// 		whenFalse: whenFalse.value
-		// 		start: condition.start
-		// 		end: whenFalse.end
-		// 	}
-		// } # }}}
-
 		func ContinueStatement(
 			label: Event<NodeData(Identifier)>(Y)?
 			{ start }: Range
@@ -903,7 +906,9 @@ namespace AST {
 			modifiers: Event<ModifierData>(Y)[]
 			name: Event<NodeData(Identifier)>(Y)
 			type: Event<NodeData(TypeReference)>(Y)?
-			members: NodeData(MethodDeclaration)[]
+			initial: Event<NodeData(Expression)>(Y)?
+			step: Event<NodeData(Expression)>(Y)?
+			members: NodeData(EnumValue, FieldDeclaration, MethodDeclaration)[]
 			{ start }: Range
 			{ end }: Range
 		): NodeData(EnumDeclaration) { # {{{
@@ -913,7 +918,30 @@ namespace AST {
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
 				type: type.value if ?type
+				initial: initial.value if ?initial
+				step: step.value if ?step
 				members
+				start
+				end
+			}
+		} # }}}
+
+		func EnumValue(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<NodeData(Identifier)>(Y)
+			value: Event<NodeData(Expression)>(Y)?
+			arguments: Event<NodeData(Argument)>(Y)[]?
+			{ start }: Range
+			{ end }: Range
+		): NodeData(EnumValue) { # {{{
+			return {
+				kind: .EnumValue
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
+				name: name.value
+				value: value.value if ?value
+				arguments: [argument.value for var argument in arguments] if ?#arguments
 				start
 				end
 			}

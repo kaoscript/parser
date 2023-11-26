@@ -1,54 +1,79 @@
 {
-  "kind": 72,
+  "kind": 73,
   "attributes": [],
   "body": [
     {
-      "kind": 33,
+      "kind": 34,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 48,
+        "kind": 49,
         "modifiers": [],
-        "name": "Color",
+        "name": "CardSuit",
         "start": {
           "line": 1,
           "column": 6
         },
         "end": {
           "line": 1,
-          "column": 11
+          "column": 14
+        }
+      },
+      "type": {
+        "kind": 124,
+        "modifiers": [],
+        "typeName": {
+          "kind": 49,
+          "modifiers": [],
+          "name": "Number",
+          "start": {
+            "line": 1,
+            "column": 15
+          },
+          "end": {
+            "line": 1,
+            "column": 21
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 15
+        },
+        "end": {
+          "line": 1,
+          "column": 21
+        }
+      },
+      "initial": {
+        "kind": 78,
+        "modifiers": [],
+        "value": 100,
+        "radix": 10,
+        "start": {
+          "line": 1,
+          "column": 22
+        },
+        "end": {
+          "line": 1,
+          "column": 25
         }
       },
       "members": [
         {
-          "kind": 42,
+          "kind": 35,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
-            "name": "Red",
+            "name": "Clubs",
             "start": {
               "line": 2,
               "column": 2
             },
             "end": {
               "line": 2,
-              "column": 5
-            }
-          },
-          "value": {
-            "kind": 77,
-            "modifiers": [],
-            "value": 0,
-            "radix": 10,
-            "start": {
-              "line": 2,
-              "column": 9
-            },
-            "end": {
-              "line": 2,
-              "column": 10
+              "column": 7
             }
           },
           "start": {
@@ -57,87 +82,85 @@
           },
           "end": {
             "line": 2,
+            "column": 7
+          }
+        },
+        {
+          "kind": 35,
+          "attributes": [],
+          "modifiers": [],
+          "name": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "Diamonds",
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 3,
+              "column": 10
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 2
+          },
+          "end": {
+            "line": 3,
             "column": 10
           }
         },
         {
-          "kind": 42,
+          "kind": 35,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
-            "name": "Green",
+            "name": "Hearts",
             "start": {
-              "line": 3,
+              "line": 4,
               "column": 2
             },
             "end": {
-              "line": 3,
-              "column": 7
-            }
-          },
-          "value": {
-            "kind": 77,
-            "modifiers": [],
-            "value": 127,
-            "radix": 10,
-            "start": {
-              "line": 3,
-              "column": 10
-            },
-            "end": {
-              "line": 3,
-              "column": 13
+              "line": 4,
+              "column": 8
             }
           },
           "start": {
-            "line": 3,
+            "line": 4,
             "column": 2
           },
           "end": {
-            "line": 3,
-            "column": 13
+            "line": 4,
+            "column": 8
           }
         },
         {
-          "kind": 42,
+          "kind": 35,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 49,
             "modifiers": [],
-            "name": "Blue",
+            "name": "Spades",
             "start": {
-              "line": 4,
+              "line": 5,
               "column": 2
             },
             "end": {
-              "line": 4,
-              "column": 6
-            }
-          },
-          "value": {
-            "kind": 77,
-            "modifiers": [],
-            "value": 255,
-            "radix": 10,
-            "start": {
-              "line": 4,
-              "column": 9
-            },
-            "end": {
-              "line": 4,
-              "column": 12
+              "line": 5,
+              "column": 8
             }
           },
           "start": {
-            "line": 4,
+            "line": 5,
             "column": 2
           },
           "end": {
-            "line": 4,
-            "column": 12
+            "line": 5,
+            "column": 8
           }
         }
       ],
@@ -146,7 +169,7 @@
         "column": 1
       },
       "end": {
-        "line": 5,
+        "line": 6,
         "column": 2
       }
     }
@@ -156,7 +179,7 @@
     "column": 1
   },
   "end": {
-    "line": 5,
+    "line": 6,
     "column": 2
   }
 }
