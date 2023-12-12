@@ -751,7 +751,7 @@ export namespace Parser {
 			var types = []
 			var attributes = []
 			var mut attrs = []
-			var mut type = NO
+			var mut type: Event = NO
 
 			until @scanner.isEOF() {
 				if @stackInnerAttributes(attributes) {
@@ -5242,10 +5242,10 @@ export namespace Parser {
 			}
 
 
-			var mut identifier1 = NO
-			var mut type1 = NO
-			var mut identifier2 = NO
-			var mut destructuring = NO
+			var mut identifier1: Event = NO
+			var mut type1: Event = NO
+			var mut identifier2: Event = NO
+			var mut destructuring: Event = NO
 
 			if @test(Token.UNDERSCORE) {
 				if ?first {
@@ -5314,7 +5314,7 @@ export namespace Parser {
 					@throw('in', 'of')
 				}
 			}
-			else {
+			else if identifier1.ok {
 				if @match(Token.FROM, Token.FROM_TILDE, Token.IN, Token.OF) == .FROM | .FROM_TILDE {
 					return @reqIterationFrom(modifiers, identifier1, first, fMode)
 				}
@@ -5330,6 +5330,23 @@ export namespace Parser {
 				}
 				else {
 					@throw('from', 'in', 'of')
+				}
+			}
+			else {
+				if @test(.IN) {
+					@commit()
+
+					var expression = @reqExpression(.Nil, fMode)
+
+					return @reqIterationIn(modifiers, identifier1, type1, identifier2, expression, first, fMode)
+				}
+				else if @test(.OF) {
+					@commit()
+
+					return @reqIterationOf(modifiers, identifier1, type1, identifier2, first, fMode)
+				}
+				else {
+					@throw('in', 'of')
 				}
 			}
 		} # }}}
@@ -5771,7 +5788,7 @@ export namespace Parser {
 				}
 			}
 
-			while true {
+			repeat {
 				match @matchM(M.MACRO) {
 					Token.EOF {
 						if history.length == 0 && terminator !~ MacroTerminator.NEWLINE {
@@ -6354,7 +6371,7 @@ export namespace Parser {
 		{
 			var eMode = ExpressionMode.InlineOnly + ExpressionMode.ImplicitMember
 			var operand = @reqPrefixedOperand(eMode, fMode)
-			var mut operator = NO
+			var mut operator: Event = NO
 
 			if @match(Token.LEFT_ANGLE, Token.DOT_DOT) == Token.DOT_DOT {
 				@commit()
@@ -7601,7 +7618,7 @@ export namespace Parser {
 		{
 			var mark = @mark()
 
-			var mut statement = NO
+			var mut statement: Event = NO
 
 			match @matchM(M.STATEMENT) {
 				Token.ABSTRACT {
@@ -12268,19 +12285,38 @@ export namespace Parser {
 
 			if @testNS(.LEFT_ROUND) {
 				var first = @yes()
-				var names = [@reqIdentifier()]
+				var mark = @mark()
 
-				while @test(.COMMA) {
-					@commit()
+				var identifier = @tryIdentifier()
 
-					names.push(@reqIdentifier())
+				if identifier.ok && @test(.COMMA, .RIGHT_ROUND) {
+					var names = [identifier]
+
+					while @test(.COMMA) {
+						@commit()
+
+						names.push(@reqIdentifier())
+					}
+
+					unless @test(.RIGHT_ROUND) {
+						@throw(')')
+					}
+
+					last = typeSubtypes = @yes(names, first)
 				}
+				else {
+					var expression = @tryOperation(identifier, .InlineOnly, .Nil)
 
-				unless @test(.RIGHT_ROUND) {
-					@throw(')')
+					unless expression.ok {
+						@throw('expression')
+					}
+
+					unless @test(.RIGHT_ROUND) {
+						@throw(')')
+					}
+
+					last = typeSubtypes = @yes(expression.value, first)
 				}
-
-				last = typeSubtypes = @yes(names, first)
 			}
 
 			return @yep(AST.TypeReference(modifiers, name, generic, typeSubtypes, first, last))

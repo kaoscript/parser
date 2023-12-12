@@ -1179,7 +1179,7 @@ namespace AST {
 			{ start, end }: Range
 		): NodeData(Identifier) { # {{{
 			return {
-				kind: NodeKind.Identifier
+				kind: .Identifier
 				modifiers: []
 				name
 				start
@@ -1208,7 +1208,7 @@ namespace AST {
 		} # }}}
 
 		func IfStatement(
-			condition: Event<NodeData(Expression)>(Y)// | Event<NodeData(VariableDeclaration, Expression)>(Y)[]
+			condition: Event<NodeData(Expression)>(Y)
 			whenTrue: Event<NodeData(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
 			whenFalse: Event<NodeData(Block, IfStatement)>(Y)?
 			{ start }: Range
@@ -2764,7 +2764,7 @@ namespace AST {
 			modifiers: Event<ModifierData>(Y)[]
 			name: Event<NodeData(Identifier, MemberExpression, UnaryExpression)>(Y)
 			parameters: Event<Event<NodeData(Type)>(Y)[]>(Y)?
-			typeSubtypes: Event<Event<NodeData(Identifier)>(Y)[]>(Y)?
+			subtypes: Event<Event<NodeData(Identifier)>(Y)[] | NodeData(Expression)>(Y)?
 			{ start }: Range
 			{ end }: Range
 		): NodeData(TypeReference) { # {{{
@@ -2773,7 +2773,14 @@ namespace AST {
 				modifiers: [modifier.value for var modifier in modifiers]
 				typeName: name.value
 				typeParameters: [parameter.value for var parameter in parameters.value] if ?parameters
-				typeSubtypes: [typeSubtype.value for var typeSubtype in typeSubtypes.value] if ?typeSubtypes
+				typeSubtypes: (
+					if subtypes.value is Array {
+						set [subtype.value for var subtype in subtypes.value]
+					}
+					else {
+						set subtypes.value
+					}
+				) if ?subtypes
 				start
 				end
 			}
@@ -2979,7 +2986,7 @@ namespace AST {
 			{ end }: Range
 		): NodeData(VariantType) { # {{{
 			return {
-				kind: NodeKind.VariantType
+				kind: .VariantType
 				master: master.value
 				properties
 				start

@@ -1,0 +1,1 @@
+type Weekend = Weekday(SATURDAY, SUNDAY)
