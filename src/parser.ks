@@ -4310,10 +4310,10 @@ export namespace Parser {
 
 						var condition = @reqExpression(.NoAnonymousFunction, fMode).value
 
-						declarations.push({ declaration, condition })
+						declarations.push([ declaration, condition ])
 					}
 					else {
-						declarations.push({ declaration })
+						declarations.push([ declaration ])
 					}
 				}
 				else {
@@ -4384,10 +4384,10 @@ export namespace Parser {
 
 								@NL_0M()
 
-								declarations.push({ declaration, condition })
+								declarations.push([ declaration, condition ])
 							}
 							else {
-								declarations.push({ declaration })
+								declarations.push([ declaration ])
 							}
 						}
 

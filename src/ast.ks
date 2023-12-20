@@ -540,7 +540,7 @@ namespace AST {
 		func AwaitExpression(
 			modifiers: ModifierData[]
 			variables: Event<NodeData(VariableDeclarator)>(Y)[]?
-			operand: Event<NodeData(Expression)>(Y)?
+			operation: Event<NodeData(Expression)>(Y)?
 			{ start }: Range
 			{ end }: Range
 		): NodeData(AwaitExpression) { # {{{
@@ -548,7 +548,7 @@ namespace AST {
 				kind: .AwaitExpression
 				modifiers
 				variables: [variable.value for var variable in variables] if ?variables
-				operation: operand.value if ?operand
+				operation: operation.value if ?operation
 				start
 				end
 			}
@@ -756,7 +756,7 @@ namespace AST {
 		} # }}}
 
 		func ComparisonExpression(
-			values: NodeData(Expression)[]
+			values: Array<NodeData(Expression) | BinaryOperatorData>
 		): NodeData(ComparisonExpression) { # {{{
 			return {
 				kind: .ComparisonExpression
@@ -931,7 +931,7 @@ namespace AST {
 			modifiers: Event<ModifierData>(Y)[]
 			name: Event<NodeData(Identifier)>(Y)
 			value: Event<NodeData(Expression)>(Y)?
-			arguments: Event<NodeData(Argument)>(Y)[]?
+			arguments: Event<NodeData(Argument, Expression)>(Y)[]?
 			{ start }: Range
 			{ end }: Range
 		): NodeData(EnumValue) { # {{{
@@ -1226,7 +1226,7 @@ namespace AST {
 		} # }}}
 
 		func IfStatement(
-			declarations: NodeData(VariableDeclaration, Expression)[]
+			declarations: NodeData(VariableDeclaration, Expression)[][]
 			whenTrue: Event<NodeData(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
 			whenFalse: Event<NodeData(Block, IfStatement)>(Y)?
 			{ start }: Range
