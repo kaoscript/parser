@@ -1,102 +1,4 @@
 namespace AST {
-	# {{{
-	var $comparison: Object<Boolean, BinaryOperatorKind> = {
-		[BinaryOperatorKind.Addition]: false
-		[BinaryOperatorKind.Assignment]: false
-		[BinaryOperatorKind.BackwardPipeline]: false
-		[BinaryOperatorKind.BitwiseAnd]: false
-		[BinaryOperatorKind.BitwiseOr]: false
-		[BinaryOperatorKind.BitwiseXor]: false
-		[BinaryOperatorKind.BitwiseLeftShift]: false
-		[BinaryOperatorKind.BitwiseRightShift]: false
-		[BinaryOperatorKind.Division]: false
-		[BinaryOperatorKind.Equality]: true
-		[BinaryOperatorKind.EmptyCoalescing]: false
-		[BinaryOperatorKind.ForwardPipeline]: false
-		[BinaryOperatorKind.GreaterThan]: true
-		[BinaryOperatorKind.GreaterThanOrEqual]: true
-		[BinaryOperatorKind.Inequality]: true
-		[BinaryOperatorKind.LessThan]: true
-		[BinaryOperatorKind.LessThanOrEqual]: true
-		[BinaryOperatorKind.LogicalAnd]: false
-		[BinaryOperatorKind.LogicalImply]: false
-		[BinaryOperatorKind.LogicalOr]: false
-		[BinaryOperatorKind.LogicalXor]: false
-		[BinaryOperatorKind.Match]: false
-		[BinaryOperatorKind.Mismatch]: false
-		[BinaryOperatorKind.Modulo]: false
-		[BinaryOperatorKind.Multiplication]: false
-		[BinaryOperatorKind.NullCoalescing]: false
-		[BinaryOperatorKind.Quotient]: false
-		[BinaryOperatorKind.Subtraction]: false
-		[BinaryOperatorKind.TypeCasting]: false
-		[BinaryOperatorKind.TypeEquality]: false
-		[BinaryOperatorKind.TypeInequality]: false
-	}
-
-	var $polyadic: Object<Boolean, BinaryOperatorKind> = {
-		[BinaryOperatorKind.Addition]: true
-		[BinaryOperatorKind.Assignment]: false
-		[BinaryOperatorKind.BitwiseAnd]: true
-		[BinaryOperatorKind.BitwiseOr]: true
-		[BinaryOperatorKind.BitwiseXor]: true
-		[BinaryOperatorKind.BitwiseLeftShift]: true
-		[BinaryOperatorKind.BitwiseRightShift]: true
-		[BinaryOperatorKind.Division]: true
-		[BinaryOperatorKind.EmptyCoalescing]: true
-		[BinaryOperatorKind.LogicalAnd]: true
-		[BinaryOperatorKind.LogicalImply]: true
-		[BinaryOperatorKind.LogicalOr]: true
-		[BinaryOperatorKind.LogicalXor]: true
-		[BinaryOperatorKind.Modulo]: true
-		[BinaryOperatorKind.Multiplication]: true
-		[BinaryOperatorKind.NullCoalescing]: true
-		[BinaryOperatorKind.Quotient]: true
-		[BinaryOperatorKind.Subtraction]: true
-		[BinaryOperatorKind.TypeCasting]: false
-		[BinaryOperatorKind.TypeEquality]: false
-		[BinaryOperatorKind.TypeInequality]: false
-	}
-
-	var $precedence: Object<Number, BinaryOperatorKind> = {
-		[BinaryOperatorKind.Addition]: 13
-		[BinaryOperatorKind.Assignment]: 3
-		[BinaryOperatorKind.BackwardPipeline]: 20
-		[BinaryOperatorKind.BitwiseAnd]: 12
-		[BinaryOperatorKind.BitwiseOr]: 12
-		[BinaryOperatorKind.BitwiseXor]: 12
-		[BinaryOperatorKind.BitwiseLeftShift]: 12
-		[BinaryOperatorKind.BitwiseRightShift]: 12
-		[BinaryOperatorKind.Division]: 14
-		[BinaryOperatorKind.Equality]: 8
-		[BinaryOperatorKind.EmptyCoalescing]: 15
-		[BinaryOperatorKind.ForwardPipeline]: 16
-		[BinaryOperatorKind.GreaterThan]: 8
-		[BinaryOperatorKind.GreaterThanOrEqual]: 8
-		[BinaryOperatorKind.Inequality]: 8
-		[BinaryOperatorKind.LessThan]: 8
-		[BinaryOperatorKind.LessThanOrEqual]: 8
-		[BinaryOperatorKind.LogicalAnd]: 6
-		[BinaryOperatorKind.LogicalImply]: 5
-		[BinaryOperatorKind.LogicalOr]: 5
-		[BinaryOperatorKind.LogicalXor]: 5
-		[BinaryOperatorKind.Match]: 8
-		[BinaryOperatorKind.Mismatch]: 8
-		[BinaryOperatorKind.Modulo]: 14
-		[BinaryOperatorKind.Multiplication]: 14
-		[BinaryOperatorKind.NullCoalescing]: 15
-		[BinaryOperatorKind.Quotient]: 14
-		[BinaryOperatorKind.Subtraction]: 13
-		[BinaryOperatorKind.TypeCasting]: 8
-		[BinaryOperatorKind.TypeEquality]: 8
-		[BinaryOperatorKind.TypeInequality]: 8
-	}
-
-	var $rtl: Object<Boolean, BinaryOperatorKind> = {
-		[BinaryOperatorKind.BackwardPipeline]: true
-	}
-	# }}}
-
 	var CONDITIONAL_PRECEDENCE = 4
 
 	export func pushAttributes(
@@ -146,7 +48,7 @@ namespace AST {
 				i += 1
 			}
 			else {
-				var precedence = $precedence[operations[i].operator.kind]
+				var precedence = operations[i].operator.kind.precedence
 
 				if ?precedences[precedence] {
 					precedences[precedence] += 1
@@ -191,13 +93,12 @@ namespace AST {
 						k += 1
 					}
 				}
-				else if $precedence[operations[k].operator.kind] == precedence {
-					if operations[k].kind == NodeKind.BinaryExpression && $rtl[operations[k].operator.kind] {
-					// if operations[k] is NodeData(BinaryExpression) && $rtl[operations[k].operator.kind] {
+				else if operations[k].operator.kind.precedence == precedence {
+					if operations[k].kind == NodeKind.BinaryExpression && operations[k].operator.kind.attribute ~~ OperatorAttribute.RTL {
 						var mut end = operations.length - 1
 
 						for var i from k + 2 to~ operations.length step 2 {
-							if !$rtl[operations[i].operator.kind] {
+							if operations[i].operator.kind.attribute !~ OperatorAttribute.RTL {
 								end = i - 1
 							}
 						}
@@ -231,11 +132,9 @@ namespace AST {
 						// var mut operand = null
 
 						if operator.kind == NodeKind.BinaryExpression {
-						// if operator is BinaryOperatorData {
 							var left = operations[k - 1]
 
-							if left.kind == NodeKind.BinaryExpression && operator.operator.kind == left.operator.kind && $polyadic[operator.operator.kind] {
-							// if left is NodeData(BinaryExpression) && operator.operator.kind == left.operator.kind && $polyadic[operator.operator.kind] {
+							if left.kind == NodeKind.BinaryExpression && operator.operator.kind == left.operator.kind && operator.operator.kind.attribute ~~ OperatorAttribute.Polyadic {
 								operator.kind = NodeKind.PolyadicExpression
 								operator.start = left.start
 								operator.end = operations[k + 1].end
@@ -250,15 +149,13 @@ namespace AST {
 								// }
 							}
 							else if left.kind == NodeKind.PolyadicExpression && operator.operator.kind == left.operator.kind {
-							// else if left is NodeData(PolyadicExpression) && operator.operator.kind == left.operator.kind {
 								left.operands.push(operations[k + 1])
 								left.end = operations[k + 1].end
 
 								operator = left
 							}
-							else if $comparison[operator.operator.kind] {
+							else if operator.operator.kind.attribute ~~ OperatorAttribute.Comparable {
 								if left.kind == NodeKind.ComparisonExpression {
-								// if left is NodeData(ComparisonExpression) {
 									left.values.push(operator.operator, operations[k + 1])
 									left.end = operations[k + 1].end
 
