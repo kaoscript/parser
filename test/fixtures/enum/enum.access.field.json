@@ -113,7 +113,7 @@
       "attributes": [],
       "modifiers": [
         {
-          "kind": 16,
+          "kind": 15,
           "start": {
             "line": 7,
             "column": 5
@@ -158,21 +158,9 @@
             }
           ],
           "value": {
-            "kind": 11,
+            "kind": 70,
             "modifiers": [],
-            "operator": {
-              "kind": 44,
-              "modifiers": [],
-              "start": {
-                "line": 7,
-                "column": 17
-              },
-              "end": {
-                "line": 7,
-                "column": 18
-              }
-            },
-            "left": {
+            "object": {
               "kind": 49,
               "modifiers": [],
               "name": "Kind",
@@ -185,22 +173,10 @@
                 "column": 17
               }
             },
-            "right": {
-              "kind": 124,
+            "property": {
+              "kind": 49,
               "modifiers": [],
-              "typeName": {
-                "kind": 49,
-                "modifiers": [],
-                "name": "A",
-                "start": {
-                  "line": 7,
-                  "column": 18
-                },
-                "end": {
-                  "line": 7,
-                  "column": 19
-                }
-              },
+              "name": "A",
               "start": {
                 "line": 7,
                 "column": 18

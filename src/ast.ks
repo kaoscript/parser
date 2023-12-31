@@ -466,7 +466,7 @@ namespace AST {
 		func BinaryExpression(
 			left: Event<NodeData(Expression)>(Y)
 			operator: Event<BinaryOperatorData>(Y)
-			right: Event<NodeData(Expression, TypeReference)>(Y)
+			right: Event<NodeData(Expression, Type)>(Y)
 			{ start }: Range = left
 			{ end }: Range = right
 		): NodeData(BinaryExpression) { # {{{

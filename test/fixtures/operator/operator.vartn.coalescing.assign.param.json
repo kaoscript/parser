@@ -1,0 +1,176 @@
+{
+  "kind": 73,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 38,
+      "attributes": [],
+      "declarations": [
+        {
+          "kind": 132,
+          "attributes": [],
+          "modifiers": [],
+          "name": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "foo",
+            "start": {
+              "line": 1,
+              "column": 8
+            },
+            "end": {
+              "line": 1,
+              "column": 11
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 11
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 11
+      }
+    },
+    {
+      "kind": 45,
+      "attributes": [],
+      "modifiers": [],
+      "name": {
+        "kind": 49,
+        "modifiers": [],
+        "name": "foobar",
+        "start": {
+          "line": 3,
+          "column": 6
+        },
+        "end": {
+          "line": 3,
+          "column": 12
+        }
+      },
+      "parameters": [
+        {
+          "kind": 84,
+          "attributes": [],
+          "modifiers": [],
+          "external": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "value",
+            "start": {
+              "line": 3,
+              "column": 13
+            },
+            "end": {
+              "line": 3,
+              "column": 18
+            }
+          },
+          "internal": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "value",
+            "start": {
+              "line": 3,
+              "column": 13
+            },
+            "end": {
+              "line": 3,
+              "column": 18
+            }
+          },
+          "operator": {
+            "kind": 2,
+            "assignment": 58,
+            "start": {
+              "line": 3,
+              "column": 19
+            },
+            "end": {
+              "line": 3,
+              "column": 23
+            }
+          },
+          "defaultValue": {
+            "kind": 18,
+            "modifiers": [],
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 49,
+              "modifiers": [],
+              "name": "foo",
+              "start": {
+                "line": 3,
+                "column": 24
+              },
+              "end": {
+                "line": 3,
+                "column": 27
+              }
+            },
+            "arguments": [],
+            "start": {
+              "line": 3,
+              "column": 24
+            },
+            "end": {
+              "line": 3,
+              "column": 29
+            }
+          },
+          "start": {
+            "line": 3,
+            "column": 13
+          },
+          "end": {
+            "line": 3,
+            "column": 29
+          }
+        }
+      ],
+      "throws": [],
+      "body": {
+        "kind": 15,
+        "attributes": [],
+        "statements": [],
+        "start": {
+          "line": 3,
+          "column": 31
+        },
+        "end": {
+          "line": 4,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 3,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 4,
+    "column": 2
+  }
+}

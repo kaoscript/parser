@@ -4,12 +4,10 @@ enum Token {
 	AMPERSAND
 	AMPERSAND_AMPERSAND
 	AMPERSAND_AMPERSAND_EQUALS
-	AS
-	AS_EXCLAMATION
-	AS_QUESTION
 	ASSIST
 	ASTERISK
 	ASTERISK_ASTERISK
+	ASTERISK_ASTERISK_EQUALS
 	ASTERISK_DOLLAR_LEFT_ROUND
 	ASTERISK_EQUALS
 	ASTERISK_PIPE_RIGHT_ANGLE
@@ -37,9 +35,12 @@ enum Token {
 	CLASS
 	CLASS_VERSION
 	COLON
-	COLON_EXCLAMATION
-	COLON_QUESTION
-	COLON_RIGHT_ANGLE
+	COLON_AMPERSAND_LEFT_ROUND
+	COLON_AMPERSAND_QUESTION_LEFT_ROUND
+	COLON_EXCLAMATION_LEFT_ROUND
+	COLON_EXCLAMATION_EXCLAMATION_LEFT_ROUND
+	COLON_RIGHT_ANGLE_LEFT_ROUND
+	COLON_RIGHT_ANGLE_QUESTION_LEFT_ROUND
 	COMMA
 	CONST
 	CONTINUE
@@ -65,6 +66,8 @@ enum Token {
 	EXCLAMATION_QUESTION
 	EXCLAMATION_QUESTION_EQUALS
 	EXCLAMATION_QUESTION_HASH_EQUALS
+	EXCLAMATION_QUESTION_PIPE_EQUALS
+	EXCLAMATION_QUESTION_PLUS_EQUALS
 	EXCLAMATION_TILDE
 	EXPORT
 	EXTENDS
@@ -136,6 +139,8 @@ enum Token {
 	PASS
 	PERCENT
 	PERCENT_EQUALS
+	PERCENT_PERCENT
+	PERCENT_PERCENT_EQUALS
 	PIPE
 	PIPE_RIGHT_ANGLE
 	PIPE_RIGHT_ANGLE_HASH
@@ -171,6 +176,14 @@ enum Token {
 	QUESTION_LEFT_ROUND
 	QUESTION_LEFT_SQUARE
 	QUESTION_OPERATOR
+	QUESTION_PIPE
+	QUESTION_PIPE_EQUALS
+	QUESTION_PIPE_PIPE
+	QUESTION_PIPE_PIPE_EQUALS
+	QUESTION_PLUS
+	QUESTION_PLUS_EQUALS
+	QUESTION_PLUS_PLUS
+	QUESTION_PLUS_PLUS_EQUALS
 	QUESTION_QUESTION
 	QUESTION_QUESTION_EQUALS
 	RADIX_NUMBER
@@ -190,9 +203,10 @@ enum Token {
 	SEMICOLON_SEMICOLON
 	SET
 	SLASH
-	SLASH_DOT
-	SLASH_DOT_EQUALS
 	SLASH_EQUALS
+	SLASH_HASH
+	SLASH_HASH_EQUALS
+	SLASH_AMPERSAND
 	SPLIT
 	STATIC
 	STEP
@@ -261,14 +275,14 @@ enum Token {
 					return scanner.next(2)
 				}
 			} # }}}
-			.AS { # {{{
-				if	c == 97 &&
-					scanner.charAt(1) == 115 &&
-					scanner.isBoundary(2)
-				{
-					return scanner.next(2)
-				}
-			} # }}}
+			// .AS { # {{{
+			// 	if	c == 97 &&
+			// 		scanner.charAt(1) == 115 &&
+			// 		scanner.isBoundary(2)
+			// 	{
+			// 		return scanner.next(2)
+			// 	}
+			// } # }}}
 			.ASSIST { # {{{
 				if	c == 0'a' &&
 					scanner.charAt(1) == 0's' &&
@@ -407,11 +421,11 @@ enum Token {
 					return scanner.next(1)
 				}
 			} # }}}
-			.COLON_RIGHT_ANGLE { # {{{
-				if c == 0':' && scanner.charAt(1) == 0'>' {
-					return scanner.next(2)
-				}
-			} # }}}
+			// .COLON_RIGHT_ANGLE { # {{{
+			// 	if c == 0':' && scanner.charAt(1) == 0'>' {
+			// 		return scanner.next(2)
+			// 	}
+			// } # }}}
 			.COMMA { # {{{
 				if c == 44 {
 					return scanner.next(1)
@@ -965,7 +979,7 @@ enum Token {
 				}
 			} # }}}
 			.QUESTION { # {{{
-				if c == 63 && scanner.charAt(1) != 0'=' & 0'?' & 0'#' {
+				if c == 0'?' && scanner.charAt(1) != 0'=' & 0'?' & 0'#' & 0'|' & 0'+' {
 					return scanner.next(1)
 				}
 			} # }}}
@@ -986,6 +1000,26 @@ enum Token {
 			} # }}}
 			.QUESTION_HASH_HASH_EQUALS { # {{{
 				if c == 0'?' && scanner.charAt(1) == 0'#' && scanner.charAt(2) == 0'#' && scanner.charAt(3) == 0'=' {
+					return scanner.next(4)
+				}
+			} # }}}
+			.QUESTION_PIPE_EQUALS { # {{{
+				if c == 0'?' && scanner.charAt(1) == 0'|' && scanner.charAt(2) == 0'=' {
+					return scanner.next(3)
+				}
+			} # }}}
+			.QUESTION_PIPE_PIPE_EQUALS { # {{{
+				if c == 0'?' && scanner.charAt(1) == 0'|' && scanner.charAt(2) == 0'|' && scanner.charAt(3) == 0'=' {
+					return scanner.next(4)
+				}
+			} # }}}
+			.QUESTION_PLUS_EQUALS { # {{{
+				if c == 0'?' && scanner.charAt(1) == 0'+' && scanner.charAt(2) == 0'=' {
+					return scanner.next(3)
+				}
+			} # }}}
+			.QUESTION_PLUS_PLUS_EQUALS { # {{{
+				if c == 0'?' && scanner.charAt(1) == 0'+' && scanner.charAt(2) == 0'+' && scanner.charAt(3) == 0'=' {
 					return scanner.next(4)
 				}
 			} # }}}
@@ -1358,6 +1392,16 @@ namespace M {
 
 					return Token.EXCLAMATION_QUESTION_HASH_EQUALS
 				}
+				else if that.charAt(2) == 0'|' && that.charAt(3) == 0'=' {
+					that.next(4)
+
+					return Token.EXCLAMATION_QUESTION_PIPE_EQUALS
+				}
+				else if that.charAt(2) == 0'+' && that.charAt(3) == 0'=' {
+					that.next(4)
+
+					return Token.EXCLAMATION_QUESTION_PLUS_EQUALS
+				}
 			}
 		}
 		else if c == 0'%' {
@@ -1425,14 +1469,15 @@ namespace M {
 		else if c == 0'/' {
 			c = that.charAt(1)
 
-			if c == 46 {
-				if that.charAt(2) == 61 {
-					that.next(3)
+			// if c == 46 {
+			// 	if that.charAt(2) == 61 {
+			// 		that.next(3)
 
-					return Token.SLASH_DOT_EQUALS
-				}
-			}
-			else if c == 61 {
+			// 		return Token.SLASH_DOT_EQUALS
+			// 	}
+			// }
+			// else
+			if c == 61 {
 				that.next(2)
 
 				return Token.SLASH_EQUALS
@@ -1469,15 +1514,41 @@ namespace M {
 					return Token.QUESTION_QUESTION_EQUALS
 				}
 			}
-			else if c == 0'#' && that.charAt(2) == 0'?' {
-				that.next(3)
+			else if c == 0'#' {
+				if that.charAt(2) == 0'#' && that.charAt(3) == 0'?' {
+					that.next(4)
 
-				return Token.QUESTION_HASH_HASH_EQUALS
+					return Token.QUESTION_HASH_HASH_EQUALS
+				}
+				else if c == 0'=' {
+					that.next(3)
+
+					return Token.QUESTION_HASH_EQUALS
+				}
 			}
-			else if c == 0'=' {
-				that.next(2)
+			else if c == 0'|' {
+				if that.charAt(2) == 0'|' && that.charAt(3) == 0'?' {
+					that.next(4)
 
-				return Token.QUESTION_HASH_EQUALS
+					return Token.QUESTION_PIPE_PIPE_EQUALS
+				}
+				else if c == 0'=' {
+					that.next(3)
+
+					return Token.QUESTION_PIPE_EQUALS
+				}
+			}
+			else if c == 0'+' {
+				if that.charAt(2) == 0'+' && that.charAt(3) == 0'?' {
+					that.next(4)
+
+					return Token.QUESTION_PLUS_PLUS_EQUALS
+				}
+				else if c == 0'=' {
+					that.next(3)
+
+					return Token.QUESTION_PLUS_EQUALS
+				}
 			}
 		}
 		else if c == 0'^' {
@@ -1522,6 +1593,16 @@ namespace M {
 
 					return Token.EXCLAMATION_QUESTION_HASH_EQUALS
 				}
+				else if that.charAt(2) == 0'|' && that.charAt(3) == 0'=' {
+					that.next(4)
+
+					return Token.EXCLAMATION_QUESTION_PIPE_EQUALS
+				}
+				else if that.charAt(2) == 0'+' && that.charAt(3) == 0'=' {
+					that.next(4)
+
+					return Token.EXCLAMATION_QUESTION_PLUS_EQUALS
+				}
 			}
 			else if c == 126 {
 				that.next(2)
@@ -1546,10 +1627,24 @@ namespace M {
 			}
 		}
 		else if c == 0'%' {
-			if that.charAt(1) == 61 {
+			c = that.charAt(1)
+
+			if c == 0'=' {
 				that.next(2)
 
 				return Token.PERCENT_EQUALS
+			}
+			else if c == 0'%' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.PERCENT_PERCENT_EQUALS
+				}
+				else {
+					that.next(2)
+
+					return Token.PERCENT_PERCENT
+				}
 			}
 			else {
 				that.next(1)
@@ -1576,21 +1671,33 @@ namespace M {
 		else if c == 0'*' {
 			c = that.charAt(1)
 
-			if c == 61 {
+			if c == 0'=' {
 				that.next(2)
 
 				return Token.ASTERISK_EQUALS
 			}
-			else if c == 124 && that.charAt(2) == 62 {
+			else if c == 0'*' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.ASTERISK_ASTERISK_EQUALS
+				}
+				else {
+					that.next(2)
+
+					return Token.ASTERISK_ASTERISK
+				}
+			}
+			else if c == 0'|' && that.charAt(2) == 0'>' {
 				if fMode !~ FunctionMode.NoPipeline {
 					c = that.charAt(3)
 
-					if c == 35 {
+					if c == 0'#' {
 						that.next(4)
 
 						return Token.ASTERISK_PIPE_RIGHT_ANGLE_HASH
 					}
-					else if c == 63 {
+					else if c == 0'?' {
 						that.next(4)
 
 						return Token.ASTERISK_PIPE_RIGHT_ANGLE_QUESTION
@@ -1704,19 +1811,37 @@ namespace M {
 		else if c == 0'/' {
 			c = that.charAt(1)
 
-			if c == 46 {
-				if that.charAt(2) == 61 {
+			// if c == 46 {
+			// 	if that.charAt(2) == 61 {
+			// 		that.next(3)
+
+			// 		return Token.SLASH_DOT_EQUALS
+			// 	}
+			// 	else {
+			// 		that.next(2)
+
+			// 		return Token.SLASH_DOT
+			// 	}
+			// }
+			// else
+			if c == 0'#' {
+				if that.charAt(2) == 0'=' {
 					that.next(3)
 
-					return Token.SLASH_DOT_EQUALS
+					return Token.SLASH_HASH_EQUALS
 				}
 				else {
 					that.next(2)
 
-					return Token.SLASH_DOT
+					return Token.SLASH_HASH
 				}
 			}
-			else if c == 61 {
+			else if c == 0'&' {
+				that.next(2)
+
+				return Token.SLASH_AMPERSAND
+			}
+			else if c == 0'=' {
 				that.next(2)
 
 				return Token.SLASH_EQUALS
@@ -1824,6 +1949,44 @@ namespace M {
 						that.next(3)
 
 						return Token.QUESTION_HASH_HASH
+					}
+				}
+			}
+			else if c == 0'|' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.QUESTION_PIPE_EQUALS
+				}
+				else if that.charAt(2) == 0'|' {
+					if that.charAt(3) == 0'=' {
+						that.next(4)
+
+						return Token.QUESTION_PIPE_PIPE_EQUALS
+					}
+					else {
+						that.next(3)
+
+						return Token.QUESTION_PIPE_PIPE
+					}
+				}
+			}
+			else if c == 0'+' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.QUESTION_PLUS_EQUALS
+				}
+				else if that.charAt(2) == 0'+' {
+					if that.charAt(3) == 0'=' {
+						that.next(4)
+
+						return Token.QUESTION_PLUS_PLUS_EQUALS
+					}
+					else {
+						that.next(3)
+
+						return Token.QUESTION_PLUS_PLUS
 					}
 				}
 			}
@@ -2648,35 +2811,79 @@ namespace M {
 			}
 		}
 		else if c == 0'.' {
-			if that.charAt(1) != 46 & 9 & 32 {
+			if that.charAt(1) == 0'.' {
+				if that.charAt(2) != 0'.' & 9 & 32 {
+					that.next(2)
+
+					return Token.DOT_DOT
+				}
+			}
+			else if that.charAt(1) != 9 & 32 {
 				that.next(1)
 
 				return Token.DOT
 			}
-			else if that.charAt(1) == 46 && that.charAt(2) != 46 & 9 & 32 {
-				that.next(2)
-
-				return Token.DOT_DOT
-			}
 		}
 		else if c == 0':' {
 			c = that.charAt(1)
-			var c2 = that.charAt(2)
+			// var c2 = that.charAt(2)
 
-			if c == 33 && c2 != 9 && c2 != 32 {
-				that.next(2)
+			// if c == 0'!' && c2 != 9 & 32 {
+			// 	that.next(2)
 
-				return Token.COLON_EXCLAMATION
+			// 	return Token.COLON_EXCLAMATION
+			// }
+			// else if c == 0'?' && c2 != 9 & 32 {
+			// 	that.next(2)
+
+			// 	return Token.COLON_QUESTION
+			// }
+			// else if c != 0'=' & 9 & 32 {
+			// 	that.next(1)
+
+			// 	return Token.COLON
+			// }
+			if c == 0'!' {
+				if that.charAt(2) == 0'!' {
+					if that.charAt(3) == 0'(' {
+						that.next(4)
+
+						return Token.COLON_EXCLAMATION_EXCLAMATION_LEFT_ROUND
+					}
+				}
+				else if that.charAt(2) == 0'(' {
+					that.next(3)
+
+					return Token.COLON_EXCLAMATION_LEFT_ROUND
+				}
 			}
-			else if c == 63 && c2 != 9 && c2 != 32 {
-				that.next(2)
+			else if c == 0'&' {
+				if that.charAt(2) == 0'?' {
+					if that.charAt(3) == 0'(' {
+						that.next(4)
 
-				return Token.COLON_QUESTION
+						return Token.COLON_AMPERSAND_QUESTION_LEFT_ROUND
+					}
+				}
+				else if that.charAt(2) == 0'(' {
+					that.next(3)
+
+					return Token.COLON_AMPERSAND_LEFT_ROUND
+				}
 			}
-			else if c != 61 && c != 9 && c != 32 {
-				that.next(1)
+			else if c == 0'>' {
+				if that.charAt(2) == 0'?' {
+					if that.charAt(3) == 0'(' {
+						that.next(4)
 
-				return Token.COLON
+						return Token.COLON_RIGHT_ANGLE_QUESTION_LEFT_ROUND
+					}
+				}
+				else if that.charAt(2) == 0'(' {
+					that.next(3)
+
+					return Token.COLON_RIGHT_ANGLE_LEFT_ROUND
+				}
 			}
 		}
 		else if c == 0'?' {
@@ -2820,12 +3027,24 @@ namespace M {
 			}
 		}
 		else if c == 0'?' {
-			if that.charAt(1) == 0'#' {
+			c = that.charAt(1)
+
+			if c == 0'#' {
 				that.next(2)
 
 				return Token.QUESTION_HASH
 			}
-			else if that.charAt(1) != 9 & 32 & 0'=' {
+			else if c == 0'|' {
+				that.next(2)
+
+				return Token.QUESTION_PIPE
+			}
+			else if c == 0'+' {
+				that.next(2)
+
+				return Token.QUESTION_PLUS
+			}
+			else if c != 9 & 32 & 0'=' {
 				that.next(1)
 
 				return Token.QUESTION
@@ -3332,27 +3551,27 @@ namespace M {
 		if c == -1 {
 			return Token.EOF
 		}
-		// as
-		else if c == 97
-		{
-			if that.charAt(1) == 115 {
-				if that.charAt(2) == 33 && that.isBoundary(3) {
-					that.next(3)
+		// // as
+		// else if c == 97
+		// {
+		// 	if that.charAt(1) == 115 {
+		// 		if that.charAt(2) == 33 && that.isBoundary(3) {
+		// 			that.next(3)
 
-					return Token.AS_EXCLAMATION
-				}
-				else if that.charAt(2) == 63 && that.isBoundary(3) {
-					that.next(3)
+		// 			return Token.AS_EXCLAMATION
+		// 		}
+		// 		else if that.charAt(2) == 63 && that.isBoundary(3) {
+		// 			that.next(3)
 
-					return Token.AS_QUESTION
-				}
-				else if that.isBoundary(2) {
-					that.next(2)
+		// 			return Token.AS_QUESTION
+		// 		}
+		// 		else if that.isBoundary(2) {
+		// 			that.next(2)
 
-					return Token.AS
-				}
-			}
-		}
+		// 			return Token.AS
+		// 		}
+		// 	}
+		// }
 		// is, is not
 		else if c == 105
 		{

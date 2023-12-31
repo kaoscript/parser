@@ -1964,7 +1964,7 @@ export namespace Parser {
 				return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, null, first, (throws ?? type ?? parameters)!!))
 			}
 			else {
-				var body = @tryFunctionBody(modifiers, FunctionMode.Method, !?type && !?throws)
+				var body = @tryFunctionBody(modifiers, FunctionMode.Method)
 
 				@reqNL_1M()
 
@@ -2322,13 +2322,19 @@ export namespace Parser {
 		reqConditionAssignment(): Event<BinaryOperatorData(Assignment)>(Y) ~ SyntaxError # {{{
 		{
 			if @test(Token.QUESTION_EQUALS) {
-				return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
+				return @yep(AST.AssignmentOperator(.Existential, @yes()))
 			}
 			else if @test(Token.QUESTION_HASH_EQUALS) {
-				return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonEmpty, @yes()))
+				return @yep(AST.AssignmentOperator(.NonEmpty, @yes()))
+			}
+			else if @test(Token.QUESTION_PIPE_EQUALS) {
+				return @yep(AST.AssignmentOperator(.VariantYes, @yes()))
+			}
+			else if @test(Token.QUESTION_PLUS_EQUALS) {
+				return @yep(AST.AssignmentOperator(.Finite, @yes()))
 			}
 
-			@throw('?=', '?#=')
+			@throw('?=', '?#=', '?|=', '?+=')
 		} # }}}
 
 		reqContinueStatement(
@@ -2392,16 +2398,22 @@ export namespace Parser {
 		reqDefaultAssignmentOperator(): Event<BinaryOperatorData(Assignment)>(Y) ~ SyntaxError # {{{
 		{
 			if @test(Token.EQUALS) {
-				return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
+				return @yep(AST.AssignmentOperator(.Equals, @yes()))
 			}
 			else if @test(Token.QUESTION_QUESTION_EQUALS) {
-				return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NullCoalescing, @yes()))
+				return @yep(AST.AssignmentOperator(.NullCoalescing, @yes()))
 			}
 			else if @test(Token.QUESTION_HASH_HASH_EQUALS) {
-				return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
+				return @yep(AST.AssignmentOperator(.EmptyCoalescing, @yes()))
+			}
+			else if @test(Token.QUESTION_PIPE_PIPE_EQUALS) {
+				return @yep(AST.AssignmentOperator(.VariantNoCoalescing, @yes()))
+			}
+			else if @test(Token.QUESTION_PLUS_PLUS_EQUALS) {
+				return @yep(AST.AssignmentOperator(.NonFinite, @yes()))
 			}
 
-			@throw('=', '??=', '##=')
+			@throw('=', '??=', '?##=', '?||=')
 		} # }}}
 
 		reqDestructuring(
@@ -3053,7 +3065,7 @@ export namespace Parser {
 			var parameters = @reqClassMethodParameterList(null, null)
 			var type = @tryFunctionReturns(.Method, true)
 			var throws = @tryFunctionThrows()
-			var body = @tryFunctionBody(modifiers, .Method, !?type && !?throws)
+			var body = @tryFunctionBody(modifiers, .Method)
 
 			@reqNL_1M()
 
@@ -4124,12 +4136,11 @@ export namespace Parser {
 		reqFunctionBody(
 			modifiers: Event<ModifierData>(Y)[]
 			fMode: FunctionMode
-			automatable: Boolean
 		): Event<NodeData(Block, Expression, IfStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
-			match automatable ? @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE, .COLON_RIGHT_ANGLE) : @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE) {
+			match @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE) {
 				.LEFT_CURLY {
 					return @reqBlock(@yes(), null, fMode - FunctionMode.NoPipeline)
 				}
@@ -4155,13 +4166,6 @@ export namespace Parser {
 					else {
 						return expression
 					}
-				}
-				.COLON_RIGHT_ANGLE {
-					modifiers.push(@yep(AST.Modifier(.AutoType, @yes())))
-
-					@NL_0M()
-
-					return @reqExpression(.NoRestriction, fMode)
 				}
 				else {
 					@throw('{', '=>')
@@ -4215,7 +4219,7 @@ export namespace Parser {
 			var parameters = @reqFunctionParameterList(.Nil)
 			var type = @tryFunctionReturns()
 			var throws = @tryFunctionThrows()
-			var body = @reqFunctionBody(modifiers, .Nil, !?type && !?throws)
+			var body = @reqFunctionBody(modifiers, .Nil)
 
 			return @yep(AST.FunctionDeclaration(name, typeParameters, parameters, modifiers, type, throws, body, first, body))
 		} # }}}
@@ -4866,7 +4870,7 @@ export namespace Parser {
 
 					if type.ok {
 						// TODO!
-						var value = type.value as Any
+						var value = type.value:!(Any)
 
 						if ?value.name {
 							specifiers.push(@yep(AST.NamedSpecifier([modifier], @yep(value.name), null, modifier, type)))
@@ -5733,10 +5737,9 @@ export namespace Parser {
 		reqLambdaBody(
 			modifiers: Event<ModifierData>(Y)[]
 			fMode: FunctionMode
-			automatable: Boolean
 		): Event<NodeData(Block, Expression)>(Y) ~ SyntaxError # {{{
 		{
-			var body = @tryLambdaBody(modifiers, fMode, automatable)
+			var body = @tryLambdaBody(modifiers, fMode)
 
 			if body.ok {
 				return body
@@ -6580,11 +6583,11 @@ export namespace Parser {
 							}
 							else {
 								previous = AST.Literal(null, '\n', {
-									line: previous.end.line:Number
-									column: previous.end.column:Number + 1
+									line: previous.end.line:!(Number)
+									column: previous.end.column:!(Number) + 1
 								}, {
-									line: previous.end.line:Number
-									column: previous.end.column:Number + 2
+									line: previous.end.line:!(Number)
+									column: previous.end.column:!(Number) + 2
 								})
 
 								elements.push(@yep(previous))
@@ -6593,7 +6596,7 @@ export namespace Parser {
 
 						if ?first {
 							unless indent.startsWith(baseIndent) {
-								throw @error(`Unexpected indentation`, first.line:Number + index + 1, 1)
+								throw @error(`Unexpected indentation`, first.line:!(Number) + index + 1, 1)
 							}
 
 							if var value ?#= indent.substr(baseIndent.length) {
@@ -6615,10 +6618,10 @@ export namespace Parser {
 								}
 								else {
 									previous = AST.Literal(null, value, {
-										line: previous.end.line:Number + 1
+										line: previous.end.line:!(Number) + 1
 										column: baseIndent.length
 									}, {
-										line: previous.end.line:Number + 1
+										line: previous.end.line:!(Number) + 1
 										column: indent.length
 									})
 
@@ -6664,11 +6667,11 @@ export namespace Parser {
 							}
 							else {
 								previous = AST.Literal(null, '\n', {
-									line: previous.end.line:Number
-									column: previous.end.column:Number + 1
+									line: previous.end.line:!(Number)
+									column: previous.end.column:!(Number) + 1
 								}, {
-									line: previous.end.line:Number
-									column: previous.end.column:Number + 2
+									line: previous.end.line:!(Number)
+									column: previous.end.column:!(Number) + 2
 								})
 
 								elements.push(@yep(previous))
@@ -8749,6 +8752,12 @@ export namespace Parser {
 				.EXCLAMATION_QUESTION_HASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Empty, @yes()))
 				}
+				.EXCLAMATION_QUESTION_PIPE_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.VariantNo, @yes()))
+				}
+				.EXCLAMATION_QUESTION_PLUS_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonFinite, @yes()))
+				}
 				.LEFT_ANGLE_MINUS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Return, @yes()))
 				}
@@ -8756,7 +8765,7 @@ export namespace Parser {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Subtraction, @yes()))
 				}
 				.PERCENT_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Modulo, @yes()))
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Remainder, @yes()))
 				}
 				.PIPE_PIPE_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalOr, @yes()))
@@ -8788,12 +8797,24 @@ export namespace Parser {
 				.QUESTION_HASH_HASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
 				}
+				.QUESTION_PIPE_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.VariantYes, @yes()))
+				}
+				.QUESTION_PIPE_PIPE_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.VariantNoCoalescing, @yes()))
+				}
+				.QUESTION_PLUS_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Finite, @yes()))
+				}
+				.QUESTION_PLUS_PLUS_EQUALS {
+					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonFiniteCoalescing, @yes()))
+				}
 				.QUESTION_QUESTION_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NullCoalescing, @yes()))
 				}
-				.SLASH_DOT_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Quotient, @yes()))
-				}
+				// .SLASH_DOT_EQUALS {
+				// 	return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Quotient, @yes()))
+				// }
 				.SLASH_EQUALS {
 					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Division, @yes()))
 				}
@@ -8939,202 +8960,247 @@ export namespace Parser {
 		): Event<BinaryOperatorData> ~ SyntaxError # {{{
 		{
 			match @matchM(M.BINARY_OPERATOR, null, fMode) {
-				Token.AMPERSAND_AMPERSAND {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.LogicalAnd, @yes()))
+				.AMPERSAND_AMPERSAND {
+					return @yep(AST.BinaryOperator(.LogicalAnd, @yes()))
 				}
-				Token.AMPERSAND_AMPERSAND_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalAnd, @yes()))
+				.AMPERSAND_AMPERSAND_EQUALS {
+					return @yep(AST.AssignmentOperator(.LogicalAnd, @yes()))
 				}
-				Token.ASTERISK {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Multiplication, @yes()))
+				.ASTERISK {
+					return @yep(AST.BinaryOperator(.Multiplication, @yes()))
 				}
-				Token.ASTERISK_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Multiplication, @yes()))
+				.ASTERISK_ASTERISK {
+					return @yep(AST.BinaryOperator(.Power, @yes()))
 				}
-				Token.ASTERISK_PIPE_RIGHT_ANGLE {
-					var modifiers = [AST.Modifier(ModifierKind.Wildcard, @position(0, 1))]
+				.ASTERISK_ASTERISK_EQUALS {
+					return @yep(AST.AssignmentOperator(.Power, @yes()))
+				}
+				.ASTERISK_EQUALS {
+					return @yep(AST.AssignmentOperator(.Multiplication, @yes()))
+				}
+				.ASTERISK_PIPE_RIGHT_ANGLE {
+					var modifiers = [AST.Modifier(.Wildcard, @position(0, 1))]
 
-					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.ForwardPipeline, @yes()))
+					return @yep(AST.BinaryOperator(modifiers, .ForwardPipeline, @yes()))
 				}
-				Token.ASTERISK_PIPE_RIGHT_ANGLE_HASH {
-					var modifiers = [AST.Modifier(ModifierKind.Wildcard, @position(0, 1)), AST.Modifier(ModifierKind.NonEmpty, @position(3, 1))]
+				.ASTERISK_PIPE_RIGHT_ANGLE_HASH {
+					var modifiers = [AST.Modifier(.Wildcard, @position(0, 1)), AST.Modifier(.NonEmpty, @position(3, 1))]
 
-					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.ForwardPipeline, @yes()))
+					return @yep(AST.BinaryOperator(modifiers, .ForwardPipeline, @yes()))
 				}
-				Token.ASTERISK_PIPE_RIGHT_ANGLE_QUESTION {
-					var modifiers = [AST.Modifier(ModifierKind.Wildcard, @position(0, 1)), AST.Modifier(ModifierKind.Existential, @position(3, 1))]
+				.ASTERISK_PIPE_RIGHT_ANGLE_QUESTION {
+					var modifiers = [AST.Modifier(.Wildcard, @position(0, 1)), AST.Modifier(.Existential, @position(3, 1))]
 
-					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.ForwardPipeline, @yes()))
+					return @yep(AST.BinaryOperator(modifiers, .ForwardPipeline, @yes()))
 				}
-				Token.CARET_CARET {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.LogicalXor, @yes()))
+				.CARET_CARET {
+					return @yep(AST.BinaryOperator(.LogicalXor, @yes()))
 				}
-				Token.CARET_CARET_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalXor, @yes()))
+				.CARET_CARET_EQUALS {
+					return @yep(AST.AssignmentOperator(.LogicalXor, @yes()))
 				}
-				Token.EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
+				.EQUALS {
+					return @yep(AST.AssignmentOperator(.Equals, @yes()))
 				}
-				Token.EQUALS_EQUALS {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Equality, @yes()))
+				.EQUALS_EQUALS {
+					return @yep(AST.BinaryOperator(.Equality, @yes()))
 				}
-				Token.EXCLAMATION_EQUALS {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Inequality, @yes()))
+				.EXCLAMATION_EQUALS {
+					return @yep(AST.BinaryOperator(.Inequality, @yes()))
 				}
-				Token.EXCLAMATION_QUESTION_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonExistential, @yes()))
+				.EXCLAMATION_QUESTION_EQUALS {
+					return @yep(AST.AssignmentOperator(.NonExistential, @yes()))
 				}
-				Token.EXCLAMATION_QUESTION_HASH_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Empty, @yes()))
+				.EXCLAMATION_QUESTION_HASH_EQUALS {
+					return @yep(AST.AssignmentOperator(.Empty, @yes()))
 				}
-				Token.EXCLAMATION_TILDE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Mismatch, @yes()))
+				.EXCLAMATION_QUESTION_PIPE_EQUALS {
+					return @yep(AST.AssignmentOperator(.VariantNo, @yes()))
 				}
-				Token.HASH_LEFT_ANGLE_PIPE {
-					var modifiers = [AST.Modifier(ModifierKind.NonEmpty, @position(0, 1))]
+				.EXCLAMATION_QUESTION_PLUS_EQUALS {
+					return @yep(AST.AssignmentOperator(.NonFinite, @yes()))
+				}
+				.EXCLAMATION_TILDE {
+					return @yep(AST.BinaryOperator(.Mismatch, @yes()))
+				}
+				.HASH_LEFT_ANGLE_PIPE {
+					var modifiers = [AST.Modifier(.NonEmpty, @position(0, 1))]
 
-					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.BackwardPipeline, @yes()))
+					return @yep(AST.BinaryOperator(modifiers, .BackwardPipeline, @yes()))
 				}
-				Token.HASH_LEFT_ANGLE_PIPE_ASTERISK {
-					var modifiers = [AST.Modifier(ModifierKind.NonEmpty, @position(0, 1)), AST.Modifier(ModifierKind.Wildcard, @position(3, 1))]
+				.HASH_LEFT_ANGLE_PIPE_ASTERISK {
+					var modifiers = [AST.Modifier(.NonEmpty, @position(0, 1)), AST.Modifier(.Wildcard, @position(3, 1))]
 
-					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.BackwardPipeline, @yes()))
+					return @yep(AST.BinaryOperator(modifiers, .BackwardPipeline, @yes()))
 				}
-				Token.LEFT_ANGLE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.LessThan, @yes()))
+				.LEFT_ANGLE {
+					return @yep(AST.BinaryOperator(.LessThan, @yes()))
 				}
-				Token.LEFT_ANGLE_EQUALS {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.LessThanOrEqual, @yes()))
+				.LEFT_ANGLE_EQUALS {
+					return @yep(AST.BinaryOperator(.LessThanOrEqual, @yes()))
 				}
-				Token.LEFT_ANGLE_MINUS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Return, @yes()))
+				.LEFT_ANGLE_MINUS {
+					return @yep(AST.AssignmentOperator(.Return, @yes()))
 				}
-				Token.LEFT_ANGLE_PIPE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.BackwardPipeline, @yes()))
+				.LEFT_ANGLE_PIPE {
+					return @yep(AST.BinaryOperator(.BackwardPipeline, @yes()))
 				}
-				Token.LEFT_ANGLE_PIPE_ASTERISK {
-					var modifiers = [AST.Modifier(ModifierKind.Wildcard, @position(2, 1))]
+				.LEFT_ANGLE_PIPE_ASTERISK {
+					var modifiers = [AST.Modifier(.Wildcard, @position(2, 1))]
 
-					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.BackwardPipeline, @yes()))
+					return @yep(AST.BinaryOperator(modifiers, .BackwardPipeline, @yes()))
 				}
-				Token.MINUS {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Subtraction, @yes()))
+				.MINUS {
+					return @yep(AST.BinaryOperator(.Subtraction, @yes()))
 				}
-				Token.MINUS_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Subtraction, @yes()))
+				.MINUS_EQUALS {
+					return @yep(AST.AssignmentOperator(.Subtraction, @yes()))
 				}
-				Token.MINUS_RIGHT_ANGLE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.LogicalImply, @yes()))
+				.MINUS_RIGHT_ANGLE {
+					return @yep(AST.BinaryOperator(.LogicalImply, @yes()))
 				}
-				Token.PERCENT {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Modulo, @yes()))
+				.PERCENT {
+					return @yep(AST.BinaryOperator(.Remainder, @yes()))
 				}
-				Token.PERCENT_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Modulo, @yes()))
+				.PERCENT_EQUALS {
+					return @yep(AST.AssignmentOperator(.Remainder, @yes()))
 				}
-				Token.PIPE_RIGHT_ANGLE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.ForwardPipeline, @yes()))
+				.PERCENT_PERCENT {
+					return @yep(AST.BinaryOperator(.Modulus, @yes()))
 				}
-				Token.PIPE_RIGHT_ANGLE_HASH {
-					var modifiers = [AST.Modifier(ModifierKind.NonEmpty, @position(2, 1))]
+				.PERCENT_PERCENT_EQUALS {
+					return @yep(AST.AssignmentOperator(.Modulus, @yes()))
+				}
+				.PIPE_RIGHT_ANGLE {
+					return @yep(AST.BinaryOperator(.ForwardPipeline, @yes()))
+				}
+				.PIPE_RIGHT_ANGLE_HASH {
+					var modifiers = [AST.Modifier(.NonEmpty, @position(2, 1))]
 
-					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.ForwardPipeline, @yes()))
+					return @yep(AST.BinaryOperator(modifiers, .ForwardPipeline, @yes()))
 				}
-				Token.PIPE_RIGHT_ANGLE_QUESTION {
-					var modifiers = [AST.Modifier(ModifierKind.Existential, @position(2, 1))]
+				.PIPE_RIGHT_ANGLE_QUESTION {
+					var modifiers = [AST.Modifier(.Existential, @position(2, 1))]
 
-					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.ForwardPipeline, @yes()))
+					return @yep(AST.BinaryOperator(modifiers, .ForwardPipeline, @yes()))
 				}
-				Token.PIPE_PIPE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.LogicalOr, @yes()))
+				.PIPE_PIPE {
+					return @yep(AST.BinaryOperator(.LogicalOr, @yes()))
 				}
-				Token.PIPE_PIPE_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalOr, @yes()))
+				.PIPE_PIPE_EQUALS {
+					return @yep(AST.AssignmentOperator(.LogicalOr, @yes()))
 				}
 				.PLUS {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Addition, @yes()))
+					return @yep(AST.BinaryOperator(.Addition, @yes()))
 				}
 				.PLUS_AMPERSAND {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.BitwiseAnd, @yes()))
+					return @yep(AST.BinaryOperator(.BitwiseAnd, @yes()))
 				}
 				.PLUS_AMPERSAND_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseAnd, @yes()))
+					return @yep(AST.AssignmentOperator(.BitwiseAnd, @yes()))
 				}
 				.PLUS_CARET {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.BitwiseXor, @yes()))
+					return @yep(AST.BinaryOperator(.BitwiseXor, @yes()))
 				}
 				.PLUS_CARET_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseXor, @yes()))
+					return @yep(AST.AssignmentOperator(.BitwiseXor, @yes()))
 				}
 				.PLUS_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Addition, @yes()))
+					return @yep(AST.AssignmentOperator(.Addition, @yes()))
 				}
 				.PLUS_LEFT_ANGLE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.BitwiseLeftShift, @yes()))
+					return @yep(AST.BinaryOperator(.BitwiseLeftShift, @yes()))
 				}
 				.PLUS_LEFT_ANGLE_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseLeftShift, @yes()))
+					return @yep(AST.AssignmentOperator(.BitwiseLeftShift, @yes()))
 				}
 				.PLUS_PIPE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.BitwiseOr, @yes()))
+					return @yep(AST.BinaryOperator(.BitwiseOr, @yes()))
 				}
 				.PLUS_PIPE_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseOr, @yes()))
+					return @yep(AST.AssignmentOperator(.BitwiseOr, @yes()))
 				}
 				.PLUS_RIGHT_ANGLE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.BitwiseRightShift, @yes()))
+					return @yep(AST.BinaryOperator(.BitwiseRightShift, @yes()))
 				}
 				.PLUS_RIGHT_ANGLE_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseRightShift, @yes()))
+					return @yep(AST.AssignmentOperator(.BitwiseRightShift, @yes()))
 				}
-				Token.QUESTION_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
+				.QUESTION_EQUALS {
+					return @yep(AST.AssignmentOperator(.Existential, @yes()))
 				}
-				Token.QUESTION_HASH_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonEmpty, @yes()))
+				.QUESTION_HASH_EQUALS {
+					return @yep(AST.AssignmentOperator(.NonEmpty, @yes()))
 				}
-				Token.QUESTION_HASH_HASH {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.EmptyCoalescing, @yes()))
+				.QUESTION_HASH_HASH {
+					return @yep(AST.BinaryOperator(.EmptyCoalescing, @yes()))
 				}
-				Token.QUESTION_HASH_HASH_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
+				.QUESTION_HASH_HASH_EQUALS {
+					return @yep(AST.AssignmentOperator(.EmptyCoalescing, @yes()))
 				}
-				Token.QUESTION_LEFT_ANGLE_PIPE {
-					var modifiers = [AST.Modifier(ModifierKind.Existential, @position(0, 1))]
+				.QUESTION_LEFT_ANGLE_PIPE {
+					var modifiers = [AST.Modifier(.Existential, @position(0, 1))]
 
-					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.BackwardPipeline, @yes()))
+					return @yep(AST.BinaryOperator(modifiers, .BackwardPipeline, @yes()))
 				}
-				Token.QUESTION_LEFT_ANGLE_PIPE_ASTERISK {
-					var modifiers = [AST.Modifier(ModifierKind.Existential, @position(0, 1)), AST.Modifier(ModifierKind.Wildcard, @position(3, 1))]
+				.QUESTION_LEFT_ANGLE_PIPE_ASTERISK {
+					var modifiers = [AST.Modifier(.Existential, @position(0, 1)), AST.Modifier(.Wildcard, @position(3, 1))]
 
-					return @yep(AST.BinaryOperator(modifiers, BinaryOperatorKind.BackwardPipeline, @yes()))
+					return @yep(AST.BinaryOperator(modifiers, .BackwardPipeline, @yes()))
 				}
-				Token.QUESTION_QUESTION {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.NullCoalescing, @yes()))
+				.QUESTION_PIPE_EQUALS {
+					return @yep(AST.AssignmentOperator(.VariantYes, @yes()))
 				}
-				Token.QUESTION_QUESTION_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NullCoalescing, @yes()))
+				.QUESTION_PIPE_PIPE {
+					return @yep(AST.BinaryOperator(.VariantNoCoalescing, @yes()))
 				}
-				Token.RIGHT_ANGLE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.GreaterThan, @yes()))
+				.QUESTION_PIPE_PIPE_EQUALS {
+					return @yep(AST.AssignmentOperator(.VariantNoCoalescing, @yes()))
 				}
-				Token.RIGHT_ANGLE_EQUALS {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.GreaterThanOrEqual, @yes()))
+				.QUESTION_PLUS_EQUALS {
+					return @yep(AST.AssignmentOperator(.Finite, @yes()))
 				}
-				Token.SLASH {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Division, @yes()))
+				.QUESTION_PLUS_PLUS {
+					return @yep(AST.BinaryOperator(.NonFiniteCoalescing, @yes()))
 				}
-				Token.SLASH_DOT {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Quotient, @yes()))
+				.QUESTION_PLUS_PLUS_EQUALS {
+					return @yep(AST.AssignmentOperator(.NonFiniteCoalescing, @yes()))
 				}
-				Token.SLASH_DOT_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Quotient, @yes()))
+				.QUESTION_QUESTION {
+					return @yep(AST.BinaryOperator(.NullCoalescing, @yes()))
 				}
-				Token.SLASH_EQUALS {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Division, @yes()))
+				.QUESTION_QUESTION_EQUALS {
+					return @yep(AST.AssignmentOperator(.NullCoalescing, @yes()))
 				}
-				Token.TILDE_TILDE {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.Match, @yes()))
+				.RIGHT_ANGLE {
+					return @yep(AST.BinaryOperator(.GreaterThan, @yes()))
+				}
+				.RIGHT_ANGLE_EQUALS {
+					return @yep(AST.BinaryOperator(.GreaterThanOrEqual, @yes()))
+				}
+				.SLASH {
+					return @yep(AST.BinaryOperator(.Division, @yes()))
+				}
+				// Token.SLASH_DOT {
+				// 	return @yep(AST.BinaryOperator(BinaryOperatorKind.Quotient, @yes()))
+				// }
+				// Token.SLASH_DOT_EQUALS {
+				// 	return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Quotient, @yes()))
+				// }
+				.SLASH_AMPERSAND {
+					return @yep(AST.BinaryOperator(.EuclideanDivision, @yes()))
+				}
+				.SLASH_EQUALS {
+					return @yep(AST.AssignmentOperator(.Division, @yes()))
+				}
+				.SLASH_HASH {
+					return @yep(AST.BinaryOperator(.IntegerDivision, @yes()))
+				}
+				.SLASH_HASH_EQUALS {
+					return @yep(AST.AssignmentOperator(.IntegerDivision, @yes()))
+				}
+				.TILDE_TILDE {
+					return @yep(AST.BinaryOperator(.Match, @yes()))
 				}
 			}
 
@@ -9803,21 +9869,33 @@ export namespace Parser {
 		{
 			if typed {
 				if @test(Token.EQUALS) {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
+					return @yep(AST.AssignmentOperator(.Equals, @yes()))
 				}
 				else if @test(Token.QUESTION_QUESTION_EQUALS) {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NullCoalescing, @yes()))
+					return @yep(AST.AssignmentOperator(.NullCoalescing, @yes()))
 				}
 				else if @test(Token.QUESTION_HASH_HASH_EQUALS) {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.EmptyCoalescing, @yes()))
+					return @yep(AST.AssignmentOperator(.EmptyCoalescing, @yes()))
+				}
+				else if @test(Token.QUESTION_PIPE_PIPE_EQUALS) {
+					return @yep(AST.AssignmentOperator(.VariantNoCoalescing, @yes()))
+				}
+				else if @test(Token.QUESTION_PLUS_PLUS_EQUALS) {
+					return @yep(AST.AssignmentOperator(.NonFiniteCoalescing, @yes()))
 				}
 			}
 			else {
 				if @test(Token.QUESTION_EQUALS) {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.Existential, @yes()))
+					return @yep(AST.AssignmentOperator(.Existential, @yes()))
 				}
 				else if @test(Token.QUESTION_HASH_EQUALS) {
-					return @yep(AST.AssignmentOperator(AssignmentOperatorKind.NonEmpty, @yes()))
+					return @yep(AST.AssignmentOperator(.NonEmpty, @yes()))
+				}
+				else if @test(Token.QUESTION_PIPE_EQUALS) {
+					return @yep(AST.AssignmentOperator(.VariantYes, @yes()))
+				}
+				else if @test(Token.QUESTION_PLUS_EQUALS) {
+					return @yep(AST.AssignmentOperator(.Finite, @yes()))
 				}
 			}
 
@@ -10154,15 +10232,14 @@ export namespace Parser {
 		tryFunctionBody(
 			modifiers: Event<ModifierData>(Y)[]
 			fMode: FunctionMode
-			automatable: Boolean
 		): Event<NodeData(Block, Expression, IfStatement, UnlessStatement)>? ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
 			@NL_0M()
 
-			if @test(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE, .COLON_RIGHT_ANGLE) {
-				return @reqFunctionBody(modifiers, fMode, automatable)
+			if @test(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE) {
+				return @reqFunctionBody(modifiers, fMode)
 			}
 			else {
 				@rollback(mark)
@@ -10177,21 +10254,21 @@ export namespace Parser {
 			maxParameters: Number = Infinity
 		): Event<NodeData(FunctionExpression, LambdaExpression)> ~ SyntaxError # {{{
 		{
-			if eMode ~~ ExpressionMode.NoAnonymousFunction {
+			if eMode ~~ .NoAnonymousFunction {
 				return NO
 			}
 
-			if @match(Token.ASYNC, Token.FUNC, Token.LEFT_ROUND, Token.IDENTIFIER) == Token.ASYNC {
+			if @match(.ASYNC, .FUNC, .LEFT_ROUND, .IDENTIFIER) == .ASYNC {
 				var first = @yes()
-				var modifiers = [@yep(AST.Modifier(ModifierKind.Async, first))]
+				var modifiers = [@yep(AST.Modifier(.Async, first))]
 
 				if @test(Token.FUNC) {
 					@commit()
 
-					var parameters = @reqFunctionParameterList(FunctionMode.Nil, maxParameters)
+					var parameters = @reqFunctionParameterList(.Nil, maxParameters)
 					var type = @tryFunctionReturns(eMode)
 					var throws = @tryFunctionThrows()
-					var body = @reqFunctionBody(modifiers, FunctionMode.Nil, !?type && !?throws)
+					var body = @reqFunctionBody(modifiers, .Nil)
 
 					return @yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, first, body))
 				}
@@ -10203,15 +10280,15 @@ export namespace Parser {
 
 					var type = @tryFunctionReturns(eMode)
 					var throws = @tryFunctionThrows()
-					var body = @reqLambdaBody(modifiers, fMode, !?type && !?throws)
+					var body = @reqLambdaBody(modifiers, fMode)
 
 					return @yep(AST.LambdaExpression(parameters, modifiers, type, throws, body, first, body))
 				}
 			}
-			else if @token == Token.FUNC {
+			else if @token == .FUNC {
 				var first = @yes()
 
-				var parameters = @tryFunctionParameterList(FunctionMode.Nil, maxParameters)
+				var parameters = @tryFunctionParameterList(.Nil, maxParameters)
 				if !parameters.ok {
 					return NO
 				}
@@ -10219,11 +10296,11 @@ export namespace Parser {
 				var modifiers = []
 				var type = @tryFunctionReturns(eMode)
 				var throws = @tryFunctionThrows()
-				var body = @reqFunctionBody(modifiers, FunctionMode.Nil, !?type && !?throws)
+				var body = @reqFunctionBody(modifiers, .Nil)
 
 				return @yep(AST.FunctionExpression(parameters, modifiers, type, throws, body, first, body))
 			}
-			else if @token == Token.LEFT_ROUND {
+			else if @token == .LEFT_ROUND {
 				var parameters = @tryFunctionParameterList(fMode, maxParameters)
 
 				unless parameters.ok {
@@ -10234,7 +10311,7 @@ export namespace Parser {
 				var throws = @tryFunctionThrows()
 
 				var modifiers = []
-				var body = @tryLambdaBody(modifiers, fMode, !?type && !?throws)
+				var body = @tryLambdaBody(modifiers, fMode)
 
 				unless body.ok {
 					return NO
@@ -10242,11 +10319,11 @@ export namespace Parser {
 
 				return @yep(AST.LambdaExpression(parameters, modifiers, type, throws, body, parameters, body))
 			}
-			else if @token == Token.IDENTIFIER {
+			else if @token == .IDENTIFIER {
 				var name = @reqIdentifier()
 
 				var modifiers = []
-				var body = @tryLambdaBody(modifiers, fMode, false)
+				var body = @tryLambdaBody(modifiers, fMode)
 
 				unless body.ok {
 					return NO
@@ -10516,15 +10593,9 @@ export namespace Parser {
 		tryLambdaBody(
 			modifiers: Event<ModifierData>(Y)[]
 			fMode: FunctionMode
-			automatable: Boolean
 		): Event<NodeData(Block, Expression)> ~ SyntaxError # {{{
 		{
-			if automatable && @test(.COLON_RIGHT_ANGLE) {
-				modifiers.push(@yep(AST.Modifier(.AutoType, @yes())))
-
-				return @tryExpression(.NoRestriction, fMode)
-			}
-			else if @test(.EQUALS_RIGHT_ANGLE) {
+			if @test(.EQUALS_RIGHT_ANGLE) {
 				@commit()
 
 				if @test(Token.LEFT_CURLY) {
@@ -11203,7 +11274,7 @@ export namespace Parser {
 			var mark = @mark()
 
 			match @matchM(M.PREFIX_OPERATOR, eMode) {
-				Token.DOT {
+				.DOT {
 					var operator = @yep(AST.UnaryOperator(.Implicit, @yes()))
 					var operand = @tryIdentifier()
 
@@ -11214,50 +11285,68 @@ export namespace Parser {
 						@rollback(mark)
 					}
 				}
-				Token.DOT_DOT_DOT {
-					if eMode ~~ ExpressionMode.Pipeline {
+				.DOT_DOT_DOT {
+					if eMode ~~ .Pipeline {
 						var position = @yes()
 						var operand = @tryPrefixedOperand(eMode, fMode)
 
 						if operand.ok {
-							var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Spread, position))
+							var operator = @yep(AST.UnaryOperator(.Spread, position))
 
 							return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 						}
 						else {
-							var modifiers = [AST.Modifier(ModifierKind.Spread, position)]
+							var modifiers = [AST.Modifier(.Spread, position)]
 							var operator = @yep(AST.TopicReference(modifiers, position))
 
 							return @reqPostfixedOperand(operator, eMode, fMode)
 						}
 					}
 					else {
-						var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Spread, @yes()))
+						var operator = @yep(AST.UnaryOperator(.Spread, @yes()))
 						var operand = @reqPrefixedOperand(eMode, fMode)
 
 						return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 					}
 				}
-				Token.DOT_DOT_DOT_QUESTION {
+				.DOT_DOT_DOT_QUESTION {
 					var operator = @yep(AST.UnaryOperator(.Spread, @yes()))
 					var modifier = @yep(AST.Modifier(.Nullable, operator))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					return @yep(AST.UnaryExpression([modifier], operator, operand, operator, operand))
 				}
-				Token.EXCLAMATION {
-					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.LogicalNegation, @yes()))
+				.EXCLAMATION {
+					var operator = @yep(AST.UnaryOperator(.LogicalNegation, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 				}
-				Token.QUESTION_HASH {
-					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.NonEmpty, @yes()))
+				.HASH {
+					var operator = @yep(AST.UnaryOperator(.Length, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 				}
-				Token.MINUS {
+				.QUESTION_HASH {
+					var operator = @yep(AST.UnaryOperator(.NonEmpty, @yes()))
+					var operand = @reqPrefixedOperand(eMode, fMode)
+
+					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
+				}
+				.QUESTION_PIPE {
+					var operator = @yep(AST.UnaryOperator(.VariantYes, @yes()))
+					var operand = @reqPrefixedOperand(eMode, fMode)
+
+					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
+				}
+				.QUESTION_PLUS {
+					var operator = @yep(AST.UnaryOperator(.Finite, @yes()))
+					var operand = @reqPrefixedOperand(eMode, fMode)
+
+					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
+				}
+				.MINUS {
 					var first = @yes()
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
@@ -11267,24 +11356,24 @@ export namespace Parser {
 						return @relocate(operand, first, null)
 					}
 					else {
-						var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Negative, first))
+						var operator = @yep(AST.UnaryOperator(.Negative, first))
 
 						return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 					}
 				}
 				.PLUS_CARET {
-					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.BitwiseNegation, @yes()))
+					var operator = @yep(AST.UnaryOperator(.BitwiseNegation, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 				}
-				Token.QUESTION {
-					var operator = @yep(AST.UnaryOperator(UnaryOperatorKind.Existential, @yes()))
+				.QUESTION {
+					var operator = @yep(AST.UnaryOperator(.Existential, @yes()))
 					var operand = @reqPrefixedOperand(eMode, fMode)
 
 					return @yep(AST.UnaryExpression([], operator, operand, operator, operand))
 				}
-				Token.UNDERSCORE {
+				.UNDERSCORE {
 					return @reqPostfixedOperand(@yep(AST.TopicReference(@yes())), eMode, fMode)
 				}
 			}
@@ -12349,19 +12438,19 @@ export namespace Parser {
 		tryTypeOperator(): Event<BinaryOperatorData> ~ SyntaxError # {{{
 		{
 			match @matchM(M.TYPE_OPERATOR) {
-				Token.AS {
-					return @yep(AST.BinaryOperator(BinaryOperatorKind.TypeCasting, @yes()))
-				}
-				Token.AS_EXCLAMATION {
-					var position = @yes()
+				// Token.AS {
+				// 	return @yep(AST.BinaryOperator(BinaryOperatorKind.TypeCasting, @yes()))
+				// }
+				// Token.AS_EXCLAMATION {
+				// 	var position = @yes()
 
-					return @yep(AST.BinaryOperator([AST.Modifier(ModifierKind.Forced, position)], BinaryOperatorKind.TypeCasting, position))
-				}
-				Token.AS_QUESTION {
-					var position = @yes()
+				// 	return @yep(AST.BinaryOperator([AST.Modifier(ModifierKind.Forced, position)], BinaryOperatorKind.TypeCasting, position))
+				// }
+				// Token.AS_QUESTION {
+				// 	var position = @yes()
 
-					return @yep(AST.BinaryOperator([AST.Modifier(ModifierKind.Nullable, position)], BinaryOperatorKind.TypeCasting, position))
-				}
+				// 	return @yep(AST.BinaryOperator([AST.Modifier(ModifierKind.Nullable, position)], BinaryOperatorKind.TypeCasting, position))
+				// }
 				Token.IS {
 					return @yep(AST.BinaryOperator(BinaryOperatorKind.TypeEquality, @yes()))
 				}
@@ -12462,82 +12551,154 @@ export namespace Parser {
 
 			repeat {
 				match @matchM(M.OPERAND_JUNCTION) {
-					Token.ASTERISK_DOLLAR_LEFT_ROUND {
+					.ASTERISK_DOLLAR_LEFT_ROUND {
 						@commit()
 
 						var arguments = @reqArgumentList(eMode, fMode)
 
-						value = @yep(AST.CallExpression([], AST.Scope(ScopeKind.Argument, arguments.value.shift()!!), value, arguments, value, @yes()))
+						value = @yep(AST.CallExpression([], AST.Scope(.Argument, arguments.value.shift()!!), value, arguments, value, @yes()))
 					}
-					Token.CARET_CARET_LEFT_ROUND {
+					.CARET_CARET_LEFT_ROUND {
 						@commit()
 
-						var arguments = @reqArgumentList(eMode + ExpressionMode.Curry, fMode)
+						var arguments = @reqArgumentList(eMode + .Curry, fMode)
 
-						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind.This), value, arguments, value, @yes()))
+						value = @yep(AST.CurryExpression(AST.Scope(.This), value, arguments, value, @yes()))
 					}
-					Token.CARET_DOLLAR_LEFT_ROUND {
+					.CARET_DOLLAR_LEFT_ROUND {
 						@commit()
 
-						var arguments = @reqArgumentList(eMode + ExpressionMode.Curry, fMode)
+						var arguments = @reqArgumentList(eMode + .Curry, fMode)
 
-						value = @yep(AST.CurryExpression(AST.Scope(ScopeKind.Argument, arguments.value.shift()!!), value, arguments, value, @yes()))
+						value = @yep(AST.CurryExpression(AST.Scope(.Argument, arguments.value.shift()!!), value, arguments, value, @yes()))
 					}
-					Token.COLON {
+					// Token.COLON {
+					// 	first = @yes()
+
+					// 	expression = @reqIdentifier()
+
+					// 	value = @yep(AST.BinaryExpression(value, @yep(AST.BinaryOperator(BinaryOperatorKind.TypeCasting, first)), @yep(AST.TypeReference(expression)), value, expression))
+					// }
+					// Token.COLON_EXCLAMATION {
+					// 	first = @yes()
+
+					// 	var operator = @yep(AST.BinaryOperator([AST.Modifier(ModifierKind.Forced, first)], BinaryOperatorKind.TypeCasting, first))
+
+					// 	expression = @reqIdentifier()
+
+					// 	value = @yep(AST.BinaryExpression(value, operator, @yep(AST.TypeReference(expression)), value, expression))
+					// }
+					// Token.COLON_QUESTION {
+					// 	first = @yes()
+
+					// 	var operator = @yep(AST.BinaryOperator([AST.Modifier(ModifierKind.Nullable, first)], BinaryOperatorKind.TypeCasting, first))
+
+					// 	expression = @reqIdentifier()
+
+					// 	value = @yep(AST.BinaryExpression(value, operator, @yep(AST.TypeReference(expression)), value, expression))
+					// }
+					.COLON_AMPERSAND_LEFT_ROUND {
 						first = @yes()
 
-						expression = @reqIdentifier()
+						var operator = @yep(AST.BinaryOperator([], .TypeAssertion, first))
+						var type = @reqType(null, false, .ImplicitMember)
 
-						value = @yep(AST.BinaryExpression(value, @yep(AST.BinaryOperator(BinaryOperatorKind.TypeCasting, first)), @yep(AST.TypeReference(expression)), value, expression))
+						unless @test(.RIGHT_ROUND) {
+							@throw(')')
+						}
+
+						value = @yep(AST.BinaryExpression(value, operator, type, value, @yes()))
 					}
-					Token.COLON_EXCLAMATION {
+					.COLON_AMPERSAND_QUESTION_LEFT_ROUND {
 						first = @yes()
 
-						var operator = @yep(AST.BinaryOperator([AST.Modifier(ModifierKind.Forced, first)], BinaryOperatorKind.TypeCasting, first))
+						var operator = @yep(AST.BinaryOperator([AST.Modifier(.Nullable, first)], .TypeAssertion, first))
+						var type = @reqType(null, false, .ImplicitMember)
 
-						expression = @reqIdentifier()
+						unless @test(.RIGHT_ROUND) {
+							@throw(')')
+						}
 
-						value = @yep(AST.BinaryExpression(value, operator, @yep(AST.TypeReference(expression)), value, expression))
+						value = @yep(AST.BinaryExpression(value, operator, type, value, @yes()))
 					}
-					Token.COLON_QUESTION {
+					.COLON_EXCLAMATION_EXCLAMATION_LEFT_ROUND {
 						first = @yes()
 
-						var operator = @yep(AST.BinaryOperator([AST.Modifier(ModifierKind.Nullable, first)], BinaryOperatorKind.TypeCasting, first))
+						var operator = @yep(AST.BinaryOperator([AST.Modifier(.Forced, first)], .TypeSignalment, first))
+						var type = @reqType(null, false, .ImplicitMember)
 
-						expression = @reqIdentifier()
+						unless @test(.RIGHT_ROUND) {
+							@throw(')')
+						}
 
-						value = @yep(AST.BinaryExpression(value, operator, @yep(AST.TypeReference(expression)), value, expression))
+						value = @yep(AST.BinaryExpression(value, operator, type, value, @yes()))
 					}
-					Token.DOT {
+					.COLON_EXCLAMATION_LEFT_ROUND {
+						first = @yes()
+
+						var operator = @yep(AST.BinaryOperator([], .TypeSignalment, first))
+						var type = @reqType(null, false, .ImplicitMember)
+
+						unless @test(.RIGHT_ROUND) {
+							@throw(')')
+						}
+
+						value = @yep(AST.BinaryExpression(value, operator, type, value, @yes()))
+					}
+					.COLON_RIGHT_ANGLE_LEFT_ROUND {
+						first = @yes()
+
+						var operator = @yep(AST.BinaryOperator([], .TypeCasting, first))
+						var type = @reqType(null, false, .ImplicitMember)
+
+						unless @test(.RIGHT_ROUND) {
+							@throw(')')
+						}
+
+						value = @yep(AST.BinaryExpression(value, operator, type, value, @yes()))
+					}
+					.COLON_RIGHT_ANGLE_QUESTION_LEFT_ROUND {
+						first = @yes()
+
+						var operator = @yep(AST.BinaryOperator([AST.Modifier(.Nullable, first)], .TypeCasting, first))
+						var type = @reqType(null, false, .ImplicitMember)
+
+						unless @test(.RIGHT_ROUND) {
+							@throw(')')
+						}
+
+						value = @yep(AST.BinaryExpression(value, operator, type, value, @yes()))
+					}
+					.DOT {
 						@commit()
 
 						value = @yep(AST.MemberExpression([], value, @reqNumeralIdentifier()))
 					}
-					Token.DOT_DOT {
-						if eMode ~~ ExpressionMode.NoInlineCascade {
+					.DOT_DOT {
+						if eMode ~~ .NoInlineCascade {
 							break
 						}
 
 						value = @reqRollingExpression(value, [], eMode, fMode, false)
 					}
-					Token.LEFT_SQUARE {
-						var modifiers = [AST.Modifier(ModifierKind.Computed, @yes())]
+					.LEFT_SQUARE {
+						var modifiers = [AST.Modifier(.Computed, @yes())]
 
 						expression = @reqExpression(eMode, fMode)
 
-						unless @test(Token.RIGHT_SQUARE) {
+						unless @test(.RIGHT_SQUARE) {
 							@throw(']')
 						}
 
 						value = @yep(AST.MemberExpression(modifiers, value, expression, value, @yes()))
 					}
-					Token.LEFT_ROUND {
+					.LEFT_ROUND {
 						@commit()
 
 						value = @yep(AST.CallExpression([], value, @reqArgumentList(eMode, fMode), value, @yes()))
 					}
-					Token.NEWLINE {
-						if eMode ~~ ExpressionMode.NoMultiLine {
+					.NEWLINE {
+						if eMode ~~ .NoMultiLine {
 							break
 						}
 
@@ -12545,10 +12706,10 @@ export namespace Parser {
 
 						@commit().NL_0M()
 
-						if @test(Token.DOT_DOT) {
+						if @test(.DOT_DOT) {
 							value = @reqRollingExpression(value, [], eMode, fMode, true)
 						}
-						else if @test(Token.DOT) {
+						else if @test(.DOT) {
 							@commit()
 
 							if eMode ~~ .MatchCase {
@@ -12567,8 +12728,8 @@ export namespace Parser {
 								value = @reqCascadeExpression(value, [], null, eMode, fMode)
 							}
 						}
-						else if @test(Token.QUESTION_DOT) {
-							var modifiers = [AST.Modifier(ModifierKind.Nullable, @yes())]
+						else if @test(.QUESTION_DOT) {
+							var modifiers = [AST.Modifier(.Nullable, @yes())]
 
 							value = @reqCascadeExpression(value, modifiers, null, eMode, fMode)
 						}
@@ -12578,40 +12739,40 @@ export namespace Parser {
 							break
 						}
 					}
-					Token.QUESTION_DOT {
-						var modifiers = [AST.Modifier(ModifierKind.Nullable, @yes())]
+					.QUESTION_DOT {
+						var modifiers = [AST.Modifier(.Nullable, @yes())]
 
 						expression = @reqIdentifier()
 
 						value = @yep(AST.MemberExpression(modifiers, value, expression, value, expression))
 					}
-					Token.QUESTION_DOT_DOT {
-						if eMode ~~ ExpressionMode.NoInlineCascade {
+					.QUESTION_DOT_DOT {
+						if eMode ~~ .NoInlineCascade {
 							break
 						}
 
-						var modifiers = [AST.Modifier(ModifierKind.Nullable, @yes())]
+						var modifiers = [AST.Modifier(.Nullable, @yes())]
 
 						value = @reqRollingExpression(value, modifiers, eMode, fMode, true)
 					}
-					Token.QUESTION_LEFT_ROUND {
-						var modifiers = [AST.Modifier(ModifierKind.Nullable, @yes())]
+					.QUESTION_LEFT_ROUND {
+						var modifiers = [AST.Modifier(.Nullable, @yes())]
 
-						value = @yep(AST.CallExpression(modifiers, AST.Scope(ScopeKind.This), value, @reqArgumentList(eMode, fMode), value, @yes()))
+						value = @yep(AST.CallExpression(modifiers, AST.Scope(.This), value, @reqArgumentList(eMode, fMode), value, @yes()))
 					}
-					Token.QUESTION_LEFT_SQUARE {
+					.QUESTION_LEFT_SQUARE {
 						var position = @yes()
-						var modifiers = [AST.Modifier(ModifierKind.Nullable, position), AST.Modifier(ModifierKind.Computed, position)]
+						var modifiers = [AST.Modifier(.Nullable, position), AST.Modifier(.Computed, position)]
 
 						expression = @reqExpression(eMode, fMode)
 
-						unless @test(Token.RIGHT_SQUARE) {
+						unless @test(.RIGHT_SQUARE) {
 							@throw(']')
 						}
 
 						value = @yep(AST.MemberExpression(modifiers, value, expression, value, @yes()))
 					}
-					Token.TEMPLATE_BEGIN {
+					.TEMPLATE_BEGIN {
 						value = @yep(AST.TaggedTemplateExpression(value, @reqTemplateExpression(@yes(), eMode, fMode), value, @yes()))
 					}
 					else {
@@ -13321,7 +13482,7 @@ export namespace Parser {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Subtraction, @yes()))
 				}
 				Token.PERCENT_EQUALS {
-					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Modulo, @yes()))
+					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Remainder, @yes()))
 				}
 				Token.PIPE_PIPE_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.LogicalOr, @yes()))
@@ -13344,9 +13505,9 @@ export namespace Parser {
 				.PLUS_RIGHT_ANGLE_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.BitwiseRightShift, @yes()))
 				}
-				Token.SLASH_DOT_EQUALS {
-					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Quotient, @yes()))
-				}
+				// Token.SLASH_DOT_EQUALS {
+				// 	operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Quotient, @yes()))
+				// }
 				Token.SLASH_EQUALS {
 					operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Division, @yes()))
 				}

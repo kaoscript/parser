@@ -136,7 +136,7 @@
           "kind": 11,
           "modifiers": [],
           "operator": {
-            "kind": 43,
+            "kind": 50,
             "modifiers": [],
             "start": {
               "line": 3,
@@ -235,7 +235,7 @@
           "kind": 11,
           "modifiers": [],
           "operator": {
-            "kind": 35,
+            "kind": 39,
             "modifiers": [],
             "start": {
               "line": 5,
@@ -327,6 +327,105 @@
           },
           "end": {
             "line": 7,
+            "column": 2
+          }
+        },
+        "right": {
+          "kind": 11,
+          "modifiers": [],
+          "operator": {
+            "kind": 46,
+            "modifiers": [],
+            "start": {
+              "line": 7,
+              "column": 7
+            },
+            "end": {
+              "line": 7,
+              "column": 9
+            }
+          },
+          "start": {
+            "line": 7,
+            "column": 5
+          },
+          "end": {
+            "line": 7,
+            "column": 11
+          },
+          "left": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 7,
+              "column": 5
+            },
+            "end": {
+              "line": 7,
+              "column": 6
+            }
+          },
+          "right": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "y",
+            "start": {
+              "line": 7,
+              "column": 10
+            },
+            "end": {
+              "line": 7,
+              "column": 11
+            }
+          }
+        },
+        "start": {
+          "line": 7,
+          "column": 1
+        },
+        "end": {
+          "line": 7,
+          "column": 11
+        }
+      },
+      "start": {
+        "line": 7,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 11
+      }
+    },
+    {
+      "kind": 41,
+      "attributes": [],
+      "expression": {
+        "kind": 11,
+        "modifiers": [],
+        "operator": {
+          "kind": 2,
+          "assignment": 15,
+          "start": {
+            "line": 9,
+            "column": 3
+          },
+          "end": {
+            "line": 9,
+            "column": 4
+          }
+        },
+        "left": {
+          "kind": 49,
+          "modifiers": [],
+          "name": "z",
+          "start": {
+            "line": 9,
+            "column": 1
+          },
+          "end": {
+            "line": 9,
             "column": 2
           }
         },
@@ -337,20 +436,20 @@
             "kind": 11,
             "modifiers": [],
             "start": {
-              "line": 7,
+              "line": 9,
               "column": 7
             },
             "end": {
-              "line": 7,
+              "line": 9,
               "column": 8
             }
           },
           "start": {
-            "line": 7,
+            "line": 9,
             "column": 5
           },
           "end": {
-            "line": 7,
+            "line": 9,
             "column": 10
           },
           "left": {
@@ -358,11 +457,11 @@
             "modifiers": [],
             "name": "x",
             "start": {
-              "line": 7,
+              "line": 9,
               "column": 5
             },
             "end": {
-              "line": 7,
+              "line": 9,
               "column": 6
             }
           },
@@ -371,30 +470,30 @@
             "modifiers": [],
             "name": "y",
             "start": {
-              "line": 7,
+              "line": 9,
               "column": 9
             },
             "end": {
-              "line": 7,
+              "line": 9,
               "column": 10
             }
           }
         },
         "start": {
-          "line": 7,
+          "line": 9,
           "column": 1
         },
         "end": {
-          "line": 7,
+          "line": 9,
           "column": 10
         }
       },
       "start": {
-        "line": 7,
+        "line": 9,
         "column": 1
       },
       "end": {
-        "line": 7,
+        "line": 9,
         "column": 10
       }
     },
@@ -408,11 +507,11 @@
           "kind": 2,
           "assignment": 15,
           "start": {
-            "line": 9,
+            "line": 11,
             "column": 3
           },
           "end": {
-            "line": 9,
+            "line": 11,
             "column": 4
           }
         },
@@ -421,11 +520,11 @@
           "modifiers": [],
           "name": "z",
           "start": {
-            "line": 9,
+            "line": 11,
             "column": 1
           },
           "end": {
-            "line": 9,
+            "line": 11,
             "column": 2
           }
         },
@@ -433,23 +532,23 @@
           "kind": 11,
           "modifiers": [],
           "operator": {
-            "kind": 40,
+            "kind": 24,
             "modifiers": [],
             "start": {
-              "line": 9,
+              "line": 11,
               "column": 7
             },
             "end": {
-              "line": 9,
+              "line": 11,
               "column": 9
             }
           },
           "start": {
-            "line": 9,
+            "line": 11,
             "column": 5
           },
           "end": {
-            "line": 9,
+            "line": 11,
             "column": 11
           },
           "left": {
@@ -457,11 +556,11 @@
             "modifiers": [],
             "name": "x",
             "start": {
-              "line": 9,
+              "line": 11,
               "column": 5
             },
             "end": {
-              "line": 9,
+              "line": 11,
               "column": 6
             }
           },
@@ -470,30 +569,30 @@
             "modifiers": [],
             "name": "y",
             "start": {
-              "line": 9,
+              "line": 11,
               "column": 10
             },
             "end": {
-              "line": 9,
+              "line": 11,
               "column": 11
             }
           }
         },
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 1
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 11
         }
       },
       "start": {
-        "line": 9,
+        "line": 11,
         "column": 1
       },
       "end": {
-        "line": 9,
+        "line": 11,
         "column": 11
       }
     },
@@ -507,11 +606,11 @@
           "kind": 2,
           "assignment": 15,
           "start": {
-            "line": 11,
+            "line": 13,
             "column": 3
           },
           "end": {
-            "line": 11,
+            "line": 13,
             "column": 4
           }
         },
@@ -520,11 +619,11 @@
           "modifiers": [],
           "name": "z",
           "start": {
-            "line": 11,
+            "line": 13,
             "column": 1
           },
           "end": {
-            "line": 11,
+            "line": 13,
             "column": 2
           }
         },
@@ -532,35 +631,35 @@
           "kind": 11,
           "modifiers": [],
           "operator": {
-            "kind": 34,
+            "kind": 16,
             "modifiers": [],
             "start": {
-              "line": 11,
+              "line": 13,
               "column": 7
             },
             "end": {
-              "line": 11,
-              "column": 8
+              "line": 13,
+              "column": 9
             }
           },
           "start": {
-            "line": 11,
+            "line": 13,
             "column": 5
           },
           "end": {
-            "line": 11,
-            "column": 10
+            "line": 13,
+            "column": 11
           },
           "left": {
             "kind": 49,
             "modifiers": [],
             "name": "x",
             "start": {
-              "line": 11,
+              "line": 13,
               "column": 5
             },
             "end": {
-              "line": 11,
+              "line": 13,
               "column": 6
             }
           },
@@ -569,224 +668,121 @@
             "modifiers": [],
             "name": "y",
             "start": {
-              "line": 11,
+              "line": 13,
+              "column": 10
+            },
+            "end": {
+              "line": 13,
+              "column": 11
+            }
+          }
+        },
+        "start": {
+          "line": 13,
+          "column": 1
+        },
+        "end": {
+          "line": 13,
+          "column": 11
+        }
+      },
+      "start": {
+        "line": 13,
+        "column": 1
+      },
+      "end": {
+        "line": 13,
+        "column": 11
+      }
+    },
+    {
+      "kind": 41,
+      "attributes": [],
+      "expression": {
+        "kind": 11,
+        "modifiers": [],
+        "operator": {
+          "kind": 2,
+          "assignment": 15,
+          "start": {
+            "line": 15,
+            "column": 3
+          },
+          "end": {
+            "line": 15,
+            "column": 4
+          }
+        },
+        "left": {
+          "kind": 49,
+          "modifiers": [],
+          "name": "z",
+          "start": {
+            "line": 15,
+            "column": 1
+          },
+          "end": {
+            "line": 15,
+            "column": 2
+          }
+        },
+        "right": {
+          "kind": 11,
+          "modifiers": [],
+          "operator": {
+            "kind": 47,
+            "modifiers": [],
+            "start": {
+              "line": 15,
+              "column": 7
+            },
+            "end": {
+              "line": 15,
+              "column": 8
+            }
+          },
+          "start": {
+            "line": 15,
+            "column": 5
+          },
+          "end": {
+            "line": 15,
+            "column": 10
+          },
+          "left": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 15,
+              "column": 5
+            },
+            "end": {
+              "line": 15,
+              "column": 6
+            }
+          },
+          "right": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "y",
+            "start": {
+              "line": 15,
               "column": 9
             },
             "end": {
-              "line": 11,
+              "line": 15,
               "column": 10
             }
           }
         },
         "start": {
-          "line": 11,
-          "column": 1
-        },
-        "end": {
-          "line": 11,
-          "column": 10
-        }
-      },
-      "start": {
-        "line": 11,
-        "column": 1
-      },
-      "end": {
-        "line": 11,
-        "column": 10
-      }
-    },
-    {
-      "kind": 41,
-      "attributes": [],
-      "expression": {
-        "kind": 11,
-        "modifiers": [],
-        "operator": {
-          "kind": 2,
-          "assignment": 15,
-          "start": {
-            "line": 13,
-            "column": 3
-          },
-          "end": {
-            "line": 13,
-            "column": 4
-          }
-        },
-        "left": {
-          "kind": 49,
-          "modifiers": [],
-          "name": "z",
-          "start": {
-            "line": 13,
-            "column": 1
-          },
-          "end": {
-            "line": 13,
-            "column": 2
-          }
-        },
-        "right": {
-          "kind": 24,
-          "modifiers": [],
-          "values": [
-            {
-              "kind": 49,
-              "modifiers": [],
-              "name": "x",
-              "start": {
-                "line": 13,
-                "column": 5
-              },
-              "end": {
-                "line": 13,
-                "column": 6
-              }
-            },
-            {
-              "kind": 18,
-              "modifiers": [],
-              "start": {
-                "line": 13,
-                "column": 7
-              },
-              "end": {
-                "line": 13,
-                "column": 8
-              }
-            },
-            {
-              "kind": 49,
-              "modifiers": [],
-              "name": "y",
-              "start": {
-                "line": 13,
-                "column": 9
-              },
-              "end": {
-                "line": 13,
-                "column": 10
-              }
-            }
-          ],
-          "start": {
-            "line": 13,
-            "column": 5
-          },
-          "end": {
-            "line": 13,
-            "column": 10
-          }
-        },
-        "start": {
-          "line": 13,
-          "column": 1
-        },
-        "end": {
-          "line": 13,
-          "column": 10
-        }
-      },
-      "start": {
-        "line": 13,
-        "column": 1
-      },
-      "end": {
-        "line": 13,
-        "column": 10
-      }
-    },
-    {
-      "kind": 41,
-      "attributes": [],
-      "expression": {
-        "kind": 11,
-        "modifiers": [],
-        "operator": {
-          "kind": 2,
-          "assignment": 15,
-          "start": {
-            "line": 15,
-            "column": 3
-          },
-          "end": {
-            "line": 15,
-            "column": 4
-          }
-        },
-        "left": {
-          "kind": 49,
-          "modifiers": [],
-          "name": "z",
-          "start": {
-            "line": 15,
-            "column": 1
-          },
-          "end": {
-            "line": 15,
-            "column": 2
-          }
-        },
-        "right": {
-          "kind": 24,
-          "modifiers": [],
-          "values": [
-            {
-              "kind": 49,
-              "modifiers": [],
-              "name": "x",
-              "start": {
-                "line": 15,
-                "column": 5
-              },
-              "end": {
-                "line": 15,
-                "column": 6
-              }
-            },
-            {
-              "kind": 19,
-              "modifiers": [],
-              "start": {
-                "line": 15,
-                "column": 7
-              },
-              "end": {
-                "line": 15,
-                "column": 9
-              }
-            },
-            {
-              "kind": 49,
-              "modifiers": [],
-              "name": "y",
-              "start": {
-                "line": 15,
-                "column": 10
-              },
-              "end": {
-                "line": 15,
-                "column": 11
-              }
-            }
-          ],
-          "start": {
-            "line": 15,
-            "column": 5
-          },
-          "end": {
-            "line": 15,
-            "column": 11
-          }
-        },
-        "start": {
           "line": 15,
           "column": 1
         },
         "end": {
           "line": 15,
-          "column": 11
+          "column": 10
         }
       },
       "start": {
@@ -795,107 +791,6 @@
       },
       "end": {
         "line": 15,
-        "column": 11
-      }
-    },
-    {
-      "kind": 41,
-      "attributes": [],
-      "expression": {
-        "kind": 11,
-        "modifiers": [],
-        "operator": {
-          "kind": 2,
-          "assignment": 15,
-          "start": {
-            "line": 17,
-            "column": 3
-          },
-          "end": {
-            "line": 17,
-            "column": 4
-          }
-        },
-        "left": {
-          "kind": 49,
-          "modifiers": [],
-          "name": "z",
-          "start": {
-            "line": 17,
-            "column": 1
-          },
-          "end": {
-            "line": 17,
-            "column": 2
-          }
-        },
-        "right": {
-          "kind": 24,
-          "modifiers": [],
-          "values": [
-            {
-              "kind": 49,
-              "modifiers": [],
-              "name": "x",
-              "start": {
-                "line": 17,
-                "column": 5
-              },
-              "end": {
-                "line": 17,
-                "column": 6
-              }
-            },
-            {
-              "kind": 25,
-              "modifiers": [],
-              "start": {
-                "line": 17,
-                "column": 7
-              },
-              "end": {
-                "line": 17,
-                "column": 8
-              }
-            },
-            {
-              "kind": 49,
-              "modifiers": [],
-              "name": "y",
-              "start": {
-                "line": 17,
-                "column": 9
-              },
-              "end": {
-                "line": 17,
-                "column": 10
-              }
-            }
-          ],
-          "start": {
-            "line": 17,
-            "column": 5
-          },
-          "end": {
-            "line": 17,
-            "column": 10
-          }
-        },
-        "start": {
-          "line": 17,
-          "column": 1
-        },
-        "end": {
-          "line": 17,
-          "column": 10
-        }
-      },
-      "start": {
-        "line": 17,
-        "column": 1
-      },
-      "end": {
-        "line": 17,
         "column": 10
       }
     },
@@ -909,6 +804,105 @@
           "kind": 2,
           "assignment": 15,
           "start": {
+            "line": 17,
+            "column": 3
+          },
+          "end": {
+            "line": 17,
+            "column": 4
+          }
+        },
+        "left": {
+          "kind": 49,
+          "modifiers": [],
+          "name": "z",
+          "start": {
+            "line": 17,
+            "column": 1
+          },
+          "end": {
+            "line": 17,
+            "column": 2
+          }
+        },
+        "right": {
+          "kind": 11,
+          "modifiers": [],
+          "operator": {
+            "kind": 38,
+            "modifiers": [],
+            "start": {
+              "line": 17,
+              "column": 7
+            },
+            "end": {
+              "line": 17,
+              "column": 9
+            }
+          },
+          "start": {
+            "line": 17,
+            "column": 5
+          },
+          "end": {
+            "line": 17,
+            "column": 11
+          },
+          "left": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 17,
+              "column": 5
+            },
+            "end": {
+              "line": 17,
+              "column": 6
+            }
+          },
+          "right": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "y",
+            "start": {
+              "line": 17,
+              "column": 10
+            },
+            "end": {
+              "line": 17,
+              "column": 11
+            }
+          }
+        },
+        "start": {
+          "line": 17,
+          "column": 1
+        },
+        "end": {
+          "line": 17,
+          "column": 11
+        }
+      },
+      "start": {
+        "line": 17,
+        "column": 1
+      },
+      "end": {
+        "line": 17,
+        "column": 11
+      }
+    },
+    {
+      "kind": 41,
+      "attributes": [],
+      "expression": {
+        "kind": 11,
+        "modifiers": [],
+        "operator": {
+          "kind": 2,
+          "assignment": 15,
+          "start": {
             "line": 19,
             "column": 3
           },
@@ -948,7 +942,7 @@
               }
             },
             {
-              "kind": 26,
+              "kind": 20,
               "modifiers": [],
               "start": {
                 "line": 19,
@@ -956,7 +950,7 @@
               },
               "end": {
                 "line": 19,
-                "column": 9
+                "column": 8
               }
             },
             {
@@ -965,11 +959,11 @@
               "name": "y",
               "start": {
                 "line": 19,
-                "column": 10
+                "column": 9
               },
               "end": {
                 "line": 19,
-                "column": 11
+                "column": 10
               }
             }
           ],
@@ -979,7 +973,7 @@
           },
           "end": {
             "line": 19,
-            "column": 11
+            "column": 10
           }
         },
         "start": {
@@ -988,7 +982,7 @@
         },
         "end": {
           "line": 19,
-          "column": 11
+          "column": 10
         }
       },
       "start": {
@@ -997,7 +991,7 @@
       },
       "end": {
         "line": 19,
-        "column": 11
+        "column": 10
       }
     },
     {
@@ -1045,107 +1039,6 @@
               },
               "end": {
                 "line": 21,
-                "column": 6
-              }
-            },
-            {
-              "kind": 14,
-              "modifiers": [],
-              "start": {
-                "line": 21,
-                "column": 7
-              },
-              "end": {
-                "line": 21,
-                "column": 9
-              }
-            },
-            {
-              "kind": 49,
-              "modifiers": [],
-              "name": "y",
-              "start": {
-                "line": 21,
-                "column": 10
-              },
-              "end": {
-                "line": 21,
-                "column": 11
-              }
-            }
-          ],
-          "start": {
-            "line": 21,
-            "column": 5
-          },
-          "end": {
-            "line": 21,
-            "column": 11
-          }
-        },
-        "start": {
-          "line": 21,
-          "column": 1
-        },
-        "end": {
-          "line": 21,
-          "column": 11
-        }
-      },
-      "start": {
-        "line": 21,
-        "column": 1
-      },
-      "end": {
-        "line": 21,
-        "column": 11
-      }
-    },
-    {
-      "kind": 41,
-      "attributes": [],
-      "expression": {
-        "kind": 11,
-        "modifiers": [],
-        "operator": {
-          "kind": 2,
-          "assignment": 15,
-          "start": {
-            "line": 23,
-            "column": 3
-          },
-          "end": {
-            "line": 23,
-            "column": 4
-          }
-        },
-        "left": {
-          "kind": 49,
-          "modifiers": [],
-          "name": "z",
-          "start": {
-            "line": 23,
-            "column": 1
-          },
-          "end": {
-            "line": 23,
-            "column": 2
-          }
-        },
-        "right": {
-          "kind": 24,
-          "modifiers": [],
-          "values": [
-            {
-              "kind": 49,
-              "modifiers": [],
-              "name": "x",
-              "start": {
-                "line": 23,
-                "column": 5
-              },
-              "end": {
-                "line": 23,
                 "column": 6
               }
             },
@@ -1153,11 +1046,11 @@
               "kind": 21,
               "modifiers": [],
               "start": {
-                "line": 23,
+                "line": 21,
                 "column": 7
               },
               "end": {
-                "line": 23,
+                "line": 21,
                 "column": 9
               }
             },
@@ -1166,12 +1059,113 @@
               "modifiers": [],
               "name": "y",
               "start": {
-                "line": 23,
+                "line": 21,
                 "column": 10
               },
               "end": {
-                "line": 23,
+                "line": 21,
                 "column": 11
+              }
+            }
+          ],
+          "start": {
+            "line": 21,
+            "column": 5
+          },
+          "end": {
+            "line": 21,
+            "column": 11
+          }
+        },
+        "start": {
+          "line": 21,
+          "column": 1
+        },
+        "end": {
+          "line": 21,
+          "column": 11
+        }
+      },
+      "start": {
+        "line": 21,
+        "column": 1
+      },
+      "end": {
+        "line": 21,
+        "column": 11
+      }
+    },
+    {
+      "kind": 41,
+      "attributes": [],
+      "expression": {
+        "kind": 11,
+        "modifiers": [],
+        "operator": {
+          "kind": 2,
+          "assignment": 15,
+          "start": {
+            "line": 23,
+            "column": 3
+          },
+          "end": {
+            "line": 23,
+            "column": 4
+          }
+        },
+        "left": {
+          "kind": 49,
+          "modifiers": [],
+          "name": "z",
+          "start": {
+            "line": 23,
+            "column": 1
+          },
+          "end": {
+            "line": 23,
+            "column": 2
+          }
+        },
+        "right": {
+          "kind": 24,
+          "modifiers": [],
+          "values": [
+            {
+              "kind": 49,
+              "modifiers": [],
+              "name": "x",
+              "start": {
+                "line": 23,
+                "column": 5
+              },
+              "end": {
+                "line": 23,
+                "column": 6
+              }
+            },
+            {
+              "kind": 29,
+              "modifiers": [],
+              "start": {
+                "line": 23,
+                "column": 7
+              },
+              "end": {
+                "line": 23,
+                "column": 8
+              }
+            },
+            {
+              "kind": 49,
+              "modifiers": [],
+              "name": "y",
+              "start": {
+                "line": 23,
+                "column": 9
+              },
+              "end": {
+                "line": 23,
+                "column": 10
               }
             }
           ],
@@ -1181,7 +1175,7 @@
           },
           "end": {
             "line": 23,
-            "column": 11
+            "column": 10
           }
         },
         "start": {
@@ -1190,7 +1184,7 @@
         },
         "end": {
           "line": 23,
-          "column": 11
+          "column": 10
         }
       },
       "start": {
@@ -1199,7 +1193,7 @@
       },
       "end": {
         "line": 23,
-        "column": 11
+        "column": 10
       }
     },
     {
@@ -1234,20 +1228,48 @@
           }
         },
         "right": {
-          "kind": 11,
+          "kind": 24,
           "modifiers": [],
-          "operator": {
-            "kind": 27,
-            "modifiers": [],
-            "start": {
-              "line": 25,
-              "column": 7
+          "values": [
+            {
+              "kind": 49,
+              "modifiers": [],
+              "name": "x",
+              "start": {
+                "line": 25,
+                "column": 5
+              },
+              "end": {
+                "line": 25,
+                "column": 6
+              }
             },
-            "end": {
-              "line": 25,
-              "column": 9
+            {
+              "kind": 30,
+              "modifiers": [],
+              "start": {
+                "line": 25,
+                "column": 7
+              },
+              "end": {
+                "line": 25,
+                "column": 9
+              }
+            },
+            {
+              "kind": 49,
+              "modifiers": [],
+              "name": "y",
+              "start": {
+                "line": 25,
+                "column": 10
+              },
+              "end": {
+                "line": 25,
+                "column": 11
+              }
             }
-          },
+          ],
           "start": {
             "line": 25,
             "column": 5
@@ -1255,32 +1277,6 @@
           "end": {
             "line": 25,
             "column": 11
-          },
-          "left": {
-            "kind": 49,
-            "modifiers": [],
-            "name": "x",
-            "start": {
-              "line": 25,
-              "column": 5
-            },
-            "end": {
-              "line": 25,
-              "column": 6
-            }
-          },
-          "right": {
-            "kind": 49,
-            "modifiers": [],
-            "name": "y",
-            "start": {
-              "line": 25,
-              "column": 10
-            },
-            "end": {
-              "line": 25,
-              "column": 11
-            }
           }
         },
         "start": {
@@ -1333,20 +1329,48 @@
           }
         },
         "right": {
-          "kind": 11,
+          "kind": 24,
           "modifiers": [],
-          "operator": {
-            "kind": 30,
-            "modifiers": [],
-            "start": {
-              "line": 27,
-              "column": 7
+          "values": [
+            {
+              "kind": 49,
+              "modifiers": [],
+              "name": "x",
+              "start": {
+                "line": 27,
+                "column": 5
+              },
+              "end": {
+                "line": 27,
+                "column": 6
+              }
             },
-            "end": {
-              "line": 27,
-              "column": 9
+            {
+              "kind": 14,
+              "modifiers": [],
+              "start": {
+                "line": 27,
+                "column": 7
+              },
+              "end": {
+                "line": 27,
+                "column": 9
+              }
+            },
+            {
+              "kind": 49,
+              "modifiers": [],
+              "name": "y",
+              "start": {
+                "line": 27,
+                "column": 10
+              },
+              "end": {
+                "line": 27,
+                "column": 11
+              }
             }
-          },
+          ],
           "start": {
             "line": 27,
             "column": 5
@@ -1354,32 +1378,6 @@
           "end": {
             "line": 27,
             "column": 11
-          },
-          "left": {
-            "kind": 49,
-            "modifiers": [],
-            "name": "x",
-            "start": {
-              "line": 27,
-              "column": 5
-            },
-            "end": {
-              "line": 27,
-              "column": 6
-            }
-          },
-          "right": {
-            "kind": 49,
-            "modifiers": [],
-            "name": "y",
-            "start": {
-              "line": 27,
-              "column": 10
-            },
-            "end": {
-              "line": 27,
-              "column": 11
-            }
           }
         },
         "start": {
@@ -1432,20 +1430,48 @@
           }
         },
         "right": {
-          "kind": 11,
+          "kind": 24,
           "modifiers": [],
-          "operator": {
-            "kind": 28,
-            "modifiers": [],
-            "start": {
-              "line": 29,
-              "column": 7
+          "values": [
+            {
+              "kind": 49,
+              "modifiers": [],
+              "name": "x",
+              "start": {
+                "line": 29,
+                "column": 5
+              },
+              "end": {
+                "line": 29,
+                "column": 6
+              }
             },
-            "end": {
-              "line": 29,
-              "column": 9
+            {
+              "kind": 23,
+              "modifiers": [],
+              "start": {
+                "line": 29,
+                "column": 7
+              },
+              "end": {
+                "line": 29,
+                "column": 9
+              }
+            },
+            {
+              "kind": 49,
+              "modifiers": [],
+              "name": "y",
+              "start": {
+                "line": 29,
+                "column": 10
+              },
+              "end": {
+                "line": 29,
+                "column": 11
+              }
             }
-          },
+          ],
           "start": {
             "line": 29,
             "column": 5
@@ -1453,32 +1479,6 @@
           "end": {
             "line": 29,
             "column": 11
-          },
-          "left": {
-            "kind": 49,
-            "modifiers": [],
-            "name": "x",
-            "start": {
-              "line": 29,
-              "column": 5
-            },
-            "end": {
-              "line": 29,
-              "column": 6
-            }
-          },
-          "right": {
-            "kind": 49,
-            "modifiers": [],
-            "name": "y",
-            "start": {
-              "line": 29,
-              "column": 10
-            },
-            "end": {
-              "line": 29,
-              "column": 11
-            }
           }
         },
         "start": {
@@ -1633,7 +1633,7 @@
           "kind": 11,
           "modifiers": [],
           "operator": {
-            "kind": 4,
+            "kind": 34,
             "modifiers": [],
             "start": {
               "line": 33,
@@ -1725,6 +1725,303 @@
           },
           "end": {
             "line": 35,
+            "column": 2
+          }
+        },
+        "right": {
+          "kind": 11,
+          "modifiers": [],
+          "operator": {
+            "kind": 32,
+            "modifiers": [],
+            "start": {
+              "line": 35,
+              "column": 7
+            },
+            "end": {
+              "line": 35,
+              "column": 9
+            }
+          },
+          "start": {
+            "line": 35,
+            "column": 5
+          },
+          "end": {
+            "line": 35,
+            "column": 11
+          },
+          "left": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 35,
+              "column": 5
+            },
+            "end": {
+              "line": 35,
+              "column": 6
+            }
+          },
+          "right": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "y",
+            "start": {
+              "line": 35,
+              "column": 10
+            },
+            "end": {
+              "line": 35,
+              "column": 11
+            }
+          }
+        },
+        "start": {
+          "line": 35,
+          "column": 1
+        },
+        "end": {
+          "line": 35,
+          "column": 11
+        }
+      },
+      "start": {
+        "line": 35,
+        "column": 1
+      },
+      "end": {
+        "line": 35,
+        "column": 11
+      }
+    },
+    {
+      "kind": 41,
+      "attributes": [],
+      "expression": {
+        "kind": 11,
+        "modifiers": [],
+        "operator": {
+          "kind": 2,
+          "assignment": 15,
+          "start": {
+            "line": 37,
+            "column": 3
+          },
+          "end": {
+            "line": 37,
+            "column": 4
+          }
+        },
+        "left": {
+          "kind": 49,
+          "modifiers": [],
+          "name": "z",
+          "start": {
+            "line": 37,
+            "column": 1
+          },
+          "end": {
+            "line": 37,
+            "column": 2
+          }
+        },
+        "right": {
+          "kind": 11,
+          "modifiers": [],
+          "operator": {
+            "kind": 35,
+            "modifiers": [],
+            "start": {
+              "line": 37,
+              "column": 7
+            },
+            "end": {
+              "line": 37,
+              "column": 9
+            }
+          },
+          "start": {
+            "line": 37,
+            "column": 5
+          },
+          "end": {
+            "line": 37,
+            "column": 11
+          },
+          "left": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 37,
+              "column": 5
+            },
+            "end": {
+              "line": 37,
+              "column": 6
+            }
+          },
+          "right": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "y",
+            "start": {
+              "line": 37,
+              "column": 10
+            },
+            "end": {
+              "line": 37,
+              "column": 11
+            }
+          }
+        },
+        "start": {
+          "line": 37,
+          "column": 1
+        },
+        "end": {
+          "line": 37,
+          "column": 11
+        }
+      },
+      "start": {
+        "line": 37,
+        "column": 1
+      },
+      "end": {
+        "line": 37,
+        "column": 11
+      }
+    },
+    {
+      "kind": 41,
+      "attributes": [],
+      "expression": {
+        "kind": 11,
+        "modifiers": [],
+        "operator": {
+          "kind": 2,
+          "assignment": 15,
+          "start": {
+            "line": 39,
+            "column": 3
+          },
+          "end": {
+            "line": 39,
+            "column": 4
+          }
+        },
+        "left": {
+          "kind": 49,
+          "modifiers": [],
+          "name": "z",
+          "start": {
+            "line": 39,
+            "column": 1
+          },
+          "end": {
+            "line": 39,
+            "column": 2
+          }
+        },
+        "right": {
+          "kind": 11,
+          "modifiers": [],
+          "operator": {
+            "kind": 4,
+            "modifiers": [],
+            "start": {
+              "line": 39,
+              "column": 7
+            },
+            "end": {
+              "line": 39,
+              "column": 9
+            }
+          },
+          "start": {
+            "line": 39,
+            "column": 5
+          },
+          "end": {
+            "line": 39,
+            "column": 11
+          },
+          "left": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 39,
+              "column": 5
+            },
+            "end": {
+              "line": 39,
+              "column": 6
+            }
+          },
+          "right": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "y",
+            "start": {
+              "line": 39,
+              "column": 10
+            },
+            "end": {
+              "line": 39,
+              "column": 11
+            }
+          }
+        },
+        "start": {
+          "line": 39,
+          "column": 1
+        },
+        "end": {
+          "line": 39,
+          "column": 11
+        }
+      },
+      "start": {
+        "line": 39,
+        "column": 1
+      },
+      "end": {
+        "line": 39,
+        "column": 11
+      }
+    },
+    {
+      "kind": 41,
+      "attributes": [],
+      "expression": {
+        "kind": 11,
+        "modifiers": [],
+        "operator": {
+          "kind": 2,
+          "assignment": 15,
+          "start": {
+            "line": 41,
+            "column": 3
+          },
+          "end": {
+            "line": 41,
+            "column": 4
+          }
+        },
+        "left": {
+          "kind": 49,
+          "modifiers": [],
+          "name": "z",
+          "start": {
+            "line": 41,
+            "column": 1
+          },
+          "end": {
+            "line": 41,
             "column": 2
           }
         },
@@ -1735,20 +2032,20 @@
             "kind": 6,
             "modifiers": [],
             "start": {
-              "line": 35,
+              "line": 41,
               "column": 7
             },
             "end": {
-              "line": 35,
+              "line": 41,
               "column": 9
             }
           },
           "start": {
-            "line": 35,
+            "line": 41,
             "column": 5
           },
           "end": {
-            "line": 35,
+            "line": 41,
             "column": 11
           },
           "left": {
@@ -1756,11 +2053,11 @@
             "modifiers": [],
             "name": "x",
             "start": {
-              "line": 35,
+              "line": 41,
               "column": 5
             },
             "end": {
-              "line": 35,
+              "line": 41,
               "column": 6
             }
           },
@@ -1769,30 +2066,30 @@
             "modifiers": [],
             "name": "y",
             "start": {
-              "line": 35,
+              "line": 41,
               "column": 10
             },
             "end": {
-              "line": 35,
+              "line": 41,
               "column": 11
             }
           }
         },
         "start": {
-          "line": 35,
+          "line": 41,
           "column": 1
         },
         "end": {
-          "line": 35,
+          "line": 41,
           "column": 11
         }
       },
       "start": {
-        "line": 35,
+        "line": 41,
         "column": 1
       },
       "end": {
-        "line": 35,
+        "line": 41,
         "column": 11
       }
     },
@@ -1806,11 +2103,11 @@
           "kind": 2,
           "assignment": 15,
           "start": {
-            "line": 37,
+            "line": 43,
             "column": 3
           },
           "end": {
-            "line": 37,
+            "line": 43,
             "column": 4
           }
         },
@@ -1819,11 +2116,11 @@
           "modifiers": [],
           "name": "z",
           "start": {
-            "line": 37,
+            "line": 43,
             "column": 1
           },
           "end": {
-            "line": 37,
+            "line": 43,
             "column": 2
           }
         },
@@ -1834,20 +2131,20 @@
             "kind": 7,
             "modifiers": [],
             "start": {
-              "line": 37,
+              "line": 43,
               "column": 7
             },
             "end": {
-              "line": 37,
+              "line": 43,
               "column": 9
             }
           },
           "start": {
-            "line": 37,
+            "line": 43,
             "column": 5
           },
           "end": {
-            "line": 37,
+            "line": 43,
             "column": 11
           },
           "left": {
@@ -1855,11 +2152,11 @@
             "modifiers": [],
             "name": "x",
             "start": {
-              "line": 37,
+              "line": 43,
               "column": 5
             },
             "end": {
-              "line": 37,
+              "line": 43,
               "column": 6
             }
           },
@@ -1868,30 +2165,30 @@
             "modifiers": [],
             "name": "y",
             "start": {
-              "line": 37,
+              "line": 43,
               "column": 10
             },
             "end": {
-              "line": 37,
+              "line": 43,
               "column": 11
             }
           }
         },
         "start": {
-          "line": 37,
+          "line": 43,
           "column": 1
         },
         "end": {
-          "line": 37,
+          "line": 43,
           "column": 11
         }
       },
       "start": {
-        "line": 37,
+        "line": 43,
         "column": 1
       },
       "end": {
-        "line": 37,
+        "line": 43,
         "column": 11
       }
     },
@@ -1905,11 +2202,11 @@
           "kind": 2,
           "assignment": 15,
           "start": {
-            "line": 39,
+            "line": 45,
             "column": 3
           },
           "end": {
-            "line": 39,
+            "line": 45,
             "column": 4
           }
         },
@@ -1918,11 +2215,11 @@
           "modifiers": [],
           "name": "z",
           "start": {
-            "line": 39,
+            "line": 45,
             "column": 1
           },
           "end": {
-            "line": 39,
+            "line": 45,
             "column": 2
           }
         },
@@ -1933,20 +2230,20 @@
             "kind": 9,
             "modifiers": [],
             "start": {
-              "line": 39,
+              "line": 45,
               "column": 7
             },
             "end": {
-              "line": 39,
+              "line": 45,
               "column": 9
             }
           },
           "start": {
-            "line": 39,
+            "line": 45,
             "column": 5
           },
           "end": {
-            "line": 39,
+            "line": 45,
             "column": 11
           },
           "left": {
@@ -1954,11 +2251,11 @@
             "modifiers": [],
             "name": "x",
             "start": {
-              "line": 39,
+              "line": 45,
               "column": 5
             },
             "end": {
-              "line": 39,
+              "line": 45,
               "column": 6
             }
           },
@@ -1967,30 +2264,30 @@
             "modifiers": [],
             "name": "y",
             "start": {
-              "line": 39,
+              "line": 45,
               "column": 10
             },
             "end": {
-              "line": 39,
+              "line": 45,
               "column": 11
             }
           }
         },
         "start": {
-          "line": 39,
+          "line": 45,
           "column": 1
         },
         "end": {
-          "line": 39,
+          "line": 45,
           "column": 11
         }
       },
       "start": {
-        "line": 39,
+        "line": 45,
         "column": 1
       },
       "end": {
-        "line": 39,
+        "line": 45,
         "column": 11
       }
     },
@@ -2004,11 +2301,11 @@
           "kind": 2,
           "assignment": 15,
           "start": {
-            "line": 41,
+            "line": 47,
             "column": 3
           },
           "end": {
-            "line": 41,
+            "line": 47,
             "column": 4
           }
         },
@@ -2017,11 +2314,11 @@
           "modifiers": [],
           "name": "z",
           "start": {
-            "line": 41,
+            "line": 47,
             "column": 1
           },
           "end": {
-            "line": 41,
+            "line": 47,
             "column": 2
           }
         },
@@ -2032,20 +2329,20 @@
             "kind": 8,
             "modifiers": [],
             "start": {
-              "line": 41,
+              "line": 47,
               "column": 7
             },
             "end": {
-              "line": 41,
+              "line": 47,
               "column": 9
             }
           },
           "start": {
-            "line": 41,
+            "line": 47,
             "column": 5
           },
           "end": {
-            "line": 41,
+            "line": 47,
             "column": 11
           },
           "left": {
@@ -2053,11 +2350,11 @@
             "modifiers": [],
             "name": "x",
             "start": {
-              "line": 41,
+              "line": 47,
               "column": 5
             },
             "end": {
-              "line": 41,
+              "line": 47,
               "column": 6
             }
           },
@@ -2066,30 +2363,30 @@
             "modifiers": [],
             "name": "y",
             "start": {
-              "line": 41,
+              "line": 47,
               "column": 10
             },
             "end": {
-              "line": 41,
+              "line": 47,
               "column": 11
             }
           }
         },
         "start": {
-          "line": 41,
+          "line": 47,
           "column": 1
         },
         "end": {
-          "line": 41,
+          "line": 47,
           "column": 11
         }
       },
       "start": {
-        "line": 41,
+        "line": 47,
         "column": 1
       },
       "end": {
-        "line": 41,
+        "line": 47,
         "column": 11
       }
     },
@@ -2103,11 +2400,11 @@
           "kind": 2,
           "assignment": 15,
           "start": {
-            "line": 43,
+            "line": 49,
             "column": 3
           },
           "end": {
-            "line": 43,
+            "line": 49,
             "column": 4
           }
         },
@@ -2116,11 +2413,11 @@
           "modifiers": [],
           "name": "z",
           "start": {
-            "line": 43,
+            "line": 49,
             "column": 1
           },
           "end": {
-            "line": 43,
+            "line": 49,
             "column": 2
           }
         },
@@ -2128,23 +2425,23 @@
           "kind": 11,
           "modifiers": [],
           "operator": {
-            "kind": 39,
+            "kind": 45,
             "modifiers": [],
             "start": {
-              "line": 43,
+              "line": 49,
               "column": 7
             },
             "end": {
-              "line": 43,
+              "line": 49,
               "column": 9
             }
           },
           "start": {
-            "line": 43,
+            "line": 49,
             "column": 5
           },
           "end": {
-            "line": 43,
+            "line": 49,
             "column": 11
           },
           "left": {
@@ -2152,11 +2449,11 @@
             "modifiers": [],
             "name": "x",
             "start": {
-              "line": 43,
+              "line": 49,
               "column": 5
             },
             "end": {
-              "line": 43,
+              "line": 49,
               "column": 6
             }
           },
@@ -2165,30 +2462,30 @@
             "modifiers": [],
             "name": "y",
             "start": {
-              "line": 43,
+              "line": 49,
               "column": 10
             },
             "end": {
-              "line": 43,
+              "line": 49,
               "column": 11
             }
           }
         },
         "start": {
-          "line": 43,
+          "line": 49,
           "column": 1
         },
         "end": {
-          "line": 43,
+          "line": 49,
           "column": 11
         }
       },
       "start": {
-        "line": 43,
+        "line": 49,
         "column": 1
       },
       "end": {
-        "line": 43,
+        "line": 49,
         "column": 11
       }
     },
@@ -2202,11 +2499,11 @@
           "kind": 2,
           "assignment": 15,
           "start": {
-            "line": 45,
+            "line": 51,
             "column": 3
           },
           "end": {
-            "line": 45,
+            "line": 51,
             "column": 4
           }
         },
@@ -2215,11 +2512,11 @@
           "modifiers": [],
           "name": "z",
           "start": {
-            "line": 45,
+            "line": 51,
             "column": 1
           },
           "end": {
-            "line": 45,
+            "line": 51,
             "column": 2
           }
         },
@@ -2230,20 +2527,20 @@
             "kind": 13,
             "modifiers": [],
             "start": {
-              "line": 45,
+              "line": 51,
               "column": 7
             },
             "end": {
-              "line": 45,
+              "line": 51,
               "column": 10
             }
           },
           "start": {
-            "line": 45,
+            "line": 51,
             "column": 5
           },
           "end": {
-            "line": 45,
+            "line": 51,
             "column": 12
           },
           "left": {
@@ -2251,11 +2548,11 @@
             "modifiers": [],
             "name": "x",
             "start": {
-              "line": 45,
+              "line": 51,
               "column": 5
             },
             "end": {
-              "line": 45,
+              "line": 51,
               "column": 6
             }
           },
@@ -2264,30 +2561,228 @@
             "modifiers": [],
             "name": "y",
             "start": {
-              "line": 45,
+              "line": 51,
               "column": 11
             },
             "end": {
-              "line": 45,
+              "line": 51,
               "column": 12
             }
           }
         },
         "start": {
-          "line": 45,
+          "line": 51,
           "column": 1
         },
         "end": {
-          "line": 45,
+          "line": 51,
           "column": 12
         }
       },
       "start": {
-        "line": 45,
+        "line": 51,
         "column": 1
       },
       "end": {
-        "line": 45,
+        "line": 51,
+        "column": 12
+      }
+    },
+    {
+      "kind": 41,
+      "attributes": [],
+      "expression": {
+        "kind": 11,
+        "modifiers": [],
+        "operator": {
+          "kind": 2,
+          "assignment": 15,
+          "start": {
+            "line": 53,
+            "column": 3
+          },
+          "end": {
+            "line": 53,
+            "column": 4
+          }
+        },
+        "left": {
+          "kind": 49,
+          "modifiers": [],
+          "name": "z",
+          "start": {
+            "line": 53,
+            "column": 1
+          },
+          "end": {
+            "line": 53,
+            "column": 2
+          }
+        },
+        "right": {
+          "kind": 11,
+          "modifiers": [],
+          "operator": {
+            "kind": 58,
+            "modifiers": [],
+            "start": {
+              "line": 53,
+              "column": 7
+            },
+            "end": {
+              "line": 53,
+              "column": 10
+            }
+          },
+          "start": {
+            "line": 53,
+            "column": 5
+          },
+          "end": {
+            "line": 53,
+            "column": 12
+          },
+          "left": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 53,
+              "column": 5
+            },
+            "end": {
+              "line": 53,
+              "column": 6
+            }
+          },
+          "right": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "y",
+            "start": {
+              "line": 53,
+              "column": 11
+            },
+            "end": {
+              "line": 53,
+              "column": 12
+            }
+          }
+        },
+        "start": {
+          "line": 53,
+          "column": 1
+        },
+        "end": {
+          "line": 53,
+          "column": 12
+        }
+      },
+      "start": {
+        "line": 53,
+        "column": 1
+      },
+      "end": {
+        "line": 53,
+        "column": 12
+      }
+    },
+    {
+      "kind": 41,
+      "attributes": [],
+      "expression": {
+        "kind": 11,
+        "modifiers": [],
+        "operator": {
+          "kind": 2,
+          "assignment": 15,
+          "start": {
+            "line": 55,
+            "column": 3
+          },
+          "end": {
+            "line": 55,
+            "column": 4
+          }
+        },
+        "left": {
+          "kind": 49,
+          "modifiers": [],
+          "name": "z",
+          "start": {
+            "line": 55,
+            "column": 1
+          },
+          "end": {
+            "line": 55,
+            "column": 2
+          }
+        },
+        "right": {
+          "kind": 11,
+          "modifiers": [],
+          "operator": {
+            "kind": 44,
+            "modifiers": [],
+            "start": {
+              "line": 55,
+              "column": 7
+            },
+            "end": {
+              "line": 55,
+              "column": 10
+            }
+          },
+          "start": {
+            "line": 55,
+            "column": 5
+          },
+          "end": {
+            "line": 55,
+            "column": 12
+          },
+          "left": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 55,
+              "column": 5
+            },
+            "end": {
+              "line": 55,
+              "column": 6
+            }
+          },
+          "right": {
+            "kind": 49,
+            "modifiers": [],
+            "name": "y",
+            "start": {
+              "line": 55,
+              "column": 11
+            },
+            "end": {
+              "line": 55,
+              "column": 12
+            }
+          }
+        },
+        "start": {
+          "line": 55,
+          "column": 1
+        },
+        "end": {
+          "line": 55,
+          "column": 12
+        }
+      },
+      "start": {
+        "line": 55,
+        "column": 1
+      },
+      "end": {
+        "line": 55,
         "column": 12
       }
     }
@@ -2297,7 +2792,7 @@
     "column": 1
   },
   "end": {
-    "line": 45,
+    "line": 55,
     "column": 12
   }
 }

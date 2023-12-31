@@ -39,6 +39,6 @@ dev:
 	@make cls
 
 	@# tests
-	kaoscript test/parse.dev.ks "parse with.add.default"
+	kaoscript test/parse.dev.ks "parse test"
 
 .PHONY: test coverage
