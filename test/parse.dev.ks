@@ -2,6 +2,7 @@
 #![error(off)]
 
 extern {
+	console
 	process
 }
 

@@ -275,14 +275,6 @@ enum Token {
 					return scanner.next(2)
 				}
 			} # }}}
-			// .AS { # {{{
-			// 	if	c == 97 &&
-			// 		scanner.charAt(1) == 115 &&
-			// 		scanner.isBoundary(2)
-			// 	{
-			// 		return scanner.next(2)
-			// 	}
-			// } # }}}
 			.ASSIST { # {{{
 				if	c == 0'a' &&
 					scanner.charAt(1) == 0's' &&
@@ -421,11 +413,6 @@ enum Token {
 					return scanner.next(1)
 				}
 			} # }}}
-			// .COLON_RIGHT_ANGLE { # {{{
-			// 	if c == 0':' && scanner.charAt(1) == 0'>' {
-			// 		return scanner.next(2)
-			// 	}
-			// } # }}}
 			.COMMA { # {{{
 				if c == 44 {
 					return scanner.next(1)
@@ -1469,14 +1456,6 @@ namespace M {
 		else if c == 0'/' {
 			c = that.charAt(1)
 
-			// if c == 46 {
-			// 	if that.charAt(2) == 61 {
-			// 		that.next(3)
-
-			// 		return Token.SLASH_DOT_EQUALS
-			// 	}
-			// }
-			// else
 			if c == 61 {
 				that.next(2)
 
@@ -1811,19 +1790,6 @@ namespace M {
 		else if c == 0'/' {
 			c = that.charAt(1)
 
-			// if c == 46 {
-			// 	if that.charAt(2) == 61 {
-			// 		that.next(3)
-
-			// 		return Token.SLASH_DOT_EQUALS
-			// 	}
-			// 	else {
-			// 		that.next(2)
-
-			// 		return Token.SLASH_DOT
-			// 	}
-			// }
-			// else
 			if c == 0'#' {
 				if that.charAt(2) == 0'=' {
 					that.next(3)
@@ -2826,23 +2792,7 @@ namespace M {
 		}
 		else if c == 0':' {
 			c = that.charAt(1)
-			// var c2 = that.charAt(2)
 
-			// if c == 0'!' && c2 != 9 & 32 {
-			// 	that.next(2)
-
-			// 	return Token.COLON_EXCLAMATION
-			// }
-			// else if c == 0'?' && c2 != 9 & 32 {
-			// 	that.next(2)
-
-			// 	return Token.COLON_QUESTION
-			// }
-			// else if c != 0'=' & 9 & 32 {
-			// 	that.next(1)
-
-			// 	return Token.COLON
-			// }
 			if c == 0'!' {
 				if that.charAt(2) == 0'!' {
 					if that.charAt(3) == 0'(' {
@@ -2924,6 +2874,13 @@ namespace M {
 			that.next(1)
 
 			return Token.LEFT_SQUARE
+		}
+		else if c == 0'<' {
+			if that.charAt(2) != 0'.' {
+				that.next(1)
+
+				return Token.LEFT_ANGLE
+			}
 		}
 		else if c == 0'^' {
 			if that.charAt(2) == 40 {
@@ -3551,27 +3508,6 @@ namespace M {
 		if c == -1 {
 			return Token.EOF
 		}
-		// // as
-		// else if c == 97
-		// {
-		// 	if that.charAt(1) == 115 {
-		// 		if that.charAt(2) == 33 && that.isBoundary(3) {
-		// 			that.next(3)
-
-		// 			return Token.AS_EXCLAMATION
-		// 		}
-		// 		else if that.charAt(2) == 63 && that.isBoundary(3) {
-		// 			that.next(3)
-
-		// 			return Token.AS_QUESTION
-		// 		}
-		// 		else if that.isBoundary(2) {
-		// 			that.next(2)
-
-		// 			return Token.AS
-		// 		}
-		// 	}
-		// }
 		// is, is not
 		else if c == 105
 		{
@@ -3855,7 +3791,7 @@ class Scanner {
 	private skip(mut index: Number): Number { # {{{
 		while index < @length {
 			var mut c = @data.charCodeAt(index)
-			// console.log('sk', index, c, @line, @column)
+			// echo('sk', index, c, @line, @column)
 
 			if c == 32 || c == 9 {
 				// skip
@@ -4019,7 +3955,7 @@ class Scanner {
 
 		while index < @length {
 			var mut c = @data.charCodeAt(index)
-			// console.log('cm', index, c, @line, @column)
+			// echo('cm', index, c, @line, @column)
 
 			if c == 32 || c == 9 {
 				// skip
@@ -4164,7 +4100,7 @@ class Scanner {
 	skipNewLine(mut index: Number = @index): Number { # {{{
 		while index < @length {
 			var mut c = @data.charCodeAt(index)
-			// console.log('nl', index, c, @line, @column)
+			// echo('nl', index, c, @line, @column)
 
 			if c == 13 && @data.charCodeAt(index + 1) == 10 {
 				@line += 1

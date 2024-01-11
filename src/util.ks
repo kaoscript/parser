@@ -1,6 +1,4 @@
 extern {
-	console
-
 	func parseFloat(...): Number
 	func parseInt(...): Number
 

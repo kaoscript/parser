@@ -1,0 +1,267 @@
+{
+  "kind": 72,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 29,
+      "attributes": [],
+      "name": {
+        "kind": 48,
+        "modifiers": [],
+        "name": "Array",
+        "start": {
+          "line": 1,
+          "column": 10
+        },
+        "end": {
+          "line": 1,
+          "column": 15
+        }
+      },
+      "typeParameters": [
+        {
+          "kind": 123,
+          "modifiers": [],
+          "name": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "T",
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 1,
+              "column": 17
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 16
+          },
+          "end": {
+            "line": 1,
+            "column": 17
+          }
+        }
+      ],
+      "members": [
+        {
+          "kind": 70,
+          "attributes": [],
+          "modifiers": [],
+          "name": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "pop",
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 5
+            }
+          },
+          "parameters": [],
+          "type": {
+            "kind": 124,
+            "modifiers": [
+              {
+                "kind": 29,
+                "start": {
+                  "line": 2,
+                  "column": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 11
+                }
+              }
+            ],
+            "typeName": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "T",
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 10
+              }
+            },
+            "start": {
+              "line": 2,
+              "column": 9
+            },
+            "end": {
+              "line": 2,
+              "column": 11
+            }
+          },
+          "throws": [],
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 2,
+            "column": 11
+          }
+        },
+        {
+          "kind": 70,
+          "attributes": [],
+          "modifiers": [],
+          "name": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "push",
+            "start": {
+              "line": 3,
+              "column": 2
+            },
+            "end": {
+              "line": 3,
+              "column": 6
+            }
+          },
+          "parameters": [
+            {
+              "kind": 84,
+              "attributes": [],
+              "modifiers": [
+                {
+                  "kind": 38,
+                  "arity": {
+                    "min": 0,
+                    "max": "Infinity"
+                  },
+                  "start": {
+                    "line": 3,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 10
+                  }
+                }
+              ],
+              "external": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "elements",
+                "start": {
+                  "line": 3,
+                  "column": 10
+                },
+                "end": {
+                  "line": 3,
+                  "column": 18
+                }
+              },
+              "internal": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "elements",
+                "start": {
+                  "line": 3,
+                  "column": 10
+                },
+                "end": {
+                  "line": 3,
+                  "column": 18
+                }
+              },
+              "type": {
+                "kind": 124,
+                "modifiers": [],
+                "typeName": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "T",
+                  "start": {
+                    "line": 3,
+                    "column": 20
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 21
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 20
+                },
+                "end": {
+                  "line": 3,
+                  "column": 21
+                }
+              },
+              "start": {
+                "line": 3,
+                "column": 7
+              },
+              "end": {
+                "line": 3,
+                "column": 21
+              }
+            }
+          ],
+          "type": {
+            "kind": 124,
+            "modifiers": [],
+            "typeName": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "Number",
+              "start": {
+                "line": 3,
+                "column": 24
+              },
+              "end": {
+                "line": 3,
+                "column": 30
+              }
+            },
+            "start": {
+              "line": 3,
+              "column": 24
+            },
+            "end": {
+              "line": 3,
+              "column": 30
+            }
+          },
+          "throws": [],
+          "start": {
+            "line": 3,
+            "column": 2
+          },
+          "end": {
+            "line": 3,
+            "column": 30
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 4,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 4,
+    "column": 2
+  }
+}

@@ -4,6 +4,7 @@
 extern {
 	__dirname: String
 	JSON
+	console
 	process
 
 	func describe(...)

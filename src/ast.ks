@@ -34,8 +34,7 @@ namespace AST {
 		var mut precedenceList = []
 
 		for var mut i from 1 to~ operations.length step 2 {
-			if operations[i].kind == NodeKind.ConditionalExpression {
-			// if operations[i] is NodeData(ConditionalExpression) {
+			if operations[i] is .ConditionalExpression {
 				if ?precedences[CONDITIONAL_PRECEDENCE] {
 					precedences[CONDITIONAL_PRECEDENCE] += 1
 				}
@@ -69,10 +68,7 @@ namespace AST {
 			var mut count = precedences[precedence]
 
 			for var mut k from 1 to~ operations.length step 2 while count > 0 {
-				// TODO!
-				// if operations[k] is .ConditionalExpression {
-				if operations[k].kind == NodeKind.ConditionalExpression {
-				// if operations[k] is NodeData(ConditionalExpression) {
+				if operations[k] is .ConditionalExpression {
 					if precedence == CONDITIONAL_PRECEDENCE {
 						count -= 1
 
@@ -94,7 +90,7 @@ namespace AST {
 					}
 				}
 				else if operations[k].operator.kind.precedence == precedence {
-					if operations[k].kind == NodeKind.BinaryExpression && operations[k].operator.kind.attribute ~~ OperatorAttribute.RTL {
+					if operations[k] is .BinaryExpression && operations[k].operator.kind.attribute ~~ OperatorAttribute.RTL {
 						var mut end = operations.length - 1
 
 						for var i from k + 2 to~ operations.length step 2 {
@@ -131,10 +127,10 @@ namespace AST {
 						// var mut operand: NodeData(BinaryExpression, PolyadicExpression)? = null
 						// var mut operand = null
 
-						if operator.kind == NodeKind.BinaryExpression {
+						if operator is .BinaryExpression {
 							var left = operations[k - 1]
 
-							if left.kind == NodeKind.BinaryExpression && operator.operator.kind == left.operator.kind && operator.operator.kind.attribute ~~ OperatorAttribute.Polyadic {
+							if left is .BinaryExpression && operator.operator.kind == left.operator.kind && operator.operator.kind.attribute ~~ OperatorAttribute.Polyadic {
 								operator.kind = NodeKind.PolyadicExpression
 								operator.start = left.start
 								operator.end = operations[k + 1].end
@@ -148,14 +144,14 @@ namespace AST {
 								// 	end: operations[k + 1].end
 								// }
 							}
-							else if left.kind == NodeKind.PolyadicExpression && operator.operator.kind == left.operator.kind {
+							else if left is .PolyadicExpression && operator.operator.kind == left.operator.kind {
 								left.operands.push(operations[k + 1])
 								left.end = operations[k + 1].end
 
 								operator = left
 							}
 							else if operator.operator.kind.attribute ~~ OperatorAttribute.Comparable {
-								if left.kind == NodeKind.ComparisonExpression {
+								if left is .ComparisonExpression {
 									left.values.push(operator.operator, operations[k + 1])
 									left.end = operations[k + 1].end
 
@@ -165,8 +161,7 @@ namespace AST {
 									operator = ComparisonExpression([left, operator.operator, operations[k + 1]])
 								}
 							}
-							else if left.kind == NodeKind.BinaryExpression && operator.operator.kind == BinaryOperatorKind.Assignment && left.operator.kind == BinaryOperatorKind.Assignment && operator.operator.assignment == left.operator.assignment {
-							// else if left is NodeData(BinaryExpression) && operator.operator.kind == BinaryOperatorKind.Assignment && left.operator.kind == BinaryOperatorKind.Assignment && operator.operator.assignment == left.operator.assignment {
+							else if left is .BinaryExpression && operator.operator.kind == BinaryOperatorKind.Assignment && left.operator.kind == BinaryOperatorKind.Assignment && operator.operator.assignment == left.operator.assignment {
 								operator.left = left.right
 								operator.right = operations[k + 1]
 
@@ -265,7 +260,7 @@ namespace AST {
 		} # }}}
 
 		func ArrayComprehension(
-			expression: Event<NodeData(Expression)>(Y)
+			value: Event<NodeData(Expression)>(Y)
 			loop: Event<NodeData(ForStatement, RepeatStatement)>(Y)
 			{ start }: Range
 			{ end }: Range
@@ -273,7 +268,7 @@ namespace AST {
 			return {
 				kind: .ArrayComprehension
 				modifiers: []
-				expression: expression.value
+				value: value.value
 				loop: loop.value
 				start
 				end
@@ -631,6 +626,7 @@ namespace AST {
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			name: Event<NodeData(Identifier)>(Y)
+			typeParameters: Event<Event<NodeData(TypeParameter)>[]>?
 			version: Event<VersionData>(Y)?
 			extends: Event<NodeData(Identifier, MemberExpression)>(Y)?
 			implements: Event<NodeData(Identifier, MemberExpression)>(Y)[]
@@ -643,6 +639,7 @@ namespace AST {
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
+				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?typeParameters
 				version: version.value if ?version
 				extends: extends.value if ?extends
 				implements: [implement.value for var implement in implements] if ?#implements
@@ -733,6 +730,7 @@ namespace AST {
 
 		func DiscloseDeclaration(
 			name: Event<NodeData(Identifier)>(Y)
+			typeParameters: Event<Event<NodeData(TypeParameter)>[]>?
 			members: Event<NodeData(ClassMember)>(Y)[]
 			{ start }: Range
 			{ end }: Range
@@ -741,6 +739,7 @@ namespace AST {
 				kind: .DiscloseDeclaration
 				attributes: []
 				name: name.value
+				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?typeParameters
 				members: [member.value for var member in members]
 				start
 				end
@@ -993,7 +992,6 @@ namespace AST {
 			}
 		} # }}}
 
-		// TODO
 		func FunctionDeclaration(
 			name: Event<NodeData(Identifier)>(Y)
 			typeParameters: Event<Event<NodeData(TypeParameter)>[]>?
@@ -1411,8 +1409,8 @@ namespace AST {
 			modifiers: Event<ModifierData>(Y)[]?
 			value: String
 			// TODO!
-			// { start }: Range
-			// { end }: Range = $^
+			// { start } & first: Range
+			// { end }: Range = first
 			first: Range
 			{ end }: Range = first
 		): NodeData(Literal) { # {{{
@@ -1852,6 +1850,24 @@ namespace AST {
 				type: type.value if ?type
 				operator: operator.value if ?operator
 				defaultValue: defaultValue.value if ?defaultValue
+				start
+				end
+			}
+		} # }}}
+
+		func ObjectComprehension(
+			name: Event<NodeData(ComputedPropertyName, TemplateExpression)>(Y)
+			value: Event<NodeData(Expression)>(Y)
+			iteration: Event<IterationData>(Y)
+			{ start }: Range
+			{ end }: Range
+		): NodeData(ObjectComprehension) { # {{{
+			return {
+				kind: .ObjectComprehension
+				modifiers: []
+				name: name.value
+				value: value.value
+				iteration: iteration.value
 				start
 				end
 			}
@@ -2579,6 +2595,23 @@ namespace AST {
 				name: name.value if ?name
 				type: type.value if ?type
 				defaultValue: defaultValue.value if ?defaultValue
+				start
+				end
+			}
+		} # }}}
+
+		func TypedExpression(
+			modifiers: Event<ModifierData>(Y)[]
+			expression: Event<NodeData(Expression)>(Y)
+			parameters: Event<NodeData(Type)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): NodeData(TypedExpression) { # {{{
+			return {
+				kind: .TypedExpression
+				modifiers: [modifier.value for var modifier in modifiers]
+				expression: expression.value
+				typeParameters: [parameter.value for var parameter in parameters]
 				start
 				end
 			}
