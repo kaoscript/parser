@@ -151,136 +151,124 @@
               "column": 19
             }
           },
-          "loop": {
-            "kind": 43,
-            "attributes": [],
-            "iteration": {
-              "kind": 0,
-              "modifiers": [
-                {
-                  "kind": 13,
-                  "start": {
-                    "line": 3,
-                    "column": 46
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 50
-                  }
+          "iteration": {
+            "kind": 0,
+            "modifiers": [
+              {
+                "kind": 13,
+                "start": {
+                  "line": 3,
+                  "column": 46
+                },
+                "end": {
+                  "line": 3,
+                  "column": 50
                 }
-              ],
-              "expression": {
+              }
+            ],
+            "expression": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "heroes",
+              "start": {
+                "line": 3,
+                "column": 39
+              },
+              "end": {
+                "line": 3,
+                "column": 45
+              }
+            },
+            "value": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "hero",
+              "start": {
+                "line": 3,
+                "column": 24
+              },
+              "end": {
+                "line": 3,
+                "column": 28
+              }
+            },
+            "index": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "index",
+              "start": {
+                "line": 3,
+                "column": 30
+              },
+              "end": {
+                "line": 3,
+                "column": 35
+              }
+            },
+            "to": {
+              "kind": 77,
+              "modifiers": [],
+              "value": 2,
+              "radix": 10,
+              "start": {
+                "line": 3,
+                "column": 54
+              },
+              "end": {
+                "line": 3,
+                "column": 55
+              }
+            },
+            "until": {
+              "kind": 18,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
                 "kind": 48,
                 "modifiers": [],
-                "name": "heroes",
-                "start": {
-                  "line": 3,
-                  "column": 39
-                },
-                "end": {
-                  "line": 3,
-                  "column": 45
-                }
-              },
-              "value": {
-                "kind": 48,
-                "modifiers": [],
-                "name": "hero",
-                "start": {
-                  "line": 3,
-                  "column": 24
-                },
-                "end": {
-                  "line": 3,
-                  "column": 28
-                }
-              },
-              "index": {
-                "kind": 48,
-                "modifiers": [],
-                "name": "index",
-                "start": {
-                  "line": 3,
-                  "column": 30
-                },
-                "end": {
-                  "line": 3,
-                  "column": 35
-                }
-              },
-              "to": {
-                "kind": 77,
-                "modifiers": [],
-                "value": 2,
-                "radix": 10,
-                "start": {
-                  "line": 3,
-                  "column": 54
-                },
-                "end": {
-                  "line": 3,
-                  "column": 55
-                }
-              },
-              "until": {
-                "kind": 18,
-                "modifiers": [],
-                "scope": {
-                  "kind": 2
-                },
-                "callee": {
-                  "kind": 48,
-                  "modifiers": [],
-                  "name": "foo",
-                  "start": {
-                    "line": 3,
-                    "column": 62
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 65
-                  }
-                },
-                "arguments": [
-                  {
-                    "kind": 48,
-                    "modifiers": [],
-                    "name": "hero",
-                    "start": {
-                      "line": 3,
-                      "column": 66
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 70
-                    }
-                  },
-                  {
-                    "kind": 48,
-                    "modifiers": [],
-                    "name": "index",
-                    "start": {
-                      "line": 3,
-                      "column": 72
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 77
-                    }
-                  }
-                ],
+                "name": "foo",
                 "start": {
                   "line": 3,
                   "column": 62
                 },
                 "end": {
                   "line": 3,
-                  "column": 78
+                  "column": 65
                 }
               },
+              "arguments": [
+                {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "hero",
+                  "start": {
+                    "line": 3,
+                    "column": 66
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 70
+                  }
+                },
+                {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "index",
+                  "start": {
+                    "line": 3,
+                    "column": 72
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 77
+                  }
+                }
+              ],
               "start": {
                 "line": 3,
-                "column": 24
+                "column": 62
               },
               "end": {
                 "line": 3,
@@ -289,7 +277,7 @@
             },
             "start": {
               "line": 3,
-              "column": 20
+              "column": 24
             },
             "end": {
               "line": 3,

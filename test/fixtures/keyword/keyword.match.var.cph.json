@@ -21,62 +21,50 @@
             "column": 7
           }
         },
-        "loop": {
-          "kind": 43,
-          "attributes": [],
-          "iteration": {
-            "kind": 2,
-            "modifiers": [
-              {
-                "kind": 11,
-                "start": {
-                  "line": 1,
-                  "column": 12
-                },
-                "end": {
-                  "line": 1,
-                  "column": 15
-                }
-              }
-            ],
-            "expression": {
-              "kind": 48,
-              "modifiers": [],
-              "name": "matches",
+        "iteration": {
+          "kind": 2,
+          "modifiers": [
+            {
+              "kind": 11,
               "start": {
                 "line": 1,
-                "column": 25
+                "column": 12
               },
               "end": {
                 "line": 1,
-                "column": 32
+                "column": 15
               }
-            },
-            "value": {
-              "kind": 48,
-              "modifiers": [],
-              "name": "match",
-              "start": {
-                "line": 1,
-                "column": 16
-              },
-              "end": {
-                "line": 1,
-                "column": 21
-              }
-            },
+            }
+          ],
+          "expression": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "matches",
             "start": {
               "line": 1,
-              "column": 12
+              "column": 25
             },
             "end": {
               "line": 1,
               "column": 32
             }
           },
+          "value": {
+            "kind": 48,
+            "modifiers": [],
+            "name": "match",
+            "start": {
+              "line": 1,
+              "column": 16
+            },
+            "end": {
+              "line": 1,
+              "column": 21
+            }
+          },
           "start": {
             "line": 1,
-            "column": 8
+            "column": 12
           },
           "end": {
             "line": 1,

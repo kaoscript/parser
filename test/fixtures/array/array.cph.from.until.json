@@ -49,113 +49,101 @@
               "column": 7
             }
           },
-          "loop": {
-            "kind": 43,
-            "attributes": [],
-            "iteration": {
-              "kind": 1,
+          "iteration": {
+            "kind": 1,
+            "modifiers": [],
+            "variable": {
+              "kind": 48,
               "modifiers": [],
-              "variable": {
+              "name": "i",
+              "start": {
+                "line": 1,
+                "column": 12
+              },
+              "end": {
+                "line": 1,
+                "column": 13
+              }
+            },
+            "from": {
+              "kind": 77,
+              "modifiers": [],
+              "value": 0,
+              "radix": 10,
+              "start": {
+                "line": 1,
+                "column": 19
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "to": {
+              "kind": 77,
+              "modifiers": [],
+              "value": 10,
+              "radix": 10,
+              "start": {
+                "line": 1,
+                "column": 24
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            },
+            "step": {
+              "kind": 77,
+              "modifiers": [],
+              "value": 2,
+              "radix": 10,
+              "start": {
+                "line": 1,
+                "column": 32
+              },
+              "end": {
+                "line": 1,
+                "column": 33
+              }
+            },
+            "until": {
+              "kind": 18,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
                 "kind": 48,
                 "modifiers": [],
-                "name": "i",
-                "start": {
-                  "line": 1,
-                  "column": 12
-                },
-                "end": {
-                  "line": 1,
-                  "column": 13
-                }
-              },
-              "from": {
-                "kind": 77,
-                "modifiers": [],
-                "value": 0,
-                "radix": 10,
-                "start": {
-                  "line": 1,
-                  "column": 19
-                },
-                "end": {
-                  "line": 1,
-                  "column": 20
-                }
-              },
-              "to": {
-                "kind": 77,
-                "modifiers": [],
-                "value": 10,
-                "radix": 10,
-                "start": {
-                  "line": 1,
-                  "column": 24
-                },
-                "end": {
-                  "line": 1,
-                  "column": 26
-                }
-              },
-              "step": {
-                "kind": 77,
-                "modifiers": [],
-                "value": 2,
-                "radix": 10,
-                "start": {
-                  "line": 1,
-                  "column": 32
-                },
-                "end": {
-                  "line": 1,
-                  "column": 33
-                }
-              },
-              "until": {
-                "kind": 18,
-                "modifiers": [],
-                "scope": {
-                  "kind": 2
-                },
-                "callee": {
-                  "kind": 48,
-                  "modifiers": [],
-                  "name": "foo",
-                  "start": {
-                    "line": 1,
-                    "column": 40
-                  },
-                  "end": {
-                    "line": 1,
-                    "column": 43
-                  }
-                },
-                "arguments": [
-                  {
-                    "kind": 48,
-                    "modifiers": [],
-                    "name": "i",
-                    "start": {
-                      "line": 1,
-                      "column": 44
-                    },
-                    "end": {
-                      "line": 1,
-                      "column": 45
-                    }
-                  }
-                ],
+                "name": "foo",
                 "start": {
                   "line": 1,
                   "column": 40
                 },
                 "end": {
                   "line": 1,
-                  "column": 46
+                  "column": 43
                 }
               },
+              "arguments": [
+                {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "i",
+                  "start": {
+                    "line": 1,
+                    "column": 44
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 45
+                  }
+                }
+              ],
               "start": {
                 "line": 1,
-                "column": 12
+                "column": 40
               },
               "end": {
                 "line": 1,
@@ -164,7 +152,7 @@
             },
             "start": {
               "line": 1,
-              "column": 8
+              "column": 12
             },
             "end": {
               "line": 1,

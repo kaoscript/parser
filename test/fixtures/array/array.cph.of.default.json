@@ -230,75 +230,63 @@
               "column": 20
             }
           },
-          "loop": {
-            "kind": 43,
-            "attributes": [],
-            "iteration": {
-              "kind": 2,
-              "modifiers": [
-                {
-                  "kind": 11,
-                  "start": {
-                    "line": 7,
-                    "column": 25
-                  },
-                  "end": {
-                    "line": 7,
-                    "column": 28
-                  }
-                }
-              ],
-              "expression": {
-                "kind": 48,
-                "modifiers": [],
-                "name": "likes",
+          "iteration": {
+            "kind": 2,
+            "modifiers": [
+              {
+                "kind": 11,
                 "start": {
                   "line": 7,
-                  "column": 43
+                  "column": 25
                 },
                 "end": {
                   "line": 7,
-                  "column": 48
+                  "column": 28
                 }
-              },
-              "value": {
-                "kind": 48,
-                "modifiers": [],
-                "name": "like",
-                "start": {
-                  "line": 7,
-                  "column": 29
-                },
-                "end": {
-                  "line": 7,
-                  "column": 33
-                }
-              },
-              "key": {
-                "kind": 48,
-                "modifiers": [],
-                "name": "hero",
-                "start": {
-                  "line": 7,
-                  "column": 35
-                },
-                "end": {
-                  "line": 7,
-                  "column": 39
-                }
-              },
+              }
+            ],
+            "expression": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "likes",
               "start": {
                 "line": 7,
-                "column": 25
+                "column": 43
               },
               "end": {
                 "line": 7,
                 "column": 48
               }
             },
+            "value": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "like",
+              "start": {
+                "line": 7,
+                "column": 29
+              },
+              "end": {
+                "line": 7,
+                "column": 33
+              }
+            },
+            "key": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "hero",
+              "start": {
+                "line": 7,
+                "column": 35
+              },
+              "end": {
+                "line": 7,
+                "column": 39
+              }
+            },
             "start": {
               "line": 7,
-              "column": 21
+              "column": 25
             },
             "end": {
               "line": 7,

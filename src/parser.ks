@@ -427,9 +427,7 @@ export namespace Parser {
 				@throw(']')
 			}
 
-			var loop = @yep(AST.ForStatement(iteration, firstLoop, iteration))
-
-			return @yep(AST.ArrayComprehension(value, loop, first, @yes()))
+			return @yep(AST.ArrayComprehension(value, iteration, first, @yes()))
 		} # }}}
 
 		altArrayComprehensionRepeat(
@@ -448,7 +446,7 @@ export namespace Parser {
 				@throw('times')
 			}
 
-			var loop = @yep(AST.RepeatStatement(condition, null, firstLoop, @yes()))
+			var iteration = @yep(AST.IterationRepeat([], condition, firstLoop, @yes()))
 
 			@NL_0M()
 
@@ -456,7 +454,7 @@ export namespace Parser {
 				@throw(']')
 			}
 
-			return @yep(AST.ArrayComprehension(value, loop, first, @yes()))
+			return @yep(AST.ArrayComprehension(value, iteration, first, @yes()))
 		} # }}}
 
 		altArrayList(
@@ -9271,11 +9269,8 @@ export namespace Parser {
 
 			@commit().NL_0M()
 
-			// TODO!
-			// var attributes = []
-			// var members = []
-			var attributes: Event<NodeData(AttributeDeclaration)>(Y)[] = []
-			var members: NodeData(BitmaskValue, MethodDeclaration)[] = []
+			var attributes = []
+			var members = []
 
 			while @until(Token.RIGHT_CURLY) {
 				if @stackInnerAttributes(attributes) {

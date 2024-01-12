@@ -261,7 +261,7 @@ namespace AST {
 
 		func ArrayComprehension(
 			value: Event<NodeData(Expression)>(Y)
-			loop: Event<NodeData(ForStatement, RepeatStatement)>(Y)
+			iteration: Event<IterationData>(Y)
 			{ start }: Range
 			{ end }: Range
 		): NodeData(ArrayComprehension) { # {{{
@@ -269,7 +269,7 @@ namespace AST {
 				kind: .ArrayComprehension
 				modifiers: []
 				value: value.value
-				loop: loop.value
+				iteration: iteration.value
 				start
 				end
 			}
@@ -978,20 +978,6 @@ namespace AST {
 			}
 		} # }}}
 
-		func ForStatement(
-			iteration: Event<IterationData>(Y)
-			{ start }: Range
-			{ end }: Range
-		): NodeData(ForStatement) { # {{{
-			return {
-				kind: .ForStatement
-				attributes: []
-				iteration: iteration.value
-				start
-				end
-			}
-		} # }}}
-
 		func FunctionDeclaration(
 			name: Event<NodeData(Identifier)>(Y)
 			typeParameters: Event<Event<NodeData(TypeParameter)>[]>?
@@ -1350,6 +1336,21 @@ namespace AST {
 				until: until.value if ?until
 				while: while.value if ?while
 				when: when.value if ?when
+				start
+				end
+			}
+		} # }}}
+
+		func IterationRepeat(
+			modifiers
+			expression: Event<NodeData(Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): IterationData(Repeat) { # {{{
+			return {
+				kind: .Repeat
+				modifiers
+				expression: expression.value
 				start
 				end
 			}
@@ -2165,7 +2166,7 @@ namespace AST {
 
 		func RepeatStatement(
 			expression: Event<NodeData(Expression)>(Y)?
-			body: Event<NodeData(Block, ExpressionStatement)>(Y)?
+			body: Event<NodeData(Block, ExpressionStatement)>(Y)
 			{ start }: Range
 			{ end }: Range
 		): NodeData(RepeatStatement) { # {{{
@@ -2173,7 +2174,7 @@ namespace AST {
 				kind: .RepeatStatement
 				attributes: []
 				expression: expression.value if ?expression
-				body: body.value if ?body
+				body: body.value
 				start
 				end
 			}

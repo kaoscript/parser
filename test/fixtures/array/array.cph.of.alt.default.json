@@ -230,50 +230,38 @@
               "column": 14
             }
           },
-          "loop": {
-            "kind": 43,
-            "attributes": [],
-            "iteration": {
-              "kind": 2,
+          "iteration": {
+            "kind": 2,
+            "modifiers": [],
+            "expression": {
+              "kind": 48,
               "modifiers": [],
-              "expression": {
-                "kind": 48,
-                "modifiers": [],
-                "name": "likes",
-                "start": {
-                  "line": 7,
-                  "column": 30
-                },
-                "end": {
-                  "line": 7,
-                  "column": 35
-                }
-              },
-              "key": {
-                "kind": 48,
-                "modifiers": [],
-                "name": "name",
-                "start": {
-                  "line": 7,
-                  "column": 22
-                },
-                "end": {
-                  "line": 7,
-                  "column": 26
-                }
-              },
+              "name": "likes",
               "start": {
                 "line": 7,
-                "column": 19
+                "column": 30
               },
               "end": {
                 "line": 7,
                 "column": 35
               }
             },
+            "key": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "name",
+              "start": {
+                "line": 7,
+                "column": 22
+              },
+              "end": {
+                "line": 7,
+                "column": 26
+              }
+            },
             "start": {
               "line": 7,
-              "column": 15
+              "column": 19
             },
             "end": {
               "line": 7,

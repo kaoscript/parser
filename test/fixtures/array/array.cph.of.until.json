@@ -230,110 +230,98 @@
               "column": 20
             }
           },
-          "loop": {
-            "kind": 43,
-            "attributes": [],
-            "iteration": {
-              "kind": 2,
+          "iteration": {
+            "kind": 2,
+            "modifiers": [],
+            "expression": {
+              "kind": 48,
               "modifiers": [],
-              "expression": {
+              "name": "likes",
+              "start": {
+                "line": 7,
+                "column": 39
+              },
+              "end": {
+                "line": 7,
+                "column": 44
+              }
+            },
+            "value": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "like",
+              "start": {
+                "line": 7,
+                "column": 25
+              },
+              "end": {
+                "line": 7,
+                "column": 29
+              }
+            },
+            "key": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "hero",
+              "start": {
+                "line": 7,
+                "column": 31
+              },
+              "end": {
+                "line": 7,
+                "column": 35
+              }
+            },
+            "until": {
+              "kind": 18,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
                 "kind": 48,
                 "modifiers": [],
-                "name": "likes",
-                "start": {
-                  "line": 7,
-                  "column": 39
-                },
-                "end": {
-                  "line": 7,
-                  "column": 44
-                }
-              },
-              "value": {
-                "kind": 48,
-                "modifiers": [],
-                "name": "like",
-                "start": {
-                  "line": 7,
-                  "column": 25
-                },
-                "end": {
-                  "line": 7,
-                  "column": 29
-                }
-              },
-              "key": {
-                "kind": 48,
-                "modifiers": [],
-                "name": "hero",
-                "start": {
-                  "line": 7,
-                  "column": 31
-                },
-                "end": {
-                  "line": 7,
-                  "column": 35
-                }
-              },
-              "until": {
-                "kind": 18,
-                "modifiers": [],
-                "scope": {
-                  "kind": 2
-                },
-                "callee": {
-                  "kind": 48,
-                  "modifiers": [],
-                  "name": "foo",
-                  "start": {
-                    "line": 7,
-                    "column": 51
-                  },
-                  "end": {
-                    "line": 7,
-                    "column": 54
-                  }
-                },
-                "arguments": [
-                  {
-                    "kind": 48,
-                    "modifiers": [],
-                    "name": "hero",
-                    "start": {
-                      "line": 7,
-                      "column": 55
-                    },
-                    "end": {
-                      "line": 7,
-                      "column": 59
-                    }
-                  },
-                  {
-                    "kind": 48,
-                    "modifiers": [],
-                    "name": "like",
-                    "start": {
-                      "line": 7,
-                      "column": 61
-                    },
-                    "end": {
-                      "line": 7,
-                      "column": 65
-                    }
-                  }
-                ],
+                "name": "foo",
                 "start": {
                   "line": 7,
                   "column": 51
                 },
                 "end": {
                   "line": 7,
-                  "column": 66
+                  "column": 54
                 }
               },
+              "arguments": [
+                {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "hero",
+                  "start": {
+                    "line": 7,
+                    "column": 55
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 59
+                  }
+                },
+                {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "like",
+                  "start": {
+                    "line": 7,
+                    "column": 61
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 65
+                  }
+                }
+              ],
               "start": {
                 "line": 7,
-                "column": 25
+                "column": 51
               },
               "end": {
                 "line": 7,
@@ -342,7 +330,7 @@
             },
             "start": {
               "line": 7,
-              "column": 21
+              "column": 25
             },
             "end": {
               "line": 7,
