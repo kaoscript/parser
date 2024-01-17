@@ -7028,9 +7028,7 @@ export namespace Parser {
 				}
 			}
 
-			// TODO!
-			// if internal?.value is .Identifier && @test(.AMPERSAND) {
-			if ?internal && internal.value is .Identifier && @test(.AMPERSAND) {
+			if internal?.value is .Identifier && @test(.AMPERSAND) {
 				@throw() if fMode ~~ .Macro
 
 				@commit()
@@ -7047,9 +7045,7 @@ export namespace Parser {
 					@throw('{', '[')
 				}
 
-				// TODO!
-				// internal.value.alias = alias.value
-				internal.value:!!(Any).alias = alias.value
+				internal.value.alias = alias.value
 			}
 
 			var mut requireDefault = false
@@ -8795,105 +8791,54 @@ export namespace Parser {
 				return NO
 			}
 
-			// TODO!
-			// var expression =
-			// 	if @match(Token.COMMA, Token.EQUALS) == Token.COMMA {
-			// 		unless identifier.value.kind == NodeKind.Identifier || identifier.value.kind == NodeKind.ArrayBinding || identifier.value.kind == NodeKind.ObjectBinding {
-			// 			return NO
-			// 		}
+			var expression =
+				if @match(Token.COMMA, Token.EQUALS) == Token.COMMA {
+					unless identifier.value.kind == NodeKind.Identifier || identifier.value.kind == NodeKind.ArrayBinding || identifier.value.kind == NodeKind.ObjectBinding {
+						return NO
+					}
 
-			// 		var variables = [identifier]
+					var variables = [identifier]
 
-			// 		do {
-			// 			@commit()
+					do {
+						@commit()
 
-			// 			variables.push(@reqVariableIdentifier(fMode))
-			// 		}
-			// 		while @test(Token.COMMA)
+						variables.push(@reqVariableIdentifier(fMode))
+					}
+					while @test(Token.COMMA)
 
-			// 		if @test(Token.EQUALS) {
-			// 			@validateAssignable(identifier.value)
+					if @test(Token.EQUALS) {
+						@validateAssignable(identifier.value)
 
-			// 			@commit().NL_0M()
+						@commit().NL_0M()
 
-			// 			unless @test(Token.AWAIT) {
-			// 				@throw('await')
-			// 			}
+						unless @test(Token.AWAIT) {
+							@throw('await')
+						}
 
-			// 			var operand = @reqPrefixedOperand(eMode, fMode)
+						var operand = @reqPrefixedOperand(eMode, fMode)
 
-			// 			set @yep(AST.AwaitExpression([], variables, operand, identifier, operand))
-			// 		}
-			// 		else {
-			// 			@throw('=')
-			// 		}
-			// 	}
-			// 	else if @token == Token.EQUALS {
-			// 		@validateAssignable(identifier.value)
+						set @yep(AST.AwaitExpression([], variables, operand, identifier, operand))
+					}
+					else {
+						@throw('=')
+					}
+				}
+				else if @token == Token.EQUALS {
+					@validateAssignable(identifier.value)
 
-			// 		var equals = @yes()
+					var equals = @yes()
 
-			// 		@NL_0M()
+					@NL_0M()
 
-			// 		var expression = @reqExpression(eMode + .ImplicitMember + .NoRestriction, fMode)
+					var value = @reqExpression(eMode + .ImplicitMember + .NoRestriction, fMode)
 
-			// 		set @yep(AST.BinaryExpression(identifier, @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, equals)), expression, identifier, expression))
-			// 	}
-			// 	else {
-			// 		return NO
-			// 	}
-
-			// var statement = @altRestrictiveExpression(expression, fMode)
-
-			var mut statement: Event<NodeData(Expression)>(Y)? = null
-
-			if @match(Token.COMMA, Token.EQUALS) == Token.COMMA {
-				unless identifier.value.kind == NodeKind.Identifier || identifier.value.kind == NodeKind.ArrayBinding || identifier.value.kind == NodeKind.ObjectBinding {
+					set @yep(AST.BinaryExpression(identifier, @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, equals)), value, identifier, value))
+				}
+				else {
 					return NO
 				}
 
-				var variables = [identifier]
-
-				do {
-					@commit()
-
-					variables.push(@reqVariableIdentifier(fMode))
-				}
-				while @test(Token.COMMA)
-
-				if @test(Token.EQUALS) {
-					@validateAssignable(identifier.value)
-
-					@commit().NL_0M()
-
-					unless @test(Token.AWAIT) {
-						@throw('await')
-					}
-
-					var operand = @reqPrefixedOperand(eMode, fMode)
-
-					statement = @yep(AST.AwaitExpression([], variables, operand, identifier, operand))
-				}
-				else {
-					@throw('=')
-				}
-			}
-			else if @token == Token.EQUALS {
-				@validateAssignable(identifier.value)
-
-				var equals = @yes()
-
-				@NL_0M()
-
-				var expression = @reqExpression(eMode + .ImplicitMember + .NoRestriction, fMode)
-
-				statement = @yep(AST.BinaryExpression(identifier, @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, equals)), expression, identifier, expression))
-			}
-			else {
-				return NO
-			}
-
-			statement = @altRestrictiveExpression(statement, fMode)
+			var statement = @altRestrictiveExpression(expression, fMode)
 
 			return @yep(AST.ExpressionStatement(statement))
 		} # }}}
@@ -10933,9 +10878,7 @@ export namespace Parser {
 
 			var property = @tryObjectItem(true, first, eMode, fMode)
 
-			// TODO!
-			// if !?|property || property.value is .ObjectComprehension {
-			if !?|property || property.value.kind == NodeKind.ObjectComprehension {
+			if !?|property || property.value is .ObjectComprehension {
 				return property
 			}
 
@@ -11091,15 +11034,10 @@ export namespace Parser {
 
 				return @altRestrictiveExpression(expression, fMode)
 			}
-			// TODO!
-			// else if name.value is .Identifier {
-			else if name.value.kind == .Identifier {
+			else {
 				var expression = @yep(AST.ShorthandProperty(attributes, name, first ?? name, name))
 
 				return @altRestrictiveExpression(expression, fMode)
-			}
-			else {
-				return @no(':')
 			}
 		} # }}}
 

@@ -1409,10 +1409,7 @@ namespace AST {
 		func Literal(
 			modifiers: Event<ModifierData>(Y)[]?
 			value: String
-			// TODO!
-			// { start } & first: Range
-			// { end }: Range = first
-			first: Range
+			{ start } & first: Range
 			{ end }: Range = first
 		): NodeData(Literal) { # {{{
 			return {
