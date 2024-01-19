@@ -60,6 +60,7 @@ export namespace Parser {
 		NoAwait
 		NoInlineCascade
 		NoMultiLine
+		NoNull
 		NoObject
 		NoRestriction
 		Pipeline
@@ -12140,7 +12141,7 @@ export namespace Parser {
 			var type = @tryTypeNamed(modifiers, eMode)
 
 			if type.ok {
-				return @altTypeContainer(type)
+				return @altTypeContainer(type, eMode !~ .NoNull)
 			}
 			else {
 				return NO
@@ -12678,12 +12679,13 @@ export namespace Parser {
 					.LEFT_ANGLE {
 						@commit()
 
-						var types = [@reqType()]
+						var mode: ExpressionMode = .InlineOnly + .NoNull
+						var types = [@reqType(mode)]
 
 						while @test(.COMMA) {
 							@commit()
 
-							types.push(@reqType())
+							types.push(@reqType(mode))
 						}
 
 						unless @test(.RIGHT_ANGLE) {
