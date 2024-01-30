@@ -5152,8 +5152,8 @@ export namespace Parser {
 				}
 				else {
 					modifiers
-							..push(AST.Modifier(ModifierKind.Declarative, first))
-							..push(modifier) if ?modifier
+						..push(AST.Modifier(ModifierKind.Declarative, first))
+						..push(modifier) if ?modifier
 
 					declaration = true
 				}
@@ -5605,7 +5605,7 @@ export namespace Parser {
 			operator: Event<BinaryOperatorData>(Y)
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-			values: NodeData(Expression)[]
+			values: NodeData(Expression, Type)[]
 			type: Boolean
 		): NodeData(JunctionExpression) ~ SyntaxError # {{{
 		{
@@ -5613,7 +5613,7 @@ export namespace Parser {
 
 			eMode += ExpressionMode.ImplicitMember
 
-			var operands = [values.pop()]
+			var operands: NodeData(Expression, Type)[] = [values.pop()]
 
 			if type {
 				operands.push(@reqTypeLimited(false).value)
@@ -5664,7 +5664,7 @@ export namespace Parser {
 		} # }}}
 
 		reqMacroElements(
-			elements: Event<MacroElementData(Expression, Literal)>(Y)[]
+			elements: Event<MacroElementData(Expression, Literal, NewLine)>(Y)[]
 			terminator: MacroTerminator
 		): Void ~ SyntaxError # {{{
 		{
@@ -6438,7 +6438,7 @@ export namespace Parser {
 					@throw(delimiter == Token.ML_BACKQUOTE ? '```' : '~~~')
 				}
 				else {
-					var line = [currentIndent]
+					var line: [] = [currentIndent]
 
 					repeat {
 						if @matchM(M.TEMPLATE) == Token.TEMPLATE_ELEMENT {
@@ -6883,8 +6883,8 @@ export namespace Parser {
 
 			if ?positionalModifier || ?namedModifier {
 				var modifiers = []
-				modifiers.push(mutModifier) if ?mutModifier
-				modifiers.push(?positionalModifier ? positionalModifier : namedModifier)
+					..push(mutModifier) if ?mutModifier
+					..push(?positionalModifier ? positionalModifier : namedModifier!?)
 
 				return @reqParameterIdentifier(attributes, modifiers, external, null, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? positionalModifier, pMode, fMode)
 			}
@@ -7691,7 +7691,7 @@ export namespace Parser {
 					statement = @reqRepeatStatement(@yes(), fMode)
 				}
 				Token.RETURN {
-					statement = @tryReturnStatement(@yes(), .Nil, fMode)
+					statement = @tryReturnStatement(@yes(), .ImplicitMember, fMode)
 				}
 				Token.SEALED {
 					var first = @yes()
@@ -11119,7 +11119,8 @@ export namespace Parser {
 				return operand unless operand.ok
 			}
 
-			var values: NodeData(Expression)[] = [operand.value]
+			// var values: NodeData(Expression)[] = [operand.value]
+			var values: NodeData(Expression, Type)[] = [operand.value]
 			// var values: BinaryOperationData[] = [operand.value]
 
 			var mut type = false
@@ -11134,7 +11135,8 @@ export namespace Parser {
 
 					match operator.value.kind {
 						BinaryOperatorKind.Assignment {
-							@validateAssignable(values[values.length - 1])
+							// @validateAssignable(values[values.length - 1])
+							@validateAssignable(values[values.length - 1]!!)
 						}
 						BinaryOperatorKind.ForwardPipeline {
 							mode += ExpressionMode.Pipeline
@@ -11233,7 +11235,8 @@ export namespace Parser {
 					values.push(@reqExpression(.ImplicitMember, fMode).value)
 				}
 				else if (operator <- @tryJunctionOperator()).ok {
-					values.push(@reqJunctionExpression(operator, eMode, fMode, values, type))
+					// values.push(@reqJunctionExpression(operator, eMode, fMode, values, type))
+					values.push(@reqJunctionExpression(operator, eMode, fMode, values!!, type))
 				}
 				else {
 					@rollback(mark)
@@ -11247,10 +11250,12 @@ export namespace Parser {
 			}
 
 			if values.length == 1 {
-				return @yep(values[0]!?)
+				// return @yep(values[0])
+				return @yep(values[0]!!)
 			}
 			else {
-				return @yep(AST.reorderExpression(values))
+				// return @yep(AST.reorderExpression(values))
+				return @yep(AST.reorderExpression(values!!))
 			}
 		} # }}}
 
