@@ -1313,7 +1313,8 @@ export namespace Parser {
 							staticModifier
 						]
 						MemberBits.Method
-						(first ?? staticModifier)!!
+						// TODO!
+						(first ?? staticModifier):!!(Range?)
 					)
 
 					if member.ok {
@@ -1942,14 +1943,14 @@ export namespace Parser {
 			if bits ~~ MemberBits.NoBody {
 				@reqNL_1M()
 
-				return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, null, first, (throws ?? type ?? parameters)!!))
+				return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, null, first, (throws ?? type ?? parameters):!!(Range)))
 			}
 			else {
 				var body = @tryFunctionBody(modifiers, FunctionMode.Method)
 
 				@reqNL_1M()
 
-				return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, body, first, (body ?? throws ?? type ?? parameters)!!))
+				return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, body, first, (body ?? throws ?? type ?? parameters):!!(Range)))
 			}
 		} # }}}
 
@@ -2966,7 +2967,7 @@ export namespace Parser {
 							staticModifier
 						]
 						MemberBits.Method
-						(first ?? staticModifier)!!
+						(first ?? staticModifier):!!(Range)
 					)
 
 					if member.ok {
@@ -3002,7 +3003,7 @@ export namespace Parser {
 							constModifier
 						]
 						MemberBits.Variable
-						(first ?? constModifier)!!
+						(first ?? constModifier):!!(Range)
 					)
 
 					if member.ok {
@@ -3051,7 +3052,7 @@ export namespace Parser {
 
 			@reqNL_1M()
 
-			return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, body, first, (body ?? throws ?? type ?? parameters)!!))
+			return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, throws, body, first, (body ?? throws ?? type ?? parameters):!!(Range)))
 		} # }}}
 
 		reqEnumStatement(
@@ -3602,7 +3603,7 @@ export namespace Parser {
 				return @yep(AST.ClassDeclaration(attributes, modifiers, name, typeParameters, null, extends, implements, members, first, @yes()))
 			}
 			else {
-				return @yep(AST.ClassDeclaration([], modifiers, name, typeParameters, null, extends, implements, [], first, (extends ?? typeParameters ?? name)!!))
+				return @yep(AST.ClassDeclaration([], modifiers, name, typeParameters, null, extends, implements, [], first, (extends ?? typeParameters ?? name):!!(Range)))
 			}
 		} # }}}
 
@@ -3616,7 +3617,7 @@ export namespace Parser {
 		{
 			@reqNL_1M()
 
-			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, null, first, (type ?? name)!!))
+			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, null, first, (type ?? name):!!(Range)))
 		} # }}}
 
 		reqExternClassMember(
@@ -3762,7 +3763,7 @@ export namespace Parser {
 
 			@reqNL_1M()
 
-			return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, null, null, first, (type ?? parameters)!!))
+			return @yep(AST.MethodDeclaration(attributes, modifiers, name, typeParameters, parameters, type, null, null, first, (type ?? parameters):!!(Range)))
 		} # }}}
 
 		reqExternFunctionDeclaration(
@@ -3778,14 +3779,14 @@ export namespace Parser {
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
-				return @yep(AST.FunctionDeclaration(name, typeParameters, parameters, modifiers, type, throws, null, first, (throws ?? type ?? parameters)!!))
+				return @yep(AST.FunctionDeclaration(name, typeParameters, parameters, modifiers, type, throws, null, first, (throws ?? type ?? parameters):!!(Range)))
 			}
 			else {
 				var position = @yep()
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
-				return @yep(AST.FunctionDeclaration(name, typeParameters, null, modifiers, type, throws, null, first, (throws ?? type ?? name)!!))
+				return @yep(AST.FunctionDeclaration(name, typeParameters, null, modifiers, type, throws, null, first, (throws ?? type ?? name):!!(Range)))
 			}
 		} # }}}
 
@@ -3919,7 +3920,7 @@ export namespace Parser {
 				var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 
-				return @yep(AST.FunctionDeclaration(name, null, parameters, [], type, null, null, name, (type ?? parameters)!!))
+				return @yep(AST.FunctionDeclaration(name, null, parameters, [], type, null, null, name, (type ?? parameters):!!(Range)))
 			}
 			else {
 				return @yep(AST.VariableDeclarator([], name, null, name, name))
@@ -5355,7 +5356,7 @@ export namespace Parser {
 				when = @relocate(@reqExpression(.Nil, fMode), first, null)
 			}
 
-			return @yep(AST.IterationFrom(modifiers, variable, from, to, step, until, while, when, first, (when ?? while ?? until ?? step ?? to)!!))
+			return @yep(AST.IterationFrom(modifiers, variable, from, to, step, until, while, when, first, (when ?? while ?? until ?? step ?? to):!!(Range)))
 		} # }}}
 
 		reqIterationIn(
@@ -5464,7 +5465,7 @@ export namespace Parser {
 				when = @relocate(@reqExpression(.Nil, fMode), first, null)
 			}
 
-			return @yep(AST.IterationArray(modifiers, value, type, index, expression, from, to, step, split, until, while, when, first, (when ?? while ?? until ?? split ?? step ?? to ?? order ?? from ?? expression)!!))
+			return @yep(AST.IterationArray(modifiers, value, type, index, expression, from, to, step, split, until, while, when, first, (when ?? while ?? until ?? split ?? step ?? to ?? order ?? from ?? expression):!!(Range)))
 		} # }}}
 
 		reqIterationInRange(
@@ -5558,7 +5559,7 @@ export namespace Parser {
 				whenExp = @relocate(@reqExpression(.Nil, fMode), first, null)
 			}
 
-			return @yep(AST.IterationObject(modifiers, value, type, key, expression, until, while, whenExp, first, (whenExp ?? while ?? until ?? expression)!!))
+			return @yep(AST.IterationObject(modifiers, value, type, key, expression, until, while, whenExp, first, (whenExp ?? while ?? until ?? expression):!!(Range)))
 		} # }}}
 
 		reqIterationRange(
@@ -5598,7 +5599,7 @@ export namespace Parser {
 				when = @relocate(@reqExpression(.Nil, fMode), first, null)
 			}
 
-			return @yep(AST.IterationRange(modifiers, value, index, from, to, filter, until, while, when, first, (when ?? while ?? until ?? filter ?? to ?? from)!!))
+			return @yep(AST.IterationRange(modifiers, value, index, from, to, filter, until, while, when, first, (when ?? while ?? until ?? filter ?? to ?? from):!!(Range)))
 		} # }}}
 
 		reqJunctionExpression(
@@ -6616,7 +6617,7 @@ export namespace Parser {
 
 			var modifiers = [@yep(AST.Modifier(ModifierKind.MultiLine, first, last))]
 
-			return @yep(AST.TemplateExpression(modifiers, elements, first, last!!))
+			return @yep(AST.TemplateExpression(modifiers, elements, first, last:!!(Range)))
 		} # }}}
 
 		reqNameIB(): Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>(Y) ~ SyntaxError # {{{
@@ -6856,7 +6857,7 @@ export namespace Parser {
 				var modifiers = []
 				modifiers.push(mutModifier) if ?mutModifier
 
-				return @reqParameterRest(attributes, modifiers, external, (firstAttr ?? mutModifier ?? first)!!, pMode, fMode)
+				return @reqParameterRest(attributes, modifiers, external, (firstAttr ?? mutModifier ?? first):!!(Range), pMode, fMode)
 			}
 
 			if @test(Token.AT) {
@@ -6918,7 +6919,7 @@ export namespace Parser {
 						else if @test(Token.DOT_DOT_DOT) {
 							@commit()
 
-							return @reqParameterRest(attributes, modifiers, identifier, (firstAttr ?? mutModifier ?? identifier)!!, pMode, fMode)
+							return @reqParameterRest(attributes, modifiers, identifier, (firstAttr ?? mutModifier ?? identifier):!!(Range), pMode, fMode)
 						}
 						else if @test(Token.AT) {
 							@throw() if ?mutModifier
@@ -7223,7 +7224,7 @@ export namespace Parser {
 		reqParenthesis(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(SequenceExpression)>(Y) ~ SyntaxError # {{{
+		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -7248,7 +7249,7 @@ export namespace Parser {
 
 				@relocate(expression, first, @yes())
 
-				return expression
+				return expression!!
 			}
 			else {
 				return @yep(AST.SequenceExpression(expressions, first, @yes()))
@@ -8148,7 +8149,7 @@ export namespace Parser {
 						var type = @tryFunctionReturns(eMode, false)
 						var throws = @tryFunctionThrows()
 
-						var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, (throws ?? type ?? parameters)!!))
+						var objectType = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, parameters, (throws ?? type ?? parameters):!!(Range)))
 
 						var property = @yep(AST.PropertyType([], identifier, objectType, identifier, objectType))
 
@@ -8170,7 +8171,7 @@ export namespace Parser {
 						var type = @tryFunctionReturns(eMode, false)
 						var throws = @tryFunctionThrows()
 
-						var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, (throws ?? type ?? parameters)!!))
+						var objectType = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, (throws ?? type ?? parameters):!!(Range)))
 
 						var property = @yep(AST.PropertyType([], identifier, objectType, identifier, objectType))
 
@@ -8244,7 +8245,7 @@ export namespace Parser {
 							var return = @tryFunctionReturns(eMode)
 							var throws = @tryFunctionThrows()
 
-							type = @yep(AST.FunctionExpression(parameters, null, return, throws, null, parameters, (throws ?? return ?? parameters)!!))
+							type = @yep(AST.FunctionExpression(parameters, null, return, throws, null, parameters, (throws ?? return ?? parameters):!!(Range)))
 						}
 						else if @test(.COLON) {
 							@commit()
@@ -9255,7 +9256,7 @@ export namespace Parser {
 
 			@reqNL_1M()
 
-			return @yep(AST.BitmaskValue(attributes, modifiers, name, value, (first ?? name)!!, (value ?? name)!!))
+			return @yep(AST.BitmaskValue(attributes, modifiers, name, value, (first ?? name):!!(Range), (value ?? name):!!(Range)))
 		} # }}}
 
 		tryBlock(
@@ -9766,7 +9767,7 @@ export namespace Parser {
 
 			@reqNL_1M()
 
-			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, (first ?? name)!!, (value ?? type ?? name)!!))
+			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, (first ?? name):!!(Range), (value ?? type ?? name):!!(Range)))
 		} # }}}
 
 		tryCommaNL0M(): Boolean ~ SyntaxError # {{{
@@ -10092,7 +10093,7 @@ export namespace Parser {
 
 			@reqNL_1M()
 
-			return @yep(AST.EnumValue(attributes, modifiers, name, value, arguments, (first ?? name)!!, (value ?? name)!!))
+			return @yep(AST.EnumValue(attributes, modifiers, name, value, arguments, (first ?? name):!!(Range), (value ?? name):!!(Range)))
 		} # }}}
 
 		tryEnumVariable(
@@ -10127,7 +10128,7 @@ export namespace Parser {
 
 			@reqNL_1M()
 
-			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, (first ?? name)!!, (value ?? type ?? name)!!))
+			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, (first ?? name):!!(Range), (value ?? type ?? name):!!(Range)))
 		} # }}}
 
 		tryExpression(
@@ -10568,7 +10569,8 @@ export namespace Parser {
 
 				@popMode(tracker)
 
-				return @yep(AST.IfExpression(condition, declaration, whenTrue, whenFalse!!, first, whenFalse!!))
+				// TODO!
+				return @yep(AST.IfExpression(condition, declaration, whenTrue, whenFalse:!!(Event<NodeData(Block)>(Y)), first, whenFalse:!!(Range)))
 			}
 		} # }}}
 
@@ -11251,18 +11253,18 @@ export namespace Parser {
 
 			if values.length == 1 {
 				// return @yep(values[0])
-				return @yep(values[0]!!)
+				return @yep(values[0]!!):!!(Any)!!
 			}
 			else {
 				// return @yep(AST.reorderExpression(values))
-				return @yep(AST.reorderExpression(values!!))
+				return @yep(AST.reorderExpression(values!!)):!!(Any)!!
 			}
 		} # }}}
 
 		tryParenthesis(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(SequenceExpression)> ~ SyntaxError # {{{
+		): Event<NodeData(Expression)> ~ SyntaxError # {{{
 		{
 			try {
 				return @reqParenthesis(first, fMode)
@@ -12097,7 +12099,7 @@ export namespace Parser {
 					var type = @tryFunctionReturns(eMode, false)
 					var throws = @tryFunctionThrows()
 
-					var func = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, async, (throws ?? type ?? parameters)!!))
+					var func = @yep(AST.FunctionExpression(parameters, modifiers, type, throws, null, async, (throws ?? type ?? parameters):!!(Range)))
 
 					return @altTypeContainer(func)
 				}
@@ -12113,7 +12115,7 @@ export namespace Parser {
 					var type = @tryFunctionReturns(eMode, false)
 					var throws = @tryFunctionThrows()
 
-					var func = @yep(AST.FunctionExpression(parameters, null, type, throws, null, first, (throws ?? type ?? parameters)!!))
+					var func = @yep(AST.FunctionExpression(parameters, null, type, throws, null, first, (throws ?? type ?? parameters):!!(Range)))
 
 					return @altTypeContainer(func)
 				}
@@ -12138,7 +12140,7 @@ export namespace Parser {
 				var type = @tryFunctionReturns(eMode, false)
 				var throws = @tryFunctionThrows()
 
-				var func = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, (throws ?? type ?? parameters)!!))
+				var func = @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, (throws ?? type ?? parameters):!!(Range)))
 
 				return @altTypeContainer(func)
 			}
@@ -12459,7 +12461,7 @@ export namespace Parser {
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
-				return @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, (throws ?? type ?? parameters)!!))
+				return @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, (throws ?? type ?? parameters):!!(Range)))
 			}
 
 			if @test(Token.LEFT_CURLY) {
@@ -12581,7 +12583,8 @@ export namespace Parser {
 
 						var arguments = @reqArgumentList(eMode, fMode)
 
-						value = @yep(AST.CallExpression([], AST.Scope(.Argument, arguments.value.shift()!!), value, arguments, value, @yes()))
+						// TODO!
+						value = @yep(AST.CallExpression([], AST.Scope(.Argument, arguments.value.shift():!!(Event<NodeData(Identifier)>(Y))), value, arguments, value, @yes()))
 					}
 					.CARET_CARET_LEFT_ROUND {
 						@commit()
@@ -12595,7 +12598,7 @@ export namespace Parser {
 
 						var arguments = @reqArgumentList(eMode + .Curry, fMode)
 
-						value = @yep(AST.CurryExpression(AST.Scope(.Argument, arguments.value.shift()!!), value, arguments, value, @yes()))
+						value = @yep(AST.CurryExpression(AST.Scope(.Argument, arguments.value.shift():!!(Event<NodeData(Identifier)>(Y))), value, arguments, value, @yes()))
 					}
 					.COLON_AMPERSAND_LEFT_ROUND {
 						first = @yes()

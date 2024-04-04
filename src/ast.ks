@@ -485,7 +485,7 @@ namespace AST {
 				modifiers: []
 				start
 				end
-			}!!
+			}:!!(Any)!!
 		} # }}}
 
 		func BinaryOperator(
@@ -498,7 +498,7 @@ namespace AST {
 				modifiers
 				start
 				end
-			}!!
+			}:!!(Any)!!
 		} # }}}
 
 		func BitmaskDeclaration(
@@ -678,11 +678,11 @@ namespace AST {
 			{ start, end }: Range
 		): NodeData(ConditionalExpression) { # {{{
 			return {
-				kind: .ConditionalExpression
+				kind: NodeKind.ConditionalExpression
 				modifiers: []
 				start
 				end
-			}!!
+			}:!!(Any)!!
 		} # }}}
 
 		func ContinueStatement(
@@ -1694,7 +1694,7 @@ namespace AST {
 				kind: kind
 				start
 				end: last?.end ?? end
-			}!!
+			}:!!(Any)!!
 		} # }}}
 
 		func Module(
@@ -2158,7 +2158,7 @@ namespace AST {
 				kind: kind
 				start
 				end
-			}!!
+			}:!!(Any)!!
 		} # }}}
 
 		func RepeatStatement(
@@ -2265,7 +2265,7 @@ namespace AST {
 				modifiers: []
 				start
 				end
-			}!!
+			}:!!(Any)!!
 		} # }}}
 
 		func ReturnStatement(
@@ -2739,7 +2739,7 @@ namespace AST {
 				kind: operator
 				start
 				end
-			}!!
+			}:!!(Any)!!
 		} # }}}
 
 		func UnaryTypeExpression(
@@ -2767,7 +2767,7 @@ namespace AST {
 				kind: operator
 				start
 				end
-			}!!
+			}:!!(Any)!!
 		} # }}}
 
 		func UnionType(
