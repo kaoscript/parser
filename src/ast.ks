@@ -239,7 +239,10 @@ namespace AST {
 		} # }}}
 
 		func ArrayBindingElement(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
+			// TODO!
+			// internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>
 			internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>(Y)?
 			type: Event<NodeData(Type)>(Y)?
 			operator: Event<BinaryOperatorData(Assignment)>(Y)?
@@ -249,7 +252,10 @@ namespace AST {
 		): NodeData(BindingElement) { # {{{
 			return {
 				kind: .BindingElement
+				attributes: [attribute.value for var attribute in attributes] if ?#attributes
 				modifiers
+				// TODO!
+				// internal: internal.value if ?]internal
 				internal: internal.value if ?internal
 				type: type.value if ?type
 				operator: operator.value if ?operator
@@ -477,6 +483,9 @@ namespace AST {
 		} # }}}
 
 		func BinaryOperator(
+			// TODO!
+			// operator: BinaryOperatorKind(-Assignment)
+			// operator: BinaryOperatorKind(name != Assignment)
 			operator: BinaryOperatorKind
 			{ start, end }: Range
 		): BinaryOperatorData { # {{{
@@ -485,7 +494,7 @@ namespace AST {
 				modifiers: []
 				start
 				end
-			}:!!(Any)!!
+			}!!!
 		} # }}}
 
 		func BinaryOperator(
@@ -498,7 +507,7 @@ namespace AST {
 				modifiers
 				start
 				end
-			}:!!(Any)!!
+			}!!!
 		} # }}}
 
 		func BitmaskDeclaration(
@@ -626,9 +635,9 @@ namespace AST {
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			name: Event<NodeData(Identifier)>(Y)
-			typeParameters: Event<Event<NodeData(TypeParameter)>[]>?
-			version: Event<VersionData>(Y)?
-			extends: Event<NodeData(Identifier, MemberExpression)>(Y)?
+			typeParameters: Event<Event<NodeData(TypeParameter)>[]>
+			version: Event<VersionData>
+			extends: Event<NodeData(Identifier, MemberExpression)>
 			implements: Event<NodeData(Identifier, MemberExpression)>(Y)[]
 			members: Event<NodeData(ClassMember)>(Y)[]
 			{ start }: Range
@@ -639,9 +648,9 @@ namespace AST {
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
-				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?typeParameters
-				version: version.value if ?version
-				extends: extends.value if ?extends
+				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?]typeParameters
+				version: version.value if ?]version
+				extends: extends.value if ?]extends
 				implements: [implement.value for var implement in implements] if ?#implements
 				members: [member.value for var member in members]
 				start
@@ -682,7 +691,7 @@ namespace AST {
 				modifiers: []
 				start
 				end
-			}:!!(Any)!!
+			}!!!
 		} # }}}
 
 		func ContinueStatement(
@@ -730,7 +739,7 @@ namespace AST {
 
 		func DiscloseDeclaration(
 			name: Event<NodeData(Identifier)>(Y)
-			typeParameters: Event<Event<NodeData(TypeParameter)>[]>?
+			typeParameters: Event<Event<NodeData(TypeParameter)>[]>
 			members: Event<NodeData(ClassMember)>(Y)[]
 			{ start }: Range
 			{ end }: Range
@@ -739,7 +748,7 @@ namespace AST {
 				kind: .DiscloseDeclaration
 				attributes: []
 				name: name.value
-				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?typeParameters
+				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?]typeParameters && ?#typeParameters.value
 				members: [member.value for var member in members]
 				start
 				end
@@ -980,7 +989,7 @@ namespace AST {
 
 		func FunctionDeclaration(
 			name: Event<NodeData(Identifier)>(Y)
-			typeParameters: Event<Event<NodeData(TypeParameter)>[]>?
+			typeParameters: Event<Event<NodeData(TypeParameter)>[]>
 			parameters: Event<Event<NodeData(Parameter)>(Y)[]>(Y)?
 			modifiers: Event<ModifierData>(Y)[]?
 			type: Event<NodeData(Type)>?
@@ -994,7 +1003,7 @@ namespace AST {
 				attributes: []
 				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
 				name: name.value
-				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?typeParameters
+				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?]typeParameters && ?#typeParameters.value
 				parameters: [parameter.value for var parameter in parameters.value] if ?parameters
 				type: type.value if ?type
 				throws: ?throws ? [throw.value for var throw in throws.value]: []
@@ -1224,6 +1233,7 @@ namespace AST {
 		} # }}}
 
 		func IterationArray(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
 			modifiers: ModifierData[]
 			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
 			type:  Event<NodeData(Type)>
@@ -1241,6 +1251,7 @@ namespace AST {
 		): IterationData(Array) { # {{{
 			return {
 				kind: .Array
+				attributes: [attribute.value for var attribute in attributes] if ?#attributes
 				modifiers
 				expression: expression.value
 				value: value.value if value.ok
@@ -1259,6 +1270,7 @@ namespace AST {
 		} # }}}
 
 		func IterationFrom(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
 			modifiers: ModifierData[]
 			variable: Event<NodeData(Identifier)>(Y)
 			from: Event<NodeData(Expression)>(Y)
@@ -1272,6 +1284,7 @@ namespace AST {
 		): IterationData(From) { # {{{
 			return {
 				kind: .From
+				attributes: [attribute.value for var attribute in attributes] if ?#attributes
 				modifiers
 				variable: variable.value
 				from: from.value
@@ -1286,6 +1299,7 @@ namespace AST {
 		} # }}}
 
 		func IterationObject(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
 			modifiers: ModifierData[]
 			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
 			type:  Event<NodeData(Type)>
@@ -1299,6 +1313,7 @@ namespace AST {
 		): IterationData(Object) { # {{{
 			return {
 				kind: .Object
+				attributes: [attribute.value for var attribute in attributes] if ?#attributes
 				modifiers
 				expression: expression.value
 				value: value.value if value.ok
@@ -1313,6 +1328,7 @@ namespace AST {
 		} # }}}
 
 		func IterationRange(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
 			modifiers: ModifierData[]
 			value: Event<NodeData(Identifier)>
 			index: Event<NodeData(Identifier)>
@@ -1327,6 +1343,7 @@ namespace AST {
 		): IterationData(Range) { # {{{
 			return {
 				kind: .Range
+				attributes: [attribute.value for var attribute in attributes] if ?#attributes
 				modifiers
 				value: value.value
 				index: index.value if index.ok
@@ -1342,7 +1359,7 @@ namespace AST {
 		} # }}}
 
 		func IterationRepeat(
-			modifiers
+			modifiers: ModifierData[]
 			expression: Event<NodeData(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
@@ -1662,7 +1679,7 @@ namespace AST {
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			name: Event<NodeData(Identifier)>(Y)
-			typeParameters: Event<Event<NodeData(TypeParameter)>[]>?
+			typeParameters: Event<Event<NodeData(TypeParameter)>[]>
 			parameters: Event<Event<NodeData(Parameter)>(Y)[]>(Y)
 			type: Event<NodeData(Type)>?
 			throws: Event<Event<NodeData(Identifier)>[]>?
@@ -1675,7 +1692,7 @@ namespace AST {
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers: [modifier.value for var modifier in modifiers]
 				name: name.value
-				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?typeParameters
+				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?]typeParameters && ?#typeParameters.value
 				parameters: [parameter.value for var parameter in parameters.value]
 				type: type.value if ?type
 				throws: ?throws ? [throw.value for var throw in throws.value]: []
@@ -1694,7 +1711,7 @@ namespace AST {
 				kind: kind
 				start
 				end: last?.end ?? end
-			}:!!(Any)!!
+			}!!!
 		} # }}}
 
 		func Module(
@@ -1831,6 +1848,7 @@ namespace AST {
 		} # }}}
 
 		func ObjectBindingElement(
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
 			external: Event<NodeData(Identifier)>(Y)?
 			internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>(Y)?
@@ -1842,6 +1860,7 @@ namespace AST {
 		): NodeData(BindingElement) { # {{{
 			return {
 				kind: .BindingElement
+				attributes: [attribute.value for var attribute in attributes] if ?#attributes
 				modifiers
 				external: external.value if ?external
 				internal: internal.value if ?internal
@@ -2158,7 +2177,7 @@ namespace AST {
 				kind: kind
 				start
 				end
-			}:!!(Any)!!
+			}!!!
 		} # }}}
 
 		func RepeatStatement(
@@ -2265,7 +2284,7 @@ namespace AST {
 				modifiers: []
 				start
 				end
-			}:!!(Any)!!
+			}!!!
 		} # }}}
 
 		func ReturnStatement(
@@ -2320,7 +2339,7 @@ namespace AST {
 
 		func Scope(
 			scope: ScopeKind
-			value: Event<NodeData(Identifier, ObjectExpression)>(Y)
+			value: Event<NodeData(Argument, Identifier, ObjectExpression)>(Y)
 		): ScopeData { # {{{
 			return {
 				kind: scope
@@ -2629,7 +2648,7 @@ namespace AST {
 
 		func TypeAliasDeclaration(
 			name: Event<NodeData(Identifier)>(Y)
-			parameters: Event<Event<NodeData(TypeParameter)>[]>?
+			parameters: Event<Event<NodeData(TypeParameter)>[]>
 			type: Event<NodeData(Type)>(Y)
 			{ start }: Range
 			{ end }: Range
@@ -2638,7 +2657,7 @@ namespace AST {
 				kind: .TypeAliasDeclaration
 				attributes: []
 				name: name.value
-				typeParameters: [parameter.value for var parameter in parameters.value] if ?parameters
+				typeParameters: [parameter.value for var parameter in parameters.value] if ?]parameters && ?#parameters.value
 				type: type.value
 				start
 				end
@@ -2691,7 +2710,7 @@ namespace AST {
 		func TypeReference(
 			modifiers: Event<ModifierData>(Y)[]
 			name: Event<NodeData(Identifier, MemberExpression, UnaryExpression)>(Y)
-			parameters: Event<Event<NodeData(Type)>(Y)[]>(Y)?
+			parameters: Event<Event<NodeData(Type)>(Y)[]>?
 			subtypes: Event<Event<NodeData(Identifier)>(Y)[] | NodeData(Expression)>(Y)?
 			{ start }: Range
 			{ end }: Range
@@ -2739,7 +2758,7 @@ namespace AST {
 				kind: operator
 				start
 				end
-			}:!!(Any)!!
+			}!!!
 		} # }}}
 
 		func UnaryTypeExpression(
@@ -2767,7 +2786,7 @@ namespace AST {
 				kind: operator
 				start
 				end
-			}:!!(Any)!!
+			}!!!
 		} # }}}
 
 		func UnionType(

@@ -37,8 +37,8 @@ enum Token {
 	COLON
 	COLON_AMPERSAND_LEFT_ROUND
 	COLON_AMPERSAND_QUESTION_LEFT_ROUND
-	COLON_EXCLAMATION_LEFT_ROUND
 	COLON_EXCLAMATION_EXCLAMATION_LEFT_ROUND
+	COLON_EXCLAMATION_EXCLAMATION_EXCLAMATION_LEFT_ROUND
 	COLON_RIGHT_ANGLE_LEFT_ROUND
 	COLON_RIGHT_ANGLE_QUESTION_LEFT_ROUND
 	COMMA
@@ -63,11 +63,12 @@ enum Token {
 	EXCLAMATION
 	EXCLAMATION_EQUALS
 	EXCLAMATION_EXCLAMATION
+	EXCLAMATION_EXCLAMATION_EXCLAMATION
 	EXCLAMATION_QUESTION
 	EXCLAMATION_QUESTION_EQUALS
 	EXCLAMATION_QUESTION_HASH_EQUALS
-	EXCLAMATION_QUESTION_PIPE_EQUALS
 	EXCLAMATION_QUESTION_PLUS_EQUALS
+	EXCLAMATION_QUESTION_RIGHT_SQUARE_EQUALS
 	EXCLAMATION_TILDE
 	EXPORT
 	EXTENDS
@@ -176,16 +177,16 @@ enum Token {
 	QUESTION_LEFT_ROUND
 	QUESTION_LEFT_SQUARE
 	QUESTION_OPERATOR
-	QUESTION_PIPE
-	QUESTION_PIPE_EQUALS
-	QUESTION_PIPE_PIPE
-	QUESTION_PIPE_PIPE_EQUALS
 	QUESTION_PLUS
 	QUESTION_PLUS_EQUALS
 	QUESTION_PLUS_PLUS
 	QUESTION_PLUS_PLUS_EQUALS
 	QUESTION_QUESTION
 	QUESTION_QUESTION_EQUALS
+	QUESTION_RIGHT_SQUARE
+	QUESTION_RIGHT_SQUARE_EQUALS
+	QUESTION_RIGHT_SQUARE_RIGHT_SQUARE
+	QUESTION_RIGHT_SQUARE_RIGHT_SQUARE_EQUALS
 	RADIX_NUMBER
 	REGEXP
 	REPEAT
@@ -307,7 +308,6 @@ enum Token {
 				if (c >= 65 && c <= 90) || (c >= 97 && c <= 122) {
 					var dyn index = scanner._index
 
-					var dyn c
 					while index < scanner._length &&
 					(
 						(c <- scanner._data.charCodeAt(index)) == 45 ||
@@ -966,7 +966,7 @@ enum Token {
 				}
 			} # }}}
 			.QUESTION { # {{{
-				if c == 0'?' && scanner.charAt(1) != 0'=' & 0'?' & 0'#' & 0'|' & 0'+' {
+				if c == 0'?' && scanner.charAt(1) != 0'=' & 0'?' & 0'#' & 0']' & 0'+' {
 					return scanner.next(1)
 				}
 			} # }}}
@@ -987,16 +987,6 @@ enum Token {
 			} # }}}
 			.QUESTION_HASH_HASH_EQUALS { # {{{
 				if c == 0'?' && scanner.charAt(1) == 0'#' && scanner.charAt(2) == 0'#' && scanner.charAt(3) == 0'=' {
-					return scanner.next(4)
-				}
-			} # }}}
-			.QUESTION_PIPE_EQUALS { # {{{
-				if c == 0'?' && scanner.charAt(1) == 0'|' && scanner.charAt(2) == 0'=' {
-					return scanner.next(3)
-				}
-			} # }}}
-			.QUESTION_PIPE_PIPE_EQUALS { # {{{
-				if c == 0'?' && scanner.charAt(1) == 0'|' && scanner.charAt(2) == 0'|' && scanner.charAt(3) == 0'=' {
 					return scanner.next(4)
 				}
 			} # }}}
@@ -1023,6 +1013,16 @@ enum Token {
 			.QUESTION_QUESTION_EQUALS { # {{{
 				if c == 63 && scanner.charAt(1) == 63 && scanner.charAt(2) == 61 {
 					return scanner.next(3)
+				}
+			} # }}}
+			.QUESTION_RIGHT_SQUARE_EQUALS { # {{{
+				if c == 0'?' && scanner.charAt(1) == 0']' && scanner.charAt(2) == 0'=' {
+					return scanner.next(3)
+				}
+			} # }}}
+			.QUESTION_RIGHT_SQUARE_RIGHT_SQUARE_EQUALS { # {{{
+				if c == 0'?' && scanner.charAt(1) == 0']' && scanner.charAt(2) == 0']' && scanner.charAt(3) == 0'=' {
+					return scanner.next(4)
 				}
 			} # }}}
 			.REPEAT { # {{{
@@ -1379,15 +1379,15 @@ namespace M {
 
 					return Token.EXCLAMATION_QUESTION_HASH_EQUALS
 				}
-				else if that.charAt(2) == 0'|' && that.charAt(3) == 0'=' {
-					that.next(4)
-
-					return Token.EXCLAMATION_QUESTION_PIPE_EQUALS
-				}
 				else if that.charAt(2) == 0'+' && that.charAt(3) == 0'=' {
 					that.next(4)
 
 					return Token.EXCLAMATION_QUESTION_PLUS_EQUALS
+				}
+				else if that.charAt(2) == 0']' && that.charAt(3) == 0'=' {
+					that.next(4)
+
+					return Token.EXCLAMATION_QUESTION_RIGHT_SQUARE_EQUALS
 				}
 			}
 		}
@@ -1505,18 +1505,6 @@ namespace M {
 					return Token.QUESTION_HASH_EQUALS
 				}
 			}
-			else if c == 0'|' {
-				if that.charAt(2) == 0'|' && that.charAt(3) == 0'?' {
-					that.next(4)
-
-					return Token.QUESTION_PIPE_PIPE_EQUALS
-				}
-				else if c == 0'=' {
-					that.next(3)
-
-					return Token.QUESTION_PIPE_EQUALS
-				}
-			}
 			else if c == 0'+' {
 				if that.charAt(2) == 0'+' && that.charAt(3) == 0'?' {
 					that.next(4)
@@ -1527,6 +1515,18 @@ namespace M {
 					that.next(3)
 
 					return Token.QUESTION_PLUS_EQUALS
+				}
+			}
+			else if c == 0']' {
+				if that.charAt(2) == 0']' && that.charAt(3) == 0'?' {
+					that.next(4)
+
+					return Token.QUESTION_RIGHT_SQUARE_RIGHT_SQUARE_EQUALS
+				}
+				else if c == 0'=' {
+					that.next(3)
+
+					return Token.QUESTION_RIGHT_SQUARE_EQUALS
 				}
 			}
 		}
@@ -1572,15 +1572,15 @@ namespace M {
 
 					return Token.EXCLAMATION_QUESTION_HASH_EQUALS
 				}
-				else if that.charAt(2) == 0'|' && that.charAt(3) == 0'=' {
-					that.next(4)
-
-					return Token.EXCLAMATION_QUESTION_PIPE_EQUALS
-				}
 				else if that.charAt(2) == 0'+' && that.charAt(3) == 0'=' {
 					that.next(4)
 
 					return Token.EXCLAMATION_QUESTION_PLUS_EQUALS
+				}
+				else if that.charAt(2) == 0']' && that.charAt(3) == 0'=' {
+					that.next(4)
+
+					return Token.EXCLAMATION_QUESTION_RIGHT_SQUARE_EQUALS
 				}
 			}
 			else if c == 126 {
@@ -1918,25 +1918,6 @@ namespace M {
 					}
 				}
 			}
-			else if c == 0'|' {
-				if that.charAt(2) == 0'=' {
-					that.next(3)
-
-					return Token.QUESTION_PIPE_EQUALS
-				}
-				else if that.charAt(2) == 0'|' {
-					if that.charAt(3) == 0'=' {
-						that.next(4)
-
-						return Token.QUESTION_PIPE_PIPE_EQUALS
-					}
-					else {
-						that.next(3)
-
-						return Token.QUESTION_PIPE_PIPE
-					}
-				}
-			}
 			else if c == 0'+' {
 				if that.charAt(2) == 0'=' {
 					that.next(3)
@@ -1953,6 +1934,25 @@ namespace M {
 						that.next(3)
 
 						return Token.QUESTION_PLUS_PLUS
+					}
+				}
+			}
+			else if c == 0']' {
+				if that.charAt(2) == 0'=' {
+					that.next(3)
+
+					return Token.QUESTION_RIGHT_SQUARE_EQUALS
+				}
+				else if that.charAt(2) == 0']' {
+					if that.charAt(3) == 0'=' {
+						that.next(4)
+
+						return Token.QUESTION_RIGHT_SQUARE_RIGHT_SQUARE_EQUALS
+					}
+					else {
+						that.next(3)
+
+						return Token.QUESTION_RIGHT_SQUARE_RIGHT_SQUARE
 					}
 				}
 			}
@@ -2793,18 +2793,18 @@ namespace M {
 		else if c == 0':' {
 			c = that.charAt(1)
 
-			if c == 0'!' {
-				if that.charAt(2) == 0'!' {
-					if that.charAt(3) == 0'(' {
-						that.next(4)
+			if c == 0'!' && that.charAt(2) == 0'!' {
+				if that.charAt(3) == 0'!' {
+					if that.charAt(4) == 0'(' {
+						that.next(5)
 
-						return Token.COLON_EXCLAMATION_EXCLAMATION_LEFT_ROUND
+						return Token.COLON_EXCLAMATION_EXCLAMATION_EXCLAMATION_LEFT_ROUND
 					}
 				}
-				else if that.charAt(2) == 0'(' {
-					that.next(3)
+				else if that.charAt(3) == 0'(' {
+					that.next(4)
 
-					return Token.COLON_EXCLAMATION_LEFT_ROUND
+					return Token.COLON_EXCLAMATION_EXCLAMATION_LEFT_ROUND
 				}
 			}
 			else if c == 0'&' {
@@ -2906,6 +2906,15 @@ namespace M {
 
 		return Token.INVALID
 	} # }}}
+	func POSTFIX_QUESTION(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
+		if that._data.charCodeAt(index) == 0'?' {
+			that.next(1)
+
+			return Token.QUESTION
+		}
+
+		return Token.INVALID
+	} # }}}
 	func POSTFIX_OPERATOR(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 		var dyn p = that._data.charCodeAt(index - 1)
 		var dyn c = that._data.charCodeAt(index)
@@ -2914,12 +2923,19 @@ namespace M {
 			return Token.INVALID
 		}
 		else if c == 0'!' {
-			if (c <- that.charAt(1)) == 33 {
-				that.next(2)
+			if (c <- that.charAt(1)) == 0'!' {
+				if that.charAt(2) == 0'!' {
+					that.next(3)
 
-				return Token.EXCLAMATION_EXCLAMATION
+					return Token.EXCLAMATION_EXCLAMATION_EXCLAMATION
+				}
+				else {
+					that.next(2)
+
+					return Token.EXCLAMATION_EXCLAMATION
+				}
 			}
-			else if c == 63 {
+			else if c == 0'?' {
 				that.next(2)
 
 				return Token.EXCLAMATION_QUESTION
@@ -2991,15 +3007,15 @@ namespace M {
 
 				return Token.QUESTION_HASH
 			}
-			else if c == 0'|' {
-				that.next(2)
-
-				return Token.QUESTION_PIPE
-			}
 			else if c == 0'+' {
 				that.next(2)
 
 				return Token.QUESTION_PLUS
+			}
+			else if c == 0']' {
+				that.next(2)
+
+				return Token.QUESTION_RIGHT_SQUARE
 			}
 			else if c != 9 & 32 & 0'=' {
 				that.next(1)

@@ -1,4 +1,4 @@
 extern foo, bar
 
-if var tt ?|= foo() {
+if var tt ?]= foo() {
 }

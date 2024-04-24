@@ -1,0 +1,418 @@
+{
+  "kind": 72,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 50,
+      "attributes": [],
+      "declarations": [
+        [
+          {
+            "kind": 132,
+            "attributes": [
+              {
+                "kind": 7,
+                "declaration": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "overwrite",
+                  "start": {
+                    "line": 2,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 16
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 5
+                },
+                "end": {
+                  "line": 2,
+                  "column": 17
+                }
+              }
+            ],
+            "modifiers": [
+              {
+                "kind": 11,
+                "start": {
+                  "line": 2,
+                  "column": 18
+                },
+                "end": {
+                  "line": 2,
+                  "column": 21
+                }
+              }
+            ],
+            "variables": [
+              {
+                "kind": 133,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "values",
+                  "start": {
+                    "line": 2,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 28
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 22
+                },
+                "end": {
+                  "line": 2,
+                  "column": 28
+                }
+              }
+            ],
+            "operator": {
+              "kind": 2,
+              "assignment": 17,
+              "start": {
+                "line": 2,
+                "column": 29
+              },
+              "end": {
+                "line": 2,
+                "column": 31
+              }
+            },
+            "value": {
+              "kind": 18,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "loadValues",
+                "start": {
+                  "line": 2,
+                  "column": 32
+                },
+                "end": {
+                  "line": 2,
+                  "column": 42
+                }
+              },
+              "arguments": [],
+              "start": {
+                "line": 2,
+                "column": 32
+              },
+              "end": {
+                "line": 2,
+                "column": 44
+              }
+            },
+            "start": {
+              "line": 2,
+              "column": 18
+            },
+            "end": {
+              "line": 2,
+              "column": 44
+            }
+          },
+          {
+            "kind": 18,
+            "modifiers": [],
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 69,
+              "modifiers": [],
+              "object": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "value",
+                "start": {
+                  "line": 2,
+                  "column": 48
+                },
+                "end": {
+                  "line": 2,
+                  "column": 53
+                }
+              },
+              "property": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "hasValues",
+                "start": {
+                  "line": 2,
+                  "column": 54
+                },
+                "end": {
+                  "line": 2,
+                  "column": 63
+                }
+              },
+              "start": {
+                "line": 2,
+                "column": 48
+              },
+              "end": {
+                "line": 2,
+                "column": 63
+              }
+            },
+            "arguments": [],
+            "start": {
+              "line": 2,
+              "column": 48
+            },
+            "end": {
+              "line": 2,
+              "column": 65
+            }
+          }
+        ],
+        [
+          {
+            "kind": 132,
+            "attributes": [
+              {
+                "kind": 7,
+                "declaration": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "overwrite",
+                  "start": {
+                    "line": 3,
+                    "column": 7
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 16
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 5
+                },
+                "end": {
+                  "line": 3,
+                  "column": 17
+                }
+              }
+            ],
+            "modifiers": [
+              {
+                "kind": 11,
+                "start": {
+                  "line": 3,
+                  "column": 18
+                },
+                "end": {
+                  "line": 3,
+                  "column": 21
+                }
+              }
+            ],
+            "variables": [
+              {
+                "kind": 133,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "value",
+                  "start": {
+                    "line": 3,
+                    "column": 22
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 27
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 22
+                },
+                "end": {
+                  "line": 3,
+                  "column": 27
+                }
+              }
+            ],
+            "operator": {
+              "kind": 2,
+              "assignment": 17,
+              "start": {
+                "line": 3,
+                "column": 28
+              },
+              "end": {
+                "line": 3,
+                "column": 30
+              }
+            },
+            "value": {
+              "kind": 18,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 69,
+                "modifiers": [],
+                "object": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "values",
+                  "start": {
+                    "line": 3,
+                    "column": 31
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 37
+                  }
+                },
+                "property": {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "getTop",
+                  "start": {
+                    "line": 3,
+                    "column": 38
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 44
+                  }
+                },
+                "start": {
+                  "line": 3,
+                  "column": 31
+                },
+                "end": {
+                  "line": 3,
+                  "column": 44
+                }
+              },
+              "arguments": [],
+              "start": {
+                "line": 3,
+                "column": 31
+              },
+              "end": {
+                "line": 3,
+                "column": 46
+              }
+            },
+            "start": {
+              "line": 3,
+              "column": 18
+            },
+            "end": {
+              "line": 3,
+              "column": 46
+            }
+          }
+        ]
+      ],
+      "whenTrue": {
+        "kind": 15,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 40,
+            "attributes": [],
+            "expression": {
+              "kind": 18,
+              "modifiers": [],
+              "scope": {
+                "kind": 2
+              },
+              "callee": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "echo",
+                "start": {
+                  "line": 6,
+                  "column": 5
+                },
+                "end": {
+                  "line": 6,
+                  "column": 9
+                }
+              },
+              "arguments": [
+                {
+                  "kind": 48,
+                  "modifiers": [],
+                  "name": "value",
+                  "start": {
+                    "line": 6,
+                    "column": 10
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 15
+                  }
+                }
+              ],
+              "start": {
+                "line": 6,
+                "column": 5
+              },
+              "end": {
+                "line": 6,
+                "column": 16
+              }
+            },
+            "start": {
+              "line": 6,
+              "column": 5
+            },
+            "end": {
+              "line": 6,
+              "column": 16
+            }
+          }
+        ],
+        "start": {
+          "line": 5,
+          "column": 6
+        },
+        "end": {
+          "line": 7,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 2
+  }
+}

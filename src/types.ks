@@ -19,3 +19,25 @@ type Marker = {
 	line: Number
 	column: Number
 }
+
+
+
+
+// type Result<V, E> = {
+// 	variant ok: Boolean {
+// 		false, Err {
+//			expecteds: Null
+// 			start: Null
+// 			end: Null
+//		} | {
+// 			expecteds: String[]
+// 			start: Position
+// 			end: Position
+// 		}
+// 		true, Ok {
+// 			value: V
+// 			start: Position
+// 			end: Position
+// 		}
+// 	}
+// }
