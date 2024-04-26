@@ -549,7 +549,7 @@ export namespace SyntaxAnalysis {
 						break
 					}
 
-					AST.pushModifier(type.value, modifier)
+					AST.pushModifier(type.value, modifier, false)
 				}
 
 				if @token == Token.LEFT_CURLY {
@@ -581,7 +581,7 @@ export namespace SyntaxAnalysis {
 			if nullable && @testNS(Token.QUESTION) {
 				var modifier = @yep(AST.Modifier(ModifierKind.Nullable, @yes()))
 
-				return @yep(AST.pushModifier(type.value, modifier))
+				return @yep(AST.pushModifier(type.value, modifier, false))
 			}
 			else {
 				return type
@@ -2461,11 +2461,8 @@ export namespace SyntaxAnalysis {
 		{
 			var modifiers = []
 			var mut {
-				// TODO!
-				// first: Range? = null
-				// name: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)> = NO
-				first = null
-				name = null
+				first: Range? = null
+				name: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)> = NO
 				atthis = false
 				rest = false
 			}
@@ -2510,13 +2507,19 @@ export namespace SyntaxAnalysis {
 			}
 			else if dMode ~~ DestructuringMode.RECURSION && @test(Token.LEFT_CURLY) {
 				name = @reqDestructuringObject(@yes(), dMode, fMode)
+
+				first ??= name
 			}
 			else if dMode ~~ DestructuringMode.RECURSION && @test(Token.LEFT_SQUARE) {
 				name = @reqDestructuringArray(@yes(), dMode, fMode)
+
+				first ??= name
 			}
 			else if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AT) {
 				name = @reqThisExpression(@yes())
 				atthis = true
+
+				first ??= name
 			}
 			else if dMode ~~ DestructuringMode.MODIFIER && @test(Token.MUT) {
 				var mark = @mark()
@@ -2532,10 +2535,14 @@ export namespace SyntaxAnalysis {
 					@rollback(mark)
 
 					name = @reqIdentifier()
+
+					first ??= name
 				}
 			}
 			else if @test(Token.IDENTIFIER) {
 				name = @yep(AST.Identifier(@scanner.value(), @yes()))
+
+				first ??= name
 			}
 			else if @test(Token.UNDERSCORE) {
 				first ??= @yep()
@@ -2559,9 +2566,7 @@ export namespace SyntaxAnalysis {
 			else {
 				var mut required = false
 
-				// TODO!
-				// if ?]name && dMode ~~ DestructuringMode.DEFAULT && @test(Token.EXCLAMATION) {
-				if ?name && dMode ~~ DestructuringMode.DEFAULT && @test(Token.EXCLAMATION) {
+				if ?]name && dMode ~~ DestructuringMode.DEFAULT && @test(Token.EXCLAMATION) {
 					modifiers.push(AST.Modifier(ModifierKind.Required, @yes()))
 
 					required = true
@@ -2571,22 +2576,17 @@ export namespace SyntaxAnalysis {
 					@commit()
 
 					var type = @reqTypeLimited()
-					var operator = @tryDefaultAssignmentOperator(true)
 
-					if operator.ok {
+					if var operator ?]= @tryDefaultAssignmentOperator(true) {
 						var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
-						// TODO!
-						// return @yep(AST.ArrayBindingElement(modifiers, name, type, operator, defaultValue, first ?? name, defaultValue))
-						return @yep(AST.ArrayBindingElement(attributes, modifiers, name, type, operator, defaultValue, first ?? name!?, defaultValue))
+						return @yep(AST.ArrayBindingElement(attributes, modifiers, name, type, operator, defaultValue, first, defaultValue))
 					}
 					else if required {
 						@throw('=', '??=', '##=')
 					}
 					else {
-						// TODO!
-						// return @yep(AST.ArrayBindingElement(modifiers, name, type, null, null, first ?? name, type ?? name))
-						return @yep(AST.ArrayBindingElement(attributes, modifiers, name, type, null, null, first ?? name!?, type ?? name!?))
+						return @yep(AST.ArrayBindingElement(attributes, modifiers, name, type, null, null, first, type))
 					}
 				}
 				else if @testM(M.POSTFIX_QUESTION) {
@@ -2594,10 +2594,8 @@ export namespace SyntaxAnalysis {
 
 					modifiers.push(modifier)
 
-					// TODO!
-					// if !?]name {
-					if !?name {
-						return @yep(AST.ArrayBindingElement(attributes, modifiers, null, null, null, null, first!?, modifier))
+					if !?]name {
+						return @yep(AST.ArrayBindingElement(attributes, modifiers, NO, null, null, null, first, modifier))
 					}
 				}
 
@@ -2605,27 +2603,21 @@ export namespace SyntaxAnalysis {
 					var operator = @reqDefaultAssignmentOperator()
 					var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
-					// TODO!
-					// return @yep(AST.ArrayBindingElement(modifiers, name, null, operator, defaultValue, first ?? name, defaultValue))
-					return @yep(AST.ArrayBindingElement(attributes, modifiers, name, null, operator, defaultValue, first ?? name!?, defaultValue))
+					return @yep(AST.ArrayBindingElement(attributes, modifiers, name, null, operator, defaultValue, first, defaultValue))
 				}
 			}
 
-			// TODO!
-			// if ?]name && dMode ~~ DestructuringMode.DEFAULT {
-			if ?name && dMode ~~ DestructuringMode.DEFAULT {
+			if ?]name && dMode ~~ DestructuringMode.DEFAULT {
 				var operator = @tryDefaultAssignmentOperator(true)
 
 				if operator.ok {
 					var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
-					return @yep(AST.ArrayBindingElement(attributes, modifiers, name, null, operator, defaultValue, first ?? name, defaultValue))
+					return @yep(AST.ArrayBindingElement(attributes, modifiers, name, null, operator, defaultValue, first, defaultValue))
 				}
 			}
 
-			// TODO!
-			// return @yep(AST.ArrayBindingElement(modifiers, name, null, null, null, first ?? name, name ?? first!?))
-			return @yep(AST.ArrayBindingElement(attributes, modifiers, name, null, null, null, first ?? name!?, name ?? first!?))
+			return @yep(AST.ArrayBindingElement(attributes, modifiers, name, null, null, null, first, name ?]] first))
 		} # }}}
 
 		reqDestructuringObject(
@@ -3329,50 +3321,25 @@ export namespace SyntaxAnalysis {
 				else {
 					var members = []
 
-					// TODO!
-					// do {
-					// 	var internal = @reqIdentifier()
-
-					// 	if @test(Token.EQUALS_RIGHT_ANGLE) {
-					// 		@commit()
-
-					// 		var external = @reqIdentifier()
-
-					// 		members.push(@yep(AST.NamedSpecifier([], internal, external, internal, external)))
-					// 	}
-					// 	else {
-					// 		members.push(@yep(AST.NamedSpecifier([], internal, null, internal, internal)))
-					// 	}
-					// }
-					// while @test(Token.COMMA)
-
-					var internal = @reqIdentifier()
-
-					if @test(Token.EQUALS_RIGHT_ANGLE) {
-						@commit()
-
-						var external = @reqIdentifier()
-
-						members.push(@yep(AST.NamedSpecifier([], internal, external, internal, external)))
-					}
-					else {
-						members.push(@yep(AST.NamedSpecifier([], internal, null, internal, internal)))
-					}
-
-					while @test(Token.COMMA) {
-						@commit()
-
-						var newInternal = @reqIdentifier()
+					repeat {
+						var internal = @reqIdentifier()
 
 						if @test(Token.EQUALS_RIGHT_ANGLE) {
 							@commit()
 
 							var external = @reqIdentifier()
 
-							members.push(@yep(AST.NamedSpecifier([], newInternal, external, newInternal, newInternal)))
+							members.push(@yep(AST.NamedSpecifier([], internal, external, internal, external)))
 						}
 						else {
-							members.push(@yep(AST.NamedSpecifier([], newInternal, null, newInternal, newInternal)))
+							members.push(@yep(AST.NamedSpecifier([], internal, null, internal, internal)))
+						}
+
+						if @test(Token.COMMA) {
+							@commit()
+						}
+						else {
+							break
 						}
 					}
 
@@ -3400,35 +3367,27 @@ export namespace SyntaxAnalysis {
 				declarations.push(@yep(AST.NamedSpecifier([modifier], identifier, null, first, identifier)))
 			}
 			else if @token == Token.IDENTIFIER {
-				// TODO! do/while
-				var internal = @reqIdentifier()
-				var external =
-					if @test(Token.EQUALS_RIGHT_ANGLE) {
-						@commit()
 
-						set @reqIdentifier()
-					}
-					else {
-						set internal
-					}
-
-				declarations.push(@yep(AST.NamedSpecifier([], internal, external, internal, external)))
-
-				while @until(Token.COMMA) {
-					@commit()
-
-					var newInternal = @reqIdentifier()
-					var newExternal =
+				repeat {
+					var internal = @reqIdentifier()
+					var external =
 						if @test(Token.EQUALS_RIGHT_ANGLE) {
 							@commit()
 
 							set @reqIdentifier()
 						}
 						else {
-							set newInternal
+							set internal
 						}
 
-					declarations.push(@yep(AST.NamedSpecifier([], newInternal, newExternal, newInternal, newExternal)))
+					declarations.push(@yep(AST.NamedSpecifier([], internal, external, internal, external)))
+
+					if @test(Token.COMMA) {
+						@commit()
+					}
+					else {
+						break
+					}
 				}
 
 				last = declarations[declarations.length - 1]
@@ -5383,7 +5342,7 @@ export namespace SyntaxAnalysis {
 
 				from = @reqExpression(.Nil, fMode)
 
-				AST.pushModifier(from.value, modifier)
+				AST.pushModifier(from.value, modifier, true)
 			}
 			else {
 				@commit()
@@ -5415,7 +5374,7 @@ export namespace SyntaxAnalysis {
 
 				to = @reqExpression(.Nil, fMode)
 
-				AST.pushModifier(to.value, modifier)
+				AST.pushModifier(to.value, modifier, true)
 			}
 			else {
 				@throw('to', 'to~')
@@ -5485,7 +5444,7 @@ export namespace SyntaxAnalysis {
 
 				from = @reqExpression(.Nil, fMode)
 
-				AST.pushModifier(from.value, modifier)
+				AST.pushModifier(from.value, modifier, true)
 
 				@NL_0M()
 			}
@@ -5519,7 +5478,7 @@ export namespace SyntaxAnalysis {
 
 				to = @reqExpression(.Nil, fMode)
 
-				AST.pushModifier(to.value, modifier)
+				AST.pushModifier(to.value, modifier, true)
 
 				@NL_0M()
 			}
@@ -5584,7 +5543,7 @@ export namespace SyntaxAnalysis {
 			if operand.ok {
 				if @test(Token.LEFT_ANGLE, Token.DOT_DOT) {
 					if @token == Token.LEFT_ANGLE {
-						AST.pushModifier(operand.value, @yep(AST.Modifier(ModifierKind.Ballpark, @yes())))
+						AST.pushModifier(operand.value, @yep(AST.Modifier(ModifierKind.Ballpark, @yes())), false)
 
 						unless @test(Token.DOT_DOT) {
 							@throw('..')
@@ -5604,7 +5563,7 @@ export namespace SyntaxAnalysis {
 					var to = @reqPrefixedOperand(.InlineOnly, fMode)
 
 					if ?modifier {
-						AST.pushModifier(to.value, modifier)
+						AST.pushModifier(to.value, modifier, true)
 					}
 
 					var mut step: Event? = null
@@ -8720,20 +8679,20 @@ export namespace SyntaxAnalysis {
 		{
 			var elements = []
 
-			var name = @reqNameIB()
+			repeat {
+				var name = @reqNameIB()
 
-			elements.push(@yep(AST.NamedSpecifier(name)))
+				elements.push(@yep(AST.NamedSpecifier(name)))
 
-			// TODO!
-			while @test(Token.COMMA) {
-				@commit()
-
-				var newName = @reqNameIB()
-
-				elements.push(@yep(AST.NamedSpecifier(newName)))
+				if @test(Token.COMMA) {
+					@commit()
+				}
+				else {
+					break
+				}
 			}
 
-			var first = ?#modifiers ? modifiers[0] : name
+			var first = ?#modifiers ? modifiers[0] : elements[0]
 			var last = elements[elements.length - 1]
 
 			specifiers.push(@yep(AST.GroupSpecifier(modifiers, elements, type, first, last)))
@@ -10980,30 +10939,29 @@ export namespace SyntaxAnalysis {
 				pass
 			}
 
-			// TODO! rewrite
 			if @test(Token.RIGHT_CURLY) {
 				return @yep(AST.ObjectExpression(attributes, properties, first, @yes()))
 			}
 
-			var property = @tryObjectItem(true, first, eMode, fMode)
+			with var property = @tryObjectItem(true, first, eMode, fMode) {
+				if !?]property || property.value is .ObjectComprehension {
+					return property
+				}
 
-			if !?]property || property.value is .ObjectComprehension {
-				return property
+				properties.push(property)
 			}
 
-			properties.push(property)
-
 			if @tryCommaNL0M() {
-				until @test(Token.RIGHT_CURLY) {
+				while @until(Token.RIGHT_CURLY) {
 					if @stackInnerAttributes(attributes) {
 						continue
 					}
 
-					var item = @tryObjectItem(false, first, eMode, fMode)
+					with var property = @tryObjectItem(false, first, eMode, fMode) {
+						return property unless ?]property
 
-					return item unless ?]item
-
-					properties.push(item)
+						properties.push(property)
+					}
 
 					break unless @tryCommaNL0M()
 				}
@@ -12517,15 +12475,46 @@ export namespace SyntaxAnalysis {
 				var leftFirst = @yes()
 				var mark = @mark()
 
+				var modifier =
+					if @test(Token.EXCLAMATION) {
+						set AST.Modifier(ModifierKind.Exclusion, @yes())
+					}
+					else {
+						set null
+					}
+				var exclusif = ?modifier
+
 				var identifier = @tryIdentifier()
 
-				if identifier.ok && @test(.COMMA, .RIGHT_ROUND) {
+				if identifier.ok && (exclusif || @test(.COMMA, .RIGHT_ROUND)) {
+					if exclusif {
+						AST.pushModifier(identifier.value, @yep(modifier!?), true)
+					}
+
 					var names = [identifier]
 
-					while @test(.COMMA) {
-						@commit()
+					if exclusif {
+						while @test(.COMMA) {
+							@commit()
 
-						names.push(@reqIdentifier())
+							unless @test(Token.EXCLAMATION) {
+								@throw('!')
+							}
+
+							var mod = AST.Modifier(ModifierKind.Exclusion, @yes())
+							var id = @reqIdentifier()
+
+							AST.pushModifier(id.value, @yep(mod), true)
+
+							names.push(id)
+						}
+					}
+					else {
+						while @test(.COMMA) {
+							@commit()
+
+							names.push(@reqIdentifier())
+						}
 					}
 
 					unless @test(.RIGHT_ROUND) {
@@ -12535,6 +12524,8 @@ export namespace SyntaxAnalysis {
 					last = typeSubtypes = @yes(names, leftFirst)
 				}
 				else {
+					@rollback(mark) if ?modifier
+
 					var expression = @tryOperation(identifier, .InlineOnly, .Nil)
 
 					unless expression.ok {

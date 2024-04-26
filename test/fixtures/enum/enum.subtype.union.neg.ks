@@ -1,0 +1,1 @@
+type WorkingDay = Weekday(!SATURDAY, !SUNDAY)

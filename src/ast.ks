@@ -19,10 +19,16 @@ namespace AST {
 	export func pushModifier<T is NodeData>(
 		data: T
 		modifier: Event(Y)
+		prefix: Boolean
 	): T { # {{{
 		data.modifiers.push(modifier.value)
 
-		data.end = modifier.end
+		if prefix {
+			data.start = modifier.start
+		}
+		else {
+			data.end = modifier.end
+		}
 
 		return data
 	} # }}}
@@ -241,9 +247,7 @@ namespace AST {
 		func ArrayBindingElement(
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			// TODO!
-			// internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>
-			internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>(Y)?
+			internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>
 			type: Event<NodeData(Type)>(Y)?
 			operator: Event<BinaryOperatorData(Assignment)>(Y)?
 			defaultValue: Event<NodeData(Expression)>(Y)?
@@ -254,9 +258,7 @@ namespace AST {
 				kind: .BindingElement
 				attributes: [attribute.value for var attribute in attributes] if ?#attributes
 				modifiers
-				// TODO!
-				// internal: internal.value if ?]internal
-				internal: internal.value if ?internal
+				internal: internal.value if ?]internal
 				type: type.value if ?type
 				operator: operator.value if ?operator
 				defaultValue: defaultValue.value if ?defaultValue
@@ -484,8 +486,7 @@ namespace AST {
 
 		func BinaryOperator(
 			// TODO!
-			// operator: BinaryOperatorKind(-Assignment)
-			// operator: BinaryOperatorKind(name != Assignment)
+			// operator: BinaryOperatorKind(!Assignment)
 			operator: BinaryOperatorKind
 			{ start, end }: Range
 		): BinaryOperatorData { # {{{
