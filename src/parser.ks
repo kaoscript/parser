@@ -559,7 +559,7 @@ export namespace SyntaxAnalysis {
 						@throw('}')
 					}
 
-					var property = @yep(AST.PropertyType([], null, type, type, type))
+					var property = @yep(AST.PropertyType([], NO, type, type, type))
 
 					type = @yep(AST.ObjectType([], [], property, property, @yes()))
 				}
@@ -570,7 +570,7 @@ export namespace SyntaxAnalysis {
 						@throw(']')
 					}
 
-					var property = @yep(AST.PropertyType([], null, type, type, type))
+					var property = @yep(AST.PropertyType([], NO, type, type, type))
 
 					type = @yep(AST.ArrayType([], [], property, property, @yes()))
 				}
@@ -1044,32 +1044,34 @@ export namespace SyntaxAnalysis {
 
 			if operand.ok && (@match(Token.LEFT_ANGLE, Token.DOT_DOT) == Token.LEFT_ANGLE || @token == Token.DOT_DOT) {
 				var then = @token == Token.LEFT_ANGLE
-				if then {
-					@commit()
 
+				@commit()
+
+				if then {
 					unless @test(Token.DOT_DOT) {
 						@throw('..')
 					}
 
 					@commit()
 				}
-				else {
-					@commit()
-				}
 
 				var til = @test(Token.LEFT_ANGLE)
+
 				if til {
 					@commit()
 				}
 
 				var toOperand = @reqPrefixedOperand(ExpressionMode.InlineOnly, fMode)
 
-				var dyn byOperand
-				if @test(Token.DOT_DOT) {
-					@commit()
+				var byOperand =
+					if @test(Token.DOT_DOT) {
+						@commit()
 
-					byOperand = @reqPrefixedOperand(ExpressionMode.InlineOnly, fMode)
-				}
+						set @reqPrefixedOperand(ExpressionMode.InlineOnly, fMode)
+					}
+					else {
+						set NO
+					}
 
 				unless @test(Token.RIGHT_SQUARE) {
 					@throw(']')
@@ -1206,7 +1208,7 @@ export namespace SyntaxAnalysis {
 		{
 			var operand = @reqPrefixedOperand(eMode, fMode)
 
-			return @yep(AST.AwaitExpression([], null, operand, first, operand))
+			return @yep(AST.AwaitExpression([], [], operand, first, operand))
 		} # }}}
 
 		reqBinaryOperand(
@@ -1308,7 +1310,7 @@ export namespace SyntaxAnalysis {
 							staticModifier
 						]
 						MemberBits.Method
-						accessModifier ?]] staticModifier ?]] null
+						accessModifier ?]] staticModifier
 					)
 
 					if member.ok {
@@ -1416,7 +1418,7 @@ export namespace SyntaxAnalysis {
 				var condition = @tryExpression(eMode + .NoRestriction, fMode)
 
 				if condition.ok {
-					return @yep(AST.IfStatement(condition, @yep(AST.BreakStatement(null, first, first)), null, first, condition))
+					return @yep(AST.IfStatement(condition, @yep(AST.BreakStatement(NO, first, first)), NO, first, condition))
 				}
 				else {
 					return @yep(AST.BreakStatement(label, first, label))
@@ -1428,7 +1430,7 @@ export namespace SyntaxAnalysis {
 				var condition = @tryExpression(eMode + .NoRestriction, fMode)
 
 				if condition.ok {
-					return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(null, first, first)), first, condition))
+					return @yep(AST.UnlessStatement(condition, @yep(AST.BreakStatement(NO, first, first)), first, condition))
 				}
 				else {
 					return @yep(AST.BreakStatement(label, first, label))
@@ -1443,7 +1445,7 @@ export namespace SyntaxAnalysis {
 
 						var condition = @reqExpression(eMode + .NoRestriction, fMode)
 
-						return @yep(AST.IfStatement(condition, @yep(AST.BreakStatement(label, first, label)), null, first, condition))
+						return @yep(AST.IfStatement(condition, @yep(AST.BreakStatement(label, first, label)), NO, first, condition))
 					}
 					else if @token == Token.UNLESS {
 						@commit()
@@ -1457,7 +1459,7 @@ export namespace SyntaxAnalysis {
 					}
 				}
 				else {
-					return @yep(AST.BreakStatement(null, first, first))
+					return @yep(AST.BreakStatement(NO, first, first))
 				}
 			}
 		} # }}}
@@ -1521,12 +1523,15 @@ export namespace SyntaxAnalysis {
 		{
 			var type = @reqIdentifier()
 
-			var dyn binding
-			if @test(Token.CATCH) {
-				@commit()
+			var binding =
+				if @test(Token.CATCH) {
+					@commit()
 
-				binding = @reqIdentifier()
-			}
+					set @reqIdentifier()
+				}
+				else {
+					set NO
+				}
 
 			@NL_0M()
 
@@ -1994,7 +1999,9 @@ export namespace SyntaxAnalysis {
 			first: Range
 		): Event<NodeData(PropertyDeclaration)>(Y) ~ SyntaxError # {{{
 		{
-			var dyn defaultValue, accessor, mutator
+			var mut defaultValue: Event = NO
+			var mut accessor: Event = NO
+			var mut mutator: Event = NO
 
 			if @test(Token.NEWLINE) {
 				@commit().NL_0M()
@@ -2094,7 +2101,7 @@ export namespace SyntaxAnalysis {
 				@throw('}')
 			}
 
-			var dyn last = @yes()
+			var last = @yes()
 
 			if @test(Token.EQUALS) {
 				@commit()
@@ -2104,7 +2111,7 @@ export namespace SyntaxAnalysis {
 
 			@reqNL_1M()
 
-			return @yep(AST.PropertyDeclaration(attributes, modifiers, name, type, defaultValue, accessor, mutator, first, defaultValue ?? last))
+			return @yep(AST.PropertyDeclaration(attributes, modifiers, name, type, defaultValue, accessor, mutator, first, defaultValue ?]] last))
 		} # }}}
 
 		reqClassProxy(
@@ -2283,7 +2290,7 @@ export namespace SyntaxAnalysis {
 			first: Range?
 		): Event<NodeData(FieldDeclaration)>(Y) ~ SyntaxError # {{{
 		{
-			var variable = @tryClassVariable(attributes, modifiers, bits, name, null, first)
+			var variable = @tryClassVariable(attributes, modifiers, bits, name, NO, first)
 
 			unless variable.ok {
 				@throw('Identifier', 'String', 'Template')
@@ -2337,7 +2344,7 @@ export namespace SyntaxAnalysis {
 				var condition = @tryExpression(eMode + .NoRestriction, fMode)
 
 				if condition.ok {
-					return @yep(AST.IfStatement(condition, @yep(AST.ContinueStatement(null, first, first)), null, first, condition))
+					return @yep(AST.IfStatement(condition, @yep(AST.ContinueStatement(NO, first, first)), NO, first, condition))
 				}
 				else {
 					return @yep(AST.ContinueStatement(label, first, label))
@@ -2349,7 +2356,7 @@ export namespace SyntaxAnalysis {
 				var condition = @tryExpression(eMode + .NoRestriction, fMode)
 
 				if condition.ok {
-					return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(null, first, first)), first, condition))
+					return @yep(AST.UnlessStatement(condition, @yep(AST.ContinueStatement(NO, first, first)), first, condition))
 				}
 				else {
 					return @yep(AST.ContinueStatement(label, first, label))
@@ -2364,7 +2371,7 @@ export namespace SyntaxAnalysis {
 
 						var condition = @reqExpression(eMode + .NoRestriction, fMode)
 
-						return @yep(AST.IfStatement(condition, @yep(AST.ContinueStatement(label, first, label)), null, first, condition))
+						return @yep(AST.IfStatement(condition, @yep(AST.ContinueStatement(label, first, label)), NO, first, condition))
 					}
 					else if @token == Token.UNLESS {
 						@commit()
@@ -2378,7 +2385,7 @@ export namespace SyntaxAnalysis {
 					}
 				}
 				else {
-					return @yep(AST.ContinueStatement(null, first, first))
+					return @yep(AST.ContinueStatement(NO, first, first))
 				}
 			}
 		} # }}}
@@ -2586,7 +2593,7 @@ export namespace SyntaxAnalysis {
 						@throw('=', '??=', '##=')
 					}
 					else {
-						return @yep(AST.ArrayBindingElement(attributes, modifiers, name, type, null, null, first, type))
+						return @yep(AST.ArrayBindingElement(attributes, modifiers, name, type, NO, NO, first, type))
 					}
 				}
 				else if @testM(M.POSTFIX_QUESTION) {
@@ -2595,7 +2602,7 @@ export namespace SyntaxAnalysis {
 					modifiers.push(modifier)
 
 					if !?]name {
-						return @yep(AST.ArrayBindingElement(attributes, modifiers, NO, null, null, null, first, modifier))
+						return @yep(AST.ArrayBindingElement(attributes, modifiers, NO, NO, NO, NO, first, modifier))
 					}
 				}
 
@@ -2603,7 +2610,7 @@ export namespace SyntaxAnalysis {
 					var operator = @reqDefaultAssignmentOperator()
 					var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
-					return @yep(AST.ArrayBindingElement(attributes, modifiers, name, null, operator, defaultValue, first, defaultValue))
+					return @yep(AST.ArrayBindingElement(attributes, modifiers, name, NO, operator, defaultValue, first, defaultValue))
 				}
 			}
 
@@ -2613,11 +2620,11 @@ export namespace SyntaxAnalysis {
 				if operator.ok {
 					var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
-					return @yep(AST.ArrayBindingElement(attributes, modifiers, name, null, operator, defaultValue, first, defaultValue))
+					return @yep(AST.ArrayBindingElement(attributes, modifiers, name, NO, operator, defaultValue, first, defaultValue))
 				}
 			}
 
-			return @yep(AST.ArrayBindingElement(attributes, modifiers, name, null, null, null, first, name ?]] first))
+			return @yep(AST.ArrayBindingElement(attributes, modifiers, name, NO, NO, NO, first, name ?]] first))
 		} # }}}
 
 		reqDestructuringObject(
@@ -2651,12 +2658,9 @@ export namespace SyntaxAnalysis {
 		{
 			var modifiers = []
 			var mut {
-				// TODO!
-				// first = attributes?#[0]
-				// first: Range? = ?#attributes ? attributes[0] : null
-				first = null
-				external = null
-				internal = null
+				first: Range? = null
+				external: Event = NO
+				internal: Event = NO
 				atthis = false
 				computed = false
 				mutable = false
@@ -2720,6 +2724,7 @@ export namespace SyntaxAnalysis {
 					@rollback(mark)
 
 					external = @reqIdentifier()
+					first ??= external
 				}
 			}
 			else if dMode ~~ DestructuringMode.COMPUTED && @test(Token.LEFT_SQUARE) {
@@ -2749,10 +2754,11 @@ export namespace SyntaxAnalysis {
 				}
 				else {
 					external = @reqIdentifier()
+					first ??= external
 				}
 			}
 
-			if !rest && !?internal && @test(Token.PERCENT) {
+			if !rest && !?]internal && @test(Token.PERCENT) {
 				@commit()
 
 				if dMode ~~ DestructuringMode.RECURSION && @test(Token.LEFT_CURLY) {
@@ -2785,9 +2791,9 @@ export namespace SyntaxAnalysis {
 				}
 			}
 
-			if !?internal {
+			if !?]internal {
 				internal = external
-				external = null
+				external = NO
 			}
 
 			if dMode ~~ DestructuringMode.TYPE {
@@ -2809,15 +2815,14 @@ export namespace SyntaxAnalysis {
 						@commit()
 
 						var type = @reqTypeLimited()
-						var operator = @tryDefaultAssignmentOperator(true)
 
-						if operator.ok {
+						if var operator?]= @tryDefaultAssignmentOperator(true) {
 							var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
-							return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, type, operator, defaultValue, first ?? external ?? internal!?, defaultValue))
+							return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, type, operator, defaultValue, first, defaultValue))
 						}
 						else {
-							return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, type, null, null, first ?? external ?? internal!?, type ?? internal ?? external!?))
+							return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, type, NO, NO, first, type))
 						}
 					}
 					else if !rest && @test(Token.QUESTION) {
@@ -2828,43 +2833,39 @@ export namespace SyntaxAnalysis {
 						var operator = @reqDefaultAssignmentOperator()
 						var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
-						return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, null, operator, defaultValue, first ?? external ?? internal!?, defaultValue))
+						return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, NO, operator, defaultValue, first, defaultValue))
 					}
 				}
 
-				if (!rest || ?internal) && dMode ~~ DestructuringMode.DEFAULT {
-					var operator = @tryDefaultAssignmentOperator(true)
-
-					if operator.ok {
+				if (!rest || ?]internal) && dMode ~~ DestructuringMode.DEFAULT {
+					if var operator ?]= @tryDefaultAssignmentOperator(true) {
 						var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
-						return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, null, operator, defaultValue, first ?? external ?? internal!?, defaultValue))
+						return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, NO, operator, defaultValue, first, defaultValue))
 					}
 				}
 
-				return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, null, null, null, first ?? external ?? internal!?, internal ?? external ?? first!?))
+				return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, NO, NO, NO, first, internal ?]] external ?]] first))
 			}
 
-			if (!rest || ?internal) && dMode ~~ DestructuringMode.DEFAULT {
+			if (!rest || ?]internal) && dMode ~~ DestructuringMode.DEFAULT {
 				if !rest && @test(Token.QUESTION) {
 					var modifier = AST.Modifier(ModifierKind.Nullable, @yes())
 
 					modifiers.push(modifier)
 
-					return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, null, null, null, first ?? external ?? internal!?, modifier))
+					return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, NO, NO, NO, first, modifier))
 				}
 				else {
-					var operator = @tryDefaultAssignmentOperator(true)
-
-					if operator.ok {
+					if var operator ?]= @tryDefaultAssignmentOperator(true) {
 						var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
-						return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, null, operator, defaultValue, first ?? external ?? internal!?, defaultValue))
+						return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, NO, operator, defaultValue, first, defaultValue))
 					}
 				}
 			}
 
-			return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, null, null, null, first ?? external ?? internal!?, internal ?? external ?? first!?))
+			return @yep(AST.ObjectBindingElement(attributes, modifiers, external, internal, NO, NO, NO, first, internal ?]] external ?]] first))
 		} # }}}
 
 		reqDiscloseStatement(
@@ -3251,7 +3252,7 @@ export namespace SyntaxAnalysis {
 		): Event<NodeData(NamedSpecifier, PropertiesSpecifier)>(Y) ~ SyntaxError # {{{
 		{
 			var mut value: Event<NodeData(Identifier, MemberExpression)>(Y) = identifier
-			var mut topIdentifier: Event<NodeData(Identifier)>(Y)? = null
+			var mut topIdentifier: Event<NodeData(Identifier)> = NO
 
 			if @testNS(Token.DOT) {
 				do {
@@ -3260,7 +3261,7 @@ export namespace SyntaxAnalysis {
 					if @testNS(Token.ASTERISK) {
 						var modifier = @yep(AST.Modifier(ModifierKind.Wildcard, @yes()))
 
-						return @yep(AST.NamedSpecifier([modifier], value, null, value, modifier))
+						return @yep(AST.NamedSpecifier([modifier], value, NO, value, modifier))
 					}
 					else {
 						topIdentifier = @reqIdentifier()
@@ -3284,7 +3285,7 @@ export namespace SyntaxAnalysis {
 				if @test(Token.ASTERISK) {
 					var modifier = @yep(AST.Modifier(ModifierKind.Wildcard, @yes()))
 
-					return @yep(AST.NamedSpecifier([modifier], value, null, value, modifier))
+					return @yep(AST.NamedSpecifier([modifier], value, NO, value, modifier))
 				}
 				else if @test(Token.LEFT_CURLY) {
 					var members = []
@@ -3302,7 +3303,7 @@ export namespace SyntaxAnalysis {
 							members.push(@yep(AST.NamedSpecifier([], internal, external, internal, external)))
 						}
 						else {
-							members.push(@yep(AST.NamedSpecifier([], internal, null, internal, internal)))
+							members.push(@yep(AST.NamedSpecifier([], internal, NO, internal, internal)))
 						}
 
 						if @test(Token.COMMA) {
@@ -3332,7 +3333,7 @@ export namespace SyntaxAnalysis {
 							members.push(@yep(AST.NamedSpecifier([], internal, external, internal, external)))
 						}
 						else {
-							members.push(@yep(AST.NamedSpecifier([], internal, null, internal, internal)))
+							members.push(@yep(AST.NamedSpecifier([], internal, NO, internal, internal)))
 						}
 
 						if @test(Token.COMMA) {
@@ -3364,7 +3365,7 @@ export namespace SyntaxAnalysis {
 				var modifier = @yep(AST.Modifier(.Default, @yes()))
 				var identifier = @reqIdentifier()
 
-				declarations.push(@yep(AST.NamedSpecifier([modifier], identifier, null, first, identifier)))
+				declarations.push(@yep(AST.NamedSpecifier([modifier], identifier, NO, first, identifier)))
 			}
 			else if @token == Token.IDENTIFIER {
 
@@ -3553,14 +3554,14 @@ export namespace SyntaxAnalysis {
 				var first = @yes()
 				var iteration = @reqIteration(null, fMode)
 
-				return @yep(AST.ForStatement([iteration], @yep(AST.ExpressionStatement(expression)), null, first, expression))
+				return @yep(AST.ForStatement([iteration], @yep(AST.ExpressionStatement(expression)), NO, first, expression))
 			}
 			else if @token == Token.IF {
 				@commit()
 
 				var condition = @reqExpression(eMode, fMode)
 
-				return @yep(AST.IfStatement(condition, @yep(AST.ExpressionStatement(expression)), null, expression, condition))
+				return @yep(AST.IfStatement(condition, @yep(AST.ExpressionStatement(expression)), NO, expression, condition))
 			}
 			else if @token == Token.REPEAT {
 				@commit().NL_0M()
@@ -3646,13 +3647,13 @@ export namespace SyntaxAnalysis {
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			name: Event<NodeData(Identifier)>(Y)
-			type: Event<NodeData(Type)>(Y)?
+			type: Event<NodeData(Type)>
 			first: Event(Y)
 		): Event<NodeData(FieldDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			@reqNL_1M()
 
-			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, null, first, (type ?? name):!!!(Range)))
+			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, NO, first, (type ?? name):!!!(Range)))
 		} # }}}
 
 		reqExternClassMember(
@@ -3682,7 +3683,7 @@ export namespace SyntaxAnalysis {
 				return @reqExternClassMethod(attributes, modifiers, name, @yes(), first ?? name)
 			}
 			else {
-				return @reqExternClassField(attributes, modifiers, name, null, first ?? name)
+				return @reqExternClassField(attributes, modifiers, name, NO, first ?? name)
 			}
 		} # }}}
 
@@ -3958,7 +3959,7 @@ export namespace SyntaxAnalysis {
 				return @yep(AST.FunctionDeclaration(name, NO, parameters, [], type, null, null, name, type ?]] parameters))
 			}
 			else {
-				return @yep(AST.VariableDeclarator([], name, null, name, name))
+				return @yep(AST.VariableDeclarator([], name, NO, name, name))
 			}
 		} # }}}
 
@@ -4003,7 +4004,7 @@ export namespace SyntaxAnalysis {
 				var identifier = @tryIdentifier()
 				if identifier.ok {
 					if @test(Token.COMMA) {
-						declarations.push(@yep(AST.VariableDeclarator([], identifier, null, identifier, identifier)))
+						declarations.push(@yep(AST.VariableDeclarator([], identifier, NO, identifier, identifier)))
 
 						while @test(Token.COMMA) {
 							@commit()
@@ -4018,12 +4019,12 @@ export namespace SyntaxAnalysis {
 								declarations.push(@yep(AST.VariableDeclarator([], declName, type, declName, type)))
 							}
 							else {
-								declarations.push(@yep(AST.VariableDeclarator([], declName, null, declName, declName)))
+								declarations.push(@yep(AST.VariableDeclarator([], declName, NO, declName, declName)))
 							}
 						}
 					}
 					else if @test(Token.NEWLINE) {
-						declarations.push(@yep(AST.VariableDeclarator([], identifier, null, identifier, identifier)))
+						declarations.push(@yep(AST.VariableDeclarator([], identifier, NO, identifier, identifier)))
 					}
 					else if @test(Token.COLON) {
 						@commit()
@@ -4046,7 +4047,7 @@ export namespace SyntaxAnalysis {
 									declarations.push(@yep(AST.VariableDeclarator([], declName, declType, declName, declType)))
 								}
 								else {
-									declarations.push(@yep(AST.VariableDeclarator([], declName, null, declName, declName)))
+									declarations.push(@yep(AST.VariableDeclarator([], declName, NO, declName, declName)))
 								}
 							}
 						}
@@ -4136,22 +4137,23 @@ export namespace SyntaxAnalysis {
 
 			var body = @reqBlock(NO, null, fMode)
 
-			var mut else = null
-
 			mark = @mark()
 
 			@commit().NL_0M()
 
-			if @test(Token.ELSE) {
-				@commit().NL_0M()
+			var else =
+				if @test(Token.ELSE) {
+					@commit().NL_0M()
 
-				else = @reqBlock(NO, null, fMode)
-			}
-			else {
-				@rollback(mark)
-			}
+					set @reqBlock(NO, null, fMode)
+				}
+				else {
+					@rollback(mark)
 
-			return @yep(AST.ForStatement(iterations, body, else, first, else ?? body))
+					set NO
+				}
+
+			return @yep(AST.ForStatement(iterations, body, else, first, else ?]] body))
 		} # }}}
 
 		reqFunctionBody(
@@ -4174,15 +4176,17 @@ export namespace SyntaxAnalysis {
 						@commit()
 
 						var condition = @reqExpression(.NoRestriction, fMode)
+						var whenTrue = @yep(AST.ReturnStatement(expression, expression, expression))
 
-						return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(expression, expression, expression)), null, expression, condition))
+						return @yep(AST.IfStatement(condition, whenTrue, NO, expression, condition))
 					}
 					else if @token == Token.UNLESS {
 						@commit()
 
 						var condition = @reqExpression(.NoRestriction, fMode)
+						var whenTrue = @yep(AST.ReturnStatement(expression, expression, expression))
 
-						return @yep(AST.UnlessStatement(condition, @yep(AST.ReturnStatement(expression, expression, expression)), expression, condition))
+						return @yep(AST.UnlessStatement(condition, whenTrue, expression, condition))
 					}
 					else {
 						return expression
@@ -4332,8 +4336,6 @@ export namespace SyntaxAnalysis {
 			fMode: FunctionMode
 		): Event<NodeData(IfStatement)>(Y) ~ SyntaxError # {{{
 		{
-			var mut condition = null
-
 			@NL_0M()
 
 			var declarations =
@@ -4382,9 +4384,13 @@ export namespace SyntaxAnalysis {
 					set [@reqIfDOC(null, fMode).value]
 				}
 
-			if #declarations == 1 && #declarations[0] == 1 && declarations[0][0].kind != NodeKind.VariableDeclaration {
-				condition = @yep(declarations.pop()[0])
-			}
+			var condition =
+				if #declarations == 1 && #declarations[0] == 1 && declarations[0][0].kind != NodeKind.VariableDeclaration {
+					set @yep(declarations.pop()[0])
+				}
+				else {
+					set null
+				}
 
 			@NL_0M()
 
@@ -4414,11 +4420,11 @@ export namespace SyntaxAnalysis {
 				else {
 					@rollback(mark)
 
-					return @yep(AST.IfStatement(condition ?? declarations, whenTrue, null, first, whenTrue))
+					return @yep(AST.IfStatement(condition ?? declarations, whenTrue, NO, first, whenTrue))
 				}
 			}
 			else {
-				return @yep(AST.IfStatement(condition ?? declarations, whenTrue, null, first, whenTrue))
+				return @yep(AST.IfStatement(condition ?? declarations, whenTrue, NO, first, whenTrue))
 			}
 		} # }}}
 
@@ -4674,8 +4680,8 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 		): Event<NodeData(ImplementDeclaration)>(Y) ~ SyntaxError # {{{
 		{
-			var late interface: Event?
-			var late variable: Event
+			var late interface: Event
+			var late variable: Event(Y)
 
 			var identifier = @reqIdentifierOrMember()
 
@@ -4686,7 +4692,7 @@ export namespace SyntaxAnalysis {
 				variable = @reqIdentifierOrMember()
 			}
 			else {
-				interface = null
+				interface = NO
 				variable = identifier
 			}
 
@@ -4722,13 +4728,11 @@ export namespace SyntaxAnalysis {
 		{
 			var source = @reqString()
 			var declaratorModifiers = []
-			var dyn arguments = null
+			var arguments = []
 			var mut last: Event(Y) = source
 
 			if @test(Token.LEFT_ROUND) {
 				@commit()
-
-				arguments = []
 
 				if @test(Token.DOT_DOT_DOT) {
 					declaratorModifiers.push(AST.Modifier(ModifierKind.Autofill, @yes()))
@@ -4794,7 +4798,7 @@ export namespace SyntaxAnalysis {
 			}
 
 			var attributes = []
-			var mut type = null
+			var mut type: Event = NO
 			var specifiers = []
 
 			match @match(Token.BUT, Token.EQUALS_RIGHT_ANGLE, Token.FOR, Token.LEFT_CURLY) {
@@ -4835,13 +4839,12 @@ export namespace SyntaxAnalysis {
 				}
 				.EQUALS_RIGHT_ANGLE {
 					var modifier = @yep(AST.Modifier(ModifierKind.Alias, @yes()))
-					type = @tryTypeDescriptive(TypeMode.Module + TypeMode.NoIdentifier)
 
-					if type.ok {
+					if type ?]= @tryTypeDescriptive(TypeMode.Module + TypeMode.NoIdentifier) {
 						var value = type.value
 
 						if ?value.name {
-							specifiers.push(@yep(AST.NamedSpecifier([modifier], @yep(value.name), null, modifier, type)))
+							specifiers.push(@yep(AST.NamedSpecifier([modifier], @yep(value.name), NO, modifier, type)))
 
 							last = type
 						}
@@ -4850,8 +4853,6 @@ export namespace SyntaxAnalysis {
 						}
 					}
 					else {
-						type = null
-
 						var elements = []
 						var identifier = @reqIdentifier()
 
@@ -4902,9 +4903,7 @@ export namespace SyntaxAnalysis {
 						@commit()
 					}
 					else {
-						var descType = @tryTypeDescriptive(TypeMode.Module + TypeMode.NoIdentifier)
-
-						if descType.ok {
+						if var descType ?]= @tryTypeDescriptive(TypeMode.Module + TypeMode.NoIdentifier) {
 							if @test(Token.EQUALS_RIGHT_ANGLE) {
 								@commit()
 
@@ -5329,14 +5328,14 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqIterationFrom(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
 			variable: Event<NodeData(Identifier)>(Y)
 			first: Event(Y)
 			fMode: FunctionMode
 		): Event<IterationData(From)>(Y) ~ SyntaxError # {{{
 		{
-			var late from: Event
+			var late from
 			if @token == Token.FROM_TILDE {
 				var modifier = @yep(AST.Modifier(ModifierKind.Ballpark, @yes()))
 
@@ -5363,7 +5362,7 @@ export namespace SyntaxAnalysis {
 				@NL_0M()
 			}
 
-			var late to: Event
+			var late to
 			if @match(Token.TO, Token.TO_TILDE) == Token.TO {
 				@commit()
 
@@ -5382,7 +5381,7 @@ export namespace SyntaxAnalysis {
 
 			@NL_0M()
 
-			var mut step: Event? = null
+			var late step
 			if @test(Token.STEP) {
 				@commit()
 
@@ -5390,9 +5389,12 @@ export namespace SyntaxAnalysis {
 
 				@NL_0M()
 			}
+			else {
+				step = NO
+			}
 
-			var mut until: Event? = null
-			var mut while: Event? = null
+			var mut until: Event = NO
+			var mut while: Event = NO
 			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
 				@commit()
 
@@ -5408,18 +5410,21 @@ export namespace SyntaxAnalysis {
 				@NL_0M()
 			}
 
-			var mut when: Event? = null
-			if @test(Token.WHEN) {
-				var whenFirst = @yes()
+			var when =
+				if @test(Token.WHEN) {
+					var whenFirst = @yes()
 
-				when = @relocate(@reqExpression(.Nil, fMode), whenFirst, null)
-			}
+					set @relocate(@reqExpression(.Nil, fMode), whenFirst, null)
+				}
+				else {
+					set NO
+				}
 
-			return @yep(AST.IterationFrom(attributes, modifiers, variable, from, to, step, until, while, when, first, (when ?? while ?? until ?? step ?? to):!!!(Range)))
+			return @yep(AST.IterationFrom(attributes, modifiers, variable, from, to, step, until, while, when, first, when ?]] while ?]] until ?]] step ?]] to))
 		} # }}}
 
 		reqIterationIn(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
 			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
 			type: Event<NodeData(Type)>
@@ -5431,7 +5436,7 @@ export namespace SyntaxAnalysis {
 		{
 			@NL_0M()
 
-			var mut from: Event? = null
+			var late from
 			if @match(Token.FROM, Token.FROM_TILDE) == Token.FROM {
 				@commit()
 
@@ -5448,8 +5453,11 @@ export namespace SyntaxAnalysis {
 
 				@NL_0M()
 			}
+			else {
+				from = NO
+			}
 
-			var mut order: Event? = null
+			var late order
 			if @match(Token.DOWN, Token.UP) == Token.DOWN {
 				order = @yes()
 
@@ -5464,8 +5472,11 @@ export namespace SyntaxAnalysis {
 
 				@NL_0M()
 			}
+			else {
+				order = NO
+			}
 
-			var mut to: Event? = null
+			var late to
 			if @match(Token.TO, Token.TO_TILDE) == Token.TO {
 				@commit()
 
@@ -5482,8 +5493,11 @@ export namespace SyntaxAnalysis {
 
 				@NL_0M()
 			}
+			else {
+				to = NO
+			}
 
-			var mut step: Event? = null
+			var late step
 			if @test(Token.STEP) {
 				@commit()
 
@@ -5491,8 +5505,11 @@ export namespace SyntaxAnalysis {
 
 				@NL_0M()
 			}
+			else {
+				step = NO
+			}
 
-			var mut split: Event? = null
+			var late split
 			if @test(Token.SPLIT) {
 				@commit()
 
@@ -5500,9 +5517,12 @@ export namespace SyntaxAnalysis {
 
 				@NL_0M()
 			}
+			else {
+				split = NO
+			}
 
-			var mut until: Event? = null
-			var mut while: Event? = null
+			var mut until: Event = NO
+			var mut while: Event = NO
 			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
 				@commit()
 
@@ -5518,18 +5538,21 @@ export namespace SyntaxAnalysis {
 				@NL_0M()
 			}
 
-			var mut when: Event? = null
-			if @test(Token.WHEN) {
-				var whenFirst = @yes()
+			var when =
+				if @test(Token.WHEN) {
+					var whenFirst = @yes()
 
-				when = @relocate(@reqExpression(.Nil, fMode), whenFirst, null)
-			}
+					set @relocate(@reqExpression(.Nil, fMode), whenFirst, null)
+				}
+				else {
+					set NO
+				}
 
-			return @yep(AST.IterationArray(attributes, modifiers, value, type, index, expression, from, to, step, split, until, while, when, first, (when ?? while ?? until ?? split ?? step ?? to ?? order ?? from ?? expression):!!!(Range)))
+			return @yep(AST.IterationArray(attributes, modifiers, value, type, index, expression, from, to, step, split, until, while, when, first, when ?]] while ?]] until ?]] split ?]] step ?]] to ?]] order ?]] from ?]] expression))
 		} # }}}
 
 		reqIterationInRange(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
 			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
 			type: Event<NodeData(Type)>
@@ -5566,12 +5589,15 @@ export namespace SyntaxAnalysis {
 						AST.pushModifier(to.value, modifier, true)
 					}
 
-					var mut step: Event? = null
-					if @test(Token.DOT_DOT) {
-						@commit()
+					var step =
+						if @test(Token.DOT_DOT) {
+							@commit()
 
-						step = @reqPrefixedOperand(.InlineOnly, fMode)
-					}
+							set @reqPrefixedOperand(.InlineOnly, fMode)
+						}
+						else {
+							set NO
+						}
 
 					return @reqIterationRange(attributes, modifiers, value!!, index, operand, to, step, first, fMode)
 				}
@@ -5589,7 +5615,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqIterationOf(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
 			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
 			type: Event<NodeData(Type)>
@@ -5600,7 +5626,8 @@ export namespace SyntaxAnalysis {
 		{
 			var expression = @reqExpression(.Nil, fMode)
 
-			var dyn until, while
+			var mut until: Event = NO
+			var mut while: Event = NO
 			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
 				@commit()
 
@@ -5614,32 +5641,35 @@ export namespace SyntaxAnalysis {
 
 			@NL_0M()
 
-			var dyn whenExp
-			if @test(Token.WHEN) {
-				var whenFirst = @yes()
+			var when =
+				if @test(Token.WHEN) {
+					var whenFirst = @yes()
 
-				whenExp = @relocate(@reqExpression(.Nil, fMode), whenFirst, null)
-			}
+					set @relocate(@reqExpression(.Nil, fMode), whenFirst, null)
+				}
+				else {
+					set NO
+				}
 
-			return @yep(AST.IterationObject(attributes, modifiers, value, type, key, expression, until, while, whenExp, first, (whenExp ?? while ?? until ?? expression):!!!(Range)))
+			return @yep(AST.IterationObject(attributes, modifiers, value, type, key, expression, until, while, when, first, when ?]] while ?]] until ?]] expression))
 		} # }}}
 
 		reqIterationRange(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
+			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
 			value: Event<NodeData(Identifier)>
 			index: Event<NodeData(Identifier)>
 			from: Event<NodeData(Expression)>(Y)
 			to: Event<NodeData(Expression)>(Y)
-			filter: Event<NodeData(Expression)>(Y)?
+			filter: Event<NodeData(Expression)>
 			first: Event(Y)
 			fMode: FunctionMode
 		): Event<IterationData(Range)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
-			var mut until: Event? = null
-			var mut while: Event? = null
+			var mut until: Event = NO
+			var mut while: Event = NO
 			if @match(Token.UNTIL, Token.WHILE) == Token.UNTIL {
 				@commit()
 
@@ -5655,14 +5685,17 @@ export namespace SyntaxAnalysis {
 				@NL_0M()
 			}
 
-			var mut when: Event? = null
-			if @test(Token.WHEN) {
-				var whenFirst = @yes()
+			var when =
+				if @test(Token.WHEN) {
+					var whenFirst = @yes()
 
-				when = @relocate(@reqExpression(.Nil, fMode), whenFirst, null)
-			}
+					set @relocate(@reqExpression(.Nil, fMode), whenFirst, null)
+				}
+				else {
+					set NO
+				}
 
-			return @yep(AST.IterationRange(attributes, modifiers, value, index, from, to, filter, until, while, when, first, (when ?? while ?? until ?? filter ?? to ?? from):!!!(Range)))
+			return @yep(AST.IterationRange(attributes, modifiers, value, index, from, to, filter, until, while, when, first, when ?]] while ?]] until ?]] filter ?]] to))
 		} # }}}
 
 		reqJunctionExpression(
@@ -6049,7 +6082,7 @@ export namespace SyntaxAnalysis {
 					var modifiers = []
 					var mut modifier = null
 					var mut name = null
-					var mut type = null
+					var mut type: Event = NO
 
 					if @test(Token.VAR) {
 						var varModifier = @yep(AST.Modifier(ModifierKind.Declarative, @yes()))
@@ -6116,7 +6149,7 @@ export namespace SyntaxAnalysis {
 						name = @reqIdentifier()
 					}
 
-					return @yep(AST.VariableDeclarator(modifiers, name, type, modifier ?? name, type ?? name))
+					return @yep(AST.VariableDeclarator(modifiers, name, type, modifier ?? name, type ?]] name))
 				}
 			}
 		} # }}}
@@ -6171,9 +6204,9 @@ export namespace SyntaxAnalysis {
 
 			var clauses = []
 
-			var dyn conditions, binding, filter, body, first
 			until @test(Token.RIGHT_CURLY) {
-				first = conditions = binding = filter = null
+				var late binding, filter, body, first
+				var conditions = []
 
 				if @test(Token.ELSE) {
 					first = @yes()
@@ -6189,12 +6222,17 @@ export namespace SyntaxAnalysis {
 					else {
 						@throw('=>', '{')
 					}
+
+					binding = filter = NO
 				}
 				else {
-					if !@test(Token.WITH, Token.WHEN) {
+					if @test(Token.WITH, Token.WHEN) {
+						first = @yep()
+					}
+					else {
 						first = @reqMatchCondition(fMode)
 
-						conditions = [first]
+						conditions.push(first)
 
 						while @test(Token.COMMA) {
 							@commit()
@@ -6206,29 +6244,25 @@ export namespace SyntaxAnalysis {
 					}
 
 					if @test(Token.WITH) {
-						if ?first {
-							@commit()
-						}
-						else {
-							first = @yes()
-						}
+						@commit()
 
 						binding = @reqMatchBinding(fMode)
 
 						@NL_0M()
 					}
+					else {
+						binding = NO
+					}
 
 					if @test(Token.WHEN) {
-						if ?first {
-							@commit()
-						}
-						else {
-							first = @yes()
-						}
+						@commit()
 
 						filter = @reqExpression(.ImplicitMember + .NoAnonymousFunction, fMode)
 
 						@NL_0M()
+					}
+					else {
+						filter = NO
 					}
 
 					if @test(Token.LEFT_CURLY) {
@@ -6246,7 +6280,7 @@ export namespace SyntaxAnalysis {
 
 				@reqNL_1M()
 
-				clauses.push(AST.MatchClause(conditions, binding, filter, body, first!?, body))
+				clauses.push(AST.MatchClause(conditions, binding, filter, body, first, body))
 			}
 
 			unless @test(Token.RIGHT_CURLY) {
@@ -6268,25 +6302,22 @@ export namespace SyntaxAnalysis {
 					return @yep(AST.MatchConditionType(type, first, type))
 				}
 				Token.LEFT_CURLY {
-					var dyn first = @yes()
-
+					var first = @yes()
 					var properties = []
 
 					if !@test(Token.RIGHT_CURLY) {
-						var dyn name
-
-						while true {
-							name = @reqIdentifier()
+						repeat {
+							var name = @reqIdentifier()
 
 							if @test(Token.COLON) {
 								@commit()
 
 								var value = @reqMatchConditionValue(fMode)
 
-								properties.push(@yep(AST.ObjectMember([], [], name, null, value, name, value)))
+								properties.push(@yep(AST.ObjectMember([], [], name, NO, value, name, value)))
 							}
 							else {
-								properties.push(@yep(AST.ObjectMember([], [], name, null, null, name, name)))
+								properties.push(@yep(AST.ObjectMember([], [], name, NO, NO, name, name)))
 							}
 
 							if @test(Token.COMMA) {
@@ -6305,8 +6336,7 @@ export namespace SyntaxAnalysis {
 					return @yep(AST.MatchConditionObject(properties, first, @yes()))
 				}
 				Token.LEFT_SQUARE {
-					var dyn first = @yes()
-
+					var first = @yes()
 					var values = []
 
 					until @test(Token.RIGHT_SQUARE) {
@@ -6846,17 +6876,17 @@ export namespace SyntaxAnalysis {
 			var mutMark = @mark()
 			var mut mutModifier = null
 
-			if @test(Token.MUT) {
+			if @test(.MUT) {
 				mutModifier = AST.Modifier(ModifierKind.Mutable, @yes())
 			}
 
 			var mut positionalModifier = null
 			var mut namedModifier = null
 
-			if @test(Token.HASH) {
+			if @test(.HASH) {
 				positionalModifier = AST.Modifier(ModifierKind.PositionOnly, @yes())
 			}
-			else if @test(Token.ASTERISK) {
+			else if @test(.ASTERISK) {
 				namedModifier = AST.Modifier(ModifierKind.NameOnly, @yes())
 			}
 
@@ -6866,7 +6896,7 @@ export namespace SyntaxAnalysis {
 				var identifier = @tryIdentifier()
 
 				if identifier.ok {
-					if @test(Token.PERCENT) {
+					if @test(.PERCENT) {
 						@commit()
 
 						external = identifier
@@ -6900,18 +6930,13 @@ export namespace SyntaxAnalysis {
 				if @test(.AMPERSAND) {
 					@commit()
 
-					if var alias ?]= @reqIdentifier() {
-						internal.value.alias = alias.value
-					}
-					else {
-						@throw('Identifier')
-					}
+					internal.value.alias = @reqIdentifier().value
 				}
 
 				return @reqParameterIdentifier(attributes, modifiers, external, internal, false, true, false, true, firstAttr ?? mutModifier ?? namedModifier ?? external ?? internal, pMode, fMode)
 			}
 
-			if @test(Token.DOT_DOT_DOT) {
+			if @test(.DOT_DOT_DOT) {
 				@throw() if ?positionalModifier || ?namedModifier
 
 				var first = @yes()
@@ -6922,7 +6947,7 @@ export namespace SyntaxAnalysis {
 				return @reqParameterRest(attributes, modifiers, external, (firstAttr ?? mutModifier ?? first):!!!(Range), pMode, fMode)
 			}
 
-			if @test(Token.AT) {
+			if @test(.AT) {
 				@throw() if ?mutModifier
 
 				var modifiers = []
@@ -6932,7 +6957,7 @@ export namespace SyntaxAnalysis {
 				return @reqParameterAt(attributes, modifiers, external, firstAttr ?? namedModifier ?? positionalModifier, pMode, fMode)
 			}
 
-			if @test(Token.UNDERSCORE) {
+			if @test(.UNDERSCORE) {
 				@throw() if ?positionalModifier || (?namedModifier && !?external)
 
 				var modifiers = []
@@ -6959,17 +6984,17 @@ export namespace SyntaxAnalysis {
 					var modifiers = []
 					modifiers.push(mutModifier) if ?mutModifier
 
-					if pMode !~ DestructuringMode.EXTERNAL_ONLY && @test(Token.PERCENT) {
+					if pMode !~ DestructuringMode.EXTERNAL_ONLY && @test(.PERCENT) {
 						@commit()
 
-						if @test(Token.UNDERSCORE) {
+						if @test(.UNDERSCORE) {
 							@commit()
 
 							return @reqParameterIdentifier(attributes, modifiers, identifier, null, false, true, true, true, firstAttr ?? mutModifier ?? identifier, pMode, fMode)
 						}
-						else if @test(Token.LEFT_CURLY, Token.LEFT_SQUARE) {
+						else if @test(.LEFT_CURLY, .LEFT_SQUARE) {
 							var late internal
-							if @token == Token.LEFT_CURLY {
+							if @token == .LEFT_CURLY {
 								internal = @reqDestructuringObject(@yes(), pMode, fMode)
 							}
 							else {
@@ -6978,12 +7003,12 @@ export namespace SyntaxAnalysis {
 
 							return @reqParameterIdentifier(attributes, modifiers, identifier, internal, true, true, true, true, firstAttr ?? mutModifier ?? identifier, pMode, fMode)
 						}
-						else if @test(Token.DOT_DOT_DOT) {
+						else if @test(.DOT_DOT_DOT) {
 							@commit()
 
 							return @reqParameterRest(attributes, modifiers, identifier, (firstAttr ?? mutModifier ?? identifier):!!!(Range), pMode, fMode)
 						}
-						else if @test(Token.AT) {
+						else if @test(.AT) {
 							@throw() if ?mutModifier
 
 							return @reqParameterAt(attributes, modifiers, identifier, firstAttr ?? namedModifier ?? identifier, pMode, fMode)
@@ -7366,7 +7391,7 @@ export namespace SyntaxAnalysis {
 			if @test(Token.LEFT_CURLY) {
 				var block = @reqBlock(NO, null, fMode)
 
-				return @yep(AST.RepeatStatement(null, block, first, block))
+				return @yep(AST.RepeatStatement(NO, block, first, block))
 			}
 			else {
 				var expression = @reqExpression(.Nil, fMode)
@@ -7607,15 +7632,17 @@ export namespace SyntaxAnalysis {
 				@commit()
 
 				var condition = @reqExpression(.NoRestriction, fMode)
+				var whenTrue = @yep(AST.SetStatement(expression, first, expression))
 
-				return @yep(AST.IfStatement(condition, @yep(AST.SetStatement(expression, first, expression)), null, first, condition))
+				return @yep(AST.IfStatement(condition, whenTrue, NO, first, condition))
 			}
 			else if @token == Token.UNLESS {
 				@commit()
 
 				var condition = @reqExpression(.NoRestriction, fMode)
+				var whenTrue = @yep(AST.SetStatement(expression, first, expression))
 
-				return @yep(AST.UnlessStatement(condition, @yep(AST.SetStatement(expression, first, expression)), first, condition))
+				return @yep(AST.UnlessStatement(condition, whenTrue, first, condition))
 			}
 			else {
 				return @yep(AST.SetStatement(expression, first, expression))
@@ -7886,7 +7913,7 @@ export namespace SyntaxAnalysis {
 				@throw('`')
 			}
 
-			return @yep(AST.TemplateExpression(null, elements, first, @yes()))
+			return @yep(AST.TemplateExpression([], elements, first, @yes()))
 		} # }}}
 
 		reqThisExpression(
@@ -7909,15 +7936,17 @@ export namespace SyntaxAnalysis {
 				@commit()
 
 				var condition = @reqExpression(.NoRestriction, fMode)
+				var whenTrue = @yep(AST.ThrowStatement(expression, first, expression))
 
-				return @yep(AST.IfStatement(condition, @yep(AST.ThrowStatement(expression, first, expression)), null, first, condition))
+				return @yep(AST.IfStatement(condition, whenTrue, NO, first, condition))
 			}
 			else if @token == Token.UNLESS {
 				@commit()
 
 				var condition = @reqExpression(.NoRestriction, fMode)
+				var whenTrue = @yep(AST.ThrowStatement(expression, first, expression))
 
-				return @yep(AST.UnlessStatement(condition, @yep(AST.ThrowStatement(expression, first, expression)), first, condition))
+				return @yep(AST.UnlessStatement(condition, whenTrue, first, condition))
 			}
 			else {
 				return @yep(AST.ThrowStatement(expression, first, expression))
@@ -7929,16 +7958,19 @@ export namespace SyntaxAnalysis {
 			fMode: FunctionMode
 		): Event<NodeData(CatchClause)>(Y) ~ SyntaxError # {{{
 		{
-			var dyn binding
-			if @test(Token.IDENTIFIER) {
-				binding = @reqIdentifier()
-			}
+			var binding =
+				if @test(Token.IDENTIFIER) {
+					set @reqIdentifier()
+				}
+				else {
+					set NO
+				}
 
 			@NL_0M()
 
 			var body = @reqBlock(NO, null, fMode)
 
-			return @yep(AST.CatchClause(binding, null, body, first, body))
+			return @yep(AST.CatchClause(binding, NO, body, first, body))
 		} # }}}
 
 		reqTryExpression(
@@ -7953,15 +7985,17 @@ export namespace SyntaxAnalysis {
 
 			var operand = @reqPrefixedOperand(.Nil, fMode)
 
-			var dyn default = null
+			var default =
+				if @test(Token.TILDE) {
+					@commit()
 
-			if @test(Token.TILDE) {
-				@commit()
+					set @reqPrefixedOperand(.Nil, fMode)
+				}
+				else {
+					set NO
+				}
 
-				default = @reqPrefixedOperand(.Nil, fMode)
-			}
-
-			return @yep(AST.TryExpression(modifiers, operand, default, first, default ?? operand))
+			return @yep(AST.TryExpression(modifiers, operand, default, first, default ?]] operand))
 		} # }}}
 
 		reqTupleStatement(
@@ -8009,7 +8043,7 @@ export namespace SyntaxAnalysis {
 			while @until(Token.RIGHT_SQUARE) {
 				if @test(Token.COMMA) {
 					var propToken = @yep()
-					var property = @yep(AST.PropertyType([], null, null, propToken, propToken))
+					var property = @yep(AST.PropertyType([], NO, NO, propToken, propToken))
 
 					properties.push(property)
 
@@ -8028,16 +8062,16 @@ export namespace SyntaxAnalysis {
 						var type = @tryType([], multiline, eMode)
 
 						if type.ok {
-							rest = @yep(AST.PropertyType([modifier], null, type, propToken, type))
+							rest = @yep(AST.PropertyType([modifier], NO, type, propToken, type))
 						}
 						else {
-							rest = @yep(AST.PropertyType([modifier], null, null, propToken, propToken))
+							rest = @yep(AST.PropertyType([modifier], NO, NO, propToken, propToken))
 						}
 					}
 					else {
 						var type = @reqType([], multiline)
 
-						var property = @yep(AST.PropertyType([], null, type, type, type))
+						var property = @yep(AST.PropertyType([], NO, type, type, type))
 
 						properties.push(property)
 					}
@@ -8282,47 +8316,42 @@ export namespace SyntaxAnalysis {
 
 					var first = @yes()
 					var modifier = @yep(AST.RestModifier(0, Infinity, first, first))
-					var type = @tryType(eMode)
 
-					if type.ok {
-						rest = @yep(AST.PropertyType([modifier], null, type, first, type))
+					if var type ?]= @tryType(eMode) {
+						rest = @yep(AST.PropertyType([modifier], NO, type, first, type))
 					}
 					else {
-						rest = @yep(AST.PropertyType([modifier], null, null, first, first))
+						rest = @yep(AST.PropertyType([modifier], NO, NO, first, first))
 					}
 
 					nf = false
 				}
 
-				if nf {
-					var identifier = @tryIdentifier()
+				if nf ;; var identifier ?]= @tryIdentifier() {
+					var propModifiers = []
+					var mut type: Event = NO
 
-					if identifier.ok {
-						var propModifiers = []
-						var mut type = null
+					if @test(.LEFT_ROUND) {
+						var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
+						var return = @tryFunctionReturns(eMode)
+						var throws = @tryFunctionThrows()
 
-						if @test(.LEFT_ROUND) {
-							var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
-							var return = @tryFunctionReturns(eMode)
-							var throws = @tryFunctionThrows()
-
-							type = @yep(AST.FunctionExpression(parameters, null, return, throws, null, parameters, throws ?]] return ?]] parameters))
-						}
-						else if @test(.COLON) {
-							@commit()
-
-							type = @reqType()
-						}
-						else if @test(.QUESTION) {
-							propModifiers.push(@yep(AST.Modifier(.Nullable, @yes())))
-						}
-
-						var property = @yep(AST.PropertyType(propModifiers, identifier, type, identifier, type ?? identifier))
-
-						properties.push(property)
-
-						nf = false
+						type = @yep(AST.FunctionExpression(parameters, null, return, throws, null, parameters, throws ?]] return ?]] parameters))
 					}
+					else if @test(.COLON) {
+						@commit()
+
+						type = @reqType()
+					}
+					else if @test(.QUESTION) {
+						propModifiers.push(@yep(AST.Modifier(.Nullable, @yes())))
+					}
+
+					var property = @yep(AST.PropertyType(propModifiers, identifier, type, identifier, type ?]] identifier))
+
+					properties.push(property)
+
+					nf = false
 				}
 
 				if nf {
@@ -8468,11 +8497,11 @@ export namespace SyntaxAnalysis {
 				else if questionable && @test(.QUESTION) {
 					var modifier = @yep(AST.Modifier(.Nullable, @yes()))
 
-					return @yep(AST.VariableDeclarator([modifier], name, null, name, modifier))
+					return @yep(AST.VariableDeclarator([modifier], name, NO, name, modifier))
 				}
 			}
 
-			return @yep(AST.VariableDeclarator([], name, null, name, name))
+			return @yep(AST.VariableDeclarator([], name, NO, name, name))
 		} # }}}
 
 		reqUnaryOperand(
@@ -8525,7 +8554,7 @@ export namespace SyntaxAnalysis {
 		{
 			var name = @reqIdentifier()
 
-			return @yep(AST.VariableDeclarator([], name, null, name, name))
+			return @yep(AST.VariableDeclarator([], name, NO, name, name))
 		} # }}}
 
 		reqVariableIdentifier(
@@ -8613,7 +8642,7 @@ export namespace SyntaxAnalysis {
 				else {
 					@reqNL_1M()
 
-					elements.push(AST.VariantField(names, null, names[0], names[names.length - 1]))
+					elements.push(AST.VariantField(names, NO, names[0], names[names.length - 1]))
 				}
 			}
 
@@ -8713,7 +8742,7 @@ export namespace SyntaxAnalysis {
 				specifiers.push(@yep(AST.NamedSpecifier(modifiers, internal, identifier, identifier, internal)))
 			}
 			else {
-				specifiers.push(@yep(AST.NamedSpecifier(modifiers, identifier, null, identifier, identifier)))
+				specifiers.push(@yep(AST.NamedSpecifier(modifiers, identifier, NO, identifier, identifier)))
 			}
 		} # }}}
 
@@ -9248,7 +9277,7 @@ export namespace SyntaxAnalysis {
 				return NO
 			}
 
-			var mut type = null
+			var mut type: Event<NodeData(Identifier)> = NO
 
 			if @test(Token.LEFT_ANGLE) {
 				@commit()
@@ -9308,17 +9337,19 @@ export namespace SyntaxAnalysis {
 
 			return NO unless name.ok
 
-			var mut value = null
+			var value =
+				if @test(Token.EQUALS) {
+					@commit()
 
-			if @test(Token.EQUALS) {
-				@commit()
-
-				value = @reqExpression(.ImplicitMember, .Method)
-			}
+					set @reqExpression(.ImplicitMember, .Method)
+				}
+				else {
+					set NO
+				}
 
 			@reqNL_1M()
 
-			return @yep(AST.BitmaskValue(attributes, modifiers, name, value, (first ?? name):!!!(Range), (value ?? name):!!!(Range)))
+			return @yep(AST.BitmaskValue(attributes, modifiers, name, value, first ?? name, value ?]] name))
 		} # }}}
 
 		tryBlock(
@@ -9593,8 +9624,8 @@ export namespace SyntaxAnalysis {
 							attributes
 							[...modifiers, modifier, modifier2]
 							bits - MemberBits.RequiredAssignment
-							null
-							null
+							NO
+							NO
 							first ?? modifier
 						)
 
@@ -9609,8 +9640,8 @@ export namespace SyntaxAnalysis {
 						attributes
 						[...modifiers, modifier]
 						bits + MemberBits.RequiredAssignment
-						null
-						null
+						NO
+						NO
 						first ?? modifier
 					)
 
@@ -9626,8 +9657,8 @@ export namespace SyntaxAnalysis {
 						attributes
 						[...modifiers, modifier]
 						bits - MemberBits.RequiredAssignment
-						null
-						null
+						NO
+						NO
 						first ?? modifier
 					)
 
@@ -9638,7 +9669,7 @@ export namespace SyntaxAnalysis {
 					@rollback(variableMark)
 				}
 
-				var variable = @tryClassVariable(attributes, modifiers, bits, null, null, first)
+				var variable = @tryClassVariable(attributes, modifiers, bits, NO, NO, first)
 
 				if variable.ok {
 					return variable
@@ -9777,14 +9808,14 @@ export namespace SyntaxAnalysis {
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
 			bits: MemberBits
-			mut name: Event<NodeData(Identifier)>(Y)?
-			mut type: Event<NodeData(Type)>(Y)?
+			mut name: Event<NodeData(Identifier)>
+			mut type: Event<NodeData(Type)>
 			mut first: Range?
 		): Event<NodeData(FieldDeclaration)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
-			if !?name {
+			if !?]name {
 				if @test(Token.AT) {
 					var modifier = @yep(AST.Modifier(ModifierKind.ThisAlias, @yes()))
 
@@ -9803,7 +9834,7 @@ export namespace SyntaxAnalysis {
 				name = identifier
 			}
 
-			if !?type {
+			if !?]type {
 				if @test(Token.COLON) {
 					@commit()
 
@@ -9814,22 +9845,25 @@ export namespace SyntaxAnalysis {
 				}
 			}
 
-			var dyn value
-			if bits ~~ MemberBits.NoAssignment {
-				pass
-			}
-			else if @test(Token.EQUALS) {
-				@commit()
+			var value =
+				if bits ~~ MemberBits.NoAssignment {
+					set NO
+				}
+				else if @test(Token.EQUALS) {
+					@commit()
 
-				value = @reqExpression(.ImplicitMember, .Method)
-			}
-			else if bits ~~ MemberBits.RequiredAssignment {
-				@throw('=')
-			}
+					set @reqExpression(.ImplicitMember, .Method)
+				}
+				else if bits ~~ MemberBits.RequiredAssignment {
+					@throw('=')
+				}
+				else {
+					set NO
+				}
 
 			@reqNL_1M()
 
-			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, (first ?? name):!!!(Range), (value ?? type ?? name):!!!(Range)))
+			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?]] type ?]] name))
 		} # }}}
 
 		tryCommaNL0M(): Boolean ~ SyntaxError # {{{
@@ -10063,9 +10097,9 @@ export namespace SyntaxAnalysis {
 				return NO
 			}
 
-			var mut type = null
-			var mut init = null
-			var mut step = null
+			var mut type: Event<NodeData(TypeReference)> = NO
+			var mut init: Event<NodeData(Expression)> = NO
+			var mut step: Event<NodeData(Expression)> = NO
 
 			if @test(Token.LEFT_ANGLE) {
 				@commit()
@@ -10130,7 +10164,7 @@ export namespace SyntaxAnalysis {
 			return NO unless name.ok
 
 			var mut arguments = null
-			var mut value = null
+			var mut value: Event<NodeData(Expression)> = NO
 
 			if @test(Token.EQUALS) {
 				@commit()
@@ -10155,7 +10189,7 @@ export namespace SyntaxAnalysis {
 
 			@reqNL_1M()
 
-			return @yep(AST.EnumValue(attributes, modifiers, name, value, arguments, (first ?? name):!!!(Range), (value ?? name):!!!(Range)))
+			return @yep(AST.EnumValue(attributes, modifiers, name, value, arguments, first ?? name, value ?]] name))
 		} # }}}
 
 		tryEnumVariable(
@@ -10169,28 +10203,33 @@ export namespace SyntaxAnalysis {
 
 			return NO unless name.ok
 
-			var mut type = null
+			var type =
+				if @test(Token.COLON) {
+					@commit()
 
-			if @test(Token.COLON) {
-				@commit()
+					set @reqType(Function.Method)
+				}
+				else {
+					if @test(Token.QUESTION) {
+						modifiers = [...modifiers, @yep(AST.Modifier(ModifierKind.Nullable, @yes()))]
+					}
 
-				type = @reqType(Function.Method)
-			}
-			else if @test(Token.QUESTION) {
-				modifiers = [...modifiers, @yep(AST.Modifier(ModifierKind.Nullable, @yes()))]
-			}
+					set NO
+				}
 
-			var mut value = null
+			var value =
+				if @test(Token.EQUALS) {
+					@commit()
 
-			if @test(Token.EQUALS) {
-				@commit()
-
-				value = @reqExpression(.ImplicitMember, .Method)
-			}
+					set @reqExpression(.ImplicitMember, .Method)
+				}
+				else {
+					set NO
+				}
 
 			@reqNL_1M()
 
-			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, (first ?? name):!!!(Range), (value ?? type ?? name):!!!(Range)))
+			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, value, first ?? name, value ?]] type ?]] name))
 		} # }}}
 
 		tryExpression(
@@ -10535,8 +10574,8 @@ export namespace SyntaxAnalysis {
 
 			var mark = @mark()
 
-			var mut condition: Event? = null
-			var mut declaration: Event? = null
+			var mut condition: Event = NO
+			var mut declaration: Event = NO
 
 			if @test(Token.VAR) {
 				var varMark = @mark()
@@ -10600,7 +10639,7 @@ export namespace SyntaxAnalysis {
 				condition = @tryExpression(ExpressionMode.NoAnonymousFunction, fMode)
 			}
 
-			unless ?declaration || condition.ok {
+			unless ?]declaration || ?]condition {
 				return NO
 			}
 
@@ -10724,8 +10763,8 @@ export namespace SyntaxAnalysis {
 			fMode: FunctionMode
 		): Event<NodeData(MatchStatement)> ~ SyntaxError # {{{
 		{
-			var mut expression: Event? = null
-			var mut declaration: Event? = null
+			var mut expression: Event = NO
+			var mut declaration: Event = NO
 
 			if @test(Token.VAR) {
 				var mark = @mark()
@@ -10749,14 +10788,13 @@ export namespace SyntaxAnalysis {
 						}
 						while @test(Token.COMMA)
 
-						var late operator: Event
-
-						if @test(Token.EQUALS) {
-							operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
-						}
-						else {
-							@throw('=')
-						}
+						var operator =
+							if @test(Token.EQUALS) {
+								set @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
+							}
+							else {
+								@throw('=')
+							}
 
 						unless @test(Token.AWAIT) {
 							@throw('await')
@@ -10770,14 +10808,13 @@ export namespace SyntaxAnalysis {
 						declaration = @yep(AST.VariableDeclaration([], modifiers, variables, operator, operation, varFirst, operation))
 					}
 					else {
-						var late operator: Event
-
-						if @test(Token.EQUALS) {
-							operator = @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
-						}
-						else {
-							@throw('=')
-						}
+						var operator =
+							if @test(Token.EQUALS) {
+								set @yep(AST.AssignmentOperator(AssignmentOperatorKind.Equals, @yes()))
+							}
+							else {
+								@throw('=')
+							}
 
 						var operation = @reqOperation(.ImplicitMember, fMode)
 
@@ -10787,17 +10824,13 @@ export namespace SyntaxAnalysis {
 				else {
 					@rollback(mark)
 
-					expression = @tryOperation(null, .Nil, fMode)
-
-					unless expression.ok {
+					unless expression ?]= @tryOperation(null, .Nil, fMode) {
 						return NO
 					}
 				}
 			}
 			else {
-				expression = @tryOperation(null, .Nil, fMode)
-
-				unless expression.ok {
+				unless expression ?]= @tryOperation(null, .Nil, fMode) {
 					return NO
 				}
 			}
@@ -11046,7 +11079,7 @@ export namespace SyntaxAnalysis {
 					var members = []
 
 					while @until(.RIGHT_CURLY) {
-						var dyn external = @reqIdentifier()
+						var mut external: Event<NodeData(Identifier)> = @reqIdentifier()
 						var mut internal = external
 
 						if @test(.PERCENT) {
@@ -11055,10 +11088,10 @@ export namespace SyntaxAnalysis {
 							internal = @reqIdentifier()
 						}
 						else {
-							external = null
+							external = NO
 						}
 
-						members.push(@yep(AST.NamedSpecifier([], internal, external, external ?? internal, internal)))
+						members.push(@yep(AST.NamedSpecifier([], internal, external, external ?]] internal, internal)))
 
 						if @test(Token.COMMA) {
 							@commit()
@@ -11097,7 +11130,7 @@ export namespace SyntaxAnalysis {
 					return @tryObjectComprehension(name!!, value, topFirst, eMode, fMode)
 				}
 
-				var expression = @yep(AST.ObjectMember(attributes, [], name, null, value, first ?? name, value))
+				var expression = @yep(AST.ObjectMember(attributes, [], name, NO, value, first ?? name, value))
 
 				return @altRestrictiveExpression(expression, fMode)
 			}
@@ -11194,7 +11227,7 @@ export namespace SyntaxAnalysis {
 
 				@NL_0M()
 
-				if (operator <- @tryBinaryOperator(fMode)).ok {
+				if operator ?]= @tryBinaryOperator(fMode) {
 					var mut mode = eMode + ExpressionMode.ImplicitMember
 
 					match operator.value.kind {
@@ -11213,7 +11246,7 @@ export namespace SyntaxAnalysis {
 					if operator.value.kind == BinaryOperatorKind.BackwardPipeline | BinaryOperatorKind.ForwardPipeline {
 						if @test(Token.DOT) {
 							var first = @yes()
-							var memberOperand = @yep(AST.MemberExpression([], null, @reqNumeralIdentifier(), first))
+							var memberOperand = @yep(AST.MemberExpression([], NO, @reqNumeralIdentifier(), first))
 
 							values.push(@reqUnaryOperand(memberOperand, mode, fMode).value)
 						}
@@ -11235,7 +11268,7 @@ export namespace SyntaxAnalysis {
 
 								if array is .ArrayExpression && array.values.length == 1 && !@hasTopicReference(array) {
 									var modifiers = [AST.Modifier(ModifierKind.Computed, first)]
-									var memberOperand = @yep(AST.MemberExpression(modifiers, null, @yep(array.values[0]), first, array))
+									var memberOperand = @yep(AST.MemberExpression(modifiers, NO, @yep(array.values[0]), first, array))
 
 									values.push(@reqUnaryOperand(memberOperand, mode, fMode).value)
 								}
@@ -11257,7 +11290,7 @@ export namespace SyntaxAnalysis {
 								var binary = @reqBinaryOperand(mode, fMode).value
 
 								if binary is .Identifier && binary.name == 'await' {
-									values.push(AST.AwaitExpression([], null, null, binary, binary))
+									values.push(AST.AwaitExpression([], [], NO, binary, binary))
 								}
 								else {
 									values.push(binary)
@@ -11510,7 +11543,7 @@ export namespace SyntaxAnalysis {
 				var condition = @reqExpression(eMode + .NoRestriction, fMode)
 
 				if @test(Token.NEWLINE) || @token == Token.EOF {
-					return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(first)), null, first, condition))
+					return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(first)), NO, first, condition))
 				}
 				else {
 					@rollback(mark)
@@ -11545,7 +11578,7 @@ export namespace SyntaxAnalysis {
 
 				var condition = @reqExpression(eMode + .NoRestriction, fMode)
 
-				return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(expression, first, expression)), null, first, condition))
+				return @yep(AST.IfStatement(condition, @yep(AST.ReturnStatement(expression, first, expression)), NO, first, condition))
 			}
 			else if @token == Token.UNLESS {
 				@commit()
@@ -11597,14 +11630,15 @@ export namespace SyntaxAnalysis {
 			var elements = []
 			var mut last: Range = name
 
-			var extends = if @test(Token.EXTENDS) {
-				@commit()
+			var extends =
+				if @test(Token.EXTENDS) {
+					@commit()
 
-				set @reqTypeNamed([])
-			}
-			else {
-				set null
-			}
+					set @reqTypeNamed([])
+				}
+				else {
+					set NO
+				}
 
 			var implements = []
 			if @test(Token.IMPLEMENTS) {
@@ -11647,7 +11681,7 @@ export namespace SyntaxAnalysis {
 
 							var type = @yep(AST.VariantType(enum, fields, enum, @yes()))
 
-							elements.push(AST.FieldDeclaration([], [], identifier!!, type, null, variantFirst, type))
+							elements.push(AST.FieldDeclaration([], [], identifier!!, type, NO, variantFirst, type))
 
 							nf = false
 						}
@@ -11657,47 +11691,50 @@ export namespace SyntaxAnalysis {
 					}
 
 					if nf {
-						var mut fieldFirst = null
-
 						var fieldAttributes = @stackOuterAttributes([])
-						if fieldAttributes.length != 0 {
-							// TODO!
-							// fieldFirst = fieldAttributes?#[0]
-							fieldFirst = fieldAttributes[0]
-						}
-
 						var modifiers = []
-
 						var fieldName = @reqIdentifier()
 
+						var fieldFirst =
+							if ?#fieldAttributes {
+								set fieldAttributes[0]
+							}
+							else {
+								set NO
+							}
+						// var fieldFirst = fieldAttributes !?## fieldAttributes[0]
+						// var fieldFirst = fieldAttributes?#[0]
 						var mut fieldLast: Event(Y) = fieldName
 
-						var mut type = null
-						if @test(Token.COLON) {
-							@commit()
+						var type =
+							if @test(Token.COLON) {
+								@commit()
 
-							type = @reqType()
+								set @reqType()
+							}
+							else {
+								if @test(Token.QUESTION) {
+									var modifier = @yep(AST.Modifier(ModifierKind.Nullable, @yes()))
 
-							fieldLast = type
-						}
-						else if @test(Token.QUESTION) {
-							var modifier = @yep(AST.Modifier(ModifierKind.Nullable, @yes()))
+									modifiers.push(modifier)
 
-							modifiers.push(modifier)
+									fieldLast = modifier
+								}
 
-							fieldLast = modifier
-						}
+								set NO
+							}
 
-						var dyn defaultValue = null
-						if @test(Token.EQUALS) {
-							@commit()
+						var defaultValue =
+							if @test(Token.EQUALS) {
+								@commit()
 
-							defaultValue = @reqExpression(.ImplicitMember, .Nil)
+								set @reqExpression(.ImplicitMember, .Nil)
+							}
+							else {
+								set NO
+							}
 
-							fieldLast = defaultValue
-						}
-
-						elements.push(AST.FieldDeclaration(fieldAttributes, modifiers, fieldName, type, defaultValue, fieldFirst ?? fieldName, fieldLast))
+						elements.push(AST.FieldDeclaration(fieldAttributes, modifiers, fieldName, type, defaultValue, fieldFirst ?]] fieldName, defaultValue ?]] type ?]] fieldLast))
 					}
 
 					if @match(Token.COMMA, Token.NEWLINE) == Token.COMMA {
@@ -11756,11 +11793,8 @@ export namespace SyntaxAnalysis {
 			}
 
 			var mut last: Event(Y) = body
-
 			var mut mark = @mark()
-
 			var catchClauses = []
-			var dyn catchClause, finalizer
 
 			@NL_0M()
 
@@ -11780,27 +11814,31 @@ export namespace SyntaxAnalysis {
 				@NL_0M()
 			}
 
+			var late catchClause
 			if @test(Token.CATCH) {
-				catchClause = last = @reqTryCatchClause(@yes(), fMode)
+				catchClause = @reqTryCatchClause(@yes(), fMode)
 
 				mark = @mark()
 			}
 			else {
+				catchClause = NO
+
 				@rollback(mark)
 			}
 
 			@NL_0M()
 
-			if @test(Token.FINALLY) {
-				@commit()
+			var finalizer =
+				if @test(Token.FINALLY) {
+					@commit()
 
-				finalizer = last = @reqBlock(NO, null, fMode)
-			}
-			else {
-				@rollback(mark)
-			}
+					set @reqBlock(NO, null, fMode)
+				}
+				else {
+					set NO
+				}
 
-			return @yep(AST.TryStatement(body, catchClauses, catchClause, finalizer, first, last))
+			return @yep(AST.TryStatement(body, catchClauses, catchClause, finalizer, first, finalizer ?]] catchClause ?]] last))
 		} # }}}
 
 		tryTupleStatement(
@@ -11816,14 +11854,17 @@ export namespace SyntaxAnalysis {
 			var attributes = []
 			var modifiers = []
 			var elements = []
-			var dyn extends = null
 			var dyn last = name
 
-			if @test(Token.EXTENDS) {
-				@commit()
+			var extends =
+				if @test(Token.EXTENDS) {
+					@commit()
 
-				extends = @reqIdentifier()
-			}
+					set @reqIdentifier()
+				}
+				else {
+					set NO
+				}
 
 			var implements = []
 			if @test(Token.IMPLEMENTS) {
@@ -11845,15 +11886,16 @@ export namespace SyntaxAnalysis {
 
 				until @test(Token.RIGHT_SQUARE) {
 					var fieldModifiers = []
-					var mut fieldName = null
-					var mut type = null
 					var mut fieldFirst = null
 					var mut fieldLast = null
 
 					var fieldAttributes = @stackOuterAttributes([])
-					if fieldAttributes.length != 0 {
+					if ?#fieldAttributes {
 						fieldFirst = fieldAttributes[0]
 					}
+
+					var mut fieldName: Event = NO
+					var mut type: Event = NO
 
 					if @test(Token.COLON) {
 						if ?fieldFirst {
@@ -11869,6 +11911,7 @@ export namespace SyntaxAnalysis {
 					}
 					else {
 						fieldName = @reqIdentifier()
+						fieldFirst = fieldName
 
 						if @test(Token.COLON) {
 							@commit()
@@ -11889,16 +11932,17 @@ export namespace SyntaxAnalysis {
 						}
 					}
 
-					var dyn defaultValue = null
-					if @test(Token.EQUALS) {
-						@commit()
+					var defaultValue =
+						if @test(Token.EQUALS) {
+							@commit()
 
-						defaultValue = @reqExpression(.ImplicitMember, .Nil)
+							set @reqExpression(.ImplicitMember, .Nil)
+						}
+						else {
+							set NO
+						}
 
-						fieldLast = defaultValue
-					}
-
-					elements.push(AST.TupleField(fieldAttributes, fieldModifiers, fieldName, type, defaultValue, fieldFirst ?? fieldName!?, fieldLast))
+					elements.push(AST.TupleField(fieldAttributes, fieldModifiers, fieldName, type, defaultValue, fieldFirst, defaultValue ?]] fieldLast))
 
 					if @match(Token.COMMA, Token.NEWLINE) == Token.COMMA {
 						@commit().NL_0M()
@@ -12343,7 +12387,7 @@ export namespace SyntaxAnalysis {
 							return @yep(AST.VariableDeclarator([sealed], name, type, sealed, type))
 						}
 						else {
-							return @yep(AST.VariableDeclarator([sealed], name, null, sealed, name))
+							return @yep(AST.VariableDeclarator([sealed], name, NO, sealed, name))
 						}
 					}
 					else if @token == Token.NAMESPACE {
@@ -12377,7 +12421,7 @@ export namespace SyntaxAnalysis {
 							return @yep(AST.VariableDeclarator([system], name, type, system, type))
 						}
 						else {
-							return @yep(AST.VariableDeclarator([system], name, null, system, name))
+							return @yep(AST.VariableDeclarator([system], name, NO, system, name))
 						}
 					}
 					else if @token == Token.NAMESPACE {
@@ -12407,7 +12451,7 @@ export namespace SyntaxAnalysis {
 						return @yep(AST.VariableDeclarator([], name, type, first, type))
 					}
 					else {
-						return @yep(AST.VariableDeclarator([], name, null, first, name))
+						return @yep(AST.VariableDeclarator([], name, NO, first, name))
 					}
 				}
 			}
@@ -12598,16 +12642,17 @@ export namespace SyntaxAnalysis {
 
 				var identifier = @reqIdentifier()
 
-				var constraint = if @test(.IS) {
-					@commit()
+				var constraint =
+					if @test(.IS) {
+						@commit()
 
-					set @reqType(.InlineOnly + .ImplicitMember)
-				}
-				else {
-					set null
-				}
+						set @reqType(.InlineOnly + .ImplicitMember)
+					}
+					else {
+						set NO
+					}
 
-				result.push(@yep(AST.TypeParameter(identifier, constraint, identifier, constraint ?? identifier)))
+				result.push(@yep(AST.TypeParameter(identifier, constraint, identifier, constraint ?]] identifier)))
 
 				last = identifier
 			}
@@ -12677,7 +12722,7 @@ export namespace SyntaxAnalysis {
 						var scope = arguments.value.shift()
 
 						// TODO!
-						// if scope ?: Event<NodeData(Argument, Identifier, ObjectExpression)>(Y) {
+						// if scope !?: Event<NodeData(Argument, Identifier, ObjectExpression)>(Y) {
 						if scope is not Event<NodeData(Argument, Identifier, ObjectExpression)>(Y) {
 							@throw('object scope')
 						}
@@ -12937,10 +12982,8 @@ export namespace SyntaxAnalysis {
 
 		tryVariable(): Event<NodeData(VariableDeclarator)> ~ SyntaxError # {{{
 		{
-			var name = @tryIdentifier()
-
-			if name.ok {
-				return @yep(AST.VariableDeclarator([], name, null, name, name))
+			if var name ?]= @tryIdentifier() {
+				return @yep(AST.VariableDeclarator([], name, NO, name, name))
 			}
 			else {
 				return NO
@@ -13057,10 +13100,10 @@ export namespace SyntaxAnalysis {
 
 							var value = @reqExpression(eMode, fMode)
 
-							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, value, variable, value)))
+							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, value, variable, value)))
 						}
 						else {
-							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
+							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, NO, variable, variable)))
 						}
 
 						@reqNL_1M()
@@ -13104,7 +13147,7 @@ export namespace SyntaxAnalysis {
 				if variables.length == 1 {
 					var value = @reqExpression(eMode + ExpressionMode.ImplicitMember, fMode)
 
-					var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, first, value))
+					var declaration = @yep(AST.VariableDeclaration([], [], variables, NO, value, first, value))
 
 					return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 				}
@@ -13120,7 +13163,7 @@ export namespace SyntaxAnalysis {
 
 					var value = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
-					var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, first, value))
+					var declaration = @yep(AST.VariableDeclaration([], [], variables, NO, value, first, value))
 
 					return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 				}
@@ -13130,7 +13173,7 @@ export namespace SyntaxAnalysis {
 			var mut last = null
 
 			for var variable in variables {
-				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, NO, variable, variable)))
 
 				last = variable
 			}
@@ -13140,7 +13183,7 @@ export namespace SyntaxAnalysis {
 
 				var variable = @reqTypedVariable(fMode, false, false)
 
-				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, NO, variable, variable)))
 
 				last = variable
 			}
@@ -13183,7 +13226,7 @@ export namespace SyntaxAnalysis {
 
 						var value = @reqExpression(eMode, fMode)
 
-						declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, value, variable, value)))
+						declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, value, variable, value)))
 
 						@reqNL_1M()
 					}
@@ -13239,7 +13282,7 @@ export namespace SyntaxAnalysis {
 				value = @yep(AST.AwaitExpression([], variables, operand, variable, operand))
 			}
 
-			var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, variable, value))
+			var declaration = @yep(AST.VariableDeclaration([], [], variables, NO, value, variable, value))
 
 			return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 		} # }}}
@@ -13269,7 +13312,7 @@ export namespace SyntaxAnalysis {
 							break
 						}
 
-						declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
+						declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, NO, variable, variable)))
 
 						@reqNL_1M()
 					}
@@ -13291,7 +13334,7 @@ export namespace SyntaxAnalysis {
 			var mut last = null
 
 			if var variable ?]= @tryTypedVariable(fMode, true, true) {
-				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, NO, variable, variable)))
 
 				last = variable
 			}
@@ -13304,7 +13347,7 @@ export namespace SyntaxAnalysis {
 
 				var variable = @reqTypedVariable(fMode, true, true)
 
-				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, NO, variable, variable)))
 
 				last = variable
 			}
@@ -13342,10 +13385,10 @@ export namespace SyntaxAnalysis {
 
 							var value = @reqExpression(eMode, fMode)
 
-							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, value, variable, value)))
+							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, value, variable, value)))
 						}
 						else if ?variable.value.type {
-							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
+							declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, NO, variable, variable)))
 						}
 						else {
 							ok = false
@@ -13394,12 +13437,12 @@ export namespace SyntaxAnalysis {
 
 					var value = @reqExpression(eMode + ExpressionMode.ImplicitMember, fMode)
 
-					var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, first, value))
+					var declaration = @yep(AST.VariableDeclaration([], [], variables, NO, value, first, value))
 
 					return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 				}
 				else if ?variables[0].value.type {
-					var declaration = @yep(AST.VariableDeclaration([], [], variables, null, null, first, variables[0]))
+					var declaration = @yep(AST.VariableDeclaration([], [], variables, NO, NO, first, variables[0]))
 
 					return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 				}
@@ -13422,7 +13465,7 @@ export namespace SyntaxAnalysis {
 
 				var value = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
-				var declaration = @yep(AST.VariableDeclaration([], [], variables, null, value, first, value))
+				var declaration = @yep(AST.VariableDeclaration([], [], variables, NO, value, first, value))
 
 				return @yep(AST.VariableStatement([], modifiers, [declaration], first, declaration))
 			}
@@ -13435,7 +13478,7 @@ export namespace SyntaxAnalysis {
 					return NO
 				}
 
-				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, NO, variable, variable)))
 
 				last = variable
 			}
@@ -13445,7 +13488,7 @@ export namespace SyntaxAnalysis {
 
 				var variable = @reqTypedVariable(fMode, true, false)
 
-				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], null, null, variable, variable)))
+				declarations.push(@yep(AST.VariableDeclaration([], [], [variable], NO, NO, variable, variable)))
 
 				last = variable
 			}
@@ -13584,7 +13627,7 @@ export namespace SyntaxAnalysis {
 						var operand = @reqPrefixedOperand(.Nil, fMode)
 						var expression = @yep(AST.AwaitExpression([], variables, operand, variables[0], operand))
 
-						return @yep(AST.VariableDeclaration(attributes, modifiers, variables, null, expression, first, expression))
+						return @yep(AST.VariableDeclaration(attributes, modifiers, variables, NO, expression, first, expression))
 					}
 					else {
 						if @test(Token.EQUALS) {
@@ -13596,7 +13639,7 @@ export namespace SyntaxAnalysis {
 
 						var expression = @reqExpression(.Nil, fMode)
 
-						return @yep(AST.VariableDeclaration(attributes, modifiers, [variable], null, expression, first, expression))
+						return @yep(AST.VariableDeclaration(attributes, modifiers, [variable], NO, expression, first, expression))
 					}
 				}
 
@@ -13743,20 +13786,18 @@ export namespace SyntaxAnalysis {
 			}
 
 			var body = @reqBlock(NO, eMode, fMode)
-			var mut finalizer = null
 
-			mark = @mark()
+			var finalizer =
+				if @hasNL_1M() && @test(Token.FINALLY) {
+					@commit()
 
-			if @hasNL_1M() && @test(Token.FINALLY) {
-				@commit()
+					set @reqBlock(NO, null, fMode)
+				}
+				else {
+					set NO
+				}
 
-				finalizer = @reqBlock(NO, null, fMode)
-			}
-			else {
-				@rollback(mark)
-			}
-
-			return @yep(AST.WithStatement(variables, body, finalizer, first, finalizer ?? body))
+			return @yep(AST.WithStatement(variables, body, finalizer, first, finalizer ?]] body))
 		} # }}}
 
 		validateAssignable(
