@@ -368,7 +368,7 @@ namespace AST {
 		func ArrayType(
 			modifiers: Event<ModifierData>(Y)[]
 			properties: Event<NodeData(PropertyType)>(Y)[]
-			rest: Event<NodeData(PropertyType)>(Y)?
+			rest: Event<NodeData(PropertyType)>
 			{ start }: Range
 			{ end }: Range
 		): NodeData(ArrayType) { # {{{
@@ -376,7 +376,7 @@ namespace AST {
 				kind: .ArrayType
 				modifiers: [modifier.value for var modifier in modifiers]
 				properties: [property.value for var property in properties]
-				rest: rest.value if ?rest
+				rest: rest.value if ?]rest
 				start
 				end
 			}
@@ -485,30 +485,28 @@ namespace AST {
 		} # }}}
 
 		func BinaryOperator(
-			// TODO!
-			// operator: BinaryOperatorKind(!Assignment)
-			operator: BinaryOperatorKind
+			operator: BinaryOperatorKind(!Assignment)
 			{ start, end }: Range
-		): BinaryOperatorData { # {{{
+		): BinaryOperatorData(!Assignment) { # {{{
 			return {
 				kind: operator
 				modifiers: []
 				start
 				end
-			}!!!
+			}
 		} # }}}
 
 		func BinaryOperator(
 			modifiers: ModifierData[]
-			operator: BinaryOperatorKind
+			operator: BinaryOperatorKind(!Assignment)
 			{ start, end }: Range
-		): BinaryOperatorData { # {{{
+		): BinaryOperatorData(!Assignment) { # {{{
 			return {
 				kind: operator
 				modifiers
 				start
 				end
-			}!!!
+			}
 		} # }}}
 
 		func BitmaskDeclaration(
@@ -1005,10 +1003,11 @@ namespace AST {
 		// 		attributes: []
 		// 		modifiers: [modifier.value for var modifier in modifiers]
 		// 		name: name.value
+		// 		// TODO!
 		// 		typeParameters: [parameter.value for var parameter in typeParameters.value] if ?#typeParameters?].value
 		// 		parameters: [parameter.value for var parameter in parameters.value] if ?]parameters
 		// 		type: type.value if ?]type
-		// 		throws: [throw.value for var throw in? throws?].value]
+		// 		throws: [throw.value for var throw in throws?].value]
 		// 		body: body.value if ?]body
 		// 		start
 		// 		end
@@ -1077,7 +1076,7 @@ namespace AST {
 		func GroupSpecifier(
 			modifiers: Event<ModifierData>(Y)[]
 			elements: Event<NodeData(NamedSpecifier, TypedSpecifier)>(Y)[]
-			type: Event<NodeData(DescriptiveType)>(Y)?
+			type: Event<NodeData(DescriptiveType)>
 			{ start }: Range
 			{ end }: Range
 		): NodeData(GroupSpecifier) { # {{{
@@ -1085,7 +1084,7 @@ namespace AST {
 				kind: .GroupSpecifier
 				modifiers: [modifier.value for var modifier in modifiers]
 				elements: [element.value for var element in elements]
-				type: type.value if ?type
+				type: type.value if ?]type
 				start
 				end
 			}
@@ -2042,14 +2041,14 @@ namespace AST {
 
 		func PlaceholderArgument(
 			modifiers: Event<ModifierData>(Y)[]
-			index: Event<NodeData(NumericExpression)>(Y)?
+			index: Event<NodeData(NumericExpression)>
 			{ start }: Range
 			{ end }: Range
 		): NodeData(PlaceholderArgument) { # {{{
 			return {
 				kind: .PlaceholderArgument
 				modifiers: [modifier.value for var modifier in modifiers]
-				index: index.value if ?index
+				index: index.value if ?]index
 				start
 				end
 			}
@@ -2733,8 +2732,8 @@ namespace AST {
 		func TypeReference(
 			modifiers: Event<ModifierData>(Y)[]
 			name: Event<NodeData(Identifier, MemberExpression, UnaryExpression)>(Y)
-			parameters: Event<Event<NodeData(Type)>(Y)[]>?
-			subtypes: Event<Event<NodeData(Identifier)>(Y)[] | NodeData(Expression)>(Y)?
+			parameters: Event<Event<NodeData(Type)>(Y)[]>
+			subtypes: Event<Event<NodeData(Identifier)>(Y)[] | NodeData(Expression)>
 			{ start }: Range
 			{ end }: Range
 		): NodeData(TypeReference) { # {{{
@@ -2742,7 +2741,7 @@ namespace AST {
 				kind: .TypeReference
 				modifiers: [modifier.value for var modifier in modifiers]
 				typeName: name.value
-				typeParameters: [parameter.value for var parameter in parameters.value] if ?parameters
+				typeParameters: [parameter.value for var parameter in parameters.value] if ?]parameters
 				typeSubtypes: (
 					if subtypes.value is Array {
 						set [subtype.value for var subtype in subtypes.value]
@@ -2750,7 +2749,7 @@ namespace AST {
 					else {
 						set subtypes.value
 					}
-				) if ?subtypes
+				) if ?]subtypes
 				start
 				end
 			}

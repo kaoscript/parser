@@ -941,7 +941,7 @@ export namespace SyntaxAnalysis {
 							argument = @yep(AST.PlaceholderArgument([], index, first, index))
 						}
 						else {
-							argument = @yep(AST.PlaceholderArgument([], null, first, first))
+							argument = @yep(AST.PlaceholderArgument([], NO, first, first))
 						}
 					}
 					else if @test(Token.COLON) {
@@ -967,7 +967,7 @@ export namespace SyntaxAnalysis {
 						var modifier = @yep(AST.Modifier(ModifierKind.Rest, @yes()))
 
 						if @testNS(Token.COMMA, Token.NEWLINE, Token.RIGHT_ROUND) {
-							argument = @yep(AST.PlaceholderArgument([modifier], null, modifier, modifier))
+							argument = @yep(AST.PlaceholderArgument([modifier], NO, modifier, modifier))
 						}
 						else {
 							@rollback(mark)
@@ -993,7 +993,7 @@ export namespace SyntaxAnalysis {
 										set @yep(AST.PlaceholderArgument([], index, first, index))
 									}
 									else {
-										set @yep(AST.PlaceholderArgument([], null, first, first))
+										set @yep(AST.PlaceholderArgument([], NO, first, first))
 									}
 								}
 								else {
@@ -3464,12 +3464,12 @@ export namespace SyntaxAnalysis {
 						last = elements[elements.length - 1]
 					}
 
-					declarations.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
+					declarations.push(@yep(AST.GroupSpecifier([modifier], elements, NO, modifier, last)))
 				}
 				else {
 					var modifier = @yep(AST.Modifier(ModifierKind.Wildcard, asteriskFirst))
 
-					declarations.push(@yep(AST.GroupSpecifier([modifier], [], null, modifier, modifier)))
+					declarations.push(@yep(AST.GroupSpecifier([modifier], [], NO, modifier, modifier)))
 
 					last = modifier
 				}
@@ -3653,7 +3653,7 @@ export namespace SyntaxAnalysis {
 		{
 			@reqNL_1M()
 
-			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, NO, first, (type ?? name):!!!(Range)))
+			return @yep(AST.FieldDeclaration(attributes, modifiers, name, type, NO, first, type ?]] name))
 		} # }}}
 
 		reqExternClassMember(
@@ -4833,7 +4833,7 @@ export namespace SyntaxAnalysis {
 						last = elements[elements.length - 1]
 					}
 
-					specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
+					specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, NO, modifier, last)))
 
 					last = specifiers[specifiers.length - 1]
 				}
@@ -4868,7 +4868,7 @@ export namespace SyntaxAnalysis {
 
 						last = elements[elements.length - 1]
 
-						specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
+						specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, NO, modifier, last)))
 					}
 				}
 				.FOR {
@@ -4926,7 +4926,7 @@ export namespace SyntaxAnalysis {
 
 					last = elements[elements.length - 1]
 
-					specifiers.push(@yep(AST.GroupSpecifier([], elements, null, first, last)))
+					specifiers.push(@yep(AST.GroupSpecifier([], elements, NO, first, last)))
 
 					last = specifiers[specifiers.length - 1]
 				}
@@ -4950,7 +4950,7 @@ export namespace SyntaxAnalysis {
 
 						last = elements[elements.length - 1]
 
-						specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, null, modifier, last)))
+						specifiers.push(@yep(AST.GroupSpecifier([modifier], elements, NO, modifier, last)))
 					}
 					else if @token == Token.FOR {
 						@commit()
@@ -4960,7 +4960,7 @@ export namespace SyntaxAnalysis {
 						if @test(Token.ASTERISK) {
 							var modifier = @yep(AST.Modifier(ModifierKind.Wildcard, @yes()))
 
-							specifiers.push(@yep(AST.GroupSpecifier([modifier], [], null, modifier, modifier)))
+							specifiers.push(@yep(AST.GroupSpecifier([modifier], [], NO, modifier, modifier)))
 
 							last = modifier
 						}
@@ -6080,12 +6080,14 @@ export namespace SyntaxAnalysis {
 					var mark = @mark()
 
 					var modifiers = []
-					var mut modifier = null
+					var late first: Event(Y)
 					var mut name = null
 					var mut type: Event = NO
 
 					if @test(Token.VAR) {
 						var varModifier = @yep(AST.Modifier(ModifierKind.Declarative, @yes()))
+
+						first = varModifier
 
 						var varDMode: DestructuringMode = .MODIFIER + .RECURSION + .TYPE
 						var mark2 = @mark()
@@ -6128,7 +6130,7 @@ export namespace SyntaxAnalysis {
 								}
 							}
 
-							if name.ok {
+							if ?]name {
 								modifiers.push(varModifier)
 							}
 							else {
@@ -6147,9 +6149,11 @@ export namespace SyntaxAnalysis {
 					}
 					else {
 						name = @reqIdentifier()
+
+						first = name
 					}
 
-					return @yep(AST.VariableDeclarator(modifiers, name, type, modifier ?? name, type ?]] name))
+					return @yep(AST.VariableDeclarator(modifiers, name, type, first, type ?]] name))
 				}
 			}
 		} # }}}
@@ -7301,10 +7305,10 @@ export namespace SyntaxAnalysis {
 			if operator.ok {
 				var defaultValue = @reqExpression(.ImplicitMember, fMode)
 
-				return @yep(AST.Parameter(attributes, modifiers, external ?? @yep(name.value.name), name, null, operator, defaultValue, first ?? name, defaultValue))
+				return @yep(AST.Parameter(attributes, modifiers, external ?? @yep(name.value.name), name, null, operator, defaultValue, first, defaultValue))
 			}
 			else {
-				return @yep(AST.Parameter(attributes, modifiers, external ?? @yep(name.value.name), name, null, null, null, first ?? name, name))
+				return @yep(AST.Parameter(attributes, modifiers, external ?? @yep(name.value.name), name, null, null, null, first, name))
 			}
 		} # }}}
 
@@ -8036,7 +8040,7 @@ export namespace SyntaxAnalysis {
 		): Event<NodeData(Type)>(Y) ~ SyntaxError # {{{
 		{
 			var properties: Event<NodeData(PropertyType)>(Y)[] = []
-			var mut rest = null
+			var mut rest: Event = NO
 
 			@NL_0M()
 
@@ -8053,7 +8057,7 @@ export namespace SyntaxAnalysis {
 					@NL_0M()
 
 					if @test(Token.DOT_DOT_DOT) {
-						if ?rest {
+						if ?]rest {
 							@throw('Identifier')
 						}
 
@@ -8702,7 +8706,7 @@ export namespace SyntaxAnalysis {
 
 		submitNamedGroupSpecifier(
 			modifiers: Event<ModifierData>(Y)[]
-			type: Event<NodeData(DescriptiveType)>(Y)?
+			type: Event<NodeData(DescriptiveType)>
 			specifiers: Event<NodeData(GroupSpecifier)>(Y)[]
 		): Void ~ SyntaxError # {{{
 		{
@@ -9787,7 +9791,7 @@ export namespace SyntaxAnalysis {
 
 			@reqNL_1M()
 
-			return @yep(AST.ProxyDeclaration(attributes, modifiers, name, target, first ?? name, target ?? name))
+			return @yep(AST.ProxyDeclaration(attributes, modifiers, name, target, first ?? name, target))
 		} # }}}
 
 		tryClassStatement(
@@ -12494,8 +12498,7 @@ export namespace SyntaxAnalysis {
 
 			var first = modifiers[0] ?? name
 			var mut last: Range = name
-
-			var mut generic = null
+			var mut generic: Event = NO
 
 			if @testNS(.LEFT_ANGLE) {
 				var leftFirst = @yes()
@@ -12514,7 +12517,8 @@ export namespace SyntaxAnalysis {
 				last = generic = @yes(types, leftFirst)
 			}
 
-			var mut typeSubtypes = null
+			var mut typeSubtypes: Event = NO
+
 			if @testNS(.LEFT_ROUND) {
 				var leftFirst = @yes()
 				var mark = @mark()
@@ -12597,7 +12601,7 @@ export namespace SyntaxAnalysis {
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
-				return @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, (throws ?? type ?? parameters):!!!(Range)))
+				return @yep(AST.FunctionExpression(parameters, null, type, throws, null, parameters, throws ?]] type ?]] parameters))
 			}
 
 			if @test(Token.LEFT_CURLY) {
@@ -12721,8 +12725,6 @@ export namespace SyntaxAnalysis {
 						var arguments = @reqArgumentList(eMode, fMode)
 						var scope = arguments.value.shift()
 
-						// TODO!
-						// if scope !?: Event<NodeData(Argument, Identifier, ObjectExpression)>(Y) {
 						if scope is not Event<NodeData(Argument, Identifier, ObjectExpression)>(Y) {
 							@throw('object scope')
 						}

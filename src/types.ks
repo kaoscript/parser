@@ -24,28 +24,20 @@ type ParsingError = Range & {
 	expecteds: String[]
 }
 
-// type Result<V, E> = {
-// 	variant ok: Boolean {
-// 		false, Err {
-// 			expecteds: Null
-// 			start: Null
-// 			end: Null
-// 		} | {
-// 			expecteds: String[]
-// 			start: Position
-// 			end: Position
-// 		}
-// 		false, Err {
-// 			top: ParsingError?
-// 			stack: ParsingError[]
-// 		}
-// 		true, Ok {
-// 			value: V
-// 			start: Position
-// 			end: Position
-// 		}
-// 		true, Ok = Range & {
-// 			value: V
-// 		}
-// 	}
-// }
+type Result<V> = {
+	variant ok: Boolean {
+		false, Err {
+			top: ParsingError?
+			stack: ParsingError[]
+		}
+		true, Ok {
+			value: V
+			start: Position
+			end: Position
+		}
+		// TODO!
+		// true, Ok = Range & {
+		// 	value: V
+		// }
+	}
+}
