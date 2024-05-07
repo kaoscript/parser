@@ -4728,11 +4728,13 @@ export namespace SyntaxAnalysis {
 		{
 			var source = @reqString()
 			var declaratorModifiers = []
-			var arguments = []
+			var mut arguments = null
 			var mut last: Event(Y) = source
 
 			if @test(Token.LEFT_ROUND) {
 				@commit()
+
+				arguments = []
 
 				if @test(Token.DOT_DOT_DOT) {
 					declaratorModifiers.push(AST.Modifier(ModifierKind.Autofill, @yes()))
@@ -11839,6 +11841,8 @@ export namespace SyntaxAnalysis {
 					set @reqBlock(NO, null, fMode)
 				}
 				else {
+					@rollback(mark)
+
 					set NO
 				}
 
@@ -13789,6 +13793,8 @@ export namespace SyntaxAnalysis {
 
 			var body = @reqBlock(NO, eMode, fMode)
 
+			mark = @mark()
+
 			var finalizer =
 				if @hasNL_1M() && @test(Token.FINALLY) {
 					@commit()
@@ -13796,6 +13802,8 @@ export namespace SyntaxAnalysis {
 					set @reqBlock(NO, null, fMode)
 				}
 				else {
+					@rollback(mark)
+
 					set NO
 				}
 

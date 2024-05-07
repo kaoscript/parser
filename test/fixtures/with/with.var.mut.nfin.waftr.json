@@ -1,0 +1,354 @@
+{
+  "kind": 72,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 139,
+      "attributes": [],
+      "variables": [
+        {
+          "kind": 132,
+          "attributes": [],
+          "modifiers": [
+            {
+              "kind": 11,
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 9
+              }
+            },
+            {
+              "kind": 24,
+              "start": {
+                "line": 1,
+                "column": 10
+              },
+              "end": {
+                "line": 1,
+                "column": 13
+              }
+            }
+          ],
+          "variables": [
+            {
+              "kind": 133,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "file",
+                "start": {
+                  "line": 1,
+                  "column": 14
+                },
+                "end": {
+                  "line": 1,
+                  "column": 18
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 14
+              },
+              "end": {
+                "line": 1,
+                "column": 18
+              }
+            }
+          ],
+          "value": {
+            "kind": 18,
+            "modifiers": [],
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "open",
+              "start": {
+                "line": 1,
+                "column": 21
+              },
+              "end": {
+                "line": 1,
+                "column": 25
+              }
+            },
+            "arguments": [],
+            "start": {
+              "line": 1,
+              "column": 21
+            },
+            "end": {
+              "line": 1,
+              "column": 27
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 6
+          },
+          "end": {
+            "line": 1,
+            "column": 27
+          }
+        }
+      ],
+      "body": {
+        "kind": 15,
+        "attributes": [],
+        "statements": [
+          {
+            "kind": 134,
+            "attributes": [],
+            "modifiers": [],
+            "declarations": [
+              {
+                "kind": 132,
+                "attributes": [],
+                "modifiers": [],
+                "variables": [
+                  {
+                    "kind": 133,
+                    "attributes": [],
+                    "modifiers": [],
+                    "name": {
+                      "kind": 48,
+                      "modifiers": [],
+                      "name": "text",
+                      "start": {
+                        "line": 2,
+                        "column": 6
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 10
+                      }
+                    },
+                    "start": {
+                      "line": 2,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 10
+                    }
+                  }
+                ],
+                "value": {
+                  "kind": 10,
+                  "modifiers": [],
+                  "operation": {
+                    "kind": 18,
+                    "modifiers": [],
+                    "scope": {
+                      "kind": 2
+                    },
+                    "callee": {
+                      "kind": 69,
+                      "modifiers": [],
+                      "object": {
+                        "kind": 48,
+                        "modifiers": [],
+                        "name": "file",
+                        "start": {
+                          "line": 2,
+                          "column": 19
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 23
+                        }
+                      },
+                      "property": {
+                        "kind": 48,
+                        "modifiers": [],
+                        "name": "readText",
+                        "start": {
+                          "line": 2,
+                          "column": 24
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 32
+                        }
+                      },
+                      "start": {
+                        "line": 2,
+                        "column": 19
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 32
+                      }
+                    },
+                    "arguments": [],
+                    "start": {
+                      "line": 2,
+                      "column": 19
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 34
+                    }
+                  },
+                  "start": {
+                    "line": 2,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 34
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 6
+                },
+                "end": {
+                  "line": 2,
+                  "column": 34
+                }
+              }
+            ],
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 34
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 28
+        },
+        "end": {
+          "line": 3,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      }
+    },
+    {
+      "kind": 134,
+      "attributes": [],
+      "modifiers": [
+        {
+          "kind": 24,
+          "start": {
+            "line": 5,
+            "column": 5
+          },
+          "end": {
+            "line": 5,
+            "column": 8
+          }
+        }
+      ],
+      "declarations": [
+        {
+          "kind": 132,
+          "attributes": [],
+          "modifiers": [],
+          "variables": [
+            {
+              "kind": 133,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 48,
+                "modifiers": [],
+                "name": "file",
+                "start": {
+                  "line": 5,
+                  "column": 9
+                },
+                "end": {
+                  "line": 5,
+                  "column": 13
+                }
+              },
+              "start": {
+                "line": 5,
+                "column": 9
+              },
+              "end": {
+                "line": 5,
+                "column": 13
+              }
+            }
+          ],
+          "value": {
+            "kind": 18,
+            "modifiers": [],
+            "scope": {
+              "kind": 2
+            },
+            "callee": {
+              "kind": 48,
+              "modifiers": [],
+              "name": "open",
+              "start": {
+                "line": 5,
+                "column": 16
+              },
+              "end": {
+                "line": 5,
+                "column": 20
+              }
+            },
+            "arguments": [],
+            "start": {
+              "line": 5,
+              "column": 16
+            },
+            "end": {
+              "line": 5,
+              "column": 22
+            }
+          },
+          "start": {
+            "line": 5,
+            "column": 1
+          },
+          "end": {
+            "line": 5,
+            "column": 22
+          }
+        }
+      ],
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 22
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 22
+  }
+}

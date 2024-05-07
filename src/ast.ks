@@ -1197,7 +1197,7 @@ namespace AST {
 			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
 			source: Event<NodeData(Literal)>(Y)
-			arguments: NodeData(NamedArgument, PositionalArgument)[]
+			arguments: NodeData(NamedArgument, PositionalArgument)[]?
 			type: Event<NodeData(DescriptiveType, TypeList)>
 			specifiers: Event<NodeData(GroupSpecifier)>(Y)[]
 			{ start }: Range
@@ -1208,7 +1208,7 @@ namespace AST {
 				attributes: [attribute.value for var attribute in attributes]
 				modifiers
 				source: source.value
-				arguments: arguments
+				arguments: arguments if ?arguments
 				type: type.value if ?]type
 				specifiers: [specifier.value for var specifier in specifiers]
 				start
