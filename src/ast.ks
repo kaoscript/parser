@@ -40,30 +40,16 @@ namespace AST {
 		var mut precedenceList = []
 
 		for var mut i from 1 to~ operations.length step 2 {
-			if operations[i] is .ConditionalExpression {
-				if ?precedences[CONDITIONAL_PRECEDENCE] {
-					precedences[CONDITIONAL_PRECEDENCE] += 1
-				}
-				else {
-					precedences[CONDITIONAL_PRECEDENCE] = 1
-				}
+			var precedence = operations[i].operator.kind.precedence
 
-				precedenceList.push(CONDITIONAL_PRECEDENCE)
-
-				i += 1
+			if ?precedences[precedence] {
+				precedences[precedence] += 1
 			}
 			else {
-				var precedence = operations[i].operator.kind.precedence
-
-				if ?precedences[precedence] {
-					precedences[precedence] += 1
-				}
-				else {
-					precedences[precedence] = 1
-				}
-
-				precedenceList.push(precedence)
+				precedences[precedence] = 1
 			}
+
+			precedenceList.push(precedence)
 		}
 
 		precedenceList.sort(func(a, b) {
@@ -74,28 +60,7 @@ namespace AST {
 			var mut count = precedences[precedence]
 
 			for var mut k from 1 to~ operations.length step 2 while count > 0 {
-				if operations[k] is .ConditionalExpression {
-					if precedence == CONDITIONAL_PRECEDENCE {
-						count -= 1
-
-						var operator = operations[k]
-
-						operator.condition = operations[k - 1]
-						operator.whenTrue = operations[k + 1]
-						operator.whenFalse = operations[k + 2]
-
-						operator.start = operator.condition.start
-						operator.end = operator.whenFalse.end
-
-						operations.splice(k - 1, 4, operator)
-
-						k -= 3
-					}
-					else {
-						k += 1
-					}
-				}
-				else if operations[k].operator.kind.precedence == precedence {
+				if operations[k].operator.kind.precedence == precedence {
 					if operations[k] is .BinaryExpression && operations[k].operator.kind.attribute ~~ OperatorAttribute.RTL {
 						var mut end = operations.length - 1
 
@@ -682,17 +647,6 @@ namespace AST {
 			}
 		} # }}}
 
-		func ConditionalExpression(
-			{ start, end }: Range
-		): NodeData(ConditionalExpression) { # {{{
-			return {
-				kind: NodeKind.ConditionalExpression
-				modifiers: []
-				start
-				end
-			}!!!
-		} # }}}
-
 		func ContinueStatement(
 			label: Event<NodeData(Identifier)>
 			{ start }: Range
@@ -1027,12 +981,12 @@ namespace AST {
 			return {
 				kind: .FunctionDeclaration
 				attributes: []
-				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
+				modifiers: if ?modifiers set [modifier.value for var modifier in modifiers] else []
 				name: name.value
 				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?]typeParameters && ?#typeParameters.value
 				parameters: [parameter.value for var parameter in parameters.value] if ?parameters
-				type: type.value if ?type
-				throws: ?throws ? [throw.value for var throw in throws.value]: []
+				type: type.value if ?type?.value
+				throws: if ?throws set [throw.value for var throw in throws.value] else []
 				body: body.value if ?body
 				start
 				end
@@ -1050,10 +1004,10 @@ namespace AST {
 		): NodeData(FunctionExpression) { # {{{
 			return {
 				kind: .FunctionExpression
-				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
+				modifiers: if ?modifiers set [modifier.value for var modifier in modifiers] else []
 				parameters: [parameter.value for var parameter in parameters.value]
-				type: type.value if ?type
-				throws: ?throws ? [throw.value for var throw in throws.value]: []
+				type: type.value if ?type?.value
+				throws: if ?throws set [throw.value for var throw in throws.value] else []
 				body: body.value if ?body
 				start
 				end
@@ -1106,8 +1060,8 @@ namespace AST {
 		func IfExpression(
 			condition: Event<NodeData(Expression)>
 			declaration: Event<NodeData(VariableDeclaration)>
-			whenTrue: Event<NodeData(Block)>(Y)
-			whenFalse: Event<NodeData(Block, IfExpression)>(Y)
+			whenTrue: Event<NodeData(Block, SetStatement)>(Y)
+			whenFalse: Event<NodeData(Block, IfExpression, SetStatement)>(Y)
 			{ start }: Range
 			{ end }: Range
 		): NodeData(IfExpression) { # {{{
@@ -1425,10 +1379,10 @@ namespace AST {
 		): NodeData(LambdaExpression) { # {{{
 			return {
 				kind: .LambdaExpression
-				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
+				modifiers: if ?modifiers set [modifier.value for var modifier in modifiers] else []
 				parameters: [parameter.value for var parameter in parameters.value]
-				type: type.value if ?type
-				throws: ?throws ? [throw.value for var throw in throws.value]: []
+				type: type.value if ?type?.value
+				throws: if ?throws set [throw.value for var throw in throws.value] else []
 				body: body.value
 				start
 				end
@@ -1443,7 +1397,7 @@ namespace AST {
 		): NodeData(Literal) { # {{{
 			return {
 				kind: .Literal
-				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
+				modifiers: if ?modifiers set [modifier.value for var modifier in modifiers] else []
 				value
 				start
 				end
@@ -1458,7 +1412,7 @@ namespace AST {
 		): NodeData(Literal) { # {{{
 			return {
 				kind: .Literal
-				modifiers: ?modifiers ? [modifier.value for var modifier in modifiers] : []
+				modifiers: if ?modifiers set [modifier.value for var modifier in modifiers] else []
 				value
 				start: first.start
 				end
@@ -1716,9 +1670,9 @@ namespace AST {
 				name: name.value
 				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?]typeParameters && ?#typeParameters.value
 				parameters: [parameter.value for var parameter in parameters.value]
-				type: type.value if ?type
-				throws: ?throws ? [throw.value for var throw in throws.value]: []
-				body: body.value if ?body
+				type: type.value if ?type?.value
+				throws: if ?throws set [throw.value for var throw in throws.value] else []
+				body: body.value if ?body?.value
 				start
 				end
 			}

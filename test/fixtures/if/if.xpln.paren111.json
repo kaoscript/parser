@@ -1,0 +1,157 @@
+{
+  "kind": 71,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 133,
+      "attributes": [],
+      "modifiers": [
+        {
+          "kind": 15,
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        }
+      ],
+      "declarations": [
+        {
+          "kind": 131,
+          "attributes": [],
+          "modifiers": [],
+          "variables": [
+            {
+              "kind": 132,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 47,
+                "modifiers": [],
+                "name": "foo",
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 12
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 12
+              }
+            }
+          ],
+          "value": {
+            "kind": 48,
+            "attributes": [],
+            "condition": {
+              "kind": 47,
+              "modifiers": [],
+              "name": "lang",
+              "start": {
+                "line": 1,
+                "column": 18
+              },
+              "end": {
+                "line": 1,
+                "column": 24
+              }
+            },
+            "whenTrue": {
+              "kind": 103,
+              "attributes": [],
+              "value": {
+                "kind": 58,
+                "modifiers": [],
+                "value": "hello",
+                "start": {
+                  "line": 1,
+                  "column": 29
+                },
+                "end": {
+                  "line": 1,
+                  "column": 38
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 25
+              },
+              "end": {
+                "line": 1,
+                "column": 38
+              }
+            },
+            "whenFalse": {
+              "kind": 103,
+              "attributes": [],
+              "value": {
+                "kind": 58,
+                "modifiers": [],
+                "value": "bonjour",
+                "start": {
+                  "line": 1,
+                  "column": 44
+                },
+                "end": {
+                  "line": 1,
+                  "column": 55
+                }
+              },
+              "start": {
+                "line": 1,
+                "column": 39
+              },
+              "end": {
+                "line": 1,
+                "column": 55
+              }
+            },
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 1,
+              "column": 55
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 55
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 55
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 1,
+    "column": 55
+  }
+}

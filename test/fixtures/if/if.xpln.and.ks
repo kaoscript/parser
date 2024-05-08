@@ -1,0 +1,1 @@
+var dyn text = if foo && bar set 'hello' else 'bonjour'

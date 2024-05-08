@@ -176,7 +176,6 @@ enum Token {
 	QUESTION_LEFT_ANGLE_PIPE_ASTERISK
 	QUESTION_LEFT_ROUND
 	QUESTION_LEFT_SQUARE
-	QUESTION_OPERATOR
 	QUESTION_PLUS
 	QUESTION_PLUS_EQUALS
 	QUESTION_PLUS_PLUS
@@ -736,7 +735,12 @@ enum Token {
 				if c == 60 {
 					c = scanner.charAt(1)
 
-					return c == 60 || c == 61 ? false : scanner.next(1)
+					if c == 60 | 61 {
+						return false
+					}
+					else {
+						return scanner.next(1)
+					}
 				}
 			} # }}}
 			.LEFT_CURLY { # {{{
@@ -998,11 +1002,6 @@ enum Token {
 			.QUESTION_PLUS_PLUS_EQUALS { # {{{
 				if c == 0'?' && scanner.charAt(1) == 0'+' && scanner.charAt(2) == 0'+' && scanner.charAt(3) == 0'=' {
 					return scanner.next(4)
-				}
-			} # }}}
-			.QUESTION_OPERATOR { # {{{
-				if c == 0'?' {
-					return scanner.charAt(1) == 40 | 46 | 61 | 63 | 91 ? false : scanner.next(1)
 				}
 			} # }}}
 			.QUESTION_QUESTION { # {{{
@@ -3573,7 +3572,7 @@ class Scanner {
 		@length = @data.length
 	} # }}}
 	charAt(d: Number): Number => @data.charCodeAt(@index + d)
-	char(): String => @eof ? 'EOF' : @data[@index]
+	char(): String => if @eof set 'EOF' else @data[@index]
 	column(): valueof @column
 	commit(): Token? { # {{{
 		if @eof {

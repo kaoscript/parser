@@ -1,5 +1,5 @@
 {
-  "kind": 72,
+  "kind": 71,
   "attributes": [],
   "body": [
     {
@@ -7,7 +7,7 @@
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 48,
+        "kind": 47,
         "modifiers": [],
         "name": "Shape",
         "start": {
@@ -21,7 +21,7 @@
       },
       "members": [
         {
-          "kind": 42,
+          "kind": 41,
           "attributes": [],
           "modifiers": [
             {
@@ -37,7 +37,7 @@
             }
           ],
           "name": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "_color",
             "start": {
@@ -50,10 +50,10 @@
             }
           },
           "type": {
-            "kind": 124,
+            "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "string",
               "start": {
@@ -75,7 +75,7 @@
             }
           },
           "value": {
-            "kind": 59,
+            "kind": 58,
             "modifiers": [],
             "value": "",
             "start": {
@@ -97,11 +97,11 @@
           }
         },
         {
-          "kind": 70,
+          "kind": 69,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "constructor",
             "start": {
@@ -115,11 +115,11 @@
           },
           "parameters": [
             {
-              "kind": 84,
+              "kind": 83,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "color",
                 "start": {
@@ -132,10 +132,10 @@
                 }
               },
               "internal": {
-                "kind": 113,
+                "kind": 112,
                 "modifiers": [],
                 "name": {
-                  "kind": 48,
+                  "kind": 47,
                   "modifiers": [],
                   "name": "color",
                   "start": {
@@ -177,11 +177,11 @@
           }
         },
         {
-          "kind": 70,
+          "kind": 69,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "draw",
             "start": {
@@ -195,11 +195,11 @@
           },
           "parameters": [
             {
-              "kind": 84,
+              "kind": 83,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "canvas",
                 "start": {
@@ -212,7 +212,7 @@
                 }
               },
               "internal": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "canvas",
                 "start": {
@@ -235,10 +235,10 @@
             }
           ],
           "type": {
-            "kind": 124,
+            "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "string",
               "start": {
@@ -265,7 +265,7 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 114,
+                "kind": 113,
                 "attributes": [],
                 "value": {
                   "kind": 18,
@@ -274,10 +274,10 @@
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 69,
+                    "kind": 68,
                     "modifiers": [],
                     "object": {
-                      "kind": 48,
+                      "kind": 47,
                       "modifiers": [],
                       "name": "Error",
                       "start": {
@@ -290,7 +290,7 @@
                       }
                     },
                     "property": {
-                      "kind": 48,
+                      "kind": 47,
                       "modifiers": [],
                       "name": "new",
                       "start": {
@@ -313,7 +313,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 59,
+                      "kind": 58,
                       "modifiers": [],
                       "value": "Not Implemented",
                       "start": {
@@ -378,7 +378,7 @@
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 48,
+        "kind": 47,
         "modifiers": [],
         "name": "Rectangle",
         "start": {
@@ -391,7 +391,7 @@
         }
       },
       "extends": {
-        "kind": 48,
+        "kind": 47,
         "modifiers": [],
         "name": "Shape",
         "start": {
@@ -405,11 +405,11 @@
       },
       "members": [
         {
-          "kind": 70,
+          "kind": 69,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "constructor",
             "start": {
@@ -423,11 +423,11 @@
           },
           "parameters": [
             {
-              "kind": 84,
+              "kind": 83,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "color",
                 "start": {
@@ -440,7 +440,7 @@
                 }
               },
               "internal": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "color",
                 "start": {
@@ -453,10 +453,10 @@
                 }
               },
               "type": {
-                "kind": 124,
+                "kind": 123,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 48,
+                  "kind": 47,
                   "modifiers": [],
                   "name": "string",
                   "start": {
@@ -493,7 +493,7 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 40,
+                "kind": 39,
                 "attributes": [],
                 "expression": {
                   "kind": 18,
@@ -502,7 +502,7 @@
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 48,
+                    "kind": 47,
                     "modifiers": [],
                     "name": "super",
                     "start": {
@@ -516,7 +516,7 @@
                   },
                   "arguments": [
                     {
-                      "kind": 48,
+                      "kind": 47,
                       "modifiers": [],
                       "name": "color",
                       "start": {
@@ -567,11 +567,11 @@
           }
         },
         {
-          "kind": 70,
+          "kind": 69,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "draw",
             "start": {
@@ -585,11 +585,11 @@
           },
           "parameters": [
             {
-              "kind": 84,
+              "kind": 83,
               "attributes": [],
               "modifiers": [],
               "external": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "canvas",
                 "start": {
@@ -602,7 +602,7 @@
                 }
               },
               "internal": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "canvas",
                 "start": {
@@ -625,10 +625,10 @@
             }
           ],
           "type": {
-            "kind": 124,
+            "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "string",
               "start": {
@@ -655,10 +655,10 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 101,
+                "kind": 100,
                 "attributes": [],
                 "value": {
-                  "kind": 87,
+                  "kind": 86,
                   "modifiers": [],
                   "operator": {
                     "kind": 1,
@@ -682,7 +682,7 @@
                   },
                   "operands": [
                     {
-                      "kind": 59,
+                      "kind": 58,
                       "modifiers": [],
                       "value": "I'm drawing a ",
                       "start": {
@@ -695,10 +695,10 @@
                       }
                     },
                     {
-                      "kind": 69,
+                      "kind": 68,
                       "modifiers": [],
                       "object": {
-                        "kind": 48,
+                        "kind": 47,
                         "modifiers": [],
                         "name": "this",
                         "start": {
@@ -711,7 +711,7 @@
                         }
                       },
                       "property": {
-                        "kind": 48,
+                        "kind": 47,
                         "modifiers": [],
                         "name": "_color",
                         "start": {
@@ -733,7 +733,7 @@
                       }
                     },
                     {
-                      "kind": 59,
+                      "kind": 58,
                       "modifiers": [],
                       "value": " rectangle.",
                       "start": {
@@ -786,21 +786,21 @@
       }
     },
     {
-      "kind": 134,
+      "kind": 133,
       "attributes": [],
       "modifiers": [],
       "declarations": [
         {
-          "kind": 132,
+          "kind": 131,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 133,
+              "kind": 132,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "r",
                 "start": {
@@ -829,10 +829,10 @@
               "kind": 2
             },
             "callee": {
-              "kind": 69,
+              "kind": 68,
               "modifiers": [],
               "object": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "Rectangle",
                 "start": {
@@ -845,7 +845,7 @@
                 }
               },
               "property": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "new",
                 "start": {
@@ -868,7 +868,7 @@
             },
             "arguments": [
               {
-                "kind": 59,
+                "kind": 58,
                 "modifiers": [],
                 "value": "black",
                 "start": {
@@ -910,7 +910,7 @@
       }
     },
     {
-      "kind": 40,
+      "kind": 39,
       "attributes": [],
       "expression": {
         "kind": 18,
@@ -919,10 +919,10 @@
           "kind": 2
         },
         "callee": {
-          "kind": 69,
+          "kind": 68,
           "modifiers": [],
           "object": {
-            "kind": 69,
+            "kind": 68,
             "modifiers": [],
             "object": {
               "kind": 18,
@@ -931,7 +931,7 @@
                 "kind": 2
               },
               "callee": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "expect",
                 "start": {
@@ -951,10 +951,10 @@
                     "kind": 2
                   },
                   "callee": {
-                    "kind": 69,
+                    "kind": 68,
                     "modifiers": [],
                     "object": {
-                      "kind": 48,
+                      "kind": 47,
                       "modifiers": [],
                       "name": "r",
                       "start": {
@@ -967,7 +967,7 @@
                       }
                     },
                     "property": {
-                      "kind": 48,
+                      "kind": 47,
                       "modifiers": [],
                       "name": "draw",
                       "start": {
@@ -1009,7 +1009,7 @@
               }
             },
             "property": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "to",
               "start": {
@@ -1031,7 +1031,7 @@
             }
           },
           "property": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "equal",
             "start": {
@@ -1054,7 +1054,7 @@
         },
         "arguments": [
           {
-            "kind": 59,
+            "kind": 58,
             "modifiers": [],
             "value": "I'm drawing a black rectangle.",
             "start": {

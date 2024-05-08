@@ -1,1 +1,0 @@
-var dyn text = foo && bar ? 'hello' : 'bonjour'

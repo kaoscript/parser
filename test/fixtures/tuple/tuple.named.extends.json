@@ -1,13 +1,13 @@
 {
-  "kind": 72,
+  "kind": 71,
   "attributes": [],
   "body": [
     {
-      "kind": 119,
+      "kind": 118,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 48,
+        "kind": 47,
         "modifiers": [],
         "name": "Pair",
         "start": {
@@ -21,11 +21,11 @@
       },
       "fields": [
         {
-          "kind": 120,
+          "kind": 119,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "x",
             "start": {
@@ -38,10 +38,10 @@
             }
           },
           "type": {
-            "kind": 124,
+            "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "String",
               "start": {
@@ -63,7 +63,7 @@
             }
           },
           "defaultValue": {
-            "kind": 59,
+            "kind": 58,
             "modifiers": [],
             "value": "",
             "start": {
@@ -85,11 +85,11 @@
           }
         },
         {
-          "kind": 120,
+          "kind": 119,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "y",
             "start": {
@@ -102,10 +102,10 @@
             }
           },
           "type": {
-            "kind": 124,
+            "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "Number",
               "start": {
@@ -127,7 +127,7 @@
             }
           },
           "defaultValue": {
-            "kind": 77,
+            "kind": 76,
             "modifiers": [],
             "value": 0,
             "radix": 10,
@@ -160,11 +160,11 @@
       }
     },
     {
-      "kind": 119,
+      "kind": 118,
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 48,
+        "kind": 47,
         "modifiers": [],
         "name": "Triple",
         "start": {
@@ -177,7 +177,7 @@
         }
       },
       "extends": {
-        "kind": 48,
+        "kind": 47,
         "modifiers": [],
         "name": "Pair",
         "start": {
@@ -191,11 +191,11 @@
       },
       "fields": [
         {
-          "kind": 120,
+          "kind": 119,
           "attributes": [],
           "modifiers": [],
           "name": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "z",
             "start": {
@@ -208,10 +208,10 @@
             }
           },
           "type": {
-            "kind": 124,
+            "kind": 123,
             "modifiers": [],
             "typeName": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "Boolean",
               "start": {
@@ -233,7 +233,7 @@
             }
           },
           "defaultValue": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "false",
             "start": {
@@ -265,21 +265,21 @@
       }
     },
     {
-      "kind": 134,
+      "kind": 133,
       "attributes": [],
       "modifiers": [],
       "declarations": [
         {
-          "kind": 132,
+          "kind": 131,
           "attributes": [],
           "modifiers": [],
           "variables": [
             {
-              "kind": 133,
+              "kind": 132,
               "attributes": [],
               "modifiers": [],
               "name": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "triple",
                 "start": {
@@ -308,7 +308,7 @@
               "kind": 2
             },
             "callee": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "Triple",
               "start": {
@@ -322,7 +322,7 @@
             },
             "arguments": [
               {
-                "kind": 59,
+                "kind": 58,
                 "modifiers": [],
                 "value": "x",
                 "start": {
@@ -335,7 +335,7 @@
                 }
               },
               {
-                "kind": 77,
+                "kind": 76,
                 "modifiers": [],
                 "value": 0.1,
                 "radix": 10,
@@ -349,7 +349,7 @@
                 }
               },
               {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "true",
                 "start": {
@@ -391,7 +391,7 @@
       }
     },
     {
-      "kind": 40,
+      "kind": 39,
       "attributes": [],
       "expression": {
         "kind": 18,
@@ -400,10 +400,10 @@
           "kind": 2
         },
         "callee": {
-          "kind": 69,
+          "kind": 68,
           "modifiers": [],
           "object": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "console",
             "start": {
@@ -416,7 +416,7 @@
             }
           },
           "property": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "log",
             "start": {
@@ -439,10 +439,10 @@
         },
         "arguments": [
           {
-            "kind": 69,
+            "kind": 68,
             "modifiers": [],
             "object": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "triple",
               "start": {
@@ -455,7 +455,7 @@
               }
             },
             "property": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "x",
               "start": {
@@ -477,10 +477,10 @@
             }
           },
           {
-            "kind": 69,
+            "kind": 68,
             "modifiers": [],
             "object": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "triple",
               "start": {
@@ -493,7 +493,7 @@
               }
             },
             "property": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "y",
               "start": {
@@ -515,10 +515,10 @@
             }
           },
           {
-            "kind": 69,
+            "kind": 68,
             "modifiers": [],
             "object": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "triple",
               "start": {
@@ -531,7 +531,7 @@
               }
             },
             "property": {
-              "kind": 48,
+              "kind": 47,
               "modifiers": [],
               "name": "z",
               "start": {

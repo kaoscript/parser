@@ -1,0 +1,1 @@
+x = if x == 0 set 1 else 8

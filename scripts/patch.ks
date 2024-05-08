@@ -42,16 +42,11 @@ func prepare(file: String): Void {
 		})
 	}
 
-	if ?error {
-		try {
-			parse(data)
-		}
-	}
-	else {
+	if !?error {
 		try {
 			data = parse(data)
 
-			data = JSON.stringify(data, (key, value) => {
+			data = JSON.stringify(data, (key, value?) => {
 				if value == Infinity {
 					return 'Infinity'
 				}
@@ -62,6 +57,9 @@ func prepare(file: String): Void {
 			fs.writeFileSync(path.join(root, name + '.json'), data, {
 				encoding: 'utf8'
 			})
+		}
+		catch err {
+			echo(err)
 		}
 	}
 }

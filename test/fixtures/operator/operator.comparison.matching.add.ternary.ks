@@ -1,1 +1,0 @@
-var bits = FooBits.Bit0 + (main ~~ FooBits.BitA ? FooBits.BitB : FooBits.BitC)

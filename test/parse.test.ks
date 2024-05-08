@@ -34,7 +34,7 @@ func unescapeKind(key, value) { # {{{
 	}
 } # }}}
 
-var unescape = SKIP_KIND ? unescapeKind : unescapeJSON
+var unescape = if SKIP_KIND set unescapeKind else unescapeJSON
 
 var mut testings = []
 

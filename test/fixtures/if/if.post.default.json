@@ -1,0 +1,120 @@
+{
+  "kind": 71,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 49,
+      "attributes": [],
+      "condition": {
+        "kind": 23,
+        "modifiers": [],
+        "values": [
+          {
+            "kind": 47,
+            "modifiers": [],
+            "name": "x",
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 11
+            }
+          },
+          {
+            "kind": 14,
+            "modifiers": [],
+            "start": {
+              "line": 1,
+              "column": 12
+            },
+            "end": {
+              "line": 1,
+              "column": 14
+            }
+          },
+          {
+            "kind": 76,
+            "modifiers": [],
+            "value": 5,
+            "radix": 10,
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 1,
+              "column": 16
+            }
+          }
+        ],
+        "start": {
+          "line": 1,
+          "column": 10
+        },
+        "end": {
+          "line": 1,
+          "column": 16
+        }
+      },
+      "whenTrue": {
+        "kind": 39,
+        "attributes": [],
+        "expression": {
+          "kind": 18,
+          "modifiers": [],
+          "scope": {
+            "kind": 2
+          },
+          "callee": {
+            "kind": 47,
+            "modifiers": [],
+            "name": "foo",
+            "start": {
+              "line": 1,
+              "column": 1
+            },
+            "end": {
+              "line": 1,
+              "column": 4
+            }
+          },
+          "arguments": [],
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 6
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 6
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 1,
+        "column": 16
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 1,
+    "column": 16
+  }
+}

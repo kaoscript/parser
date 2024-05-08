@@ -1,5 +1,5 @@
 {
-  "kind": 72,
+  "kind": 71,
   "attributes": [],
   "body": [
     {
@@ -7,7 +7,7 @@
       "attributes": [],
       "modifiers": [],
       "name": {
-        "kind": 48,
+        "kind": 47,
         "modifiers": [],
         "name": "URI",
         "start": {
@@ -21,10 +21,10 @@
       },
       "members": [
         {
-          "kind": 60,
+          "kind": 59,
           "attributes": [],
           "name": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "register",
             "start": {
@@ -38,7 +38,7 @@
           },
           "parameters": [
             {
-              "kind": 84,
+              "kind": 83,
               "attributes": [],
               "modifiers": [
                 {
@@ -54,7 +54,7 @@
                 }
               ],
               "external": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "scheme",
                 "start": {
@@ -67,7 +67,7 @@
                 }
               },
               "internal": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "scheme",
                 "start": {
@@ -80,10 +80,10 @@
                 }
               },
               "type": {
-                "kind": 124,
+                "kind": 123,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 48,
+                  "kind": 47,
                   "modifiers": [],
                   "name": "String",
                   "start": {
@@ -114,7 +114,7 @@
               }
             },
             {
-              "kind": 84,
+              "kind": 83,
               "attributes": [],
               "modifiers": [
                 {
@@ -130,7 +130,7 @@
                 }
               ],
               "external": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "meta",
                 "start": {
@@ -143,7 +143,7 @@
                 }
               },
               "internal": {
-                "kind": 48,
+                "kind": 47,
                 "modifiers": [],
                 "name": "meta",
                 "start": {
@@ -156,10 +156,10 @@
                 }
               },
               "type": {
-                "kind": 124,
+                "kind": 123,
                 "modifiers": [],
                 "typeName": {
-                  "kind": 48,
+                  "kind": 47,
                   "modifiers": [],
                   "name": "String",
                   "start": {
@@ -193,7 +193,7 @@
                 }
               },
               "defaultValue": {
-                "kind": 59,
+                "kind": 58,
                 "modifiers": [],
                 "value": "hier_part [ \"?\" query ] [ \"#\" fragment ]",
                 "start": {
@@ -220,15 +220,15 @@
             "attributes": [],
             "statements": [
               {
-                "kind": 52,
+                "kind": 51,
                 "attributes": [],
                 "declarations": [
                   {
-                    "kind": 53,
+                    "kind": 52,
                     "attributes": [],
                     "modifiers": [],
                     "source": {
-                      "kind": 59,
+                      "kind": 58,
                       "modifiers": [],
                       "value": "@zokugun/test-import",
                       "start": {
@@ -261,21 +261,21 @@
                 }
               },
               {
-                "kind": 134,
+                "kind": 133,
                 "attributes": [],
                 "modifiers": [],
                 "declarations": [
                   {
-                    "kind": 132,
+                    "kind": 131,
                     "attributes": [],
                     "modifiers": [],
                     "variables": [
                       {
-                        "kind": 133,
+                        "kind": 132,
                         "attributes": [],
                         "modifiers": [],
                         "name": {
-                          "kind": 48,
+                          "kind": 47,
                           "modifiers": [],
                           "name": "name",
                           "start": {
@@ -298,7 +298,7 @@
                       }
                     ],
                     "value": {
-                      "kind": 112,
+                      "kind": 111,
                       "modifiers": [],
                       "elements": [
                         {
@@ -308,10 +308,10 @@
                             "kind": 2
                           },
                           "callee": {
-                            "kind": 69,
+                            "kind": 68,
                             "modifiers": [],
                             "object": {
-                              "kind": 69,
+                              "kind": 68,
                               "modifiers": [
                                 {
                                   "kind": 9,
@@ -326,7 +326,7 @@
                                 }
                               ],
                               "object": {
-                                "kind": 48,
+                                "kind": 47,
                                 "modifiers": [],
                                 "name": "scheme",
                                 "start": {
@@ -339,7 +339,7 @@
                                 }
                               },
                               "property": {
-                                "kind": 77,
+                                "kind": 76,
                                 "modifiers": [],
                                 "value": 0,
                                 "radix": 10,
@@ -362,7 +362,7 @@
                               }
                             },
                             "property": {
-                              "kind": 48,
+                              "kind": 47,
                               "modifiers": [],
                               "name": "toUpperCase",
                               "start": {
@@ -400,7 +400,7 @@
                             "kind": 2
                           },
                           "callee": {
-                            "kind": 69,
+                            "kind": 68,
                             "modifiers": [],
                             "object": {
                               "kind": 18,
@@ -409,10 +409,10 @@
                                 "kind": 2
                               },
                               "callee": {
-                                "kind": 69,
+                                "kind": 68,
                                 "modifiers": [],
                                 "object": {
-                                  "kind": 48,
+                                  "kind": 47,
                                   "modifiers": [],
                                   "name": "scheme",
                                   "start": {
@@ -425,7 +425,7 @@
                                   }
                                 },
                                 "property": {
-                                  "kind": 48,
+                                  "kind": 47,
                                   "modifiers": [],
                                   "name": "substr",
                                   "start": {
@@ -457,7 +457,7 @@
                               }
                             },
                             "property": {
-                              "kind": 48,
+                              "kind": 47,
                               "modifiers": [],
                               "name": "toLowerCase",
                               "start": {
@@ -489,7 +489,7 @@
                           }
                         },
                         {
-                          "kind": 59,
+                          "kind": 58,
                           "modifiers": [],
                           "value": "URI",
                           "start": {
@@ -531,10 +531,10 @@
                 }
               },
               {
-                "kind": 40,
+                "kind": 39,
                 "attributes": [],
                 "expression": {
-                  "kind": 61,
+                  "kind": 60,
                   "attributes": [],
                   "elements": [
                     {
@@ -552,7 +552,7 @@
                     {
                       "kind": 1,
                       "expression": {
-                        "kind": 48,
+                        "kind": 47,
                         "modifiers": [],
                         "name": "name",
                         "start": {
@@ -645,7 +645,7 @@
                     {
                       "kind": 1,
                       "expression": {
-                        "kind": 48,
+                        "kind": 47,
                         "modifiers": [],
                         "name": "PI",
                         "start": {
@@ -772,7 +772,7 @@
       }
     },
     {
-      "kind": 40,
+      "kind": 39,
       "attributes": [],
       "expression": {
         "kind": 18,
@@ -781,10 +781,10 @@
           "kind": 2
         },
         "callee": {
-          "kind": 69,
+          "kind": 68,
           "modifiers": [],
           "object": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "URI",
             "start": {
@@ -797,7 +797,7 @@
             }
           },
           "property": {
-            "kind": 48,
+            "kind": 47,
             "modifiers": [],
             "name": "register",
             "start": {
@@ -820,7 +820,7 @@
         },
         "arguments": [
           {
-            "kind": 59,
+            "kind": 58,
             "modifiers": [],
             "value": "file",
             "start": {
@@ -833,7 +833,7 @@
             }
           },
           {
-            "kind": 59,
+            "kind": 58,
             "modifiers": [],
             "value": "[ \"//\" [ host ] ] path_absolute",
             "start": {

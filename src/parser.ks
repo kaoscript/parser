@@ -517,7 +517,7 @@ export namespace SyntaxAnalysis {
 			var mark = @mark()
 
 			if @test(Token.IF, Token.UNLESS) {
-				var kind = @token == Token.IF ? RestrictiveOperatorKind.If : RestrictiveOperatorKind.Unless
+				var kind = if @token == Token.IF set RestrictiveOperatorKind.If else RestrictiveOperatorKind.Unless
 				var operator = @yep(AST.RestrictiveOperator(kind, @yes()))
 				var condition = @reqExpression(.NoMultiLine, fMode)
 
@@ -1890,7 +1890,7 @@ export namespace SyntaxAnalysis {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						finalModifier.ok ? MemberBits.Variable : MemberBits.Variable + MemberBits.FinalVariable
+						if finalModifier.ok set MemberBits.Variable else MemberBits.Variable + MemberBits.FinalVariable
 						members
 					)
 				}
@@ -1941,7 +1941,7 @@ export namespace SyntaxAnalysis {
 		): Event<NodeData(MethodDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var typeParameters = @tryTypeParameterList()
-			var parameters = @reqClassMethodParameterList(null, bits ~~ MemberBits.NoBody ? DestructuringMode.EXTERNAL_ONLY : null)
+			var parameters = @reqClassMethodParameterList(null, if bits ~~ MemberBits.NoBody set DestructuringMode.EXTERNAL_ONLY else null)
 			var type = @tryFunctionReturns(.Method, bits !~ .NoBody)
 			var throws = @tryFunctionThrows()
 
@@ -4485,7 +4485,7 @@ export namespace SyntaxAnalysis {
 			}
 			else if @test(.OVERRIDE, .OVERWRITE) {
 				var mark = @mark()
-				var modifier = @yep(AST.Modifier(@token == Token.OVERRIDE ? ModifierKind.Override : ModifierKind.Overwrite, @yes()))
+				var modifier = @yep(AST.Modifier(if @token == Token.OVERRIDE set ModifierKind.Override else ModifierKind.Overwrite, @yes()))
 				var modifiers = [modifier]
 				if ?]accessModifier {
 					modifiers.unshift(accessModifier)
@@ -4594,7 +4594,7 @@ export namespace SyntaxAnalysis {
 					}
 					else if @test(Token.OVERRIDE, Token.OVERWRITE) {
 						var mark = @mark()
-						var modifier = @yep(AST.Modifier(@token == Token.OVERRIDE ? ModifierKind.Override : ModifierKind.Overwrite, @yes()))
+						var modifier = @yep(AST.Modifier(if @token == Token.OVERRIDE set ModifierKind.Override else ModifierKind.Overwrite, @yes()))
 
 						if @test(Token.LEFT_CURLY) {
 							var modifiers = [finalModifier, modifier]
@@ -4634,7 +4634,7 @@ export namespace SyntaxAnalysis {
 					return @reqClassMemberBlock(
 						attributes
 						modifiers
-						finalModifier.ok ? MemberBits.Variable : MemberBits.Variable + MemberBits.FinalVariable
+						if finalModifier.ok set MemberBits.Variable else MemberBits.Variable + MemberBits.FinalVariable
 						members
 					)
 				}
@@ -5234,7 +5234,7 @@ export namespace SyntaxAnalysis {
 				}
 			}
 			else {
-				destructuring = @tryDestructuring(declaration ? .Declaration : null, fMode)
+				destructuring = @tryDestructuring(if declaration set .Declaration else null, fMode)
 
 				if destructuring.ok {
 					first ??= destructuring
@@ -6459,7 +6459,7 @@ export namespace SyntaxAnalysis {
 					break
 				}
 				else if @token == Token.EOF {
-					@throw(delimiter == Token.ML_DOUBLE_QUOTE ? '"""' : "'''")
+					@throw(if delimiter == Token.ML_DOUBLE_QUOTE set '"""' else "'''")
 				}
 				else {
 					lines.push(currentIndent, @scanner.readLine())
@@ -6534,7 +6534,7 @@ export namespace SyntaxAnalysis {
 					break
 				}
 				else if @token == Token.EOF {
-					@throw(delimiter == Token.ML_BACKQUOTE ? '```' : '~~~')
+					@throw(if delimiter == Token.ML_BACKQUOTE set '```' else '~~~')
 				}
 				else {
 					var line: [] = [currentIndent]
@@ -6910,7 +6910,7 @@ export namespace SyntaxAnalysis {
 					else {
 						var modifiers = []
 						modifiers.push(mutModifier) if ?mutModifier
-						modifiers.push(?positionalModifier ? positionalModifier : namedModifier)
+						modifiers.push(if ?positionalModifier set positionalModifier else namedModifier)
 
 						return @reqParameterIdentifier(attributes, modifiers, null, identifier, true, true, true, true, firstAttr ?? mutModifier ?? positionalModifier ?? namedModifier, pMode, fMode)
 					}
@@ -6978,7 +6978,7 @@ export namespace SyntaxAnalysis {
 			if ?positionalModifier || ?namedModifier {
 				var modifiers = []
 					..push(mutModifier) if ?mutModifier
-					..push(?positionalModifier ? positionalModifier : namedModifier!?)
+					..push(if ?positionalModifier set positionalModifier else namedModifier!?)
 
 				return @reqParameterIdentifier(attributes, modifiers, external, null, true, true, true, true, firstAttr ?? mutModifier ?? namedModifier ?? positionalModifier, pMode, fMode)
 			}
@@ -7157,8 +7157,8 @@ export namespace SyntaxAnalysis {
 			if typed && @test(Token.COLON) {
 				@commit()
 
-				var type = @reqTypeParameter(fMode ~~ .Method ? .Method : .PrimaryType)
-				var operator = valued ? @tryDefaultAssignmentOperator(true) : NO
+				var type = @reqTypeParameter(if fMode ~~ .Method set .Method else .PrimaryType)
+				var operator = if valued set @tryDefaultAssignmentOperator(true) else NO
 
 				if operator.ok {
 					var defaultValue = @reqExpression(.ImplicitMember, fMode)
@@ -7173,7 +7173,7 @@ export namespace SyntaxAnalysis {
 				}
 			}
 			else {
-				var mut operator = valued ? @tryDefaultAssignmentOperator(true) : NO
+				var mut operator = if valued set @tryDefaultAssignmentOperator(true) else NO
 
 				if operator.ok {
 					var defaultValue = @reqExpression(.ImplicitMember, fMode)
@@ -7185,7 +7185,7 @@ export namespace SyntaxAnalysis {
 
 					modifiers.push(modifier)
 
-					operator = valued ? @tryDefaultAssignmentOperator(true) : NO
+					operator = if valued set @tryDefaultAssignmentOperator(true) else NO
 
 					if operator.ok {
 						var defaultValue = @reqExpression(.ImplicitMember, fMode)
@@ -8437,7 +8437,7 @@ export namespace SyntaxAnalysis {
 				}
 				.VALUEOF {
 					var operator = @yep(AST.UnaryTypeOperator(.ValueOf, @yes()))
-					var operand = @reqUnaryOperand(null, eMode, eMode ~~ .AtThis ? .Method : .Nil)
+					var operand = @reqUnaryOperand(null, eMode, if eMode ~~ .AtThis set .Method else .Nil)
 
 					return @yep(AST.UnaryTypeExpression([], operator, operand, operator, operand))
 				}
@@ -8496,7 +8496,7 @@ export namespace SyntaxAnalysis {
 				if @test(.COLON) {
 					@commit()
 
-					var type = @reqType(fMode ~~ .Method ? .Method : .PrimaryType)
+					var type = @reqType(if fMode ~~ .Method set .Method else .PrimaryType)
 
 					return @yep(AST.VariableDeclarator([], name, type, name, type))
 				}
@@ -8727,7 +8727,7 @@ export namespace SyntaxAnalysis {
 				}
 			}
 
-			var first = ?#modifiers ? modifiers[0] : elements[0]
+			var first = if ?#modifiers set modifiers[0] else elements[0]
 			var last = elements[elements.length - 1]
 
 			specifiers.push(@yep(AST.GroupSpecifier(modifiers, elements, type, first, last)))
@@ -10640,8 +10640,6 @@ export namespace SyntaxAnalysis {
 				}
 			}
 			else {
-				@NL_0M()
-
 				condition = @tryExpression(ExpressionMode.NoAnonymousFunction, fMode)
 			}
 
@@ -10649,9 +10647,30 @@ export namespace SyntaxAnalysis {
 				return NO
 			}
 
+			if !?]declaration && @test(.SET) {
+				var firstTrue = @yes()
+
+				var expressionTrue = @reqExpression(.ImplicitMember, fMode)
+
+				unless @test(.ELSE) {
+					@throw('else')
+				}
+
+				var firstFalse = @yes()
+
+				var expressionFalse = @reqExpression(.ImplicitMember, fMode)
+
+				@popMode(tracker)
+
+				var whenTrue = @yep(AST.SetStatement(expressionTrue, firstTrue, expressionTrue))
+				var whenFalse = @yep(AST.SetStatement(expressionFalse, firstFalse, expressionFalse))
+
+				return @yep(AST.IfExpression(condition, declaration, whenTrue, whenFalse, first, whenFalse))
+			}
+
 			@NL_0M()
 
-			unless @test(Token.LEFT_CURLY) {
+			unless @test(.LEFT_CURLY) {
 				@rollback(mark)
 
 				return NO
@@ -10661,15 +10680,13 @@ export namespace SyntaxAnalysis {
 
 			@commit().NL_0M()
 
-			unless @test(Token.ELSE) {
+			unless @test(.ELSE) {
 				@throw('else')
 			}
 
 			@commit().NL_0M()
 
-			var whenFalseIf = @tryIfExpression(eMode, fMode)
-
-			if whenFalseIf.ok {
+			if var whenFalseIf ?]= @tryIfExpression(eMode, fMode) {
 				@popMode(tracker)
 
 				return @yep(AST.IfExpression(condition, declaration, whenTrue, whenFalseIf, first, whenFalseIf))
@@ -11321,19 +11338,6 @@ export namespace SyntaxAnalysis {
 
 						continue
 					}
-				}
-				else if @test(Token.QUESTION_OPERATOR) {
-					values.push(AST.ConditionalExpression(@yes()))
-
-					values.push(@reqExpression(.ImplicitMember, fMode).value)
-
-					unless @test(Token.COLON) {
-						@throw(':')
-					}
-
-					@commit()
-
-					values.push(@reqExpression(.ImplicitMember, fMode).value)
 				}
 				else if (operator <- @tryJunctionOperator()).ok {
 					values.push(@reqJunctionExpression(operator, eMode, fMode, values!!, type))
@@ -12237,7 +12241,7 @@ export namespace SyntaxAnalysis {
 
 			if @test(.TYPEOF) {
 				var operator = @yep(AST.UnaryTypeOperator(.TypeOf, @yes()))
-				var operand = @tryUnaryOperand(null, eMode, eMode ~~ .AtThis ? .Method : .Nil)
+				var operand = @tryUnaryOperand(null, eMode, if eMode ~~ .AtThis set .Method else .Nil)
 
 				if operand.ok {
 					return @yep(AST.UnaryTypeExpression(modifiers, operator, operand, operator, operand))

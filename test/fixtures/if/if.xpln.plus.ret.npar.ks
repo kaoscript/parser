@@ -1,0 +1,1 @@
+foo <- foo + if bar set 42 else 24

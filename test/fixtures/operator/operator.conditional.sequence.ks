@@ -1,1 +1,0 @@
-var dyn foo = lang ? (bar = 'goodbye', 'hello') : 'bonjour'
