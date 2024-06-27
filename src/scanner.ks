@@ -64,6 +64,7 @@ enum Token {
 	EXCLAMATION_EQUALS
 	EXCLAMATION_EXCLAMATION
 	EXCLAMATION_EXCLAMATION_EXCLAMATION
+	EXCLAMATION_LROUND
 	EXCLAMATION_QUESTION
 	EXCLAMATION_QUESTION_EQUALS
 	EXCLAMATION_QUESTION_HASH_EQUALS
@@ -118,7 +119,6 @@ enum Token {
 	LEFT_CURLY
 	LEFT_ROUND
 	LEFT_SQUARE
-	MACRO
 	MATCH
 	MINUS
 	MINUS_EQUALS
@@ -186,6 +186,7 @@ enum Token {
 	QUESTION_RIGHT_SQUARE_EQUALS
 	QUESTION_RIGHT_SQUARE_RIGHT_SQUARE
 	QUESTION_RIGHT_SQUARE_RIGHT_SQUARE_EQUALS
+	QUOTE
 	RADIX_NUMBER
 	REGEXP
 	REPEAT
@@ -201,6 +202,7 @@ enum Token {
 	SEALED
 	SEMICOLON
 	SEMICOLON_SEMICOLON
+	SEMTIME
 	SET
 	SLASH
 	SLASH_EQUALS
@@ -212,6 +214,7 @@ enum Token {
 	STEP
 	STRING
 	STRUCT
+	SYNTIME
 	SYSTEM
 	TEMPLATE_BEGIN
 	TEMPLATE_ELEMENT
@@ -758,17 +761,6 @@ enum Token {
 					return scanner.next(1)
 				}
 			} # }}}
-			.MACRO { # {{{
-				if	c == 109 &&
-					scanner.charAt(1) == 97 &&
-					scanner.charAt(2) == 99 &&
-					scanner.charAt(3) == 114 &&
-					scanner.charAt(4) == 111 &&
-					scanner.isBoundary(5)
-				{
-					return scanner.next(5)
-				}
-			} # }}}
 			.MATCH { # {{{
 				if	c == 109 &&
 					scanner.charAt(1) == 97 &&
@@ -1024,6 +1016,17 @@ enum Token {
 					return scanner.next(4)
 				}
 			} # }}}
+			.QUOTE { # {{{
+				if	c == 0'q' &&
+					scanner.charAt(1) == 0'u' &&
+					scanner.charAt(2) == 0'o' &&
+					scanner.charAt(3) == 0't' &&
+					scanner.charAt(4) == 0'e' &&
+					scanner.isBoundary(5)
+				{
+					return scanner.next(5)
+				}
+			} # }}}
 			.REPEAT { # {{{
 				if	c == 114 &&
 					scanner.charAt(1) == 101 &&
@@ -1133,6 +1136,19 @@ enum Token {
 				}
 
 				return false
+			} # }}}
+			.SYNTIME { # {{{
+				if	c == 0's' &&
+					scanner.charAt(1) == 0'y' &&
+					scanner.charAt(2) == 0'n' &&
+					scanner.charAt(3) == 0't' &&
+					scanner.charAt(4) == 0'i' &&
+					scanner.charAt(5) == 0'm' &&
+					scanner.charAt(6) == 0'e' &&
+					scanner.isBoundary(7)
+				{
+					return scanner.next(7)
+				}
 			} # }}}
 			.TEMPLATE_BEGIN { # {{{
 				if c == 96 {
@@ -2230,15 +2246,6 @@ namespace M {
 				return Token.IDENTIFIER
 			}
 		}
-		// macro
-		else if c == 109 {
-			if that.scanIdentifier(true) == 'acro' {
-				return Token.MACRO
-			}
-			else {
-				return Token.IDENTIFIER
-			}
-		}
 		// namespace
 		else if c == 110 {
 			if that.scanIdentifier(true) == 'amespace' {
@@ -2248,7 +2255,7 @@ namespace M {
 				return Token.IDENTIFIER
 			}
 		}
-		// sealed, struct
+		// sealed, struct, syntime
 		else if c == 115 {
 			var identifier = that.scanIdentifier(true)
 
@@ -2257,6 +2264,9 @@ namespace M {
 			}
 			else if identifier == 'truct' {
 				return Token.STRUCT
+			}
+			else if identifier == 'yntime' {
+				return Token.SYNTIME
 			}
 			else {
 				return Token.IDENTIFIER
@@ -2322,107 +2332,6 @@ namespace M {
 		}
 
 		return Token.INVALID
-	} # }}}
-	func MACRO(that: Scanner, mut index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
-		var dyn c = that._data.charCodeAt(index)
-
-		if c == 13 && that.charAt(1) == 10 {
-			that.nextLine(2)
-
-			return Token.NEWLINE
-		}
-		else if c == 10 | 13 {
-			that.nextLine(1)
-
-			return Token.NEWLINE
-		}
-		else if c == 35 {
-			if (c <- that.charAt(1)) == 40 {
-				that.next(2)
-
-				return Token.HASH_LEFT_ROUND
-			}
-			else if c == 97 {
-				if that.charAt(2) == 40 {
-					that.next(3)
-
-					return Token.HASH_A_LEFT_ROUND
-				}
-			}
-			else if c == 101 {
-				if that.charAt(2) == 40 {
-					that.next(3)
-
-					return Token.HASH_E_LEFT_ROUND
-				}
-			}
-			else if c == 106 {
-				if that.charAt(2) == 40 {
-					that.next(3)
-
-					return Token.HASH_J_LEFT_ROUND
-				}
-			}
-			else if c == 115 {
-				if that.charAt(2) == 40 {
-					that.next(3)
-
-					return Token.HASH_S_LEFT_ROUND
-				}
-			}
-			else if c == 119 {
-				if that.charAt(2) == 40 {
-					that.next(3)
-
-					return Token.HASH_W_LEFT_ROUND
-				}
-			}
-		}
-		else if c == 40 {
-			that.next(1)
-
-			return Token.LEFT_ROUND
-		}
-		else if c == 41 {
-			that.next(1)
-
-			return Token.RIGHT_ROUND
-		}
-		else if c == 123 {
-			that.next(1)
-
-			return Token.LEFT_CURLY
-		}
-		else if c == 125 {
-			that.next(1)
-
-			return Token.RIGHT_CURLY
-		}
-
-		var from = index
-
-		index += 1
-
-		while index < that._length {
-			c = that._data.charCodeAt(index)
-
-			if c == 10 | 13 | 35 | 40 | 41 | 123 | 125 {
-				that.next(index - from)
-
-				return Token.INVALID
-			}
-
-			index += 1
-		}
-
-		if index == from + 1 {
-			return Token.EOF
-		}
-		else {
-			that.next(index - from)
-
-			return Token.INVALID
-		}
 	} # }}}
 	func MODULE_STATEMENT(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 		var mut c = that.skip(index)
@@ -2902,6 +2811,13 @@ namespace M {
 
 			return Token.TEMPLATE_BEGIN
 		}
+		else if c == 0'!' {
+			if that.charAt(1) == 0'(' {
+				that.next(2)
+
+				return Token.EXCLAMATION_LROUND
+			}
+		}
 
 		return Token.INVALID
 	} # }}}
@@ -3031,6 +2947,107 @@ namespace M {
 		}
 
 		return Token.INVALID
+	} # }}}
+	func QUOTE(that: Scanner, mut index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
+		var dyn c = that._data.charCodeAt(index)
+
+		if c == 13 && that.charAt(1) == 10 {
+			that.nextLine(2)
+
+			return Token.NEWLINE
+		}
+		else if c == 10 | 13 {
+			that.nextLine(1)
+
+			return Token.NEWLINE
+		}
+		else if c == 35 {
+			if (c <- that.charAt(1)) == 40 {
+				that.next(2)
+
+				return Token.HASH_LEFT_ROUND
+			}
+			else if c == 97 {
+				if that.charAt(2) == 40 {
+					that.next(3)
+
+					return Token.HASH_A_LEFT_ROUND
+				}
+			}
+			else if c == 101 {
+				if that.charAt(2) == 40 {
+					that.next(3)
+
+					return Token.HASH_E_LEFT_ROUND
+				}
+			}
+			else if c == 106 {
+				if that.charAt(2) == 40 {
+					that.next(3)
+
+					return Token.HASH_J_LEFT_ROUND
+				}
+			}
+			else if c == 115 {
+				if that.charAt(2) == 40 {
+					that.next(3)
+
+					return Token.HASH_S_LEFT_ROUND
+				}
+			}
+			else if c == 119 {
+				if that.charAt(2) == 40 {
+					that.next(3)
+
+					return Token.HASH_W_LEFT_ROUND
+				}
+			}
+		}
+		else if c == 40 {
+			that.next(1)
+
+			return Token.LEFT_ROUND
+		}
+		else if c == 41 {
+			that.next(1)
+
+			return Token.RIGHT_ROUND
+		}
+		else if c == 123 {
+			that.next(1)
+
+			return Token.LEFT_CURLY
+		}
+		else if c == 125 {
+			that.next(1)
+
+			return Token.RIGHT_CURLY
+		}
+
+		var from = index
+
+		index += 1
+
+		while index < that._length {
+			c = that._data.charCodeAt(index)
+
+			if c == 10 | 13 | 35 | 40 | 41 | 123 | 125 {
+				that.next(index - from)
+
+				return Token.INVALID
+			}
+
+			index += 1
+		}
+
+		if index == from + 1 {
+			return Token.EOF
+		}
+		else {
+			that.next(index - from)
+
+			return Token.INVALID
+		}
 	} # }}}
 	func STATEMENT(that: Scanner, index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
 		var dyn c = that.skip(index)
@@ -3266,20 +3283,10 @@ namespace M {
 				return Token.LATEINIT
 			}
 		}
-		// macro, match
+		// match
 		else if c == 109
 		{
-			if	that.charAt(1) == 97 &&
-				that.charAt(2) == 99 &&
-				that.charAt(3) == 114 &&
-				that.charAt(4) == 111 &&
-				that.isSpace(5)
-			{
-				that.next(5)
-
-				return Token.MACRO
-			}
-			else if that.charAt(1) == 97 &&
+			if that.charAt(1) == 97 &&
 				that.charAt(2) == 116 &&
 				that.charAt(3) == 99 &&
 				that.charAt(4) == 104 &&
@@ -3347,7 +3354,7 @@ namespace M {
 				return Token.RETURN
 			}
 		}
-		// sealed, struct
+		// sealed, semtime, struct, syntime
 		else if c == 115
 		{
 			if	that.charAt(1) == 101 &&
@@ -3360,6 +3367,18 @@ namespace M {
 				that.next(6)
 
 				return Token.SEALED
+			}
+			else if that.charAt(1) == 0'e' &&
+				that.charAt(2) == 0'm' &&
+				that.charAt(3) == 0't' &&
+				that.charAt(4) == 0'i' &&
+				that.charAt(5) == 0'm' &&
+				that.charAt(6) == 0'e' &&
+				that.isSpace(7)
+			{
+				that.next(7)
+
+				return Token.SEMTIME
 			}
 			else if pMode ~~ ParserMode.InlineStatement &&
 				that.charAt(1) == 101 &&
@@ -3380,6 +3399,18 @@ namespace M {
 				that.next(6)
 
 				return Token.STRUCT
+			}
+			else if that.charAt(1) == 0'y' &&
+				that.charAt(2) == 0'n' &&
+				that.charAt(3) == 0't' &&
+				that.charAt(4) == 0'i' &&
+				that.charAt(5) == 0'm' &&
+				that.charAt(6) == 0'e' &&
+				that.isSpace(7)
+			{
+				that.next(7)
+
+				return Token.SYNTIME
 			}
 		}
 		// throw, try, tuple, type

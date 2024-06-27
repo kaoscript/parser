@@ -1,0 +1,257 @@
+{
+  "kind": 69,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 39,
+      "attributes": [],
+      "expression": {
+        "kind": 112,
+        "attributes": [],
+        "body": {
+          "kind": 15,
+          "attributes": [],
+          "statements": [
+            {
+              "kind": 137,
+              "attributes": [],
+              "modifiers": [],
+              "declarations": [
+                {
+                  "kind": 135,
+                  "attributes": [],
+                  "modifiers": [],
+                  "variables": [
+                    {
+                      "kind": 136,
+                      "attributes": [],
+                      "modifiers": [],
+                      "name": {
+                        "kind": 47,
+                        "modifiers": [],
+                        "name": "ast",
+                        "start": {
+                          "line": 2,
+                          "column": 6
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 9
+                        }
+                      },
+                      "start": {
+                        "line": 2,
+                        "column": 6
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 9
+                      }
+                    }
+                  ],
+                  "value": {
+                    "kind": 18,
+                    "modifiers": [],
+                    "scope": {
+                      "kind": 2
+                    },
+                    "callee": {
+                      "kind": 47,
+                      "modifiers": [],
+                      "name": "register",
+                      "start": {
+                        "line": 2,
+                        "column": 12
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 20
+                      }
+                    },
+                    "arguments": [
+                      {
+                        "kind": 58,
+                        "modifiers": [],
+                        "value": "file",
+                        "start": {
+                          "line": 2,
+                          "column": 21
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 27
+                        }
+                      },
+                      {
+                        "kind": 58,
+                        "modifiers": [],
+                        "value": "[ \"//\" [ host ] ] path_absolute",
+                        "start": {
+                          "line": 2,
+                          "column": 29
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 62
+                        }
+                      }
+                    ],
+                    "start": {
+                      "line": 2,
+                      "column": 12
+                    },
+                    "end": {
+                      "line": 2,
+                      "column": 63
+                    }
+                  },
+                  "start": {
+                    "line": 2,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 63
+                  }
+                }
+              ],
+              "start": {
+                "line": 2,
+                "column": 2
+              },
+              "end": {
+                "line": 2,
+                "column": 63
+              }
+            },
+            {
+              "kind": 39,
+              "attributes": [],
+              "expression": {
+                "kind": 18,
+                "modifiers": [],
+                "scope": {
+                  "kind": 2
+                },
+                "callee": {
+                  "kind": 47,
+                  "modifiers": [],
+                  "name": "echo",
+                  "start": {
+                    "line": 4,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 6
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": 47,
+                    "modifiers": [],
+                    "name": "ast",
+                    "start": {
+                      "line": 4,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 4,
+                      "column": 10
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 4,
+                  "column": 2
+                },
+                "end": {
+                  "line": 4,
+                  "column": 11
+                }
+              },
+              "start": {
+                "line": 4,
+                "column": 2
+              },
+              "end": {
+                "line": 4,
+                "column": 11
+              }
+            },
+            {
+              "kind": 39,
+              "attributes": [],
+              "expression": {
+                "kind": 92,
+                "attributes": [],
+                "elements": [
+                  {
+                    "kind": 2,
+                    "value": "ast",
+                    "start": {
+                      "line": 6,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 11
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 6,
+                  "column": 2
+                },
+                "end": {
+                  "line": 6,
+                  "column": 11
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 11
+              }
+            }
+          ],
+          "start": {
+            "line": 1,
+            "column": 9
+          },
+          "end": {
+            "line": 7,
+            "column": 2
+          }
+        },
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 7,
+          "column": 2
+        }
+      },
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 7,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 7,
+    "column": 2
+  }
+}

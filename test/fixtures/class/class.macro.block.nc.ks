@@ -1,3 +1,3 @@
 class Foobar {
-	macro {
+	syntime func {
 		foo(e) => #e

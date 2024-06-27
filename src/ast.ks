@@ -3,9 +3,9 @@ namespace AST {
 
 	export func pushAttributes(
 		// TODO
-		// data: Range & { attributes: NodeData(AttributeDeclaration)[] }
+		// data: Range & { attributes: Ast(AttributeDeclaration)[] }
 		data
-		attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+		attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 	): Void { # {{{
 		if ?#attributes {
 			data.start = attributes[0].value.start
@@ -16,7 +16,7 @@ namespace AST {
 		}
 	} # }}}
 
-	export func pushModifier<T is NodeData>(
+	export func pushModifier<T is Ast>(
 		data: T
 		modifier: Event(Y)
 		prefix: Boolean
@@ -34,8 +34,8 @@ namespace AST {
 	} # }}}
 
 	// TODO
-	// export func reorderExpression(operations: BinaryOperationData[]): NodeData(Expression) { # {{{
-	export func reorderExpression<T is NodeData>(operations: T[]): T { # {{{
+	// export func reorderExpression(operations: BinaryOperationData[]): Ast(Expression) { # {{{
+	export func reorderExpression<T is Ast>(operations: T[]): T { # {{{
 		var precedences = {}
 		var mut precedenceList = []
 
@@ -95,20 +95,20 @@ namespace AST {
 						count -= 1
 
 						var mut operator = operations[k]
-						// var mut operand: NodeData(BinaryExpression, PolyadicExpression)? = null
+						// var mut operand: Ast(BinaryExpression, PolyadicExpression)? = null
 						// var mut operand = null
 
 						if operator is .BinaryExpression {
 							var left = operations[k - 1]
 
 							if left is .BinaryExpression && operator.operator.kind == left.operator.kind && operator.operator.kind.attribute ~~ OperatorAttribute.Polyadic {
-								operator.kind = NodeKind.PolyadicExpression
+								operator.kind = AstKind.PolyadicExpression
 								operator.start = left.start
 								operator.end = operations[k + 1].end
 
 								operator.operands = [left.left, left.right, operations[k + 1]]
 								// operand = {
-								// 	kind: NodeKind.PolyadicExpression
+								// 	kind: AstKind.PolyadicExpression
 								// 	operator
 								// 	operands: [left.left, left.right, operations[k + 1]]
 								// 	start: left.start
@@ -175,7 +175,7 @@ namespace AST {
 	export {
 		func AccessorDeclaration(
 			{ start, end }: Range
-		): NodeData(AccessorDeclaration) { # {{{
+		): Ast(AccessorDeclaration) { # {{{
 			return {
 				kind: .AccessorDeclaration
 				start
@@ -184,10 +184,10 @@ namespace AST {
 		} # }}}
 
 		func AccessorDeclaration(
-			{ value % body }: Event<NodeData(Block, Expression)>(Y)
+			{ value % body }: Event<Ast(Block, Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(AccessorDeclaration) { # {{{
+		): Ast(AccessorDeclaration) { # {{{
 			return {
 				kind: .AccessorDeclaration
 				body
@@ -197,10 +197,10 @@ namespace AST {
 		} # }}}
 
 		func ArrayBinding(
-			elements: Event<NodeData(BindingElement)>(Y)[]
+			elements: Event<Ast(BindingElement)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ArrayBinding) { # {{{
+		): Ast(ArrayBinding) { # {{{
 			return {
 				kind: .ArrayBinding
 				elements: [element.value for var element in elements]
@@ -210,15 +210,15 @@ namespace AST {
 		} # }}}
 
 		func ArrayBindingElement(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>
-			type: Event<NodeData(Type)>
+			internal: Event<Ast(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>
+			type: Event<Ast(Type)>
 			operator: Event<BinaryOperatorData(Assignment)>
-			defaultValue: Event<NodeData(Expression)>
+			defaultValue: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(BindingElement) { # {{{
+		): Ast(BindingElement) { # {{{
 			return {
 				kind: .BindingElement
 				attributes: [attribute.value for var attribute in attributes] if ?#attributes
@@ -233,11 +233,11 @@ namespace AST {
 		} # }}}
 
 		func ArrayComprehension(
-			value: Event<NodeData(Expression)>(Y)
+			value: Event<Ast(Expression)>(Y)
 			iteration: Event<IterationData>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ArrayComprehension) { # {{{
+		): Ast(ArrayComprehension) { # {{{
 			return {
 				kind: .ArrayComprehension
 				modifiers: []
@@ -249,10 +249,10 @@ namespace AST {
 		} # }}}
 
 		func ArrayExpression(
-			values: Event<NodeData(Expression)>(Y)[]
+			values: Event<Ast(Expression)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ArrayExpression) { # {{{
+		): Ast(ArrayExpression) { # {{{
 			return {
 				kind: .ArrayExpression
 				modifiers: []
@@ -263,12 +263,12 @@ namespace AST {
 		} # }}}
 
 		func ArrayRangeFI(
-			from: Event<NodeData(Expression)>(Y)
-			til: Event<NodeData(Expression)>(Y)
-			by: Event<NodeData(Expression)>
+			from: Event<Ast(Expression)>(Y)
+			til: Event<Ast(Expression)>(Y)
+			by: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ArrayRange) { # {{{
+		): Ast(ArrayRange) { # {{{
 			return {
 				kind: .ArrayRange
 				from: from.value
@@ -280,12 +280,12 @@ namespace AST {
 		} # }}}
 
 		func ArrayRangeFO(
-			from: Event<NodeData(Expression)>(Y)
-			to: Event<NodeData(Expression)>(Y)
-			by: Event<NodeData(Expression)>
+			from: Event<Ast(Expression)>(Y)
+			to: Event<Ast(Expression)>(Y)
+			by: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ArrayRange) { # {{{
+		): Ast(ArrayRange) { # {{{
 			return {
 				kind: .ArrayRange
 				from: from.value
@@ -297,12 +297,12 @@ namespace AST {
 		} # }}}
 
 		func ArrayRangeTI(
-			then: Event<NodeData(Expression)>(Y)
-			til: Event<NodeData(Expression)>(Y)
-			by: Event<NodeData(Expression)>
+			then: Event<Ast(Expression)>(Y)
+			til: Event<Ast(Expression)>(Y)
+			by: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ArrayRange) { # {{{
+		): Ast(ArrayRange) { # {{{
 			return {
 				kind: .ArrayRange
 				then: then.value
@@ -314,12 +314,12 @@ namespace AST {
 		} # }}}
 
 		func ArrayRangeTO(
-			then: Event<NodeData(Expression)>(Y)
-			to: Event<NodeData(Expression)>(Y)
-			by: Event<NodeData(Expression)>
+			then: Event<Ast(Expression)>(Y)
+			to: Event<Ast(Expression)>(Y)
+			by: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ArrayRange) { # {{{
+		): Ast(ArrayRange) { # {{{
 			return {
 				kind: .ArrayRange
 				then: then.value
@@ -332,11 +332,11 @@ namespace AST {
 
 		func ArrayType(
 			modifiers: Event<ModifierData>(Y)[]
-			properties: Event<NodeData(PropertyType)>(Y)[]
-			rest: Event<NodeData(PropertyType)>
+			properties: Event<Ast(PropertyType)>(Y)[]
+			rest: Event<Ast(PropertyType)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ArrayType) { # {{{
+		): Ast(ArrayType) { # {{{
 			return {
 				kind: .ArrayType
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -360,10 +360,10 @@ namespace AST {
 		} # }}}
 
 		func AttributeDeclaration(
-			declaration: Event<NodeData(Identifier, AttributeExpression, AttributeOperation)>(Y)
+			declaration: Event<Ast(Identifier, AttributeExpression, AttributeOperation)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(AttributeDeclaration) { # {{{
+		): Ast(AttributeDeclaration) { # {{{
 			return {
 				kind: .AttributeDeclaration
 				declaration: declaration.value
@@ -373,11 +373,11 @@ namespace AST {
 		} # }}}
 
 		func AttributeExpression(
-			name: Event<NodeData(Identifier)>(Y)
-			arguments: Event<NodeData(Identifier, AttributeOperation, AttributeExpression)>(Y)[]
+			name: Event<Ast(Identifier)>(Y)
+			arguments: Event<Ast(Identifier, AttributeOperation, AttributeExpression)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(AttributeExpression) { # {{{
+		): Ast(AttributeExpression) { # {{{
 			return {
 				kind: .AttributeExpression
 				name: name.value
@@ -388,11 +388,11 @@ namespace AST {
 		} # }}}
 
 		func AttributeOperation(
-			name: Event<NodeData(Identifier)>(Y)
-			value: Event<NodeData(Literal)>(Y)
+			name: Event<Ast(Identifier)>(Y)
+			value: Event<Ast(Literal)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(AttributeOperation) { # {{{
+		): Ast(AttributeOperation) { # {{{
 			return {
 				kind: .AttributeOperation
 				name: name.value
@@ -404,11 +404,11 @@ namespace AST {
 
 		func AwaitExpression(
 			modifiers: ModifierData[]
-			variables: Event<NodeData(VariableDeclarator)>(Y)[]
-			operation: Event<NodeData(Expression)>
+			variables: Event<Ast(VariableDeclarator)>(Y)[]
+			operation: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(AwaitExpression) { # {{{
+		): Ast(AwaitExpression) { # {{{
 			return {
 				kind: .AwaitExpression
 				modifiers
@@ -421,7 +421,7 @@ namespace AST {
 
 		func BinaryExpression(
 			{ value, start, end }: Event<BinaryOperatorData>(Y)
-		): NodeData(BinaryExpression) { # {{{
+		): Ast(BinaryExpression) { # {{{
 			return {
 				kind: .BinaryExpression
 				modifiers: []
@@ -432,12 +432,12 @@ namespace AST {
 		} # }}}
 
 		func BinaryExpression(
-			left: Event<NodeData(Expression)>(Y)
+			left: Event<Ast(Expression)>(Y)
 			operator: Event<BinaryOperatorData>(Y)
-			right: Event<NodeData(Expression, Type)>(Y)
+			right: Event<Ast(Expression, Type)>(Y)
 			{ start }: Range = left
 			{ end }: Range = right
-		): NodeData(BinaryExpression) { # {{{
+		): Ast(BinaryExpression) { # {{{
 			return {
 				kind: .BinaryExpression
 				modifiers: []
@@ -475,14 +475,14 @@ namespace AST {
 		} # }}}
 
 		func BitmaskDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			type: Event<NodeData(Identifier)>
-			members: NodeData(BitmaskValue, MethodDeclaration)[]
+			name: Event<Ast(Identifier)>(Y)
+			type: Event<Ast(Identifier)>
+			members: Ast(BitmaskValue, MethodDeclaration)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(BitmaskDeclaration) { # {{{
+		): Ast(BitmaskDeclaration) { # {{{
 			return {
 				kind: .BitmaskDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -496,13 +496,13 @@ namespace AST {
 		} # }}}
 
 		func BitmaskValue(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			value: Event<NodeData(Expression)>
+			name: Event<Ast(Identifier)>(Y)
+			value: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(BitmaskValue) { # {{{
+		): Ast(BitmaskValue) { # {{{
 			return {
 				kind: .BitmaskValue
 				attributes: [attribute.value for var attribute in attributes]
@@ -515,11 +515,11 @@ namespace AST {
 		} # }}}
 
 		func Block(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			statements: Event<NodeData(Statement)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			statements: Event<Ast(Statement)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(Block) { # {{{
+		): Ast(Block) { # {{{
 			return {
 				kind: .Block
 				attributes: [attribute.value for var attribute in attributes]
@@ -530,11 +530,11 @@ namespace AST {
 		} # }}}
 
 		func BlockStatement(
-			label: Event<NodeData(Identifier)>(Y)
-			body: Event<NodeData(Block)>(Y)
+			label: Event<Ast(Identifier)>(Y)
+			body: Event<Ast(Block)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(BlockStatement) { # {{{
+		): Ast(BlockStatement) { # {{{
 			return {
 				kind: .BlockStatement
 				attributes: []
@@ -546,10 +546,10 @@ namespace AST {
 		} # }}}
 
 		func BreakStatement(
-			label: Event<NodeData(Identifier)>
+			label: Event<Ast(Identifier)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(BreakStatement) { # {{{
+		): Ast(BreakStatement) { # {{{
 			return {
 				kind: .BreakStatement
 				attributes: []
@@ -562,11 +562,11 @@ namespace AST {
 		func CallExpression(
 			modifiers: ModifierData[]
 			scope: ScopeData = { kind: ScopeKind.This }
-			callee: Event<NodeData(Expression)>(Y)
-			arguments: Event<Event<NodeData(Argument, Expression)>(Y)[]>(Y)
+			callee: Event<Ast(Expression)>(Y)
+			arguments: Event<Event<Ast(Argument, Expression)>(Y)[]>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(CallExpression) { # {{{
+		): Ast(CallExpression) { # {{{
 			return {
 				kind: .CallExpression
 				modifiers
@@ -579,12 +579,12 @@ namespace AST {
 		} # }}}
 
 		func CatchClause(
-			binding: Event<NodeData(Identifier)>
-			type: Event<NodeData(Identifier)>
-			body: Event<NodeData(Block)>(Y)
+			binding: Event<Ast(Identifier)>
+			type: Event<Ast(Identifier)>
+			body: Event<Ast(Block)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(CatchClause) { # {{{
+		): Ast(CatchClause) { # {{{
 			return {
 				kind: .CatchClause
 				body: body.value
@@ -596,17 +596,17 @@ namespace AST {
 		} # }}}
 
 		func ClassDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			typeParameters: Event<Event<NodeData(TypeParameter)>[]>
+			name: Event<Ast(Identifier)>(Y)
+			typeParameters: Event<Event<Ast(TypeParameter)>[]>
 			version: Event<VersionData>
-			extends: Event<NodeData(Identifier, MemberExpression)>
-			implements: Event<NodeData(Identifier, MemberExpression)>(Y)[]
-			members: Event<NodeData(ClassMember)>(Y)[]
+			extends: Event<Ast(Identifier, MemberExpression)>
+			implements: Event<Ast(Identifier, MemberExpression)>(Y)[]
+			members: Event<Ast(ClassMember)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ClassDeclaration) { # {{{
+		): Ast(ClassDeclaration) { # {{{
 			return {
 				kind: .ClassDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -623,8 +623,8 @@ namespace AST {
 		} # }}}
 
 		func ComparisonExpression(
-			values: Array<NodeData(Expression) | BinaryOperatorData>
-		): NodeData(ComparisonExpression) { # {{{
+			values: Array<Ast(Expression) | BinaryOperatorData>
+		): Ast(ComparisonExpression) { # {{{
 			return {
 				kind: .ComparisonExpression
 				modifiers: []
@@ -635,10 +635,10 @@ namespace AST {
 		} # }}}
 
 		func ComputedPropertyName(
-			expression: Event<NodeData(Expression)>(Y)
+			expression: Event<Ast(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ComputedPropertyName) { # {{{
+		): Ast(ComputedPropertyName) { # {{{
 			return {
 				kind: .ComputedPropertyName
 				expression: expression.value
@@ -648,10 +648,10 @@ namespace AST {
 		} # }}}
 
 		func ContinueStatement(
-			label: Event<NodeData(Identifier)>
+			label: Event<Ast(Identifier)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ContinueStatement) { # {{{
+		): Ast(ContinueStatement) { # {{{
 			return {
 				kind: .ContinueStatement
 				attributes: []
@@ -663,11 +663,11 @@ namespace AST {
 
 		func CurryExpression(
 			scope: ScopeData
-			callee: Event<NodeData(Expression)>(Y)
-			arguments: Event<Event<NodeData(Argument, Expression)>(Y)[]>(Y)
+			callee: Event<Ast(Expression)>(Y)
+			arguments: Event<Event<Ast(Argument, Expression)>(Y)[]>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(CurryExpression) { # {{{
+		): Ast(CurryExpression) { # {{{
 			return {
 				kind: .CurryExpression
 				modifiers: []
@@ -680,8 +680,8 @@ namespace AST {
 		} # }}}
 
 		func DeclarationSpecifier(
-			{ value % declaration, start, end }: Event<NodeData(SpecialDeclaration)>(Y)
-		): NodeData(DeclarationSpecifier) { # {{{
+			{ value % declaration, start, end }: Event<Ast(SpecialDeclaration)>(Y)
+		): Ast(DeclarationSpecifier) { # {{{
 			return {
 				kind: .DeclarationSpecifier
 				declaration
@@ -691,12 +691,12 @@ namespace AST {
 		} # }}}
 
 		func DiscloseDeclaration(
-			name: Event<NodeData(Identifier)>(Y)
-			typeParameters: Event<Event<NodeData(TypeParameter)>[]>
-			members: Event<NodeData(ClassMember)>(Y)[]
+			name: Event<Ast(Identifier)>(Y)
+			typeParameters: Event<Event<Ast(TypeParameter)>[]>
+			members: Event<Ast(ClassMember)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(DiscloseDeclaration) { # {{{
+		): Ast(DiscloseDeclaration) { # {{{
 			return {
 				kind: .DiscloseDeclaration
 				attributes: []
@@ -710,12 +710,12 @@ namespace AST {
 
 		func DisruptiveExpression(
 			operator: Event<RestrictiveOperatorData>(Y)
-			condition: Event<NodeData(Expression)>(Y)
-			mainExpression: Event<NodeData(Expression)>(Y)
-			disruptedExpression: Event<NodeData(Expression)>(Y)
+			condition: Event<Ast(Expression)>(Y)
+			mainExpression: Event<Ast(Expression)>(Y)
+			disruptedExpression: Event<Ast(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(DisruptiveExpression) { # {{{
+		): Ast(DisruptiveExpression) { # {{{
 			return {
 				kind: .DisruptiveExpression
 				operator: operator.value
@@ -728,11 +728,11 @@ namespace AST {
 		} # }}}
 
 		func DoUntilStatement(
-			condition: Event<NodeData(Expression)>(Y)
-			body: Event<NodeData(Block)>(Y)
+			condition: Event<Ast(Expression)>(Y)
+			body: Event<Ast(Block)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(DoUntilStatement) { # {{{
+		): Ast(DoUntilStatement) { # {{{
 			return {
 				kind: .DoUntilStatement
 				attributes: []
@@ -744,11 +744,11 @@ namespace AST {
 		} # }}}
 
 		func DoWhileStatement(
-			condition: Event<NodeData(Expression)>(Y)
-			body: Event<NodeData(Block)>(Y)
+			condition: Event<Ast(Expression)>(Y)
+			body: Event<Ast(Block)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(DoWhileStatement) { # {{{
+		): Ast(DoWhileStatement) { # {{{
 			return {
 				kind: .DoWhileStatement
 				attributes: []
@@ -760,16 +760,16 @@ namespace AST {
 		} # }}}
 
 		func EnumDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			type: Event<NodeData(TypeReference)>
-			initial: Event<NodeData(Expression)>
-			step: Event<NodeData(Expression)>
-			members: NodeData(EnumValue, FieldDeclaration, MethodDeclaration)[]
+			name: Event<Ast(Identifier)>(Y)
+			type: Event<Ast(TypeReference)>
+			initial: Event<Ast(Expression)>
+			step: Event<Ast(Expression)>
+			members: Ast(EnumValue, FieldDeclaration, MethodDeclaration)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(EnumDeclaration) { # {{{
+		): Ast(EnumDeclaration) { # {{{
 			return {
 				kind: .EnumDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -785,14 +785,14 @@ namespace AST {
 		} # }}}
 
 		func EnumValue(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			value: Event<NodeData(Expression)>
-			arguments: Event<NodeData(Argument, Expression)>(Y)[]?
+			name: Event<Ast(Identifier)>(Y)
+			value: Event<Ast(Expression)>
+			arguments: Event<Ast(Argument, Expression)>(Y)[]?
 			{ start }: Range
 			{ end }: Range
-		): NodeData(EnumValue) { # {{{
+		): Ast(EnumValue) { # {{{
 			return {
 				kind: .EnumValue
 				attributes: [attribute.value for var attribute in attributes]
@@ -806,10 +806,10 @@ namespace AST {
 		} # }}}
 
 		func ExclusionType(
-			types: Event<NodeData(Type)>(Y)[]
+			types: Event<Ast(Type)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ExclusionType) { # {{{
+		): Ast(ExclusionType) { # {{{
 			return {
 				kind: .ExclusionType
 				types: [type.value for var type in types]
@@ -819,11 +819,11 @@ namespace AST {
 		} # }}}
 
 		func ExportDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(DeclarationSpecifier, GroupSpecifier, NamedSpecifier, PropertiesSpecifier)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(DeclarationSpecifier, GroupSpecifier, NamedSpecifier, PropertiesSpecifier)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ExportDeclaration) { # {{{
+		): Ast(ExportDeclaration) { # {{{
 			return {
 				kind: .ExportDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -834,8 +834,8 @@ namespace AST {
 		} # }}}
 
 		func ExpressionStatement(
-			{ value % expression, start, end }: Event<NodeData(Expression)>(Y)
-		): NodeData(ExpressionStatement) { # {{{
+			{ value % expression, start, end }: Event<Ast(Expression)>(Y)
+		): Ast(ExpressionStatement) { # {{{
 			return {
 				kind: .ExpressionStatement
 				attributes: []
@@ -846,11 +846,11 @@ namespace AST {
 		} # }}}
 
 		func ExternDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(DescriptiveType)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(DescriptiveType)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ExternDeclaration) { # {{{
+		): Ast(ExternDeclaration) { # {{{
 			return {
 				kind: .ExternDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -861,11 +861,11 @@ namespace AST {
 		} # }}}
 
 		func ExternOrImportDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(ImportDeclarator)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(ImportDeclarator)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ExternOrImportDeclaration) { # {{{
+		): Ast(ExternOrImportDeclaration) { # {{{
 			return {
 				kind: .ExternOrImportDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -876,11 +876,11 @@ namespace AST {
 		} # }}}
 
 		func ExternOrRequireDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(DescriptiveType)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(DescriptiveType)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ExternOrRequireDeclaration) { # {{{
+		): Ast(ExternOrRequireDeclaration) { # {{{
 			return {
 				kind: .ExternOrRequireDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -892,7 +892,7 @@ namespace AST {
 
 		func FallthroughStatement(
 			{ start, end }: Range
-		): NodeData(FallthroughStatement) { # {{{
+		): Ast(FallthroughStatement) { # {{{
 			return {
 				kind: .FallthroughStatement
 				attributes: []
@@ -902,14 +902,14 @@ namespace AST {
 		} # }}}
 
 		func FieldDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			type: Event<NodeData(Type)>
-			value: Event<NodeData(Expression)>
+			name: Event<Ast(Identifier)>(Y)
+			type: Event<Ast(Type)>
+			value: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(FieldDeclaration) { # {{{
+		): Ast(FieldDeclaration) { # {{{
 			return {
 				kind: .FieldDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -924,11 +924,11 @@ namespace AST {
 
 		func ForStatement(
 			iterations: Event<IterationData>(Y)[]
-			body: Event<NodeData(Block, ExpressionStatement)>(Y)
-			else: Event<NodeData(Block)>
+			body: Event<Ast(Block, ExpressionStatement)>(Y)
+			else: Event<Ast(Block)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ForStatement) { # {{{
+		): Ast(ForStatement) { # {{{
 			return {
 				kind: .ForStatement
 				attributes: []
@@ -943,15 +943,15 @@ namespace AST {
 		// TODO!
 		// func FunctionDeclaration(
 		// 	modifiers: Event<ModifierData>(Y)[]
-		// 	name: Event<NodeData(Identifier)>(Y)
-		// 	typeParameters: Event<Event<NodeData(TypeParameter)>(Y)[]>
-		// 	parameters: Event<Event<NodeData(Parameter)>(Y)[]>
-		// 	type: Event<NodeData(Type)>
-		// 	throws: Event<Event<NodeData(Identifier)>(Y)[]>
-		// 	body: Event<NodeData(Block, Expression, IfStatement, UnlessStatement)>
+		// 	name: Event<Ast(Identifier)>(Y)
+		// 	typeParameters: Event<Event<Ast(TypeParameter)>(Y)[]>
+		// 	parameters: Event<Event<Ast(Parameter)>(Y)[]>
+		// 	type: Event<Ast(Type)>
+		// 	throws: Event<Event<Ast(Identifier)>(Y)[]>
+		// 	body: Event<Ast(Block, Expression, IfStatement, UnlessStatement)>
 		// 	{ start }: Range
 		// 	{ end }: Range
-		// ): NodeData(FunctionDeclaration) { # {{{
+		// ): Ast(FunctionDeclaration) { # {{{
 		// 	return {
 		// 		kind: .FunctionDeclaration
 		// 		attributes: []
@@ -968,19 +968,20 @@ namespace AST {
 		// 	}
 		// } # }}}
 		func FunctionDeclaration(
-			name: Event<NodeData(Identifier)>(Y)
-			typeParameters: Event<Event<NodeData(TypeParameter)>[]>
-			parameters: Event<Event<NodeData(Parameter)>(Y)[]>(Y)?
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]?
-			type: Event<NodeData(Type)>?
-			throws: Event<Event<NodeData(Identifier)>[]>?
-			body: Event<NodeData(Block, Expression, IfStatement, UnlessStatement)>(Y)?
+			name: Event<Ast(Identifier)>(Y)
+			typeParameters: Event<Event<Ast(TypeParameter)>[]>
+			parameters: Event<Event<Ast(Parameter)>(Y)[]>(Y)?
+			type: Event<Ast(Type)>?
+			throws: Event<Event<Ast(Identifier)>[]>?
+			body: Event<Ast(Block, Expression, IfStatement, UnlessStatement)>(Y)?
 			{ start }: Range
 			{ end }: Range
-		): NodeData(FunctionDeclaration) { # {{{
+		): Ast(FunctionDeclaration) { # {{{
 			return {
 				kind: .FunctionDeclaration
-				attributes: []
+				attributes: [attribute.value for var attribute in attributes]
 				modifiers: if ?modifiers set [modifier.value for var modifier in modifiers] else []
 				name: name.value
 				typeParameters: [parameter.value for var parameter in typeParameters.value] if ?]typeParameters && ?#typeParameters.value
@@ -994,14 +995,14 @@ namespace AST {
 		} # }}}
 
 		func FunctionExpression(
-			parameters: Event<Event<NodeData(Parameter)>[]>(Y)
+			parameters: Event<Event<Ast(Parameter)>[]>(Y)
 			modifiers: Event<ModifierData>(Y)[]?
-			type: Event<NodeData(Type)>?
-			throws: Event<Event<NodeData(Identifier)>[]>?
-			body: Event<NodeData(Block, Expression, IfStatement, UnlessStatement)>(Y)?
+			type: Event<Ast(Type)>?
+			throws: Event<Event<Ast(Identifier)>[]>?
+			body: Event<Ast(Block, Expression, IfStatement, UnlessStatement)>(Y)?
 			{ start }: Range
 			{ end }: Range
-		): NodeData(FunctionExpression) { # {{{
+		): Ast(FunctionExpression) { # {{{
 			return {
 				kind: .FunctionExpression
 				modifiers: if ?modifiers set [modifier.value for var modifier in modifiers] else []
@@ -1015,10 +1016,10 @@ namespace AST {
 		} # }}}
 
 		func FusionType(
-			types: Event<NodeData(Type)>(Y)[]
+			types: Event<Ast(Type)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(FusionType) { # {{{
+		): Ast(FusionType) { # {{{
 			return {
 				kind: .FusionType
 				types: [type.value for var type in types]
@@ -1029,11 +1030,11 @@ namespace AST {
 
 		func GroupSpecifier(
 			modifiers: Event<ModifierData>(Y)[]
-			elements: Event<NodeData(NamedSpecifier, TypedSpecifier)>(Y)[]
-			type: Event<NodeData(DescriptiveType)>
+			elements: Event<Ast(NamedSpecifier, TypedSpecifier)>(Y)[]
+			type: Event<Ast(DescriptiveType)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(GroupSpecifier) { # {{{
+		): Ast(GroupSpecifier) { # {{{
 			return {
 				kind: .GroupSpecifier
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -1047,7 +1048,7 @@ namespace AST {
 		func Identifier(
 			name: String
 			{ start, end }: Range
-		): NodeData(Identifier) { # {{{
+		): Ast(Identifier) { # {{{
 			return {
 				kind: .Identifier
 				modifiers: []
@@ -1058,13 +1059,13 @@ namespace AST {
 		} # }}}
 
 		func IfExpression(
-			condition: Event<NodeData(Expression)>
-			declaration: Event<NodeData(VariableDeclaration)>
-			whenTrue: Event<NodeData(Block, SetStatement)>(Y)
-			whenFalse: Event<NodeData(Block, IfExpression, SetStatement)>(Y)
+			condition: Event<Ast(Expression)>
+			declaration: Event<Ast(VariableDeclaration)>
+			whenTrue: Event<Ast(Block, SetStatement)>(Y)
+			whenFalse: Event<Ast(Block, IfExpression, SetStatement)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(IfExpression) { # {{{
+		): Ast(IfExpression) { # {{{
 			return {
 				kind: .IfExpression
 				attributes: []
@@ -1078,12 +1079,12 @@ namespace AST {
 		} # }}}
 
 		func IfStatement(
-			condition: Event<NodeData(Expression)>(Y)
-			whenTrue: Event<NodeData(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
-			whenFalse: Event<NodeData(Block, IfStatement)>
+			condition: Event<Ast(Expression)>(Y)
+			whenTrue: Event<Ast(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
+			whenFalse: Event<Ast(Block, IfStatement)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(IfStatement) { # {{{
+		): Ast(IfStatement) { # {{{
 			return {
 				kind: .IfStatement
 				attributes: []
@@ -1096,12 +1097,12 @@ namespace AST {
 		} # }}}
 
 		func IfStatement(
-			declarations: NodeData(VariableDeclaration, Expression)[][]
-			whenTrue: Event<NodeData(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
-			whenFalse: Event<NodeData(Block, IfStatement)>
+			declarations: Ast(VariableDeclaration, Expression)[][]
+			whenTrue: Event<Ast(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
+			whenFalse: Event<Ast(Block, IfStatement)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(IfStatement) { # {{{
+		): Ast(IfStatement) { # {{{
 			return {
 				kind: .IfStatement
 				attributes: []
@@ -1114,13 +1115,13 @@ namespace AST {
 		} # }}}
 
 		func ImplementDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			variable: Event<NodeData(Identifier, MemberExpression)>(Y)
-			interface: Event<NodeData(Identifier, MemberExpression)>
-			properties: Event<NodeData(ClassMember)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			variable: Event<Ast(Identifier, MemberExpression)>(Y)
+			interface: Event<Ast(Identifier, MemberExpression)>
+			properties: Event<Ast(ClassMember)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ImplementDeclaration) { # {{{
+		): Ast(ImplementDeclaration) { # {{{
 			return {
 				kind: .ImplementDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -1133,11 +1134,11 @@ namespace AST {
 		} # }}}
 
 		func ImportDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(ImportDeclarator)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(ImportDeclarator)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ImportDeclaration) { # {{{
+		): Ast(ImportDeclaration) { # {{{
 			return {
 				kind: .ImportDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -1148,15 +1149,15 @@ namespace AST {
 		} # }}}
 
 		func ImportDeclarator(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			source: Event<NodeData(Literal)>(Y)
-			arguments: NodeData(NamedArgument, PositionalArgument)[]?
-			type: Event<NodeData(DescriptiveType, TypeList)>
-			specifiers: Event<NodeData(GroupSpecifier)>(Y)[]
+			source: Event<Ast(Literal)>(Y)
+			arguments: Ast(NamedArgument, PositionalArgument)[]?
+			type: Event<Ast(DescriptiveType, TypeList)>
+			specifiers: Event<Ast(GroupSpecifier)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ImportDeclarator) { # {{{
+		): Ast(ImportDeclarator) { # {{{
 			return {
 				kind: .ImportDeclarator
 				attributes: [attribute.value for var attribute in attributes]
@@ -1171,11 +1172,11 @@ namespace AST {
 		} # }}}
 
 		func IncludeAgainDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(IncludeDeclarator)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(IncludeDeclarator)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(IncludeAgainDeclaration) { # {{{
+		): Ast(IncludeAgainDeclaration) { # {{{
 			return {
 				kind: .IncludeAgainDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -1186,11 +1187,11 @@ namespace AST {
 		} # }}}
 
 		func IncludeDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(IncludeDeclarator)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(IncludeDeclarator)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(IncludeDeclaration) { # {{{
+		): Ast(IncludeDeclaration) { # {{{
 			return {
 				kind: .IncludeDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -1202,7 +1203,7 @@ namespace AST {
 
 		func IncludeDeclarator(
 			{ value % file, start, end }: Event<String>(Y)
-		): NodeData(IncludeDeclarator) { # {{{
+		): Ast(IncludeDeclarator) { # {{{
 			return {
 				kind: .IncludeDeclarator
 				attributes: []
@@ -1213,19 +1214,19 @@ namespace AST {
 		} # }}}
 
 		func IterationArray(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
-			type:  Event<NodeData(Type)>
-			index: Event<NodeData(Identifier)>
-			expression: Event<NodeData(Expression)>(Y)
-			from: Event<NodeData(Expression)>
-			to: Event<NodeData(Expression)>
-			step: Event<NodeData(Expression)>
-			split: Event<NodeData(Expression)>
-			until: Event<NodeData(Expression)>
-			while: Event<NodeData(Expression)>
-			when: Event<NodeData(Expression)>
+			value: Event<Ast(Identifier, ArrayBinding, ObjectBinding)>
+			type:  Event<Ast(Type)>
+			index: Event<Ast(Identifier)>
+			expression: Event<Ast(Expression)>(Y)
+			from: Event<Ast(Expression)>
+			to: Event<Ast(Expression)>
+			step: Event<Ast(Expression)>
+			split: Event<Ast(Expression)>
+			until: Event<Ast(Expression)>
+			while: Event<Ast(Expression)>
+			when: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
 		): IterationData(Array) { # {{{
@@ -1250,15 +1251,15 @@ namespace AST {
 		} # }}}
 
 		func IterationFrom(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			variable: Event<NodeData(Identifier)>(Y)
-			from: Event<NodeData(Expression)>(Y)
-			to: Event<NodeData(Expression)>(Y)
-			step: Event<NodeData(Expression)>
-			until: Event<NodeData(Expression)>
-			while: Event<NodeData(Expression)>
-			when: Event<NodeData(Expression)>
+			variable: Event<Ast(Identifier)>(Y)
+			from: Event<Ast(Expression)>(Y)
+			to: Event<Ast(Expression)>(Y)
+			step: Event<Ast(Expression)>
+			until: Event<Ast(Expression)>
+			while: Event<Ast(Expression)>
+			when: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
 		): IterationData(From) { # {{{
@@ -1279,15 +1280,15 @@ namespace AST {
 		} # }}}
 
 		func IterationObject(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
-			type:  Event<NodeData(Type)>
-			key: Event<NodeData(Identifier)>
-			expression: Event<NodeData(Expression)>(Y)
-			until: Event<NodeData(Expression)>
-			while: Event<NodeData(Expression)>
-			when: Event<NodeData(Expression)>
+			value: Event<Ast(Identifier, ArrayBinding, ObjectBinding)>
+			type:  Event<Ast(Type)>
+			key: Event<Ast(Identifier)>
+			expression: Event<Ast(Expression)>(Y)
+			until: Event<Ast(Expression)>
+			while: Event<Ast(Expression)>
+			when: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
 		): IterationData(Object) { # {{{
@@ -1308,16 +1309,16 @@ namespace AST {
 		} # }}}
 
 		func IterationRange(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			value: Event<NodeData(Identifier)>
-			index: Event<NodeData(Identifier)>
-			from: Event<NodeData(Expression)>(Y)
-			to: Event<NodeData(Expression)>
-			step: Event<NodeData(Expression)>
-			until: Event<NodeData(Expression)>
-			while: Event<NodeData(Expression)>
-			when: Event<NodeData(Expression)>
+			value: Event<Ast(Identifier)>
+			index: Event<Ast(Identifier)>
+			from: Event<Ast(Expression)>(Y)
+			to: Event<Ast(Expression)>
+			step: Event<Ast(Expression)>
+			until: Event<Ast(Expression)>
+			while: Event<Ast(Expression)>
+			when: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
 		): IterationData(Range) { # {{{
@@ -1340,7 +1341,7 @@ namespace AST {
 
 		func IterationRepeat(
 			modifiers: ModifierData[]
-			expression: Event<NodeData(Expression)>(Y)
+			expression: Event<Ast(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
 		): IterationData(Repeat) { # {{{
@@ -1356,8 +1357,8 @@ namespace AST {
 
 		func JunctionExpression(
 			operator: Event<BinaryOperatorData>(Y)
-			operands: NodeData(Expression, Type)[]
-		): NodeData(JunctionExpression) { # {{{
+			operands: Ast(Expression, Type)[]
+		): Ast(JunctionExpression) { # {{{
 			return {
 				kind: .JunctionExpression
 				modifiers: []
@@ -1369,14 +1370,14 @@ namespace AST {
 		} # }}}
 
 		func LambdaExpression(
-			parameters: Event<Event<NodeData(Parameter)>[]>(Y)
+			parameters: Event<Event<Ast(Parameter)>[]>(Y)
 			modifiers: Event<ModifierData>(Y)[]?
-			type: Event<NodeData(Type)>?
-			throws: Event<Event<NodeData(Identifier)>[]>?
-			body: Event<NodeData(Block, Expression)>(Y)
+			type: Event<Ast(Type)>?
+			throws: Event<Event<Ast(Identifier)>[]>?
+			body: Event<Ast(Block, Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(LambdaExpression) { # {{{
+		): Ast(LambdaExpression) { # {{{
 			return {
 				kind: .LambdaExpression
 				modifiers: if ?modifiers set [modifier.value for var modifier in modifiers] else []
@@ -1394,7 +1395,7 @@ namespace AST {
 			value: String
 			start: Position
 			end: Position
-		): NodeData(Literal) { # {{{
+		): Ast(Literal) { # {{{
 			return {
 				kind: .Literal
 				modifiers: if ?modifiers set [modifier.value for var modifier in modifiers] else []
@@ -1409,7 +1410,7 @@ namespace AST {
 			value: String
 			{ start } & first: Range
 			{ end }: Range = first
-		): NodeData(Literal) { # {{{
+		): Ast(Literal) { # {{{
 			return {
 				kind: .Literal
 				modifiers: if ?modifiers set [modifier.value for var modifier in modifiers] else []
@@ -1419,85 +1420,14 @@ namespace AST {
 			}
 		} # }}}
 
-		func MacroDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			parameters: Event<Event<NodeData(Parameter)>(Y)[]>(Y)
-			body: Event<NodeData(Block, ExpressionStatement)>(Y)
-			{ start }: Range
-			{ end }: Range
-		): NodeData(MacroDeclaration) { # {{{
-			return {
-				kind: .MacroDeclaration
-				attributes: [attribute.value for var attribute in attributes]
-				name: name.value
-				parameters: [parameter.value for var parameter in parameters.value]
-				body: body.value
-				start
-				end
-			}
-		} # }}}
-
-		func MacroExpression(
-			elements: Event<MacroElementData(Expression, Literal)>(Y)[]
-			{ start }: Range
-			{ end }: Range
-		): NodeData(MacroExpression) { # {{{
-			return {
-				kind: .MacroExpression
-				attributes: []
-				elements: [element.value for var element in elements]
-				start
-				end
-			}
-		} # }}}
-
-		func MacroElementExpression(
-			expression: Event<NodeData(Expression)>(Y)
-			reification: ReificationData?
-			{ start }: Range
-			{ end }: Range
-		): MacroElementData(Expression) { # {{{
-			return {
-				kind: .Expression
-				expression: expression.value
-				reification: reification if ?reification
-				start
-				end
-			}
-		} # }}}
-
-		func MacroElementLiteral(
-			value: String
-			{ start }: Range
-			{ end }: Range
-		): MacroElementData(Literal) { # {{{
-			return {
-				kind: .Literal
-				value: value
-				start
-				end
-			}
-		} # }}}
-
-		func MacroElementNewLine(
-			{ start, end }: Range
-		): MacroElementData(NewLine) { # {{{
-			return {
-				kind: .NewLine
-				start
-				end
-			}
-		} # }}}
-
 		func MatchClause(
-			conditions: Event<NodeData(Expression, MatchConditionArray, MatchConditionObject, MatchConditionRange, MatchConditionType)>(Y)[]
-			binding: Event<NodeData(VariableDeclarator, ArrayBinding, ObjectBinding)>
-			filter: Event<NodeData(Expression)>
-			body: Event<NodeData(Block, Statement)>(Y)
+			conditions: Event<Ast(Expression, MatchConditionArray, MatchConditionObject, MatchConditionRange, MatchConditionType)>(Y)[]
+			binding: Event<Ast(VariableDeclarator, ArrayBinding, ObjectBinding)>
+			filter: Event<Ast(Expression)>
+			body: Event<Ast(Block, Statement)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(MatchClause) { # {{{
+		): Ast(MatchClause) { # {{{
 			return {
 				kind: .MatchClause
 				conditions: [condition.value for var condition in conditions]
@@ -1510,10 +1440,10 @@ namespace AST {
 		} # }}}
 
 		func MatchConditionArray(
-			values: Event<NodeData(Expression, MatchConditionRange, OmittedExpression)>(Y)[]
+			values: Event<Ast(Expression, MatchConditionRange, OmittedExpression)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(MatchConditionArray) { # {{{
+		): Ast(MatchConditionArray) { # {{{
 			return {
 				kind: .MatchConditionArray
 				values: [value.value for var value in values]
@@ -1523,10 +1453,10 @@ namespace AST {
 		} # }}}
 
 		func MatchConditionObject(
-			properties: Event<NodeData(ObjectMember)>(Y)[]
+			properties: Event<Ast(ObjectMember)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(MatchConditionObject) { # {{{
+		): Ast(MatchConditionObject) { # {{{
 			return {
 				kind: .MatchConditionObject
 				properties: [property.value for var property in properties]
@@ -1536,9 +1466,9 @@ namespace AST {
 		} # }}}
 
 		func MatchConditionRangeFI(
-			from: Event<NodeData(Expression)>(Y)
-			til: Event<NodeData(Expression)>(Y)
-		): NodeData(MatchConditionRange) { # {{{
+			from: Event<Ast(Expression)>(Y)
+			til: Event<Ast(Expression)>(Y)
+		): Ast(MatchConditionRange) { # {{{
 			return {
 				kind: .MatchConditionRange
 				from: from.value
@@ -1549,9 +1479,9 @@ namespace AST {
 		} # }}}
 
 		func MatchConditionRangeFO(
-			from: Event<NodeData(Expression)>(Y)
-			to: Event<NodeData(Expression)>(Y)
-		): NodeData(MatchConditionRange) { # {{{
+			from: Event<Ast(Expression)>(Y)
+			to: Event<Ast(Expression)>(Y)
+		): Ast(MatchConditionRange) { # {{{
 			return {
 				kind: .MatchConditionRange
 				from: from.value
@@ -1562,9 +1492,9 @@ namespace AST {
 		} # }}}
 
 		func MatchConditionRangeTI(
-			then: Event<NodeData(Expression)>(Y)
-			til: Event<NodeData(Expression)>(Y)
-		): NodeData(MatchConditionRange) { # {{{
+			then: Event<Ast(Expression)>(Y)
+			til: Event<Ast(Expression)>(Y)
+		): Ast(MatchConditionRange) { # {{{
 			return {
 				kind: .MatchConditionRange
 				then: then.value
@@ -1575,9 +1505,9 @@ namespace AST {
 		} # }}}
 
 		func MatchConditionRangeTO(
-			then: Event<NodeData(Expression)>(Y)
-			to: Event<NodeData(Expression)>(Y)
-		): NodeData(MatchConditionRange) { # {{{
+			then: Event<Ast(Expression)>(Y)
+			to: Event<Ast(Expression)>(Y)
+		): Ast(MatchConditionRange) { # {{{
 			return {
 				kind: .MatchConditionRange
 				then: then.value
@@ -1588,10 +1518,10 @@ namespace AST {
 		} # }}}
 
 		func MatchConditionType(
-			type: Event<NodeData(Type)>(Y)
+			type: Event<Ast(Type)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(MatchConditionType) { # {{{
+		): Ast(MatchConditionType) { # {{{
 			return {
 				kind: .MatchConditionType
 				type: type.value
@@ -1601,11 +1531,11 @@ namespace AST {
 		} # }}}
 
 		func MatchExpression(
-			expression: Event<NodeData(Expression)>(Y)
-			clauses: Event<NodeData(MatchClause)[]>(Y)
+			expression: Event<Ast(Expression)>(Y)
+			clauses: Event<Ast(MatchClause)[]>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(MatchExpression) { # {{{
+		): Ast(MatchExpression) { # {{{
 			return {
 				kind: .MatchExpression
 				attributes: []
@@ -1617,12 +1547,12 @@ namespace AST {
 		} # }}}
 
 		func MatchStatement(
-			expression: Event<NodeData(Expression)>
-			declaration: Event<NodeData(VariableDeclaration)>
-			clauses: Event<NodeData(MatchClause)[]>(Y)
+			expression: Event<Ast(Expression)>
+			declaration: Event<Ast(VariableDeclaration)>
+			clauses: Event<Ast(MatchClause)[]>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(MatchStatement) { # {{{
+		): Ast(MatchStatement) { # {{{
 			return {
 				kind: .MatchStatement
 				attributes: []
@@ -1636,11 +1566,11 @@ namespace AST {
 
 		func MemberExpression(
 			modifiers: ModifierData[]
-			object: Event<NodeData(Expression)>
-			property: Event<NodeData(Expression)>(Y)
+			object: Event<Ast(Expression)>
+			property: Event<Ast(Expression)>(Y)
 			{ start }: Range = object ?]] property
 			{ end }: Range = property
-		): NodeData(MemberExpression) { # {{{
+		): Ast(MemberExpression) { # {{{
 			return {
 				kind: .MemberExpression
 				modifiers
@@ -1652,17 +1582,17 @@ namespace AST {
 		} # }}}
 
 		func MethodDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			typeParameters: Event<Event<NodeData(TypeParameter)>[]>
-			parameters: Event<Event<NodeData(Parameter)>(Y)[]>(Y)
-			type: Event<NodeData(Type)>?
-			throws: Event<Event<NodeData(Identifier)>[]>?
-			body: Event<NodeData(Block, Expression, IfStatement, UnlessStatement)>?
+			name: Event<Ast(Identifier)>(Y)
+			typeParameters: Event<Event<Ast(TypeParameter)>[]>
+			parameters: Event<Event<Ast(Parameter)>(Y)[]>(Y)
+			type: Event<Ast(Type)>?
+			throws: Event<Event<Ast(Identifier)>[]>?
+			body: Event<Ast(Block, Expression, IfStatement, UnlessStatement)>?
 			{ start }: Range
 			{ end }: Range
-		): NodeData(MethodDeclaration) { # {{{
+		): Ast(MethodDeclaration) { # {{{
 			return {
 				kind: .MethodDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -1691,10 +1621,10 @@ namespace AST {
 		} # }}}
 
 		func Module(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			body: NodeData(Statement)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			body: Ast(Statement)[]
 			parser: Parser
-		): NodeData(Module) { # {{{
+		): Ast(Module) { # {{{
 			return {
 				kind: .Module
 				attributes: [attribute.value for var attribute in attributes]
@@ -1709,7 +1639,7 @@ namespace AST {
 
 		func MutatorDeclaration(
 			{ start, end }: Range
-		): NodeData(MutatorDeclaration) { # {{{
+		): Ast(MutatorDeclaration) { # {{{
 			return {
 				kind: .MutatorDeclaration
 				start
@@ -1718,10 +1648,10 @@ namespace AST {
 		} # }}}
 
 		func MutatorDeclaration(
-			body: Event<NodeData(Block, Expression)>(Y)
+			body: Event<Ast(Block, Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(MutatorDeclaration) { # {{{
+		): Ast(MutatorDeclaration) { # {{{
 			return {
 				kind: .MutatorDeclaration
 				body: body.value
@@ -1732,11 +1662,11 @@ namespace AST {
 
 		func NamedArgument(
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			value: Event<NodeData(Expression, PlaceholderArgument)>(Y)
+			name: Event<Ast(Identifier)>(Y)
+			value: Event<Ast(Expression, PlaceholderArgument)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(NamedArgument) { # {{{
+		): Ast(NamedArgument) { # {{{
 			return {
 				kind: .NamedArgument
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -1748,8 +1678,8 @@ namespace AST {
 		} # }}}
 
 		func NamedSpecifier(
-			{ value % internal, start, end }: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>(Y)
-		): NodeData(NamedSpecifier) { # {{{
+			{ value % internal, start, end }: Event<Ast(Identifier, ArrayBinding, ObjectBinding)>(Y)
+		): Ast(NamedSpecifier) { # {{{
 			return {
 				kind: .NamedSpecifier
 				modifiers: []
@@ -1761,11 +1691,11 @@ namespace AST {
 
 		func NamedSpecifier(
 			modifiers: Event<ModifierData>(Y)[]
-			internal: Event<NodeData(Identifier, MemberExpression, ArrayBinding, ObjectBinding)>(Y)
-			external: Event<NodeData(Identifier)>
+			internal: Event<Ast(Identifier, MemberExpression, ArrayBinding, ObjectBinding)>(Y)
+			external: Event<Ast(Identifier)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(NamedSpecifier) { # {{{
+		): Ast(NamedSpecifier) { # {{{
 			return {
 				kind: .NamedSpecifier
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -1777,13 +1707,13 @@ namespace AST {
 		} # }}}
 
 		func NamespaceDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			statements: Event<NodeData(Statement)>(Y)[]
+			name: Event<Ast(Identifier)>(Y)
+			statements: Event<Ast(Statement)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(NamespaceDeclaration) { # {{{
+		): Ast(NamespaceDeclaration) { # {{{
 			return {
 				kind: .NamespaceDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -1799,7 +1729,7 @@ namespace AST {
 			value: Number
 			radix: Number
 			{ start, end }: Range
-		): NodeData(NumericExpression) { # {{{
+		): Ast(NumericExpression) { # {{{
 			return {
 				kind: .NumericExpression
 				modifiers: []
@@ -1811,10 +1741,10 @@ namespace AST {
 		} # }}}
 
 		func ObjectBinding(
-			elements: Event<NodeData(BindingElement)>(Y)[]
+			elements: Event<Ast(BindingElement)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ObjectBinding) { # {{{
+		): Ast(ObjectBinding) { # {{{
 			return {
 				kind: .ObjectBinding
 				elements: [element.value for var element in elements]
@@ -1824,16 +1754,16 @@ namespace AST {
 		} # }}}
 
 		func ObjectBindingElement(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			external: Event<NodeData(Identifier)>
-			internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>
-			type: Event<NodeData(Type)>
+			external: Event<Ast(Identifier)>
+			internal: Event<Ast(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>
+			type: Event<Ast(Type)>
 			operator: Event<BinaryOperatorData(Assignment)>
-			defaultValue: Event<NodeData(Expression)>
+			defaultValue: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(BindingElement) { # {{{
+		): Ast(BindingElement) { # {{{
 			return {
 				kind: .BindingElement
 				attributes: [attribute.value for var attribute in attributes] if ?#attributes
@@ -1849,12 +1779,12 @@ namespace AST {
 		} # }}}
 
 		func ObjectComprehension(
-			name: Event<NodeData(ComputedPropertyName, TemplateExpression)>(Y)
-			value: Event<NodeData(Expression)>(Y)
+			name: Event<Ast(ComputedPropertyName, TemplateExpression)>(Y)
+			value: Event<Ast(Expression)>(Y)
 			iteration: Event<IterationData>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ObjectComprehension) { # {{{
+		): Ast(ObjectComprehension) { # {{{
 			return {
 				kind: .ObjectComprehension
 				modifiers: []
@@ -1867,11 +1797,11 @@ namespace AST {
 		} # }}}
 
 		func ObjectExpression(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			properties: Event<NodeData(Expression)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			properties: Event<Ast(Expression)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ObjectExpression) { # {{{
+		): Ast(ObjectExpression) { # {{{
 			return {
 				kind: .ObjectExpression
 				modifiers: []
@@ -1883,14 +1813,14 @@ namespace AST {
 		} # }}}
 
 		func ObjectMember(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier, ComputedPropertyName, Literal, TemplateExpression)>
-			type: Event<NodeData(Type)>
-			value: Event<NodeData(Expression, MatchConditionRange)>
+			name: Event<Ast(Identifier, ComputedPropertyName, Literal, TemplateExpression)>
+			type: Event<Ast(Type)>
+			value: Event<Ast(Expression, MatchConditionRange)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ObjectMember) { # {{{
+		): Ast(ObjectMember) { # {{{
 			return {
 				kind: .ObjectMember
 				attributes: [attribute.value for var attribute in attributes]
@@ -1905,11 +1835,11 @@ namespace AST {
 
 		func ObjectType(
 			modifiers: Event<ModifierData>(Y)[]
-			properties: Event<NodeData(PropertyType)>(Y)[]
-			rest: Event<NodeData(PropertyType)>(Y)?
+			properties: Event<Ast(PropertyType)>(Y)[]
+			rest: Event<Ast(PropertyType)>(Y)?
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ObjectType) { # {{{
+		): Ast(ObjectType) { # {{{
 			return {
 				kind: .ObjectType
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -1923,7 +1853,7 @@ namespace AST {
 		func OmittedExpression(
 			modifiers: ModifierData[]
 			{ start, end }: Range
-		): NodeData(OmittedExpression) { # {{{
+		): Ast(OmittedExpression) { # {{{
 			return {
 				kind: .OmittedExpression
 				modifiers
@@ -1934,7 +1864,7 @@ namespace AST {
 
 		func OmittedReference(
 			{ start, end }: Range
-		): NodeData(TypeReference) { # {{{
+		): Ast(TypeReference) { # {{{
 			return {
 				kind: .TypeReference
 				modifiers: []
@@ -1943,9 +1873,19 @@ namespace AST {
 			}
 		} # }}}
 
+		func Operator(
+			operator: Event<BinaryOperatorData>(Y)
+		): Ast(Operator) { # {{{
+			return {
+				kind: .Operator
+				operator: operator.value
+				...operator { start, end }
+			}
+		} # }}}
+
 		func PassStatement(
 			{ start, end }: Range
-		): NodeData(PassStatement) { # {{{
+		): Ast(PassStatement) { # {{{
 			return {
 				kind: .PassStatement
 				attributes: []
@@ -1956,7 +1896,7 @@ namespace AST {
 
 		func Parameter(
 			{ value, start, end }
-		): NodeData(Parameter) { # {{{
+		): Ast(Parameter) { # {{{
 			return {
 				kind: .Parameter
 				attributes: []
@@ -1969,16 +1909,16 @@ namespace AST {
 		} # }}}
 
 		func Parameter(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			external: Event<NodeData(Identifier)>(Y)?
-			internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>(Y)?
-			type: Event<NodeData(Type)>(Y)?
+			external: Event<Ast(Identifier)>(Y)?
+			internal: Event<Ast(Identifier, ArrayBinding, ObjectBinding, ThisExpression)>(Y)?
+			type: Event<Ast(Type)>(Y)?
 			operator: Event<BinaryOperatorData(Assignment)>(Y)?
-			defaultValue: Event<NodeData(Expression)>(Y)?
+			defaultValue: Event<Ast(Expression)>(Y)?
 			{ start }: Range
 			{ end }: Range
-		): NodeData(Parameter) { # {{{
+		): Ast(Parameter) { # {{{
 			return {
 				kind: .Parameter
 				attributes: [attribute.value for var attribute in attributes]
@@ -1995,10 +1935,10 @@ namespace AST {
 
 		func PlaceholderArgument(
 			modifiers: Event<ModifierData>(Y)[]
-			index: Event<NodeData(NumericExpression)>
+			index: Event<Ast(NumericExpression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(PlaceholderArgument) { # {{{
+		): Ast(PlaceholderArgument) { # {{{
 			return {
 				kind: .PlaceholderArgument
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -2010,10 +1950,10 @@ namespace AST {
 
 		func PositionalArgument(
 			modifiers: Event<ModifierData>(Y)[]
-			value: Event<NodeData(Expression)>(Y)
+			value: Event<Ast(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(PositionalArgument) { # {{{
+		): Ast(PositionalArgument) { # {{{
 			return {
 				kind: .PositionalArgument
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -2025,11 +1965,11 @@ namespace AST {
 
 		func PropertiesSpecifier(
 			modifiers: Event<ModifierData>(Y)[]
-			object: Event<NodeData(Identifier, MemberExpression)>(Y)
-			properties: Event<NodeData(NamedSpecifier)>(Y)[]
+			object: Event<Ast(Identifier, MemberExpression)>(Y)
+			properties: Event<Ast(NamedSpecifier)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(PropertiesSpecifier) { # {{{
+		): Ast(PropertiesSpecifier) { # {{{
 			return {
 				kind: .PropertiesSpecifier
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -2041,16 +1981,16 @@ namespace AST {
 		} # }}}
 
 		func PropertyDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			type: Event<NodeData(Type)>
-			defaultValue: Event<NodeData(Expression)>
-			accessor: Event<NodeData(AccessorDeclaration)>
-			mutator: Event<NodeData(MutatorDeclaration)>
+			name: Event<Ast(Identifier)>(Y)
+			type: Event<Ast(Type)>
+			defaultValue: Event<Ast(Expression)>
+			accessor: Event<Ast(AccessorDeclaration)>
+			mutator: Event<Ast(MutatorDeclaration)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(PropertyDeclaration) { # {{{
+		): Ast(PropertyDeclaration) { # {{{
 			return {
 				kind: .PropertyDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -2067,11 +2007,11 @@ namespace AST {
 
 		func PropertyType(
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>
-			type: Event<NodeData(Type)>
+			name: Event<Ast(Identifier)>
+			type: Event<Ast(Type)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(PropertyType) { # {{{
+		): Ast(PropertyType) { # {{{
 			return {
 				kind: .PropertyType
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -2083,13 +2023,13 @@ namespace AST {
 		} # }}}
 
 		func ProxyDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			internal: Event<NodeData(Identifier)>(Y)
-			external: Event<NodeData(Expression)>(Y)
+			internal: Event<Ast(Identifier)>(Y)
+			external: Event<Ast(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ProxyDeclaration) { # {{{
+		): Ast(ProxyDeclaration) { # {{{
 			return {
 				kind: .ProxyDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -2102,13 +2042,13 @@ namespace AST {
 		} # }}}
 
 		func ProxyGroupDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			recipient: Event<NodeData(Expression)>(Y)
-			elements: Event<NodeData(ProxyDeclaration)>(Y)[]
+			recipient: Event<Ast(Expression)>(Y)
+			elements: Event<Ast(ProxyDeclaration)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ProxyGroupDeclaration) { # {{{
+		): Ast(ProxyGroupDeclaration) { # {{{
 			return {
 				kind: .ProxyGroupDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -2120,10 +2060,62 @@ namespace AST {
 			}
 		} # }}}
 
+		func QuoteExpression(
+			elements: Event<QuoteElementData>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): Ast(QuoteExpression) { # {{{
+			return {
+				kind: .QuoteExpression
+				attributes: []
+				elements: [element.value for var element in elements]
+				start
+				end
+			}
+		} # }}}
+
+		func QuoteElementExpression(
+			expression: Event<Ast(Expression)>(Y)
+			reification: ReificationData?
+			{ start }: Range
+			{ end }: Range
+		): QuoteElementData(Expression) { # {{{
+			return {
+				kind: .Expression
+				expression: expression.value
+				reification: reification if ?reification
+				start
+				end
+			}
+		} # }}}
+
+		func QuoteElementLiteral(
+			value: String
+			{ start }: Range
+			{ end }: Range
+		): QuoteElementData(Literal) { # {{{
+			return {
+				kind: .Literal
+				value: value
+				start
+				end
+			}
+		} # }}}
+
+		func QuoteElementNewLine(
+			{ start, end }: Range
+		): QuoteElementData(NewLine) { # {{{
+			return {
+				kind: .NewLine
+				start
+				end
+			}
+		} # }}}
+
 		func Reference(
 			name: String
 			{ start, end }: Range
-		): NodeData(Reference) { # {{{
+		): Ast(Reference) { # {{{
 			return {
 				kind: .Reference
 				name
@@ -2135,7 +2127,7 @@ namespace AST {
 		func RegularExpression(
 			value: String
 			{ start, end }: Range
-		): NodeData(RegularExpression) { # {{{
+		): Ast(RegularExpression) { # {{{
 			return {
 				kind: .RegularExpression
 				modifiers: []
@@ -2157,11 +2149,11 @@ namespace AST {
 		} # }}}
 
 		func RepeatStatement(
-			expression: Event<NodeData(Expression)>
-			body: Event<NodeData(Block, ExpressionStatement)>(Y)
+			expression: Event<Ast(Expression)>
+			body: Event<Ast(Block, ExpressionStatement)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(RepeatStatement) { # {{{
+		): Ast(RepeatStatement) { # {{{
 			return {
 				kind: .RepeatStatement
 				attributes: []
@@ -2173,11 +2165,11 @@ namespace AST {
 		} # }}}
 
 		func RequireDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(DescriptiveType)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(DescriptiveType)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(RequireDeclaration) { # {{{
+		): Ast(RequireDeclaration) { # {{{
 			return {
 				kind: .RequireDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -2188,11 +2180,11 @@ namespace AST {
 		} # }}}
 
 		func RequireOrExternDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(DescriptiveType)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(DescriptiveType)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(RequireOrExternDeclaration) { # {{{
+		): Ast(RequireOrExternDeclaration) { # {{{
 			return {
 				kind: .RequireOrExternDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -2203,11 +2195,11 @@ namespace AST {
 		} # }}}
 
 		func RequireOrImportDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(ImportDeclarator)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(ImportDeclarator)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(RequireOrImportDeclaration) { # {{{
+		): Ast(RequireOrImportDeclaration) { # {{{
 			return {
 				kind: .RequireOrImportDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -2236,11 +2228,11 @@ namespace AST {
 
 		func RestrictiveExpression(
 			operator: Event<RestrictiveOperatorData>(Y)
-			condition: Event<NodeData(Expression)>(Y)
-			expression: Event<NodeData(Expression)>(Y)
+			condition: Event<Ast(Expression)>(Y)
+			expression: Event<Ast(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(RestrictiveExpression) { # {{{
+		): Ast(RestrictiveExpression) { # {{{
 			return {
 				kind: .RestrictiveExpression
 				operator: operator.value
@@ -2265,7 +2257,7 @@ namespace AST {
 
 		func ReturnStatement(
 			{ start, end }: Range
-		): NodeData(ReturnStatement) { # {{{
+		): Ast(ReturnStatement) { # {{{
 			return {
 				kind: .ReturnStatement
 				attributes: []
@@ -2275,10 +2267,10 @@ namespace AST {
 		} # }}}
 
 		func ReturnStatement(
-			value: Event<NodeData(Expression)>(Y)
+			value: Event<Ast(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ReturnStatement) { # {{{
+		): Ast(ReturnStatement) { # {{{
 			return {
 				kind: .ReturnStatement
 				attributes: []
@@ -2290,11 +2282,11 @@ namespace AST {
 
 		func RollingExpression(
 			modifiers: ModifierData[]
-			object: Event<NodeData(Expression)>(Y)
-			expressions: Event<NodeData(Expression)>(Y)[]
+			object: Event<Ast(Expression)>(Y)
+			expressions: Event<Ast(Expression)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(RollingExpression) { # {{{
+		): Ast(RollingExpression) { # {{{
 			return {
 				kind: .RollingExpression
 				modifiers
@@ -2315,7 +2307,7 @@ namespace AST {
 
 		func Scope(
 			scope: ScopeKind
-			value: Event<NodeData(Argument, Identifier, ObjectExpression)>(Y)
+			value: Event<Ast(Argument, Identifier, ObjectExpression)>(Y)
 		): ScopeData { # {{{
 			return {
 				kind: scope
@@ -2323,11 +2315,26 @@ namespace AST {
 			}
 		} # }}}
 
-		func SequenceExpression(
-			expressions: Event<NodeData(Expression)>(Y)[]
+		func SemtimeStatement(
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			body: Event<Ast(Block, Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(SequenceExpression) { # {{{
+		): Ast(SemtimeStatement) { # {{{
+			return {
+				kind: .SemtimeStatement
+				attributes: [attribute.value for var attribute in attributes]
+				body: body.value
+				start
+				end
+			}
+		} # }}}
+
+		func SequenceExpression(
+			expressions: Event<Ast(Expression)>(Y)[]
+			{ start }: Range
+			{ end }: Range
+		): Ast(SequenceExpression) { # {{{
 			return {
 				kind: .SequenceExpression
 				modifiers: []
@@ -2339,7 +2346,7 @@ namespace AST {
 
 		func SetStatement(
 			{ start, end }: Range
-		): NodeData(SetStatement) { # {{{
+		): Ast(SetStatement) { # {{{
 			return {
 				kind: .SetStatement
 				attributes: []
@@ -2349,10 +2356,10 @@ namespace AST {
 		} # }}}
 
 		func SetStatement(
-			value: Event<NodeData(Expression)>(Y)
+			value: Event<Ast(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(SetStatement) { # {{{
+		): Ast(SetStatement) { # {{{
 			return {
 				kind: .SetStatement
 				attributes: []
@@ -2366,7 +2373,7 @@ namespace AST {
 			command: String
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ShebangDeclaration) { # {{{
+		): Ast(ShebangDeclaration) { # {{{
 			return {
 				kind: .ShebangDeclaration
 				command
@@ -2376,11 +2383,11 @@ namespace AST {
 		} # }}}
 
 		func ShorthandProperty(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			name: Event<NodeData(Identifier, ComputedPropertyName, Literal, TemplateExpression, ThisExpression)>(Y)
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			name: Event<Ast(Identifier, ComputedPropertyName, Literal, TemplateExpression, ThisExpression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ShorthandProperty) { # {{{
+		): Ast(ShorthandProperty) { # {{{
 			return {
 				kind: .ShorthandProperty
 				attributes: [attribute.value for var attribute in attributes]
@@ -2392,11 +2399,11 @@ namespace AST {
 
 		func SpreadExpression(
 			modifiers: Event<ModifierData>(Y)[]
-			operand: Event<NodeData(Expression)>(Y)
-			members: Event<NodeData(NamedSpecifier)>(Y)[]
+			operand: Event<Ast(Expression)>(Y)
+			members: Event<Ast(NamedSpecifier)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(SpreadExpression) { # {{{
+		): Ast(SpreadExpression) { # {{{
 			return {
 				kind: .SpreadExpression
 				attributes: []
@@ -2409,15 +2416,15 @@ namespace AST {
 		} # }}}
 
 		func StructDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			extends: Event<NodeData(TypeReference)>
-			implements: Event<NodeData(Identifier, MemberExpression)>(Y)[]
-			fields: NodeData(FieldDeclaration)[]
+			name: Event<Ast(Identifier)>(Y)
+			extends: Event<Ast(TypeReference)>
+			implements: Event<Ast(Identifier, MemberExpression)>(Y)[]
+			fields: Ast(FieldDeclaration)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(StructDeclaration) { # {{{
+		): Ast(StructDeclaration) { # {{{
 			return {
 				kind: .StructDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -2431,12 +2438,64 @@ namespace AST {
 			}
 		} # }}}
 
-		func TaggedTemplateExpression(
-			tag: Event<NodeData(Expression)>
-			template: Event<NodeData(TemplateExpression)>
+		func SyntimeCallExpression(
+			modifiers: ModifierData[]
+			callee: Event<Ast(Expression)>(Y)
+			arguments: Event<Ast(Argument, Expression, Statement)[]>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TaggedTemplateExpression) { # {{{
+		): Ast(SyntimeCallExpression) { # {{{
+			return {
+				kind: .SyntimeCallExpression
+				modifiers
+				callee: callee.value
+				arguments: arguments.value
+				start
+				end
+			}
+		} # }}}
+
+		func SyntimeFunctionDeclaration(
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<Ast(Identifier)>(Y)
+			parameters: Event<Event<Ast(Parameter)>(Y)[]>(Y)
+			body: Event<Ast(Block, Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): Ast(SyntimeFunctionDeclaration) { # {{{
+			return {
+				kind: .SyntimeFunctionDeclaration
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
+				name: name.value
+				parameters: [parameter.value for var parameter in parameters.value]
+				body: body.value
+				start
+				end
+			}
+		} # }}}
+
+		func SyntimeExpression(
+			body: Event<Ast(Block, Statement)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): Ast(SyntimeExpression) { # {{{
+			return {
+				kind: .SyntimeExpression
+				attributes: []
+				body: body.value
+				start
+				end
+			}
+		} # }}}
+
+		func TaggedTemplateExpression(
+			tag: Event<Ast(Expression)>
+			template: Event<Ast(TemplateExpression)>
+			{ start }: Range
+			{ end }: Range
+		): Ast(TaggedTemplateExpression) { # {{{
 			return {
 				kind: .TaggedTemplateExpression
 				tag: tag.value
@@ -2448,10 +2507,10 @@ namespace AST {
 
 		func TemplateExpression(
 			modifiers: Event<ModifierData>(Y)[]
-			elements: Event<NodeData(Expression)>(Y)[]
+			elements: Event<Ast(Expression)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TemplateExpression) { # {{{
+		): Ast(TemplateExpression) { # {{{
 			return {
 				kind: .TemplateExpression
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -2462,10 +2521,10 @@ namespace AST {
 		} # }}}
 
 		func ThisExpression(
-			name: Event<NodeData(Identifier)>(Y)
+			name: Event<Ast(Identifier)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ThisExpression) { # {{{
+		): Ast(ThisExpression) { # {{{
 			return {
 				kind: .ThisExpression
 				modifiers: []
@@ -2477,7 +2536,7 @@ namespace AST {
 
 		func ThrowStatement(
 			{ start, end }: Range
-		): NodeData(ThrowStatement) { # {{{
+		): Ast(ThrowStatement) { # {{{
 			return {
 				kind: .ThrowStatement
 				attributes: []
@@ -2487,10 +2546,10 @@ namespace AST {
 		} # }}}
 
 		func ThrowStatement(
-			value: Event<NodeData(Expression)>(Y)
+			value: Event<Ast(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(ThrowStatement) { # {{{
+		): Ast(ThrowStatement) { # {{{
 			return {
 				kind: .ThrowStatement
 				attributes: []
@@ -2503,7 +2562,7 @@ namespace AST {
 		func TopicReference(
 			modifiers: ModifierData[] = []
 			{ start, end }: Range
-		): NodeData(TopicReference) { # {{{
+		): Ast(TopicReference) { # {{{
 			return {
 				kind: .TopicReference
 				modifiers
@@ -2514,11 +2573,11 @@ namespace AST {
 
 		func TryExpression(
 			modifiers: ModifierData[]
-			argument: Event<NodeData(Expression)>(Y)
-			defaultValue: Event<NodeData(Expression)>
+			argument: Event<Ast(Expression)>(Y)
+			defaultValue: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TryExpression) { # {{{
+		): Ast(TryExpression) { # {{{
 			return {
 				kind: .TryExpression
 				modifiers
@@ -2530,13 +2589,13 @@ namespace AST {
 		} # }}}
 
 		func TryStatement(
-			body: Event<NodeData(Block)>(Y)
-			catchClauses: Event<NodeData(CatchClause)>(Y)[]
-			catchClause: Event<NodeData(CatchClause)>
-			finalizer: Event<NodeData(Block)>
+			body: Event<Ast(Block)>(Y)
+			catchClauses: Event<Ast(CatchClause)>(Y)[]
+			catchClause: Event<Ast(CatchClause)>
+			finalizer: Event<Ast(Block)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TryStatement) { # {{{
+		): Ast(TryStatement) { # {{{
 			return {
 				kind: .TryStatement
 				attributes: []
@@ -2550,15 +2609,15 @@ namespace AST {
 		} # }}}
 
 		func TupleDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			extends: Event<NodeData(Identifier)>
-			implements: Event<NodeData(Identifier, MemberExpression)>(Y)[]
-			fields: NodeData(TupleField)[]
+			name: Event<Ast(Identifier)>(Y)
+			extends: Event<Ast(Identifier)>
+			implements: Event<Ast(Identifier, MemberExpression)>(Y)[]
+			fields: Ast(TupleField)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TupleDeclaration) { # {{{
+		): Ast(TupleDeclaration) { # {{{
 			return {
 				kind: .TupleDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -2573,14 +2632,14 @@ namespace AST {
 		} # }}}
 
 		func TupleField(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>
-			type: Event<NodeData(Type)>
-			defaultValue: Event<NodeData(Expression)>
+			name: Event<Ast(Identifier)>
+			type: Event<Ast(Type)>
+			defaultValue: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TupleField) { # {{{
+		): Ast(TupleField) { # {{{
 			return {
 				kind: .TupleField
 				attributes: [attribute.value for var attribute in attributes]
@@ -2595,11 +2654,11 @@ namespace AST {
 
 		func TypedExpression(
 			modifiers: Event<ModifierData>(Y)[]
-			expression: Event<NodeData(Expression)>(Y)
-			parameters: Event<NodeData(Type)>(Y)[]
+			expression: Event<Ast(Expression)>(Y)
+			parameters: Event<Ast(Type)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TypedExpression) { # {{{
+		): Ast(TypedExpression) { # {{{
 			return {
 				kind: .TypedExpression
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -2611,9 +2670,9 @@ namespace AST {
 		} # }}}
 
 		func TypedSpecifier(
-			type: Event<NodeData(DescriptiveType)>(Y)
+			type: Event<Ast(DescriptiveType)>(Y)
 			{ start, end }: Range
-		): NodeData(TypedSpecifier) { # {{{
+		): Ast(TypedSpecifier) { # {{{
 			return {
 				kind: .TypedSpecifier
 				type: type.value
@@ -2623,12 +2682,12 @@ namespace AST {
 		} # }}}
 
 		func TypeAliasDeclaration(
-			name: Event<NodeData(Identifier)>(Y)
-			parameters: Event<Event<NodeData(TypeParameter)>[]>
-			type: Event<NodeData(Type)>(Y)
+			name: Event<Ast(Identifier)>(Y)
+			parameters: Event<Event<Ast(TypeParameter)>[]>
+			type: Event<Ast(Type)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TypeAliasDeclaration) { # {{{
+		): Ast(TypeAliasDeclaration) { # {{{
 			return {
 				kind: .TypeAliasDeclaration
 				attributes: []
@@ -2641,11 +2700,11 @@ namespace AST {
 		} # }}}
 
 		func TypeList(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			types: Event<NodeData(DescriptiveType)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			types: Event<Ast(DescriptiveType)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TypeList) { # {{{
+		): Ast(TypeList) { # {{{
 			return {
 				kind: .TypeList
 				attributes: [attribute.value for var attribute in attributes]
@@ -2656,11 +2715,11 @@ namespace AST {
 		} # }}}
 
 		func TypeParameter(
-			name: Event<NodeData(Identifier)>(Y)
-			constraint: Event<NodeData(Type)>
+			name: Event<Ast(Identifier)>(Y)
+			constraint: Event<Ast(Type)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TypeParameter) { # {{{
+		): Ast(TypeParameter) { # {{{
 			return {
 				kind: .TypeParameter
 				modifiers: []
@@ -2672,8 +2731,8 @@ namespace AST {
 		} # }}}
 
 		func TypeReference(
-			{ value % typeName, start, end }: Event<NodeData(Identifier, MemberExpression, UnaryExpression)>(Y)
-		): NodeData(TypeReference) { # {{{
+			{ value % typeName, start, end }: Event<Ast(Identifier, MemberExpression, UnaryExpression)>(Y)
+		): Ast(TypeReference) { # {{{
 			return {
 				kind: .TypeReference
 				modifiers: []
@@ -2685,12 +2744,12 @@ namespace AST {
 
 		func TypeReference(
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier, MemberExpression, UnaryExpression)>(Y)
-			parameters: Event<Event<NodeData(Type)>(Y)[]>
-			subtypes: Event<Event<NodeData(Identifier)>(Y)[] | NodeData(Expression)>
+			name: Event<Ast(Identifier, MemberExpression, UnaryExpression)>(Y)
+			parameters: Event<Event<Ast(Type)>(Y)[]>
+			subtypes: Event<Event<Ast(Identifier)>(Y)[] | Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(TypeReference) { # {{{
+		): Ast(TypeReference) { # {{{
 			return {
 				kind: .TypeReference
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -2712,10 +2771,10 @@ namespace AST {
 		func UnaryExpression(
 			modifiers: Event<ModifierData>(Y)[]
 			operator: Event<UnaryOperatorData>(Y)
-			argument: Event<NodeData(Expression)>(Y)
+			argument: Event<Ast(Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(UnaryExpression) { # {{{
+		): Ast(UnaryExpression) { # {{{
 			return {
 				kind: .UnaryExpression
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -2740,10 +2799,10 @@ namespace AST {
 		func UnaryTypeExpression(
 			modifiers: Event<ModifierData>(Y)[]
 			operator: Event<UnaryTypeOperatorData>(Y)
-			argument: Event<NodeData(Type, Expression)>(Y)
+			argument: Event<Ast(Type, Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(UnaryTypeExpression) { # {{{
+		): Ast(UnaryTypeExpression) { # {{{
 			return {
 				kind: .UnaryTypeExpression
 				modifiers: [modifier.value for var modifier in modifiers]
@@ -2766,10 +2825,10 @@ namespace AST {
 		} # }}}
 
 		func UnionType(
-			types: Event<NodeData(Type)>(Y)[]
+			types: Event<Ast(Type)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(UnionType) { # {{{
+		): Ast(UnionType) { # {{{
 			return {
 				kind: .UnionType
 				types: [type.value for var type in types]
@@ -2779,11 +2838,11 @@ namespace AST {
 		} # }}}
 
 		func UnlessStatement(
-			condition: Event<NodeData(Expression)>(Y)
-			whenFalse: Event<NodeData(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
+			condition: Event<Ast(Expression)>(Y)
+			whenFalse: Event<Ast(Block, BreakStatement, ContinueStatement, ExpressionStatement, ReturnStatement, SetStatement, ThrowStatement)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(UnlessStatement) { # {{{
+		): Ast(UnlessStatement) { # {{{
 			return {
 				kind: .UnlessStatement
 				attributes: []
@@ -2795,11 +2854,11 @@ namespace AST {
 		} # }}}
 
 		func UntilStatement(
-			condition: Event<NodeData(Expression)>(Y)
-			body: Event<NodeData(Block, Expression)>(Y)
+			condition: Event<Ast(Expression)>(Y)
+			body: Event<Ast(Block, Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(UntilStatement) { # {{{
+		): Ast(UntilStatement) { # {{{
 			return {
 				kind: .UntilStatement
 				attributes: []
@@ -2811,14 +2870,14 @@ namespace AST {
 		} # }}}
 
 		func VariableDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			variables: Event<NodeData(VariableDeclarator)>(Y)[]
+			variables: Event<Ast(VariableDeclarator)>(Y)[]
 			operator: Event<BinaryOperatorData(Assignment)>
-			value: Event<NodeData(Expression)>
+			value: Event<Ast(Expression)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(VariableDeclaration) { # {{{
+		): Ast(VariableDeclaration) { # {{{
 			return {
 				kind: .VariableDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -2833,11 +2892,11 @@ namespace AST {
 
 		func VariableDeclarator(
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>(Y)
-			type: Event<NodeData(Type)>
+			name: Event<Ast(Identifier, ArrayBinding, ObjectBinding)>(Y)
+			type: Event<Ast(Type)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(VariableDeclarator) { # {{{
+		): Ast(VariableDeclarator) { # {{{
 			return {
 				kind: .VariableDeclarator
 				attributes: []
@@ -2850,12 +2909,12 @@ namespace AST {
 		} # }}}
 
 		func VariableStatement(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			declarations: Event<NodeData(VariableDeclaration)>(Y)[]
+			declarations: Event<Ast(VariableDeclaration)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(VariableStatement) { # {{{
+		): Ast(VariableStatement) { # {{{
 			return {
 				kind: .VariableStatement
 				attributes: [attribute.value for var attribute in attributes]
@@ -2867,13 +2926,13 @@ namespace AST {
 		} # }}}
 
 		func VariantDeclaration(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			fields: NodeData(VariantField)[]
+			name: Event<Ast(Identifier)>(Y)
+			fields: Ast(VariantField)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(VariantDeclaration) { # {{{
+		): Ast(VariantDeclaration) { # {{{
 			return {
 				kind: .VariantDeclaration
 				attributes: [attribute.value for var attribute in attributes]
@@ -2886,11 +2945,11 @@ namespace AST {
 		} # }}}
 
 		func VariantField(
-			names: Event<NodeData(Identifier)>(Y)[]
-			type: Event<NodeData(Type)>
+			names: Event<Ast(Identifier)>(Y)[]
+			type: Event<Ast(Type)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(VariantField) { # {{{
+		): Ast(VariantField) { # {{{
 			return {
 				kind: .VariantField
 				attributes: []
@@ -2903,11 +2962,11 @@ namespace AST {
 		} # }}}
 
 		func VariantType(
-			master: Event<NodeData(TypeReference)>(Y)
-			properties: NodeData(VariantField)[]
+			master: Event<Ast(TypeReference)>(Y)
+			properties: Ast(VariantField)[]
 			{ start }: Range
 			{ end }: Range
-		): NodeData(VariantType) { # {{{
+		): Ast(VariantType) { # {{{
 			return {
 				kind: .VariantType
 				master: master.value
@@ -2933,11 +2992,11 @@ namespace AST {
 		} # }}}
 
 		func WhileStatement(
-			condition: Event<NodeData(Expression, VariableDeclaration)>(Y)
-			body: Event<NodeData(Block, Expression)>(Y)
+			condition: Event<Ast(Expression, VariableDeclaration)>(Y)
+			body: Event<Ast(Block, Expression)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): NodeData(WhileStatement) { # {{{
+		): Ast(WhileStatement) { # {{{
 			return {
 				kind: .WhileStatement
 				attributes: []
@@ -2949,12 +3008,12 @@ namespace AST {
 		} # }}}
 
 		func WithStatement(
-			variables: Event<NodeData(BinaryExpression, VariableDeclaration)>(Y)[]
-			body: Event<NodeData(Block)>(Y)
-			finalizer: Event<NodeData(Block)>
+			variables: Event<Ast(BinaryExpression, VariableDeclaration)>(Y)[]
+			body: Event<Ast(Block)>(Y)
+			finalizer: Event<Ast(Block)>
 			{ start }: Range
 			{ end }: Range
-		): NodeData(WithStatement) { # {{{
+		): Ast(WithStatement) { # {{{
 			return {
 				kind: .WithStatement
 				attributes: []

@@ -8,6 +8,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  **/
 #![error(ignore(Error))]
+#![runtime(prefix='KS')]
 
 import 'npm:@kaoscript/ast'
 
@@ -53,6 +54,7 @@ export namespace SyntaxAnalysis {
 		Nil
 
 		AtThis
+		BinaryOperator
 		Curry
 		ImplicitMember
 		MatchCase
@@ -103,6 +105,7 @@ export namespace SyntaxAnalysis {
 		LateVariable
 		Method
 		NoAssignment
+		NoAsync
 		NoBody
 		OverrideMethod
 		OverrideProperty
@@ -121,6 +124,15 @@ export namespace SyntaxAnalysis {
 		InlineStatement
 		MacroExpression
 		Typing
+	}
+
+	bitmask StatementMode {
+		Nil
+
+		Expression
+		NewLine
+
+		Default = Expression + NewLine
 	}
 
 	bitmask TypeMode {
@@ -420,10 +432,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		altArrayComprehensionFor(
-			value: Event<NodeData(Expression)>(Y)
+			value: Event<Ast(Expression)>(Y)
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(ArrayComprehension)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ArrayComprehension)>(Y) ~ SyntaxError # {{{
 		{
 			var firstLoop = @yes()
 
@@ -441,10 +453,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		altArrayComprehensionRepeat(
-			value: Event<NodeData(Expression)>(Y)
+			value: Event<Ast(Expression)>(Y)
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(ArrayComprehension)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ArrayComprehension)>(Y) ~ SyntaxError # {{{
 		{
 			var firstLoop = @yes()
 
@@ -468,10 +480,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		altArrayList(
-			expression: Event<NodeData(Expression)>(Y)
+			expression: Event<Ast(Expression)>(Y)
 			first: Event(Y)
+			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(ArrayExpression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ArrayExpression)>(Y) ~ SyntaxError # {{{
 		{
 			var values = [@altRestrictiveExpression(expression, fMode)]
 
@@ -479,7 +492,7 @@ export namespace SyntaxAnalysis {
 				if @test(.COMMA) {
 					@commit().NL_0M()
 
-					var newExpression = @reqExpression(null, fMode, MacroTerminator.Array)
+					var newExpression = @reqExpression(eMode, fMode, MacroTerminator.Array)
 
 					values.push(@altRestrictiveExpression(newExpression, fMode))
 				}
@@ -493,7 +506,7 @@ export namespace SyntaxAnalysis {
 						break
 					}
 
-					var newExpression = @reqExpression(null, fMode, MacroTerminator.Array)
+					var newExpression = @reqExpression(eMode, fMode, MacroTerminator.Array)
 
 					values.push(@altRestrictiveExpression(newExpression, fMode))
 				}
@@ -510,9 +523,9 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		altRestrictiveExpression(
-			expression: Event<NodeData(Expression)>(Y)
+			expression: Event<Ast(Expression)>(Y)
 			fMode: FunctionMode
-		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -533,9 +546,9 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		altTypeContainer(
-			mut type: Event<NodeData(Type)>(Y)
+			mut type: Event<Ast(Type)>(Y)
 			nullable: Boolean = true
-		): Event<NodeData(Type)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Type)>(Y) ~ SyntaxError # {{{
 		{
 			var mut mark = @mark()
 
@@ -633,7 +646,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		hasTopicReference(
-			expression: NodeData(Argument, Expression)
+			expression: Ast(Argument, Expression)
 		): Boolean # {{{
 		{
 			match expression {
@@ -669,7 +682,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		isComputed(
-			expression: NodeData(Expression)?
+			expression: Ast(Expression)?
 		): Boolean # {{{
 		{
 			match expression {
@@ -685,7 +698,7 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		parseModule(): NodeData(Module) ~ SyntaxError # {{{
+		parseModule(): Ast(Module) ~ SyntaxError # {{{
 		{
 			var attributes = []
 			var body = []
@@ -738,7 +751,7 @@ export namespace SyntaxAnalysis {
 						statement = @reqRequireOrImportStatement(@yes()).value
 					}
 					else {
-						statement = @reqStatement(null, FunctionMode.Nil).value
+						statement = @reqStatement(.Default, .Nil, .Nil).value
 					}
 				}
 
@@ -752,7 +765,7 @@ export namespace SyntaxAnalysis {
 			return AST.Module(attributes, body, this)
 		} # }}}
 
-		parseModuleType(): NodeData(TypeList) ~ SyntaxError # {{{
+		parseModuleType(): Ast(TypeList) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -781,7 +794,7 @@ export namespace SyntaxAnalysis {
 
 		parseStatements(
 			mode: FunctionMode
-		): NodeData(StatementList) ~ SyntaxError # {{{
+		): Ast(StatementList) ~ SyntaxError # {{{
 		{
 			var first = @yep()
 			var attributes = []
@@ -797,7 +810,7 @@ export namespace SyntaxAnalysis {
 
 				@stackOuterAttributes(attrs)
 
-				var statement = @reqStatement(null, mode).value
+				var statement = @reqStatement(.Default, .Nil, mode).value
 
 				AST.pushAttributes(statement, attrs)
 
@@ -846,9 +859,9 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		replaceReference(
-			expression: NodeData(Expression)
+			expression: Ast(Expression)
 			name: String
-			reference: NodeData(Expression)
+			reference: Ast(Expression)
 		): Boolean # {{{
 		{
 			match expression {
@@ -901,7 +914,7 @@ export namespace SyntaxAnalysis {
 		reqArgumentList(
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<Event<NodeData(Argument, Expression)>(Y)[]>(Y) ~ SyntaxError # {{{
+		): Event<Event<Ast(Argument, Expression)>(Y)[]>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -1031,8 +1044,9 @@ export namespace SyntaxAnalysis {
 
 		reqArray(
 			first: Event(Y)
+			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(ArrayExpression, ArrayRange, ArrayComprehension)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ArrayExpression, ArrayRange, ArrayComprehension)>(Y) ~ SyntaxError # {{{
 		{
 			if @test(Token.RIGHT_SQUARE) {
 				return @yep(AST.ArrayExpression([], first, @yes()))
@@ -1103,7 +1117,7 @@ export namespace SyntaxAnalysis {
 					return @yep(AST.ArrayExpression([], first, @yes()))
 				}
 
-				var expression = @reqExpression(null, fMode, MacroTerminator.Array)
+				var expression = @reqExpression(eMode, fMode, MacroTerminator.Array)
 
 				if @match(Token.RIGHT_SQUARE, Token.FOR, Token.NEWLINE, Token.REPEAT) == Token.RIGHT_SQUARE {
 					return @yep(AST.ArrayExpression([expression], first, @yes()))
@@ -1128,21 +1142,21 @@ export namespace SyntaxAnalysis {
 					else {
 						@rollback(lineMark)
 
-						return @altArrayList(expression, first, fMode)
+						return @altArrayList(expression, first, eMode, fMode)
 					}
 				}
 				else if @token == Token.REPEAT {
 					return @altArrayComprehensionRepeat(expression, first, fMode)
 				}
 				else {
-					return @altArrayList(expression, first, fMode)
+					return @altArrayList(expression, first, eMode, fMode)
 				}
 			}
 		} # }}}
 
 		reqAttribute(
 			first: Event(Y)
-		): Event<NodeData(AttributeDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(AttributeDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var declaration = @reqAttributeMember()
 
@@ -1157,7 +1171,7 @@ export namespace SyntaxAnalysis {
 			return @yep(AST.AttributeDeclaration(declaration, first, last))
 		} # }}}
 
-		reqAttributeIdentifier(): Event<NodeData(Identifier)>(Y) ~ SyntaxError # {{{
+		reqAttributeIdentifier(): Event<Ast(Identifier)>(Y) ~ SyntaxError # {{{
 		{
 			if @scanner.test(Token.ATTRIBUTE_IDENTIFIER) {
 				return @yep(AST.Identifier(@scanner.value(), @yes()))
@@ -1167,7 +1181,7 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		reqAttributeMember(): Event<NodeData(Identifier, AttributeOperation, AttributeExpression)>(Y) ~ SyntaxError # {{{
+		reqAttributeMember(): Event<Ast(Identifier, AttributeOperation, AttributeExpression)>(Y) ~ SyntaxError # {{{
 		{
 			var identifier = @reqAttributeIdentifier()
 
@@ -1204,7 +1218,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(AwaitExpression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(AwaitExpression)>(Y) ~ SyntaxError # {{{
 		{
 			var operand = @reqPrefixedOperand(eMode, fMode)
 
@@ -1214,7 +1228,7 @@ export namespace SyntaxAnalysis {
 		reqBinaryOperand(
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			var operand = @tryBinaryOperand(eMode, fMode)
 
@@ -1227,10 +1241,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqBitmaskMember(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			mut bits: MemberBits
-		): Event<NodeData(BitmaskValue, MethodDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(BitmaskValue, MethodDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var member = @tryBitmaskMember(attributes, modifiers, bits, null)
 
@@ -1242,10 +1256,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqBitmaskMemberBlock(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			mut bits: MemberBits
-			members: NodeData(BitmaskValue, MethodDeclaration)[]
+			members: Ast(BitmaskValue, MethodDeclaration)[]
 		): Void ~ SyntaxError # {{{
 		{
 			@commit().NL_0M()
@@ -1270,7 +1284,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqBitmaskMemberList(
-			members: NodeData(BitmaskValue, MethodDeclaration)[]
+			members: Ast(BitmaskValue, MethodDeclaration)[]
 		): Void ~ SyntaxError # {{{
 		{
 			var attributes = @stackOuterAttributes([])
@@ -1352,7 +1366,7 @@ export namespace SyntaxAnalysis {
 		reqBitmaskStatement(
 			first: Event(Y)
 			modifiers: Event<ModifierData>(Y)[] = []
-		): Event<NodeData(BitmaskDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(BitmaskDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			if var statement ?]= @tryBitmaskStatement(first, modifiers) {
 				return statement
@@ -1364,9 +1378,9 @@ export namespace SyntaxAnalysis {
 
 		reqBlock(
 			mut first: Event
-			eMode: ExpressionMode?
+			eMode!: ExpressionMode = .Nil
 			fMode: FunctionMode
-		): Event<NodeData(Block)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Block)>(Y) ~ SyntaxError # {{{
 		{
 			if !first.ok {
 				unless @test(Token.LEFT_CURLY) {
@@ -1390,7 +1404,7 @@ export namespace SyntaxAnalysis {
 
 				@stackOuterAttributes(attrs)
 
-				statement = @reqStatement(eMode, fMode)
+				statement = @reqStatement(.Default, eMode, fMode)
 
 				AST.pushAttributes(statement.value, attrs)
 
@@ -1410,7 +1424,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(BreakStatement, IfStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(BreakStatement, IfStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
 		{
 			if @match(Token.IF, Token.UNLESS) == Token.IF {
 				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
@@ -1465,12 +1479,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqCascadeExpression(
-			mut object: Event<NodeData(Expression)>(Y)
+			mut object: Event<Ast(Expression)>(Y)
 			mut modifiers: ModifierData[]
-			identifier: Event<NodeData(Identifier)>(Y)?
+			identifier: Event<Ast(Identifier)>(Y)?
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			var mode = eMode + ExpressionMode.ImplicitMember + ExpressionMode.NoMultiLine
 
@@ -1519,7 +1533,7 @@ export namespace SyntaxAnalysis {
 		reqCatchOnClause(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(CatchClause)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(CatchClause)>(Y) ~ SyntaxError # {{{
 		{
 			var type = @reqIdentifier()
 
@@ -1541,11 +1555,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqClassMember(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			mut bits: MemberBits
 			first: Range?
-		): Event<NodeData(ClassMember)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ClassMember)>(Y) ~ SyntaxError # {{{
 		{
 			var member = @tryClassMember(attributes, modifiers, bits, first)
 
@@ -1557,10 +1571,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqClassMemberBlock(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			mut bits: MemberBits
-			members: Event<NodeData(ClassMember)>(Y)[]
+			members: Event<Ast(ClassMember)>(Y)[]
 		): Void ~ SyntaxError # {{{
 		{
 			@commit().NL_0M()
@@ -1585,7 +1599,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqClassMemberList(
-			members: Event<NodeData(ClassMember)>(Y)[]
+			members: Event<Ast(ClassMember)>(Y)[]
 		): Void ~ SyntaxError # {{{
 		{
 			var mut first: Range? = null
@@ -1595,34 +1609,47 @@ export namespace SyntaxAnalysis {
 				first = attributes[0]
 			}
 
-			var macroMark = @mark()
+			var syntimeMark = @mark()
 
-			if @test(Token.MACRO) {
-				var second = @yes()
-				var mut identifier: Event? = null
+			if @test(.SYNTIME) {
+				var syntimeToken = @yes()
 
-				if @test(Token.LEFT_CURLY) {
-					@commit().NL_0M()
+				if @test(.FUNC) {
+					@commit()
 
-					while @until(Token.RIGHT_CURLY) {
-						members.push(@reqMacroStatement(attributes))
+					if @test(.LEFT_CURLY) {
+						@commit().NL_0M()
+
+						while @until(.RIGHT_CURLY) {
+							members.push(@reqSyntimeFunctionStatement(attributes, [], syntimeToken))
+
+							@reqNL_1M()
+						}
+
+						unless @test(.RIGHT_CURLY) {
+							@throw('}')
+						}
+
+						@commit()
+					}
+					else {
+						members.push(@reqSyntimeFunctionStatement(attributes, [], syntimeToken))
 					}
 
-					unless @test(Token.RIGHT_CURLY) {
-						@throw('}')
-					}
-
-					@commit().reqNL_1M()
+					@reqNL_1M()
 
 					return
 				}
-				else if (identifier <- @tryIdentifier()).ok {
-					members.push(@reqMacroStatement(attributes, identifier, first ?? second))
+				else if var expression ?]= @trySyntimeExpression(syntimeToken) {
+					members.push(expression)
+
+					@reqNL_1M()
 
 					return
 				}
-
-				@rollback(macroMark)
+				else {
+					@rollback(syntimeMark)
+				}
 			}
 
 			var accessMark = @mark()
@@ -1631,7 +1658,9 @@ export namespace SyntaxAnalysis {
 			if ?]accessModifier && @test(Token.LEFT_CURLY) {
 				return @reqClassMemberBlock(
 					attributes
-					[accessModifier]
+					// TODO
+					// [accessModifier]
+					[accessModifier:!!!(Event<ModifierData>(Y))]
 					MemberBits.Variable + MemberBits.FinalVariable + MemberBits.LateVariable + MemberBits.Property + MemberBits.Method + MemberBits.AssistMethod + MemberBits.OverrideMethod + MemberBits.Proxy
 					members
 				)
@@ -1643,6 +1672,7 @@ export namespace SyntaxAnalysis {
 
 				if @test(Token.LEFT_CURLY) {
 					var modifiers = [modifier]
+
 					if ?]accessModifier {
 						modifiers.unshift(accessModifier)
 					}
@@ -1933,12 +1963,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqClassMethod(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			bits: MemberBits
-			name: Event<NodeData(Identifier)>(Y)
+			name: Event<Ast(Identifier)>(Y)
 			first: Range
-		): Event<NodeData(MethodDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(MethodDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var typeParameters = @tryTypeParameterList()
 			var parameters = @reqClassMethodParameterList(null, if bits ~~ MemberBits.NoBody set DestructuringMode.EXTERNAL_ONLY else null)
@@ -1962,7 +1992,7 @@ export namespace SyntaxAnalysis {
 		reqClassMethodParameterList(
 			mut first: Event = NO
 			mut pMode: DestructuringMode = DestructuringMode.Nil
-		): Event<Event<NodeData(Parameter)>(Y)[]>(Y) ~ SyntaxError # {{{
+		): Event<Event<Ast(Parameter)>(Y)[]>(Y) ~ SyntaxError # {{{
 		{
 			if !first.ok {
 				unless @test(Token.LEFT_ROUND) {
@@ -1992,12 +2022,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqClassProperty(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			type: Event<NodeData(Type)>
+			name: Event<Ast(Identifier)>(Y)
+			type: Event<Ast(Type)>
 			first: Range
-		): Event<NodeData(PropertyDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(PropertyDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var mut defaultValue: Event = NO
 			var mut accessor: Event = NO
@@ -2115,10 +2145,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqClassProxy(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			first: Range?
-		): Event<NodeData(ProxyDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ProxyDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var member = @tryClassProxy(attributes, modifiers, first)
 
@@ -2130,9 +2160,9 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqClassProxyBlock(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			members: Event<NodeData(ClassMember)>(Y)[]
+			members: Event<Ast(ClassMember)>(Y)[]
 		): Void ~ SyntaxError # {{{
 		{
 			@commit().NL_0M()
@@ -2155,9 +2185,9 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqClassProxyGroup(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			members: Event<NodeData(ClassMember)>(Y)[]
+			members: Event<Ast(ClassMember)>(Y)[]
 			first: Event(Y)
 		): Void ~ SyntaxError # {{{
 		{
@@ -2203,16 +2233,16 @@ export namespace SyntaxAnalysis {
 		reqClassStatement(
 			modifiers: Event<ModifierData>(Y)[] = []
 			first: Event(Y)
-		): Event<NodeData(ClassDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ClassDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			return @reqClassStatementBody(modifiers, @reqIdentifier(), first)
 		} # }}}
 
 		reqClassStatementBody(
 			modifiers: Event<ModifierData>(Y)[] = []
-			name: Event<NodeData(Identifier)>(Y)
+			name: Event<Ast(Identifier)>(Y)
 			first: Event(Y)
-		): Event<NodeData(ClassDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ClassDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var dyn generic
 			if @test(Token.LEFT_ANGLE) {
@@ -2283,12 +2313,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqClassVariable(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			mut bits: MemberBits
-			name: Event<NodeData(Identifier)>(Y)
+			name: Event<Ast(Identifier)>(Y)
 			first: Range?
-		): Event<NodeData(FieldDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(FieldDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var variable = @tryClassVariable(attributes, modifiers, bits, name, NO, first)
 
@@ -2303,7 +2333,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(ComputedPropertyName)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ComputedPropertyName)>(Y) ~ SyntaxError # {{{
 		{
 			var expression = @reqExpression(eMode, fMode)
 
@@ -2336,7 +2366,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(ContinueStatement, IfStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ContinueStatement, IfStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
 		{
 			if @match(Token.IF, Token.UNLESS) == Token.IF {
 				var label = @yep(AST.Identifier(@scanner.value(), @yes()))
@@ -2414,7 +2444,7 @@ export namespace SyntaxAnalysis {
 		reqDestructuring(
 			mut dMode: DestructuringMode?
 			fMode: FunctionMode
-		): Event<NodeData(ArrayBinding, ObjectBinding)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ArrayBinding, ObjectBinding)>(Y) ~ SyntaxError # {{{
 		{
 			if !?dMode {
 				if fMode ~~ FunctionMode.Method {
@@ -2440,7 +2470,7 @@ export namespace SyntaxAnalysis {
 			first: Range
 			dMode: DestructuringMode
 			fMode: FunctionMode
-		): Event<NodeData(ArrayBinding)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ArrayBinding)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -2464,12 +2494,12 @@ export namespace SyntaxAnalysis {
 		reqDestructuringArrayItem(
 			dMode: DestructuringMode
 			fMode: FunctionMode
-		): Event<NodeData(BindingElement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(BindingElement)>(Y) ~ SyntaxError # {{{
 		{
 			var modifiers = []
 			var mut {
 				first: Range? = null
-				name: Event<NodeData(Identifier, ArrayBinding, ObjectBinding, ThisExpression)> = NO
+				name: Event<Ast(Identifier, ArrayBinding, ObjectBinding, ThisExpression)> = NO
 				atthis = false
 				rest = false
 			}
@@ -2631,7 +2661,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			dMode: DestructuringMode
 			fMode: FunctionMode
-		): Event<NodeData(ObjectBinding)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ObjectBinding)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -2654,7 +2684,7 @@ export namespace SyntaxAnalysis {
 		reqDestructuringObjectItem(
 			dMode: DestructuringMode
 			fMode: FunctionMode
-		): Event<NodeData(BindingElement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(BindingElement)>(Y) ~ SyntaxError # {{{
 		{
 			var modifiers = []
 			var mut {
@@ -2870,7 +2900,7 @@ export namespace SyntaxAnalysis {
 
 		reqDiscloseStatement(
 			first: Event(Y)
-		): Event<NodeData(DiscloseDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(DiscloseDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var name = @reqIdentifier()
 			var typeParameters = @tryTypeParameterList()
@@ -2897,7 +2927,7 @@ export namespace SyntaxAnalysis {
 		reqDoStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(DoUntilStatement, DoWhileStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(DoUntilStatement, DoWhileStatement)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -2925,10 +2955,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqEnumMember(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			mut bits: MemberBits
-		): Event<NodeData(EnumValue, FieldDeclaration, MethodDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(EnumValue, FieldDeclaration, MethodDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var member = @tryEnumMember(attributes, modifiers, bits, null)
 
@@ -2940,10 +2970,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqEnumMemberBlock(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			mut bits: MemberBits
-			members: NodeData(EnumValue, FieldDeclaration, MethodDeclaration)[]
+			members: Ast(EnumValue, FieldDeclaration, MethodDeclaration)[]
 		): Void ~ SyntaxError # {{{
 		{
 			@commit().NL_0M()
@@ -2968,7 +2998,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqEnumMemberList(
-			members: NodeData(EnumValue, FieldDeclaration, MethodDeclaration)[]
+			members: Ast(EnumValue, FieldDeclaration, MethodDeclaration)[]
 		): Void ~ SyntaxError # {{{
 		{
 			var attributes = @stackOuterAttributes([])
@@ -3079,12 +3109,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqEnumMethod(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			bits: MemberBits
-			name: Event<NodeData(Identifier)>(Y)
+			name: Event<Ast(Identifier)>(Y)
 			first: Range
-		): Event<NodeData(MethodDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(MethodDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var typeParameters = @tryTypeParameterList()
 			var parameters = @reqClassMethodParameterList(null, null)
@@ -3100,7 +3130,7 @@ export namespace SyntaxAnalysis {
 		reqEnumStatement(
 			first: Event(Y)
 			modifiers: Event<ModifierData>(Y)[]? = []
-		): Event<NodeData(EnumDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(EnumDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var statement = @tryEnumStatement(first, modifiers)
 
@@ -3112,7 +3142,7 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		reqExportDeclarator(): Event<NodeData(DeclarationSpecifier, NamedSpecifier, PropertiesSpecifier)>(Y) ~ SyntaxError # {{{
+		reqExportDeclarator(): Event<Ast(DeclarationSpecifier, NamedSpecifier, PropertiesSpecifier)>(Y) ~ SyntaxError # {{{
 		{
 			match @matchM(M.EXPORT_STATEMENT) {
 				Token.ABSTRACT {
@@ -3183,21 +3213,6 @@ export namespace SyntaxAnalysis {
 				Token.IDENTIFIER {
 					return @reqExportIdentifier(@reqIdentifier())
 				}
-				Token.MACRO {
-					if @mode !~ .MacroExpression {
-						var expression = @tryMacroStatement(@yes())
-
-						if expression.ok {
-							return @yep(AST.DeclarationSpecifier(expression))
-						}
-						else {
-							@throw('macro')
-						}
-					}
-					else {
-						return @yep(AST.DeclarationSpecifier(@reqMacroExpression(@yes())))
-					}
-				}
 				Token.NAMESPACE {
 					var first = @yes()
 					var identifier = @reqIdentifier()
@@ -3232,6 +3247,20 @@ export namespace SyntaxAnalysis {
 				Token.STRUCT {
 					return @yep(AST.DeclarationSpecifier(@reqStructStatement(@yes())))
 				}
+				.SYNTIME {
+					var first = @reqIdentifier()
+
+					if @test(.FUNC) {
+						@commit()
+
+						var statement = @reqSyntimeFunctionStatement([], [], first)
+
+						return @yep(AST.DeclarationSpecifier(statement))
+					}
+					else {
+						return @reqExportIdentifier(first)
+					}
+				}
 				Token.TUPLE {
 					return @yep(AST.DeclarationSpecifier(@reqTupleStatement(@yes())))
 				}
@@ -3248,11 +3277,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqExportIdentifier(
-			identifier: Event<NodeData(Identifier)>(Y)
-		): Event<NodeData(NamedSpecifier, PropertiesSpecifier)>(Y) ~ SyntaxError # {{{
+			identifier: Event<Ast(Identifier)>(Y)
+		): Event<Ast(NamedSpecifier, PropertiesSpecifier)>(Y) ~ SyntaxError # {{{
 		{
-			var mut value: Event<NodeData(Identifier, MemberExpression)>(Y) = identifier
-			var mut topIdentifier: Event<NodeData(Identifier)> = NO
+			var mut value: Event<Ast(Identifier, MemberExpression)>(Y) = identifier
+			var mut topIdentifier: Event<Ast(Identifier)> = NO
 
 			if @testNS(Token.DOT) {
 				do {
@@ -3356,7 +3385,7 @@ export namespace SyntaxAnalysis {
 
 		reqExportModule(
 			first: Event(Y)
-		): Event<NodeData(ExportDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ExportDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var mut last = first
 			var declarations = []
@@ -3426,7 +3455,7 @@ export namespace SyntaxAnalysis {
 
 		reqExportStatement(
 			first: Event(Y)
-		): Event<NodeData(ExportDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ExportDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var attributes = []
 			var declarations = []
@@ -3531,7 +3560,7 @@ export namespace SyntaxAnalysis {
 			eMode: ExpressionMode?
 			fMode: FunctionMode
 			terminator: MacroTerminator? = null
-		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			var expression = @tryExpression(eMode, fMode, terminator)
 
@@ -3546,11 +3575,14 @@ export namespace SyntaxAnalysis {
 		reqExpressionStatement(
 			eMode: ExpressionMode = .Nil + .NoRestriction
 			fMode: FunctionMode
-		): Event<NodeData(ExpressionStatement, IfStatement, UnlessStatement, ForStatement, RepeatStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ExpressionStatement, IfStatement, UnlessStatement, ForStatement, RepeatStatement)>(Y) ~ SyntaxError # {{{
 		{
 			var expression = @reqExpression(eMode, fMode)
 
-			if @match(Token.FOR, Token.IF, Token.REPEAT, Token.UNLESS) == Token.FOR {
+			if expression.value is Ast(SyntimeExpression) {
+				return @yep(AST.ExpressionStatement(expression))
+			}
+			else if @match(Token.FOR, Token.IF, Token.REPEAT, Token.UNLESS) == Token.FOR {
 				var first = @yes()
 				var iteration = @reqIteration(null, fMode)
 
@@ -3590,7 +3622,7 @@ export namespace SyntaxAnalysis {
 		reqExternClassDeclaration(
 			first: Event(Y)
 			modifiers: Event<ModifierData>(Y)[] = []
-		): Event<NodeData(ClassDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ClassDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var name = @reqIdentifier()
 			var typeParameters = @tryTypeParameterList()
@@ -3644,12 +3676,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqExternClassField(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
-			type: Event<NodeData(Type)>
+			name: Event<Ast(Identifier)>(Y)
+			type: Event<Ast(Type)>
 			first: Event(Y)
-		): Event<NodeData(FieldDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(FieldDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			@reqNL_1M()
 
@@ -3657,10 +3689,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqExternClassMember(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			first: Event(Y)?
-		): Event<NodeData(FieldDeclaration, MethodDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(FieldDeclaration, MethodDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var name = @reqIdentifier()
 
@@ -3688,7 +3720,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqExternClassMemberList(
-			members: Event<NodeData(ClassMember)>(Y)[]
+			members: Event<Ast(ClassMember)>(Y)[]
 		): Void ~ SyntaxError # {{{
 		{
 			var dyn first = null
@@ -3786,12 +3818,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqExternClassMethod(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
-			name: Event<NodeData(Identifier)>(Y)
+			name: Event<Ast(Identifier)>(Y)
 			round: Event
 			first: Event(Y)
-		): Event<NodeData(MethodDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(MethodDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var typeParameters = @tryTypeParameterList()
 			var parameters = @reqClassMethodParameterList(round, DestructuringMode.EXTERNAL_ONLY)
@@ -3805,7 +3837,7 @@ export namespace SyntaxAnalysis {
 		reqExternFunctionDeclaration(
 			modifiers: Event<ModifierData>(Y)[]
 			first: Event(Y)
-		): Event<NodeData(FunctionDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(FunctionDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var name = @reqIdentifier()
 			var typeParameters = @tryTypeParameterList()
@@ -3815,21 +3847,21 @@ export namespace SyntaxAnalysis {
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
-				return @yep(AST.FunctionDeclaration(name, typeParameters, parameters, modifiers, type, throws, null, first, throws ?]] type ?]] parameters))
+				return @yep(AST.FunctionDeclaration([], modifiers, name, typeParameters, parameters, type, throws, null, first, throws ?]] type ?]] parameters))
 			}
 			else {
 				var position = @yep()
 				var type = @tryFunctionReturns(false)
 				var throws = @tryFunctionThrows()
 
-				return @yep(AST.FunctionDeclaration(name, typeParameters, null, modifiers, type, throws, null, first, throws ?]] type ?]] name))
+				return @yep(AST.FunctionDeclaration([], modifiers, name, typeParameters, null, type, throws, null, first, throws ?]] type ?]] name))
 			}
 		} # }}}
 
 		reqExternNamespaceDeclaration(
 			first: Event(Y)
 			modifiers: Event<ModifierData>(Y)[] = []
-		): Event<NodeData(NamespaceDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(NamespaceDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var name = @reqIdentifier()
 
@@ -3871,7 +3903,7 @@ export namespace SyntaxAnalysis {
 
 		reqExternOrImportStatement(
 			first: Event(Y)
-		): Event<NodeData(ExternOrImportDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ExternOrImportDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var attributes = []
 			var declarations = []
@@ -3921,7 +3953,7 @@ export namespace SyntaxAnalysis {
 
 		reqExternOrRequireStatement(
 			first: Event(Y)
-		): Event<NodeData(ExternOrRequireDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ExternOrRequireDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var attributes = []
 			var declarations = []
@@ -3932,7 +3964,7 @@ export namespace SyntaxAnalysis {
 
 		reqExternStatement(
 			first: Event(Y)
-		): Event<NodeData(ExternDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ExternDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var attributes = []
 			var declarations = []
@@ -3942,8 +3974,8 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqExternVariableDeclarator(
-			name: Event<NodeData(Identifier)>(Y)
-		): Event<NodeData(VariableDeclarator, FunctionDeclaration)>(Y) ~ SyntaxError # {{{
+			name: Event<Ast(Identifier)>(Y)
+		): Event<Ast(VariableDeclarator, FunctionDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			if @match(Token.COLON, Token.LEFT_ROUND) == Token.COLON {
 				@commit()
@@ -3956,7 +3988,7 @@ export namespace SyntaxAnalysis {
 				var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
 				var type = @tryFunctionReturns(false)
 
-				return @yep(AST.FunctionDeclaration(name, NO, parameters, [], type, null, null, name, type ?]] parameters))
+				return @yep(AST.FunctionDeclaration([], [], name, NO, parameters, type, null, null, name, type ?]] parameters))
 			}
 			else {
 				return @yep(AST.VariableDeclarator([], name, NO, name, name))
@@ -3964,8 +3996,8 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqExternalDeclarations(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-			declarations: Event<NodeData(DescriptiveType)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			declarations: Event<Ast(DescriptiveType)>(Y)[]
 		): Event(Y) ~ SyntaxError # {{{
 		{
 			var late last: Event(Y)
@@ -4077,14 +4109,14 @@ export namespace SyntaxAnalysis {
 
 		reqFallthroughStatement(
 			first: Event(Y)
-		): Event<NodeData(FallthroughStatement)>(Y) { # {{{
+		): Event<Ast(FallthroughStatement)>(Y) { # {{{
 			return @yep(AST.FallthroughStatement(first))
 		} # }}}
 
 		reqForStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(ForStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ForStatement)>(Y) ~ SyntaxError # {{{
 		{
 			var iterations = []
 
@@ -4159,7 +4191,7 @@ export namespace SyntaxAnalysis {
 		reqFunctionBody(
 			modifiers: Event<ModifierData>(Y)[]
 			fMode: FunctionMode
-		): Event<NodeData(Block, Expression, IfStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Block, Expression, IfStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -4202,7 +4234,7 @@ export namespace SyntaxAnalysis {
 			fMode: FunctionMode
 			mut pMode: DestructuringMode = DestructuringMode.Nil
 			maxParameters: Number = Infinity
-		): Event<Event<NodeData(Parameter)>(Y)[]>(Y) ~ SyntaxError # {{{
+		): Event<Event<Ast(Parameter)>(Y)[]>(Y) ~ SyntaxError # {{{
 		{
 			unless @test(Token.LEFT_ROUND) {
 				@throw('(')
@@ -4237,7 +4269,7 @@ export namespace SyntaxAnalysis {
 			modifiers: Event<ModifierData>(Y)[] = []
 			first: Event(Y)
 			fMode: FunctionMode = .Nil
-		): Event<NodeData(FunctionDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(FunctionDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var name = @reqIdentifier()
 			var typeParameters = @tryTypeParameterList()
@@ -4246,15 +4278,15 @@ export namespace SyntaxAnalysis {
 			var throws = @tryFunctionThrows()
 			var body = @reqFunctionBody(modifiers, .Nil)
 
-			return @yep(AST.FunctionDeclaration(name, typeParameters, parameters, modifiers, type, throws, body, first, body))
+			return @yep(AST.FunctionDeclaration([], modifiers, name, typeParameters, parameters, type, throws, body, first, body))
 		} # }}}
 
-		reqGeneric(): Event<NodeData(Identifier)>(Y) ~ SyntaxError # {{{
+		reqGeneric(): Event<Ast(Identifier)>(Y) ~ SyntaxError # {{{
 		{
 			return @reqIdentifier()
 		} # }}}
 
-		reqIdentifier(): Event<NodeData(Identifier)>(Y) ~ SyntaxError # {{{
+		reqIdentifier(): Event<Ast(Identifier)>(Y) ~ SyntaxError # {{{
 		{
 			if @scanner.test(Token.IDENTIFIER) {
 				return @yep(AST.Identifier(@scanner.value(), @yes()))
@@ -4264,9 +4296,9 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		reqIdentifierOrMember(): Event<NodeData(Identifier, MemberExpression)>(Y) ~ SyntaxError # {{{
+		reqIdentifierOrMember(): Event<Ast(Identifier, MemberExpression)>(Y) ~ SyntaxError # {{{
 		{
-			var mut name: Event<NodeData(Identifier, MemberExpression)>(Y) = @reqIdentifier()
+			var mut name: Event<Ast(Identifier, MemberExpression)>(Y) = @reqIdentifier()
 
 			if @testNS(Token.DOT) {
 				do {
@@ -4284,7 +4316,7 @@ export namespace SyntaxAnalysis {
 
 		reqIfDeclaration(
 			fMode: FunctionMode
-		): Event<NodeData(VariableDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(VariableDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			if var declaration ?]= @tryIfDeclaration(null, fMode) {
 				return declaration
@@ -4295,9 +4327,9 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqIfDOC(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]?
 			fMode: FunctionMode
-		): Event<NodeData(VariableDeclaration, Expression)[]>(Y) ~ SyntaxError # {{{
+		): Event<Ast(VariableDeclaration, Expression)[]>(Y) ~ SyntaxError # {{{
 		{
 			if var declaration ?]= @tryIfDeclaration(attributes, fMode) {
 				@NL_0M()
@@ -4334,7 +4366,7 @@ export namespace SyntaxAnalysis {
 		reqIfStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(IfStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(IfStatement)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -4385,7 +4417,7 @@ export namespace SyntaxAnalysis {
 				}
 
 			var condition =
-				if #declarations == 1 && #declarations[0] == 1 && declarations[0][0].kind != NodeKind.VariableDeclaration {
+				if #declarations == 1 && #declarations[0] == 1 && declarations[0][0].kind != AstKind.VariableDeclaration {
 					set @yep(declarations.pop()[0])
 				}
 				else {
@@ -4429,7 +4461,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqImplementMemberList(
-			members: Event<NodeData(ClassMember)>(Y)[]
+			members: Event<Ast(ClassMember)>(Y)[]
 		): Void ~ SyntaxError # {{{
 		{
 			var dyn first = null
@@ -4678,7 +4710,7 @@ export namespace SyntaxAnalysis {
 
 		reqImplementStatement(
 			first: Event(Y)
-		): Event<NodeData(ImplementDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ImplementDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var late interface: Event
 			var late variable: Event(Y)
@@ -4724,7 +4756,7 @@ export namespace SyntaxAnalysis {
 			return @yep(AST.ImplementDeclaration(attributes, variable, interface, members, first, @yes()))
 		} # }}}
 
-		reqImportDeclarator(): Event<NodeData(ImportDeclarator)>(Y) ~ SyntaxError # {{{
+		reqImportDeclarator(): Event<Ast(ImportDeclarator)>(Y) ~ SyntaxError # {{{
 		{
 			var source = @reqString()
 			var declaratorModifiers = []
@@ -5002,7 +5034,7 @@ export namespace SyntaxAnalysis {
 
 		reqImportStatement(
 			first: Event(Y)
-		): Event<NodeData(ImportDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ImportDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -5050,7 +5082,7 @@ export namespace SyntaxAnalysis {
 			return @yep(AST.ImportDeclaration(attributes, declarations, first, last))
 		} # }}}
 
-		reqIncludeDeclarator(): Event<NodeData(IncludeDeclarator)>(Y) ~ SyntaxError # {{{
+		reqIncludeDeclarator(): Event<Ast(IncludeDeclarator)>(Y) ~ SyntaxError # {{{
 		{
 			unless @test(Token.STRING) {
 				@throw('String')
@@ -5063,7 +5095,7 @@ export namespace SyntaxAnalysis {
 
 		reqIncludeStatement(
 			first: Event(Y)
-		): Event<NodeData(IncludeDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(IncludeDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -5113,7 +5145,7 @@ export namespace SyntaxAnalysis {
 
 		reqIncludeAgainStatement(
 			first: Event(Y)
-		): Event<NodeData(IncludeAgainDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(IncludeAgainDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -5162,7 +5194,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqIteration(
-			mut attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
+			mut attributes: Event<Ast(AttributeDeclaration)>(Y)[]?
 			fMode: FunctionMode
 		): Event<IterationData>(Y) ~ SyntaxError # {{{
 		{
@@ -5330,9 +5362,9 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqIterationFrom(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			variable: Event<NodeData(Identifier)>(Y)
+			variable: Event<Ast(Identifier)>(Y)
 			first: Event(Y)
 			fMode: FunctionMode
 		): Event<IterationData(From)>(Y) ~ SyntaxError # {{{
@@ -5426,12 +5458,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqIterationIn(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
-			type: Event<NodeData(Type)>
-			index: Event<NodeData(Identifier)>
-			expression: Event<NodeData(Expression)>(Y)
+			value: Event<Ast(Identifier, ArrayBinding, ObjectBinding)>
+			type: Event<Ast(Type)>
+			index: Event<Ast(Identifier)>
+			expression: Event<Ast(Expression)>(Y)
 			first: Event(Y)
 			fMode: FunctionMode
 		): Event<IterationData(Array)>(Y) ~ SyntaxError # {{{
@@ -5554,11 +5586,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqIterationInRange(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
-			type: Event<NodeData(Type)>
-			index: Event<NodeData(Identifier)>
+			value: Event<Ast(Identifier, ArrayBinding, ObjectBinding)>
+			type: Event<Ast(Type)>
+			index: Event<Ast(Identifier)>
 			first: Event(Y)
 			fMode: FunctionMode
 		): Event<IterationData(Array, Range)>(Y) ~ SyntaxError # {{{
@@ -5617,11 +5649,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqIterationOf(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			value: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>
-			type: Event<NodeData(Type)>
-			key: Event<NodeData(Identifier)>
+			value: Event<Ast(Identifier, ArrayBinding, ObjectBinding)>
+			type: Event<Ast(Type)>
+			key: Event<Ast(Identifier)>
 			first: Event(Y)
 			fMode: FunctionMode
 		): Event<IterationData(Object)>(Y) ~ SyntaxError # {{{
@@ -5657,13 +5689,13 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqIterationRange(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			value: Event<NodeData(Identifier)>
-			index: Event<NodeData(Identifier)>
-			from: Event<NodeData(Expression)>(Y)
-			to: Event<NodeData(Expression)>(Y)
-			filter: Event<NodeData(Expression)>
+			value: Event<Ast(Identifier)>
+			index: Event<Ast(Identifier)>
+			from: Event<Ast(Expression)>(Y)
+			to: Event<Ast(Expression)>(Y)
+			filter: Event<Ast(Expression)>
 			first: Event(Y)
 			fMode: FunctionMode
 		): Event<IterationData(Range)>(Y) ~ SyntaxError # {{{
@@ -5704,15 +5736,15 @@ export namespace SyntaxAnalysis {
 			operator: Event<BinaryOperatorData>(Y)
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-			values: NodeData(Expression, Type)[]
+			values: Ast(Expression, Type)[]
 			type: Boolean
-		): NodeData(JunctionExpression) ~ SyntaxError # {{{
+		): Ast(JunctionExpression) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
 			eMode += ExpressionMode.ImplicitMember
 
-			var operands: NodeData(Expression, Type)[] = [values.pop()!?]
+			var operands: Ast(Expression, Type)[] = [values.pop()!?]
 
 			if type {
 				operands.push(@reqTypeLimited(false).value)
@@ -5750,7 +5782,7 @@ export namespace SyntaxAnalysis {
 		reqLambdaBody(
 			modifiers: Event<ModifierData>(Y)[]
 			fMode: FunctionMode
-		): Event<NodeData(Block, Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Block, Expression)>(Y) ~ SyntaxError # {{{
 		{
 			var body = @tryLambdaBody(modifiers, fMode)
 
@@ -5762,312 +5794,9 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		reqMacroElements(
-			elements: Event<MacroElementData(Expression, Literal, NewLine)>(Y)[]
-			terminator: MacroTerminator
-		): Void ~ SyntaxError # {{{
-		{
-			var history = []
-
-			var dyn literal = null
-			var dyn first, last
-
-			var addLiteral = () => {
-				if literal != null {
-					elements.push(@yep(AST.MacroElementLiteral(literal, first!?, last!?)))
-
-					literal = null
-				}
-			}
-
-			var addToLiteral = () => {
-				if literal == null {
-					literal = @scanner.value()
-					first = last = @yep()
-				}
-				else {
-					literal += @scanner.value()
-					last = @yep()
-				}
-
-				@commit()
-			}
-
-			var pushToLiteral = (value, position) => {
-				if literal == null {
-					literal = value
-					first = last = position
-				}
-				else {
-					literal += value
-					last = position
-				}
-			}
-
-			repeat {
-				match @matchM(M.MACRO) {
-					Token.EOF {
-						if history.length == 0 && terminator !~ MacroTerminator.NEWLINE {
-							@throw()
-						}
-
-						break
-					}
-					Token.HASH_LEFT_ROUND {
-						addLiteral()
-
-						var elFirst = @yes()
-						var expression = @reqExpression(.Nil, .Nil)
-
-						@throw(')') unless @test(Token.RIGHT_ROUND)
-
-						elements.push(@yep(AST.MacroElementExpression(expression, null, elFirst, @yes())))
-					}
-					Token.HASH_A_LEFT_ROUND {
-						addLiteral()
-
-						var reification = AST.Reification(.Argument, @yes())
-						var expression = @reqExpression(.Nil, .Nil)
-
-						@throw(')') unless @test(Token.RIGHT_ROUND)
-
-						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
-					}
-					Token.HASH_E_LEFT_ROUND {
-						addLiteral()
-
-						var reification = AST.Reification(.Expression, @yes())
-						var expression = @reqExpression(.Nil, .Nil)
-
-						@throw(')') unless @test(Token.RIGHT_ROUND)
-
-						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
-					}
-					Token.HASH_J_LEFT_ROUND {
-						addLiteral()
-
-						var reification = AST.Reification(.Join, @yes())
-						var expression = @reqExpression(.Nil, .Nil)
-
-						@throw(',') unless @test(Token.COMMA)
-
-						@commit()
-
-						var separator = @reqExpression(.Nil, .Nil)
-
-						@throw(')') unless @test(Token.RIGHT_ROUND)
-
-						var ast = AST.MacroElementExpression(expression, reification, reification, @yes())
-
-						ast.separator = separator.value
-
-						elements.push(@yep(ast))
-					}
-					Token.HASH_S_LEFT_ROUND {
-						addLiteral()
-
-						var reification = AST.Reification(.Statement, @yes())
-						var expression = @reqExpression(.Nil, .Nil)
-
-						@throw(')') unless @test(Token.RIGHT_ROUND)
-
-						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
-					}
-					Token.HASH_W_LEFT_ROUND {
-						addLiteral()
-
-						var reification = AST.Reification(.Write, @yes())
-						var expression = @reqExpression(.Nil, .Nil)
-
-						@throw(')') unless @test(Token.RIGHT_ROUND)
-
-						elements.push(@yep(AST.MacroElementExpression(expression, reification, reification, @yes())))
-					}
-					Token.INVALID {
-						addToLiteral()
-					}
-					Token.LEFT_CURLY {
-						addToLiteral()
-
-						history.unshift(Token.RIGHT_CURLY)
-					}
-					Token.LEFT_ROUND {
-						addToLiteral()
-
-						history.unshift(Token.RIGHT_ROUND)
-					}
-					Token.NEWLINE {
-						if history.length == 0 && terminator ~~ MacroTerminator.NEWLINE {
-							break
-						}
-						else {
-							addLiteral()
-
-							elements.push(@yep(AST.MacroElementNewLine(@yes())))
-
-							@scanner.skip()
-						}
-					}
-					Token.RIGHT_CURLY {
-						if history.length == 0 {
-							if terminator !~ MacroTerminator.RIGHT_CURLY {
-								addToLiteral()
-							}
-							else {
-								break
-							}
-						}
-						else {
-							addToLiteral()
-
-							if history[0] == Token.RIGHT_CURLY {
-								history.shift()
-							}
-						}
-					}
-					Token.RIGHT_ROUND {
-						if history.length == 0 {
-							if terminator !~ MacroTerminator.RIGHT_ROUND {
-								addToLiteral()
-							}
-							else {
-								break
-							}
-						}
-						else {
-							addToLiteral()
-
-							if history[0] == Token.RIGHT_ROUND {
-								history.shift()
-							}
-						}
-					}
-				}
-			}
-
-			unless history.length == 0 {
-				@throw()
-			}
-
-			if literal != null {
-				elements.push(@yep(AST.MacroElementLiteral(literal, first!?, last!?)))
-			}
-		} # }}}
-
-		reqMacroExpression(
-			mut first: Event
-			terminator: MacroTerminator = MacroTerminator.NEWLINE
-		): Event<NodeData(MacroExpression)>(Y) ~ SyntaxError # {{{
-		{
-			var elements = []
-
-			if @test(Token.LEFT_CURLY) {
-				if first.ok {
-					@commit()
-				}
-				else {
-					first = @yes()
-				}
-
-				@reqNL_1M()
-
-				@reqMacroElements(elements, MacroTerminator.RIGHT_CURLY)
-
-				unless @test(Token.RIGHT_CURLY) {
-					@throw('}')
-				}
-
-				return @yep(AST.MacroExpression(elements, first, @yes()))
-			}
-			else {
-				if !first.ok {
-					first = @yep()
-				}
-
-				@reqMacroElements(elements, terminator)
-
-				return @yep(AST.MacroExpression(elements, first, elements[elements.length - 1]))
-			}
-		} # }}}
-
-		reqMacroParameterList(): Event<Event<NodeData(Parameter)>(Y)[]>(Y) ~ SyntaxError # {{{
-		{
-			unless @test(Token.LEFT_ROUND) {
-				@throw('(')
-			}
-
-			var first = @yes()
-
-			@NL_0M()
-
-			var parameters = []
-
-			while @until(Token.RIGHT_ROUND) {
-				parameters.push(@reqParameter(DestructuringMode.Parameter, FunctionMode.Macro))
-
-				@reqSeparator(Token.RIGHT_ROUND)
-			}
-
-			unless @test(Token.RIGHT_ROUND) {
-				@throw(')')
-			}
-
-			return @yep(parameters, first, @yes())
-		} # }}}
-
-		reqMacroBody(): Event<NodeData(Block, ExpressionStatement)>(Y) ~ SyntaxError # {{{
-		{
-			if @match(Token.LEFT_CURLY, Token.EQUALS_RIGHT_ANGLE) == Token.LEFT_CURLY {
-				@mode += ParserMode.MacroExpression
-
-				var body = @reqBlock(@yes(), null, FunctionMode.Nil)
-
-				@mode -= ParserMode.MacroExpression
-
-				return body
-			}
-			else if @token == Token.EQUALS_RIGHT_ANGLE {
-				var expression = @reqMacroExpression(@yes())
-
-				return @yep(AST.ExpressionStatement(expression))
-			}
-			else {
-				@throw('{', '=>')
-			}
-		} # }}}
-
-		reqMacroStatement(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[] = []
-		): Event<NodeData(MacroDeclaration)>(Y) ~ SyntaxError # {{{
-		{
-			var name = @reqIdentifier()
-			var parameters = @reqMacroParameterList()
-
-			var body = @reqMacroBody()
-
-			@reqNL_1M()
-
-			return @yep(AST.MacroDeclaration(attributes, name, parameters, body, name, body))
-		} # }}}
-
-		reqMacroStatement(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[] = []
-			name: Event<NodeData(Identifier)>(Y)
-			first: Range
-		): Event<NodeData(MacroDeclaration)>(Y) ~ SyntaxError # {{{
-		{
-			var parameters = @reqMacroParameterList()
-
-			var body = @reqMacroBody()
-
-			@reqNL_1M()
-
-			return @yep(AST.MacroDeclaration(attributes, name, parameters, body, first, body))
-		} # }}}
-
 		reqMatchBinding(
 			fMode: FunctionMode
-		): Event<NodeData(VariableDeclarator, ArrayBinding, ObjectBinding)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(VariableDeclarator, ArrayBinding, ObjectBinding)>(Y) ~ SyntaxError # {{{
 		{
 			var dMode: DestructuringMode = .RECURSION + .TYPE
 
@@ -6162,7 +5891,7 @@ export namespace SyntaxAnalysis {
 
 		reqMatchCaseExpression(
 			fMode: FunctionMode
-		): Event<NodeData(Statement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Statement)>(Y) ~ SyntaxError # {{{
 		{
 			match @match(Token.BREAK, Token.CONTINUE, Token.PASS, Token.RETURN, Token.THROW) {
 				Token.BREAK {
@@ -6198,7 +5927,7 @@ export namespace SyntaxAnalysis {
 
 		reqMatchCaseList(
 			fMode: FunctionMode
-		): Event<NodeData(MatchClause)[]>(Y) ~ SyntaxError # {{{
+		): Event<Ast(MatchClause)[]>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -6298,7 +6027,7 @@ export namespace SyntaxAnalysis {
 
 		reqMatchCondition(
 			fMode: FunctionMode
-		): Event<NodeData(Expression, MatchConditionArray, MatchConditionObject, MatchConditionRange, MatchConditionType)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression, MatchConditionArray, MatchConditionObject, MatchConditionRange, MatchConditionType)>(Y) ~ SyntaxError # {{{
 		{
 			match @match(Token.LEFT_CURLY, Token.LEFT_SQUARE, Token.IS) {
 				Token.IS {
@@ -6384,7 +6113,7 @@ export namespace SyntaxAnalysis {
 
 		reqMatchConditionValue(
 			fMode: FunctionMode
-		): Event<NodeData(Expression, MatchConditionRange)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression, MatchConditionRange)>(Y) ~ SyntaxError # {{{
 		{
 			var eMode = ExpressionMode.InlineOnly + ExpressionMode.ImplicitMember
 			var operand = @reqPrefixedOperand(eMode, fMode)
@@ -6421,7 +6150,7 @@ export namespace SyntaxAnalysis {
 				}
 			}
 			else if (operator <- @tryJunctionOperator()).ok {
-				var values: NodeData(Expression)[] = [operand.value]
+				var values: Ast(Expression)[] = [operand.value]
 
 				values.push(@reqJunctionExpression(operator, eMode, fMode, values, false))
 
@@ -6435,7 +6164,7 @@ export namespace SyntaxAnalysis {
 		reqMultiLineString(
 			first: Event(Y)
 			delimiter: Token
-		): Event<NodeData(Literal)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Literal)>(Y) ~ SyntaxError # {{{
 		{
 			if @test(Token.NEWLINE) {
 				@commit()
@@ -6510,7 +6239,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			fMode: FunctionMode
 			delimiter: Token
-		): Event<NodeData(TemplateExpression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(TemplateExpression)>(Y) ~ SyntaxError # {{{
 		{
 			if @test(Token.NEWLINE) {
 				@commit()
@@ -6590,7 +6319,7 @@ export namespace SyntaxAnalysis {
 
 								elements.push(@yep(previous))
 							}
-							else if previous.kind == NodeKind.Literal {
+							else if previous.kind == AstKind.Literal {
 								previous.value += '\n'
 								previous.end.column += 1
 							}
@@ -6624,7 +6353,7 @@ export namespace SyntaxAnalysis {
 
 									elements.push(@yep(previous))
 								}
-								else if previous.kind == NodeKind.Literal {
+								else if previous.kind == AstKind.Literal {
 									previous.value += value
 									previous.end.line += 1
 									previous.end.column += indent.length
@@ -6642,7 +6371,7 @@ export namespace SyntaxAnalysis {
 								}
 							}
 
-							if ?previous && firstToken.value.kind == NodeKind.Literal {
+							if ?previous && firstToken.value.kind == AstKind.Literal {
 								previous.value += firstToken.value.value
 								previous.end = firstToken.value.end
 
@@ -6674,7 +6403,7 @@ export namespace SyntaxAnalysis {
 						var mut previous = elements[elements.length - 1].value
 
 						for var [indent, firstToken? = null, ...rest], index in lines from 1 {
-							if previous.kind == NodeKind.Literal {
+							if previous.kind == AstKind.Literal {
 								previous.value += '\n'
 								previous.end.column += 1
 							}
@@ -6691,7 +6420,7 @@ export namespace SyntaxAnalysis {
 							}
 
 							if ?firstToken {
-								if firstToken.value.kind == NodeKind.Literal {
+								if firstToken.value.kind == AstKind.Literal {
 									previous.value += firstToken.value.value
 									previous.end = firstToken.value.end
 								}
@@ -6718,7 +6447,7 @@ export namespace SyntaxAnalysis {
 			return @yep(AST.TemplateExpression(modifiers, elements, first, last:!!!(Range)))
 		} # }}}
 
-		reqNameIB(): Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>(Y) ~ SyntaxError # {{{
+		reqNameIB(): Event<Ast(Identifier, ArrayBinding, ObjectBinding)>(Y) ~ SyntaxError # {{{
 		{
 			if @match(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE) == Token.IDENTIFIER {
 				return @reqIdentifier()
@@ -6736,8 +6465,8 @@ export namespace SyntaxAnalysis {
 
 		reqNamespaceStatement(
 			first: Event(Y)
-			name: Event<NodeData(Identifier)>(Y)
-		): Event<NodeData(NamespaceDeclaration)>(Y) ~ SyntaxError # {{{
+			name: Event<Ast(Identifier)>(Y)
+		): Event<Ast(NamespaceDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -6775,7 +6504,7 @@ export namespace SyntaxAnalysis {
 					statement = @reqIncludeAgainStatement(@yes())
 				}
 				else {
-					statement = @reqStatement(null, FunctionMode.Nil)
+					statement = @reqStatement(.Default, .Nil, .Nil)
 				}
 
 				AST.pushAttributes(statement.value, attrs)
@@ -6792,7 +6521,7 @@ export namespace SyntaxAnalysis {
 			return @yep(AST.NamespaceDeclaration(attributes, [], name, statements, first, @yes()))
 		} # }}}
 
-		reqNumber(): Event<NodeData(NumericExpression)>(Y) ~ SyntaxError # {{{
+		reqNumber(): Event<Ast(NumericExpression)>(Y) ~ SyntaxError # {{{
 		{
 			var value = @tryNumber()
 
@@ -6804,7 +6533,7 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		reqNumeralIdentifier(): Event<NodeData(Identifier)>(Y) ~ SyntaxError # {{{
+		reqNumeralIdentifier(): Event<Ast(Identifier)>(Y) ~ SyntaxError # {{{
 		{
 			if @test(Token.IDENTIFIER, Token.NUMERAL) {
 				return @yep(AST.Identifier(@scanner.value(), @yes()))
@@ -6841,7 +6570,7 @@ export namespace SyntaxAnalysis {
 		reqOperand(
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			var operand = @tryOperand(eMode, fMode)
 
@@ -6856,7 +6585,7 @@ export namespace SyntaxAnalysis {
 		reqOperation(
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			var operation = @tryOperation(null, eMode, fMode)
 
@@ -6871,7 +6600,7 @@ export namespace SyntaxAnalysis {
 		reqParameter(
 			pMode: DestructuringMode
 			fMode: FunctionMode
-		): Event<NodeData(Parameter)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Parameter)>(Y) ~ SyntaxError # {{{
 		{
 			var mut firstAttr = null
 			var attributes = @stackInlineAttributes([])
@@ -7043,24 +6772,15 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqParameterAt(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			external: Event<NodeData(Identifier)>(Y)?
+			external: Event<Ast(Identifier)>(Y)?
 			first: Range?
 			pMode: DestructuringMode
 			fMode: FunctionMode
-		): Event<NodeData(Parameter)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Parameter)>(Y) ~ SyntaxError # {{{
 		{
-			if fMode ~~ FunctionMode.Macro {
-				var at = @yes()
-
-				modifiers.push(AST.Modifier(ModifierKind.AutoEvaluate, at))
-
-				var internal = @reqIdentifier()
-
-				return @reqParameterIdentifier(attributes, modifiers, external ?? internal, internal, true, true, true, true, first ?? at, pMode, fMode)
-			}
-			else if fMode ~~ FunctionMode.Method && pMode ~~ DestructuringMode.THIS_ALIAS {
+			if fMode ~~ FunctionMode.Method && pMode ~~ DestructuringMode.THIS_ALIAS {
 				var at = @yes()
 
 				return @reqParameterThis(attributes, modifiers, external, first ?? at, fMode)
@@ -7071,10 +6791,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqParameterIdentifier(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			mut external: Event<NodeData(Identifier)>(Y)?
-			mut internal: Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>(Y)?
+			mut external: Event<Ast(Identifier)>(Y)?
+			mut internal: Event<Ast(Identifier, ArrayBinding, ObjectBinding)>(Y)?
 			required: Boolean
 			typed: Boolean
 			nullable: Boolean
@@ -7082,7 +6802,7 @@ export namespace SyntaxAnalysis {
 			mut first: Range?
 			pMode: DestructuringMode
 			fMode: FunctionMode
-		): Event<NodeData(Parameter)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Parameter)>(Y) ~ SyntaxError # {{{
 		{
 			var mut last = internal ?? external ?? first
 
@@ -7209,13 +6929,13 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqParameterRest(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			mut external: Event<NodeData(Identifier)>?
+			mut external: Event<Ast(Identifier)>?
 			first: Range
 			pMode: DestructuringMode
 			fMode: FunctionMode
-		): Event<NodeData(Parameter)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Parameter)>(Y) ~ SyntaxError # {{{
 		{
 			if @test(Token.LEFT_CURLY) {
 				@commit()
@@ -7289,12 +7009,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqParameterThis(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: ModifierData[]
-			external: Event<NodeData(Identifier)>(Y)?
+			external: Event<Ast(Identifier)>(Y)?
 			first: Range
 			fMode: FunctionMode
-		): Event<NodeData(Parameter)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Parameter)>(Y) ~ SyntaxError # {{{
 		{
 			var name = @reqThisExpression(first)
 
@@ -7317,7 +7037,7 @@ export namespace SyntaxAnalysis {
 		reqParenthesis(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -7351,16 +7071,16 @@ export namespace SyntaxAnalysis {
 
 		reqPassStatement(
 			first: Event(Y)
-		): Event<NodeData(PassStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(PassStatement)>(Y) ~ SyntaxError # {{{
 		{
 			return @yep(AST.PassStatement(first))
 		} # }}}
 
 		reqPostfixedOperand(
-			operand: Event<NodeData(Expression)>(Y)?
+			operand: Event<Ast(Expression)>(Y)?
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			var result = @tryPostfixedOperand(operand, eMode, fMode)
 
@@ -7375,7 +7095,7 @@ export namespace SyntaxAnalysis {
 		reqPrefixedOperand(
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			var operand = @tryPrefixedOperand(eMode, fMode)
 
@@ -7387,10 +7107,239 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
+		reqQuoteElements(
+			elements: Event<QuoteElementData(Expression, Literal, NewLine)>(Y)[]
+			terminator: MacroTerminator
+		): Void ~ SyntaxError # {{{
+		{
+			var history = []
+
+			var dyn literal = null
+			var dyn first, last
+
+			var addLiteral = () => {
+				if literal != null {
+					elements.push(@yep(AST.QuoteElementLiteral(literal, first!?, last!?)))
+
+					literal = null
+				}
+			}
+
+			var addToLiteral = () => {
+				if literal == null {
+					literal = @scanner.value()
+					first = last = @yep()
+				}
+				else {
+					literal += @scanner.value()
+					last = @yep()
+				}
+
+				@commit()
+			}
+
+			var pushToLiteral = (value, position) => {
+				if literal == null {
+					literal = value
+					first = last = position
+				}
+				else {
+					literal += value
+					last = position
+				}
+			}
+
+			repeat {
+				match @matchM(M.QUOTE) {
+					Token.EOF {
+						if history.length == 0 && terminator !~ MacroTerminator.NEWLINE {
+							@throw()
+						}
+
+						break
+					}
+					Token.HASH_LEFT_ROUND {
+						addLiteral()
+
+						var elFirst = @yes()
+						var expression = @reqExpression(.Nil, .Nil)
+
+						@throw(')') unless @test(Token.RIGHT_ROUND)
+
+						elements.push(@yep(AST.QuoteElementExpression(expression, null, elFirst, @yes())))
+					}
+					Token.HASH_A_LEFT_ROUND {
+						addLiteral()
+
+						var reification = AST.Reification(.Argument, @yes())
+						var expression = @reqExpression(.Nil, .Nil)
+
+						@throw(')') unless @test(Token.RIGHT_ROUND)
+
+						elements.push(@yep(AST.QuoteElementExpression(expression, reification, reification, @yes())))
+					}
+					Token.HASH_E_LEFT_ROUND {
+						addLiteral()
+
+						var reification = AST.Reification(.Expression, @yes())
+						var expression = @reqExpression(.Nil, .Nil)
+
+						@throw(')') unless @test(Token.RIGHT_ROUND)
+
+						elements.push(@yep(AST.QuoteElementExpression(expression, reification, reification, @yes())))
+					}
+					Token.HASH_J_LEFT_ROUND {
+						addLiteral()
+
+						var reification = AST.Reification(.Join, @yes())
+						var expression = @reqExpression(.Nil, .Nil)
+
+						@throw(',') unless @test(Token.COMMA)
+
+						@commit()
+
+						var separator = @reqExpression(.Nil, .Nil)
+
+						@throw(')') unless @test(Token.RIGHT_ROUND)
+
+						var ast = AST.QuoteElementExpression(expression, reification, reification, @yes())
+
+						ast.separator = separator.value
+
+						elements.push(@yep(ast))
+					}
+					Token.HASH_S_LEFT_ROUND {
+						addLiteral()
+
+						var reification = AST.Reification(.Statement, @yes())
+						var expression = @reqExpression(.Nil, .Nil)
+
+						@throw(')') unless @test(Token.RIGHT_ROUND)
+
+						elements.push(@yep(AST.QuoteElementExpression(expression, reification, reification, @yes())))
+					}
+					Token.HASH_W_LEFT_ROUND {
+						addLiteral()
+
+						var reification = AST.Reification(.Write, @yes())
+						var expression = @reqExpression(.Nil, .Nil)
+
+						@throw(')') unless @test(Token.RIGHT_ROUND)
+
+						elements.push(@yep(AST.QuoteElementExpression(expression, reification, reification, @yes())))
+					}
+					Token.INVALID {
+						addToLiteral()
+					}
+					Token.LEFT_CURLY {
+						addToLiteral()
+
+						history.unshift(Token.RIGHT_CURLY)
+					}
+					Token.LEFT_ROUND {
+						addToLiteral()
+
+						history.unshift(Token.RIGHT_ROUND)
+					}
+					Token.NEWLINE {
+						if history.length == 0 && terminator ~~ MacroTerminator.NEWLINE {
+							break
+						}
+						else {
+							addLiteral()
+
+							elements.push(@yep(AST.QuoteElementNewLine(@yes())))
+
+							@scanner.skip()
+						}
+					}
+					Token.RIGHT_CURLY {
+						if history.length == 0 {
+							if terminator !~ MacroTerminator.RIGHT_CURLY {
+								addToLiteral()
+							}
+							else {
+								break
+							}
+						}
+						else {
+							addToLiteral()
+
+							if history[0] == Token.RIGHT_CURLY {
+								history.shift()
+							}
+						}
+					}
+					Token.RIGHT_ROUND {
+						if history.length == 0 {
+							if terminator !~ MacroTerminator.RIGHT_ROUND {
+								addToLiteral()
+							}
+							else {
+								break
+							}
+						}
+						else {
+							addToLiteral()
+
+							if history[0] == Token.RIGHT_ROUND {
+								history.shift()
+							}
+						}
+					}
+				}
+			}
+
+			unless history.length == 0 {
+				@throw()
+			}
+
+			if literal != null {
+				elements.push(@yep(AST.QuoteElementLiteral(literal, first!?, last!?)))
+			}
+		} # }}}
+
+		reqQuoteExpression(
+			mut first: Event
+			terminator: MacroTerminator = MacroTerminator.NEWLINE
+		): Event<Ast(QuoteExpression)>(Y) ~ SyntaxError # {{{
+		{
+			var elements = []
+
+			if @test(Token.LEFT_CURLY) {
+				if first.ok {
+					@commit()
+				}
+				else {
+					first = @yes()
+				}
+
+				@reqNL_1M()
+
+				@reqQuoteElements(elements, MacroTerminator.RIGHT_CURLY)
+
+				unless @test(Token.RIGHT_CURLY) {
+					@throw('}')
+				}
+
+				return @yep(AST.QuoteExpression(elements, first, @yes()))
+			}
+			else {
+				if !first.ok {
+					first = @yep()
+				}
+
+				@reqQuoteElements(elements, terminator)
+
+				return @yep(AST.QuoteExpression(elements, first, elements[elements.length - 1]))
+			}
+		} # }}}
+
+
 		reqRepeatStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(RepeatStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(RepeatStatement)>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -7416,7 +7365,7 @@ export namespace SyntaxAnalysis {
 
 		reqRequireStatement(
 			first: Event(Y)
-		): Event<NodeData(RequireDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(RequireDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var attributes = []
 			var declarations = []
@@ -7427,7 +7376,7 @@ export namespace SyntaxAnalysis {
 
 		reqRequireOrExternStatement(
 			first: Event(Y)
-		): Event<NodeData(RequireOrExternDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(RequireOrExternDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var attributes = []
 			var declarations = []
@@ -7438,7 +7387,7 @@ export namespace SyntaxAnalysis {
 
 		reqRequireOrImportStatement(
 			first: Event(Y)
-		): Event<NodeData(RequireOrImportDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(RequireOrImportDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var attributes = []
 			var declarations = []
@@ -7490,7 +7439,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(IfStatement, ReturnStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(IfStatement, ReturnStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
 		{
 			var statement = @tryReturnStatement(first, eMode, fMode)
 
@@ -7503,12 +7452,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqRollingExpression(
-			object: Event<NodeData(Expression)>(Y)
+			object: Event<Ast(Expression)>(Y)
 			modifiers: ModifierData[]
 			eMode: ExpressionMode
 			fMode: FunctionMode
 			restrictive: Boolean
-		): Event<NodeData(RollingExpression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(RollingExpression)>(Y) ~ SyntaxError # {{{
 		{
 			var mode = eMode + ExpressionMode.ImplicitMember + ExpressionMode.NoMultiLine
 			var reference =  @yep(AST.Reference('main', object))
@@ -7528,7 +7477,7 @@ export namespace SyntaxAnalysis {
 				if operator.ok {
 					@NL_0M()
 
-					var values: NodeData(Expression)[] = [
+					var values: Ast(Expression)[] = [
 						operand.value
 						AST.BinaryExpression(operator)
 						@reqBinaryOperand(mode, fMode).value
@@ -7630,7 +7579,7 @@ export namespace SyntaxAnalysis {
 		reqSetStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(IfStatement, SetStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(IfStatement, SetStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
 		{
 			var expression = @reqExpression(.NoRestriction, fMode)
 
@@ -7656,9 +7605,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqStatement(
-			eMode!: ExpressionMode = .Nil
+			sMode: StatementMode
+			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Statement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Statement)>(Y) ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -7760,16 +7710,6 @@ export namespace SyntaxAnalysis {
 				Token.IMPORT {
 					statement = @reqImportStatement(@yes())
 				}
-				Token.MACRO {
-					if @mode !~ ParserMode.MacroExpression {
-						statement = @tryMacroStatement(@yes())
-					}
-					else {
-						var expression = @reqMacroExpression(@yes())
-
-						statement = @yep(AST.ExpressionStatement(expression))
-					}
-				}
 				Token.MATCH {
 					statement = @tryMatchStatement(@yes(), fMode)
 				}
@@ -7813,8 +7753,23 @@ export namespace SyntaxAnalysis {
 						statement = NO
 					}
 				}
+				.SEMTIME {
+					statement = @trySemtimeStatement(@yes(), fMode)
+				}
 				Token.STRUCT {
 					statement = @tryStructStatement(@yes())
+				}
+				.SYNTIME {
+					var first = @yes()
+
+					if @test(.FUNC) {
+						@commit()
+
+						statement = @reqSyntimeFunctionStatement([], [], first)
+					}
+					else {
+						statement = NO
+					}
 				}
 				Token.THROW {
 					statement = @reqThrowStatement(@yes(), fMode)
@@ -7848,22 +7803,29 @@ export namespace SyntaxAnalysis {
 				}
 			}
 
-			unless statement.ok {
-				@rollback(mark)
-
-				if !(statement <- @tryAssignementStatement(eMode, fMode)).ok {
+			if !statement.ok {
+				if sMode ~~ .Expression {
 					@rollback(mark)
 
-					statement = @reqExpressionStatement(eMode, fMode)
+					statement = @tryAssignementStatement(eMode, fMode)
+
+					if !statement.ok {
+						@rollback(mark)
+
+						statement = @reqExpressionStatement(eMode, fMode)
+					}
+				}
+				else {
+					@throw('statement')
 				}
 			}
 
-			@reqNL_EOF_1M()
+			@reqNL_EOF_1M() if sMode ~~ .NewLine
 
 			return statement
 		} # }}}
 
-		reqString(): Event<NodeData(Literal)>(Y) ~ SyntaxError # {{{
+		reqString(): Event<Ast(Literal)>(Y) ~ SyntaxError # {{{
 		{
 			if @test(Token.STRING) {
 				return @yep(AST.Literal(null, @value()!!!, @yes()))
@@ -7875,7 +7837,7 @@ export namespace SyntaxAnalysis {
 
 		reqStructStatement(
 			first: Event(Y)
-		): Event<NodeData(StructDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(StructDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var statement = @tryStructStatement(first)
 
@@ -7887,11 +7849,114 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
+		reqSyntimeArgumentList(
+			eMode: ExpressionMode
+			fMode: FunctionMode
+		): Event<Ast(Argument, Expression, Statement)[]>(Y) ~ SyntaxError # {{{
+		{
+			@NL_0M()
+
+			if @test(Token.RIGHT_ROUND) {
+				return @yep([])
+			}
+			else {
+				var arguments: Ast(Argument, Expression, Statement)[] = []
+				var mut argument: Event<Ast(Argument, Expression, Statement)> = NO
+
+				var mut subEMode: ExpressionMode = .ImplicitMember + .BinaryOperator
+
+				if eMode ~~ ExpressionMode.Pipeline {
+					subEMode += ExpressionMode.Pipeline
+				}
+
+				while @until(Token.RIGHT_ROUND) {
+					if @test(Token.BACKSLASH) {
+						var first = @yes()
+						var identifier = @reqIdentifier()
+
+						argument = @yep(AST.PositionalArgument([], identifier, identifier, identifier))
+					}
+					else if @test(Token.COLON) {
+						var first = @yes()
+						var identifier = @reqIdentifier()
+						var expression = @yep(AST.NamedArgument([], identifier, identifier, first, identifier))
+
+						argument = @altRestrictiveExpression(expression, fMode)
+					}
+
+					if argument.ok {
+						arguments.push(argument.value)
+					}
+					else if var statement ?]= @tryStatement(.Nil, subEMode, fMode) {
+						arguments.push(statement.value)
+					}
+					else if var expression ?]= @tryExpression(subEMode, fMode, MacroTerminator.List) {
+						if expression.value is .Identifier && @test(Token.COLON) {
+							@commit()
+
+							var value = @reqExpression(subEMode, fMode, MacroTerminator.List)
+							var namedArg = @yep(AST.NamedArgument([], expression, value, expression, value))
+
+							arguments.push(@altRestrictiveExpression(namedArg, fMode).value)
+						}
+						else {
+							arguments.push(expression.value)
+						}
+					}
+					else {
+						@throw()
+					}
+
+					if @match(Token.COMMA, Token.NEWLINE) == Token.COMMA || @token == Token.NEWLINE {
+						@commit().NL_0M()
+					}
+					else {
+						break
+					}
+
+					argument = NO
+				}
+
+				@throw(')') unless @test(Token.RIGHT_ROUND)
+
+				return @yep(arguments)
+			}
+		} # }}}
+
+		reqSyntimeFunctionStatement(
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			first: Event(Y)
+		): Event<Ast(SyntimeFunctionDeclaration)>(Y) ~ SyntaxError # {{{
+		{
+			var name = @reqIdentifier()
+
+			var parameters = @reqFunctionParameterList(.Nil)
+			var body =
+				if @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE) == .LEFT_CURLY {
+					@mode += .MacroExpression
+
+					var block = @reqBlock(@yes(), null, .Nil)
+
+					@mode -= .MacroExpression
+
+					set block
+				}
+				else if @token == .EQUALS_RIGHT_ANGLE {
+					set @reqQuoteExpression(@yes())
+				}
+				else {
+					@throw('{', '=>')
+				}
+
+			return @yep(AST.SyntimeFunctionDeclaration(attributes, modifiers, name, parameters, body, first, body))
+		} # }}}
+
 		reqTemplateExpression(
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(TemplateExpression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(TemplateExpression)>(Y) ~ SyntaxError # {{{
 		{
 			var elements = []
 
@@ -7924,7 +7989,7 @@ export namespace SyntaxAnalysis {
 
 		reqThisExpression(
 			first: Range
-		): Event<NodeData(ThisExpression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(ThisExpression)>(Y) ~ SyntaxError # {{{
 		{
 			var identifier = @reqIdentifier()
 
@@ -7934,7 +7999,7 @@ export namespace SyntaxAnalysis {
 		reqThrowStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(IfStatement, ThrowStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(IfStatement, ThrowStatement, UnlessStatement)>(Y) ~ SyntaxError # {{{
 		{
 			var expression = @reqExpression(.NoRestriction, fMode)
 
@@ -7962,7 +8027,7 @@ export namespace SyntaxAnalysis {
 		reqTryCatchClause(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(CatchClause)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(CatchClause)>(Y) ~ SyntaxError # {{{
 		{
 			var binding =
 				if @test(Token.IDENTIFIER) {
@@ -7982,7 +8047,7 @@ export namespace SyntaxAnalysis {
 		reqTryExpression(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(TryExpression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(TryExpression)>(Y) ~ SyntaxError # {{{
 		{
 			var modifiers = []
 			if @testNS(Token.EXCLAMATION) {
@@ -8006,7 +8071,7 @@ export namespace SyntaxAnalysis {
 
 		reqTupleStatement(
 			first: Event(Y)
-		): Event<NodeData(TupleDeclaration)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(TupleDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var statement = @tryTupleStatement(first)
 
@@ -8022,7 +8087,7 @@ export namespace SyntaxAnalysis {
 			modifiers: Event<ModifierData>(Y)[] = []
 			multiline: Boolean = false
 			eMode: ExpressionMode = .InlineOnly
-		): Event<NodeData(Type)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Type)>(Y) ~ SyntaxError # {{{
 		{
 			var type = @tryType(modifiers, multiline, eMode)
 
@@ -8039,9 +8104,9 @@ export namespace SyntaxAnalysis {
 			multiline: Boolean
 			first: Event(Y)
 			eMode: ExpressionMode
-		): Event<NodeData(Type)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Type)>(Y) ~ SyntaxError # {{{
 		{
-			var properties: Event<NodeData(PropertyType)>(Y)[] = []
+			var properties: Event<Ast(PropertyType)>(Y)[] = []
 			var mut rest: Event = NO
 
 			@NL_0M()
@@ -8107,7 +8172,7 @@ export namespace SyntaxAnalysis {
 			modifiers: Event<ModifierData>(Y)[]
 			multiline: Boolean
 			eMode: ExpressionMode
-		): Event<NodeData(Type)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Type)>(Y) ~ SyntaxError # {{{
 		{
 			var type = @tryTypeCore(modifiers, multiline, eMode)
 
@@ -8121,7 +8186,7 @@ export namespace SyntaxAnalysis {
 
 		reqTypeDescriptive(
 			tMode: TypeMode = .Nil
-		): Event<NodeData(DescriptiveType)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(DescriptiveType)>(Y) ~ SyntaxError # {{{
 		{
 			var type = @tryTypeDescriptive(tMode)
 
@@ -8137,7 +8202,7 @@ export namespace SyntaxAnalysis {
 			modifiers: Event<ModifierData>(Y)[] = []
 			nullable: Boolean = true
 			eMode: ExpressionMode = .Nil
-		): Event<NodeData(Type)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Type)>(Y) ~ SyntaxError # {{{
 		{
 			var type = @tryTypeLimited(modifiers, eMode)
 
@@ -8149,7 +8214,7 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		reqTypeEntity(): Event<NodeData(TypeReference)>(Y) ~ SyntaxError # {{{
+		reqTypeEntity(): Event<Ast(TypeReference)>(Y) ~ SyntaxError # {{{
 		{
 			var name = @reqIdentifierOrMember()
 
@@ -8158,7 +8223,7 @@ export namespace SyntaxAnalysis {
 
 		reqTypeGeneric(
 			first: Event(Y)
-		): Event<Event<NodeData(TypeReference)>[]>(Y) ~ SyntaxError # {{{
+		): Event<Event<Ast(TypeReference)>[]>(Y) ~ SyntaxError # {{{
 		{
 			var types = [@reqTypeEntity()]
 
@@ -8177,7 +8242,7 @@ export namespace SyntaxAnalysis {
 
 		reqTypeModule(
 			first: Event(Y)
-		): Event<NodeData(TypeList)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(TypeList)>(Y) ~ SyntaxError # {{{
 		{
 			@reqNL_1M()
 
@@ -8208,7 +8273,7 @@ export namespace SyntaxAnalysis {
 
 		reqTypeNamed(
 			modifiers: Event<ModifierData>(Y)[]
-		): Event<NodeData(TypeReference)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(TypeReference)>(Y) ~ SyntaxError # {{{
 		{
 			var type = @tryTypeNamed(modifiers)
 
@@ -8224,7 +8289,7 @@ export namespace SyntaxAnalysis {
 			modifiers: Event<ModifierData>(Y)[]
 			first % top: Event(Y)
 			eMode: ExpressionMode
-		): Event<NodeData(Type)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Type)>(Y) ~ SyntaxError # {{{
 		{
 			var properties = []
 			var mut rest = null
@@ -8391,7 +8456,7 @@ export namespace SyntaxAnalysis {
 
 		reqTypeParameter(
 			eMode: ExpressionMode
-		): Event<NodeData(Type)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Type)>(Y) ~ SyntaxError # {{{
 		{
 			var type = @reqType(eMode)
 
@@ -8426,7 +8491,7 @@ export namespace SyntaxAnalysis {
 
 		reqTypeReturn(
 			eMode: ExpressionMode = .InlineOnly
-		): Event<NodeData(Type)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Type)>(Y) ~ SyntaxError # {{{
 		{
 			match @match(.NEW, .VALUEOF) {
 				.NEW {
@@ -8449,8 +8514,8 @@ export namespace SyntaxAnalysis {
 
 		reqTypeStatement(
 			first: Event(Y)
-			name: Event<NodeData(Identifier)>(Y)
-		): Event<NodeData(TypeAliasDeclaration)>(Y) ~ SyntaxError # {{{
+			name: Event<Ast(Identifier)>(Y)
+		): Event<Ast(TypeAliasDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var parameters = @tryTypeParameterList()
 
@@ -8469,7 +8534,7 @@ export namespace SyntaxAnalysis {
 			fMode: FunctionMode
 			typeable: Boolean = true
 			questionable: Boolean = true
-		): Event<NodeData(VariableDeclarator)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(VariableDeclarator)>(Y) ~ SyntaxError # {{{
 		{
 			var mut name = null
 
@@ -8511,10 +8576,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqUnaryOperand(
-			value: Event<NodeData(Expression)>(Y)?
+			value: Event<Ast(Expression)>(Y)?
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Expression)>(Y) ~ SyntaxError # {{{
 		{
 			var operand = @tryUnaryOperand(value, eMode, fMode)
 
@@ -8529,7 +8594,7 @@ export namespace SyntaxAnalysis {
 		reqUnlessStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(UnlessStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(UnlessStatement)>(Y) ~ SyntaxError # {{{
 		{
 			var condition = @reqExpression(.Nil, fMode)
 
@@ -8544,7 +8609,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(VariableStatement)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(VariableStatement)>(Y) ~ SyntaxError # {{{
 		{
 			var statement = @tryVarStatement(first, eMode, fMode)
 
@@ -8556,7 +8621,7 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		reqVariable(): Event<NodeData(VariableDeclarator)>(Y) ~ SyntaxError # {{{
+		reqVariable(): Event<Ast(VariableDeclarator)>(Y) ~ SyntaxError # {{{
 		{
 			var name = @reqIdentifier()
 
@@ -8565,7 +8630,7 @@ export namespace SyntaxAnalysis {
 
 		reqVariableIdentifier(
 			fMode: FunctionMode
-		): Event<NodeData(Identifier, ArrayBinding, ObjectBinding)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Identifier, ArrayBinding, ObjectBinding)>(Y) ~ SyntaxError # {{{
 		{
 			if @match(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE) == Token.IDENTIFIER {
 				return @yep(AST.Identifier(@scanner.value(), @yes()))
@@ -8582,9 +8647,9 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqVariableName(
-			mut object: Event<NodeData(Identifier, MemberExpression, ThisExpression)>
+			mut object: Event<Ast(Identifier, MemberExpression, ThisExpression)>
 			fMode: FunctionMode
-		): Event<NodeData(Identifier, MemberExpression, ThisExpression)>(Y) ~ SyntaxError # {{{
+		): Event<Ast(Identifier, MemberExpression, ThisExpression)>(Y) ~ SyntaxError # {{{
 		{
 			if !object.ok {
 				if fMode ~~ FunctionMode.Method && @test(Token.AT) {
@@ -8624,7 +8689,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		reqVariantFieldList(
-			elements: NodeData(VariantField)[]
+			elements: Ast(VariantField)[]
 		): Void ~ SyntaxError # {{{
 		{
 			@NL_0M()
@@ -8658,8 +8723,8 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		stackInlineAttributes(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-		): Event<NodeData(AttributeDeclaration)>(Y)[] ~ SyntaxError # {{{
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+		): Event<Ast(AttributeDeclaration)>(Y)[] ~ SyntaxError # {{{
 		{
 			while @test(Token.HASH_LEFT_SQUARE) {
 				attributes.push(@reqAttribute(@yes()))
@@ -8669,7 +8734,7 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		stackInnerAttributes(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]): Boolean ~ SyntaxError # {{{
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]): Boolean ~ SyntaxError # {{{
 		{
 			if @test(Token.HASH_EXCLAMATION_LEFT_SQUARE) {
 				do {
@@ -8694,8 +8759,8 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		stackOuterAttributes(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
-		): Event<NodeData(AttributeDeclaration)>(Y)[] ~ SyntaxError # {{{
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+		): Event<Ast(AttributeDeclaration)>(Y)[] ~ SyntaxError # {{{
 		{
 			while @test(Token.HASH_LEFT_SQUARE) {
 				attributes.push(@reqAttribute(@yes()))
@@ -8708,8 +8773,8 @@ export namespace SyntaxAnalysis {
 
 		submitNamedGroupSpecifier(
 			modifiers: Event<ModifierData>(Y)[]
-			type: Event<NodeData(DescriptiveType)>
-			specifiers: Event<NodeData(GroupSpecifier)>(Y)[]
+			type: Event<Ast(DescriptiveType)>
+			specifiers: Event<Ast(GroupSpecifier)>(Y)[]
 		): Void ~ SyntaxError # {{{
 		{
 			var elements = []
@@ -8735,7 +8800,7 @@ export namespace SyntaxAnalysis {
 
 		submitNamedSpecifier(
 			modifiers: Event<ModifierData>(Y)[]
-			specifiers: Event<NodeData(NamedSpecifier)>(Y)[]
+			specifiers: Event<Ast(NamedSpecifier)>(Y)[]
 		): Void ~ SyntaxError # {{{
 		{
 			var identifier = @reqIdentifier()
@@ -8862,7 +8927,7 @@ export namespace SyntaxAnalysis {
 		tryAssignementStatement(
 			eMode!: ExpressionMode = .Nil
 			fMode: FunctionMode
-		): Event<NodeData(ExpressionStatement)> ~ SyntaxError # {{{
+		): Event<Ast(ExpressionStatement)> ~ SyntaxError # {{{
 		{
 			var dyn identifier = NO
 
@@ -8892,7 +8957,7 @@ export namespace SyntaxAnalysis {
 
 			var expression =
 				if @match(Token.COMMA, Token.EQUALS) == Token.COMMA {
-					unless identifier.value.kind == NodeKind.Identifier || identifier.value.kind == NodeKind.ArrayBinding || identifier.value.kind == NodeKind.ObjectBinding {
+					unless identifier.value.kind == AstKind.Identifier || identifier.value.kind == AstKind.ArrayBinding || identifier.value.kind == AstKind.ObjectBinding {
 						return NO
 					}
 
@@ -8945,7 +9010,7 @@ export namespace SyntaxAnalysis {
 		tryAwaitExpression(
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(AwaitExpression)> ~ SyntaxError # {{{
+		): Event<Ast(AwaitExpression)> ~ SyntaxError # {{{
 		{
 			unless @test(Token.AWAIT) {
 				return NO
@@ -8962,7 +9027,7 @@ export namespace SyntaxAnalysis {
 		tryBinaryOperand(
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 			var mut expression = null
@@ -9235,11 +9300,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryBitmaskMember(
-			mut attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			mut attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			mut bits: MemberBits
 			mut first: Range?
-		): Event<NodeData(BitmaskValue, MethodDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(BitmaskValue, MethodDeclaration)> ~ SyntaxError # {{{
 		{
 			if bits ~~ .Attribute {
 				var attrs = @stackOuterAttributes([])
@@ -9276,14 +9341,14 @@ export namespace SyntaxAnalysis {
 		tryBitmaskStatement(
 			first: Event(Y)
 			modifiers: Event<ModifierData>(Y)[] = []
-		): Event<NodeData(BitmaskDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(BitmaskDeclaration)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 			unless name.ok {
 				return NO
 			}
 
-			var mut type: Event<NodeData(Identifier)> = NO
+			var mut type: Event<Ast(Identifier)> = NO
 
 			if @test(Token.LEFT_ANGLE) {
 				@commit()
@@ -9333,11 +9398,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryBitmaskValue(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
 			bits: MemberBits
 			mut first: Range?
-		): Event<NodeData(BitmaskValue)> ~ SyntaxError # {{{
+		): Event<Ast(BitmaskValue)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 
@@ -9360,7 +9425,7 @@ export namespace SyntaxAnalysis {
 
 		tryBlock(
 			fMode: FunctionMode
-		): Event<NodeData(Block)> ~ SyntaxError # {{{
+		): Event<Ast(Block)> ~ SyntaxError # {{{
 		{
 			try {
 				return @reqBlock(NO, null, fMode)
@@ -9373,7 +9438,7 @@ export namespace SyntaxAnalysis {
 		tryBlockStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(BlockStatement)> ~ SyntaxError # {{{
+		): Event<Ast(BlockStatement)> ~ SyntaxError # {{{
 		{
 			var label = @tryIdentifier()
 
@@ -9391,14 +9456,14 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryClassMember(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			staticModifier: Event<ModifierData>
 			staticMark: Marker
 			finalModifier: Event<ModifierData>
 			finalMark: Marker
 			first: Range?
-		): Event<NodeData(FieldDeclaration, MethodDeclaration, PropertyDeclaration, ProxyDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(FieldDeclaration, MethodDeclaration, PropertyDeclaration, ProxyDeclaration)> ~ SyntaxError # {{{
 		{
 			if staticModifier.ok {
 				if finalModifier.ok {
@@ -9453,11 +9518,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryClassMember(
-			mut attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			mut attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			mut bits: MemberBits
 			mut first: Range?
-		): Event<NodeData(FieldDeclaration, MethodDeclaration, PropertyDeclaration, ProxyDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(FieldDeclaration, MethodDeclaration, PropertyDeclaration, ProxyDeclaration)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -9688,14 +9753,14 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryClassMethod(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
 			bits: MemberBits
 			mut first: Range?
-		): Event<NodeData(MethodDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(MethodDeclaration)> ~ SyntaxError # {{{
 		{
 			var dyn name
-			if @test(Token.ASYNC) {
+			if bits !~ .NoAsync && @test(Token.ASYNC) {
 				var dyn modifier = @reqIdentifier()
 
 				name = @tryIdentifier()
@@ -9724,11 +9789,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryClassProperty(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
 			bits: MemberBits
 			mut first: Range?
-		): Event<NodeData(FieldDeclaration, PropertyDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(FieldDeclaration, PropertyDeclaration)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -9768,10 +9833,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryClassProxy(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
 			mut first: Range?
-		): Event<NodeData(ProxyDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(ProxyDeclaration)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 
@@ -9799,7 +9864,7 @@ export namespace SyntaxAnalysis {
 		tryClassStatement(
 			modifiers: Event<ModifierData>(Y)[] = []
 			first: Event(Y)
-		): Event<NodeData(ClassDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(ClassDeclaration)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 
@@ -9811,13 +9876,13 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryClassVariable(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
 			bits: MemberBits
-			mut name: Event<NodeData(Identifier)>
-			mut type: Event<NodeData(Type)>
+			mut name: Event<Ast(Identifier)>
+			mut type: Event<Ast(Type)>
 			mut first: Range?
-		): Event<NodeData(FieldDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(FieldDeclaration)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -9906,7 +9971,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(VariableStatement)> ~ SyntaxError # {{{
+		): Event<Ast(VariableStatement)> ~ SyntaxError # {{{
 		{
 			var modifier = @yep(AST.Modifier(.Constant, first))
 
@@ -9955,7 +10020,7 @@ export namespace SyntaxAnalysis {
 		tryDestructuring(
 			mut dMode: DestructuringMode?
 			fMode: FunctionMode
-		): Event<NodeData(ArrayBinding, ObjectBinding)> ~ SyntaxError # {{{
+		): Event<Ast(ArrayBinding, ObjectBinding)> ~ SyntaxError # {{{
 		{
 			if !?dMode {
 				if fMode ~~ FunctionMode.Method {
@@ -9984,7 +10049,7 @@ export namespace SyntaxAnalysis {
 			first: Range
 			dMode: DestructuringMode
 			fMode: FunctionMode
-		): Event<NodeData(ArrayBinding)> ~ SyntaxError # {{{
+		): Event<Ast(ArrayBinding)> ~ SyntaxError # {{{
 		{
 			try {
 				return @reqDestructuringArray(first, dMode, fMode)
@@ -9998,7 +10063,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			dMode: DestructuringMode
 			fMode: FunctionMode
-		): Event<NodeData(ObjectBinding)> ~ SyntaxError # {{{
+		): Event<Ast(ObjectBinding)> ~ SyntaxError # {{{
 		{
 			try {
 				return @reqDestructuringObject(first, dMode, fMode)
@@ -10009,11 +10074,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryEnumMember(
-			mut attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			mut attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			modifiers: Event<ModifierData>(Y)[]
 			mut bits: MemberBits
 			mut first: Range?
-		): Event<NodeData(EnumValue, FieldDeclaration, MethodDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(EnumValue, FieldDeclaration, MethodDeclaration)> ~ SyntaxError # {{{
 		{
 			if bits ~~ .Attribute {
 				var attrs = @stackOuterAttributes([])
@@ -10058,11 +10123,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryEnumMethod(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
 			bits: MemberBits
 			mut first: Range?
-		): Event<NodeData(MethodDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(MethodDeclaration)> ~ SyntaxError # {{{
 		{
 			var dyn name
 			if @test(Token.ASYNC) {
@@ -10096,16 +10161,16 @@ export namespace SyntaxAnalysis {
 		tryEnumStatement(
 			first: Event(Y)
 			modifiers: Event<ModifierData>(Y)[] = []
-		): Event<NodeData(EnumDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(EnumDeclaration)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 			unless name.ok {
 				return NO
 			}
 
-			var mut type: Event<NodeData(TypeReference)> = NO
-			var mut init: Event<NodeData(Expression)> = NO
-			var mut step: Event<NodeData(Expression)> = NO
+			var mut type: Event<Ast(TypeReference)> = NO
+			var mut init: Event<Ast(Expression)> = NO
+			var mut step: Event<Ast(Expression)> = NO
 
 			if @test(Token.LEFT_ANGLE) {
 				@commit()
@@ -10113,6 +10178,10 @@ export namespace SyntaxAnalysis {
 				type = @reqTypeEntity()
 
 				if @test(.SEMICOLON) {
+					if @mode ~~ .Typing {
+						@throw('>')
+					}
+
 					@commit()
 
 					init = @reqUnaryOperand(null, .Nil, .Nil)
@@ -10131,13 +10200,21 @@ export namespace SyntaxAnalysis {
 				@commit()
 			}
 
+			var nlMark = @mark()
+
 			@NL_0M()
 
-			unless @test(Token.LEFT_CURLY) {
+			if @test(Token.LEFT_CURLY) {
+				@commit().NL_0M()
+			}
+			else if @mode ~~ .Typing {
+				@rollback(nlMark)
+
+				return @yep(AST.EnumDeclaration([], modifiers, name, type, NO, NO, [], first, name))
+			}
+			else {
 				@throw('{')
 			}
-
-			@commit().NL_0M()
 
 			var attributes = []
 			var members = []
@@ -10159,18 +10236,18 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryEnumValue(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
 			bits: MemberBits
 			mut first: Range?
-		): Event<NodeData(EnumValue)> ~ SyntaxError # {{{
+		): Event<Ast(EnumValue)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 
 			return NO unless name.ok
 
 			var mut arguments = null
-			var mut value: Event<NodeData(Expression)> = NO
+			var mut value: Event<Ast(Expression)> = NO
 
 			if @test(Token.EQUALS) {
 				@commit()
@@ -10199,11 +10276,11 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryEnumVariable(
-			attributes: Event<NodeData(AttributeDeclaration)>(Y)[]
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
 			mut modifiers: Event<ModifierData>(Y)[]
 			bits: MemberBits
 			mut first: Range?
-		): Event<NodeData(FieldDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(FieldDeclaration)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 
@@ -10239,24 +10316,15 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryExpression(
-			mut eMode: ExpressionMode?
+			eMode!: ExpressionMode = .Nil
 			fMode: FunctionMode
 			terminator: MacroTerminator? = null
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
-			if eMode == null | ExpressionMode.ImplicitMember {
-				if @mode ~~ ParserMode.MacroExpression &&
-					@scanner.test(Token.IDENTIFIER) &&
-					@scanner.value() == 'macro'
-				{
-					return @reqMacroExpression(@yes(), terminator)
-				}
-				else {
-					eMode ??= .Nil
-				}
+			if @mode ~~ .MacroExpression && @test(.QUOTE) {
+				return @reqQuoteExpression(@yes(), terminator)
 			}
-
-			if @test(.CONST) {
+			else if @test(.CONST) {
 				var mark = @mark()
 				var operator = @yep(AST.UnaryOperator(.Constant, @yes()))
 				var operand = @tryOperation(null, eMode, fMode)
@@ -10267,6 +10335,20 @@ export namespace SyntaxAnalysis {
 
 				@rollback(mark)
 			}
+			else if @test(.SYNTIME) {
+				var mark = @mark()
+
+				if var expression ?]= @trySyntimeExpression(@yes()) {
+					return expression
+				}
+
+				@rollback(mark)
+			}
+			else if eMode ~~ .BinaryOperator {
+				if var operator ?]= @tryBinaryOperator(fMode) {
+					return @yep(AST.Operator(operator))
+				}
+			}
 
 			return @tryOperation(null, eMode, fMode)
 		} # }}}
@@ -10274,7 +10356,7 @@ export namespace SyntaxAnalysis {
 		tryExternFunctionDeclaration(
 			modifiers: Event<ModifierData>(Y)[]
 			first: Event(Y)
-		): Event<NodeData(FunctionDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(FunctionDeclaration)> ~ SyntaxError # {{{
 		{
 			try {
 				return @reqExternFunctionDeclaration(modifiers, first)
@@ -10287,7 +10369,7 @@ export namespace SyntaxAnalysis {
 		tryFunctionBody(
 			modifiers: Event<ModifierData>(Y)[]
 			fMode: FunctionMode
-		): Event<NodeData(Block, Expression, IfStatement, UnlessStatement)> ~ SyntaxError # {{{
+		): Event<Ast(Block, Expression, IfStatement, UnlessStatement)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -10307,7 +10389,7 @@ export namespace SyntaxAnalysis {
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
 			maxParameters: Number = Infinity
-		): Event<NodeData(FunctionExpression, LambdaExpression)> ~ SyntaxError # {{{
+		): Event<Ast(FunctionExpression, LambdaExpression)> ~ SyntaxError # {{{
 		{
 			if eMode ~~ .NoAnonymousFunction {
 				return NO
@@ -10396,7 +10478,7 @@ export namespace SyntaxAnalysis {
 		tryFunctionParameterList(
 			fMode: FunctionMode
 			maxParameters: Number = Infinity
-		): Event<Event<NodeData(Parameter)>[]> ~ SyntaxError # {{{
+		): Event<Event<Ast(Parameter)>[]> ~ SyntaxError # {{{
 		{
 			unless @test(Token.LEFT_ROUND) {
 				return NO
@@ -10435,7 +10517,7 @@ export namespace SyntaxAnalysis {
 		tryFunctionReturns(
 			eMode: ExpressionMode = .PrimaryType
 			isAllowingAuto: Boolean = true
-		): Event<NodeData(Type)> ~ SyntaxError # {{{
+		): Event<Ast(Type)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -10453,7 +10535,7 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		tryFunctionThrows(): Event<Event<NodeData(Identifier)>[]> ~ SyntaxError # {{{
+		tryFunctionThrows(): Event<Event<Ast(Identifier)>[]> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -10479,7 +10561,7 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		tryIdentifier(): Event<NodeData(Identifier)> ~ SyntaxError # {{{
+		tryIdentifier(): Event<Ast(Identifier)> ~ SyntaxError # {{{
 		{
 			if @scanner.test(Token.IDENTIFIER) {
 				return @yep(AST.Identifier(@scanner.value(), @yes()))
@@ -10489,7 +10571,7 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		tryIdentifierOrMember(): Event<NodeData(Identifier, MemberExpression)> ~ SyntaxError # {{{
+		tryIdentifierOrMember(): Event<Ast(Identifier, MemberExpression)> ~ SyntaxError # {{{
 		{
 			var mut name: Event = @tryIdentifier()
 
@@ -10510,9 +10592,9 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryIfDeclaration(
-			mut attributes: Event<NodeData(AttributeDeclaration)>(Y)[]?
+			mut attributes: Event<Ast(AttributeDeclaration)>(Y)[]?
 			fMode: FunctionMode
-		): Event<NodeData(VariableDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(VariableDeclaration)> ~ SyntaxError # {{{
 		{
 			attributes ??= @stackInlineAttributes([])
 
@@ -10568,7 +10650,7 @@ export namespace SyntaxAnalysis {
 		tryIfExpression(
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(IfExpression)> ~ SyntaxError # {{{
+		): Event<Ast(IfExpression)> ~ SyntaxError # {{{
 		{
 			unless @test(Token.IF) {
 				return NO
@@ -10721,7 +10803,7 @@ export namespace SyntaxAnalysis {
 		tryLambdaBody(
 			modifiers: Event<ModifierData>(Y)[]
 			fMode: FunctionMode
-		): Event<NodeData(Block, Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Block, Expression)> ~ SyntaxError # {{{
 		{
 			if @test(.EQUALS_RIGHT_ANGLE) {
 				@commit()
@@ -10738,27 +10820,10 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		tryMacroStatement(
-			first: Event(Y)
-		): Event<NodeData(MacroDeclaration)> ~ SyntaxError # {{{
-		{
-			var name = @tryIdentifier()
-
-			unless name.ok {
-				return NO
-			}
-
-			var parameters = @reqMacroParameterList()
-
-			var body = @reqMacroBody()
-
-			return @yep(AST.MacroDeclaration([], name, parameters, body, first, body))
-		} # }}}
-
 		tryMatchExpression(
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(MatchExpression)> ~ SyntaxError # {{{
+		): Event<Ast(MatchExpression)> ~ SyntaxError # {{{
 		{
 			unless @test(Token.MATCH) {
 				return NO
@@ -10784,7 +10849,7 @@ export namespace SyntaxAnalysis {
 		tryMatchStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(MatchStatement)> ~ SyntaxError # {{{
+		): Event<Ast(MatchStatement)> ~ SyntaxError # {{{
 		{
 			var mut expression: Event = NO
 			var mut declaration: Event = NO
@@ -10870,7 +10935,7 @@ export namespace SyntaxAnalysis {
 		tryNameIST(
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Identifier, Literal, TemplateExpression)> ~ SyntaxError # {{{
+		): Event<Ast(Identifier, Literal, TemplateExpression)> ~ SyntaxError # {{{
 		{
 			if @match(Token.IDENTIFIER, Token.STRING, Token.TEMPLATE_BEGIN) == Token.IDENTIFIER {
 				return @reqIdentifier()
@@ -10888,7 +10953,7 @@ export namespace SyntaxAnalysis {
 
 		tryNamespaceStatement(
 			first: Event(Y)
-		): Event<NodeData(NamespaceDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(NamespaceDeclaration)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 
@@ -10899,7 +10964,7 @@ export namespace SyntaxAnalysis {
 			return @reqNamespaceStatement(first, name)
 		} # }}}
 
-		tryNumber(): Event<NodeData(NumericExpression)> ~ SyntaxError # {{{
+		tryNumber(): Event<Ast(NumericExpression)> ~ SyntaxError # {{{
 		{
 			if @matchM(M.NUMBER) == Token.BINARY_NUMBER {
 				return @yep(AST.NumericExpression(parseInt(@scanner.value().slice(2).replace(/\_/g, ''), 2), 2, @yes()))
@@ -10984,7 +11049,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -11031,12 +11096,12 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryObjectComprehension(
-			name: Event<NodeData(ComputedPropertyName, TemplateExpression)>(Y)
-			value: Event<NodeData(Expression)>(Y)
+			name: Event<Ast(ComputedPropertyName, TemplateExpression)>(Y)
+			value: Event<Ast(Expression)>(Y)
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(ObjectComprehension)> ~ SyntaxError # {{{
+		): Event<Ast(ObjectComprehension)> ~ SyntaxError # {{{
 		{
 			var firstLoop = @yes()
 
@@ -11058,7 +11123,7 @@ export namespace SyntaxAnalysis {
 			topFirst: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			var dyn first
 
@@ -11102,7 +11167,7 @@ export namespace SyntaxAnalysis {
 					var members = []
 
 					while @until(.RIGHT_CURLY) {
-						var mut external: Event<NodeData(Identifier)> = @reqIdentifier()
+						var mut external: Event<Ast(Identifier)> = @reqIdentifier()
 						var mut internal = external
 
 						if @test(.PERCENT) {
@@ -11167,7 +11232,7 @@ export namespace SyntaxAnalysis {
 		tryOperand(
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			match @matchM(M.OPERAND, eMode, fMode) {
 				.AT {
@@ -11183,7 +11248,7 @@ export namespace SyntaxAnalysis {
 					return @tryParenthesis(@yes(), fMode)
 				}
 				.LEFT_SQUARE {
-					return @reqArray(@yes(), fMode)
+					return @reqArray(@yes(), eMode, fMode)
 				}
 				.ML_BACKQUOTE | .ML_TILDE {
 					var delimiter = @token!?
@@ -11211,10 +11276,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryOperation(
-			mut operand: Event<NodeData(Expression)>?
+			mut operand: Event<Ast(Expression)>?
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			var mut mark = @mark()
 			var mut operator = null
@@ -11241,7 +11306,7 @@ export namespace SyntaxAnalysis {
 				return operand unless operand.ok
 			}
 
-			var values: NodeData(Expression, Type)[] = [operand.value]
+			var values: Ast(Expression, Type)[] = [operand.value]
 
 			var mut type = false
 
@@ -11287,7 +11352,7 @@ export namespace SyntaxAnalysis {
 
 
 								var first = @yes()
-								var array = @reqArray(first, fMode).value
+								var array = @reqArray(first, eMode, fMode).value
 
 								if array is .ArrayExpression && array.values.length == 1 && !@hasTopicReference(array) {
 									var modifiers = [AST.Modifier(ModifierKind.Computed, first)]
@@ -11364,7 +11429,7 @@ export namespace SyntaxAnalysis {
 		tryParenthesis(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			try {
 				return @reqParenthesis(first, fMode)
@@ -11375,10 +11440,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryPostfixedOperand(
-			operand: Event<NodeData(Expression)>(Y)?
+			operand: Event<Ast(Expression)>(Y)?
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			var unaryOperand = @tryUnaryOperand(operand, eMode, fMode)
 
@@ -11412,7 +11477,7 @@ export namespace SyntaxAnalysis {
 		tryPrefixedOperand(
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -11527,7 +11592,7 @@ export namespace SyntaxAnalysis {
 		tryRangeOperand(
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			var operand = @tryOperand(eMode, fMode)
 
@@ -11543,7 +11608,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(IfStatement, ReturnStatement, UnlessStatement)> ~ SyntaxError # {{{
+		): Event<Ast(IfStatement, ReturnStatement, UnlessStatement)> ~ SyntaxError # {{{
 		{
 			if @match(Token.IF, Token.UNLESS, Token.NEWLINE) == Token.IF {
 				var mark = @mark()
@@ -11602,7 +11667,24 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		tryShebang(): Event<NodeData(ShebangDeclaration)> ~ SyntaxError # {{{
+		trySemtimeStatement(
+			first: Event(Y)
+			fMode: FunctionMode
+		): Event<Ast(SemtimeStatement)> ~ SyntaxError { # {{{
+			var body =
+				if @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE) == .LEFT_CURLY {
+					set @reqBlock(@yes(), null, .Nil)
+				}
+				else {
+					set @tryExpression(.Nil, fMode)
+				}
+
+			return NO unless ?]body
+
+			return @yep(AST.SemtimeStatement([], body, first, body))
+		} # }}}
+
+		tryShebang(): Event<Ast(ShebangDeclaration)> ~ SyntaxError # {{{
 		{
 			if @test(Token.HASH_EXCLAMATION) {
 				var first = @yes()
@@ -11617,6 +11699,19 @@ export namespace SyntaxAnalysis {
 			return NO
 		} # }}}
 
+		tryStatement(
+			sMode: StatementMode
+			eMode: ExpressionMode
+			fMode: FunctionMode
+		): Event<Ast(Statement)> ~ SyntaxError { # {{{
+			try {
+				return @reqStatement(sMode, eMode, fMode)
+			}
+			catch {
+				return NO
+			}
+		} # }}}
+
 		tryStaticModifier(): Event<ModifierData> ~ SyntaxError # {{{
 		{
 			if @test(.STATIC) {
@@ -11628,7 +11723,7 @@ export namespace SyntaxAnalysis {
 
 		tryStructStatement(
 			first: Event(Y)
-		): Event<NodeData(StructDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(StructDeclaration)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 
@@ -11772,10 +11867,30 @@ export namespace SyntaxAnalysis {
 			return @yep(AST.StructDeclaration(attributes, [], name, extends, implements, elements, first, last))
 		} # }}}
 
+		trySyntimeExpression(
+			first: Event(Y)
+		): Event<Ast(SyntimeExpression)> ~ SyntaxError { # {{{
+
+			if @test(.LEFT_CURLY) {
+				@mode += .MacroExpression
+
+				var body = @reqBlock(@yes(), .Nil, .Nil)
+
+				@mode -= .MacroExpression
+
+				return @yep(AST.SyntimeExpression(body, first, body))
+			}
+			else if var statement ?]= @tryStatement(.Expression, .Nil, .Nil) {
+				return @yep(AST.SyntimeExpression(statement, first, statement))
+			}
+
+			return NO
+		} # }}}
+
 		tryTryExpression(
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(TryExpression)> ~ SyntaxError # {{{
+		): Event<Ast(TryExpression)> ~ SyntaxError # {{{
 		{
 			unless @test(Token.TRY) {
 				return NO
@@ -11792,7 +11907,7 @@ export namespace SyntaxAnalysis {
 		tryTryStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(TryStatement)> ~ SyntaxError # {{{
+		): Event<Ast(TryStatement)> ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -11855,7 +11970,7 @@ export namespace SyntaxAnalysis {
 
 		tryTupleStatement(
 			first: Event(Y)
-		): Event<NodeData(TupleDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(TupleDeclaration)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 
@@ -11985,7 +12100,7 @@ export namespace SyntaxAnalysis {
 			modifiers: Event<ModifierData>(Y)[] = []
 			multiline: Boolean = false
 			eMode: ExpressionMode = .InlineOnly
-		): Event<NodeData(Type)> ~ SyntaxError # {{{
+		): Event<Ast(Type)> ~ SyntaxError # {{{
 		{
 			var type = @tryTypeCore(modifiers, multiline, eMode)
 
@@ -12167,7 +12282,7 @@ export namespace SyntaxAnalysis {
 			modifiers: Event<ModifierData>(Y)[]
 			multiline: Boolean
 			eMode: ExpressionMode
-		): Event<NodeData(Type)> ~ SyntaxError # {{{
+		): Event<Ast(Type)> ~ SyntaxError # {{{
 		{
 			if @test(.CONST) {
 				var operator = @yep(AST.UnaryTypeOperator(.Constant, @yes()))
@@ -12273,7 +12388,7 @@ export namespace SyntaxAnalysis {
 
 		tryTypeDescriptive(
 			tMode: TypeMode = .Nil
-		): Event<NodeData(DescriptiveType)> ~ SyntaxError # {{{
+		): Event<Ast(DescriptiveType)> ~ SyntaxError # {{{
 		{
 			match @matchM(M.DESCRIPTIVE_TYPE) {
 				Token.ABSTRACT {
@@ -12471,7 +12586,7 @@ export namespace SyntaxAnalysis {
 			return NO
 		} # }}}
 
-		tryTypeEntity(): Event<NodeData(TypeReference)> ~ SyntaxError # {{{
+		tryTypeEntity(): Event<Ast(TypeReference)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifierOrMember()
 
@@ -12483,7 +12598,7 @@ export namespace SyntaxAnalysis {
 		tryTypeNamed(
 			modifiers: Event<ModifierData>(Y)[]
 			eMode: ExpressionMode = .Nil
-		): Event<NodeData(TypeReference)> ~ SyntaxError # {{{
+		): Event<Ast(TypeReference)> ~ SyntaxError # {{{
 		{
 			var mut name: Event = @tryIdentifierOrMember()
 
@@ -12602,7 +12717,7 @@ export namespace SyntaxAnalysis {
 		tryTypeLimited(
 			modifiers: Event<ModifierData>(Y)[] = []
 			eMode: ExpressionMode = .Nil
-		): Event<NodeData(Type)> ~ SyntaxError # {{{
+		): Event<Ast(Type)> ~ SyntaxError # {{{
 		{
 			if @test(Token.LEFT_ROUND) {
 				var parameters = @reqFunctionParameterList(FunctionMode.Nil, DestructuringMode.EXTERNAL_ONLY)
@@ -12638,7 +12753,7 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
-		tryTypeParameterList(): Event<Event<NodeData(TypeParameter)>[]> ~ SyntaxError # {{{
+		tryTypeParameterList(): Event<Event<Ast(TypeParameter)>[]> ~ SyntaxError # {{{
 		{
 			unless @test(.LEFT_ANGLE) {
 				return NO
@@ -12681,7 +12796,7 @@ export namespace SyntaxAnalysis {
 
 		tryTypeStatement(
 			first: Event(Y)
-		): Event<NodeData(TypeAliasDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(TypeAliasDeclaration)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 
@@ -12696,7 +12811,7 @@ export namespace SyntaxAnalysis {
 			fMode: FunctionMode
 			typeable: Boolean = true
 			questionable: Boolean = true
-		): Event<NodeData(VariableDeclarator)> ~ SyntaxError # {{{
+		): Event<Ast(VariableDeclarator)> ~ SyntaxError # {{{
 		{
 			try {
 				return @reqTypedVariable(fMode, typeable, questionable)
@@ -12707,10 +12822,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		tryUnaryOperand(
-			mut value: Event<NodeData(Expression)>(Y)?
+			mut value: Event<Ast(Expression)>(Y)?
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(Expression)> ~ SyntaxError # {{{
+		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			if !?value {
 				var operand = @tryOperand(eMode, fMode)
@@ -12733,7 +12848,7 @@ export namespace SyntaxAnalysis {
 						var arguments = @reqArgumentList(eMode, fMode)
 						var scope = arguments.value.shift()
 
-						if scope is not Event<NodeData(Argument, Identifier, ObjectExpression)>(Y) {
+						if scope is not Event<Ast(Argument, Identifier, ObjectExpression)>(Y) {
 							@throw('object scope')
 						}
 
@@ -12752,7 +12867,7 @@ export namespace SyntaxAnalysis {
 						var arguments = @reqArgumentList(eMode + .Curry, fMode)
 						var scope = arguments.value.shift()
 
-						if scope is not Event<NodeData(Argument, Identifier, ObjectExpression)>(Y) {
+						if scope is not Event<Ast(Argument, Identifier, ObjectExpression)>(Y) {
 							@throw('object scope')
 						}
 
@@ -12841,6 +12956,13 @@ export namespace SyntaxAnalysis {
 						}
 
 						value = @reqRollingExpression(value, [], eMode, fMode, false)
+					}
+					.EXCLAMATION_LROUND {
+						first = @yes()
+
+						var arguments = @reqSyntimeArgumentList(eMode, fMode)
+
+						value = @yep(AST.SyntimeCallExpression([], value, arguments, value, @yes()))
 					}
 					.LEFT_ANGLE {
 						@commit()
@@ -12966,7 +13088,7 @@ export namespace SyntaxAnalysis {
 		tryUntilStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(UntilStatement)> ~ SyntaxError # {{{
+		): Event<Ast(UntilStatement)> ~ SyntaxError # {{{
 		{
 			var condition = @tryExpression(.Nil, fMode)
 
@@ -12990,7 +13112,7 @@ export namespace SyntaxAnalysis {
 			return @yep(AST.UntilStatement(condition, body, first, body))
 		} # }}}
 
-		tryVariable(): Event<NodeData(VariableDeclarator)> ~ SyntaxError # {{{
+		tryVariable(): Event<Ast(VariableDeclarator)> ~ SyntaxError # {{{
 		{
 			if var name ?]= @tryIdentifier() {
 				return @yep(AST.VariableDeclarator([], name, NO, name, name))
@@ -13002,7 +13124,7 @@ export namespace SyntaxAnalysis {
 
 		tryVariableName(
 			fMode: FunctionMode
-		): Event<NodeData(Identifier, MemberExpression, ThisExpression)> ~ SyntaxError # {{{
+		): Event<Ast(Identifier, MemberExpression, ThisExpression)> ~ SyntaxError # {{{
 		{
 			var dyn object
 			if fMode ~~ FunctionMode.Method && @test(Token.AT) {
@@ -13021,7 +13143,7 @@ export namespace SyntaxAnalysis {
 
 		tryVariantStatement(
 			first: Event(Y)
-		): Event<NodeData(VariantDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(VariantDeclaration)> ~ SyntaxError # {{{
 		{
 			var name = @tryIdentifier()
 
@@ -13046,7 +13168,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			mut eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(VariableStatement)> ~ SyntaxError # {{{
+		): Event<Ast(VariableStatement)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -13084,7 +13206,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(VariableStatement)> ~ SyntaxError # {{{
+		): Event<Ast(VariableStatement)> ~ SyntaxError # {{{
 		{
 			var modifiers = [@yep(AST.Modifier(ModifierKind.Dynamic, @yes()))]
 
@@ -13206,7 +13328,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(VariableStatement)> ~ SyntaxError # {{{
+		): Event<Ast(VariableStatement)> ~ SyntaxError # {{{
 		{
 			var mark = @mark()
 
@@ -13301,7 +13423,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(VariableStatement)> ~ SyntaxError # {{{
+		): Event<Ast(VariableStatement)> ~ SyntaxError # {{{
 		{
 			var modifiers = [@yep(AST.Modifier(ModifierKind.LateInit, @yes()))]
 
@@ -13369,7 +13491,7 @@ export namespace SyntaxAnalysis {
 			first: Event(Y)
 			eMode: ExpressionMode
 			fMode: FunctionMode
-		): Event<NodeData(VariableStatement)> ~ SyntaxError # {{{
+		): Event<Ast(VariableStatement)> ~ SyntaxError # {{{
 		{
 			var modifiers = [@yep(AST.Modifier(ModifierKind.Mutable, @yes()))]
 
@@ -13509,7 +13631,7 @@ export namespace SyntaxAnalysis {
 		tryWhileStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(WhileStatement)> ~ SyntaxError # {{{
+		): Event<Ast(WhileStatement)> ~ SyntaxError # {{{
 		{
 			var attributes = @stackInlineAttributes([])
 
@@ -13595,7 +13717,7 @@ export namespace SyntaxAnalysis {
 
 		tryWithVariable(
 			fMode: FunctionMode
-		): Event<NodeData(BinaryExpression, VariableDeclaration)> ~ SyntaxError # {{{
+		): Event<Ast(BinaryExpression, VariableDeclaration)> ~ SyntaxError # {{{
 		{
 			var attributes = @stackInlineAttributes([])
 
@@ -13722,7 +13844,7 @@ export namespace SyntaxAnalysis {
 		tryWithStatement(
 			first: Event(Y)
 			fMode: FunctionMode
-		): Event<NodeData(WithStatement)> ~ SyntaxError # {{{
+		): Event<Ast(WithStatement)> ~ SyntaxError # {{{
 		{
 			var mut mark = @mark()
 			var mut eMode = ExpressionMode.Nil
@@ -13778,7 +13900,7 @@ export namespace SyntaxAnalysis {
 				if variable.ok {
 					variables.push(variable)
 
-					if variable.value.kind == NodeKind.Identifier {
+					if variable.value.kind == AstKind.Identifier {
 						eMode += .ImplicitMember
 					}
 				}
@@ -13815,10 +13937,10 @@ export namespace SyntaxAnalysis {
 		} # }}}
 
 		validateAssignable(
-			expression: NodeData(Expression)
+			expression: Ast(Expression)
 		): Void ~ SyntaxError # {{{
 		{
-			unless expression.kind == NodeKind.ArrayBinding | NodeKind.Identifier | NodeKind.MemberExpression | NodeKind.ObjectBinding | NodeKind.ThisExpression {
+			unless expression.kind == AstKind.ArrayBinding | AstKind.Identifier | AstKind.MemberExpression | AstKind.ObjectBinding | AstKind.ThisExpression {
 				throw @error(`The left-hand side of an assignment expression must be a variable, a property access or a binding`, expression.start.line, expression.start.column)
 			}
 		} # }}}
