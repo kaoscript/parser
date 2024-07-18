@@ -810,11 +810,26 @@ export namespace SyntaxAnalysis {
 
 				@stackOuterAttributes(attrs)
 
-				var statement = @reqStatement(.Default, .Nil, mode).value
+				var statement =
+					if @matchM(M.MODULE_STATEMENT) == Token.EXPORT {
+						set @reqExportStatement(@yes())
+					}
+					else if @token == Token.EXTERN {
+						set @reqExternStatement(@yes())
+					}
+					else if @token == Token.INCLUDE {
+						set @reqIncludeStatement(@yes())
+					}
+					else if @token == Token.INCLUDE_AGAIN {
+						set @reqIncludeAgainStatement(@yes())
+					}
+					else {
+						set @reqStatement(.Default, .Nil, mode)
+					}
 
-				AST.pushAttributes(statement, attrs)
+				AST.pushAttributes(statement.value, attrs)
 
-				body.push(statement)
+				body.push(statement.value)
 
 				@NL_0M()
 			}
