@@ -1420,6 +1420,27 @@ namespace AST {
 			}
 		} # }}}
 
+		func MacroDeclaration(
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			modifiers: Event<ModifierData>(Y)[]
+			name: Event<Ast(Identifier)>(Y)
+			parameters: Event<Event<Ast(Parameter)>(Y)[]>(Y)
+			body: Event<Ast(Block, Expression)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): Ast(MacroDeclaration) { # {{{
+			return {
+				kind: .MacroDeclaration
+				attributes: [attribute.value for var attribute in attributes]
+				modifiers: [modifier.value for var modifier in modifiers]
+				name: name.value
+				parameters: [parameter.value for var parameter in parameters.value]
+				body: body.value
+				start
+				end
+			}
+		} # }}}
+
 		func MatchClause(
 			conditions: Event<Ast(Expression, MatchConditionArray, MatchConditionObject, MatchConditionRange, MatchConditionType)>(Y)[]
 			binding: Event<Ast(VariableDeclarator, ArrayBinding, ObjectBinding)>
@@ -2074,16 +2095,29 @@ namespace AST {
 			}
 		} # }}}
 
+		func QuoteElementEscape(
+			value: String
+			{ start }: Range
+			{ end }: Range
+		): QuoteElementData(Escape) { # {{{
+			return {
+				kind: .Escape
+				value: value
+				start
+				end
+			}
+		} # }}}
+
 		func QuoteElementExpression(
 			expression: Event<Ast(Expression)>(Y)
-			reification: ReificationData?
+			reifications: ReificationData[]
 			{ start }: Range
 			{ end }: Range
 		): QuoteElementData(Expression) { # {{{
 			return {
 				kind: .Expression
 				expression: expression.value
-				reification: reification if ?reification
+				reifications
 				start
 				end
 			}
@@ -2455,35 +2489,30 @@ namespace AST {
 			}
 		} # }}}
 
-		func SyntimeFunctionDeclaration(
+		func SyntimeDeclaration(
 			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
-			modifiers: Event<ModifierData>(Y)[]
-			name: Event<Ast(Identifier)>(Y)
-			parameters: Event<Event<Ast(Parameter)>(Y)[]>(Y)
-			body: Event<Ast(Block, Expression)>(Y)
+			declarations: Event<Ast(ImplementDeclaration, MacroDeclaration, NamespaceDeclaration)>(Y)[]
 			{ start }: Range
 			{ end }: Range
-		): Ast(SyntimeFunctionDeclaration) { # {{{
+		): Ast(SyntimeDeclaration) { # {{{
 			return {
-				kind: .SyntimeFunctionDeclaration
+				kind: .SyntimeDeclaration
 				attributes: [attribute.value for var attribute in attributes]
-				modifiers: [modifier.value for var modifier in modifiers]
-				name: name.value
-				parameters: [parameter.value for var parameter in parameters.value]
-				body: body.value
+				declarations: [declaration.value for var declaration in declarations]
 				start
 				end
 			}
 		} # }}}
 
-		func SyntimeExpression(
-			body: Event<Ast(Block, Statement)>(Y)
+		func SyntimeStatement(
+			attributes: Event<Ast(AttributeDeclaration)>(Y)[]
+			body: Event<Ast(Block)>(Y)
 			{ start }: Range
 			{ end }: Range
-		): Ast(SyntimeExpression) { # {{{
+		): Ast(SyntimeStatement) { # {{{
 			return {
-				kind: .SyntimeExpression
-				attributes: []
+				kind: .SyntimeStatement
+				attributes: [attribute.value for var attribute in attributes]
 				body: body.value
 				start
 				end

@@ -1,0 +1,2220 @@
+{
+  "kind": 70,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 20,
+      "attributes": [],
+      "modifiers": [],
+      "name": {
+        "kind": 47,
+        "modifiers": [],
+        "name": "Color",
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 12
+        }
+      },
+      "members": [],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 2,
+        "column": 2
+      }
+    },
+    {
+      "kind": 113,
+      "attributes": [],
+      "declarations": [
+        {
+          "kind": 50,
+          "attributes": [],
+          "variable": {
+            "kind": 47,
+            "modifiers": [],
+            "name": "Color",
+            "start": {
+              "line": 4,
+              "column": 14
+            },
+            "end": {
+              "line": 4,
+              "column": 19
+            }
+          },
+          "properties": [
+            {
+              "kind": 68,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 47,
+                "modifiers": [],
+                "name": "registerSpace",
+                "start": {
+                  "line": 5,
+                  "column": 2
+                },
+                "end": {
+                  "line": 5,
+                  "column": 15
+                }
+              },
+              "parameters": [
+                {
+                  "kind": 83,
+                  "attributes": [],
+                  "modifiers": [],
+                  "external": {
+                    "kind": 47,
+                    "modifiers": [],
+                    "name": "data",
+                    "start": {
+                      "line": 5,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 20
+                    }
+                  },
+                  "internal": {
+                    "kind": 47,
+                    "modifiers": [],
+                    "name": "data",
+                    "start": {
+                      "line": 5,
+                      "column": 16
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 20
+                    }
+                  },
+                  "type": {
+                    "kind": 128,
+                    "modifiers": [],
+                    "typeName": {
+                      "kind": 47,
+                      "modifiers": [],
+                      "name": "Object",
+                      "start": {
+                        "line": 5,
+                        "column": 22
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 28
+                      }
+                    },
+                    "start": {
+                      "line": 5,
+                      "column": 22
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 28
+                    }
+                  },
+                  "start": {
+                    "line": 5,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 28
+                  }
+                }
+              ],
+              "throws": [],
+              "body": {
+                "kind": 15,
+                "attributes": [],
+                "statements": [
+                  {
+                    "kind": 49,
+                    "attributes": [],
+                    "condition": {
+                      "kind": 131,
+                      "modifiers": [],
+                      "operator": {
+                        "kind": 17,
+                        "start": {
+                          "line": 6,
+                          "column": 6
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 7
+                        }
+                      },
+                      "argument": {
+                        "kind": 67,
+                        "modifiers": [],
+                        "object": {
+                          "kind": 47,
+                          "modifiers": [],
+                          "name": "data",
+                          "start": {
+                            "line": 6,
+                            "column": 7
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 11
+                          }
+                        },
+                        "property": {
+                          "kind": 47,
+                          "modifiers": [],
+                          "name": "components",
+                          "start": {
+                            "line": 6,
+                            "column": 12
+                          },
+                          "end": {
+                            "line": 6,
+                            "column": 22
+                          }
+                        },
+                        "start": {
+                          "line": 6,
+                          "column": 7
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 22
+                        }
+                      },
+                      "start": {
+                        "line": 6,
+                        "column": 6
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 22
+                      }
+                    },
+                    "whenTrue": {
+                      "kind": 15,
+                      "attributes": [],
+                      "statements": [
+                        {
+                          "kind": 138,
+                          "attributes": [],
+                          "modifiers": [],
+                          "declarations": [
+                            {
+                              "kind": 136,
+                              "attributes": [],
+                              "modifiers": [],
+                              "variables": [
+                                {
+                                  "kind": 137,
+                                  "attributes": [],
+                                  "modifiers": [],
+                                  "name": {
+                                    "kind": 47,
+                                    "modifiers": [],
+                                    "name": "fields",
+                                    "start": {
+                                      "line": 7,
+                                      "column": 8
+                                    },
+                                    "end": {
+                                      "line": 7,
+                                      "column": 14
+                                    }
+                                  },
+                                  "type": {
+                                    "kind": 128,
+                                    "modifiers": [],
+                                    "typeName": {
+                                      "kind": 47,
+                                      "modifiers": [],
+                                      "name": "Array",
+                                      "start": {
+                                        "line": 7,
+                                        "column": 16
+                                      },
+                                      "end": {
+                                        "line": 7,
+                                        "column": 21
+                                      }
+                                    },
+                                    "typeParameters": [
+                                      {
+                                        "kind": 128,
+                                        "modifiers": [],
+                                        "typeName": {
+                                          "kind": 47,
+                                          "modifiers": [],
+                                          "name": "Expr",
+                                          "start": {
+                                            "line": 7,
+                                            "column": 22
+                                          },
+                                          "end": {
+                                            "line": 7,
+                                            "column": 26
+                                          }
+                                        },
+                                        "start": {
+                                          "line": 7,
+                                          "column": 22
+                                        },
+                                        "end": {
+                                          "line": 7,
+                                          "column": 26
+                                        }
+                                      }
+                                    ],
+                                    "start": {
+                                      "line": 7,
+                                      "column": 16
+                                    },
+                                    "end": {
+                                      "line": 7,
+                                      "column": 27
+                                    }
+                                  },
+                                  "start": {
+                                    "line": 7,
+                                    "column": 8
+                                  },
+                                  "end": {
+                                    "line": 7,
+                                    "column": 27
+                                  }
+                                }
+                              ],
+                              "value": {
+                                "kind": 4,
+                                "modifiers": [],
+                                "values": [],
+                                "start": {
+                                  "line": 7,
+                                  "column": 30
+                                },
+                                "end": {
+                                  "line": 7,
+                                  "column": 32
+                                }
+                              },
+                              "start": {
+                                "line": 7,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 7,
+                                "column": 32
+                              }
+                            }
+                          ],
+                          "start": {
+                            "line": 7,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 7,
+                            "column": 32
+                          }
+                        },
+                        {
+                          "kind": 138,
+                          "attributes": [],
+                          "modifiers": [],
+                          "declarations": [
+                            {
+                              "kind": 136,
+                              "attributes": [],
+                              "modifiers": [],
+                              "variables": [
+                                {
+                                  "kind": 137,
+                                  "attributes": [],
+                                  "modifiers": [],
+                                  "name": {
+                                    "kind": 47,
+                                    "modifiers": [],
+                                    "name": "methods",
+                                    "start": {
+                                      "line": 8,
+                                      "column": 8
+                                    },
+                                    "end": {
+                                      "line": 8,
+                                      "column": 15
+                                    }
+                                  },
+                                  "type": {
+                                    "kind": 128,
+                                    "modifiers": [],
+                                    "typeName": {
+                                      "kind": 47,
+                                      "modifiers": [],
+                                      "name": "Array",
+                                      "start": {
+                                        "line": 8,
+                                        "column": 17
+                                      },
+                                      "end": {
+                                        "line": 8,
+                                        "column": 22
+                                      }
+                                    },
+                                    "typeParameters": [
+                                      {
+                                        "kind": 128,
+                                        "modifiers": [],
+                                        "typeName": {
+                                          "kind": 47,
+                                          "modifiers": [],
+                                          "name": "Expr",
+                                          "start": {
+                                            "line": 8,
+                                            "column": 23
+                                          },
+                                          "end": {
+                                            "line": 8,
+                                            "column": 27
+                                          }
+                                        },
+                                        "start": {
+                                          "line": 8,
+                                          "column": 23
+                                        },
+                                        "end": {
+                                          "line": 8,
+                                          "column": 27
+                                        }
+                                      }
+                                    ],
+                                    "start": {
+                                      "line": 8,
+                                      "column": 17
+                                    },
+                                    "end": {
+                                      "line": 8,
+                                      "column": 28
+                                    }
+                                  },
+                                  "start": {
+                                    "line": 8,
+                                    "column": 8
+                                  },
+                                  "end": {
+                                    "line": 8,
+                                    "column": 28
+                                  }
+                                }
+                              ],
+                              "value": {
+                                "kind": 4,
+                                "modifiers": [],
+                                "values": [],
+                                "start": {
+                                  "line": 8,
+                                  "column": 31
+                                },
+                                "end": {
+                                  "line": 8,
+                                  "column": 33
+                                }
+                              },
+                              "start": {
+                                "line": 8,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 8,
+                                "column": 33
+                              }
+                            }
+                          ],
+                          "start": {
+                            "line": 8,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 8,
+                            "column": 33
+                          }
+                        },
+                        {
+                          "kind": 138,
+                          "attributes": [],
+                          "modifiers": [
+                            {
+                              "kind": 14,
+                              "start": {
+                                "line": 10,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 10,
+                                "column": 11
+                              }
+                            }
+                          ],
+                          "declarations": [
+                            {
+                              "kind": 136,
+                              "attributes": [],
+                              "modifiers": [],
+                              "variables": [
+                                {
+                                  "kind": 137,
+                                  "attributes": [],
+                                  "modifiers": [],
+                                  "name": {
+                                    "kind": 47,
+                                    "modifiers": [],
+                                    "name": "field",
+                                    "start": {
+                                      "line": 10,
+                                      "column": 12
+                                    },
+                                    "end": {
+                                      "line": 10,
+                                      "column": 17
+                                    }
+                                  },
+                                  "start": {
+                                    "line": 10,
+                                    "column": 12
+                                  },
+                                  "end": {
+                                    "line": 10,
+                                    "column": 17
+                                  }
+                                }
+                              ],
+                              "start": {
+                                "line": 10,
+                                "column": 12
+                              },
+                              "end": {
+                                "line": 10,
+                                "column": 17
+                              }
+                            }
+                          ],
+                          "start": {
+                            "line": 10,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 10,
+                            "column": 17
+                          }
+                        },
+                        {
+                          "kind": 42,
+                          "attributes": [],
+                          "iterations": [
+                            {
+                              "kind": 0,
+                              "attributes": [],
+                              "modifiers": [],
+                              "expression": {
+                                "kind": 67,
+                                "modifiers": [],
+                                "object": {
+                                  "kind": 47,
+                                  "modifiers": [],
+                                  "name": "data",
+                                  "start": {
+                                    "line": 11,
+                                    "column": 27
+                                  },
+                                  "end": {
+                                    "line": 11,
+                                    "column": 31
+                                  }
+                                },
+                                "property": {
+                                  "kind": 47,
+                                  "modifiers": [],
+                                  "name": "components",
+                                  "start": {
+                                    "line": 11,
+                                    "column": 32
+                                  },
+                                  "end": {
+                                    "line": 11,
+                                    "column": 42
+                                  }
+                                },
+                                "start": {
+                                  "line": 11,
+                                  "column": 27
+                                },
+                                "end": {
+                                  "line": 11,
+                                  "column": 42
+                                }
+                              },
+                              "value": {
+                                "kind": 47,
+                                "modifiers": [],
+                                "name": "name",
+                                "start": {
+                                  "line": 11,
+                                  "column": 8
+                                },
+                                "end": {
+                                  "line": 11,
+                                  "column": 12
+                                }
+                              },
+                              "index": {
+                                "kind": 47,
+                                "modifiers": [],
+                                "name": "component",
+                                "start": {
+                                  "line": 11,
+                                  "column": 14
+                                },
+                                "end": {
+                                  "line": 11,
+                                  "column": 23
+                                }
+                              },
+                              "start": {
+                                "line": 11,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 11,
+                                "column": 42
+                              }
+                            }
+                          ],
+                          "body": {
+                            "kind": 15,
+                            "attributes": [],
+                            "statements": [
+                              {
+                                "kind": 39,
+                                "attributes": [],
+                                "expression": {
+                                  "kind": 11,
+                                  "modifiers": [],
+                                  "operator": {
+                                    "kind": 2,
+                                    "assignment": 15,
+                                    "start": {
+                                      "line": 12,
+                                      "column": 11
+                                    },
+                                    "end": {
+                                      "line": 12,
+                                      "column": 12
+                                    }
+                                  },
+                                  "left": {
+                                    "kind": 47,
+                                    "modifiers": [],
+                                    "name": "field",
+                                    "start": {
+                                      "line": 12,
+                                      "column": 5
+                                    },
+                                    "end": {
+                                      "line": 12,
+                                      "column": 10
+                                    }
+                                  },
+                                  "right": {
+                                    "kind": 116,
+                                    "modifiers": [],
+                                    "elements": [
+                                      {
+                                        "kind": 58,
+                                        "modifiers": [],
+                                        "value": "_",
+                                        "start": {
+                                          "line": 12,
+                                          "column": 14
+                                        },
+                                        "end": {
+                                          "line": 12,
+                                          "column": 15
+                                        }
+                                      },
+                                      {
+                                        "kind": 47,
+                                        "modifiers": [],
+                                        "name": "name",
+                                        "start": {
+                                          "line": 12,
+                                          "column": 17
+                                        },
+                                        "end": {
+                                          "line": 12,
+                                          "column": 21
+                                        }
+                                      }
+                                    ],
+                                    "start": {
+                                      "line": 12,
+                                      "column": 13
+                                    },
+                                    "end": {
+                                      "line": 12,
+                                      "column": 23
+                                    }
+                                  },
+                                  "start": {
+                                    "line": 12,
+                                    "column": 5
+                                  },
+                                  "end": {
+                                    "line": 12,
+                                    "column": 23
+                                  }
+                                },
+                                "start": {
+                                  "line": 12,
+                                  "column": 5
+                                },
+                                "end": {
+                                  "line": 12,
+                                  "column": 23
+                                }
+                              },
+                              {
+                                "kind": 39,
+                                "attributes": [],
+                                "expression": {
+                                  "kind": 18,
+                                  "modifiers": [],
+                                  "scope": {
+                                    "kind": 2
+                                  },
+                                  "callee": {
+                                    "kind": 67,
+                                    "modifiers": [],
+                                    "object": {
+                                      "kind": 47,
+                                      "modifiers": [],
+                                      "name": "fields",
+                                      "start": {
+                                        "line": 14,
+                                        "column": 5
+                                      },
+                                      "end": {
+                                        "line": 14,
+                                        "column": 11
+                                      }
+                                    },
+                                    "property": {
+                                      "kind": 47,
+                                      "modifiers": [],
+                                      "name": "push",
+                                      "start": {
+                                        "line": 14,
+                                        "column": 12
+                                      },
+                                      "end": {
+                                        "line": 14,
+                                        "column": 16
+                                      }
+                                    },
+                                    "start": {
+                                      "line": 14,
+                                      "column": 5
+                                    },
+                                    "end": {
+                                      "line": 14,
+                                      "column": 16
+                                    }
+                                  },
+                                  "arguments": [
+                                    {
+                                      "kind": 93,
+                                      "attributes": [],
+                                      "elements": [
+                                        {
+                                          "kind": 3,
+                                          "value": "private ",
+                                          "start": {
+                                            "line": 14,
+                                            "column": 23
+                                          },
+                                          "end": {
+                                            "line": 14,
+                                            "column": 31
+                                          }
+                                        },
+                                        {
+                                          "kind": 2,
+                                          "expression": {
+                                            "kind": 47,
+                                            "modifiers": [],
+                                            "name": "field",
+                                            "start": {
+                                              "line": 14,
+                                              "column": 33
+                                            },
+                                            "end": {
+                                              "line": 14,
+                                              "column": 38
+                                            }
+                                          },
+                                          "reifications": [],
+                                          "start": {
+                                            "line": 14,
+                                            "column": 31
+                                          },
+                                          "end": {
+                                            "line": 14,
+                                            "column": 39
+                                          }
+                                        },
+                                        {
+                                          "kind": 3,
+                                          "value": ": ",
+                                          "start": {
+                                            "line": 14,
+                                            "column": 39
+                                          },
+                                          "end": {
+                                            "line": 14,
+                                            "column": 41
+                                          }
+                                        },
+                                        {
+                                          "kind": 2,
+                                          "expression": {
+                                            "kind": 67,
+                                            "modifiers": [],
+                                            "object": {
+                                              "kind": 47,
+                                              "modifiers": [],
+                                              "name": "component",
+                                              "start": {
+                                                "line": 14,
+                                                "column": 43
+                                              },
+                                              "end": {
+                                                "line": 14,
+                                                "column": 52
+                                              }
+                                            },
+                                            "property": {
+                                              "kind": 47,
+                                              "modifiers": [],
+                                              "name": "type",
+                                              "start": {
+                                                "line": 14,
+                                                "column": 53
+                                              },
+                                              "end": {
+                                                "line": 14,
+                                                "column": 57
+                                              }
+                                            },
+                                            "start": {
+                                              "line": 14,
+                                              "column": 43
+                                            },
+                                            "end": {
+                                              "line": 14,
+                                              "column": 57
+                                            }
+                                          },
+                                          "reifications": [],
+                                          "start": {
+                                            "line": 14,
+                                            "column": 41
+                                          },
+                                          "end": {
+                                            "line": 14,
+                                            "column": 58
+                                          }
+                                        }
+                                      ],
+                                      "start": {
+                                        "line": 14,
+                                        "column": 17
+                                      },
+                                      "end": {
+                                        "line": 14,
+                                        "column": 58
+                                      }
+                                    }
+                                  ],
+                                  "start": {
+                                    "line": 14,
+                                    "column": 5
+                                  },
+                                  "end": {
+                                    "line": 14,
+                                    "column": 59
+                                  }
+                                },
+                                "start": {
+                                  "line": 14,
+                                  "column": 5
+                                },
+                                "end": {
+                                  "line": 14,
+                                  "column": 59
+                                }
+                              },
+                              {
+                                "kind": 39,
+                                "attributes": [],
+                                "expression": {
+                                  "kind": 18,
+                                  "modifiers": [],
+                                  "scope": {
+                                    "kind": 2
+                                  },
+                                  "callee": {
+                                    "kind": 67,
+                                    "modifiers": [],
+                                    "object": {
+                                      "kind": 47,
+                                      "modifiers": [],
+                                      "name": "methods",
+                                      "start": {
+                                        "line": 16,
+                                        "column": 5
+                                      },
+                                      "end": {
+                                        "line": 16,
+                                        "column": 12
+                                      }
+                                    },
+                                    "property": {
+                                      "kind": 47,
+                                      "modifiers": [],
+                                      "name": "push",
+                                      "start": {
+                                        "line": 16,
+                                        "column": 13
+                                      },
+                                      "end": {
+                                        "line": 16,
+                                        "column": 17
+                                      }
+                                    },
+                                    "start": {
+                                      "line": 16,
+                                      "column": 5
+                                    },
+                                    "end": {
+                                      "line": 16,
+                                      "column": 17
+                                    }
+                                  },
+                                  "arguments": [
+                                    {
+                                      "kind": 93,
+                                      "attributes": [],
+                                      "elements": [
+                                        {
+                                          "kind": 2,
+                                          "expression": {
+                                            "kind": 47,
+                                            "modifiers": [],
+                                            "name": "name",
+                                            "start": {
+                                              "line": 17,
+                                              "column": 8
+                                            },
+                                            "end": {
+                                              "line": 17,
+                                              "column": 12
+                                            }
+                                          },
+                                          "reifications": [],
+                                          "start": {
+                                            "line": 17,
+                                            "column": 6
+                                          },
+                                          "end": {
+                                            "line": 17,
+                                            "column": 13
+                                          }
+                                        },
+                                        {
+                                          "kind": 3,
+                                          "value": "() => this.getField(",
+                                          "start": {
+                                            "line": 17,
+                                            "column": 13
+                                          },
+                                          "end": {
+                                            "line": 17,
+                                            "column": 33
+                                          }
+                                        },
+                                        {
+                                          "kind": 2,
+                                          "expression": {
+                                            "kind": 47,
+                                            "modifiers": [],
+                                            "name": "name",
+                                            "start": {
+                                              "line": 17,
+                                              "column": 36
+                                            },
+                                            "end": {
+                                              "line": 17,
+                                              "column": 40
+                                            }
+                                          },
+                                          "reifications": [
+                                            {
+                                              "kind": 6,
+                                              "start": {
+                                                "line": 17,
+                                                "column": 34
+                                              },
+                                              "end": {
+                                                "line": 17,
+                                                "column": 35
+                                              }
+                                            }
+                                          ],
+                                          "start": {
+                                            "line": 17,
+                                            "column": 33
+                                          },
+                                          "end": {
+                                            "line": 17,
+                                            "column": 41
+                                          }
+                                        },
+                                        {
+                                          "kind": 3,
+                                          "value": ")",
+                                          "start": {
+                                            "line": 17,
+                                            "column": 41
+                                          },
+                                          "end": {
+                                            "line": 17,
+                                            "column": 42
+                                          }
+                                        },
+                                        {
+                                          "kind": 4,
+                                          "start": {
+                                            "line": 17,
+                                            "column": 42
+                                          },
+                                          "end": {
+                                            "line": 18,
+                                            "column": 1
+                                          }
+                                        },
+                                        {
+                                          "kind": 2,
+                                          "expression": {
+                                            "kind": 47,
+                                            "modifiers": [],
+                                            "name": "name",
+                                            "start": {
+                                              "line": 18,
+                                              "column": 8
+                                            },
+                                            "end": {
+                                              "line": 18,
+                                              "column": 12
+                                            }
+                                          },
+                                          "reifications": [],
+                                          "start": {
+                                            "line": 18,
+                                            "column": 6
+                                          },
+                                          "end": {
+                                            "line": 18,
+                                            "column": 13
+                                          }
+                                        },
+                                        {
+                                          "kind": 3,
+                                          "value": "(value) => this.setField(",
+                                          "start": {
+                                            "line": 18,
+                                            "column": 13
+                                          },
+                                          "end": {
+                                            "line": 18,
+                                            "column": 38
+                                          }
+                                        },
+                                        {
+                                          "kind": 2,
+                                          "expression": {
+                                            "kind": 47,
+                                            "modifiers": [],
+                                            "name": "name",
+                                            "start": {
+                                              "line": 18,
+                                              "column": 41
+                                            },
+                                            "end": {
+                                              "line": 18,
+                                              "column": 45
+                                            }
+                                          },
+                                          "reifications": [
+                                            {
+                                              "kind": 6,
+                                              "start": {
+                                                "line": 18,
+                                                "column": 39
+                                              },
+                                              "end": {
+                                                "line": 18,
+                                                "column": 40
+                                              }
+                                            }
+                                          ],
+                                          "start": {
+                                            "line": 18,
+                                            "column": 38
+                                          },
+                                          "end": {
+                                            "line": 18,
+                                            "column": 46
+                                          }
+                                        },
+                                        {
+                                          "kind": 3,
+                                          "value": ", value)",
+                                          "start": {
+                                            "line": 18,
+                                            "column": 46
+                                          },
+                                          "end": {
+                                            "line": 18,
+                                            "column": 54
+                                          }
+                                        },
+                                        {
+                                          "kind": 4,
+                                          "start": {
+                                            "line": 18,
+                                            "column": 54
+                                          },
+                                          "end": {
+                                            "line": 19,
+                                            "column": 1
+                                          }
+                                        }
+                                      ],
+                                      "start": {
+                                        "line": 16,
+                                        "column": 18
+                                      },
+                                      "end": {
+                                        "line": 19,
+                                        "column": 6
+                                      }
+                                    }
+                                  ],
+                                  "start": {
+                                    "line": 16,
+                                    "column": 5
+                                  },
+                                  "end": {
+                                    "line": 19,
+                                    "column": 7
+                                  }
+                                },
+                                "start": {
+                                  "line": 16,
+                                  "column": 5
+                                },
+                                "end": {
+                                  "line": 19,
+                                  "column": 7
+                                }
+                              },
+                              {
+                                "kind": 39,
+                                "attributes": [],
+                                "expression": {
+                                  "kind": 11,
+                                  "modifiers": [],
+                                  "operator": {
+                                    "kind": 2,
+                                    "assignment": 15,
+                                    "start": {
+                                      "line": 21,
+                                      "column": 33
+                                    },
+                                    "end": {
+                                      "line": 21,
+                                      "column": 34
+                                    }
+                                  },
+                                  "left": {
+                                    "kind": 67,
+                                    "modifiers": [],
+                                    "object": {
+                                      "kind": 67,
+                                      "modifiers": [
+                                        {
+                                          "kind": 8,
+                                          "start": {
+                                            "line": 21,
+                                            "column": 20
+                                          },
+                                          "end": {
+                                            "line": 21,
+                                            "column": 21
+                                          }
+                                        }
+                                      ],
+                                      "object": {
+                                        "kind": 67,
+                                        "modifiers": [],
+                                        "object": {
+                                          "kind": 47,
+                                          "modifiers": [],
+                                          "name": "data",
+                                          "start": {
+                                            "line": 21,
+                                            "column": 5
+                                          },
+                                          "end": {
+                                            "line": 21,
+                                            "column": 9
+                                          }
+                                        },
+                                        "property": {
+                                          "kind": 47,
+                                          "modifiers": [],
+                                          "name": "components",
+                                          "start": {
+                                            "line": 21,
+                                            "column": 10
+                                          },
+                                          "end": {
+                                            "line": 21,
+                                            "column": 20
+                                          }
+                                        },
+                                        "start": {
+                                          "line": 21,
+                                          "column": 5
+                                        },
+                                        "end": {
+                                          "line": 21,
+                                          "column": 20
+                                        }
+                                      },
+                                      "property": {
+                                        "kind": 47,
+                                        "modifiers": [],
+                                        "name": "name",
+                                        "start": {
+                                          "line": 21,
+                                          "column": 21
+                                        },
+                                        "end": {
+                                          "line": 21,
+                                          "column": 25
+                                        }
+                                      },
+                                      "start": {
+                                        "line": 21,
+                                        "column": 5
+                                      },
+                                      "end": {
+                                        "line": 21,
+                                        "column": 26
+                                      }
+                                    },
+                                    "property": {
+                                      "kind": 47,
+                                      "modifiers": [],
+                                      "name": "field",
+                                      "start": {
+                                        "line": 21,
+                                        "column": 27
+                                      },
+                                      "end": {
+                                        "line": 21,
+                                        "column": 32
+                                      }
+                                    },
+                                    "start": {
+                                      "line": 21,
+                                      "column": 5
+                                    },
+                                    "end": {
+                                      "line": 21,
+                                      "column": 32
+                                    }
+                                  },
+                                  "right": {
+                                    "kind": 47,
+                                    "modifiers": [],
+                                    "name": "field",
+                                    "start": {
+                                      "line": 21,
+                                      "column": 35
+                                    },
+                                    "end": {
+                                      "line": 21,
+                                      "column": 40
+                                    }
+                                  },
+                                  "start": {
+                                    "line": 21,
+                                    "column": 5
+                                  },
+                                  "end": {
+                                    "line": 21,
+                                    "column": 40
+                                  }
+                                },
+                                "start": {
+                                  "line": 21,
+                                  "column": 5
+                                },
+                                "end": {
+                                  "line": 21,
+                                  "column": 40
+                                }
+                              }
+                            ],
+                            "start": {
+                              "line": 11,
+                              "column": 43
+                            },
+                            "end": {
+                              "line": 22,
+                              "column": 5
+                            }
+                          },
+                          "start": {
+                            "line": 11,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 22,
+                            "column": 5
+                          }
+                        },
+                        {
+                          "kind": 39,
+                          "attributes": [],
+                          "expression": {
+                            "kind": 93,
+                            "attributes": [],
+                            "elements": [
+                              {
+                                "kind": 3,
+                                "value": "Color.registerSpace(",
+                                "start": {
+                                  "line": 25,
+                                  "column": 5
+                                },
+                                "end": {
+                                  "line": 25,
+                                  "column": 25
+                                }
+                              },
+                              {
+                                "kind": 2,
+                                "expression": {
+                                  "kind": 47,
+                                  "modifiers": [],
+                                  "name": "data",
+                                  "start": {
+                                    "line": 25,
+                                    "column": 27
+                                  },
+                                  "end": {
+                                    "line": 25,
+                                    "column": 31
+                                  }
+                                },
+                                "reifications": [],
+                                "start": {
+                                  "line": 25,
+                                  "column": 25
+                                },
+                                "end": {
+                                  "line": 25,
+                                  "column": 32
+                                }
+                              },
+                              {
+                                "kind": 3,
+                                "value": ")",
+                                "start": {
+                                  "line": 25,
+                                  "column": 32
+                                },
+                                "end": {
+                                  "line": 25,
+                                  "column": 33
+                                }
+                              },
+                              {
+                                "kind": 4,
+                                "start": {
+                                  "line": 25,
+                                  "column": 33
+                                },
+                                "end": {
+                                  "line": 26,
+                                  "column": 1
+                                }
+                              },
+                              {
+                                "kind": 4,
+                                "start": {
+                                  "line": 26,
+                                  "column": 1
+                                },
+                                "end": {
+                                  "line": 27,
+                                  "column": 1
+                                }
+                              },
+                              {
+                                "kind": 3,
+                                "value": "impl Color {",
+                                "start": {
+                                  "line": 27,
+                                  "column": 5
+                                },
+                                "end": {
+                                  "line": 27,
+                                  "column": 17
+                                }
+                              },
+                              {
+                                "kind": 4,
+                                "start": {
+                                  "line": 27,
+                                  "column": 17
+                                },
+                                "end": {
+                                  "line": 28,
+                                  "column": 1
+                                }
+                              },
+                              {
+                                "kind": 2,
+                                "expression": {
+                                  "kind": 47,
+                                  "modifiers": [],
+                                  "name": "fields",
+                                  "start": {
+                                    "line": 28,
+                                    "column": 9
+                                  },
+                                  "end": {
+                                    "line": 28,
+                                    "column": 15
+                                  }
+                                },
+                                "reifications": [
+                                  {
+                                    "kind": 2,
+                                    "start": {
+                                      "line": 28,
+                                      "column": 7
+                                    },
+                                    "end": {
+                                      "line": 28,
+                                      "column": 8
+                                    }
+                                  }
+                                ],
+                                "start": {
+                                  "line": 28,
+                                  "column": 6
+                                },
+                                "end": {
+                                  "line": 28,
+                                  "column": 16
+                                }
+                              },
+                              {
+                                "kind": 4,
+                                "start": {
+                                  "line": 28,
+                                  "column": 16
+                                },
+                                "end": {
+                                  "line": 29,
+                                  "column": 1
+                                }
+                              },
+                              {
+                                "kind": 2,
+                                "expression": {
+                                  "kind": 47,
+                                  "modifiers": [],
+                                  "name": "methods",
+                                  "start": {
+                                    "line": 29,
+                                    "column": 9
+                                  },
+                                  "end": {
+                                    "line": 29,
+                                    "column": 16
+                                  }
+                                },
+                                "reifications": [
+                                  {
+                                    "kind": 2,
+                                    "start": {
+                                      "line": 29,
+                                      "column": 7
+                                    },
+                                    "end": {
+                                      "line": 29,
+                                      "column": 8
+                                    }
+                                  }
+                                ],
+                                "start": {
+                                  "line": 29,
+                                  "column": 6
+                                },
+                                "end": {
+                                  "line": 29,
+                                  "column": 17
+                                }
+                              },
+                              {
+                                "kind": 4,
+                                "start": {
+                                  "line": 29,
+                                  "column": 17
+                                },
+                                "end": {
+                                  "line": 30,
+                                  "column": 1
+                                }
+                              },
+                              {
+                                "kind": 3,
+                                "value": "}",
+                                "start": {
+                                  "line": 30,
+                                  "column": 5
+                                },
+                                "end": {
+                                  "line": 30,
+                                  "column": 6
+                                }
+                              },
+                              {
+                                "kind": 4,
+                                "start": {
+                                  "line": 30,
+                                  "column": 6
+                                },
+                                "end": {
+                                  "line": 31,
+                                  "column": 1
+                                }
+                              }
+                            ],
+                            "start": {
+                              "line": 24,
+                              "column": 4
+                            },
+                            "end": {
+                              "line": 31,
+                              "column": 5
+                            }
+                          },
+                          "start": {
+                            "line": 24,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 31,
+                            "column": 5
+                          }
+                        }
+                      ],
+                      "start": {
+                        "line": 6,
+                        "column": 23
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 4
+                      }
+                    },
+                    "whenFalse": {
+                      "kind": 15,
+                      "attributes": [],
+                      "statements": [
+                        {
+                          "kind": 39,
+                          "attributes": [],
+                          "expression": {
+                            "kind": 93,
+                            "attributes": [],
+                            "elements": [
+                              {
+                                "kind": 3,
+                                "value": "Color.registerSpace(",
+                                "start": {
+                                  "line": 34,
+                                  "column": 10
+                                },
+                                "end": {
+                                  "line": 34,
+                                  "column": 30
+                                }
+                              },
+                              {
+                                "kind": 2,
+                                "expression": {
+                                  "kind": 47,
+                                  "modifiers": [],
+                                  "name": "data",
+                                  "start": {
+                                    "line": 34,
+                                    "column": 32
+                                  },
+                                  "end": {
+                                    "line": 34,
+                                    "column": 36
+                                  }
+                                },
+                                "reifications": [],
+                                "start": {
+                                  "line": 34,
+                                  "column": 30
+                                },
+                                "end": {
+                                  "line": 34,
+                                  "column": 37
+                                }
+                              },
+                              {
+                                "kind": 3,
+                                "value": ")",
+                                "start": {
+                                  "line": 34,
+                                  "column": 37
+                                },
+                                "end": {
+                                  "line": 34,
+                                  "column": 38
+                                }
+                              }
+                            ],
+                            "start": {
+                              "line": 34,
+                              "column": 4
+                            },
+                            "end": {
+                              "line": 34,
+                              "column": 38
+                            }
+                          },
+                          "start": {
+                            "line": 34,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 34,
+                            "column": 38
+                          }
+                        }
+                      ],
+                      "start": {
+                        "line": 33,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 35,
+                        "column": 4
+                      }
+                    },
+                    "start": {
+                      "line": 6,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 35,
+                      "column": 4
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 5,
+                  "column": 30
+                },
+                "end": {
+                  "line": 36,
+                  "column": 3
+                }
+              },
+              "start": {
+                "line": 5,
+                "column": 2
+              },
+              "end": {
+                "line": 36,
+                "column": 3
+              }
+            }
+          ],
+          "start": {
+            "line": 4,
+            "column": 9
+          },
+          "end": {
+            "line": 37,
+            "column": 2
+          }
+        }
+      ],
+      "start": {
+        "line": 4,
+        "column": 1
+      },
+      "end": {
+        "line": 37,
+        "column": 2
+      }
+    },
+    {
+      "kind": 39,
+      "attributes": [],
+      "expression": {
+        "kind": 18,
+        "modifiers": [],
+        "scope": {
+          "kind": 2
+        },
+        "callee": {
+          "kind": 67,
+          "modifiers": [],
+          "object": {
+            "kind": 47,
+            "modifiers": [],
+            "name": "Color",
+            "start": {
+              "line": 39,
+              "column": 1
+            },
+            "end": {
+              "line": 39,
+              "column": 6
+            }
+          },
+          "property": {
+            "kind": 47,
+            "modifiers": [],
+            "name": "registerSpace",
+            "start": {
+              "line": 39,
+              "column": 7
+            },
+            "end": {
+              "line": 39,
+              "column": 20
+            }
+          },
+          "start": {
+            "line": 39,
+            "column": 1
+          },
+          "end": {
+            "line": 39,
+            "column": 20
+          }
+        },
+        "arguments": [
+          {
+            "kind": 78,
+            "modifiers": [],
+            "attributes": [],
+            "properties": [
+              {
+                "kind": 79,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 47,
+                  "modifiers": [],
+                  "name": "name",
+                  "start": {
+                    "line": 40,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 40,
+                    "column": 6
+                  }
+                },
+                "value": {
+                  "kind": 67,
+                  "modifiers": [],
+                  "object": {
+                    "kind": 47,
+                    "modifiers": [],
+                    "name": "Space",
+                    "start": {
+                      "line": 40,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 40,
+                      "column": 13
+                    }
+                  },
+                  "property": {
+                    "kind": 47,
+                    "modifiers": [],
+                    "name": "SRGB",
+                    "start": {
+                      "line": 40,
+                      "column": 14
+                    },
+                    "end": {
+                      "line": 40,
+                      "column": 18
+                    }
+                  },
+                  "start": {
+                    "line": 40,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 40,
+                    "column": 18
+                  }
+                },
+                "start": {
+                  "line": 40,
+                  "column": 2
+                },
+                "end": {
+                  "line": 40,
+                  "column": 18
+                }
+              },
+              {
+                "kind": 79,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 47,
+                  "modifiers": [],
+                  "name": "alias",
+                  "start": {
+                    "line": 41,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 41,
+                    "column": 7
+                  }
+                },
+                "value": {
+                  "kind": 4,
+                  "modifiers": [],
+                  "values": [
+                    {
+                      "kind": 67,
+                      "modifiers": [],
+                      "object": {
+                        "kind": 47,
+                        "modifiers": [],
+                        "name": "Space",
+                        "start": {
+                          "line": 41,
+                          "column": 10
+                        },
+                        "end": {
+                          "line": 41,
+                          "column": 15
+                        }
+                      },
+                      "property": {
+                        "kind": 47,
+                        "modifiers": [],
+                        "name": "RGB",
+                        "start": {
+                          "line": 41,
+                          "column": 16
+                        },
+                        "end": {
+                          "line": 41,
+                          "column": 19
+                        }
+                      },
+                      "start": {
+                        "line": 41,
+                        "column": 10
+                      },
+                      "end": {
+                        "line": 41,
+                        "column": 19
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 41,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 41,
+                    "column": 20
+                  }
+                },
+                "start": {
+                  "line": 41,
+                  "column": 2
+                },
+                "end": {
+                  "line": 41,
+                  "column": 20
+                }
+              },
+              {
+                "kind": 79,
+                "attributes": [],
+                "modifiers": [],
+                "name": {
+                  "kind": 47,
+                  "modifiers": [],
+                  "name": "components",
+                  "start": {
+                    "line": 42,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 42,
+                    "column": 12
+                  }
+                },
+                "value": {
+                  "kind": 78,
+                  "modifiers": [],
+                  "attributes": [],
+                  "properties": [
+                    {
+                      "kind": 79,
+                      "attributes": [],
+                      "modifiers": [],
+                      "name": {
+                        "kind": 47,
+                        "modifiers": [],
+                        "name": "red",
+                        "start": {
+                          "line": 43,
+                          "column": 3
+                        },
+                        "end": {
+                          "line": 43,
+                          "column": 6
+                        }
+                      },
+                      "value": {
+                        "kind": 78,
+                        "modifiers": [],
+                        "attributes": [],
+                        "properties": [
+                          {
+                            "kind": 79,
+                            "attributes": [],
+                            "modifiers": [],
+                            "name": {
+                              "kind": 47,
+                              "modifiers": [],
+                              "name": "max",
+                              "start": {
+                                "line": 44,
+                                "column": 4
+                              },
+                              "end": {
+                                "line": 44,
+                                "column": 7
+                              }
+                            },
+                            "value": {
+                              "kind": 75,
+                              "modifiers": [],
+                              "value": 255,
+                              "radix": 10,
+                              "start": {
+                                "line": 44,
+                                "column": 9
+                              },
+                              "end": {
+                                "line": 44,
+                                "column": 12
+                              }
+                            },
+                            "start": {
+                              "line": 44,
+                              "column": 4
+                            },
+                            "end": {
+                              "line": 44,
+                              "column": 12
+                            }
+                          }
+                        ],
+                        "start": {
+                          "line": 43,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 45,
+                          "column": 4
+                        }
+                      },
+                      "start": {
+                        "line": 43,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 45,
+                        "column": 4
+                      }
+                    },
+                    {
+                      "kind": 79,
+                      "attributes": [],
+                      "modifiers": [],
+                      "name": {
+                        "kind": 47,
+                        "modifiers": [],
+                        "name": "green",
+                        "start": {
+                          "line": 46,
+                          "column": 3
+                        },
+                        "end": {
+                          "line": 46,
+                          "column": 8
+                        }
+                      },
+                      "value": {
+                        "kind": 78,
+                        "modifiers": [],
+                        "attributes": [],
+                        "properties": [
+                          {
+                            "kind": 79,
+                            "attributes": [],
+                            "modifiers": [],
+                            "name": {
+                              "kind": 47,
+                              "modifiers": [],
+                              "name": "max",
+                              "start": {
+                                "line": 47,
+                                "column": 4
+                              },
+                              "end": {
+                                "line": 47,
+                                "column": 7
+                              }
+                            },
+                            "value": {
+                              "kind": 75,
+                              "modifiers": [],
+                              "value": 255,
+                              "radix": 10,
+                              "start": {
+                                "line": 47,
+                                "column": 9
+                              },
+                              "end": {
+                                "line": 47,
+                                "column": 12
+                              }
+                            },
+                            "start": {
+                              "line": 47,
+                              "column": 4
+                            },
+                            "end": {
+                              "line": 47,
+                              "column": 12
+                            }
+                          }
+                        ],
+                        "start": {
+                          "line": 46,
+                          "column": 10
+                        },
+                        "end": {
+                          "line": 48,
+                          "column": 4
+                        }
+                      },
+                      "start": {
+                        "line": 46,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 48,
+                        "column": 4
+                      }
+                    },
+                    {
+                      "kind": 79,
+                      "attributes": [],
+                      "modifiers": [],
+                      "name": {
+                        "kind": 47,
+                        "modifiers": [],
+                        "name": "blue",
+                        "start": {
+                          "line": 49,
+                          "column": 3
+                        },
+                        "end": {
+                          "line": 49,
+                          "column": 7
+                        }
+                      },
+                      "value": {
+                        "kind": 78,
+                        "modifiers": [],
+                        "attributes": [],
+                        "properties": [
+                          {
+                            "kind": 79,
+                            "attributes": [],
+                            "modifiers": [],
+                            "name": {
+                              "kind": 47,
+                              "modifiers": [],
+                              "name": "max",
+                              "start": {
+                                "line": 50,
+                                "column": 4
+                              },
+                              "end": {
+                                "line": 50,
+                                "column": 7
+                              }
+                            },
+                            "value": {
+                              "kind": 75,
+                              "modifiers": [],
+                              "value": 255,
+                              "radix": 10,
+                              "start": {
+                                "line": 50,
+                                "column": 9
+                              },
+                              "end": {
+                                "line": 50,
+                                "column": 12
+                              }
+                            },
+                            "start": {
+                              "line": 50,
+                              "column": 4
+                            },
+                            "end": {
+                              "line": 50,
+                              "column": 12
+                            }
+                          }
+                        ],
+                        "start": {
+                          "line": 49,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 51,
+                          "column": 4
+                        }
+                      },
+                      "start": {
+                        "line": 49,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 51,
+                        "column": 4
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 42,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 52,
+                    "column": 3
+                  }
+                },
+                "start": {
+                  "line": 42,
+                  "column": 2
+                },
+                "end": {
+                  "line": 52,
+                  "column": 3
+                }
+              }
+            ],
+            "start": {
+              "line": 39,
+              "column": 21
+            },
+            "end": {
+              "line": 53,
+              "column": 2
+            }
+          }
+        ],
+        "start": {
+          "line": 39,
+          "column": 1
+        },
+        "end": {
+          "line": 53,
+          "column": 3
+        }
+      },
+      "start": {
+        "line": 39,
+        "column": 1
+      },
+      "end": {
+        "line": 53,
+        "column": 3
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 53,
+    "column": 3
+  }
+}

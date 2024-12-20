@@ -64,7 +64,7 @@ enum Token {
 	EXCLAMATION_EQUALS
 	EXCLAMATION_EXCLAMATION
 	EXCLAMATION_EXCLAMATION_EXCLAMATION
-	EXCLAMATION_LROUND
+	EXCLAMATION_LEFT_ROUND
 	EXCLAMATION_QUESTION
 	EXCLAMATION_QUESTION_EQUALS
 	EXCLAMATION_QUESTION_HASH_EQUALS
@@ -86,16 +86,29 @@ enum Token {
 	GET
 	HASH
 	HASH_A_LEFT_ROUND
-	HASH_E_LEFT_ROUND
+	HASH_AC_LEFT_ROUND
+	HASH_AI_LEFT_ROUND
+	HASH_AV_LEFT_ROUND
+	HASH_B_LEFT_ROUND
+	HASH_BC_LEFT_ROUND
+	HASH_BI_LEFT_ROUND
+	HASH_BV_LEFT_ROUND
+	HASH_C_LEFT_ROUND
 	HASH_EXCLAMATION
 	HASH_EXCLAMATION_LEFT_SQUARE
+	HASH_HASH
+	HASH_I_LEFT_ROUND
 	HASH_J_LEFT_ROUND
+	HASH_JCC_LEFT_ROUND
+	HASH_JIC_LEFT_ROUND
+	HASH_JVC_LEFT_ROUND
 	HASH_LEFT_ANGLE_PIPE
 	HASH_LEFT_ANGLE_PIPE_ASTERISK
+	HASH_LEFT_CURLY
 	HASH_LEFT_ROUND
 	HASH_LEFT_SQUARE
-	HASH_S_LEFT_ROUND
-	HASH_W_LEFT_ROUND
+	HASH_RIGHT_CURLY
+	HASH_V_LEFT_ROUND
 	HEX_NUMBER
 	IDENTIFIER
 	IF
@@ -119,6 +132,7 @@ enum Token {
 	LEFT_CURLY
 	LEFT_ROUND
 	LEFT_SQUARE
+	MACRO
 	MATCH
 	MINUS
 	MINUS_EQUALS
@@ -445,6 +459,14 @@ enum Token {
 					return scanner.next(8)
 				}
 			} # }}}
+			.DO { # {{{
+				if	c == 0'd' &&
+					scanner.charAt(1) == 0'o' &&
+					scanner.isBoundary(2)
+				{
+					return scanner.next(2)
+				}
+			} # }}}
 			.DOT { # {{{
 				if c == 46 && scanner.charAt(1) != 46 {
 					return scanner.next(1)
@@ -664,6 +686,16 @@ enum Token {
 					return scanner.next(2)
 				}
 			} # }}}
+			.IMPL { # {{{
+				if	c == 105 &&
+					scanner.charAt(1) == 109 &&
+					scanner.charAt(2) == 112 &&
+					scanner.charAt(3) == 108 &&
+					scanner.isBoundary(4)
+				{
+					return scanner.next(4)
+				}
+			} # }}}
 			.IMPLEMENTS { # {{{
 				if	c == 105 &&
 					scanner.charAt(1) == 109 &&
@@ -761,6 +793,17 @@ enum Token {
 					return scanner.next(1)
 				}
 			} # }}}
+			.MACRO { # {{{
+				if	c == 0'm' &&
+					scanner.charAt(1) == 0'a' &&
+					scanner.charAt(2) == 0'c' &&
+					scanner.charAt(3) == 0'r' &&
+					scanner.charAt(4) == 0'o' &&
+					scanner.isSpace(5)
+				{
+					return scanner.next(5)
+				}
+			} # }}}
 			.MATCH { # {{{
 				if	c == 109 &&
 					scanner.charAt(1) == 97 &&
@@ -804,6 +847,21 @@ enum Token {
 					scanner.isBoundary(3)
 				{
 					return scanner.next(3)
+				}
+			} # }}}
+			.NAMESPACE { # {{{
+				if	c == 0'n' &&
+					scanner.charAt(1) == 0'a' &&
+					scanner.charAt(2) == 0'm' &&
+					scanner.charAt(3) == 0'e' &&
+					scanner.charAt(4) == 0's' &&
+					scanner.charAt(5) == 0'p' &&
+					scanner.charAt(6) == 0'a' &&
+					scanner.charAt(7) == 0'c' &&
+					scanner.charAt(8) == 0'e' &&
+					scanner.isBoundary(9)
+				{
+					return scanner.next(9)
 				}
 			} # }}}
 			.NEW { # {{{
@@ -2246,6 +2304,15 @@ namespace M {
 				return Token.IDENTIFIER
 			}
 		}
+		// macro
+		else if c == 0'm' {
+			if fMode == .Syntime && that.scanIdentifier(true) == 'acro' {
+				return .MACRO
+			}
+			else {
+				return .IDENTIFIER
+			}
+		}
 		// namespace
 		else if c == 110 {
 			if that.scanIdentifier(true) == 'amespace' {
@@ -2265,7 +2332,7 @@ namespace M {
 			else if identifier == 'truct' {
 				return Token.STRUCT
 			}
-			else if identifier == 'yntime' {
+			else if fMode != .Syntime && identifier == 'yntime' {
 				return Token.SYNTIME
 			}
 			else {
@@ -2815,7 +2882,7 @@ namespace M {
 			if that.charAt(1) == 0'(' {
 				that.next(2)
 
-				return Token.EXCLAMATION_LROUND
+				return Token.EXCLAMATION_LEFT_ROUND
 			}
 		}
 
@@ -2875,7 +2942,7 @@ namespace M {
 		else if c == 0'#' {
 			c = that.charAt(1)
 
-			if c != 0'#' & 0'=' {
+			if c != 0'#' & 0'=' & 0'(' {
 				that.next(1)
 
 				return Token.HASH
@@ -2949,7 +3016,7 @@ namespace M {
 		return Token.INVALID
 	} # }}}
 	func QUOTE(that: Scanner, mut index: Number, eMode: ExpressionMode?, fMode: FunctionMode?, pMode: ParserMode): Token { # {{{
-		var dyn c = that._data.charCodeAt(index)
+		var mut c = that._data.charCodeAt(index)
 
 		if c == 13 && that.charAt(1) == 10 {
 			that.nextLine(2)
@@ -2961,46 +3028,121 @@ namespace M {
 
 			return Token.NEWLINE
 		}
-		else if c == 35 {
-			if (c <- that.charAt(1)) == 40 {
+		else if c == 0'#' {
+			c = that.charAt(1)
+
+			if c == 0'(' {
 				that.next(2)
 
 				return Token.HASH_LEFT_ROUND
 			}
-			else if c == 97 {
-				if that.charAt(2) == 40 {
+			else if c == 0'a' {
+				c = that.charAt(2)
+
+				if c == 0'c' && that.charAt(3) == 0'(' {
+					that.next(4)
+
+					return Token.HASH_AC_LEFT_ROUND
+				}
+				else if c == 0'i' && that.charAt(3) == 0'(' {
+					that.next(4)
+
+					return Token.HASH_AI_LEFT_ROUND
+				}
+				else if c == 0'v' && that.charAt(3) == 0'(' {
+					that.next(4)
+
+					return Token.HASH_AV_LEFT_ROUND
+				}
+				else if c == 0'(' {
 					that.next(3)
 
 					return Token.HASH_A_LEFT_ROUND
 				}
 			}
-			else if c == 101 {
-				if that.charAt(2) == 40 {
+			else if c == 0'b' {
+				c = that.charAt(2)
+
+				if c == 0'c' && that.charAt(3) == 0'(' {
+					that.next(4)
+
+					return Token.HASH_BC_LEFT_ROUND
+				}
+				else if c == 0'i' && that.charAt(3) == 0'(' {
+					that.next(4)
+
+					return Token.HASH_BI_LEFT_ROUND
+				}
+				else if c == 0'v' && that.charAt(3) == 0'(' {
+					that.next(4)
+
+					return Token.HASH_BV_LEFT_ROUND
+				}
+				else if c == 0'(' {
 					that.next(3)
 
-					return Token.HASH_E_LEFT_ROUND
+					return Token.HASH_B_LEFT_ROUND
 				}
 			}
-			else if c == 106 {
-				if that.charAt(2) == 40 {
+			else if c == 0'c' {
+				if that.charAt(2) == 0'(' {
+					that.next(3)
+
+					return Token.HASH_C_LEFT_ROUND
+				}
+			}
+			else if c == 0'i' {
+				if that.charAt(2) == 0'(' {
+					that.next(3)
+
+					return Token.HASH_I_LEFT_ROUND
+				}
+			}
+			else if c == 0'j' {
+				c = that.charAt(2)
+
+				if c == 0'c' && that.charAt(3) == 0'c' && that.charAt(4) == 0'(' {
+					that.next(5)
+
+					return Token.HASH_JCC_LEFT_ROUND
+				}
+				else if c == 0'i' && that.charAt(3) == 0'c' && that.charAt(4) == 0'(' {
+					that.next(5)
+
+					return Token.HASH_JIC_LEFT_ROUND
+				}
+				else if c == 0'v' && that.charAt(3) == 0'c' && that.charAt(4) == 0'(' {
+					that.next(5)
+
+					return Token.HASH_JVC_LEFT_ROUND
+				}
+				else if c == 0'(' {
 					that.next(3)
 
 					return Token.HASH_J_LEFT_ROUND
 				}
 			}
-			else if c == 115 {
-				if that.charAt(2) == 40 {
+			else if c == 0'v' {
+				if that.charAt(2) == 0'(' {
 					that.next(3)
 
-					return Token.HASH_S_LEFT_ROUND
+					return Token.HASH_V_LEFT_ROUND
 				}
 			}
-			else if c == 119 {
-				if that.charAt(2) == 40 {
-					that.next(3)
+			else if c == 0'#' {
+				that.next(2)
 
-					return Token.HASH_W_LEFT_ROUND
-				}
+				return Token.HASH_HASH
+			}
+			else if c == 0'{' {
+				that.next(2)
+
+				return Token.HASH_LEFT_CURLY
+			}
+			else if c == 0'}' {
+				that.next(2)
+
+				return Token.HASH_RIGHT_CURLY
 			}
 		}
 		else if c == 40 {
@@ -3031,7 +3173,7 @@ namespace M {
 		while index < that._length {
 			c = that._data.charCodeAt(index)
 
-			if c == 10 | 13 | 35 | 40 | 41 | 123 | 125 {
+			if c == 10 | 13 | 0'#' | 0'(' | 0')' | 0'{' | 0'}' {
 				that.next(index - from)
 
 				return Token.INVALID
@@ -3283,18 +3425,29 @@ namespace M {
 				return Token.LATEINIT
 			}
 		}
-		// match
-		else if c == 109
+		// macro, match
+		else if c == 0'm'
 		{
-			if that.charAt(1) == 97 &&
-				that.charAt(2) == 116 &&
-				that.charAt(3) == 99 &&
-				that.charAt(4) == 104 &&
-				that.isSpace(5)
-			{
-				that.next(5)
+			if that.charAt(1) == 0'a' {
+				if fMode == .Syntime &&
+					that.charAt(2) == 0'c' &&
+					that.charAt(3) == 0'r' &&
+					that.charAt(4) == 0'o' &&
+					that.isSpace(5)
+				{
+					that.next(5)
 
-				return Token.MATCH
+					return .MACRO
+				}
+				else if that.charAt(2) == 116 &&
+					that.charAt(3) == 99 &&
+					that.charAt(4) == 104 &&
+					that.isSpace(5)
+				{
+					that.next(5)
+
+					return Token.MATCH
+				}
 			}
 		}
 		// namespace
@@ -3368,7 +3521,8 @@ namespace M {
 
 				return Token.SEALED
 			}
-			else if that.charAt(1) == 0'e' &&
+			else if fMode !~ .Syntime &&
+				that.charAt(1) == 0'e' &&
 				that.charAt(2) == 0'm' &&
 				that.charAt(3) == 0't' &&
 				that.charAt(4) == 0'i' &&
@@ -3400,7 +3554,8 @@ namespace M {
 
 				return Token.STRUCT
 			}
-			else if that.charAt(1) == 0'y' &&
+			else if fMode !~ .Syntime &&
+				that.charAt(1) == 0'y' &&
 				that.charAt(2) == 0'n' &&
 				that.charAt(3) == 0't' &&
 				that.charAt(4) == 0'i' &&
@@ -3603,7 +3758,7 @@ class Scanner {
 		@length = @data.length
 	} # }}}
 	charAt(d: Number): Number => @data.charCodeAt(@index + d)
-	char(): String => if @eof set 'EOF' else @data[@index]
+	char(d: Number = 0): String => if @eof set 'EOF' else @data[@index + d]
 	column(): valueof @column
 	commit(): Token? { # {{{
 		if @eof {

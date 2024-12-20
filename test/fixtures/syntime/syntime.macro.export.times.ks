@@ -1,0 +1,1 @@
+export syntime macro times_five(e) => quote 5 * #(e)

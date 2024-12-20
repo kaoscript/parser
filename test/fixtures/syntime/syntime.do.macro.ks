@@ -1,0 +1,4 @@
+syntime do {
+	macro foobar() {
+	}
+}

@@ -1,0 +1,868 @@
+{
+  "kind": 70,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 32,
+      "attributes": [],
+      "modifiers": [],
+      "name": {
+        "kind": 47,
+        "modifiers": [],
+        "name": "Token",
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 11
+        }
+      },
+      "members": [
+        {
+          "kind": 33,
+          "attributes": [],
+          "modifiers": [],
+          "name": {
+            "kind": 47,
+            "modifiers": [],
+            "name": "Nil",
+            "start": {
+              "line": 2,
+              "column": 2
+            },
+            "end": {
+              "line": 2,
+              "column": 5
+            }
+          },
+          "start": {
+            "line": 2,
+            "column": 2
+          },
+          "end": {
+            "line": 2,
+            "column": 5
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      }
+    },
+    {
+      "kind": 113,
+      "attributes": [],
+      "declarations": [
+        {
+          "kind": 74,
+          "attributes": [],
+          "modifiers": [],
+          "name": {
+            "kind": 47,
+            "modifiers": [],
+            "name": "Meta",
+            "start": {
+              "line": 5,
+              "column": 19
+            },
+            "end": {
+              "line": 5,
+              "column": 23
+            }
+          },
+          "statements": [
+            {
+              "kind": 125,
+              "attributes": [],
+              "name": {
+                "kind": 47,
+                "modifiers": [],
+                "name": "TokenRecipe",
+                "start": {
+                  "line": 6,
+                  "column": 7
+                },
+                "end": {
+                  "line": 6,
+                  "column": 18
+                }
+              },
+              "type": {
+                "kind": 80,
+                "modifiers": [],
+                "properties": [
+                  {
+                    "kind": 90,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 47,
+                      "modifiers": [],
+                      "name": "token",
+                      "start": {
+                        "line": 7,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 8
+                      }
+                    },
+                    "type": {
+                      "kind": 128,
+                      "modifiers": [],
+                      "typeName": {
+                        "kind": 47,
+                        "modifiers": [],
+                        "name": "Token",
+                        "start": {
+                          "line": 7,
+                          "column": 10
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 15
+                        }
+                      },
+                      "start": {
+                        "line": 7,
+                        "column": 10
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 15
+                      }
+                    },
+                    "start": {
+                      "line": 7,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 15
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 6,
+                  "column": 21
+                },
+                "end": {
+                  "line": 8,
+                  "column": 3
+                }
+              },
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            },
+            {
+              "kind": 125,
+              "attributes": [],
+              "name": {
+                "kind": 47,
+                "modifiers": [],
+                "name": "TokenTree",
+                "start": {
+                  "line": 10,
+                  "column": 7
+                },
+                "end": {
+                  "line": 10,
+                  "column": 16
+                }
+              },
+              "type": {
+                "kind": 80,
+                "modifiers": [],
+                "properties": [
+                  {
+                    "kind": 90,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 47,
+                      "modifiers": [],
+                      "name": "character",
+                      "start": {
+                        "line": 11,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 11,
+                        "column": 12
+                      }
+                    },
+                    "type": {
+                      "kind": 128,
+                      "modifiers": [],
+                      "typeName": {
+                        "kind": 47,
+                        "modifiers": [],
+                        "name": "Number",
+                        "start": {
+                          "line": 11,
+                          "column": 14
+                        },
+                        "end": {
+                          "line": 11,
+                          "column": 20
+                        }
+                      },
+                      "start": {
+                        "line": 11,
+                        "column": 14
+                      },
+                      "end": {
+                        "line": 11,
+                        "column": 20
+                      }
+                    },
+                    "start": {
+                      "line": 11,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 20
+                    }
+                  },
+                  {
+                    "kind": 90,
+                    "modifiers": [],
+                    "name": {
+                      "kind": 47,
+                      "modifiers": [],
+                      "name": "tokens",
+                      "start": {
+                        "line": 12,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 12,
+                        "column": 9
+                      }
+                    },
+                    "type": {
+                      "kind": 6,
+                      "modifiers": [],
+                      "properties": [],
+                      "rest": {
+                        "kind": 90,
+                        "modifiers": [],
+                        "type": {
+                          "kind": 128,
+                          "modifiers": [],
+                          "typeName": {
+                            "kind": 47,
+                            "modifiers": [],
+                            "name": "TokenRecipe",
+                            "start": {
+                              "line": 12,
+                              "column": 11
+                            },
+                            "end": {
+                              "line": 12,
+                              "column": 22
+                            }
+                          },
+                          "start": {
+                            "line": 12,
+                            "column": 11
+                          },
+                          "end": {
+                            "line": 12,
+                            "column": 22
+                          }
+                        },
+                        "start": {
+                          "line": 12,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 12,
+                          "column": 22
+                        }
+                      },
+                      "start": {
+                        "line": 12,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 12,
+                        "column": 24
+                      }
+                    },
+                    "start": {
+                      "line": 12,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 12,
+                      "column": 24
+                    }
+                  }
+                ],
+                "start": {
+                  "line": 10,
+                  "column": 19
+                },
+                "end": {
+                  "line": 13,
+                  "column": 3
+                }
+              },
+              "start": {
+                "line": 10,
+                "column": 2
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            },
+            {
+              "kind": 43,
+              "attributes": [],
+              "modifiers": [],
+              "name": {
+                "kind": 47,
+                "modifiers": [],
+                "name": "buildTree",
+                "start": {
+                  "line": 15,
+                  "column": 7
+                },
+                "end": {
+                  "line": 15,
+                  "column": 16
+                }
+              },
+              "parameters": [
+                {
+                  "kind": 83,
+                  "attributes": [],
+                  "modifiers": [],
+                  "external": {
+                    "kind": 47,
+                    "modifiers": [],
+                    "name": "tree",
+                    "start": {
+                      "line": 15,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 21
+                    }
+                  },
+                  "internal": {
+                    "kind": 47,
+                    "modifiers": [],
+                    "name": "tree",
+                    "start": {
+                      "line": 15,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 21
+                    }
+                  },
+                  "type": {
+                    "kind": 128,
+                    "modifiers": [],
+                    "typeName": {
+                      "kind": 47,
+                      "modifiers": [],
+                      "name": "TokenTree",
+                      "start": {
+                        "line": 15,
+                        "column": 23
+                      },
+                      "end": {
+                        "line": 15,
+                        "column": 32
+                      }
+                    },
+                    "start": {
+                      "line": 15,
+                      "column": 23
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 32
+                    }
+                  },
+                  "start": {
+                    "line": 15,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 32
+                  }
+                },
+                {
+                  "kind": 83,
+                  "attributes": [],
+                  "modifiers": [],
+                  "external": {
+                    "kind": 47,
+                    "modifiers": [],
+                    "name": "level",
+                    "start": {
+                      "line": 15,
+                      "column": 34
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 39
+                    }
+                  },
+                  "internal": {
+                    "kind": 47,
+                    "modifiers": [],
+                    "name": "level",
+                    "start": {
+                      "line": 15,
+                      "column": 34
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 39
+                    }
+                  },
+                  "type": {
+                    "kind": 128,
+                    "modifiers": [],
+                    "typeName": {
+                      "kind": 47,
+                      "modifiers": [],
+                      "name": "Number",
+                      "start": {
+                        "line": 15,
+                        "column": 41
+                      },
+                      "end": {
+                        "line": 15,
+                        "column": 47
+                      }
+                    },
+                    "start": {
+                      "line": 15,
+                      "column": 41
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 47
+                    }
+                  },
+                  "start": {
+                    "line": 15,
+                    "column": 34
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 47
+                  }
+                }
+              ],
+              "throws": [],
+              "body": {
+                "kind": 15,
+                "attributes": [],
+                "statements": [],
+                "start": {
+                  "line": 15,
+                  "column": 49
+                },
+                "end": {
+                  "line": 16,
+                  "column": 3
+                }
+              },
+              "start": {
+                "line": 15,
+                "column": 2
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            },
+            {
+              "kind": 35,
+              "attributes": [],
+              "declarations": [
+                {
+                  "kind": 27,
+                  "declaration": {
+                    "kind": 59,
+                    "attributes": [],
+                    "modifiers": [],
+                    "name": {
+                      "kind": 47,
+                      "modifiers": [],
+                      "name": "build",
+                      "start": {
+                        "line": 18,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 18,
+                        "column": 20
+                      }
+                    },
+                    "parameters": [
+                      {
+                        "kind": 83,
+                        "attributes": [],
+                        "modifiers": [],
+                        "external": {
+                          "kind": 47,
+                          "modifiers": [],
+                          "name": "name",
+                          "start": {
+                            "line": 18,
+                            "column": 21
+                          },
+                          "end": {
+                            "line": 18,
+                            "column": 25
+                          }
+                        },
+                        "internal": {
+                          "kind": 47,
+                          "modifiers": [],
+                          "name": "name",
+                          "start": {
+                            "line": 18,
+                            "column": 21
+                          },
+                          "end": {
+                            "line": 18,
+                            "column": 25
+                          }
+                        },
+                        "type": {
+                          "kind": 128,
+                          "modifiers": [],
+                          "typeName": {
+                            "kind": 47,
+                            "modifiers": [],
+                            "name": "Ast",
+                            "start": {
+                              "line": 18,
+                              "column": 27
+                            },
+                            "end": {
+                              "line": 18,
+                              "column": 30
+                            }
+                          },
+                          "typeSubtypes": [
+                            {
+                              "kind": 47,
+                              "modifiers": [],
+                              "name": "Identifier",
+                              "start": {
+                                "line": 18,
+                                "column": 31
+                              },
+                              "end": {
+                                "line": 18,
+                                "column": 41
+                              }
+                            }
+                          ],
+                          "start": {
+                            "line": 18,
+                            "column": 27
+                          },
+                          "end": {
+                            "line": 18,
+                            "column": 42
+                          }
+                        },
+                        "start": {
+                          "line": 18,
+                          "column": 21
+                        },
+                        "end": {
+                          "line": 18,
+                          "column": 42
+                        }
+                      },
+                      {
+                        "kind": 83,
+                        "attributes": [],
+                        "modifiers": [
+                          {
+                            "kind": 37,
+                            "arity": {
+                              "min": 0,
+                              "max": "Infinity"
+                            },
+                            "start": {
+                              "line": 18,
+                              "column": 44
+                            },
+                            "end": {
+                              "line": 18,
+                              "column": 47
+                            }
+                          }
+                        ],
+                        "external": {
+                          "kind": 47,
+                          "modifiers": [],
+                          "name": "tokens",
+                          "start": {
+                            "line": 18,
+                            "column": 47
+                          },
+                          "end": {
+                            "line": 18,
+                            "column": 53
+                          }
+                        },
+                        "internal": {
+                          "kind": 47,
+                          "modifiers": [],
+                          "name": "tokens",
+                          "start": {
+                            "line": 18,
+                            "column": 47
+                          },
+                          "end": {
+                            "line": 18,
+                            "column": 53
+                          }
+                        },
+                        "type": {
+                          "kind": 128,
+                          "modifiers": [],
+                          "typeName": {
+                            "kind": 47,
+                            "modifiers": [],
+                            "name": "TokenRecipe",
+                            "start": {
+                              "line": 18,
+                              "column": 55
+                            },
+                            "end": {
+                              "line": 18,
+                              "column": 66
+                            }
+                          },
+                          "start": {
+                            "line": 18,
+                            "column": 55
+                          },
+                          "end": {
+                            "line": 18,
+                            "column": 66
+                          }
+                        },
+                        "start": {
+                          "line": 18,
+                          "column": 44
+                        },
+                        "end": {
+                          "line": 18,
+                          "column": 66
+                        }
+                      }
+                    ],
+                    "body": {
+                      "kind": 15,
+                      "attributes": [],
+                      "statements": [
+                        {
+                          "kind": 39,
+                          "attributes": [],
+                          "expression": {
+                            "kind": 93,
+                            "attributes": [],
+                            "elements": [
+                              {
+                                "kind": 3,
+                                "value": "type ",
+                                "start": {
+                                  "line": 20,
+                                  "column": 4
+                                },
+                                "end": {
+                                  "line": 20,
+                                  "column": 9
+                                }
+                              },
+                              {
+                                "kind": 2,
+                                "expression": {
+                                  "kind": 47,
+                                  "modifiers": [],
+                                  "name": "name",
+                                  "start": {
+                                    "line": 20,
+                                    "column": 11
+                                  },
+                                  "end": {
+                                    "line": 20,
+                                    "column": 15
+                                  }
+                                },
+                                "reifications": [],
+                                "start": {
+                                  "line": 20,
+                                  "column": 9
+                                },
+                                "end": {
+                                  "line": 20,
+                                  "column": 16
+                                }
+                              },
+                              {
+                                "kind": 3,
+                                "value": " = {",
+                                "start": {
+                                  "line": 20,
+                                  "column": 16
+                                },
+                                "end": {
+                                  "line": 20,
+                                  "column": 20
+                                }
+                              },
+                              {
+                                "kind": 4,
+                                "start": {
+                                  "line": 20,
+                                  "column": 20
+                                },
+                                "end": {
+                                  "line": 21,
+                                  "column": 1
+                                }
+                              },
+                              {
+                                "kind": 3,
+                                "value": "}",
+                                "start": {
+                                  "line": 21,
+                                  "column": 4
+                                },
+                                "end": {
+                                  "line": 21,
+                                  "column": 5
+                                }
+                              },
+                              {
+                                "kind": 4,
+                                "start": {
+                                  "line": 21,
+                                  "column": 5
+                                },
+                                "end": {
+                                  "line": 22,
+                                  "column": 1
+                                }
+                              }
+                            ],
+                            "start": {
+                              "line": 19,
+                              "column": 3
+                            },
+                            "end": {
+                              "line": 22,
+                              "column": 4
+                            }
+                          },
+                          "start": {
+                            "line": 19,
+                            "column": 3
+                          },
+                          "end": {
+                            "line": 22,
+                            "column": 4
+                          }
+                        }
+                      ],
+                      "start": {
+                        "line": 18,
+                        "column": 68
+                      },
+                      "end": {
+                        "line": 23,
+                        "column": 3
+                      }
+                    },
+                    "start": {
+                      "line": 18,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 23,
+                      "column": 3
+                    }
+                  },
+                  "start": {
+                    "line": 18,
+                    "column": 9
+                  },
+                  "end": {
+                    "line": 23,
+                    "column": 3
+                  }
+                }
+              ],
+              "start": {
+                "line": 18,
+                "column": 2
+              },
+              "end": {
+                "line": 23,
+                "column": 3
+              }
+            }
+          ],
+          "start": {
+            "line": 5,
+            "column": 9
+          },
+          "end": {
+            "line": 24,
+            "column": 2
+          }
+        }
+      ],
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 24,
+        "column": 2
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 24,
+    "column": 2
+  }
+}

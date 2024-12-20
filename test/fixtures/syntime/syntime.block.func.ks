@@ -1,0 +1,4 @@
+syntime {
+	func foobar() {
+	}
+}

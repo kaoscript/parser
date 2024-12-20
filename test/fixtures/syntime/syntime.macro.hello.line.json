@@ -1,0 +1,148 @@
+{
+  "kind": 70,
+  "attributes": [],
+  "body": [
+    {
+      "kind": 113,
+      "attributes": [],
+      "declarations": [
+        {
+          "kind": 59,
+          "attributes": [],
+          "modifiers": [],
+          "name": {
+            "kind": 47,
+            "modifiers": [],
+            "name": "sayHello",
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 1,
+              "column": 23
+            }
+          },
+          "parameters": [],
+          "body": {
+            "kind": 15,
+            "attributes": [],
+            "statements": [
+              {
+                "kind": 39,
+                "attributes": [],
+                "expression": {
+                  "kind": 93,
+                  "attributes": [],
+                  "elements": [
+                    {
+                      "kind": 3,
+                      "value": "console.log('Hello!')",
+                      "start": {
+                        "line": 2,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 29
+                      }
+                    }
+                  ],
+                  "start": {
+                    "line": 2,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 29
+                  }
+                },
+                "start": {
+                  "line": 2,
+                  "column": 2
+                },
+                "end": {
+                  "line": 2,
+                  "column": 29
+                }
+              }
+            ],
+            "start": {
+              "line": 1,
+              "column": 26
+            },
+            "end": {
+              "line": 3,
+              "column": 2
+            }
+          },
+          "start": {
+            "line": 1,
+            "column": 9
+          },
+          "end": {
+            "line": 3,
+            "column": 2
+          }
+        }
+      ],
+      "start": {
+        "line": 1,
+        "column": 1
+      },
+      "end": {
+        "line": 3,
+        "column": 2
+      }
+    },
+    {
+      "kind": 39,
+      "attributes": [],
+      "expression": {
+        "kind": 18,
+        "modifiers": [],
+        "scope": {
+          "kind": 2
+        },
+        "callee": {
+          "kind": 47,
+          "modifiers": [],
+          "name": "sayHello",
+          "start": {
+            "line": 5,
+            "column": 1
+          },
+          "end": {
+            "line": 5,
+            "column": 9
+          }
+        },
+        "arguments": [],
+        "start": {
+          "line": 5,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 11
+        }
+      },
+      "start": {
+        "line": 5,
+        "column": 1
+      },
+      "end": {
+        "line": 5,
+        "column": 11
+      }
+    }
+  ],
+  "start": {
+    "line": 1,
+    "column": 1
+  },
+  "end": {
+    "line": 5,
+    "column": 11
+  }
+}

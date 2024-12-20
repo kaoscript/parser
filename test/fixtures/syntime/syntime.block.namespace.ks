@@ -1,0 +1,4 @@
+syntime {
+	namespace Foobar {
+	}
+}
