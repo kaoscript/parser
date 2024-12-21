@@ -1,21 +1,18 @@
 {
+	"explorer.fileNesting.patterns": {
+		"*.ks": ".${capture}.ks.*",
+	},
+	"files.associations": {
+		"compiler.js": "text"
+	},
+	"files.exclude": {
+		"**/*.marks": true,
+		"**/.*.ks.*": true
+	},
 	"search.exclude": {
 		"coverage": true,
 		"node_modules": true,
 		"**/*.marks": true,
-		"**/*.ksb": true,
-		"**/*.kse": true,
-		"**/*.ksh": true,
-		"**/*.ksr": true
-	},
-	"files.exclude": {
-		"**/*.marks": true,
-		"**/*.ksb": true,
-		"**/*.kse": true,
-		"**/*.ksh": true,
-		"**/*.ksr": true
-	},
-	"files.associations": {
-		"compiler.js": "text"
+		"**/.*.ks.*": true
 	}
 }
