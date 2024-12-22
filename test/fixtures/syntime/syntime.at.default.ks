@@ -1,4 +1,4 @@
-syntime do {
+at syntime {
 	var ast = register('file', '[ "//" [ host ] ] path_absolute')
 
 	echo(ast)

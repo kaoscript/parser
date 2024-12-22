@@ -1,3 +1,3 @@
 syntime macro foobar(name: Ast(Identifier)) {
-	quote ##(name)
+	quote \#(name)
 }

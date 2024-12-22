@@ -39,6 +39,6 @@ dev:
 	@make cls
 
 	@# tests
-	npx kaoscript test/parse.dev.ks "parse test"
+	npx kaoscript test/parse.dev.ks "parse syntime.at.match.clause.attr"
 
 .PHONY: test coverage

@@ -1553,7 +1553,7 @@ namespace AST {
 
 		func MatchExpression(
 			expression: Event<Ast(Expression)>(Y)
-			clauses: Event<Ast(MatchClause)[]>(Y)
+			clauses: Event<Ast(MatchClause, SyntimeStatement)[]>(Y)
 			{ start }: Range
 			{ end }: Range
 		): Ast(MatchExpression) { # {{{
@@ -1570,7 +1570,7 @@ namespace AST {
 		func MatchStatement(
 			expression: Event<Ast(Expression)>
 			declaration: Event<Ast(VariableDeclaration)>
-			clauses: Event<Ast(MatchClause)[]>(Y)
+			clauses: Event<Ast(MatchClause, SyntimeStatement)[]>(Y)
 			{ start }: Range
 			{ end }: Range
 		): Ast(MatchStatement) { # {{{
@@ -2141,6 +2141,19 @@ namespace AST {
 		): QuoteElementData(NewLine) { # {{{
 			return {
 				kind: .NewLine
+				start
+				end
+			}
+		} # }}}
+
+		func QuoteElementStatement(
+			statement: Event<Ast(FlowStatement)>(Y)
+			{ start }: Range
+			{ end }: Range
+		): QuoteElementData(Statement) { # {{{
+			return {
+				kind: .Statement
+				statement: statement.value
 				start
 				end
 			}

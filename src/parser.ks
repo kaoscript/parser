@@ -698,6 +698,95 @@ export namespace SyntaxAnalysis {
 			}
 		} # }}}
 
+		parseMatchClauses(): Ast(MatchClause)[] ~ SyntaxError # {{{
+		{
+			var fMode = FunctionMode.Method
+			var clauses = []
+
+			@NL_0M()
+
+			while !@scanner.isEOF() {
+				var late binding, filter, body, first
+				var conditions = []
+
+				if @test(Token.ELSE) {
+					first = @yes()
+
+					if @test(Token.LEFT_CURLY) {
+						body = @reqBlock(@yes(), null, fMode)
+					}
+					else if @test(Token.EQUALS_RIGHT_ANGLE) {
+						@commit()
+
+						body = @reqMatchCaseExpression(fMode)
+					}
+					else {
+						@throw('=>', '{')
+					}
+
+					binding = filter = NO
+				}
+				else {
+					if @test(Token.WITH, Token.WHEN) {
+						first = @yep()
+					}
+					else {
+						first = @reqMatchCondition(fMode)
+
+						conditions.push(first)
+
+						while @test(Token.COMMA) {
+							@commit()
+
+							conditions.push(@reqMatchCondition(fMode))
+						}
+
+						@NL_0M()
+					}
+
+					if @test(Token.WITH) {
+						@commit()
+
+						binding = @reqMatchBinding(fMode)
+
+						@NL_0M()
+					}
+					else {
+						binding = NO
+					}
+
+					if @test(Token.WHEN) {
+						@commit()
+
+						filter = @reqExpression(.ImplicitMember + .NoAnonymousFunction, fMode)
+
+						@NL_0M()
+					}
+					else {
+						filter = NO
+					}
+
+					if @test(Token.LEFT_CURLY) {
+						body = @reqBlock(@yes(), null, fMode)
+					}
+					else if @test(Token.EQUALS_RIGHT_ANGLE) {
+						@commit()
+
+						body = @reqMatchCaseExpression(fMode)
+					}
+					else {
+						@throw('=>', '{')
+					}
+				}
+
+				@reqNL_1M()
+
+				clauses.push(AST.MatchClause(conditions, binding, filter, body, first, body))
+			}
+
+			return clauses
+		} # }}}
+
 		parseModule(): Ast(Module) ~ SyntaxError # {{{
 		{
 			var attributes = []
@@ -949,7 +1038,7 @@ export namespace SyntaxAnalysis {
 					if @test(Token.BACKSLASH) {
 						var first = @yes()
 
-						if fMode ~~ FunctionMode.Method && @test(Token.AT) {
+						if fMode ~~ FunctionMode.Method && @test(Token.AMPERAT) {
 							var alias = @reqThisExpression(@yes())
 
 							argument = @yep(AST.PositionalArgument([], alias, alias, alias))
@@ -977,7 +1066,7 @@ export namespace SyntaxAnalysis {
 
 						var late expression
 
-						if fMode ~~ FunctionMode.Method && @test(Token.AT) {
+						if fMode ~~ FunctionMode.Method && @test(Token.AMPERAT) {
 							var alias = @reqThisExpression(@yes())
 
 							expression = @yep(AST.NamedArgument([], @yep(alias.value.name), alias, first, alias))
@@ -1626,17 +1715,12 @@ export namespace SyntaxAnalysis {
 
 			var syntimeMark = @mark()
 
-			if @test(.SYNTIME) {
-				if var statement ?]= @trySyntimeStatement(@yes(), .Nil) {
-					members.push(statement)
+			if @test(.AT_SYNTIME) {
+				members.push(@reqSyntimeStatement(@yes()))
 
-					@reqNL_1M()
+				@reqNL_1M()
 
-					return
-				}
-				else {
-					@rollback(syntimeMark)
-				}
+				return
 			}
 
 			var accessMark = @mark()
@@ -1746,7 +1830,7 @@ export namespace SyntaxAnalysis {
 							members
 						)
 					}
-					else if @test(Token.AT) {
+					else if @test(Token.AMPERAT) {
 						return @reqClassProxyGroup(
 							attributes
 							modifiers
@@ -1787,7 +1871,7 @@ export namespace SyntaxAnalysis {
 						members
 					)
 				}
-				else if @test(Token.AT) {
+				else if @test(Token.AMPERAT) {
 					return @reqClassProxyGroup(
 						attributes
 						modifiers
@@ -2237,7 +2321,7 @@ export namespace SyntaxAnalysis {
 			}
 
 			var version =
-				if @test(Token.AT) {
+				if @test(Token.AMPERAT) {
 					@commit()
 
 					unless @test(Token.CLASS_VERSION) {
@@ -2505,7 +2589,7 @@ export namespace SyntaxAnalysis {
 
 				modifiers.push(AST.Modifier(ModifierKind.Rest, first))
 
-				if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AT) {
+				if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AMPERAT) {
 					name = @reqThisExpression(@yes())
 					atthis = true
 				}
@@ -2539,7 +2623,7 @@ export namespace SyntaxAnalysis {
 
 				first ??= name
 			}
-			else if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AT) {
+			else if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AMPERAT) {
 				name = @reqThisExpression(@yes())
 				atthis = true
 
@@ -2698,7 +2782,7 @@ export namespace SyntaxAnalysis {
 
 				modifiers.push(AST.Modifier(ModifierKind.Rest, first))
 
-				if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AT) {
+				if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AMPERAT) {
 					internal = @reqThisExpression(@yes())
 				}
 				else if dMode ~~ DestructuringMode.MODIFIER && @test(Token.MUT) {
@@ -2760,7 +2844,7 @@ export namespace SyntaxAnalysis {
 				computed = true
 			}
 			else {
-				if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AT) {
+				if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AMPERAT) {
 					first ??= @yep()
 
 					@commit()
@@ -2784,7 +2868,7 @@ export namespace SyntaxAnalysis {
 				else if dMode ~~ DestructuringMode.RECURSION && @test(Token.LEFT_SQUARE) {
 					internal = @reqDestructuringArray(@yes(), dMode, fMode)
 				}
-				else if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AT) {
+				else if dMode ~~ DestructuringMode.THIS_ALIAS && @test(Token.AMPERAT) {
 					internal = @reqThisExpression(@yes())
 					atthis = true
 				}
@@ -3239,13 +3323,6 @@ export namespace SyntaxAnalysis {
 				.SYNTIME {
 					var first = @reqIdentifier()
 
-					// if @test(.FUNC) {
-					// 	var declaration = @reqSyntimeFunctionDeclaration([], [], @yes())
-					// 	var statement = @yep(AST.SyntimeDeclaration([], declaration, first, declaration))
-
-					// 	return @yep(AST.DeclarationSpecifier(statement))
-					// }
-					// else
 					if @test(.NAMESPACE) {
 						var declaration = @reqNamespaceStatement(@yes(), NO, .Nil)
 						var statement = @yep(AST.SyntimeDeclaration([], [declaration], first, declaration))
@@ -4267,35 +4344,12 @@ export namespace SyntaxAnalysis {
 		reqFunctionStatement(
 			modifiers: Event<ModifierData>(Y)[] = []
 			first: Event(Y)
-			// fMode: FunctionMode = .Nil
 		): Event<Ast(FunctionDeclaration)>(Y) ~ SyntaxError # {{{
 		{
 			var name = @reqIdentifier()
 			var typeParameters = @tryTypeParameterList()
 			var parameters = @reqFunctionParameterList(.Nil)
 			var type = @tryFunctionReturns()
-
-			// if fMode ~~ .Syntime && type.value?.typeName?.name == 'AstQuote' {
-			// 	var body =
-			// 		if @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE) == .LEFT_CURLY {
-			// 			set @reqBlock(@yes(), null, .Syntime)
-			// 		}
-			// 		else if @token == .EQUALS_RIGHT_ANGLE {
-			// 			@commit()
-
-			// 			if @test(.QUOTE) {
-			// 				set @reqQuoteExpression(@yes())
-			// 			}
-			// 			else {
-			// 				@throw('quote')
-			// 			}
-			// 		}
-			// 		else {
-			// 			@throw('{', '=>')
-			// 		}
-
-			// 	return @yep(AST.FunctionDeclaration([], modifiers, name, typeParameters, parameters, type, null, body, first, body))
-			// }
 
 			var throws = @tryFunctionThrows()
 			var body = @reqFunctionBody(modifiers, .Nil)
@@ -6013,7 +6067,7 @@ export namespace SyntaxAnalysis {
 
 		reqMatchCaseList(
 			fMode: FunctionMode
-		): Event<Ast(MatchClause)[]>(Y) ~ SyntaxError # {{{
+		): Event<Ast(MatchClause, SyntimeStatement)[]>(Y) ~ SyntaxError # {{{
 		{
 			@NL_0M()
 
@@ -6026,6 +6080,20 @@ export namespace SyntaxAnalysis {
 			var clauses = []
 
 			until @test(Token.RIGHT_CURLY) {
+				var attributes = @stackOuterAttributes([])
+
+				if @test(.AT_SYNTIME) {
+					var statement = @reqSyntimeStatement(@yes()).value
+
+					AST.pushAttributes(statement, attributes)
+
+					clauses.push(statement)
+
+					@reqNL_1M()
+
+					continue
+				}
+
 				var late binding, filter, body, first
 				var conditions = []
 
@@ -6770,7 +6838,7 @@ export namespace SyntaxAnalysis {
 				return @reqParameterRest(attributes, modifiers, external, (firstAttr ?? mutModifier ?? first):!!!(Range), pMode, fMode)
 			}
 
-			if @test(.AT) {
+			if @test(.AMPERAT) {
 				@throw() if ?mutModifier
 
 				var modifiers = []
@@ -6831,7 +6899,7 @@ export namespace SyntaxAnalysis {
 
 							return @reqParameterRest(attributes, modifiers, identifier, (firstAttr ?? mutModifier ?? identifier):!!!(Range), pMode, fMode)
 						}
-						else if @test(.AT) {
+						else if @test(.AMPERAT) {
 							@throw() if ?mutModifier
 
 							return @reqParameterAt(attributes, modifiers, identifier, firstAttr ?? namedModifier ?? identifier, pMode, fMode)
@@ -7062,7 +7130,7 @@ export namespace SyntaxAnalysis {
 				modifiers.push(AST.RestModifier(0, Infinity, first, first))
 			}
 
-			if @test(Token.AT) {
+			if @test(Token.AMPERAT) {
 				if fMode ~~ FunctionMode.Method && pMode ~~ DestructuringMode.THIS_ALIAS {
 					@commit()
 
@@ -7244,7 +7312,7 @@ export namespace SyntaxAnalysis {
 
 						break
 					}
-					.HASH_LEFT_CURLY {
+					.BACKSLASH_HASH |.BACKSLASH_LEFT_CURLY | .BACKSLASH_RIGHT_CURLY | .BACKSLASH_SPACE {
 						addLiteral()
 
 						elements.push(@yep(AST.QuoteElementEscape(@scanner.char(1), @yep(), @yes())))
@@ -7358,10 +7426,13 @@ export namespace SyntaxAnalysis {
 
 						elements.push(@yep(AST.QuoteElementExpression(expression, reifications, position, @yes())))
 					}
-					.HASH_HASH {
+					.HASH_FOR {
 						addLiteral()
 
-						elements.push(@yep(AST.QuoteElementEscape(@scanner.char(1), @yep(), @yes())))
+						var position = @yes()
+						var statement = @reqForStatement(position, .Syntime)
+
+						elements.push(@yep(AST.QuoteElementStatement(statement, position, @yes())))
 					}
 					.HASH_I_LEFT_ROUND {
 						addLiteral()
@@ -7373,6 +7444,14 @@ export namespace SyntaxAnalysis {
 						@throw(')') unless @test(Token.RIGHT_ROUND)
 
 						elements.push(@yep(AST.QuoteElementExpression(expression, reifications, position, @yes())))
+					}
+					.HASH_IF {
+						addLiteral()
+
+						var position = @yes()
+						var statement = @reqIfStatement(position, .Syntime)
+
+						elements.push(@yep(AST.QuoteElementStatement(statement, position, @yes())))
 					}
 					.HASH_J_LEFT_ROUND {
 						addLiteral()
@@ -7457,11 +7536,6 @@ export namespace SyntaxAnalysis {
 						ast.separator = separator.value
 
 						elements.push(@yep(ast))
-					}
-					.HASH_RIGHT_CURLY {
-						addLiteral()
-
-						elements.push(@yep(AST.QuoteElementEscape(@scanner.char(1), @yep(), @yes())))
 					}
 					.HASH_V_LEFT_ROUND {
 						addLiteral()
@@ -7887,6 +7961,12 @@ export namespace SyntaxAnalysis {
 						statement = NO
 					}
 				}
+				.AT_SEMTIME {
+					statement = @trySemtimeStatement(@yes(), fMode)
+				}
+				.AT_SYNTIME {
+					statement = @reqSyntimeStatement(@yes())
+				}
 				Token.BITMASK {
 					statement = @tryBitmaskStatement(@yes())
 				}
@@ -8000,27 +8080,13 @@ export namespace SyntaxAnalysis {
 						statement = NO
 					}
 				}
-				.SEMTIME {
-					statement = @trySemtimeStatement(@yes(), fMode)
-				}
 				Token.STRUCT {
 					statement = @tryStructStatement(@yes())
 				}
 				.SYNTIME {
 					var first = @yes()
 
-					// if @test(.FUNC) {
-					// 	var declaration = @reqFunctionStatement(null, @yes(), .Syntime)
-
-					// 	statement = @yep(AST.SyntimeDeclaration([], declaration, first, declaration))
-					// }
-					// else
-					if @test(.DO) {
-						@commit()
-
-						statement = @reqSyntimeStatement(first)
-					}
-					else if @test(.IMPL) {
+					if @test(.IMPL) {
 						var declaration = @reqImplementStatement(@yes(), .Syntime)
 
 						statement = @yep(AST.SyntimeDeclaration([], [declaration], first, declaration))
@@ -8041,7 +8107,6 @@ export namespace SyntaxAnalysis {
 						statement = @yep(AST.SyntimeDeclaration([], [declaration], first, declaration))
 					}
 					else {
-						// statement = @trySyntimeStatement(first, fMode)
 						statement = NO
 					}
 				}
@@ -8228,42 +8293,6 @@ export namespace SyntaxAnalysis {
 
 			return @yep(AST.SyntimeDeclaration([], declarations, first, @yes()))
 		} # }}}
-
-		// reqSyntimeFunctionDeclaration(
-		// 	attributes: Event<Ast(AttributeDeclaration)>(Y)[]
-		// 	modifiers: Event<ModifierData>(Y)[]
-		// 	first: Event
-		// ): Event<Ast(FunctionDeclaration)>(Y) ~ SyntaxError # {{{
-		// {
-		// 	var name = @reqIdentifier()
-		// 	var parameters = @reqFunctionParameterList(.Nil)
-		// 	var type = @tryFunctionReturns()
-
-		// 	if type.value?.typeName?.name == 'AstQuote' {
-		// 		var body =
-		// 			if @match(.LEFT_CURLY, .EQUALS_RIGHT_ANGLE) == .LEFT_CURLY {
-		// 				set @reqBlock(@yes(), null, .Syntime)
-		// 			}
-		// 			else if @token == .EQUALS_RIGHT_ANGLE {
-		// 				@commit()
-
-		// 				if @test(.QUOTE) {
-		// 					set @reqQuoteExpression(@yes())
-		// 				}
-		// 				else {
-		// 					@throw('quote')
-		// 				}
-		// 			}
-		// 			else {
-		// 				@throw('{', '=>')
-		// 			}
-
-		// 		return @yep(AST.FunctionDeclaration(attributes, modifiers, name, NO, parameters, type, null, body, first ?]] name, body))
-		// 	}
-		// 	else {
-		// 		@throw('AstQuote')
-		// 	}
-		// } # }}}
 
 		reqSyntimeStatement(
 			first: Event(Y)
@@ -8973,7 +9002,7 @@ export namespace SyntaxAnalysis {
 		): Event<Ast(Identifier, MemberExpression, ThisExpression)>(Y) ~ SyntaxError # {{{
 		{
 			if !object.ok {
-				if fMode ~~ FunctionMode.Method && @test(Token.AT) {
+				if fMode ~~ FunctionMode.Method && @test(Token.AMPERAT) {
 					object = @reqThisExpression(@yes())
 				}
 				else {
@@ -9259,7 +9288,7 @@ export namespace SyntaxAnalysis {
 				set DestructuringMode.Expression
 			}
 
-			if @match(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE, Token.AT) == Token.IDENTIFIER {
+			if @match(Token.IDENTIFIER, Token.LEFT_CURLY, Token.LEFT_SQUARE, Token.AMPERAT) == Token.IDENTIFIER {
 				identifier = @tryUnaryOperand(@reqIdentifier(), eMode + .InlineOnly, fMode)
 			}
 			else if @token == Token.LEFT_CURLY {
@@ -9268,7 +9297,7 @@ export namespace SyntaxAnalysis {
 			else if @token == Token.LEFT_SQUARE {
 				identifier = @tryDestructuringArray(@yes(), dMode, fMode)
 			}
-			else if fMode ~~ FunctionMode.Method && @token == Token.AT {
+			else if fMode ~~ FunctionMode.Method && @token == Token.AMPERAT {
 				identifier = @tryUnaryOperand(@reqThisExpression(@yes()), eMode, fMode)
 			}
 
@@ -10118,7 +10147,7 @@ export namespace SyntaxAnalysis {
 		{
 			var mark = @mark()
 
-			if @test(Token.AT) {
+			if @test(Token.AMPERAT) {
 				var modifier = @yep(AST.Modifier(ModifierKind.ThisAlias, @yes()))
 
 				modifiers = [...modifiers, modifier]
@@ -10171,7 +10200,7 @@ export namespace SyntaxAnalysis {
 
 			@commit()
 
-			unless @test(Token.AT) {
+			unless @test(Token.AMPERAT) {
 				@throw('@')
 			}
 
@@ -10208,7 +10237,7 @@ export namespace SyntaxAnalysis {
 			var mark = @mark()
 
 			if !?]name {
-				if @test(Token.AT) {
+				if @test(Token.AMPERAT) {
 					var modifier = @yep(AST.Modifier(ModifierKind.ThisAlias, @yes()))
 
 					modifiers = [...modifiers, modifier]
@@ -11446,7 +11475,7 @@ export namespace SyntaxAnalysis {
 			}
 
 			var late name
-			if @match(Token.AT, Token.DOT_DOT_DOT_QUESTION, Token.DOT_DOT_DOT, Token.IDENTIFIER, Token.LEFT_SQUARE, Token.STRING, Token.TEMPLATE_BEGIN) == Token.IDENTIFIER {
+			if @match(Token.AMPERAT, Token.DOT_DOT_DOT_QUESTION, Token.DOT_DOT_DOT, Token.IDENTIFIER, Token.LEFT_SQUARE, Token.STRING, Token.TEMPLATE_BEGIN) == Token.IDENTIFIER {
 				name = @reqIdentifier()
 			}
 			else if @token == Token.LEFT_SQUARE {
@@ -11458,7 +11487,7 @@ export namespace SyntaxAnalysis {
 			else if @token == Token.TEMPLATE_BEGIN {
 				name = @reqTemplateExpression(@yes(), eMode, fMode)
 			}
-			else if fMode ~~ FunctionMode.Method && @token == Token.AT {
+			else if fMode ~~ FunctionMode.Method && @token == Token.AMPERAT {
 				var thisExpression = @reqThisExpression(@yes())
 				var property = @yep(AST.ShorthandProperty(attributes, thisExpression, first ?? thisExpression, thisExpression))
 
@@ -11548,7 +11577,7 @@ export namespace SyntaxAnalysis {
 		): Event<Ast(Expression)> ~ SyntaxError # {{{
 		{
 			match @matchM(M.OPERAND, eMode, fMode) {
-				.AT {
+				.AMPERAT {
 					return @reqThisExpression(@yes())
 				}
 				.IDENTIFIER {
@@ -12120,8 +12149,6 @@ export namespace SyntaxAnalysis {
 							else {
 								set NO
 							}
-						// var fieldFirst = fieldAttributes !?## fieldAttributes[0]
-						// var fieldFirst = fieldAttributes?#[0]
 						var mut fieldLast: Event(Y) = fieldName
 
 						var type =
@@ -13433,7 +13460,7 @@ export namespace SyntaxAnalysis {
 		): Event<Ast(Identifier, MemberExpression, ThisExpression)> ~ SyntaxError # {{{
 		{
 			var dyn object
-			if fMode ~~ FunctionMode.Method && @test(Token.AT) {
+			if fMode ~~ FunctionMode.Method && @test(Token.AMPERAT) {
 				object = @reqThisExpression(@yes())
 			}
 			else {
@@ -14252,15 +14279,19 @@ export namespace SyntaxAnalysis {
 		} # }}}
 	}
 
-	func parse(data: String) ~ SyntaxError # {{{
-		{
+	func parse(data: String) ~ SyntaxError { # {{{
 		var parser = Parser.new(data)
 
 		return parser.parseModule()
 	} # }}}
 
-	func parseStatements(data: String, mode: FunctionMode) ~ SyntaxError # {{{
-		{
+	func parseMatchClauses(data: String) ~ SyntaxError { # {{{
+		var parser = Parser.new(data)
+
+		return parser.parseMatchClauses()
+	} # }}}
+
+	func parseStatements(data: String, mode: FunctionMode) ~ SyntaxError { # {{{
 		var parser = Parser.new(data)
 
 		return parser.parseStatements(mode)
@@ -14270,6 +14301,7 @@ export namespace SyntaxAnalysis {
 		FunctionMode
 
 		parse
+		parseMatchClauses
 		parseStatements
 	}
 }

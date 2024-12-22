@@ -1,3 +1,5 @@
 syntime macro foobar() {
-	quote \}
+	quote {
+		\ && test
+	}
 }

@@ -1,5 +1,5 @@
 syntime macro foobar() {
 	quote {
-		if #{
+		if \{
 	}
 }

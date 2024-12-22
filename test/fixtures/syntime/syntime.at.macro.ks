@@ -1,4 +1,4 @@
-syntime do {
+at syntime {
 	macro foobar() {
 	}
 }

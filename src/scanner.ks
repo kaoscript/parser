@@ -4,6 +4,7 @@ enum Token {
 	AMPERSAND
 	AMPERSAND_AMPERSAND
 	AMPERSAND_AMPERSAND_EQUALS
+	AMPERAT
 	ASSIST
 	ASTERISK
 	ASTERISK_ASTERISK
@@ -14,11 +15,16 @@ enum Token {
 	ASTERISK_PIPE_RIGHT_ANGLE_HASH
 	ASTERISK_PIPE_RIGHT_ANGLE_QUESTION
 	ASYNC
-	AT
+	AT_SEMTIME
+	AT_SYNTIME
 	ATTRIBUTE_IDENTIFIER
 	AUTO
 	AWAIT
 	BACKSLASH
+	BACKSLASH_HASH
+	BACKSLASH_LEFT_CURLY
+	BACKSLASH_RIGHT_CURLY
+	BACKSLASH_SPACE
 	BINARY_NUMBER
 	BITMASK
 	BLOCK
@@ -96,18 +102,17 @@ enum Token {
 	HASH_C_LEFT_ROUND
 	HASH_EXCLAMATION
 	HASH_EXCLAMATION_LEFT_SQUARE
-	HASH_HASH
+	HASH_FOR
 	HASH_I_LEFT_ROUND
+	HASH_IF
 	HASH_J_LEFT_ROUND
 	HASH_JCC_LEFT_ROUND
 	HASH_JIC_LEFT_ROUND
 	HASH_JVC_LEFT_ROUND
 	HASH_LEFT_ANGLE_PIPE
 	HASH_LEFT_ANGLE_PIPE_ASTERISK
-	HASH_LEFT_CURLY
 	HASH_LEFT_ROUND
 	HASH_LEFT_SQUARE
-	HASH_RIGHT_CURLY
 	HASH_V_LEFT_ROUND
 	HEX_NUMBER
 	IDENTIFIER
@@ -216,7 +221,6 @@ enum Token {
 	SEALED
 	SEMICOLON
 	SEMICOLON_SEMICOLON
-	SEMTIME
 	SET
 	SLASH
 	SLASH_EQUALS
@@ -282,6 +286,11 @@ enum Token {
 					return scanner.next(2)
 				}
 			} # }}}
+			.AMPERAT { # {{{
+				if c == 64 {
+					return scanner.next(1)
+				}
+			} # }}}
 			.ASTERISK { # {{{
 				if c == 0'*' && scanner.charAt(1) != 0'*' & 0'$' & 0'=' {
 					return scanner.next(1)
@@ -315,9 +324,20 @@ enum Token {
 					return scanner.next(5)
 				}
 			} # }}}
-			.AT { # {{{
-				if c == 64 {
-					return scanner.next(1)
+			.AT_SYNTIME { # {{{
+				if	c == 0'a' &&
+					scanner.charAt(1) == 0't' &&
+					scanner.charAt(2) == 0' ' &&
+					scanner.charAt(3) == 0's' &&
+					scanner.charAt(4) == 0'y' &&
+					scanner.charAt(5) == 0'n' &&
+					scanner.charAt(6) == 0't' &&
+					scanner.charAt(7) == 0'i' &&
+					scanner.charAt(8) == 0'm' &&
+					scanner.charAt(9) == 0'e' &&
+					scanner.isBoundary(10)
+				{
+					return scanner.next(10)
 				}
 			} # }}}
 			.ATTRIBUTE_IDENTIFIER { # {{{
@@ -2668,7 +2688,7 @@ namespace M {
 			if eMode ~~ .AtThis || fMode ~~ .Method {
 				that.next(1)
 
-				return Token.AT
+				return Token.AMPERAT
 			}
 		}
 		else if c >= 0'A' && c <= 0'Z' {
@@ -3091,11 +3111,25 @@ namespace M {
 					return Token.HASH_C_LEFT_ROUND
 				}
 			}
+			else if c == 0'f' {
+				if that.charAt(2) == 0'o' && that.charAt(3) == 0'r' && that.isBoundary(4) {
+					that.next(4)
+
+					return Token.HASH_FOR
+				}
+			}
 			else if c == 0'i' {
-				if that.charAt(2) == 0'(' {
+				c = that.charAt(2)
+
+				if c == 0'(' {
 					that.next(3)
 
 					return Token.HASH_I_LEFT_ROUND
+				}
+				else if c == 0'f' && that.isBoundary(3) {
+					that.next(3)
+
+					return Token.HASH_IF
 				}
 			}
 			else if c == 0'j' {
@@ -3129,38 +3163,47 @@ namespace M {
 					return Token.HASH_V_LEFT_ROUND
 				}
 			}
-			else if c == 0'#' {
+		}
+		else if c == 0'\\' {
+			c = that.charAt(1)
+
+			if c == 0'#' {
 				that.next(2)
 
-				return Token.HASH_HASH
+				return Token.BACKSLASH_HASH
 			}
 			else if c == 0'{' {
 				that.next(2)
 
-				return Token.HASH_LEFT_CURLY
+				return Token.BACKSLASH_LEFT_CURLY
 			}
 			else if c == 0'}' {
 				that.next(2)
 
-				return Token.HASH_RIGHT_CURLY
+				return Token.BACKSLASH_RIGHT_CURLY
+			}
+			else if c == 0' ' {
+				that.next(2)
+
+				return Token.BACKSLASH_SPACE
 			}
 		}
-		else if c == 40 {
+		else if c == 0'(' {
 			that.next(1)
 
 			return Token.LEFT_ROUND
 		}
-		else if c == 41 {
+		else if c == 0')' {
 			that.next(1)
 
 			return Token.RIGHT_ROUND
 		}
-		else if c == 123 {
+		else if c == 0'{' {
 			that.next(1)
 
 			return Token.LEFT_CURLY
 		}
-		else if c == 125 {
+		else if c == 0'}' {
 			that.next(1)
 
 			return Token.RIGHT_CURLY
@@ -3177,6 +3220,17 @@ namespace M {
 				that.next(index - from)
 
 				return Token.INVALID
+			}
+			else if c == 0'\\' {
+				if index + 1 < that._length {
+					c = that._data.charCodeAt(index + 1)
+
+					if c == 0' ' | 0'#' | 0'{' | 0'}' {
+						that.next(index - from)
+
+						return Token.INVALID
+					}
+				}
 			}
 
 			index += 1
@@ -3197,8 +3251,8 @@ namespace M {
 		if c == -1 {
 			return Token.EOF
 		}
-		// abstract, async
-		else if	c == 97
+		// abstract, async, at syntime, auto
+		else if	c == 0'a'
 		{
 			if	that.charAt(1) == 98 &&
 				that.charAt(2) == 115 &&
@@ -3222,6 +3276,36 @@ namespace M {
 				that.next(5)
 
 				return Token.ASYNC
+			}
+			else if that.charAt(1) == 0't' &&
+					that.charAt(2) == 0' ' &&
+					that.charAt(3) == 0's'
+			{
+				if	that.charAt(4) == 0'y' &&
+					that.charAt(5) == 0'n' &&
+					that.charAt(6) == 0't' &&
+					that.charAt(7) == 0'i' &&
+					that.charAt(8) == 0'm' &&
+					that.charAt(9) == 0'e' &&
+					that.isSpace(10)
+				{
+					that.next(10)
+
+					return Token.AT_SYNTIME
+				}
+				else if fMode !~ .Syntime &&
+					that.charAt(4) == 0'e' &&
+					that.charAt(5) == 0'm' &&
+					that.charAt(6) == 0't' &&
+					that.charAt(7) == 0'i' &&
+					that.charAt(8) == 0'm' &&
+					that.charAt(9) == 0'e' &&
+					that.isSpace(10)
+				{
+					that.next(10)
+
+					return Token.AT_SEMTIME
+				}
 			}
 			else if that.charAt(1) == 117 &&
 					that.charAt(2) == 116 &&
@@ -3520,19 +3604,6 @@ namespace M {
 				that.next(6)
 
 				return Token.SEALED
-			}
-			else if fMode !~ .Syntime &&
-				that.charAt(1) == 0'e' &&
-				that.charAt(2) == 0'm' &&
-				that.charAt(3) == 0't' &&
-				that.charAt(4) == 0'i' &&
-				that.charAt(5) == 0'm' &&
-				that.charAt(6) == 0'e' &&
-				that.isSpace(7)
-			{
-				that.next(7)
-
-				return Token.SEMTIME
 			}
 			else if pMode ~~ ParserMode.InlineStatement &&
 				that.charAt(1) == 101 &&
