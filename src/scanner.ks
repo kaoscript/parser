@@ -1443,6 +1443,7 @@ var regex: Object<RegExp> = {
 	decimal_number: /^[0-9][_0-9]*(?:\.[_0-9]+)?(?:[eE][-+]?[_0-9]+)?(?:[a-zA-Z]*)/
 	dot_number: /^\.[_0-9]+(?:[eE][-+]?[_0-9]+|[a-zA-Z]*)/
 	double_quote: /^([^\\"]|\\.)*\"/
+	escape_quote: /(?<=^|[^\\])\\('|")/g
 	hex_number: /^0x[_0-9a-fA-F]+(?:\.[_0-9a-fA-F]+[pP][-+]?[_0-9]+)?[a-zA-Z]*/
 	macro_value: /^[^#\r\n]+/
 	octal_number: /^0o[_0-7]+(?:\.[_0-7]+[pP][-+]?[_0-9]+)?[a-zA-Z]*/
@@ -4598,7 +4599,7 @@ class Scanner {
 				return data.split('.')
 			}
 			.STRING {
-				return data.slice(1, -1).replace(/(^|[^\\])\\('|")/g, '$1$2')
+				return data.slice(1, -1).replace(regex.escape_quote, '$1')
 			}
 			else {
 				return data
